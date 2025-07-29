@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import AdminLogin from './AdminLogin';
 import productData from '@/data/products.json';
 
 interface ContentEditorProps {
@@ -10,8 +12,10 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
   const [editMode, setEditMode] = useState<'json' | 'sections'>('sections');
   const [jsonContent, setJsonContent] = useState(JSON.stringify(productData, null, 2));
   const [showEditor, setShowEditor] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const [savedContent, setSavedContent] = useState(productData);
   const [activeSection, setActiveSection] = useState<string>('hero');
+  const { isAuthenticated, isAdmin, logout } = useAuth();
 
   const handleSave = () => {
     try {
@@ -332,16 +336,49 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     );
   };
 
+  // Show login modal if not authenticated but trying to access editor
+  if (showLogin && !isAuthenticated) {
+    return <AdminLogin onClose={() => setShowLogin(false)} />;
+  }
+
   if (!showEditor) {
-    return (
-      <button
-        onClick={() => setShowEditor(true)}
-        className="fixed bottom-4 right-4 bg-primary text-primary-foreground p-3 rounded-full shadow-lg hover:bg-primary/90 transition-colors z-50"
-        title="Edit Content"
-      >
-        ✏️
-      </button>
-    );
+    // Only show edit button to authenticated admins
+    if (isAuthenticated && isAdmin) {
+      return (
+        <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+          <button
+            onClick={() => setShowEditor(true)}
+            className="bg-primary text-primary-foreground p-3 rounded-full shadow-lg hover:bg-primary/90 transition-colors"
+            title="Edit Content"
+          >
+            ✏️
+          </button>
+          <button
+            onClick={logout}
+            className="bg-red-600 text-white p-2 rounded-full shadow-lg hover:bg-red-700 transition-colors text-sm"
+            title="Logout"
+          >
+            🚪
+          </button>
+        </div>
+      );
+    } else {
+      // Show admin access button for non-authenticated users
+      return (
+        <button
+          onClick={() => setShowLogin(true)}
+          className="fixed bottom-4 right-4 bg-muted text-muted-foreground p-2 rounded-full shadow-lg hover:bg-muted/80 transition-colors z-50 text-xs"
+          title="Admin Access"
+        >
+          🔒
+        </button>
+      );
+    }
+  }
+
+  // Don't show editor if not authenticated
+  if (!isAuthenticated || !isAdmin) {
+    return null;
   }
 
   return (
@@ -392,6 +429,12 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
               className="btn-secondary text-sm"
             >
               Close
+            </button>
+            <button
+              onClick={logout}
+              className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
+            >
+              Logout
             </button>
           </div>
         </div>

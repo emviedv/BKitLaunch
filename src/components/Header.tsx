@@ -1,8 +1,12 @@
 import React from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Header = () => {
+  const { isAuthenticated, isAdmin } = useAuth();
+  const adminOffset = isAuthenticated && isAdmin ? 'top-10' : 'top-0';
+
   return (
-    <header className="bg-background border-b border-border sticky top-0 z-50">
+    <header className={`bg-background border-b border-border sticky ${adminOffset} z-50`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="font-bold text-xl text-primary">BiblioKit</div>
         <nav className="hidden md:flex items-center space-x-6">
@@ -14,9 +18,6 @@ const Header = () => {
           </a>
           <a href="/product" className="text-sm font-medium hover:text-primary transition-colors">
             Product
-          </a>
-          <a href="/database" className="text-sm font-medium hover:text-primary transition-colors">
-            Database
           </a>
           <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
             Contact
