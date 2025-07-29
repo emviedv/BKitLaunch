@@ -108,76 +108,77 @@
     }
   ],
   "product": {
-    "title": "AI Rename Variants",
-    "description": "Rename variants and properties using best practices and transform messy component variants into perfectly organized component sets.",
-    "primaryButton": "Open in Figma",
-    "secondaryButton": "View Documentation",
+    "title": "AI Rename Layers",
+    "description": "Automatically rename your Figma layers with AI intelligence. Transform messy, unnamed layers into perfectly organized, contextually named elements in one click.",
+    "primaryButton": "Get Plugin",
+    "secondaryButton": "Learn More",
     "details": [
       {
-        "title": "Batch Rename",
-        "description": "Process entire component sets in seconds"
+        "title": "One-Click Renaming",
+        "description": "Rename all your layers automatically in a single click - no manual work required"
       },
       {
         "title": "Smart Context Analysis",
-        "description": "Understands states (Default, Hover, Active), sizes (S, M, L), and types (Primary, Secondary)"
+        "description": "AI analyzes layer contents, location, and relationships to choose perfect contextual names"
       },
       {
-        "title": "Undo/Revert System",
-        "description": "Full change tracking with one-click revert to original names"
+        "title": "Batch Processing",
+        "description": "Process multiple layers, frames, and components simultaneously for maximum efficiency"
       },
       {
-        "title": "Property Matrix Optimization",
-        "description": "Identifies missing variants and optimization opportunities"
+        "title": "Component Intelligence",
+        "description": "Detects and preserves component names while renaming instances and nested layers"
       },
       {
-        "title": "Cross-Platform Safe",
-        "description": "Ensures names work across web, mobile, and design tokens"
+        "title": "Cross-Frame Sync",
+        "description": "Renames matching layers across multiple frames to maintain prototype connections"
       }
     ],
     "benefits": [
-      "Fix broken or missing properties",
-      "Clean up inherited design files with inconsistent naming",
-      "Prepare component libraries for design token integration",
-      "Optimize variant structures for better dev handoff",
-      "Maintain naming standards across large design teams"
+      "Save hours of manual layer organization work",
+      "Clean up inherited design files with better structure", 
+      "Improve team collaboration with consistent naming",
+      "Maintain design system standards automatically",
+      "Speed up design handoff to developers",
+      "Keep prototyping connections intact across frames"
     ],
     "specifications": [
       {
         "icon": "⚡",
-        "name": "Batch Processing",
-        "value": "Process entire component sets"
+        "name": "Lightning Fast",
+        "value": "48k+ happy designers using it"
       },
       {
         "icon": "🧠",
-        "name": "Smart Analysis",
-        "value": "Context-aware naming intelligence"
+        "name": "AI-Powered",
+        "value": "Context-aware intelligent naming"
       },
       {
-        "icon": "↩️",
-        "name": "Undo System",
-        "value": "Full change tracking"
+        "icon": "🔄",
+        "name": "Batch Processing",
+        "value": "Rename unlimited layers at once"
       },
       {
-        "icon": "🔍",
-        "name": "Optimization",
-        "value": "Missing variant detection"
+        "icon": "🛡️",
+        "name": "Smart Protection",
+        "value": "Preserves existing custom names"
+      },
+      {
+        "icon": "🎯",
+        "name": "Layer Types",
+        "value": "Frames, groups, text, images, instances"
       },
       {
         "icon": "🌐",
-        "name": "Cross-Platform",
-        "value": "Web, mobile, design tokens"
-      },
-      {
-        "icon": "🏷️",
-        "name": "Standards",
-        "value": "Consistent naming across teams"
+        "name": "Open Source",
+        "value": "Free community-driven tool"
       }
     ],
     "pricing": {
       "price": "Free",
       "period": "",
-      "description": "Community plugin - free to use",
-      "buttonText": "Open in Figma"
+      "description": "Community plugin - completely free to use forever",
+      "buttonText": "Install Plugin"
     }
   },
   "contact": {
