@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import ContentEditor from './components/ContentEditor';
 import Waitlist from './components/Waitlist';
 import AdminHeader from './components/AdminHeader';
+import AdminDashboard from './components/AdminDashboard';
 import { AuthProvider } from './contexts/AuthContext';
 import productData from '@/data/products.json';
 
@@ -89,6 +90,7 @@ function App() {
               <Route path="/" component={HomePage} />
               <Route path="/test" component={TestPage} />
               <Route path="/product" component={ProductPage} />
+              <Route path="/admin" component={AdminDashboard} />
               <Route path="/database">
                 <div className="container mx-auto px-4 py-16">
                   <DatabaseTest />

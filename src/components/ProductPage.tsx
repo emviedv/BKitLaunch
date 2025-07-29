@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import productData from '@/data/products.json';
+import { useSchema, createProductSchema, createBreadcrumbSchema, updatePageMeta } from '@/lib/useSchema';
 
 interface ProductDetail {
   title: string;
@@ -45,7 +46,44 @@ const ProductPage = () => {
     }
   }, []);
 
+  // Add schema and meta tags for the product page
+  useEffect(() => {
+    const currentProduct: ProductInfo | undefined = content.product;
+    if (currentProduct) {
+      // Update page meta tags
+      updatePageMeta(
+        `${currentProduct.title} - BiblioKit`,
+        currentProduct.description
+      );
+      
+      // Add timestamp to content
+      const currentDate = new Date().toISOString().split('T')[0];
+      const updatedDiv = document.querySelector('.updated-date');
+      if (updatedDiv) {
+        updatedDiv.textContent = `Updated ${currentDate}`;
+      }
+    }
+  }, [content]);
+
   const product: ProductInfo | undefined = content.product;
+  
+  // Generate schemas outside of effects
+  const productSchema = product ? createProductSchema(product) : {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Product',
+    description: 'BiblioKit Product Page'
+  };
+  
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: 'Home', url: window.location.origin },
+    { name: 'Product', url: window.location.href }
+  ]);
+
+  // Inject schemas using hooks
+  useSchema(productSchema, 'product-schema');
+  useSchema(breadcrumbSchema, 'breadcrumb-schema');
+  
   const colorClasses = ['purple', 'blue', 'green', 'orange', 'pink', 'indigo'];
 
   if (!product) {
@@ -95,6 +133,11 @@ const ProductPage = () => {
         <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
         <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
       </section>
+
+      {/* Updated timestamp for AI crawlers */}
+      <div className="text-center py-4 text-sm text-muted-foreground bg-gray-50">
+        <span className="updated-date">Updated {new Date().toISOString().split('T')[0]}</span>
+      </div>
 
       {/* Key Features Section */}
       {product.details && (

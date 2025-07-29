@@ -16,6 +16,12 @@ const AdminHeader: React.FC = () => {
           <span className="text-amber-600">Logged in as: {email}</span>
         </div>
         <div className="flex items-center gap-3">
+          <a 
+            href="/admin" 
+            className="bg-amber-200 hover:bg-amber-300 text-amber-800 px-3 py-1 rounded text-xs font-medium transition-colors"
+          >
+            📊 Admin Dashboard
+          </a>
           <span className="text-amber-600">Content editing is available</span>
           <button
             onClick={logout}

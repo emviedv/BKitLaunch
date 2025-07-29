@@ -18,4 +18,8 @@
 
 [dev]
   command = "npm run dev"
-  port = 9399 
+  port = 9399
+
+# IndexNow environment variables
+[build.environment]
+  # INDEXNOW_KEY will be set in Netlify dashboard 
