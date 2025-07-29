@@ -1,0 +1,188 @@
+{
+  "settings": {
+    "visibility": {
+      "hero": true,
+      "features": true,
+      "pricing": false,
+      "cta": true
+    }
+  },
+  "hero": {
+    "title": "BiblioKit",
+    "subtitle": "SaaS Software & Figma Plugins",
+    "description": "Professional SaaS software and Figma plugins with secure API management, comprehensive documentation, and world-class support for designers and developers.",
+    "primaryButton": "Get Started Free",
+    "secondaryButton": "View Documentation"
+  },
+  "features": [
+    {
+      "icon": "🔒",
+      "title": "Secure API Management",
+      "description": "Generate, manage, and secure your API keys with enterprise-grade security, rate limiting, and comprehensive usage tracking.",
+      "badge": ""
+    },
+    {
+      "icon": "⚡",
+      "title": "Figma Plugin Proxy",
+      "description": "Secure OpenAI API proxy for Figma plugins with CORS protection, request validation, and automatic rate limiting.",
+      "badge": "Popular"
+    },
+    {
+      "icon": "👥",
+      "title": "Help Desk System",
+      "description": "Professional support ticket system with real-time messaging, priority management, and comprehensive admin dashboard.",
+      "badge": "Coming Soon"
+    },
+    {
+      "icon": "💻",
+      "title": "Developer-First",
+      "description": "Comprehensive API documentation, code examples, and SDKs to get you up and running in minutes.",
+      "badge": ""
+    },
+    {
+      "icon": "⭐",
+      "title": "Premium Support",
+      "description": "24/7 expert support with guaranteed response times and dedicated account management for enterprise customers.",
+      "badge": ""
+    },
+    {
+      "icon": "✅",
+      "title": "Production Ready",
+      "description": "Built for scale with monitoring, logging, error tracking, and automatic failover for 99.9% uptime.",
+      "badge": "New"
+    }
+  ],
+  "pricing": [
+    {
+      "name": "Free",
+      "price": "$0",
+      "period": "/month",
+      "description": "Perfect for getting started with BiblioKit",
+      "features": [
+        "1,000 API requests/month",
+        "Basic Figma plugin support",
+        "Community support",
+        "Standard documentation",
+        "1 API key",
+        "Basic rate limiting"
+      ],
+      "buttonText": "Get Started Free",
+      "popular": false
+    },
+    {
+      "name": "Pro",
+      "price": "$29",
+      "period": "/month",
+      "description": "For professional developers and teams",
+      "features": [
+        "50,000 API requests/month",
+        "Advanced Figma plugin features",
+        "Priority email support",
+        "Advanced documentation",
+        "Unlimited API keys",
+        "Custom rate limiting",
+        "Usage analytics",
+        "Team collaboration"
+      ],
+      "buttonText": "Start Pro Trial",
+      "popular": true
+    },
+    {
+      "name": "Enterprise",
+      "price": "Custom",
+      "period": "",
+      "description": "For large organizations with custom needs",
+      "features": [
+        "Unlimited API requests",
+        "Custom Figma integrations",
+        "Dedicated support manager",
+        "Custom documentation",
+        "Advanced security features",
+        "SLA guarantees",
+        "Custom analytics",
+        "On-premise deployment",
+        "Custom integrations"
+      ],
+      "buttonText": "Contact Sales",
+      "popular": false
+    }
+  ],
+  "product": {
+    "title": "AI Rename Variants",
+    "description": "Rename variants and properties using best practices and transform messy component variants into perfectly organized component sets.",
+    "primaryButton": "Open in Figma",
+    "secondaryButton": "View Documentation",
+    "details": [
+      {
+        "title": "Batch Rename",
+        "description": "Process entire component sets in seconds"
+      },
+      {
+        "title": "Smart Context Analysis",
+        "description": "Understands states (Default, Hover, Active), sizes (S, M, L), and types (Primary, Secondary)"
+      },
+      {
+        "title": "Undo/Revert System",
+        "description": "Full change tracking with one-click revert to original names"
+      },
+      {
+        "title": "Property Matrix Optimization",
+        "description": "Identifies missing variants and optimization opportunities"
+      },
+      {
+        "title": "Cross-Platform Safe",
+        "description": "Ensures names work across web, mobile, and design tokens"
+      }
+    ],
+    "benefits": [
+      "Fix broken or missing properties",
+      "Clean up inherited design files with inconsistent naming",
+      "Prepare component libraries for design token integration",
+      "Optimize variant structures for better dev handoff",
+      "Maintain naming standards across large design teams"
+    ],
+    "specifications": [
+      {
+        "icon": "⚡",
+        "name": "Batch Processing",
+        "value": "Process entire component sets"
+      },
+      {
+        "icon": "🧠",
+        "name": "Smart Analysis",
+        "value": "Context-aware naming intelligence"
+      },
+      {
+        "icon": "↩️",
+        "name": "Undo System",
+        "value": "Full change tracking"
+      },
+      {
+        "icon": "🔍",
+        "name": "Optimization",
+        "value": "Missing variant detection"
+      },
+      {
+        "icon": "🌐",
+        "name": "Cross-Platform",
+        "value": "Web, mobile, design tokens"
+      },
+      {
+        "icon": "🏷️",
+        "name": "Standards",
+        "value": "Consistent naming across teams"
+      }
+    ],
+    "pricing": {
+      "price": "Free",
+      "period": "",
+      "description": "Community plugin - free to use",
+      "buttonText": "Open in Figma"
+    }
+  },
+  "contact": {
+    "email": "hello@bibliokit.com",
+    "twitter": "@bibliokit",
+    "github": "bibliokit"
+  }
+} 

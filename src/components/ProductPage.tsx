@@ -1,0 +1,270 @@
+import React, { useState, useEffect } from 'react';
+import productData from '@/data/products.json';
+
+interface ProductDetail {
+  title: string;
+  description: string;
+}
+
+interface ProductSpec {
+  icon: string;
+  name: string;
+  value: string;
+}
+
+interface ProductPricing {
+  price: string;
+  period: string;
+  description: string;
+  buttonText?: string;
+}
+
+interface ProductInfo {
+  title: string;
+  description: string;
+  primaryButton?: string;
+  secondaryButton?: string;
+  details?: ProductDetail[];
+  benefits?: string[];
+  specifications?: ProductSpec[];
+  pricing?: ProductPricing;
+}
+
+const ProductPage = () => {
+  const [content, setContent] = useState<any>(productData);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('bibliokit-content');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setContent(parsed);
+      } catch (error) {
+        console.error('Failed to load saved content:', error);
+      }
+    }
+  }, []);
+
+  const product: ProductInfo | undefined = content.product;
+  const colorClasses = ['purple', 'blue', 'green', 'orange', 'pink', 'indigo'];
+
+  if (!product) {
+    return (
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">Product Information</h1>
+          <p className="text-muted-foreground">
+            Product details will appear here once you add them to the content.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {/* Hero Section - matches home page styling */}
+      <section className="relative py-24 px-4 lemon-gradient text-white">
+        <div className="container mx-auto text-center">
+          <div className="max-w-4xl mx-auto">
+            <div className="inline-block mb-6 bg-white/20 px-4 py-2 rounded-full">
+              <span className="text-white font-medium">Figma Plugin</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              <span className="text-white">{product.title}</span>
+        </h1>
+            <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
+          {product.description}
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href="https://www.figma.com/community/plugin/1523817290746945616/ai-rename-variants"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 text-lg px-8 py-3"
+              >
+            {product.primaryButton || 'Get Started'}
+              </a>
+              <button className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3">
+            {product.secondaryButton || 'Learn More'}
+          </button>
+        </div>
+      </div>
+        </div>
+        {/* Decorative elements */}
+        <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+      </section>
+
+      {/* Key Features Section */}
+      {product.details && (
+        <section className="py-20 px-4 section-gradient">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                ⚡ Key Features
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Transform messy component variants into perfectly organized component sets
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {product.details.map((detail: ProductDetail, index: number) => (
+                <div key={index} className="feature-card relative">
+                  <div className={`icon-container ${colorClasses[index % colorClasses.length]} mb-6`}>
+                    {['⚡', '🧠', '↩️', '🔍', '🌐'][index] || '✨'}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">{detail.title}</h3>
+                  <p className="text-muted-foreground">
+                    {detail.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Use Cases Section */}
+      <section className="py-20 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              💡 Use Cases
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Perfect for design teams working with complex component systems
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {product.benefits?.map((benefit: string, index: number) => (
+              <div key={index} className="flex items-start">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
+                  <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                <span className="text-lg">{benefit}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Technical Specifications */}
+      {product.specifications && (
+        <section className="py-20 px-4 section-gradient">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Technical Capabilities
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Built with powerful features for professional design workflows
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {product.specifications.map((spec: ProductSpec, index: number) => (
+                <div key={index} className="feature-card relative">
+                  <div className={`icon-container ${colorClasses[index % colorClasses.length]} mb-6`}>
+                    {spec.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">{spec.name}</h3>
+                  <p className="text-muted-foreground">
+                    {spec.value}
+                  </p>
+              </div>
+            ))}
+          </div>
+        </div>
+        </section>
+      )}
+
+      {/* Pricing Section */}
+      {product.pricing && (
+        <section className="py-20 px-4">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Get Started Today
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Free community plugin - no subscription required
+              </p>
+            </div>
+
+            <div className="flex justify-center">
+              <div className="pricing-card max-w-md">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-bold mb-2">Community Plugin</h3>
+                  <div className="mb-4">
+                    <span className="text-4xl font-bold text-primary">{product.pricing.price}</span>
+                    <span className="text-muted-foreground">{product.pricing.period}</span>
+                  </div>
+                  <p className="text-muted-foreground">{product.pricing.description}</p>
+                </div>
+
+                <ul className="space-y-4 mb-8">
+                  <li className="flex items-start">
+                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
+                      <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm">Unlimited variant renaming</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
+                      <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm">Batch processing capabilities</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
+                      <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm">Smart context analysis</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
+                      <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm">Full undo/revert system</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
+                      <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm">Cross-platform compatibility</span>
+                  </li>
+                </ul>
+
+                <a 
+                  href="https://www.figma.com/community/plugin/1523817290746945616/ai-rename-variants"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary w-full"
+                >
+                  {product.pricing.buttonText || 'Install Now'}
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+    </>
+  );
+};
+
+export default ProductPage; 
