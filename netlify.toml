@@ -41,4 +41,9 @@
 
 # IndexNow environment variables
 [build.environment]
-  # INDEXNOW_KEY will be set in Netlify dashboard 
+  # INDEXNOW_KEY will be set in Netlify dashboard
+
+# Edge Functions for bot detection
+[[edge_functions]]
+  function = "bot-detection"
+  path = "/*" 
