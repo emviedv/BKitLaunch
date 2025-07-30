@@ -58,10 +58,14 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
 
     if (!adminEmail || !adminPassword) {
       console.error('Admin credentials not configured in environment variables');
+      console.log('Please set ADMIN_EMAIL and ADMIN_PASSWORD in your Netlify environment variables');
       return {
         statusCode: 500,
         headers,
-        body: JSON.stringify({ error: 'Server configuration error' }),
+        body: JSON.stringify({ 
+          error: 'Server configuration error',
+          details: 'Admin credentials not configured. Please check environment variables.' 
+        }),
       };
     }
 

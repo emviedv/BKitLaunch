@@ -1,30 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import ContentEditor from './ContentEditor';
+import AdminLogin from './AdminLogin';
 import { contentApi, type ContentVersion } from '@/lib/contentApi';
 import productData from '@/data/products.json';
 
 // ContentVersion interface now imported from contentApi
 
 const AdminDashboard: React.FC = () => {
-  const { isAuthenticated, isAdmin, email, logout } = useAuth();
+  const { isAuthenticated, isAdmin, email, logout, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState<'content' | 'versions' | 'settings' | 'analytics'>('content');
   const [contentVersions, setContentVersions] = useState<ContentVersion[]>([]);
   const [currentContent, setCurrentContent] = useState(productData);
   const [loading, setLoading] = useState(false);
   const [showContentEditor, setShowContentEditor] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
-  // Redirect if not authenticated
+  // Show loading state while authentication is being checked
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-muted/20 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <h2 className="text-xl font-semibold text-foreground mb-2">Checking Access...</h2>
+          <p className="text-muted-foreground">Please wait while we verify your credentials.</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login modal if not authenticated
   if (!isAuthenticated || !isAdmin) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-4xl font-bold mb-4">Access Denied</h1>
-        <p className="text-muted-foreground mb-8">
-          You need to be logged in as an admin to access this page.
-        </p>
-        <a href="/" className="btn-primary">
-          Go Home
-        </a>
+      <div className="min-h-screen bg-muted/20 flex items-center justify-center">
+        <div className="container mx-auto px-4 py-16 text-center max-w-md">
+          <div className="bg-background rounded-lg border p-8 shadow-sm">
+            <h1 className="text-4xl font-bold mb-4 text-foreground">Admin Access Required</h1>
+            <p className="text-muted-foreground mb-8">
+              Please sign in with your admin credentials to access the dashboard.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button 
+                onClick={() => setShowLoginModal(true)}
+                className="btn-primary"
+              >
+                🔑 Sign In
+              </button>
+              <a href="/" className="btn-secondary">
+                Go Home
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        {/* Login Modal */}
+        {showLoginModal && (
+          <AdminLogin 
+            onClose={() => setShowLoginModal(false)}
+          />
+        )}
       </div>
     );
   }

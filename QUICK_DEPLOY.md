@@ -27,7 +27,7 @@ Your BiblioKit app is ready for deployment with full database integration!
    - Select your GitHub repo
    - Click "Deploy site" (build settings auto-detected)
 
-3. **Add Environment Variables**:
+3. **⚠️ CRITICAL: Add Environment Variables** (Required for admin access):
    - Go to Site Settings → Environment Variables
    - Copy from `NETLIFY_DEPLOY.md` (lines 20-29)
    - Click "Redeploy site"
@@ -47,9 +47,16 @@ Your BiblioKit app is ready for deployment with full database integration!
 
 ## 🔑 Environment Variables (Copy These)
 
+**⚠️ CRITICAL: These are REQUIRED for admin access! Without them, your admin page will be blank.**
+
 Add these to Netlify → Site Settings → Environment Variables:
 
 ```
+# REQUIRED: Admin Authentication (Set these first!)
+ADMIN_EMAIL=your-admin@email.com
+ADMIN_PASSWORD=your-secure-password
+
+# Optional: Database (for advanced features)
 DATABASE_URL=postgresql://neondb_owner:npg_bS1zCfx7VYUy@ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
 
 VITE_DATABASE_URL=postgresql://neondb_owner:npg_bS1zCfx7VYUy@ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
@@ -64,10 +71,33 @@ VITE_DB_SSL=true
 
 ## 🧪 Test After Deployment
 
-1. Visit your site: `https://your-site-name.netlify.app`
-2. Go to `/database` page
-3. Click "Test Connection" - should show ✅ Connected
-4. Try creating a user to test database operations
+1. **Visit your site**: `https://your-site-name.netlify.app`
+2. **Test admin access**: Go to `/admin`
+   - Should show "Admin Access Required" (not blank!)
+   - Click "🔑 Sign In" button
+   - Enter your ADMIN_EMAIL and ADMIN_PASSWORD
+   - Should load the admin dashboard
+3. **Test database** (optional): Go to `/database`
+   - Click "Test Connection" - should show ✅ Connected
+   - Try creating a user to test database operations
+
+## 🚨 Troubleshooting Blank Admin Page
+
+If `/admin` appears blank:
+
+1. **Check environment variables** - Most common issue
+   - Verify ADMIN_EMAIL and ADMIN_PASSWORD are set in Netlify
+   - Make sure you clicked "Redeploy site" after adding them
+
+2. **Check browser console** (F12)
+   - Look for "Server configuration error"
+   - Check for authentication failures
+
+3. **Check Netlify function logs**
+   - Go to Netlify dashboard → Functions
+   - Check admin-auth function for errors
+
+See `ENV_SETUP.md` for detailed troubleshooting.
 
 ## 📂 What's Included
 

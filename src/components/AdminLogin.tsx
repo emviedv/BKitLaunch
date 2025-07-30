@@ -22,11 +22,19 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onClose }) => {
       
       if (result.success) {
         if (onClose) onClose();
+        // If we're on the admin page, reload to show the dashboard
+        if (window.location.pathname === '/admin') {
+          window.location.reload();
+        }
       } else {
-        setError(result.error || 'Login failed');
+        if (result.error === 'Server configuration error') {
+          setError('Admin credentials not configured. Please contact the site administrator.');
+        } else {
+          setError(result.error || 'Login failed');
+        }
       }
     } catch (error) {
-      setError('An unexpected error occurred');
+      setError('Network error: Unable to connect to the authentication server');
     } finally {
       setLoading(false);
     }
@@ -97,6 +105,10 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onClose }) => {
 
         <div className="mt-6 text-sm text-muted-foreground">
           <p><strong>Note:</strong> This is the admin login for content management.</p>
+          <p className="mt-2 text-xs">
+            <strong>Development:</strong> If admin credentials are not configured, 
+            please check the environment variables setup in your deployment.
+          </p>
         </div>
       </div>
     </div>
