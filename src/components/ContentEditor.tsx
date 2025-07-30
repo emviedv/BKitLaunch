@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import AdminLogin from './AdminLogin';
 import productData from '@/data/products.json';
+import { ExpertQuoteData, StatisticData, FAQItem, LLMOptimizedContent } from '@/lib/database';
 
 interface ContentEditorProps {
   onContentUpdate?: (newContent: any) => void;
@@ -53,7 +54,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     window.location.reload();
   };
 
-  const updateSection = (section: keyof typeof savedContent, newData: any) => {
+  const updateSection = (section: string, newData: any) => {
     const updatedContent = {
       ...savedContent,
       [section]: newData
@@ -63,8 +64,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     setIsEditing(true);
   };
 
-  const updateNestedField = (section: keyof typeof savedContent, index: number | null, field: string, value: any) => {
-    const currentSection = savedContent[section];
+  const updateNestedField = (section: string, index: number | null, field: string, value: any) => {
+    const currentSection = (savedContent as any)[section];
     let updatedSection;
     
     if (Array.isArray(currentSection) && index !== null) {
@@ -105,9 +106,31 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     }
   }, []);
 
+  // Token counting utility
+  const countTokens = (text: string): number => {
+    return Math.ceil(text.length / 4); // Rough estimation: 1 token ≈ 4 characters
+  };
+
+  const countWords = (text: string): number => {
+    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+  };
+
+  const getTokenStatus = (tokens: number, maxTokens: number = 300) => {
+    if (tokens <= maxTokens) return { status: 'good', color: 'text-green-600', bg: 'bg-green-100' };
+    if (tokens <= maxTokens * 1.2) return { status: 'warning', color: 'text-yellow-600', bg: 'bg-yellow-100' };
+    return { status: 'danger', color: 'text-red-600', bg: 'bg-red-100' };
+  };
+
+  const getWordStatus = (words: number, min: number = 40, max: number = 70) => {
+    if (words >= min && words <= max) return { status: 'good', color: 'text-green-600', bg: 'bg-green-100' };
+    if (words < min) return { status: 'too-short', color: 'text-yellow-600', bg: 'bg-yellow-100' };
+    return { status: 'too-long', color: 'text-red-600', bg: 'bg-red-100' };
+  };
+
   const renderSectionEditor = () => {
     const sections = {
       settings: 'Visibility Settings',
+      llm: 'LLM Optimization',
       hero: 'Hero Section',
       features: 'Features Section',
       pricing: 'Pricing Section',
@@ -171,6 +194,251 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
                     </div>
                   );
                 })}
+              </div>
+            </div>
+          )}
+
+          {activeSection === 'llm' && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-semibold text-lg mb-2">LLM Optimization Settings</h3>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                  <h4 className="font-medium text-blue-900 mb-2">🎯 LLM Citation Priority List</h4>
+                  <ul className="text-sm text-blue-800 space-y-1">
+                    <li>1. Expert quote (+41% citation lift)</li>
+                    <li>2. Dated stat (+30% citation boost)</li>
+                    <li>3. FAQ/HowTo schema (Copilot reads verbatim)</li>
+                    <li>4. Answer box under H1 (40-70 words)</li>
+                    <li>5. Fresh "Updated" timestamp</li>
+                    <li>6. Community echo on Reddit (~47% of Perplexity answers)</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Answer Box Section */}
+              <div className="border border-gray-200 rounded-lg p-4">
+                <h4 className="font-medium mb-3">📝 Answer Box (Feature Snippet)</h4>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm font-medium">40-70 Word Summary</label>
+                                         <div className="flex items-center gap-2">
+                       {(() => {
+                         const text = (savedContent as any).llm?.answerBox || '';
+                         const words = countWords(text);
+                         const status = getWordStatus(words);
+                         return (
+                           <span className={`px-2 py-1 rounded text-xs ${status.bg} ${status.color}`}>
+                             {words} words
+                           </span>
+                         );
+                       })()}
+                     </div>
+                  </div>
+                                     <textarea
+                     value={(savedContent as any).llm?.answerBox || ''}
+                     onChange={(e) => updateNestedField('llm', null, 'answerBox', e.target.value)}
+                     className="w-full p-3 border border-border rounded-lg h-24 text-sm"
+                     placeholder="Write a 40-70 word summary that answers the main question about your product..."
+                   />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Optimal for LLM feature snippets. Keep between 40-70 words for maximum citation potential.
+                  </p>
+                </div>
+              </div>
+
+              {/* Expert Quote Section */}
+              <div className="border border-gray-200 rounded-lg p-4">
+                <h4 className="font-medium mb-3">👨‍🎓 Expert Quote (+41% Citation Lift)</h4>
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Quote</label>
+                                         <textarea
+                       value={(savedContent as any).llm?.expertQuote?.quote || ''}
+                       onChange={(e) => {
+                         const currentQuote = (savedContent as any).llm?.expertQuote || {};
+                         updateNestedField('llm', null, 'expertQuote', { ...currentQuote, quote: e.target.value });
+                       }}
+                      className="w-full p-2 border border-border rounded text-sm h-20"
+                      placeholder="Expert opinion or insight about your industry/product..."
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Expert Name</label>
+                                             <input
+                         type="text"
+                         value={(savedContent as any).llm?.expertQuote?.expertName || ''}
+                         onChange={(e) => {
+                           const currentQuote = (savedContent as any).llm?.expertQuote || {};
+                           updateNestedField('llm', null, 'expertQuote', { ...currentQuote, expertName: e.target.value });
+                         }}
+                        className="w-full p-2 border border-border rounded text-sm"
+                        placeholder="Dr. Jane Smith"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Title</label>
+                                             <input
+                         type="text"
+                         value={(savedContent as any).llm?.expertQuote?.expertTitle || ''}
+                         onChange={(e) => {
+                           const currentQuote = (savedContent as any).llm?.expertQuote || {};
+                           updateNestedField('llm', null, 'expertQuote', { ...currentQuote, expertTitle: e.target.value });
+                         }}
+                        className="w-full p-2 border border-border rounded text-sm"
+                        placeholder="Director of Design Technology"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Institution</label>
+                                         <input
+                       type="text"
+                       value={(savedContent as any).llm?.expertQuote?.institution || ''}
+                       onChange={(e) => {
+                         const currentQuote = (savedContent as any).llm?.expertQuote || {};
+                         updateNestedField('llm', null, 'expertQuote', { ...currentQuote, institution: e.target.value });
+                       }}
+                      className="w-full p-2 border border-border rounded text-sm"
+                      placeholder="Stanford University, MIT, etc."
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Statistics Section */}
+              <div className="border border-gray-200 rounded-lg p-4">
+                <h4 className="font-medium mb-3">📊 Fresh Statistics (+30% Citation Boost)</h4>
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Statistic</label>
+                                             <input
+                         type="text"
+                         value={(savedContent as any).llm?.statistic?.statistic || ''}
+                         onChange={(e) => {
+                           const currentStat = (savedContent as any).llm?.statistic || {};
+                           updateNestedField('llm', null, 'statistic', { ...currentStat, statistic: e.target.value });
+                         }}
+                        className="w-full p-2 border border-border rounded text-sm"
+                        placeholder="73%, 2.5x, $1.2M, etc."
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Date</label>
+                                             <input
+                         type="text"
+                         value={(savedContent as any).llm?.statistic?.date || ''}
+                         onChange={(e) => {
+                           const currentStat = (savedContent as any).llm?.statistic || {};
+                           updateNestedField('llm', null, 'statistic', { ...currentStat, date: e.target.value });
+                         }}
+                        className="w-full p-2 border border-border rounded text-sm"
+                        placeholder="January 2024"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Description</label>
+                                         <textarea
+                       value={(savedContent as any).llm?.statistic?.description || ''}
+                       onChange={(e) => {
+                         const currentStat = (savedContent as any).llm?.statistic || {};
+                         updateNestedField('llm', null, 'statistic', { ...currentStat, description: e.target.value });
+                       }}
+                      className="w-full p-2 border border-border rounded text-sm h-16"
+                      placeholder="of design teams report improved workflow efficiency..."
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1">Source</label>
+                                         <input
+                       type="text"
+                       value={(savedContent as any).llm?.statistic?.source || ''}
+                       onChange={(e) => {
+                         const currentStat = (savedContent as any).llm?.statistic || {};
+                         updateNestedField('llm', null, 'statistic', { ...currentStat, source: e.target.value });
+                       }}
+                      className="w-full p-2 border border-border rounded text-sm"
+                      placeholder="Design Systems Survey 2024, McKinsey Report, etc."
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* FAQ Section */}
+              <div className="border border-gray-200 rounded-lg p-4">
+                <h4 className="font-medium mb-3">❓ FAQ Schema (Copilot Reads Verbatim)</h4>
+                <div className="space-y-4">
+                                     {((savedContent as any).llm?.faqs || []).map((faq: FAQItem, index: number) => (
+                    <div key={index} className="border border-gray-100 rounded p-3 bg-gray-50">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium">FAQ #{index + 1}</span>
+                                                 <button
+                           onClick={() => {
+                             const currentFaqs = (savedContent as any).llm?.faqs || [];
+                                                           const updatedFaqs = currentFaqs.filter((_: any, i: number) => i !== index);
+                             updateNestedField('llm', null, 'faqs', updatedFaqs);
+                           }}
+                          className="text-red-600 hover:text-red-800 text-sm"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                      <div className="space-y-2">
+                        <div>
+                          <label className="block text-xs font-medium mb-1">Question</label>
+                          <input
+                            type="text"
+                            value={faq.question}
+                                                         onChange={(e) => {
+                               const currentFaqs = [...((savedContent as any).llm?.faqs || [])];
+                               currentFaqs[index] = { ...currentFaqs[index], question: e.target.value };
+                               updateNestedField('llm', null, 'faqs', currentFaqs);
+                             }}
+                            className="w-full p-2 border border-border rounded text-sm"
+                            placeholder="How does..."
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-medium mb-1">Answer</label>
+                          <textarea
+                            value={faq.answer}
+                                                         onChange={(e) => {
+                               const currentFaqs = [...((savedContent as any).llm?.faqs || [])];
+                               currentFaqs[index] = { ...currentFaqs[index], answer: e.target.value };
+                               updateNestedField('llm', null, 'faqs', currentFaqs);
+                             }}
+                            className="w-full p-2 border border-border rounded text-sm h-16"
+                            placeholder="Our platform..."
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                                     <button
+                     onClick={() => {
+                       const currentFaqs = (savedContent as any).llm?.faqs || [];
+                       const newFaq = { question: '', answer: '' };
+                       updateNestedField('llm', null, 'faqs', [...currentFaqs, newFaq]);
+                     }}
+                    className="w-full p-2 border-2 border-dashed border-gray-300 rounded text-sm text-gray-600 hover:border-gray-400 hover:text-gray-800 transition-colors"
+                  >
+                    + Add FAQ Item
+                  </button>
+                </div>
+              </div>
+
+              {/* Content Optimization Tips */}
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                <h4 className="font-medium mb-3">💡 Content Optimization Tips</h4>
+                <ul className="text-sm space-y-2">
+                  <li>• Keep paragraphs ≤ 300 tokens (~1200 characters)</li>
+                  <li>• Break with H2 every ~250 words for vector chunks</li>
+                  <li>• Avoid hard-sell CTAs in quotable content</li>
+                  <li>• Include updated timestamps on all content</li>
+                  <li>• Seed Reddit/Stack Overflow discussions for community echo</li>
+                </ul>
               </div>
             </div>
           )}
