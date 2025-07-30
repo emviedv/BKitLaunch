@@ -29,10 +29,12 @@ class ContentAPI {
   }
 
   private getApiUrl(endpoint: string): string {
-    const baseUrl = process.env.NODE_ENV === 'development' 
-      ? 'http://localhost:8888' 
-      : '';
-    return `${baseUrl}/.netlify/functions/${endpoint}`;
+    // In production (Netlify), use the current domain
+    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+      return `${window.location.origin}/.netlify/functions/${endpoint}`;
+    }
+    // In development, use netlify dev URL
+    return `http://localhost:8888/.netlify/functions/${endpoint}`;
   }
 
   // Get current published content

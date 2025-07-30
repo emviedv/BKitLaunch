@@ -70,42 +70,8 @@ const AdminDashboard: React.FC = () => {
 
   // Load content versions on mount
   useEffect(() => {
-    // Load content versions
-    const loadVersions = async () => {
-      try {
-        setLoading(true);
-        
-        // Try to load from database first
-        const dbAvailable = await contentApi.isDatabaseAvailable();
-        if (dbAvailable) {
-          const response = await contentApi.getContentVersions();
-          if (response.success && response.data) {
-            setContentVersions(response.data);
-          }
-        } else {
-          // Fallback to localStorage
-          const history = localStorage.getItem('bibliokit-content-history');
-          if (history) {
-            const localVersions = JSON.parse(history);
-            // Convert local format to database format
-            const converted: ContentVersion[] = localVersions.map((v: any) => ({
-              id: parseInt(v.id),
-              content_key: 'main',
-              content_data: v.content,
-              version: v.version,
-              is_published: v.is_published,
-              created_at: v.created_at,
-              updated_at: v.created_at
-            }));
-            setContentVersions(converted);
-          }
-        }
-      } catch (error) {
-        console.error('Failed to load content versions:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Use the extracted function
+    const loadVersions = loadContentVersions;
 
     // Load current content
     const loadCurrent = () => {
@@ -123,6 +89,42 @@ const AdminDashboard: React.FC = () => {
     loadCurrent();
   }, []); // Empty dependency array - runs only once on mount
 
+  const loadContentVersions = async () => {
+    try {
+      setLoading(true);
+      
+      // Try to load from database first
+      const dbAvailable = await contentApi.isDatabaseAvailable();
+      if (dbAvailable) {
+        const response = await contentApi.getContentVersions();
+        if (response.success && response.data) {
+          setContentVersions(response.data);
+        }
+      } else {
+        // Fallback to localStorage
+        const history = localStorage.getItem('bibliokit-content-history');
+        if (history) {
+          const localVersions = JSON.parse(history);
+          // Convert local format to database format
+          const converted: ContentVersion[] = localVersions.map((v: any) => ({
+            id: parseInt(v.id),
+            content_key: 'main',
+            content_data: v.content,
+            version: v.version,
+            is_published: v.is_published,
+            created_at: v.created_at,
+            updated_at: v.created_at
+          }));
+          setContentVersions(converted);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load content versions:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const publishContent = async () => {
     try {
       setLoading(true);
@@ -133,27 +135,28 @@ const AdminDashboard: React.FC = () => {
         const response = await contentApi.saveContent(currentContent, true);
         if (response.success) {
           alert(response.message || 'Content published successfully!');
-          loadContentVersions(); // Reload versions
+          await loadContentVersions(); // Reload versions
         } else {
           throw new Error(response.error || 'Failed to publish');
         }
-              } else {
-          // Fallback to localStorage
-          const newVersion: ContentVersion = {
-            id: Date.now(),
-            content_key: 'main',
-            content_data: currentContent,
-            version: contentVersions.length + 1,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-            is_published: true
-          };
+      } else {
+        // Fallback to localStorage
+        const newVersion: ContentVersion = {
+          id: Date.now(),
+          content_key: 'main',
+          content_data: currentContent,
+          version: contentVersions.length + 1,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          is_published: true
+        };
 
-          const updatedVersions = [...contentVersions, newVersion];
-          setContentVersions(updatedVersions);
-          localStorage.setItem('bibliokit-content-history', JSON.stringify(updatedVersions));
-          alert('Content published successfully! (saved locally)');
-        }
+        const updatedVersions = [...contentVersions, newVersion];
+        setContentVersions(updatedVersions);
+        localStorage.setItem('bibliokit-content-history', JSON.stringify(updatedVersions));
+        localStorage.setItem('bibliokit-content', JSON.stringify(currentContent));
+        alert('Content published successfully! (saved locally)');
+      }
     } catch (error) {
       console.error('Failed to publish content:', error);
       alert('Failed to publish content: ' + (error instanceof Error ? error.message : 'Unknown error'));

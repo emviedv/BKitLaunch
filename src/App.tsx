@@ -9,7 +9,8 @@ import DatabaseTest from './components/DatabaseTest';
 import Footer from './components/Footer';
 import ContentEditor from './components/ContentEditor';
 import Waitlist from './components/Waitlist';
-import AdminDashboard from './components/AdminDashboard.minimal';
+import AdminDashboard from './components/AdminDashboard';
+import { AuthProvider } from './contexts/AuthContext';
 import productData from '@/data/products.json';
 
 // Simple test component
@@ -123,9 +124,11 @@ const AppContent = () => {
 function App() {
   console.log('App rendering...');
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 
