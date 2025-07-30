@@ -10,6 +10,9 @@ import productData from '@/data/products.json';
 const AdminDashboard: React.FC = () => {
   const { isAuthenticated, isAdmin, email, logout, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState<'content' | 'versions' | 'settings' | 'analytics'>('content');
+  
+  // Debug logging
+  console.log('AdminDashboard render:', { isAuthenticated, isAdmin, email, authLoading });
   const [contentVersions, setContentVersions] = useState<ContentVersion[]>([]);
   const [currentContent, setCurrentContent] = useState(productData);
   const [loading, setLoading] = useState(false);
@@ -19,7 +22,7 @@ const AdminDashboard: React.FC = () => {
   // Show loading state while authentication is being checked
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-muted/20 flex items-center justify-center">
+      <div className="min-h-screen bg-muted/20 flex items-center justify-center pt-16">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <h2 className="text-xl font-semibold text-foreground mb-2">Checking Access...</h2>
@@ -32,7 +35,7 @@ const AdminDashboard: React.FC = () => {
   // Show login modal if not authenticated
   if (!isAuthenticated || !isAdmin) {
     return (
-      <div className="min-h-screen bg-muted/20 flex items-center justify-center">
+      <div className="min-h-screen bg-muted/20 flex items-center justify-center pt-16">
         <div className="container mx-auto px-4 py-16 text-center max-w-md">
           <div className="bg-background rounded-lg border p-8 shadow-sm">
             <h1 className="text-4xl font-bold mb-4 text-foreground">Admin Access Required</h1>
@@ -201,7 +204,7 @@ const AdminDashboard: React.FC = () => {
   ] as const;
 
   return (
-    <div className="min-h-screen bg-muted/20">
+    <div className="min-h-screen bg-muted/20 pt-16">
       {/* Admin Dashboard Header */}
       <div className="bg-background border-b border-border">
         <div className="container mx-auto px-4 py-6">

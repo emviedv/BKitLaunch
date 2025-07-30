@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Router, Route, Switch } from 'wouter';
+import { Router, Route, Switch, useLocation } from 'wouter';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
@@ -77,44 +77,56 @@ const HomePage = () => {
   );
 };
 
+// AppContent component to access useLocation hook inside Router
+const AppContent = () => {
+  const [location] = useLocation();
+  const isAdminRoute = location === '/admin';
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <AdminHeader />
+      {/* Don't render Header on admin routes to prevent overlap */}
+      {!isAdminRoute && <Header />}
+      <main className="flex-1">
+        <Switch>
+          <Route path="/" component={HomePage} />
+          <Route path="/test" component={TestPage} />
+          <Route path="/product" component={ProductPage} />
+          <Route path="/admin" component={AdminDashboard} />
+          <Route path="/database">
+            <div className="container mx-auto px-4 py-16">
+              <DatabaseTest />
+            </div>
+          </Route>
+          <Route>
+            <div className="container mx-auto px-4 py-16 text-center">
+              <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
+              <p className="text-muted-foreground mb-8">
+                The page you're looking for doesn't exist.
+              </p>
+              <a 
+                href="/" 
+                className="btn-primary"
+              >
+                Go Home
+              </a>
+            </div>
+          </Route>
+        </Switch>
+      </main>
+      {/* Don't render Footer on admin routes for cleaner admin experience */}
+      {!isAdminRoute && <Footer />}
+      <ContentEditor />
+    </div>
+  );
+};
+
 function App() {
   console.log('App rendering...');
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen flex flex-col">
-          <AdminHeader />
-          <Header />
-          <main className="flex-1">
-            <Switch>
-              <Route path="/" component={HomePage} />
-              <Route path="/test" component={TestPage} />
-              <Route path="/product" component={ProductPage} />
-              <Route path="/admin" component={AdminDashboard} />
-              <Route path="/database">
-                <div className="container mx-auto px-4 py-16">
-                  <DatabaseTest />
-                </div>
-              </Route>
-              <Route>
-                <div className="container mx-auto px-4 py-16 text-center">
-                  <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
-                  <p className="text-muted-foreground mb-8">
-                    The page you're looking for doesn't exist.
-                  </p>
-                  <a 
-                    href="/" 
-                    className="btn-primary"
-                  >
-                    Go Home
-                  </a>
-                </div>
-              </Route>
-            </Switch>
-          </main>
-          <Footer />
-          <ContentEditor />
-        </div>
+        <AppContent />
       </Router>
     </AuthProvider>
   );
