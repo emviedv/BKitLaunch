@@ -9,9 +9,7 @@ import DatabaseTest from './components/DatabaseTest';
 import Footer from './components/Footer';
 import ContentEditor from './components/ContentEditor';
 import Waitlist from './components/Waitlist';
-import AdminHeader from './components/AdminHeader';
 import AdminDashboard from './components/AdminDashboard.simple';
-import { AuthProvider } from './contexts/AuthContext';
 import productData from '@/data/products.json';
 
 // Simple test component
@@ -84,7 +82,7 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <AdminHeader />
+      {/* Don't render AdminHeader - no auth required */}
       {/* Don't render Header on admin routes to prevent overlap */}
       {!isAdminRoute && <Header />}
       <main className="flex-1">
@@ -124,11 +122,9 @@ const AppContent = () => {
 function App() {
   console.log('App rendering...');
   return (
-    <AuthProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </AuthProvider>
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 
