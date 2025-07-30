@@ -19,6 +19,54 @@ const AdminDashboard: React.FC = () => {
   const [showContentEditor, setShowContentEditor] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
+  // Function definitions - must be before useEffect
+  const loadContentVersions = async () => {
+    try {
+      setLoading(true);
+      
+      // Try to load from database first
+      const dbAvailable = await contentApi.isDatabaseAvailable();
+      if (dbAvailable) {
+        const response = await contentApi.getContentVersions();
+        if (response.success && response.data) {
+          setContentVersions(response.data);
+        }
+              } else {
+          // Fallback to localStorage
+          const history = localStorage.getItem('bibliokit-content-history');
+          if (history) {
+            const localVersions = JSON.parse(history);
+            // Convert local format to database format
+            const converted: ContentVersion[] = localVersions.map((v: any) => ({
+              id: parseInt(v.id),
+              content_key: 'main',
+              content_data: v.content,
+              version: v.version,
+              is_published: v.is_published,
+              created_at: v.created_at,
+              updated_at: v.created_at
+            }));
+            setContentVersions(converted);
+          }
+        }
+    } catch (error) {
+      console.error('Failed to load content versions:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadCurrentContent = () => {
+    const saved = localStorage.getItem('bibliokit-content');
+    if (saved) {
+      try {
+        setCurrentContent(JSON.parse(saved));
+      } catch (error) {
+        console.error('Failed to load current content:', error);
+      }
+    }
+  };
+
   // Show loading state while authentication is being checked
   if (authLoading) {
     return (
@@ -71,53 +119,6 @@ const AdminDashboard: React.FC = () => {
     loadContentVersions();
     loadCurrentContent();
   }, []);
-
-  const loadContentVersions = async () => {
-    try {
-      setLoading(true);
-      
-      // Try to load from database first
-      const dbAvailable = await contentApi.isDatabaseAvailable();
-      if (dbAvailable) {
-        const response = await contentApi.getContentVersions();
-        if (response.success && response.data) {
-          setContentVersions(response.data);
-        }
-              } else {
-          // Fallback to localStorage
-          const history = localStorage.getItem('bibliokit-content-history');
-          if (history) {
-            const localVersions = JSON.parse(history);
-            // Convert local format to database format
-            const converted: ContentVersion[] = localVersions.map((v: any) => ({
-              id: parseInt(v.id),
-              content_key: 'main',
-              content_data: v.content,
-              version: v.version,
-              is_published: v.is_published,
-              created_at: v.created_at,
-              updated_at: v.created_at
-            }));
-            setContentVersions(converted);
-          }
-        }
-    } catch (error) {
-      console.error('Failed to load content versions:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadCurrentContent = () => {
-    const saved = localStorage.getItem('bibliokit-content');
-    if (saved) {
-      try {
-        setCurrentContent(JSON.parse(saved));
-      } catch (error) {
-        console.error('Failed to load current content:', error);
-      }
-    }
-  };
 
   const publishContent = async () => {
     try {
