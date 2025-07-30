@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import ContentEditor from './components/ContentEditor';
 import Waitlist from './components/Waitlist';
 import AdminHeader from './components/AdminHeader';
-import AdminDashboard from './components/AdminDashboard';
+import AdminDashboard from './components/AdminDashboard.simple';
 import { AuthProvider } from './contexts/AuthContext';
 import productData from '@/data/products.json';
 
