@@ -54,7 +54,7 @@ const AdminDashboard: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [setLoading, setContentVersions]);
+  }, []); // State setters are stable and don't need to be dependencies
 
   const loadCurrentContent = useCallback(() => {
     const saved = localStorage.getItem('bibliokit-content');
@@ -65,7 +65,7 @@ const AdminDashboard: React.FC = () => {
         console.error('Failed to load current content:', error);
       }
     }
-  }, [setCurrentContent]);
+  }, []); // State setters are stable and don't need to be dependencies
 
   // Show loading state while authentication is being checked
   if (authLoading) {
