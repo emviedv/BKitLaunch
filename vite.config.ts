@@ -12,9 +12,14 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 9499,
+    force: true, // Force cache clearing
   },
   build: {
     outDir: 'dist',
     sourcemap: true,
+  },
+  define: {
+    // Add timestamp to force cache busting
+    __CACHE_BUST__: JSON.stringify(Date.now()),
   },
 }) 

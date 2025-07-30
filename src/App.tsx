@@ -9,7 +9,7 @@ import DatabaseTest from './components/DatabaseTest';
 import Footer from './components/Footer';
 import ContentEditor from './components/ContentEditor';
 import Waitlist from './components/Waitlist';
-import AdminDashboard from './components/AdminDashboard.simple';
+import AdminDashboard from './components/AdminDashboard.minimal';
 import productData from '@/data/products.json';
 
 // Simple test component
@@ -114,7 +114,8 @@ const AppContent = () => {
       </main>
       {/* Don't render Footer on admin routes for cleaner admin experience */}
       {!isAdminRoute && <Footer />}
-      <ContentEditor />
+      {/* Temporarily removed ContentEditor to isolate React Hook errors */}
+      {/* <ContentEditor /> */}
     </div>
   );
 };
