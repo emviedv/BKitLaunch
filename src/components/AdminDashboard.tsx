@@ -46,24 +46,24 @@ const AdminDashboard: React.FC = () => {
         if (response.success && response.data) {
           setContentVersions(response.data);
         }
-      } else {
-        // Fallback to localStorage
-        const history = localStorage.getItem('bibliokit-content-history');
-        if (history) {
-          const localVersions = JSON.parse(history);
-          // Convert local format to database format
-          const converted = localVersions.map((v: any) => ({
-            id: parseInt(v.id),
-            content_key: 'main',
-            content_data: v.content,
-            version: v.version,
-            is_published: v.is_published,
-            created_at: v.created_at,
-            updated_at: v.created_at
-          }));
-          setContentVersions(converted);
+              } else {
+          // Fallback to localStorage
+          const history = localStorage.getItem('bibliokit-content-history');
+          if (history) {
+            const localVersions = JSON.parse(history);
+            // Convert local format to database format
+            const converted: ContentVersion[] = localVersions.map((v: any) => ({
+              id: parseInt(v.id),
+              content_key: 'main',
+              content_data: v.content,
+              version: v.version,
+              is_published: v.is_published,
+              created_at: v.created_at,
+              updated_at: v.created_at
+            }));
+            setContentVersions(converted);
+          }
         }
-      }
     } catch (error) {
       console.error('Failed to load content versions:', error);
     } finally {
@@ -96,21 +96,23 @@ const AdminDashboard: React.FC = () => {
         } else {
           throw new Error(response.error || 'Failed to publish');
         }
-      } else {
-        // Fallback to localStorage
-        const newVersion = {
-          id: Date.now().toString(),
-          content: currentContent,
-          version: contentVersions.length + 1,
-          created_at: new Date().toISOString(),
-          is_published: true
-        };
+              } else {
+          // Fallback to localStorage
+          const newVersion: ContentVersion = {
+            id: Date.now(),
+            content_key: 'main',
+            content_data: currentContent,
+            version: contentVersions.length + 1,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+            is_published: true
+          };
 
-        const updatedVersions = [...contentVersions, newVersion];
-        setContentVersions(updatedVersions);
-        localStorage.setItem('bibliokit-content-history', JSON.stringify(updatedVersions));
-        alert('Content published successfully! (saved locally)');
-      }
+          const updatedVersions = [...contentVersions, newVersion];
+          setContentVersions(updatedVersions);
+          localStorage.setItem('bibliokit-content-history', JSON.stringify(updatedVersions));
+          alert('Content published successfully! (saved locally)');
+        }
     } catch (error) {
       console.error('Failed to publish content:', error);
       alert('Failed to publish content: ' + (error instanceof Error ? error.message : 'Unknown error'));
@@ -120,7 +122,7 @@ const AdminDashboard: React.FC = () => {
   };
 
   const revertToVersion = (version: ContentVersion) => {
-    const contentData = version.content_data || version.content;
+    const contentData = version.content_data;
     setCurrentContent(contentData);
     localStorage.setItem('bibliokit-content', JSON.stringify(contentData));
     alert(`Reverted to version ${version.version}`);
