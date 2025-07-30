@@ -114,8 +114,8 @@ const AppContent = () => {
       </main>
       {/* Don't render Footer on admin routes for cleaner admin experience */}
       {!isAdminRoute && <Footer />}
-      {/* Temporarily removed ContentEditor to isolate React Hook errors */}
-      {/* <ContentEditor /> */}
+      {/* Only render ContentEditor on non-admin routes */}
+      {!isAdminRoute && <ContentEditor />}
     </div>
   );
 };
