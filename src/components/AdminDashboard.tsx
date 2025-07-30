@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import ContentEditor from './ContentEditor';
 import AdminLogin from './AdminLogin';
@@ -19,8 +19,8 @@ const AdminDashboard: React.FC = () => {
   const [showContentEditor, setShowContentEditor] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  // Function definitions - must be before useEffect
-  const loadContentVersions = async () => {
+  // Function definitions - must be before useEffect and wrapped in useCallback
+  const loadContentVersions = useCallback(async () => {
     try {
       setLoading(true);
       
@@ -54,9 +54,9 @@ const AdminDashboard: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const loadCurrentContent = () => {
+  const loadCurrentContent = useCallback(() => {
     const saved = localStorage.getItem('bibliokit-content');
     if (saved) {
       try {
@@ -65,7 +65,7 @@ const AdminDashboard: React.FC = () => {
         console.error('Failed to load current content:', error);
       }
     }
-  };
+  }, []);
 
   // Show loading state while authentication is being checked
   if (authLoading) {
@@ -118,7 +118,7 @@ const AdminDashboard: React.FC = () => {
   useEffect(() => {
     loadContentVersions();
     loadCurrentContent();
-  }, []);
+  }, [loadContentVersions, loadCurrentContent]);
 
   const publishContent = async () => {
     try {
