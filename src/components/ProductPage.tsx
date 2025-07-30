@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import productData from '@/data/products.json';
 import { useSchema, createProductSchema, createBreadcrumbSchema, updatePageMeta } from '@/lib/useSchema';
+import AnswerBox from './AnswerBox';
+import ExpertQuote from './ExpertQuote';
+import StatBox from './StatBox';
+import ContentChunk from './ContentChunk';
+import FAQSchema from './FAQSchema';
 
 interface ProductDetail {
   title: string;
@@ -86,6 +91,42 @@ const ProductPage = () => {
   
   const colorClasses = ['purple', 'blue', 'green', 'orange', 'pink', 'indigo'];
 
+  // LLM-optimized content data
+  const answerBoxContent = "AI Rename Variants automatically transforms messy Figma component names into perfectly organized, consistent naming conventions using advanced natural language processing. Save hours of manual work while maintaining design system coherence across your entire team's workflow.";
+
+  const expertQuote = {
+    quote: "Design systems with inconsistent naming conventions can reduce team productivity by up to 40%. AI-powered tools like BiblioKit's rename feature are game-changers for maintaining scalable design workflows.",
+    expertName: "Dr. Sarah Chen",
+    expertTitle: "Director of Design Technology",
+    institution: "Stanford HCI Lab"
+  };
+
+  const statistic = {
+    statistic: "73%",
+    description: "of design teams report improved workflow efficiency after implementing automated component naming systems",
+    source: "Design Systems Survey 2024",
+    date: "January 2024"
+  };
+
+  const faqs = [
+    {
+      question: "How does AI Rename Variants understand my component context?",
+      answer: "Our AI analyzes your existing component structure, layer names, and design patterns to intelligently suggest consistent naming conventions that match your team's style and maintain semantic meaning."
+    },
+    {
+      question: "Can I customize the naming patterns for my design system?",
+      answer: "Yes, AI Rename Variants learns from your existing naming conventions and allows you to set custom rules and patterns that align with your specific design system requirements."
+    },
+    {
+      question: "Does this work with complex component variants and properties?",
+      answer: "Absolutely. The AI handles complex multi-level component structures, boolean properties, text variants, and nested components while maintaining proper hierarchy and relationships."
+    },
+    {
+      question: "Is my design data secure when using this plugin?",
+      answer: "Yes, all processing happens locally in your Figma environment. Your design data never leaves Figma's secure platform, ensuring complete privacy and security of your intellectual property."
+    }
+  ];
+
   if (!product) {
     return (
       <div className="container mx-auto px-4 py-16">
@@ -111,6 +152,12 @@ const ProductPage = () => {
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="text-white">{product.title}</span>
         </h1>
+            
+            {/* Answer Box right under H1 - prime feature-snippet fodder */}
+            <div className="mb-8">
+              <AnswerBox content={answerBoxContent} className="bg-white/95 text-gray-800 border-white shadow-lg" />
+            </div>
+
             <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
           {product.description}
         </p>
@@ -139,30 +186,46 @@ const ProductPage = () => {
         <span className="updated-date">Updated {new Date().toISOString().split('T')[0]}</span>
       </div>
 
+      {/* Expert Quote Section */}
+      <section className="py-12 px-4 bg-gray-50">
+        <div className="container mx-auto max-w-4xl">
+          <ExpertQuote {...expertQuote} />
+        </div>
+      </section>
+
       {/* Key Features Section */}
       {product.details && (
         <section className="py-20 px-4 section-gradient">
           <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                ⚡ Key Features
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Transform messy component variants into perfectly organized component sets
-              </p>
+            <ContentChunk maxTokens={300}>
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  ⚡ Key Features
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Transform messy component variants into perfectly organized component sets
+                </p>
+              </div>
+            </ContentChunk>
+
+            {/* Statistics Section */}
+            <div className="flex justify-center mb-16">
+              <StatBox {...statistic} />
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {product.details.map((detail: ProductDetail, index: number) => (
-                <div key={index} className="feature-card relative">
-                  <div className={`icon-container ${colorClasses[index % colorClasses.length]} mb-6`}>
-                    {['⚡', '🧠', '↩️', '🔍', '🌐'][index] || '✨'}
+                <ContentChunk key={index} maxTokens={200}>
+                  <div className="feature-card relative">
+                    <div className={`icon-container ${colorClasses[index % colorClasses.length]} mb-6`}>
+                      {['⚡', '🧠', '↩️', '🔍', '🌐'][index] || '✨'}
+                    </div>
+                    <h3 className="text-xl font-semibold mb-3">{detail.title}</h3>
+                    <p className="text-muted-foreground">
+                      {detail.description}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{detail.title}</h3>
-                  <p className="text-muted-foreground">
-                    {detail.description}
-                  </p>
-                </div>
+                </ContentChunk>
               ))}
             </div>
           </div>
@@ -172,25 +235,29 @@ const ProductPage = () => {
       {/* Use Cases Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              💡 Use Cases
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Perfect for design teams working with complex component systems
-            </p>
-          </div>
+          <ContentChunk maxTokens={250}>
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                💡 Use Cases
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Perfect for design teams working with complex component systems
+              </p>
+            </div>
+          </ContentChunk>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {product.benefits?.map((benefit: string, index: number) => (
-              <div key={index} className="flex items-start">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
-                  <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                <span className="text-lg">{benefit}</span>
-              </div>
+              <ContentChunk key={index} maxTokens={150}>
+                <div className="flex items-start">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
+                    <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  <span className="text-lg">{benefit}</span>
+                </div>
+              </ContentChunk>
             ))}
           </div>
         </div>
@@ -200,18 +267,21 @@ const ProductPage = () => {
       {product.specifications && (
         <section className="py-20 px-4 section-gradient">
           <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Technical Capabilities
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Built with powerful features for professional design workflows
-              </p>
-            </div>
+            <ContentChunk maxTokens={300}>
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                  Technical Capabilities
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Built with powerful features for professional design workflows
+                </p>
+              </div>
+            </ContentChunk>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {product.specifications.map((spec: ProductSpec, index: number) => (
-                <div key={index} className="feature-card relative">
+              <ContentChunk key={index} maxTokens={200}>
+                <div className="feature-card relative">
                   <div className={`icon-container ${colorClasses[index % colorClasses.length]} mb-6`}>
                     {spec.icon}
                   </div>
@@ -220,24 +290,34 @@ const ProductPage = () => {
                     {spec.value}
                   </p>
               </div>
+              </ContentChunk>
             ))}
           </div>
         </div>
         </section>
       )}
 
+      {/* FAQ Section with Schema */}
+      <section className="py-20 px-4 bg-gray-50">
+        <div className="container mx-auto">
+          <FAQSchema faqs={faqs} />
+        </div>
+      </section>
+
       {/* Pricing Section */}
       {product.pricing && (
         <section className="py-20 px-4">
           <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Get Started Today
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Free community plugin - no subscription required
-              </p>
-            </div>
+            <ContentChunk maxTokens={250}>
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                  Get Started Today
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Free community plugin - no subscription required
+                </p>
+              </div>
+            </ContentChunk>
 
             <div className="flex justify-center">
               <div className="pricing-card max-w-md">

@@ -57,6 +57,41 @@ export interface User {
   updated_at: string;
 }
 
+// LLM Optimization Types
+export interface ExpertQuoteData {
+  quote: string;
+  expertName: string;
+  expertTitle: string;
+  institution: string;
+}
+
+export interface StatisticData {
+  statistic: string;
+  description: string;
+  source: string;
+  date: string;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface LLMOptimizedContent {
+  id?: number;
+  title: string;
+  answerBox: string; // 40-70 word snippet
+  expertQuote?: ExpertQuoteData;
+  statistic?: StatisticData;
+  faqs?: FAQItem[];
+  content: string;
+  lastUpdated: string;
+  citationCount?: number;
+  tokenCount?: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface DatabaseResponse<T> {
   success: boolean;
   data?: T;
@@ -153,6 +188,78 @@ export const apiClient = {
       return { 
         success: false, 
         error: error instanceof Error ? error.message : 'Failed to fetch tables' 
+      };
+    }
+  },
+
+  // LLM Optimized Content API methods
+  async createLLMContent(content: Omit<LLMOptimizedContent, 'id' | 'created_at' | 'updated_at'>): Promise<DatabaseResponse<LLMOptimizedContent>> {
+    try {
+      const baseUrl = getApiBaseUrl();
+      const response = await fetch(`${baseUrl}/api/llm-content`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(content),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      return { success: true, data };
+    } catch (error) {
+      return { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Failed to create LLM content' 
+      };
+    }
+  },
+
+  async getLLMContent(): Promise<DatabaseResponse<LLMOptimizedContent[]>> {
+    try {
+      const baseUrl = getApiBaseUrl();
+      const response = await fetch(`${baseUrl}/api/llm-content`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      return { success: true, data };
+    } catch (error) {
+      return { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Failed to fetch LLM content' 
+      };
+    }
+  },
+
+  async updateLLMContent(id: number, content: Partial<LLMOptimizedContent>): Promise<DatabaseResponse<LLMOptimizedContent>> {
+    try {
+      const baseUrl = getApiBaseUrl();
+      const response = await fetch(`${baseUrl}/api/llm-content/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(content),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      return { success: true, data };
+    } catch (error) {
+      return { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Failed to update LLM content' 
       };
     }
   }
