@@ -1,3 +1,21 @@
 {
-	"promptVSCodeSettings": true
+	"promptVSCodeSettings": true,
+	"geolocation": {
+		"data": {
+			"city": "Rochester",
+			"country": {
+				"code": "US",
+				"name": "United States"
+			},
+			"subdivision": {
+				"code": "NY",
+				"name": "New York"
+			},
+			"timezone": "America/New_York",
+			"latitude": 43.1661,
+			"longitude": -77.5555,
+			"postalCode": "14609"
+		},
+		"timestamp": 1753904717442
+	}
 }

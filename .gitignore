@@ -67,3 +67,5 @@ public
 # Storybook build outputs
 .out
 .storybook-out 
+# Local Netlify folder
+.netlify

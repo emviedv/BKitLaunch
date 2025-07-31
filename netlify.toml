@@ -38,7 +38,8 @@
 
 [dev]
   command = "npm run dev"
-  port = 9399
+  port = 5175
+  targetPort = 5176
 
 # Edge Functions for bot detection
 [[edge_functions]]

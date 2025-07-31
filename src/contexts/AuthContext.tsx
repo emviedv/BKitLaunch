@@ -30,11 +30,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const checkSession = () => {
       try {
+        console.log('AuthContext: Checking session...');
         const token = localStorage.getItem('bibliokit-admin-token');
         const email = localStorage.getItem('bibliokit-admin-email');
         
+        console.log('AuthContext: Found credentials:', { hasToken: !!token, email });
+        
         if (token && email) {
           // Verify token is still valid (you can enhance this with expiration checking)
+          console.log('AuthContext: Setting authenticated state');
           setAuthState({
             isAuthenticated: true,
             isAdmin: true,
@@ -42,6 +46,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             loading: false
           });
         } else {
+          console.log('AuthContext: No valid credentials found');
           setAuthState(prev => ({ ...prev, loading: false }));
         }
       } catch (error) {

@@ -8,87 +8,19 @@ import productData from '@/data/products.json';
 // ContentVersion interface now imported from contentApi
 
 const AdminDashboard: React.FC = () => {
+  // ALL HOOKS MUST BE AT THE TOP - BEFORE ANY CONDITIONAL LOGIC
   const { isAuthenticated, isAdmin, email, logout, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState<'content' | 'versions' | 'settings' | 'analytics'>('content');
-  
-  // Debug logging
-  console.log('AdminDashboard render:', { isAuthenticated, isAdmin, email, authLoading });
   const [contentVersions, setContentVersions] = useState<ContentVersion[]>([]);
   const [currentContent, setCurrentContent] = useState(productData);
   const [loading, setLoading] = useState(false);
   const [showContentEditor, setShowContentEditor] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
+  // Debug logging - Enhanced
+  console.log('AdminDashboard render:', { isAuthenticated, isAdmin, email, authLoading });
 
-
-  // Show loading state while authentication is being checked
-  if (authLoading) {
-    return (
-      <div className="min-h-screen bg-muted/20 flex items-center justify-center pt-16">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <h2 className="text-xl font-semibold text-foreground mb-2">Checking Access...</h2>
-          <p className="text-muted-foreground">Please wait while we verify your credentials.</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Show login modal if not authenticated
-  if (!isAuthenticated || !isAdmin) {
-    return (
-      <div className="min-h-screen bg-muted/20 flex items-center justify-center pt-16">
-        <div className="container mx-auto px-4 py-16 text-center max-w-md">
-          <div className="bg-background rounded-lg border p-8 shadow-sm">
-            <h1 className="text-4xl font-bold mb-4 text-foreground">Admin Access Required</h1>
-            <p className="text-muted-foreground mb-8">
-              Please sign in with your admin credentials to access the dashboard.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button 
-                onClick={() => setShowLoginModal(true)}
-                className="btn-primary"
-              >
-                🔑 Sign In
-              </button>
-              <a href="/" className="btn-secondary">
-                Go Home
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        {/* Login Modal */}
-        {showLoginModal && (
-          <AdminLogin 
-            onClose={() => setShowLoginModal(false)}
-          />
-        )}
-      </div>
-    );
-  }
-
-  // Load content versions on mount
-  useEffect(() => {
-    // Use the extracted function
-    const loadVersions = loadContentVersions;
-
-    // Load current content
-    const loadCurrent = () => {
-      const saved = localStorage.getItem('bibliokit-content');
-      if (saved) {
-        try {
-          setCurrentContent(JSON.parse(saved));
-        } catch (error) {
-          console.error('Failed to load current content:', error);
-        }
-      }
-    };
-
-    loadVersions();
-    loadCurrent();
-  }, []); // Empty dependency array - runs only once on mount
-
+  // Load content versions function
   const loadContentVersions = async () => {
     try {
       setLoading(true);
@@ -124,6 +56,76 @@ const AdminDashboard: React.FC = () => {
       setLoading(false);
     }
   };
+
+  // Load content versions on mount
+  useEffect(() => {
+    // Load current content
+    const loadCurrent = () => {
+      const saved = localStorage.getItem('bibliokit-content');
+      if (saved) {
+        try {
+          setCurrentContent(JSON.parse(saved));
+        } catch (error) {
+          console.error('Failed to load current content:', error);
+        }
+      }
+    };
+
+    loadContentVersions();
+    loadCurrent();
+  }, []); // Empty dependency array - runs only once on mount
+
+  // NOW DO CONDITIONAL RENDERING AFTER ALL HOOKS
+  // Show loading state while authentication is being checked
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center bg-white p-8 rounded-lg shadow">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Checking Access...</h2>
+          <p className="text-gray-600">Please wait while we verify your credentials.</p>
+          <p className="text-sm text-red-600 mt-2">Debug: authLoading = {String(authLoading)}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login modal if not authenticated
+  if (!isAuthenticated || !isAdmin) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="container mx-auto px-4 py-16 text-center max-w-md">
+          <div className="bg-white rounded-lg border p-8 shadow">
+            <h1 className="text-3xl font-bold mb-4 text-gray-900">Admin Access Required</h1>
+            <p className="text-gray-600 mb-8">
+              Please sign in with your admin credentials to access the dashboard.
+            </p>
+            <div className="text-sm text-red-600 mb-4">
+              Debug: isAuth={String(isAuthenticated)}, isAdmin={String(isAdmin)}
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <button 
+                onClick={() => setShowLoginModal(true)}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              >
+                🔑 Sign In
+              </button>
+              <a href="/" className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+                Go Home
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        {/* Login Modal */}
+        {showLoginModal && (
+          <AdminLogin 
+            onClose={() => setShowLoginModal(false)}
+          />
+        )}
+      </div>
+    );
+  }
 
   const publishContent = async () => {
     try {
