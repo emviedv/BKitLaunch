@@ -53,6 +53,34 @@
       "description": "Built for scale with monitoring, logging, error tracking, and automatic failover for 99.9% uptime.",
       "badge": "New",
       "badgeColor": "#f59e0b"
+    },
+    {
+      "icon": "🏷️",
+      "title": "AI Rename Variants",
+      "description": "Instantly relabel Figma variant and layer names with context-aware AI. Remove clutter and bring order to your files in seconds.",
+      "badge": "Launched",
+      "badgeColor": "#10b981"
+    },
+    {
+      "icon": "🔍",
+      "title": "Component Auditor",
+      "description": "Audit Figma components for naming, structure, and missing variants. Boost design quality with actionable insights.",
+      "badge": "Coming Soon",
+      "badgeColor": "#8b5cf6"
+    },
+    {
+      "icon": "📊",
+      "title": "Component Usage Analytics",
+      "description": "SaaS service for tracking Figma component adoption, frequency, and design debt team-wide.",
+      "badge": "Coming Soon",
+      "badgeColor": "#8b5cf6"
+    },
+    {
+      "icon": "🛒",
+      "title": "UXBiblio",
+      "description": "Discover curated UI/UX patterns, templates, and best practices. Accelerate interface design with an ever-expanding pattern library.",
+      "badge": "Coming Soon",
+      "badgeColor": "#8b5cf6"
     }
   ],
   "pricing": [
