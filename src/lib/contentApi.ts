@@ -1,3 +1,11 @@
+import type { 
+  ContentSection, 
+  SectionType, 
+  FeatureItem, 
+  PricingPlan, 
+  ContactInfo 
+} from './database';
+
 interface ContentVersion {
   id: number;
   content_key: string;
@@ -33,8 +41,8 @@ class ContentAPI {
     if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
       return `${window.location.origin}/.netlify/functions/${endpoint}`;
     }
-    // In development, use netlify dev URL
-    return `http://localhost:8888/.netlify/functions/${endpoint}`;
+    // In development, use configured port (5175)
+    return `http://localhost:5175/.netlify/functions/${endpoint}`;
   }
 
   // Get current published content
@@ -166,6 +174,294 @@ class ContentAPI {
       return response.success;
     } catch {
       return false;
+    }
+  }
+
+  // Content Sections CRUD Operations
+
+  // Get all sections
+  async getAllSections(): Promise<ApiResponse<ContentSection[]>> {
+    try {
+      const response = await fetch(this.getApiUrl('content-sections'), {
+        method: 'GET',
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to get sections'
+      };
+    }
+  }
+
+  // Get specific section by type
+  async getSection<T extends ContentSection>(sectionType: SectionType): Promise<ApiResponse<T>> {
+    try {
+      const response = await fetch(this.getApiUrl(`content-sections/${sectionType}`), {
+        method: 'GET',
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : `Failed to get ${sectionType} section`
+      };
+    }
+  }
+
+  // Create a new section
+  async createSection<T extends ContentSection>(section: Omit<T, 'id' | 'created_at' | 'updated_at'>): Promise<ApiResponse<T>> {
+    try {
+      const response = await fetch(this.getApiUrl('content-sections'), {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify(section),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to create section'
+      };
+    }
+  }
+
+  // Update an existing section
+  async updateSection<T extends ContentSection>(id: number, section: Partial<T>): Promise<ApiResponse<T>> {
+    try {
+      const response = await fetch(this.getApiUrl(`content-sections/${id}`), {
+        method: 'PUT',
+        headers: this.getHeaders(),
+        body: JSON.stringify(section),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to update section'
+      };
+    }
+  }
+
+  // Delete a section
+  async deleteSection(id: number): Promise<ApiResponse<null>> {
+    try {
+      const response = await fetch(this.getApiUrl(`content-sections/${id}`), {
+        method: 'DELETE',
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to delete section'
+      };
+    }
+  }
+
+  // Feature Items CRUD
+
+  // Create a new feature
+  async createFeature(sectionId: number, feature: Omit<FeatureItem, 'id'>): Promise<ApiResponse<FeatureItem>> {
+    try {
+      const response = await fetch(this.getApiUrl('features'), {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({ section_id: sectionId, ...feature }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to create feature'
+      };
+    }
+  }
+
+  // Update a feature
+  async updateFeature(featureId: number, feature: Partial<FeatureItem>): Promise<ApiResponse<FeatureItem>> {
+    try {
+      const response = await fetch(this.getApiUrl(`features/${featureId}`), {
+        method: 'PUT',
+        headers: this.getHeaders(),
+        body: JSON.stringify(feature),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to update feature'
+      };
+    }
+  }
+
+  // Delete a feature
+  async deleteFeature(featureId: number): Promise<ApiResponse<null>> {
+    try {
+      const response = await fetch(this.getApiUrl(`features/${featureId}`), {
+        method: 'DELETE',
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to delete feature'
+      };
+    }
+  }
+
+  // Pricing Plans CRUD
+
+  // Create a new pricing plan
+  async createPricingPlan(sectionId: number, plan: Omit<PricingPlan, 'id'>): Promise<ApiResponse<PricingPlan>> {
+    try {
+      const response = await fetch(this.getApiUrl('pricing-plans'), {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({ section_id: sectionId, ...plan }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to create pricing plan'
+      };
+    }
+  }
+
+  // Update a pricing plan
+  async updatePricingPlan(planId: number, plan: Partial<PricingPlan>): Promise<ApiResponse<PricingPlan>> {
+    try {
+      const response = await fetch(this.getApiUrl(`pricing-plans/${planId}`), {
+        method: 'PUT',
+        headers: this.getHeaders(),
+        body: JSON.stringify(plan),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to update pricing plan'
+      };
+    }
+  }
+
+  // Delete a pricing plan
+  async deletePricingPlan(planId: number): Promise<ApiResponse<null>> {
+    try {
+      const response = await fetch(this.getApiUrl(`pricing-plans/${planId}`), {
+        method: 'DELETE',
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to delete pricing plan'
+      };
+    }
+  }
+
+  // Contact Info CRUD
+
+  // Get contact info
+  async getContactInfo(): Promise<ApiResponse<ContactInfo>> {
+    try {
+      const response = await fetch(this.getApiUrl('contact-info'), {
+        method: 'GET',
+        headers: this.getHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to get contact info'
+      };
+    }
+  }
+
+  // Update contact info
+  async updateContactInfo(contactInfo: Partial<ContactInfo>): Promise<ApiResponse<ContactInfo>> {
+    try {
+      const response = await fetch(this.getApiUrl('contact-info'), {
+        method: 'PUT',
+        headers: this.getHeaders(),
+        body: JSON.stringify(contactInfo),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to update contact info'
+      };
     }
   }
 }

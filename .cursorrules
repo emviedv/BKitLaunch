@@ -1,0 +1,32 @@
+# BiblioKit Development Rules
+
+## AI Development Assistant Setup
+
+### Quick Development Commands
+
+When developing BiblioKit, use these commands to get AI assistance:
+
+1. **Check Status**: `./scripts/dev-monitor.sh status`
+2. **Monitor Live**: `./scripts/dev-monitor.sh monitor` 
+3. **Restart Server**: `./scripts/dev-monitor.sh restart`
+
+### Share with AI for Real-time Help
+
+- Error messages from browser console
+- Function response outputs from curl commands
+- Status output from monitor script
+- Specific issues with admin functionality
+
+### Development Server Info
+
+- **Main URL**: http://localhost:5175
+- **Admin URL**: http://localhost:5175/admin
+- **Functions**: http://localhost:5175/.netlify/functions/[function-name]
+- **Screen Session**: `bibliokit-dev` (use `screen -r bibliokit-dev` to view)
+
+### Current Working State
+
+✅ Admin section fully functional
+✅ All serverless functions loaded
+✅ Environment variables configured
+✅ Persistent server running in background

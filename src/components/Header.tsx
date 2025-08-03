@@ -6,7 +6,7 @@ const Header = () => {
   const adminOffset = isAuthenticated && isAdmin ? 'top-10' : 'top-0';
 
   return (
-    <header className={`bg-background border-b border-border sticky ${adminOffset} z-50`}>
+    <header className={`bg-background border-b border-border fixed w-full ${adminOffset} z-50`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="font-bold text-xl text-primary">BiblioKit</div>
         <nav className="hidden md:flex items-center space-x-6">

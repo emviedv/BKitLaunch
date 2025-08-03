@@ -1,0 +1,156 @@
+---
+alwaysApply: true
+---
+---
+description: Cursor rules for BiblioKit Launch—comprehensive architecture and code quality governance tailored for a full-stack TypeScript/React/Tailwind/Serverless/PostgreSQL JAMstack SaaS.
+globs:
+  - "src/**/*.{ts,tsx,js,jsx}"
+  - "components/**/*.{ts,tsx,js,jsx}"
+  - "pages/**/*.{ts,tsx,js,jsx}"
+  - "app/**/*.{ts,tsx,js,jsx}"
+  - "netlify/functions/**/*.ts"
+  - "src/lib/**/*.ts"
+  - "netlify/edge-functions/**/*.ts"
+alwaysApply: true
+---
+
+# BiblioKit Launch – Complete Cursor Rule Set
+
+---
+
+## 1. Solution Development Process
+
+- Before coding, describe your planned implementation in **detailed step-by-step pseudocode**.
+- Confirm the plan with yourself or your reviewer before writing the actual code.
+- All code must be **complete** (no todos, placeholders, or missing imports).
+- The output must be accurate, bug-free, and ready for use in a production codebase.
+
+---
+
+## 2. General Coding Guidelines (Frontend + Backend)
+
+- **TypeScript everywhere**; all variables, props, and parameters must have explicit or strongly-inferred types.
+- **React:** Use functional components only, and always name functions and variables clearly/descriptively.
+- Always use **const** for functions and variables where possible.
+- For event handlers, use the “handle” prefix pattern (e.g., handleClick, handleKeyDown).
+- Use **early returns** to improve code clarity—avoid deep nesting.
+- Enforce **DRY**: Extract repeated logic into hooks or utilities.
+- Every file must include all required `import` statements; no implicit or missing dependencies.
+- Use **named exports** for components, not default (except Next.js page files/components).
+- Write concise, maintainable, and readable code—**readability over micro-optimization**.
+
+---
+
+## 3. TailwindCSS & Styling
+
+- Use **TailwindCSS classes only** for all styling; never write CSS or use style tags.
+- Use [clsx](https://www.npmjs.com/package/clsx) or similar for conditional classes.
+- When toggling classes, use `class:` or utility libraries rather than ternaries when possible.
+- No inline styles unless dynamically required by logic not replicable in Tailwind.
+- Structure all elements with semantic, accessible HTML.
+- Ensure consistent design system adherence for all UI elements.
+
+---
+
+## 4. Accessibility (a11y)
+
+- All interactive elements must support keyboard and mouse interaction (`tabIndex={0}`, `role="button"`, `aria-label`, `onClick`, `onKeyDown`).
+- Images must include relevant `alt` attributes.
+- All inputs and forms must have associated labels.
+- Use ARIA roles and properties where necessary for clarity (e.g., `aria-live` for feedback/errors).
+- Ensure headings are properly ordered (`h1`–`h6`) for screen readers.
+- No UI is considered “done” unless accessible.
+
+---
+
+## 5. Project Structure & Organization
+
+- **Frontend:** Keep `components/` for React components, `contexts/` for providers, `lib/` for utilities and API clients, `data/` for static data.
+- **Backend/serverless:** Place all Netlify/serverless functions in `netlify/functions/`; use per-feature files (e.g., `admin-auth.ts`, `content-management.ts`).
+- **Type definitions:** Place shared types in `types.ts` files or a dedicated `types/` directory.
+- **Database utilities:** Live in `src/lib/database.ts`.
+- Follow BiblioKit's modular and clear folder conventions.
+- File naming: `ComponentName.tsx` for components, `useFeature.ts` for hooks.
+
+---
+
+## 6. Serverless Functions (Netlify Functions / Edge Functions)
+
+- All serverless functions must include CORS headers (allow only needed origins).
+- Functions handle preflight OPTIONS.
+- Use environment variables from `process.env`, never hardcode secrets.
+- Use **connection pooling** with PostgreSQL; avoid long-lived pools in dev hot reload contexts.
+- All queries use parameterization (`$1, $2…`)—never string interpolation to prevent SQL injection.
+- Explicit error handling: try/catch every async block, log server errors, return generic error responses to clients (never expose stack traces or secrets).
+- Return appropriate HTTP status codes for all responses.
+- All user-facing errors must be i18n/localizable and accessible.
+- Each function includes a clear, descriptive comment for its purpose and data flow.
+
+---
+
+## 7. Database (PostgreSQL)
+
+- Use the `pg` package; connect with connection-string loaded from env vars (`DATABASE_URL`, always SSL in prod).
+- Use explicit transactions for multi-step DB changes.
+- Parameterize all SQL—including in migrations.
+- Index columns that are filtered/sorted on.
+- Use snake_case for table and column names.
+- Document table relationships and constraints with comments or schemas in the repo.
+- Never expose raw DB errors to the client; log them on the server only.
+
+---
+
+## 8. Content Management & Versioning
+
+- Define all content types as **TypeScript interfaces**; version content with `draft`/`published` states.
+- Admin-only endpoints can create, update, delete, and publish content.
+- API responses always return a clear, versioned format (e.g., `{ success, data, error, timestamp }`).
+- Admin UI supports real-time edit preview; fall back to localStorage on connection failure.
+- Implement LLM Answer Box (40–70 words), FAQ, expert quotes, SEO snippets, statistics features per content type—define as separate fields for clarity.
+- Use feature flags or settings objects for toggling frontend sections.
+
+---
+
+## 9. Performance & SEO Best Practices
+
+- Use Vite’s code splitting, cache busting, and source maps features.
+- Lazy-load images/components; optimize bundle size.
+- All routes/pages must include complete SEO metadata (title, description, Open Graph/Twitter card tags).
+- Include structured schema (FAQ, HowTo, etc.) with accessible data and fallback copy.
+- All pages/components adhere to Core Web Vitals targets.
+
+---
+
+## 10. Security
+
+- All API/auth functions require secret-driven checks; secrets live only in environment variables, never in code or client bundles.
+- Enforce HTTPS, strict headers (HSTS, CSP, X-XSS-Protection, etc.)—set via Netlify `headers` config.
+- **No deprecated Node.js crypto/JWT libraries**; use modern, maintained alternatives.
+- Validate and sanitize all untrusted input at the API level.
+- Document rotation procedures for credentials and keys.
+
+---
+
+## 11. Quality & Testing
+
+- All new features/components must include at least minimal test stubs (unit/integration, where file patterns apply).
+- Favor Playwright/Cypress for e2e, Vitest/Jest for units.
+- Linting and format rules (e.g., Prettier, ESLint/Typescript-eslint) enforced.
+- No new legacy/API patterns may be introduced without clear deprecation rules.
+
+---
+
+## 12. Communication, Review, and Reasoning
+
+- All code, suggestions, and reviews must be **reasoned**—explain the “why” behind any suggestion.
+- If there is ambiguity or no correct answer, state so directly—do not guess or leave "TBD" notes.
+- Confirm alignment between feature spec, code plan, and final code on every change.
+
+---
+---
+
+These consolidated rules govern all BiblioKit code contributions for:
+- Stepwise, justified coding process,
+- Frontend/React/Tailwind and accessibility best practices,
+- Secure, DRY, and performant serverless/DB/content/SEO architecture,
+- And a thorough, readable, production-ready result—every time.

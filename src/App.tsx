@@ -86,7 +86,7 @@ const AppContent = () => {
       {/* Don't render AdminHeader - no auth required */}
       {/* Don't render Header on admin routes to prevent overlap */}
       {!isAdminRoute && <Header />}
-      <main className="flex-1">
+      <main className="flex-1 pt-16">
         <Switch>
           <Route path="/" component={HomePage} />
           <Route path="/test" component={TestPage} />

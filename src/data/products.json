@@ -25,13 +25,15 @@
       "icon": "⚡",
       "title": "Figma Plugin Proxy",
       "description": "Secure OpenAI API proxy for Figma plugins with CORS protection, request validation, and automatic rate limiting.",
-      "badge": "Popular"
+      "badge": "Popular",
+      "badgeColor": "#10b981"
     },
     {
       "icon": "👥",
       "title": "Help Desk System",
       "description": "Professional support ticket system with real-time messaging, priority management, and comprehensive admin dashboard.",
-      "badge": "Coming Soon"
+      "badge": "Coming Soon",
+      "badgeColor": "blue"
     },
     {
       "icon": "💻",
@@ -49,7 +51,8 @@
       "icon": "✅",
       "title": "Production Ready",
       "description": "Built for scale with monitoring, logging, error tracking, and automatic failover for 99.9% uptime.",
-      "badge": "New"
+      "badge": "New",
+      "badgeColor": "#f59e0b"
     }
   ],
   "pricing": [

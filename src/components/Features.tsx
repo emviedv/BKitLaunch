@@ -19,6 +19,61 @@ const Features = () => {
   const { features } = content;
   const colorClasses = ['purple', 'blue', 'green', 'orange', 'pink', 'indigo'];
   
+  // Badge color mapping - supports both predefined colors and hex values
+  const getBadgeColorClasses = (color: string) => {
+    // Check if it's a hex color (starts with #)
+    if (color && color.startsWith('#')) {
+      return '';
+    }
+    
+    const badgeColors = {
+      green: 'bg-green-100 text-green-800 border border-green-200',
+      blue: 'bg-blue-100 text-blue-800 border border-blue-200',
+      orange: 'bg-orange-100 text-orange-800 border border-orange-200',
+      purple: 'bg-purple-100 text-purple-800 border border-purple-200',
+      red: 'bg-red-100 text-red-800 border border-red-200',
+      yellow: 'bg-yellow-100 text-yellow-800 border border-yellow-200',
+      indigo: 'bg-indigo-100 text-indigo-800 border border-indigo-200',
+      pink: 'bg-pink-100 text-pink-800 border border-pink-200',
+      gray: 'bg-gray-100 text-gray-800 border border-gray-200',
+      primary: 'bg-primary text-primary-foreground'
+    };
+    return badgeColors[color as keyof typeof badgeColors] || badgeColors.primary;
+  };
+
+  // Generate inline styles for hex colors
+  const getBadgeStyle = (color: string) => {
+    if (color && color.startsWith('#')) {
+      // Calculate lighter background and darker text based on hex color
+      const hexToRgb = (hex: string) => {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+        } : null;
+      };
+      
+      const rgb = hexToRgb(color);
+      if (rgb) {
+        // Create a lighter background (add 80 to each RGB component, cap at 255)
+        const lightBg = `rgba(${Math.min(rgb.r + 80, 255)}, ${Math.min(rgb.g + 80, 255)}, ${Math.min(rgb.b + 80, 255)}, 0.15)`;
+        // Use the original color for text
+        const textColor = color;
+        // Create a border color (add 40 to each RGB component)
+        const borderColor = `rgba(${Math.min(rgb.r + 40, 255)}, ${Math.min(rgb.g + 40, 255)}, ${Math.min(rgb.b + 40, 255)}, 0.3)`;
+        
+        return {
+          backgroundColor: lightBg,
+          color: textColor,
+          borderColor: borderColor,
+          border: '1px solid'
+        };
+      }
+    }
+    return {};
+  };
+  
   // Return null if features section is set to hidden
   if (content.settings?.visibility?.features === false) {
     return null;
@@ -39,14 +94,19 @@ const Features = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <div key={index} className="feature-card relative">
-              {feature.badge && (
-                <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded-full font-medium">
-                  {feature.badge}
+            <div key={index} className="feature-card">
+              <div className="flex items-center justify-between mb-6">
+                <div className={`icon-container ${colorClasses[index % colorClasses.length]}`}>
+                  {feature.icon}
                 </div>
-              )}
-              <div className={`icon-container ${colorClasses[index % colorClasses.length]} mb-6`}>
-                {feature.icon}
+                {feature.badge && (
+                  <span 
+                    className={`text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(feature.badgeColor || 'primary')}`}
+                    style={getBadgeStyle(feature.badgeColor || '')}
+                  >
+                    {feature.badge}
+                  </span>
+                )}
               </div>
               <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
               <p className="text-muted-foreground">
