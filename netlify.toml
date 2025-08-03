@@ -31,7 +31,22 @@
   status = 301
   force = true
 
-# SPA fallback - exclude development files
+# Exclude development files from SPA fallback - order matters!
+[[redirects]]
+  from = "/node_modules/.vite/deps/*.mjs"
+  to = "/node_modules/.vite/deps/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/node_modules/.vite/deps/*.js"
+  to = "/node_modules/.vite/deps/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/node_modules/*"
+  to = "/node_modules/:splat"
+  status = 200
+
 [[redirects]]
   from = "/@vite/*"
   to = "/@vite/:splat"
@@ -43,10 +58,31 @@
   status = 200
 
 [[redirects]]
+  from = "/src/*.tsx"
+  to = "/src/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/src/*.ts"
+  to = "/src/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/src/*.jsx"
+  to = "/src/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/src/*.js"
+  to = "/src/:splat"
+  status = 200
+
+[[redirects]]
   from = "/src/*"
   to = "/src/:splat"
   status = 200
 
+# SPA fallback for everything else
 [[redirects]]
   from = "/*"
   to = "/index.html"
