@@ -11,7 +11,7 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 9499,
+    port: 5176,
     force: true, // Force cache clearing
   },
   build: {
