@@ -7,6 +7,10 @@
   NODE_VERSION = "18"
   # INDEXNOW_KEY will be set in Netlify dashboard
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # JavaScript/TypeScript module MIME types
 [[headers]]
   for = "*.js"
@@ -41,6 +45,13 @@
     Content-Security-Policy = "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:;"
 
 # Redirects moved to public/_redirects file for better dev compatibility
+
+# CRITICAL: Exempt functions from SPA fallback - MUST come before /* catch-all
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
 
 # Force HTTPS redirect - production only
 [[redirects]]

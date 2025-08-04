@@ -38,12 +38,10 @@ class ContentAPI {
   }
 
   private getApiUrl(endpoint: string): string {
-    // In production (Netlify), use the current domain
-    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-      return `${window.location.origin}/.netlify/functions/${endpoint}`;
-    }
-    // In development, use configured port (5175)
-    return `http://localhost:5175/.netlify/functions/${endpoint}`;
+    // Always use relative paths - works in both dev and production
+    // Netlify dev proxy handles localhost routing automatically
+    // Production deployment serves from same origin
+    return `/.netlify/functions/${endpoint}`;
   }
 
   // Get current published content
