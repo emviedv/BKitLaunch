@@ -11,6 +11,7 @@ import ContentEditor from './components/ContentEditor';
 import Waitlist from './components/Waitlist';
 import AdminDashboard from './components/AdminDashboard';
 import { AuthProvider } from './contexts/AuthContext';
+import { usePublishedContent } from './hooks/usePublishedContent';
 import productData from '@/data/products.json';
 
 // Simple test component
@@ -24,19 +25,29 @@ const TestPage = () => (
 // Home page component
 const HomePage = () => {
   console.log('HomePage rendering...');
-  const [content, setContent] = useState(productData);
+  const { content, loading, error, source } = usePublishedContent();
 
-  useEffect(() => {
-    const saved = localStorage.getItem('bibliokit-content');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setContent(parsed);
-      } catch (error) {
-        console.error('Failed to load saved content:', error);
-      }
-    }
-  }, []);
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-16 text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-muted-foreground">Loading content...</p>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error && !content) {
+    return (
+      <div className="container mx-auto px-4 py-16 text-center">
+        <h1 className="text-2xl font-bold text-red-600 mb-4">Content Error</h1>
+        <p className="text-muted-foreground">{error}</p>
+      </div>
+    );
+  }
+
+  console.log(`Content loaded from: ${source}`);
 
   // Check if CTA section should be visible
   const shouldShowCTA = content.settings?.visibility?.cta !== false;

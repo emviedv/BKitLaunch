@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import productData from '@/data/products.json';
+import React from 'react';
+import { usePublishedContent } from '@/hooks/usePublishedContent';
 
 const Pricing = () => {
-  const [content, setContent] = useState(productData);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('bibliokit-content');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setContent(parsed);
-      } catch (error) {
-        console.error('Failed to load saved content:', error);
-      }
-    }
-  }, []);
-
+  const { content } = usePublishedContent();
   const { pricing } = content;
   
   // Return null if pricing section is set to hidden
@@ -36,7 +23,7 @@ const Pricing = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {pricing.map((plan, index) => (
+          {pricing.map((plan: any, index: number) => (
             <div 
               key={index} 
               className={`pricing-card ${plan.popular ? 'popular' : ''}`}
@@ -59,7 +46,7 @@ const Pricing = () => {
               </div>
 
               <ul className="space-y-4 mb-8">
-                {plan.features.map((feature, featureIndex) => (
+                                      {plan.features.map((feature: any, featureIndex: number) => (
                   <li key={featureIndex} className="flex items-start">
                     <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
                       <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">

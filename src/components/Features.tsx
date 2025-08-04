@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import productData from '@/data/products.json';
+import React from 'react';
+import { usePublishedContent } from '@/hooks/usePublishedContent';
 
 const Features = () => {
-  const [content, setContent] = useState(productData);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('bibliokit-content');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setContent(parsed);
-      } catch (error) {
-        console.error('Failed to load saved content:', error);
-      }
-    }
-  }, []);
-
+  const { content } = usePublishedContent();
   const { features } = content;
   const colorClasses = ['purple', 'blue', 'green', 'orange', 'pink', 'indigo'];
   
@@ -93,7 +80,7 @@ const Features = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+                      {features.map((feature: any, index: number) => (
             <div key={index} className="feature-card">
               <div className="flex items-center justify-between mb-6">
                 <div className={`icon-container ${colorClasses[index % colorClasses.length]}`}>

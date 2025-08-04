@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import productData from '@/data/products.json';
+import React from 'react';
+import { usePublishedContent } from '@/hooks/usePublishedContent';
 
 const Footer = () => {
-  const [content, setContent] = useState(productData);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('bibliokit-content');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setContent(parsed);
-      } catch (error) {
-        console.error('Failed to load saved content:', error);
-      }
-    }
-  }, []);
-
+  const { content } = usePublishedContent();
   const { contact } = content;
 
   return (

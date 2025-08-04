@@ -39,13 +39,18 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     };
   }
 
-  // Verify authentication for all operations
-  if (!verifyToken(event.headers.authorization)) {
-    return {
-      statusCode: 401,
-      headers,
-      body: JSON.stringify({ error: 'Unauthorized' }),
-    };
+  // Allow public GET of current published content
+  if (event.httpMethod === 'GET' && event.queryStringParameters?.action === 'current') {
+    // No authentication needed for fetching published content
+  } else {
+    // Verify authentication for all other operations
+    if (!verifyToken(event.headers.authorization)) {
+      return {
+        statusCode: 401,
+        headers,
+        body: JSON.stringify({ error: 'Unauthorized' }),
+      };
+    }
   }
 
   const client = createDbClient();
