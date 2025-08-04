@@ -1,4 +1,5 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
+import { withCors, sendJSON, handleError } from './utils';
 
 interface IndexNowRequest {
   host: string;
@@ -7,13 +8,10 @@ interface IndexNowRequest {
   urlList: string[];
 }
 
-export const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+const indexnowHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   // Only allow POST requests and deploy-succeeded hook
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: 'Method not allowed' })
-    };
+    return sendJSON(405, { error: 'Method not allowed' });
   }
 
   try {
@@ -71,29 +69,16 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
       timestamp: new Date().toISOString()
     };
 
-    return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: 'IndexNow submission completed',
-        results
-      })
-    };
+    return sendJSON(200, {
+      message: 'IndexNow submission completed',
+      results
+    });
 
   } catch (error) {
     console.error('IndexNow submission failed:', error);
     
-    return {
-      statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        error: 'IndexNow submission failed',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      })
-    };
+    return handleError(error, 'IndexNow submission');
   }
-}; 
+};
+
+export const handler = withCors(indexnowHandler); 

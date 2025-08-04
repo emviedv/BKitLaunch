@@ -32,48 +32,55 @@ const isValidUrl = (url: string): boolean => {
   }
 };
 
-const isValidHexColor = (color: string): boolean => {
-  return /^#[0-9A-F]{6}$/i.test(color);
+// Reusable validation helpers
+const validateRequiredString = (value: string | undefined, fieldName: string, maxLength: number): string[] => {
+  const errors: string[] = [];
+  
+  if (!value || value.trim().length === 0) {
+    errors.push(`${fieldName} is required`);
+  } else if (value.length > maxLength) {
+    errors.push(`${fieldName} must be ${maxLength} characters or less`);
+  }
+  
+  return errors;
 };
 
-const isValidColorName = (color: string): boolean => {
+const validateOptionalString = (value: string | undefined, fieldName: string, maxLength: number): string[] => {
+  const errors: string[] = [];
+  
+  if (value && value.length > maxLength) {
+    errors.push(`${fieldName} must be ${maxLength} characters or less`);
+  }
+  
+  return errors;
+};
+
+const validateNumericRange = (value: number | undefined, fieldName: string, min: number, max: number): string[] => {
+  const errors: string[] = [];
+  
+  if (value !== undefined && (value < min || value > max)) {
+    errors.push(`${fieldName} must be between ${min} and ${max}`);
+  }
+  
+  return errors;
+};
+
+const isValidColor = (color: string): boolean => {
+  const isValidHex = /^#[0-9A-F]{6}$/i.test(color);
   const validColors = ['green', 'blue', 'orange', 'purple', 'red', 'yellow', 'indigo', 'pink', 'gray', 'primary'];
-  return validColors.includes(color);
+  const isValidColorName = validColors.includes(color);
+  return isValidHex || isValidColorName;
 };
 
 // Section validation functions
 export const validateHeroSection = (section: Partial<HeroSection>): ValidationResult => {
   const errors: string[] = [];
 
-  if (!section.title || section.title.trim().length === 0) {
-    errors.push('Title is required');
-  } else if (section.title.length > 100) {
-    errors.push('Title must be 100 characters or less');
-  }
-
-  if (!section.subtitle || section.subtitle.trim().length === 0) {
-    errors.push('Subtitle is required');
-  } else if (section.subtitle.length > 100) {
-    errors.push('Subtitle must be 100 characters or less');
-  }
-
-  if (!section.description || section.description.trim().length === 0) {
-    errors.push('Description is required');
-  } else if (section.description.length > 500) {
-    errors.push('Description must be 500 characters or less');
-  }
-
-  if (!section.primary_button || section.primary_button.trim().length === 0) {
-    errors.push('Primary button text is required');
-  } else if (section.primary_button.length > 50) {
-    errors.push('Primary button text must be 50 characters or less');
-  }
-
-  if (!section.secondary_button || section.secondary_button.trim().length === 0) {
-    errors.push('Secondary button text is required');
-  } else if (section.secondary_button.length > 50) {
-    errors.push('Secondary button text must be 50 characters or less');
-  }
+  errors.push(...validateRequiredString(section.title, 'Title', 100));
+  errors.push(...validateRequiredString(section.subtitle, 'Subtitle', 100));
+  errors.push(...validateRequiredString(section.description, 'Description', 500));
+  errors.push(...validateRequiredString(section.primary_button, 'Primary button text', 50));
+  errors.push(...validateRequiredString(section.secondary_button, 'Secondary button text', 50));
 
   return {
     isValid: errors.length === 0,
@@ -84,37 +91,18 @@ export const validateHeroSection = (section: Partial<HeroSection>): ValidationRe
 export const validateFeatureItem = (feature: Partial<FeatureItem>): ValidationResult => {
   const errors: string[] = [];
 
-  if (!feature.icon || feature.icon.trim().length === 0) {
-    errors.push('Icon is required');
-  } else if (feature.icon.length > 10) {
-    errors.push('Icon must be 10 characters or less (emoji or short text)');
-  }
-
-  if (!feature.title || feature.title.trim().length === 0) {
-    errors.push('Title is required');
-  } else if (feature.title.length > 100) {
-    errors.push('Title must be 100 characters or less');
-  }
-
-  if (!feature.description || feature.description.trim().length === 0) {
-    errors.push('Description is required');
-  } else if (feature.description.length > 500) {
-    errors.push('Description must be 500 characters or less');
-  }
-
-  if (feature.badge && feature.badge.length > 50) {
-    errors.push('Badge text must be 50 characters or less');
-  }
+  errors.push(...validateRequiredString(feature.icon, 'Icon', 10));
+  errors.push(...validateRequiredString(feature.title, 'Title', 100));
+  errors.push(...validateRequiredString(feature.description, 'Description', 500));
+  errors.push(...validateOptionalString(feature.badge, 'Badge text', 50));
 
   if (feature.badge_color) {
-    if (!isValidHexColor(feature.badge_color) && !isValidColorName(feature.badge_color)) {
+    if (!isValidColor(feature.badge_color)) {
       errors.push('Badge color must be a valid hex color (#ffffff) or predefined color name');
     }
   }
 
-  if (feature.sort_order !== undefined && (feature.sort_order < 0 || feature.sort_order > 1000)) {
-    errors.push('Sort order must be between 0 and 1000');
-  }
+  errors.push(...validateNumericRange(feature.sort_order, 'Sort order', 0, 1000));
 
   return {
     isValid: errors.length === 0,
@@ -125,25 +113,21 @@ export const validateFeatureItem = (feature: Partial<FeatureItem>): ValidationRe
 export const validatePricingPlan = (plan: Partial<PricingPlan>): ValidationResult => {
   const errors: string[] = [];
 
-  if (!plan.name || plan.name.trim().length === 0) {
-    errors.push('Plan name is required');
-  } else if (plan.name.length > 50) {
-    errors.push('Plan name must be 50 characters or less');
-  }
+  // Helper for validating individual feature strings
+  const validateFeature = (feature: string, index: number): string[] => {
+    const featureErrors: string[] = [];
+    if (!feature || feature.trim().length === 0) {
+      featureErrors.push(`Feature ${index + 1} cannot be empty`);
+    } else if (feature.length > 100) {
+      featureErrors.push(`Feature ${index + 1} must be 100 characters or less`);
+    }
+    return featureErrors;
+  };
 
-  if (!plan.price || plan.price.trim().length === 0) {
-    errors.push('Price is required');
-  } else if (plan.price.length > 20) {
-    errors.push('Price must be 20 characters or less');
-  }
-
-  if (plan.period && plan.period.length > 20) {
-    errors.push('Period must be 20 characters or less');
-  }
-
-  if (plan.description && plan.description.length > 200) {
-    errors.push('Description must be 200 characters or less');
-  }
+  errors.push(...validateRequiredString(plan.name, 'Plan name', 50));
+  errors.push(...validateRequiredString(plan.price, 'Price', 20));
+  errors.push(...validateOptionalString(plan.period, 'Period', 20));
+  errors.push(...validateOptionalString(plan.description, 'Description', 200));
 
   if (!plan.features || !Array.isArray(plan.features) || plan.features.length === 0) {
     errors.push('At least one feature is required');
@@ -151,23 +135,12 @@ export const validatePricingPlan = (plan: Partial<PricingPlan>): ValidationResul
     errors.push('Maximum 20 features allowed');
   } else {
     plan.features.forEach((feature, index) => {
-      if (!feature || feature.trim().length === 0) {
-        errors.push(`Feature ${index + 1} cannot be empty`);
-      } else if (feature.length > 100) {
-        errors.push(`Feature ${index + 1} must be 100 characters or less`);
-      }
+      errors.push(...validateFeature(feature, index));
     });
   }
 
-  if (!plan.button_text || plan.button_text.trim().length === 0) {
-    errors.push('Button text is required');
-  } else if (plan.button_text.length > 50) {
-    errors.push('Button text must be 50 characters or less');
-  }
-
-  if (plan.sort_order !== undefined && (plan.sort_order < 0 || plan.sort_order > 1000)) {
-    errors.push('Sort order must be between 0 and 1000');
-  }
+  errors.push(...validateRequiredString(plan.button_text, 'Button text', 50));
+  errors.push(...validateNumericRange(plan.sort_order, 'Sort order', 0, 1000));
 
   return {
     isValid: errors.length === 0,
@@ -178,29 +151,10 @@ export const validatePricingPlan = (plan: Partial<PricingPlan>): ValidationResul
 export const validateCTASection = (section: Partial<CTASection>): ValidationResult => {
   const errors: string[] = [];
 
-  if (!section.title || section.title.trim().length === 0) {
-    errors.push('Title is required');
-  } else if (section.title.length > 100) {
-    errors.push('Title must be 100 characters or less');
-  }
-
-  if (!section.description || section.description.trim().length === 0) {
-    errors.push('Description is required');
-  } else if (section.description.length > 300) {
-    errors.push('Description must be 300 characters or less');
-  }
-
-  if (!section.primary_button || section.primary_button.trim().length === 0) {
-    errors.push('Primary button text is required');
-  } else if (section.primary_button.length > 50) {
-    errors.push('Primary button text must be 50 characters or less');
-  }
-
-  if (!section.secondary_button || section.secondary_button.trim().length === 0) {
-    errors.push('Secondary button text is required');
-  } else if (section.secondary_button.length > 50) {
-    errors.push('Secondary button text must be 50 characters or less');
-  }
+  errors.push(...validateRequiredString(section.title, 'Title', 100));
+  errors.push(...validateRequiredString(section.description, 'Description', 300));
+  errors.push(...validateRequiredString(section.primary_button, 'Primary button text', 50));
+  errors.push(...validateRequiredString(section.secondary_button, 'Secondary button text', 50));
 
   return {
     isValid: errors.length === 0,
@@ -211,29 +165,10 @@ export const validateCTASection = (section: Partial<CTASection>): ValidationResu
 export const validateWaitlistSection = (section: Partial<WaitlistSection>): ValidationResult => {
   const errors: string[] = [];
 
-  if (!section.title || section.title.trim().length === 0) {
-    errors.push('Title is required');
-  } else if (section.title.length > 100) {
-    errors.push('Title must be 100 characters or less');
-  }
-
-  if (!section.description || section.description.trim().length === 0) {
-    errors.push('Description is required');
-  } else if (section.description.length > 300) {
-    errors.push('Description must be 300 characters or less');
-  }
-
-  if (!section.button_text || section.button_text.trim().length === 0) {
-    errors.push('Button text is required');
-  } else if (section.button_text.length > 50) {
-    errors.push('Button text must be 50 characters or less');
-  }
-
-  if (!section.success_message || section.success_message.trim().length === 0) {
-    errors.push('Success message is required');
-  } else if (section.success_message.length > 200) {
-    errors.push('Success message must be 200 characters or less');
-  }
+  errors.push(...validateRequiredString(section.title, 'Title', 100));
+  errors.push(...validateRequiredString(section.description, 'Description', 300));
+  errors.push(...validateRequiredString(section.button_text, 'Button text', 50));
+  errors.push(...validateRequiredString(section.success_message, 'Success message', 200));
 
   return {
     isValid: errors.length === 0,
@@ -244,12 +179,14 @@ export const validateWaitlistSection = (section: Partial<WaitlistSection>): Vali
 export const validateContactInfo = (contact: Partial<ContactInfo>): ValidationResult => {
   const errors: string[] = [];
 
+  // Email validation with custom logic
   if (!contact.email || contact.email.trim().length === 0) {
     errors.push('Email is required');
   } else if (!isValidEmail(contact.email)) {
     errors.push('Email must be a valid email address');
   }
 
+  // Twitter validation (keep custom logic as-is)
   if (contact.twitter) {
     const twitter = contact.twitter.trim();
     if (twitter.length > 0) {
@@ -261,6 +198,7 @@ export const validateContactInfo = (contact: Partial<ContactInfo>): ValidationRe
     }
   }
 
+  // GitHub validation (keep custom logic as-is)
   if (contact.github) {
     const github = contact.github.trim();
     if (github.length > 0) {

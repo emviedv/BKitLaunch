@@ -23,12 +23,34 @@ const Hero = () => {
             {hero.description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700">
-              {hero.primaryButton}
-            </button>
-            <button className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white">
-              {hero.secondaryButton}
-            </button>
+            {hero.primaryButtonLink ? (
+              <a 
+                href={hero.primaryButtonLink} 
+                className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 inline-block text-center"
+                target={hero.primaryButtonLink.startsWith('http') ? '_blank' : '_self'}
+                rel={hero.primaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                {hero.primaryButton}
+              </a>
+            ) : (
+              <button className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700">
+                {hero.primaryButton}
+              </button>
+            )}
+            {hero.secondaryButtonLink ? (
+              <a 
+                href={hero.secondaryButtonLink} 
+                className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white inline-block text-center"
+                target={hero.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
+                rel={hero.secondaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                {hero.secondaryButton}
+              </a>
+            ) : (
+              <button className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white">
+                {hero.secondaryButton}
+              </button>
+            )}
           </div>
         </div>
       </div>

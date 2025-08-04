@@ -1,31 +1,6 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
-
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Content-Type': 'application/json',
-};
-
-const createDbClient = () => {
-  return new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  });
-};
-
-// Simple token verification
-const verifyToken = (authHeader: string | undefined): boolean => {
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return false;
-  }
-  
-  const token = authHeader.substring(7);
-  return token.length > 10;
-};
+import { withCors, createDbClient, sendJSON, handleError, verifyToken } from './utils';
 
 // Initialize database tables
 const initializeTables = async (client: Client) => {
@@ -69,11 +44,18 @@ const initializeTables = async (client: Client) => {
       description TEXT,
       features JSONB NOT NULL DEFAULT '[]',
       button_text VARCHAR(100) NOT NULL,
+      button_link VARCHAR(255),
       is_popular BOOLEAN DEFAULT false,
       sort_order INTEGER DEFAULT 0,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
+  `);
+
+  // Add button_link column if it doesn't exist (migration for existing tables)
+  await client.query(`
+    ALTER TABLE pricing_plans 
+    ADD COLUMN IF NOT EXISTS button_link VARCHAR(255);
   `);
 
   // Navigation items table
@@ -128,23 +110,10 @@ const initializeTables = async (client: Client) => {
   await client.query('CREATE INDEX IF NOT EXISTS idx_pricing_plans_section_id ON pricing_plans(section_id);');
 };
 
-const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  // Handle preflight OPTIONS request
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: '',
-    };
-  }
-
+const contentSectionsHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   // Verify authentication for all operations
   if (!verifyToken(event.headers.authorization)) {
-    return {
-      statusCode: 401,
-      headers,
-      body: JSON.stringify({ error: 'Unauthorized' }),
-    };
+    return sendJSON(401, { error: 'Unauthorized' });
   }
 
   const client = createDbClient();
@@ -181,22 +150,10 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         return await handleDelete(client, sectionTypeOrId);
 
       default:
-        return {
-          statusCode: 405,
-          headers,
-          body: JSON.stringify({ error: 'Method not allowed' }),
-        };
+        return sendJSON(405, { error: 'Method not allowed' });
     }
   } catch (error) {
-    console.error('Content sections error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        success: false,
-        error: 'Internal server error'
-      }),
-    };
+    return handleError(error, 'Content sections');
   } finally {
     await client.end();
   }
@@ -212,11 +169,7 @@ const handleGet = async (client: Client, sectionTypeOrId: string, queryParams: a
     );
 
     if (result.rows.length === 0) {
-      return {
-        statusCode: 404,
-        headers,
-        body: JSON.stringify({ error: 'Section not found' }),
-      };
+      return sendJSON(404, { error: 'Section not found' });
     }
 
     const section = result.rows[0];
@@ -265,30 +218,59 @@ const handleGet = async (client: Client, sectionTypeOrId: string, queryParams: a
       }),
     };
   } else {
-    // Get all sections
+    // Get all sections with nested data - FIXED: now includes related data for all sections
     const result = await client.query(
       'SELECT * FROM content_sections ORDER BY section_type, sort_order ASC'
     );
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        success: true,
-        data: result.rows
-      }),
-    };
+    // Load related data for each section
+    for (const section of result.rows) {
+      if (section.section_type === 'features') {
+        const features = await client.query(
+          'SELECT * FROM features WHERE section_id = $1 ORDER BY sort_order ASC',
+          [section.id]
+        );
+        section.features = features.rows;
+      } else if (section.section_type === 'pricing') {
+        const plans = await client.query(
+          'SELECT * FROM pricing_plans WHERE section_id = $1 ORDER BY sort_order ASC',
+          [section.id]
+        );
+        section.plans = plans.rows;
+      } else if (section.section_type === 'header') {
+        const navItems = await client.query(
+          'SELECT * FROM navigation_items WHERE section_id = $1 ORDER BY sort_order ASC',
+          [section.id]
+        );
+        section.navigation_items = navItems.rows;
+      } else if (section.section_type === 'footer') {
+        const groups = await client.query(
+          'SELECT * FROM footer_link_groups WHERE section_id = $1 ORDER BY sort_order ASC',
+          [section.id]
+        );
+        
+        for (const group of groups.rows) {
+          const links = await client.query(
+            'SELECT * FROM footer_links WHERE group_id = $1 ORDER BY sort_order ASC',
+            [group.id]
+          );
+          group.links = links.rows;
+        }
+        section.footer_links = groups.rows;
+      }
+    }
+
+    return sendJSON(200, {
+      success: true,
+      data: result.rows
+    });
   }
 };
 
 // POST handler
 const handlePost = async (client: Client, body: string | null, parentId?: string) => {
   if (!body) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Request body required' }),
-    };
+    return sendJSON(400, { error: 'Request body required' });
   }
 
   const data = JSON.parse(body);
@@ -315,10 +297,10 @@ const handlePost = async (client: Client, body: string | null, parentId?: string
     } else if (data.plan) {
       // Create pricing plan
       const result = await client.query(
-        `INSERT INTO pricing_plans (section_id, name, price, period, description, features, button_text, is_popular, sort_order)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+        `INSERT INTO pricing_plans (section_id, name, price, period, description, features, button_text, button_link, is_popular, sort_order)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
         [parentId, data.plan.name, data.plan.price, data.plan.period, data.plan.description,
-         JSON.stringify(data.plan.features), data.plan.button_text, data.plan.is_popular, data.plan.sort_order || 0]
+         JSON.stringify(data.plan.features), data.plan.button_text, data.plan.button_link, data.plan.is_popular, data.plan.sort_order || 0]
       );
 
       return {
@@ -336,11 +318,7 @@ const handlePost = async (client: Client, body: string | null, parentId?: string
   const { section_type, section_data, is_visible = true, sort_order = 0 } = data;
 
   if (!section_type || !section_data) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Section type and data are required' }),
-    };
+    return sendJSON(400, { error: 'Section type and data are required' });
   }
 
   const result = await client.query(
@@ -349,24 +327,16 @@ const handlePost = async (client: Client, body: string | null, parentId?: string
     [section_type, JSON.stringify(section_data), is_visible, sort_order]
   );
 
-  return {
-    statusCode: 201,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      data: result.rows[0]
-    }),
-  };
+  return sendJSON(201, {
+    success: true,
+    data: result.rows[0]
+  });
 };
 
 // PUT handler
 const handlePut = async (client: Client, body: string | null, idOrType: string) => {
   if (!body) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Request body required' }),
-    };
+    return sendJSON(400, { error: 'Request body required' });
   }
 
   const data = JSON.parse(body);
@@ -409,21 +379,13 @@ const handlePut = async (client: Client, body: string | null, idOrType: string) 
   );
 
   if (result.rows.length === 0) {
-    return {
-      statusCode: 404,
-      headers,
-      body: JSON.stringify({ error: 'Section not found' }),
-    };
+      return sendJSON(404, { error: 'Section not found' });
   }
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      data: result.rows[0]
-    }),
-  };
+  return sendJSON(200, {
+    success: true,
+    data: result.rows[0]
+  });
 };
 
 // DELETE handler
@@ -444,21 +406,13 @@ const handleDelete = async (client: Client, idOrType: string) => {
   );
 
   if (result.rows.length === 0) {
-    return {
-      statusCode: 404,
-      headers,
-      body: JSON.stringify({ error: 'Section not found' }),
-    };
+      return sendJSON(404, { error: 'Section not found' });
   }
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      message: 'Section deleted successfully'
-    }),
-  };
+  return sendJSON(200, {
+    success: true,
+    message: 'Section deleted successfully'
+  });
 };
 
-export { handler };
+export const handler = withCors(contentSectionsHandler);

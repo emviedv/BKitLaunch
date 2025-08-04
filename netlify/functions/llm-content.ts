@@ -1,39 +1,12 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
+import { withCors, createDbClient, sendJSON, handleError, verifyToken } from './utils';
 
-// Standard CORS + JSON headers
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Content-Type': 'application/json',
-};
-
-// Utility to create a PG client ( Neon / Supabase etc. )
-const createDbClient = () => {
-  return new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false },
-  });
-};
-
-// Simple bearer-token gate – replace with JWT/OAuth in production
-const verifyToken = (authHeader: string | undefined) => {
-  if (!authHeader || !authHeader.startsWith('Bearer ')) return false;
-  const token = authHeader.slice(7);
-  return token.length > 10; // naïve check
-};
-
-const handler: Handler = async (event: HandlerEvent, _context: HandlerContext) => {
-  // Pre-flight
-  if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers, body: '' };
-  }
-
+const llmContentHandler: Handler = async (event: HandlerEvent, _context: HandlerContext) => {
   // Protect mutating routes – allow GET for public consumption
   if (['POST', 'PUT', 'DELETE'].includes(event.httpMethod)) {
     if (!verifyToken(event.headers.authorization)) {
-      return { statusCode: 401, headers, body: JSON.stringify({ error: 'Unauthorized' }) };
+      return sendJSON(401, { error: 'Unauthorized' });
     }
   }
 
@@ -66,10 +39,10 @@ const handler: Handler = async (event: HandlerEvent, _context: HandlerContext) =
         const id = event.queryStringParameters?.id;
         if (id) {
           const res = await client.query('SELECT * FROM llm_content WHERE id = $1', [id]);
-          return { statusCode: 200, headers, body: JSON.stringify(res.rows[0] || null) };
+          return sendJSON(200, res.rows[0] || null);
         }
         const res = await client.query('SELECT * FROM llm_content ORDER BY created_at DESC');
-        return { statusCode: 200, headers, body: JSON.stringify(res.rows) };
+        return sendJSON(200, res.rows);
       }
 
       // ────────────────────────────── CREATE ─────────────────────────────────────
@@ -87,7 +60,7 @@ const handler: Handler = async (event: HandlerEvent, _context: HandlerContext) =
           tokenCount,
         } = JSON.parse(event.body);
 
-        if (!title) return { statusCode: 400, headers, body: JSON.stringify({ error: 'Title required' }) };
+        if (!title) return sendJSON(400, { error: 'Title required' });
 
         const insert = await client.query(
           `INSERT INTO llm_content (title, answer_box, expert_quote, statistic, faqs, content, last_updated, citation_count, token_count)
@@ -104,13 +77,13 @@ const handler: Handler = async (event: HandlerEvent, _context: HandlerContext) =
             tokenCount,
           ],
         );
-        return { statusCode: 201, headers, body: JSON.stringify(insert.rows[0]) };
+        return sendJSON(201, insert.rows[0]);
       }
 
       // ────────────────────────────── UPDATE ─────────────────────────────────────
       case 'PUT': {
         const id = event.path.split('/').pop(); // Expecting /.netlify/functions/llm-content/{id}
-        if (!id) return { statusCode: 400, headers, body: JSON.stringify({ error: 'ID path param required' }) };
+        if (!id) return sendJSON(400, { error: 'ID path param required' });
         if (!event.body) return { statusCode: 400, headers, body: JSON.stringify({ error: 'Body required' }) };
         const updatePayload = JSON.parse(event.body);
 
@@ -130,7 +103,7 @@ const handler: Handler = async (event: HandlerEvent, _context: HandlerContext) =
       }
 
       default:
-        return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
+        return sendJSON(405, { error: 'Method not allowed' });
     }
   } catch (error) {
     console.error('LLM content function error', error);
@@ -140,4 +113,4 @@ const handler: Handler = async (event: HandlerEvent, _context: HandlerContext) =
   }
 };
 
-export { handler };
+export const handler = withCors(llmContentHandler);

@@ -1,7 +1,8 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
+import { withCors, createDbClient, sendJSON, handleError } from './utils';
 
-const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+const dbTestHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   // Set CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -66,4 +67,4 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   }
 };
 
-export { handler }; 
+export const handler = withCors(dbTestHandler); 

@@ -74,7 +74,9 @@ export interface HeroSection extends BaseContentSection {
   subtitle: string;
   description: string;
   primary_button: string;
+  primary_button_link?: string;
   secondary_button: string;
+  secondary_button_link?: string;
 }
 
 // Feature Item
@@ -105,6 +107,7 @@ export interface PricingPlan {
   description: string;
   features: string[];
   button_text: string;
+  button_link?: string;
   is_popular: boolean;
   sort_order?: number;
 }

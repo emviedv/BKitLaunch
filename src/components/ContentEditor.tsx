@@ -22,6 +22,12 @@ import {
   FAQItem, 
   LLMOptimizedContent 
 } from '@/lib/database';
+import { ContactSectionEditor } from './ContentEditor/ContactSectionEditor';
+import { HeroSectionEditor } from './ContentEditor/HeroSectionEditor';
+import { SettingsSectionEditor } from './ContentEditor/SettingsSectionEditor';
+import { LLMSectionEditor } from './ContentEditor/LLMSectionEditor';
+import { FeaturesSectionEditor } from './ContentEditor/FeaturesSectionEditor';
+import { PricingProductSectionEditor } from './ContentEditor/PricingProductSectionEditor';
 
 interface ContentEditorProps {
   onContentUpdate?: (newContent: any) => void;
@@ -158,6 +164,18 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
           if (response.success) {
             debugService.saveSuccess('Database save completed', response.data);
             saveSuccess = true;
+            
+            // If this is JSON mode, also sync to content_sections tables
+            if (editMode === 'json') {
+              debugService.saveStart('Syncing JSON to sections tables');
+              const syncResponse = await contentApi.syncJsonToSections(contentToSave);
+              if (syncResponse.success) {
+                debugService.saveSuccess('JSON to sections sync completed', syncResponse.message);
+              } else {
+                debugService.saveError('JSON to sections sync failed', syncResponse.error);
+                // Continue anyway - at least site_content was saved
+              }
+            }
           } else {
             debugService.saveError('Database save failed', response.error);
             // Fall back to localStorage
@@ -319,38 +337,70 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
   const loadDatabaseContent = async () => {
     debugService.contentLoad('Starting database content load');
     try {
-      const [sectionsResponse, contactResponse] = await Promise.all([
+      // Load both published content and sections data in parallel
+      const [publishedResponse, sectionsResponse, contactResponse] = await Promise.all([
+        contentApi.getCurrentContent(),
         contentApi.getAllSections(),
         contentApi.getContactInfo()
       ]);
 
+      debugService.apiResponse('GET', 'published-content', publishedResponse);
       debugService.apiResponse('GET', 'sections', sectionsResponse);
       debugService.apiResponse('GET', 'contact', contactResponse);
 
-      if (sectionsResponse.success) {
-        setSections(sectionsResponse.data || []);
-        debugService.contentLoad('Sections loaded', { count: sectionsResponse.data?.length || 0 });
+      let liveContent;
+
+      // Strategy: Use published content from site_content if available and recent,
+      // otherwise rebuild from content_sections
+      if (publishedResponse.success && publishedResponse.data?.content_data) {
+        debugService.contentLoad('Using published content from site_content table');
+        liveContent = publishedResponse.data.content_data;
+        
+        // Still update sections state for database mode editor
+        if (sectionsResponse.success) {
+          setSections(sectionsResponse.data || []);
+        }
       } else {
-        debugService.error('Failed to load sections', sectionsResponse.error);
+        debugService.contentLoad('Published content not available, rebuilding from sections');
+        
+        // Set sections for database mode
+        if (sectionsResponse.success) {
+          setSections(sectionsResponse.data || []);
+          debugService.contentLoad('Sections loaded', { count: sectionsResponse.data?.length || 0 });
+        } else {
+          debugService.error('Failed to load sections', sectionsResponse.error);
+          setSections([]);
+        }
+
+        // Rebuild unified content object from database sections and contact info
+        liveContent = buildUnifiedContentFromDatabase(
+          sectionsResponse.success ? sectionsResponse.data || [] : [],
+          contactResponse.success ? contactResponse.data || null : null
+        );
       }
 
+      // Update contact info state
       if (contactResponse.success) {
         setContactInfo(contactResponse.data || null);
         debugService.contentLoad('Contact info loaded', contactResponse.data);
       } else {
         debugService.error('Failed to load contact info', contactResponse.error);
+        setContactInfo(null);
       }
 
-      // Rebuild unified content object from database sections and contact info
-      const liveContent = buildUnifiedContentFromDatabase(
-        sectionsResponse.success ? sectionsResponse.data || [] : [],
-        contactResponse.success ? contactResponse.data || null : null
-      );
+      // Ensure contact info is in the unified content
+      if (contactResponse.success && contactResponse.data) {
+        liveContent = { 
+          ...liveContent, 
+          contact: contactResponse.data 
+        };
+      }
 
       // Update JSON editor state with live database content
       setSavedContent(liveContent);
       setJsonContent(JSON.stringify(liveContent, null, 2));
-      debugService.contentLoad('Unified content rebuilt from database', { 
+      debugService.contentLoad('Unified content loaded from database', { 
+        source: publishedResponse.success && publishedResponse.data?.content_data ? 'site_content' : 'content_sections',
         sections: Object.keys(liveContent).filter(key => key !== 'contact'),
         hasContact: !!liveContent.contact 
       });
@@ -513,475 +563,50 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
         {/* Section Content Editor */}
         <div className="lg:col-span-3 bg-muted/20 p-4 rounded-lg">
           {activeSection === 'settings' && (
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Visibility Settings</h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Control which sections are displayed on your website.
-              </p>
-              <div className="space-y-3">
-                {(['hero', 'features', 'pricing', 'cta'] as const).map((section) => {
-                  const isVisible = savedContent.settings?.visibility?.[section] !== false;
-                  return (
-                    <div key={section} className="flex items-center gap-3">
-                      <label className="inline-flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="sr-only peer"
-                          checked={isVisible}
-                          onChange={() => updateSettingsVisibility(section, !isVisible)}
-                        />
-                        <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
-                      </label>
-                      <span className="capitalize">{section} Section</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            <SettingsSectionEditor
+              settings={savedContent.settings}
+              updateSettingsVisibility={updateSettingsVisibility}
+            />
           )}
 
           {activeSection === 'llm' && (
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-semibold text-lg mb-2">LLM Optimization Settings</h3>
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                  <h4 className="font-medium text-blue-900 mb-2">🎯 LLM Citation Priority List</h4>
-                  <ul className="text-sm text-blue-800 space-y-1">
-                    <li>1. Expert quote (+41% citation lift)</li>
-                    <li>2. Dated stat (+30% citation boost)</li>
-                    <li>3. FAQ/HowTo schema (Copilot reads verbatim)</li>
-                    <li>4. Answer box under H1 (40-70 words)</li>
-                    <li>5. Fresh "Updated" timestamp</li>
-                    <li>6. Community echo on Reddit (~47% of Perplexity answers)</li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Answer Box Section */}
-              <div className="border border-gray-200 rounded-lg p-4">
-                <h4 className="font-medium mb-3">📝 Answer Box (Feature Snippet)</h4>
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="block text-sm font-medium">40-70 Word Summary</label>
-                                         <div className="flex items-center gap-2">
-                       {(() => {
-                         const text = (savedContent as any).llm?.answerBox || '';
-                         const words = countWords(text);
-                         const status = getWordStatus(words);
-                         return (
-                           <span className={`px-2 py-1 rounded text-xs ${status.bg} ${status.color}`}>
-                             {words} words
-                           </span>
-                         );
-                       })()}
-                     </div>
-                  </div>
-                                     <textarea
-                     value={(savedContent as any).llm?.answerBox || ''}
-                     onChange={(e) => updateNestedField('llm', null, 'answerBox', e.target.value)}
-                     className="w-full p-3 border border-border rounded-lg h-24 text-sm"
-                     placeholder="Write a 40-70 word summary that answers the main question about your product..."
-                   />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Optimal for LLM feature snippets. Keep between 40-70 words for maximum citation potential.
-                  </p>
-                </div>
-              </div>
-
-              {/* Expert Quote Section */}
-              <div className="border border-gray-200 rounded-lg p-4">
-                <h4 className="font-medium mb-3">👨‍🎓 Expert Quote (+41% Citation Lift)</h4>
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-sm font-medium mb-1">Quote</label>
-                                         <textarea
-                       value={(savedContent as any).llm?.expertQuote?.quote || ''}
-                       onChange={(e) => {
-                         const currentQuote = (savedContent as any).llm?.expertQuote || {};
-                         updateNestedField('llm', null, 'expertQuote', { ...currentQuote, quote: e.target.value });
-                       }}
-                      className="w-full p-2 border border-border rounded text-sm h-20"
-                      placeholder="Expert opinion or insight about your industry/product..."
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Expert Name</label>
-                                             <input
-                         type="text"
-                         value={(savedContent as any).llm?.expertQuote?.expertName || ''}
-                         onChange={(e) => {
-                           const currentQuote = (savedContent as any).llm?.expertQuote || {};
-                           updateNestedField('llm', null, 'expertQuote', { ...currentQuote, expertName: e.target.value });
-                         }}
-                        className="w-full p-2 border border-border rounded text-sm"
-                        placeholder="Dr. Jane Smith"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Title</label>
-                                             <input
-                         type="text"
-                         value={(savedContent as any).llm?.expertQuote?.expertTitle || ''}
-                         onChange={(e) => {
-                           const currentQuote = (savedContent as any).llm?.expertQuote || {};
-                           updateNestedField('llm', null, 'expertQuote', { ...currentQuote, expertTitle: e.target.value });
-                         }}
-                        className="w-full p-2 border border-border rounded text-sm"
-                        placeholder="Director of Design Technology"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1">Institution</label>
-                                         <input
-                       type="text"
-                       value={(savedContent as any).llm?.expertQuote?.institution || ''}
-                       onChange={(e) => {
-                         const currentQuote = (savedContent as any).llm?.expertQuote || {};
-                         updateNestedField('llm', null, 'expertQuote', { ...currentQuote, institution: e.target.value });
-                       }}
-                      className="w-full p-2 border border-border rounded text-sm"
-                      placeholder="Stanford University, MIT, etc."
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Statistics Section */}
-              <div className="border border-gray-200 rounded-lg p-4">
-                <h4 className="font-medium mb-3">📊 Fresh Statistics (+30% Citation Boost)</h4>
-                <div className="space-y-3">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Statistic</label>
-                                             <input
-                         type="text"
-                         value={(savedContent as any).llm?.statistic?.statistic || ''}
-                         onChange={(e) => {
-                           const currentStat = (savedContent as any).llm?.statistic || {};
-                           updateNestedField('llm', null, 'statistic', { ...currentStat, statistic: e.target.value });
-                         }}
-                        className="w-full p-2 border border-border rounded text-sm"
-                        placeholder="73%, 2.5x, $1.2M, etc."
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Date</label>
-                                             <input
-                         type="text"
-                         value={(savedContent as any).llm?.statistic?.date || ''}
-                         onChange={(e) => {
-                           const currentStat = (savedContent as any).llm?.statistic || {};
-                           updateNestedField('llm', null, 'statistic', { ...currentStat, date: e.target.value });
-                         }}
-                        className="w-full p-2 border border-border rounded text-sm"
-                        placeholder="January 2024"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1">Description</label>
-                                         <textarea
-                       value={(savedContent as any).llm?.statistic?.description || ''}
-                       onChange={(e) => {
-                         const currentStat = (savedContent as any).llm?.statistic || {};
-                         updateNestedField('llm', null, 'statistic', { ...currentStat, description: e.target.value });
-                       }}
-                      className="w-full p-2 border border-border rounded text-sm h-16"
-                      placeholder="of design teams report improved workflow efficiency..."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-1">Source</label>
-                                         <input
-                       type="text"
-                       value={(savedContent as any).llm?.statistic?.source || ''}
-                       onChange={(e) => {
-                         const currentStat = (savedContent as any).llm?.statistic || {};
-                         updateNestedField('llm', null, 'statistic', { ...currentStat, source: e.target.value });
-                       }}
-                      className="w-full p-2 border border-border rounded text-sm"
-                      placeholder="Design Systems Survey 2024, McKinsey Report, etc."
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* FAQ Section */}
-              <div className="border border-gray-200 rounded-lg p-4">
-                <h4 className="font-medium mb-3">❓ FAQ Schema (Copilot Reads Verbatim)</h4>
-                <div className="space-y-4">
-                                     {((savedContent as any).llm?.faqs || []).map((faq: FAQItem, index: number) => (
-                    <div key={index} className="border border-gray-100 rounded p-3 bg-gray-50">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium">FAQ #{index + 1}</span>
-                                                 <button
-                           onClick={() => {
-                             const currentFaqs = (savedContent as any).llm?.faqs || [];
-                                                           const updatedFaqs = currentFaqs.filter((_: any, i: number) => i !== index);
-                             updateNestedField('llm', null, 'faqs', updatedFaqs);
-                           }}
-                          className="text-red-600 hover:text-red-800 text-sm"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                      <div className="space-y-2">
-                        <div>
-                          <label className="block text-xs font-medium mb-1">Question</label>
-                          <input
-                            type="text"
-                            value={faq.question}
-                                                         onChange={(e) => {
-                               const currentFaqs = [...((savedContent as any).llm?.faqs || [])];
-                               currentFaqs[index] = { ...currentFaqs[index], question: e.target.value };
-                               updateNestedField('llm', null, 'faqs', currentFaqs);
-                             }}
-                            className="w-full p-2 border border-border rounded text-sm"
-                            placeholder="How does..."
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs font-medium mb-1">Answer</label>
-                          <textarea
-                            value={faq.answer}
-                                                         onChange={(e) => {
-                               const currentFaqs = [...((savedContent as any).llm?.faqs || [])];
-                               currentFaqs[index] = { ...currentFaqs[index], answer: e.target.value };
-                               updateNestedField('llm', null, 'faqs', currentFaqs);
-                             }}
-                            className="w-full p-2 border border-border rounded text-sm h-16"
-                            placeholder="Our platform..."
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                                     <button
-                     onClick={() => {
-                       const currentFaqs = (savedContent as any).llm?.faqs || [];
-                       const newFaq = { question: '', answer: '' };
-                       updateNestedField('llm', null, 'faqs', [...currentFaqs, newFaq]);
-                     }}
-                    className="w-full p-2 border-2 border-dashed border-gray-300 rounded text-sm text-gray-600 hover:border-gray-400 hover:text-gray-800 transition-colors"
-                  >
-                    + Add FAQ Item
-                  </button>
-                </div>
-              </div>
-
-              {/* Content Optimization Tips */}
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                <h4 className="font-medium mb-3">💡 Content Optimization Tips</h4>
-                <ul className="text-sm space-y-2">
-                  <li>• Keep paragraphs ≤ 300 tokens (~1200 characters)</li>
-                  <li>• Break with H2 every ~250 words for vector chunks</li>
-                  <li>• Avoid hard-sell CTAs in quotable content</li>
-                  <li>• Include updated timestamps on all content</li>
-                  <li>• Seed Reddit/Stack Overflow discussions for community echo</li>
-                </ul>
-              </div>
-            </div>
+            <LLMSectionEditor
+              llmContent={(savedContent as any).llm}
+              updateNestedField={updateNestedField}
+              countWords={countWords}
+              getWordStatus={getWordStatus}
+            />
           )}
           
           {activeSection === 'hero' && (
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Hero Section</h3>
-              <div>
-                <label className="block text-sm font-medium mb-2">Title</label>
-                <input
-                  type="text"
-                  value={savedContent.hero?.title || ''}
-                  onChange={(e) => updateNestedField('hero', null, 'title', e.target.value)}
-                  className="w-full p-2 border border-border rounded"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Subtitle</label>
-                <input
-                  type="text"
-                  value={savedContent.hero?.subtitle || ''}
-                  onChange={(e) => updateNestedField('hero', null, 'subtitle', e.target.value)}
-                  className="w-full p-2 border border-border rounded"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Description</label>
-                <textarea
-                  value={savedContent.hero?.description || ''}
-                  onChange={(e) => updateNestedField('hero', null, 'description', e.target.value)}
-                  className="w-full p-2 border border-border rounded h-24"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Primary Button</label>
-                  <input
-                    type="text"
-                    value={savedContent.hero?.primaryButton || ''}
-                    onChange={(e) => updateNestedField('hero', null, 'primaryButton', e.target.value)}
-                    className="w-full p-2 border border-border rounded"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Secondary Button</label>
-                  <input
-                    type="text"
-                    value={savedContent.hero?.secondaryButton || ''}
-                    onChange={(e) => updateNestedField('hero', null, 'secondaryButton', e.target.value)}
-                    className="w-full p-2 border border-border rounded"
-                  />
-                </div>
-              </div>
-            </div>
+            <HeroSectionEditor
+              hero={savedContent.hero}
+              updateNestedField={updateNestedField}
+            />
           )}
 
           {activeSection === 'contact' && (
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Contact Information</h3>
-              <div>
-                <label className="block text-sm font-medium mb-2">Email</label>
-                <input
-                  type="email"
-                  value={savedContent.contact?.email || ''}
-                  onChange={(e) => updateNestedField('contact', null, 'email', e.target.value)}
-                  className="w-full p-2 border border-border rounded"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Twitter</label>
-                <input
-                  type="text"
-                  value={savedContent.contact?.twitter || ''}
-                  onChange={(e) => updateNestedField('contact', null, 'twitter', e.target.value)}
-                  className="w-full p-2 border border-border rounded"
-                  placeholder="@username"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">GitHub</label>
-                <input
-                  type="text"
-                  value={savedContent.contact?.github || ''}
-                  onChange={(e) => updateNestedField('contact', null, 'github', e.target.value)}
-                  className="w-full p-2 border border-border rounded"
-                  placeholder="username"
-                />
-              </div>
-            </div>
+            <ContactSectionEditor
+              contact={savedContent.contact}
+              updateNestedField={updateNestedField}
+            />
           )}
 
           {activeSection === 'features' && (
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Features Section</h3>
-              <div className="space-y-4">
-                {savedContent.features?.map((feature, index) => (
-                  <div key={index} className="p-3 border border-border rounded">
-                    <div className="grid grid-cols-6 gap-2 text-sm">
-                      <div>
-                        <label className="block text-xs font-medium mb-1">Icon</label>
-                        <input
-                          type="text"
-                          value={feature.icon}
-                          onChange={(e) => updateNestedField('features', index, 'icon', e.target.value)}
-                          className="p-1 border border-border rounded w-full"
-                          placeholder="Icon"
-                        />
-                      </div>
-                      <div className="col-span-2">
-                        <label className="block text-xs font-medium mb-1">Title</label>
-                        <input
-                          type="text"
-                          value={feature.title}
-                          onChange={(e) => updateNestedField('features', index, 'title', e.target.value)}
-                          className="p-1 border border-border rounded w-full"
-                          placeholder="Title"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-medium mb-1">Badge</label>
-                        <input
-                          type="text"
-                          value={feature.badge}
-                          onChange={(e) => updateNestedField('features', index, 'badge', e.target.value)}
-                          className="p-1 border border-border rounded w-full"
-                          placeholder="e.g. New, Coming Soon"
-                        />
-                      </div>
-                      <div className="col-span-2">
-                        <label className="block text-xs font-medium mb-1">Badge Color</label>
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="text"
-                            value={feature.badgeColor || ''}
-                            onChange={(e) => updateNestedField('features', index, 'badgeColor', e.target.value)}
-                            className="p-1 border border-border rounded flex-1"
-                            placeholder="#10b981 or green"
-                          />
-                          {feature.badgeColor && (
-                            <div className="flex items-center gap-1">
-                              {feature.badgeColor.startsWith('#') ? (
-                                <div 
-                                  className="w-4 h-4 rounded border"
-                                  style={{ backgroundColor: feature.badgeColor }}
-                                  title={`Color: ${feature.badgeColor}`}
-                                />
-                              ) : (
-                                <span 
-                                  className={`text-xs px-1 py-0.5 rounded ${
-                                    feature.badgeColor === 'green' ? 'bg-green-100 text-green-800 border border-green-200' :
-                                    feature.badgeColor === 'blue' ? 'bg-blue-100 text-blue-800 border border-blue-200' :
-                                    feature.badgeColor === 'orange' ? 'bg-orange-100 text-orange-800 border border-orange-200' :
-                                    feature.badgeColor === 'purple' ? 'bg-purple-100 text-purple-800 border border-purple-200' :
-                                    feature.badgeColor === 'red' ? 'bg-red-100 text-red-800 border border-red-200' :
-                                    feature.badgeColor === 'yellow' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
-                                    feature.badgeColor === 'pink' ? 'bg-pink-100 text-pink-800 border border-pink-200' :
-                                    feature.badgeColor === 'gray' ? 'bg-gray-100 text-gray-800 border border-gray-200' :
-                                    'bg-primary text-primary-foreground'
-                                  }`}
-                                >
-                                  {feature.badgeColor}
-                                </span>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                          Use hex (#10b981) or predefined (green, blue, orange, etc.)
-                        </div>
-                      </div>
-                      <div className="col-span-6">
-                        <label className="block text-xs font-medium mb-1">Description</label>
-                        <textarea
-                          value={feature.description}
-                          onChange={(e) => updateNestedField('features', index, 'description', e.target.value)}
-                          className="p-1 border border-border rounded h-16 text-xs w-full"
-                          placeholder="Description"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <FeaturesSectionEditor
+              features={savedContent.features}
+              updateNestedField={updateNestedField}
+            />
           )}
 
           {(activeSection === 'pricing' || activeSection === 'product') && (
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg">
-                {activeSection === 'pricing' ? 'Pricing Plans' : 'Product Details'}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                For detailed {activeSection} editing, use the Advanced JSON Editor below.
-              </p>
-              <button
-                onClick={() => setEditMode('json')}
-                className="btn-primary text-sm"
-              >
-                Open Advanced Editor
-              </button>
-            </div>
+            <PricingProductSectionEditor
+              activeSection={activeSection}
+              pricing={savedContent.pricing}
+              product={savedContent.product}
+              updateNestedField={updateNestedField}
+              setEditMode={setEditMode}
+            />
           )}
         </div>
       </div>

@@ -29,7 +29,9 @@ interface ProductInfo {
   title: string;
   description: string;
   primaryButton?: string;
+  primaryButtonLink?: string;
   secondaryButton?: string;
+  secondaryButtonLink?: string;
   details?: ProductDetail[];
   benefits?: string[];
   specifications?: ProductSpec[];
@@ -170,9 +172,20 @@ const ProductPage = () => {
               >
             {product.primaryButton || 'Get Started'}
               </a>
-              <button className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3">
-            {product.secondaryButton || 'Learn More'}
-          </button>
+              {product.secondaryButtonLink ? (
+                <a 
+                  href={product.secondaryButtonLink}
+                  className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3 inline-block text-center"
+                  target={product.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
+                  rel={product.secondaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+                >
+                  {product.secondaryButton || 'Learn More'}
+                </a>
+              ) : (
+                <button className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3">
+                  {product.secondaryButton || 'Learn More'}
+                </button>
+              )}
         </div>
       </div>
         </div>

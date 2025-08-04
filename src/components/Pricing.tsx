@@ -58,15 +58,30 @@ const Pricing = () => {
                 ))}
               </ul>
 
-              <button 
-                className={`w-full ${
-                  plan.popular
-                    ? 'btn-primary'
-                    : 'btn-secondary'
-                }`}
-              >
-                {plan.buttonText}
-              </button>
+              {plan.buttonLink ? (
+                <a 
+                  href={plan.buttonLink}
+                  className={`w-full inline-block text-center ${
+                    plan.popular
+                      ? 'btn-primary'
+                      : 'btn-secondary'
+                  }`}
+                  target={plan.buttonLink.startsWith('http') ? '_blank' : '_self'}
+                  rel={plan.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+                >
+                  {plan.buttonText}
+                </a>
+              ) : (
+                <button 
+                  className={`w-full ${
+                    plan.popular
+                      ? 'btn-primary'
+                      : 'btn-secondary'
+                  }`}
+                >
+                  {plan.buttonText}
+                </button>
+              )}
             </div>
           ))}
         </div>

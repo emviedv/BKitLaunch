@@ -1,12 +1,6 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import * as crypto from 'crypto';
-
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Content-Type': 'application/json',
-};
+import { withCors, sendJSON, handleError } from './utils';
 
 // Simple token generation (in production, use JWT or similar)
 const generateToken = (email: string): string => {
@@ -15,41 +9,20 @@ const generateToken = (email: string): string => {
   return Buffer.from(data).toString('base64');
 };
 
-const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  // Handle preflight OPTIONS request
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: '',
-    };
-  }
-
+const adminAuthHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' }),
-    };
+    return sendJSON(405, { error: 'Method not allowed' });
   }
 
   try {
     if (!event.body) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: 'Request body required' }),
-      };
+      return sendJSON(400, { error: 'Request body required' });
     }
 
     const { email, password } = JSON.parse(event.body);
 
     if (!email || !password) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: 'Email and password are required' }),
-      };
+      return sendJSON(400, { error: 'Email and password are required' });
     }
 
     // Get admin credentials from environment variables
@@ -59,51 +32,31 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     if (!adminEmail || !adminPassword) {
       console.error('Admin credentials not configured in environment variables');
       console.log('Please set ADMIN_EMAIL and ADMIN_PASSWORD in your Netlify environment variables');
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify({ 
-          error: 'Server configuration error',
-          details: 'Admin credentials not configured. Please check environment variables.' 
-        }),
-      };
+      return sendJSON(500, { 
+        error: 'Server configuration error',
+        details: 'Admin credentials not configured. Please check environment variables.' 
+      });
     }
 
     // Verify credentials
     if (email === adminEmail && password === adminPassword) {
       const token = generateToken(email);
       
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ 
-          success: true, 
-          token,
-          message: 'Authentication successful'
-        }),
-      };
+      return sendJSON(200, { 
+        success: true, 
+        token,
+        message: 'Authentication successful'
+      });
     } else {
-      return {
-        statusCode: 401,
-        headers,
-        body: JSON.stringify({ 
-          success: false, 
-          error: 'Invalid credentials' 
-        }),
-      };
+      return sendJSON(401, { 
+        success: false, 
+        error: 'Invalid credentials' 
+      });
     }
 
   } catch (error) {
-    console.error('Admin auth error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ 
-        success: false, 
-        error: 'Internal server error' 
-      }),
-    };
+    return handleError(error, 'Admin auth');
   }
 };
 
-export { handler }; 
+export const handler = withCors(adminAuthHandler); 

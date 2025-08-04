@@ -1,32 +1,7 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
-import { Client } from 'pg';
+import { withCors, createDbClient, sendJSON, handleError } from './utils';
 
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Content-Type': 'application/json',
-};
-
-const createDbClient = () => {
-  return new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  });
-};
-
-const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  // Handle preflight OPTIONS request
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: '',
-    };
-  }
-
+const usersHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   const client = createDbClient();
 
   try {
@@ -47,63 +22,53 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
       case 'GET':
         // Get all users
         const result = await client.query('SELECT * FROM users ORDER BY created_at DESC');
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify(result.rows),
-        };
+        return sendJSON(200, result.rows);
 
       case 'POST':
         // Create new user
         if (!event.body) {
-          return {
-            statusCode: 400,
-            headers,
-            body: JSON.stringify({ error: 'Request body required' }),
-          };
+          return sendJSON(400, { error: 'Request body required' });
         }
 
         const { email, name } = JSON.parse(event.body);
         
         if (!email || !name) {
-          return {
-            statusCode: 400,
-            headers,
-            body: JSON.stringify({ error: 'Email and name are required' }),
-          };
+          return sendJSON(400, { error: 'Email and name are required' });
         }
 
-        const insertResult = await client.query(
-          'INSERT INTO users (email, name) VALUES ($1, $2) RETURNING *',
-          [email, name]
-        );
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          return sendJSON(400, { error: 'Invalid email format' });
+        }
 
-        return {
-          statusCode: 201,
-          headers,
-          body: JSON.stringify(insertResult.rows[0]),
-        };
+        try {
+          const insertResult = await client.query(
+            'INSERT INTO users (email, name) VALUES ($1, $2) RETURNING *',
+            [email, name]
+          );
+
+          return sendJSON(201, insertResult.rows[0]);
+        } catch (dbError: any) {
+          // Handle duplicate email error gracefully
+          if (dbError.code === '23505' && dbError.constraint === 'users_email_key') {
+            return sendJSON(409, { error: 'Email already registered' });
+          }
+          throw dbError;
+        }
 
       default:
-        return {
-          statusCode: 405,
-          headers,
-          body: JSON.stringify({ error: 'Method not allowed' }),
-        };
+        return sendJSON(405, { error: 'Method not allowed' });
     }
   } catch (error) {
     console.error('Database operation failed:', error);
     
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        error: error instanceof Error ? error.message : 'Unknown database error'
-      }),
-    };
+    return sendJSON(500, {
+      error: error instanceof Error ? error.message : 'Unknown database error'
+    });
   } finally {
     await client.end();
   }
 };
 
-export { handler }; 
+export const handler = withCors(usersHandler); 

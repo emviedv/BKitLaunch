@@ -1,46 +1,10 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
+import { withCors, createDbClient, sendJSON, handleError, verifyToken } from './utils';
 
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Content-Type': 'application/json',
-};
-
-const createDbClient = () => {
-  return new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  });
-};
-
-const verifyToken = (authHeader: string | undefined): boolean => {
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return false;
-  }
-  
-  const token = authHeader.substring(7);
-  return token.length > 10;
-};
-
-const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: '',
-    };
-  }
-
+const featuresHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   if (!verifyToken(event.headers.authorization)) {
-    return {
-      statusCode: 401,
-      headers,
-      body: JSON.stringify({ error: 'Unauthorized' }),
-    };
+    return sendJSON(401, { error: 'Unauthorized' });
   }
 
   const client = createDbClient();
@@ -65,22 +29,10 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         return await handleDelete(client, featureId);
 
       default:
-        return {
-          statusCode: 405,
-          headers,
-          body: JSON.stringify({ error: 'Method not allowed' }),
-        };
+        return sendJSON(405, { error: 'Method not allowed' });
     }
   } catch (error) {
-    console.error('Features error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        success: false,
-        error: 'Internal server error'
-      }),
-    };
+    return handleError(error, 'Features');
   } finally {
     await client.end();
   }
@@ -94,54 +46,34 @@ const handleGet = async (client: Client, featureId: string) => {
     );
 
     if (result.rows.length === 0) {
-      return {
-        statusCode: 404,
-        headers,
-        body: JSON.stringify({ error: 'Feature not found' }),
-      };
+      return sendJSON(404, { error: 'Feature not found' });
     }
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        success: true,
-        data: result.rows[0]
-      }),
-    };
+    return sendJSON(200, {
+      success: true,
+      data: result.rows[0]
+    });
   } else {
     const result = await client.query(
       'SELECT * FROM features ORDER BY sort_order ASC'
     );
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        success: true,
-        data: result.rows
-      }),
-    };
+    return sendJSON(200, {
+      success: true,
+      data: result.rows
+    });
   }
 };
 
 const handlePost = async (client: Client, body: string | null) => {
   if (!body) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Request body required' }),
-    };
+    return sendJSON(400, { error: 'Request body required' });
   }
 
   const { section_id, icon, title, description, badge, badge_color, sort_order = 0 } = JSON.parse(body);
 
   if (!section_id || !icon || !title || !description) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'section_id, icon, title, and description are required' }),
-    };
+    return sendJSON(400, { error: 'section_id, icon, title, and description are required' });
   }
 
   const result = await client.query(
@@ -150,32 +82,20 @@ const handlePost = async (client: Client, body: string | null) => {
     [section_id, icon, title, description, badge, badge_color, sort_order]
   );
 
-  return {
-    statusCode: 201,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      data: result.rows[0]
-    }),
-  };
+  return sendJSON(201, {
+    success: true,
+    data: result.rows[0]
+  });
 };
 
 const handlePut = async (client: Client, body: string | null, featureId: string) => {
   if (!body) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Request body required' }),
-    };
+    return sendJSON(400, { error: 'Request body required' });
   }
 
   const id = parseInt(featureId);
   if (isNaN(id)) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Invalid feature ID' }),
-    };
+    return sendJSON(400, { error: 'Invalid feature ID' });
   }
 
   const { icon, title, description, badge, badge_color, sort_order } = JSON.parse(body);
@@ -222,21 +142,13 @@ const handlePut = async (client: Client, body: string | null, featureId: string)
   );
 
   if (result.rows.length === 0) {
-    return {
-      statusCode: 404,
-      headers,
-      body: JSON.stringify({ error: 'Feature not found' }),
-    };
+      return sendJSON(404, { error: 'Feature not found' });
   }
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
+      return sendJSON(200, {
       success: true,
       data: result.rows[0]
-    }),
-  };
+    });
 };
 
 const handleDelete = async (client: Client, featureId: string) => {
@@ -255,21 +167,13 @@ const handleDelete = async (client: Client, featureId: string) => {
   );
 
   if (result.rows.length === 0) {
-    return {
-      statusCode: 404,
-      headers,
-      body: JSON.stringify({ error: 'Feature not found' }),
-    };
+      return sendJSON(404, { error: 'Feature not found' });
   }
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      message: 'Feature deleted successfully'
-    }),
-  };
+  return sendJSON(200, {
+    success: true,
+    message: 'Feature deleted successfully'
+  });
 };
 
-export { handler };
+export const handler = withCors(featuresHandler);

@@ -5,11 +5,79 @@ import AdminLogin from './AdminLogin';
 import { contentApi, type ContentVersion } from '@/lib/contentApi';
 import productData from '@/data/products.json';
 
-// ContentVersion interface now imported from contentApi
+// Error Boundary Component for graceful fallback
+class AdminErrorBoundary extends React.Component<
+  { children: React.ReactNode; fallback: () => React.ReactNode },
+  { hasError: boolean; error?: Error }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('AdminDashboard Error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback();
+    }
+    return this.props.children;
+  }
+}
+
+// Minimal fallback component for critical errors
+const AdminFallback: React.FC = () => (
+  <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="bg-white rounded-lg border border-gray-200 p-8 max-w-md text-center shadow-sm">
+      <h1 className="text-2xl font-bold text-gray-900 mb-4">Admin Dashboard</h1>
+      <p className="text-gray-600 mb-6">
+        There was an issue loading the full admin dashboard. This fallback mode ensures basic access.
+      </p>
+      <div className="space-y-4">
+        <div className="bg-green-50 border border-green-200 rounded p-3">
+          <p className="text-green-800 text-sm">✅ Dashboard routing is working</p>
+        </div>
+        <div className="bg-blue-50 border border-blue-200 rounded p-3">
+          <p className="text-blue-800 text-sm">🛡️ Error boundary is active</p>
+        </div>
+      </div>
+      <div className="mt-6 space-x-3">
+        <button 
+          onClick={() => window.location.reload()} 
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          🔄 Reload Dashboard
+        </button>
+        <a 
+          href="/" 
+          className="inline-block bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
+        >
+          ← Go Home
+        </a>
+      </div>
+    </div>
+  </div>
+);
 
 const AdminDashboard: React.FC = () => {
+  // Robust error handling for hook initialization
+  let authHookData;
+  try {
+    authHookData = useAuth();
+  } catch (error) {
+    console.error('Auth hook error:', error);
+    // If auth context fails, show fallback immediately
+    return <AdminFallback />;
+  }
+
   // ALL HOOKS MUST BE AT THE TOP - BEFORE ANY CONDITIONAL LOGIC
-  const { isAuthenticated, isAdmin, email, logout, loading: authLoading } = useAuth();
+  const { isAuthenticated, isAdmin, email, logout, loading: authLoading } = authHookData;
   const [activeTab, setActiveTab] = useState<'content' | 'versions' | 'settings' | 'analytics'>('content');
   const [contentVersions, setContentVersions] = useState<ContentVersion[]>([]);
   const [currentContent, setCurrentContent] = useState(productData);
@@ -432,4 +500,11 @@ const AdminDashboard: React.FC = () => {
   );
 };
 
-export default AdminDashboard; 
+// Main export with error boundary protection
+const AdminDashboardWithErrorBoundary: React.FC = () => (
+  <AdminErrorBoundary fallback={() => <AdminFallback />}>
+    <AdminDashboard />
+  </AdminErrorBoundary>
+);
+
+export default AdminDashboardWithErrorBoundary; 

@@ -1,5 +1,6 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
+import { withCors, createDbClient, sendJSON, handleError } from './utils';
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
@@ -8,22 +9,9 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  // Handle preflight OPTIONS request
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: '',
-    };
-  }
-
+const dbTablesHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   if (event.httpMethod !== 'GET') {
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' }),
-    };
+    return sendJSON(405, { error: 'Method not allowed' });
   }
 
   const client = new Client({
@@ -65,4 +53,4 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   }
 };
 
-export { handler }; 
+export const handler = withCors(dbTablesHandler); 

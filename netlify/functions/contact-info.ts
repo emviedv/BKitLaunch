@@ -1,30 +1,6 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
-
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Content-Type': 'application/json',
-};
-
-const createDbClient = () => {
-  return new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  });
-};
-
-const verifyToken = (authHeader: string | undefined): boolean => {
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return false;
-  }
-  
-  const token = authHeader.substring(7);
-  return token.length > 10;
-};
+import { withCors, createDbClient, sendJSON, handleError, verifyToken } from './utils';
 
 const initializeTables = async (client: Client) => {
   await client.query(`
@@ -38,22 +14,10 @@ const initializeTables = async (client: Client) => {
   `);
 };
 
-const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: '',
-    };
-  }
-
+const contactInfoHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   // Only require auth for write operations
   if (['POST', 'PUT', 'DELETE'].includes(event.httpMethod) && !verifyToken(event.headers.authorization)) {
-    return {
-      statusCode: 401,
-      headers,
-      body: JSON.stringify({ error: 'Unauthorized' }),
-    };
+    return sendJSON(401, { error: 'Unauthorized' });
   }
 
   const client = createDbClient();
@@ -76,22 +40,10 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         return await handleDelete(client);
 
       default:
-        return {
-          statusCode: 405,
-          headers,
-          body: JSON.stringify({ error: 'Method not allowed' }),
-        };
+        return sendJSON(405, { error: 'Method not allowed' });
     }
   } catch (error) {
-    console.error('Contact info error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        success: false,
-        error: 'Internal server error'
-      }),
-    };
+    return handleError(error, 'Contact info');
   } finally {
     await client.end();
   }
@@ -102,33 +54,21 @@ const handleGet = async (client: Client) => {
     'SELECT * FROM contact_info ORDER BY id DESC LIMIT 1'
   );
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      data: result.rows[0] || null
-    }),
-  };
+  return sendJSON(200, {
+    success: true,
+    data: result.rows[0] || null
+  });
 };
 
 const handlePost = async (client: Client, body: string | null) => {
   if (!body) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Request body required' }),
-    };
+    return sendJSON(400, { error: 'Request body required' });
   }
 
   const { email, twitter, github } = JSON.parse(body);
 
   if (!email) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Email is required' }),
-    };
+    return sendJSON(400, { error: 'Email is required' });
   }
 
   // Delete existing contact info (we only keep one record)
@@ -140,23 +80,15 @@ const handlePost = async (client: Client, body: string | null) => {
     [email, twitter, github]
   );
 
-  return {
-    statusCode: 201,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      data: result.rows[0]
-    }),
-  };
+  return sendJSON(201, {
+    success: true,
+    data: result.rows[0]
+  });
 };
 
 const handlePut = async (client: Client, body: string | null) => {
   if (!body) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Request body required' }),
-    };
+    return sendJSON(400, { error: 'Request body required' });
   }
 
   const { email, twitter, github } = JSON.parse(body);
@@ -196,14 +128,10 @@ const handlePut = async (client: Client, body: string | null) => {
     values
   );
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      data: result.rows[0]
-    }),
-  };
+  return sendJSON(200, {
+    success: true,
+    data: result.rows[0]
+  });
 };
 
 const handleDelete = async (client: Client) => {
@@ -211,15 +139,11 @@ const handleDelete = async (client: Client) => {
     'DELETE FROM contact_info RETURNING *'
   );
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      message: 'Contact info deleted successfully',
-      data: result.rows
-    }),
-  };
+  return sendJSON(200, {
+    success: true,
+    message: 'Contact info deleted successfully',
+    data: result.rows
+  });
 };
 
-export { handler };
+export const handler = withCors(contactInfoHandler);

@@ -197,6 +197,124 @@ class ContentAPI {
     }
   }
 
+  // Sync JSON content to content_sections tables
+  async syncJsonToSections(jsonContent: any): Promise<ApiResponse<null>> {
+    debugService.saveStart('Syncing JSON content to sections tables');
+    
+    try {
+      const syncResults = [];
+      
+      // Helper function to upsert a section
+      const upsertSection = async (sectionType: string, sectionData: any) => {
+        // First, try to get existing section
+        const existingResponse = await this.getSection(sectionType);
+        
+        if (existingResponse.success && existingResponse.data) {
+          // Update existing section
+          const updateResponse = await this.updateSection(existingResponse.data.id, {
+            section_data: sectionData,
+            updated_at: new Date().toISOString()
+          });
+          return { operation: 'updated', sectionType, success: updateResponse.success };
+        } else {
+          // Create new section
+          const createResponse = await this.createSection({
+            section_type: sectionType,
+            section_data: sectionData,
+            is_visible: true,
+            sort_order: 0
+          });
+          return { operation: 'created', sectionType, success: createResponse.success };
+        }
+      };
+
+      // Sync hero section
+      if (jsonContent.hero) {
+        const result = await upsertSection('hero', jsonContent.hero);
+        syncResults.push(result);
+      }
+
+      // Sync features section
+      if (jsonContent.features) {
+        // For features, we need to handle the array structure
+        const featuresSection = {
+          title: "Everything you need to build and scale",
+          description: "From secure API management to comprehensive support systems, we provide all the tools you need for professional SaaS development.",
+          items: jsonContent.features
+        };
+        const result = await upsertSection('features', featuresSection);
+        syncResults.push(result);
+      }
+
+      // Sync pricing section
+      if (jsonContent.pricing) {
+        const pricingSection = {
+          title: "Choose your plan",
+          description: "Start free and scale as you grow. No hidden fees, no surprises.",
+          plans: jsonContent.pricing
+        };
+        const result = await upsertSection('pricing', pricingSection);
+        syncResults.push(result);
+      }
+
+      // Sync settings visibility as CTA section
+      if (jsonContent.settings?.visibility?.cta !== false) {
+        const ctaSection = {
+          title: "Ready to get started?",
+          description: "Join thousands of developers and designers who trust BiblioKit for their SaaS and plugin development needs.",
+          primary_button: "Start Free Trial",
+          secondary_button: "Schedule Demo",
+          is_visible: jsonContent.settings?.visibility?.cta !== false
+        };
+        const result = await upsertSection('cta', ctaSection);
+        syncResults.push(result);
+      }
+
+      // Sync contact info if present
+      if (jsonContent.contact) {
+        try {
+          const contactResponse = await this.updateContactInfo({
+            email: jsonContent.contact.email,
+            twitter: jsonContent.contact.twitter,
+            github: jsonContent.contact.github
+          });
+          syncResults.push({ 
+            operation: 'updated', 
+            sectionType: 'contact', 
+            success: contactResponse.success 
+          });
+        } catch (error) {
+          debugService.error('Failed to sync contact info', error);
+          syncResults.push({ 
+            operation: 'failed', 
+            sectionType: 'contact', 
+            success: false 
+          });
+        }
+      }
+
+      const allSuccessful = syncResults.every(result => result.success);
+      
+      debugService.saveSuccess('JSON to sections sync completed', { 
+        results: syncResults,
+        allSuccessful 
+      });
+
+      return {
+        success: allSuccessful,
+        data: null,
+        message: `Synced ${syncResults.filter(r => r.success).length}/${syncResults.length} sections successfully`
+      };
+
+    } catch (error) {
+      debugService.saveError('JSON to sections sync failed', error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to sync JSON to sections'
+      };
+    }
+  }
+
   // Content Sections CRUD Operations
 
   // Get all sections
@@ -481,6 +599,51 @@ class ContentAPI {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to update contact info'
+      };
+    }
+  }
+
+  // Waitlist Operations
+
+  // Join waitlist - adds email to users table
+  async joinWaitingList(email: string): Promise<ApiResponse<any>> {
+    const url = this.getApiUrl('users');
+    const payload = { email, name: 'Waitlist User' };
+    
+    debugService.apiRequest('POST', url, payload);
+    debugService.info('Waitlist signup started', { email });
+    
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await response.json();
+      debugService.apiResponse('POST', url, responseData);
+
+      if (!response.ok) {
+        debugService.apiError('POST', url, `HTTP ${response.status}: ${response.statusText}`);
+        return {
+          success: false,
+          error: responseData.error || `HTTP ${response.status}: ${response.statusText}`
+        };
+      }
+
+      debugService.info('Waitlist signup successful', { email, userData: responseData });
+      return {
+        success: true,
+        data: responseData,
+        message: 'Successfully joined waitlist'
+      };
+    } catch (error) {
+      debugService.apiError('POST', url, error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to join waitlist'
       };
     }
   }

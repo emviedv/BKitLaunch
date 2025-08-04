@@ -1,46 +1,10 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
+import { withCors, createDbClient, sendJSON, handleError, verifyToken } from './utils';
 
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Content-Type': 'application/json',
-};
-
-const createDbClient = () => {
-  return new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  });
-};
-
-const verifyToken = (authHeader: string | undefined): boolean => {
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return false;
-  }
-  
-  const token = authHeader.substring(7);
-  return token.length > 10;
-};
-
-const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: '',
-    };
-  }
-
+const pricingPlansHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   if (!verifyToken(event.headers.authorization)) {
-    return {
-      statusCode: 401,
-      headers,
-      body: JSON.stringify({ error: 'Unauthorized' }),
-    };
+    return sendJSON(401, { error: 'Unauthorized' });
   }
 
   const client = createDbClient();
@@ -65,22 +29,10 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
         return await handleDelete(client, planId);
 
       default:
-        return {
-          statusCode: 405,
-          headers,
-          body: JSON.stringify({ error: 'Method not allowed' }),
-        };
+        return sendJSON(405, { error: 'Method not allowed' });
     }
   } catch (error) {
-    console.error('Pricing plans error:', error);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        success: false,
-        error: 'Internal server error'
-      }),
-    };
+    return handleError(error, 'Pricing plans');
   } finally {
     await client.end();
   }
@@ -94,44 +46,28 @@ const handleGet = async (client: Client, planId: string) => {
     );
 
     if (result.rows.length === 0) {
-      return {
-        statusCode: 404,
-        headers,
-        body: JSON.stringify({ error: 'Pricing plan not found' }),
-      };
+        return sendJSON(404, { error: 'Pricing plan not found' });
     }
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        success: true,
-        data: result.rows[0]
-      }),
-    };
+    return sendJSON(200, {
+      success: true,
+      data: result.rows[0]
+    });
   } else {
     const result = await client.query(
       'SELECT * FROM pricing_plans ORDER BY sort_order ASC'
     );
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        success: true,
-        data: result.rows
-      }),
-    };
+    return sendJSON(200, {
+      success: true,
+      data: result.rows
+    });
   }
 };
 
 const handlePost = async (client: Client, body: string | null) => {
   if (!body) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Request body required' }),
-    };
+    return sendJSON(400, { error: 'Request body required' });
   }
 
   const { 
@@ -142,55 +78,40 @@ const handlePost = async (client: Client, body: string | null) => {
     description, 
     features, 
     button_text, 
+    button_link,
     is_popular = false, 
     sort_order = 0 
   } = JSON.parse(body);
 
   if (!section_id || !name || !price || !button_text || !features) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ 
-        error: 'section_id, name, price, button_text, and features are required' 
-      }),
-    };
+    return sendJSON(400, { 
+      error: 'section_id, name, price, button_text, and features are required' 
+    });
   }
 
   const result = await client.query(
-    `INSERT INTO pricing_plans (section_id, name, price, period, description, features, button_text, is_popular, sort_order)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
-    [section_id, name, price, period, description, JSON.stringify(features), button_text, is_popular, sort_order]
+    `INSERT INTO pricing_plans (section_id, name, price, period, description, features, button_text, button_link, is_popular, sort_order)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+    [section_id, name, price, period, description, JSON.stringify(features), button_text, button_link, is_popular, sort_order]
   );
 
-  return {
-    statusCode: 201,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      data: result.rows[0]
-    }),
-  };
+  return sendJSON(201, {
+    success: true,
+    data: result.rows[0]
+  });
 };
 
 const handlePut = async (client: Client, body: string | null, planId: string) => {
   if (!body) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Request body required' }),
-    };
+    return sendJSON(400, { error: 'Request body required' });
   }
 
   const id = parseInt(planId);
   if (isNaN(id)) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Invalid pricing plan ID' }),
-    };
+    return sendJSON(400, { error: 'Invalid pricing plan ID' });
   }
 
-  const { name, price, period, description, features, button_text, is_popular, sort_order } = JSON.parse(body);
+  const { name, price, period, description, features, button_text, button_link, is_popular, sort_order } = JSON.parse(body);
   const updates: string[] = [];
   const values: any[] = [];
   let valueIndex = 1;
@@ -225,6 +146,11 @@ const handlePut = async (client: Client, body: string | null, planId: string) =>
     values.push(button_text);
   }
 
+  if (button_link !== undefined) {
+    updates.push(`button_link = $${valueIndex++}`);
+    values.push(button_link);
+  }
+
   if (is_popular !== undefined) {
     updates.push(`is_popular = $${valueIndex++}`);
     values.push(is_popular);
@@ -244,11 +170,7 @@ const handlePut = async (client: Client, body: string | null, planId: string) =>
   );
 
   if (result.rows.length === 0) {
-    return {
-      statusCode: 404,
-      headers,
-      body: JSON.stringify({ error: 'Pricing plan not found' }),
-    };
+      return sendJSON(404, { error: 'Pricing plan not found' });
   }
 
   return {
@@ -264,11 +186,7 @@ const handlePut = async (client: Client, body: string | null, planId: string) =>
 const handleDelete = async (client: Client, planId: string) => {
   const id = parseInt(planId);
   if (isNaN(id)) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Invalid pricing plan ID' }),
-    };
+    return sendJSON(400, { error: 'Invalid pricing plan ID' });
   }
 
   const result = await client.query(
@@ -277,21 +195,13 @@ const handleDelete = async (client: Client, planId: string) => {
   );
 
   if (result.rows.length === 0) {
-    return {
-      statusCode: 404,
-      headers,
-      body: JSON.stringify({ error: 'Pricing plan not found' }),
-    };
+      return sendJSON(404, { error: 'Pricing plan not found' });
   }
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      message: 'Pricing plan deleted successfully'
-    }),
-  };
+  return sendJSON(200, {
+    success: true,
+    message: 'Pricing plan deleted successfully'
+  });
 };
 
-export { handler };
+export const handler = withCors(pricingPlansHandler);

@@ -1,8 +1,59 @@
 import React, { useState } from 'react';
+import { debugService } from '../lib/debugService';
+import { contentApi } from '../lib/contentApi';
+
+interface WaitlistState {
+  email: string;
+  isLoading: boolean;
+  submitted: boolean;
+  error: string | null;
+}
 
 const Waitlist = () => {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [state, setState] = useState<WaitlistState>({
+    email: '',
+    isLoading: false,
+    submitted: false,
+    error: null
+  });
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+    setState(prev => ({ ...prev, email: newEmail, error: null }));
+    debugService.debug('Waitlist email input changed', { email: newEmail });
+  };
+
+  const joinWaitingList = async (email: string): Promise<void> => {
+    debugService.info('Waitlist component calling API', { email });
+    
+    const result = await contentApi.joinWaitingList(email);
+    
+    if (!result.success) {
+      throw new Error(result.error || 'Failed to join waitlist');
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (!state.email.trim()) {
+      setState(prev => ({ ...prev, error: 'Please enter your email address.' }));
+      return;
+    }
+
+    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    debugService.info('Waitlist form submitted', { email: state.email });
+
+    try {
+      await joinWaitingList(state.email);
+      setState(prev => ({ ...prev, submitted: true, isLoading: false }));
+      debugService.info('Waitlist signup completed successfully', { email: state.email });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to join waitlist. Please try again.';
+      setState(prev => ({ ...prev, error: errorMessage, isLoading: false }));
+      debugService.error('Waitlist signup failed', { email: state.email, error: errorMessage });
+    }
+  };
 
   return (
     <section className="py-16 px-4 bg-purple-50">
@@ -14,39 +65,48 @@ const Waitlist = () => {
           Be the first to know when BiblioKit launches. Get early access and exclusive updates.
         </p>
         
-        {submitted ? (
-          <div className="bg-green-100 text-green-700 p-4 rounded-lg">
+        {state.submitted ? (
+          <div className="bg-green-100 text-green-700 p-4 rounded-lg" role="status" aria-live="polite">
             Thank you for joining our waitlist! We'll keep you updated.
           </div>
         ) : (
           <form
-            name="waitlist"
-            method="POST"
-            data-netlify="true"
             className="flex flex-col sm:flex-row gap-4 justify-center"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSubmitted(true);
-              // The form will be handled by Netlify
-            }}
+            onSubmit={handleSubmit}
           >
-            <input type="hidden" name="form-name" value="waitlist" />
+            <label htmlFor="waitlist-email" className="sr-only">
+              Email address
+            </label>
             <input
+              id="waitlist-email"
               type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={state.email}
+              onChange={handleEmailChange}
               placeholder="Enter your email"
               required
-              className="flex-1 max-w-md px-4 py-2 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              disabled={state.isLoading}
+              className="flex-1 max-w-md px-4 py-2 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-describedby={state.error ? "waitlist-error" : undefined}
             />
             <button
               type="submit"
-              className="btn-primary bg-purple-600 text-white hover:bg-purple-700 px-8 py-2 rounded-lg"
+              disabled={state.isLoading || !state.email.trim()}
+              className="btn-primary bg-purple-600 text-white hover:bg-purple-700 px-8 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
             >
-              Join Waitlist
+              {state.isLoading ? 'Joining...' : 'Join Waitlist'}
             </button>
           </form>
+        )}
+        
+        {state.error && (
+          <div 
+            id="waitlist-error" 
+            className="mt-4 bg-red-100 text-red-700 p-3 rounded-lg" 
+            role="alert" 
+            aria-live="assertive"
+          >
+            {state.error}
+          </div>
         )}
       </div>
     </section>

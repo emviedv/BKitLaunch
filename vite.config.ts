@@ -18,9 +18,6 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true,
   },
-  publicDir: 'public',
-  // Copy _redirects file to build output
-  assetsInclude: ['**/_redirects'],
   define: {
     // Add timestamp to force cache busting
     __CACHE_BUST__: JSON.stringify(Date.now()),
