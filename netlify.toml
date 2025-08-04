@@ -7,6 +7,27 @@
   NODE_VERSION = "18"
   # INDEXNOW_KEY will be set in Netlify dashboard
 
+# JavaScript/TypeScript module MIME types
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
+
+[[headers]]
+  for = "*.mjs"
+  [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
+
+[[headers]]
+  for = "*.tsx"
+  [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
+
+[[headers]]
+  for = "*.ts"
+  [headers.values]
+    Content-Type = "text/javascript; charset=utf-8"
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -19,12 +40,9 @@
     # Content Security Policy
     Content-Security-Policy = "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:;"
 
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+# Redirects moved to public/_redirects file for better dev compatibility
 
-# Force HTTPS redirect
+# Force HTTPS redirect - production only
 [[redirects]]
   from = "http://bibliokit.com/*"
   to = "https://bibliokit.com/:splat"

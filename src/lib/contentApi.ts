@@ -5,6 +5,7 @@ import type {
   PricingPlan, 
   ContactInfo 
 } from './database';
+import { debugService } from './debugService';
 
 interface ContentVersion {
   id: number;
@@ -95,22 +96,39 @@ class ContentAPI {
 
   // Save new content (draft or published)
   async saveContent(contentData: any, isPublished: boolean = false): Promise<ApiResponse<ContentVersion>> {
+    const url = this.getApiUrl('content-management');
+    const payload = { contentData, isPublished };
+    
+    debugService.apiRequest('POST', url, payload);
+    debugService.saveStart(`Content save (${isPublished ? 'published' : 'draft'})`, { 
+      contentKeys: Object.keys(contentData), 
+      isPublished 
+    });
+    
     try {
-      const response = await fetch(this.getApiUrl('content-management'), {
+      const response = await fetch(url, {
         method: 'POST',
         headers: this.getHeaders(),
-        body: JSON.stringify({
-          contentData,
-          isPublished
-        }),
+        body: JSON.stringify(payload),
       });
 
+      const responseData = await response.json();
+      debugService.apiResponse('POST', url, responseData);
+
       if (!response.ok) {
+        debugService.apiError('POST', url, `HTTP ${response.status}: ${response.statusText}`);
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      return await response.json();
+      if (responseData.success) {
+        debugService.saveSuccess('Content save API completed', responseData.data);
+      } else {
+        debugService.saveError('Content save API failed', responseData.error);
+      }
+
+      return responseData;
     } catch (error) {
+      debugService.saveError('Content save API exception', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to save content'
@@ -169,10 +187,14 @@ class ContentAPI {
 
   // Check if database is available (fallback to localStorage if not)
   async isDatabaseAvailable(): Promise<boolean> {
+    debugService.dbConnection('Checking database availability');
     try {
       const response = await this.getCurrentContent();
-      return response.success;
-    } catch {
+      const available = response.success;
+      debugService.dbConnection(available ? 'Database available' : 'Database unavailable', response);
+      return available;
+    } catch (error) {
+      debugService.dbConnection('Database check failed', error);
       return false;
     }
   }

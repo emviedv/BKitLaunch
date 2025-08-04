@@ -154,8 +154,18 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
     await initializeTables(client);
 
     const pathParts = event.path.split('/').filter(part => part);
-    const resource = pathParts[pathParts.length - 1]; // content-sections
-    const sectionTypeOrId = pathParts[pathParts.length - 2];
+    const resource = pathParts[pathParts.length - 1]; // content-sections or section-type/id
+    
+    // For routes like /.netlify/functions/content-sections/{type}
+    // we want to extract the type from the last segment
+    let sectionTypeOrId = resource;
+    
+    // If this is a sub-route (more than just the function name), 
+    // check if we have a section type in the path
+    if (pathParts.length > 3) {
+      // Path like /.netlify/functions/content-sections/features
+      sectionTypeOrId = pathParts[pathParts.length - 1];
+    }
 
     switch (event.httpMethod) {
       case 'GET':

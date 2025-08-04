@@ -3,6 +3,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import AdminLogin from './AdminLogin';
 import productData from '@/data/products.json';
 import { contentApi } from '@/lib/contentApi';
+import { debugService } from '@/lib/debugService';
 import { 
   ContentSection, 
   SectionType, 
@@ -41,32 +42,184 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
   const [databaseAvailable, setDatabaseAvailable] = useState<boolean | null>(null);
   const { isAuthenticated, isAdmin, logout } = useAuth();
 
-  const handleSave = () => {
+  // Build unified content object from database sections and contact info
+  const buildUnifiedContentFromDatabase = (sections: any[], contactInfo: ContactInfo | null) => {
+    debugService.contentUpdate('Building unified content from database sections', { sectionCount: sections.length });
+    
+    // Start with default structure from productData as fallback
+    const unifiedContent: any = { ...productData };
+    
+    // Map database sections to content structure
+    sections.forEach((section: any) => {
+      const sectionData = section.section_data || {};
+      
+      switch (section.section_type) {
+        case 'hero':
+          unifiedContent.hero = {
+            ...unifiedContent.hero,
+            ...sectionData,
+            // Ensure we preserve any structure from productData that might not be in DB
+            settings: { ...unifiedContent.hero?.settings, ...sectionData.settings }
+          };
+          break;
+        case 'features':
+          unifiedContent.features = {
+            ...unifiedContent.features,
+            ...sectionData,
+            // If section has related features, include them
+            items: section.features || sectionData.items || unifiedContent.features?.items || []
+          };
+          break;
+        case 'pricing':
+          unifiedContent.pricing = {
+            ...unifiedContent.pricing,
+            ...sectionData,
+            // If section has related plans, include them
+            plans: section.plans || sectionData.plans || unifiedContent.pricing?.plans || []
+          };
+          break;
+        case 'cta':
+          if (!unifiedContent.cta) unifiedContent.cta = {};
+          unifiedContent.cta = {
+            ...unifiedContent.cta,
+            ...sectionData
+          };
+          break;
+        case 'waitlist':
+          if (!unifiedContent.waitlist) unifiedContent.waitlist = {};
+          unifiedContent.waitlist = {
+            ...unifiedContent.waitlist,
+            ...sectionData
+          };
+          break;
+        case 'header':
+          if (!unifiedContent.header) unifiedContent.header = {};
+          unifiedContent.header = {
+            ...unifiedContent.header,
+            ...sectionData,
+            // Include navigation items if present
+            navigation: section.navigation_items || sectionData.navigation || unifiedContent.header?.navigation || []
+          };
+          break;
+        case 'footer':
+          if (!unifiedContent.footer) unifiedContent.footer = {};
+          unifiedContent.footer = {
+            ...unifiedContent.footer,
+            ...sectionData,
+            // Include footer links if present
+            links: section.footer_links || sectionData.links || unifiedContent.footer?.links || []
+          };
+          break;
+        default:
+          // For any other section types, add them directly
+          unifiedContent[section.section_type] = sectionData;
+      }
+    });
+    
+    // Add contact info if available
+    if (contactInfo) {
+      unifiedContent.contact = contactInfo;
+    }
+    
+    debugService.contentUpdate('Unified content built successfully', { 
+      sections: Object.keys(unifiedContent),
+      hasContact: !!contactInfo 
+    });
+    
+    return unifiedContent;
+  };
+
+  const handleSave = async () => {
+    debugService.saveStart('Main content save', { editMode, databaseAvailable });
+    
     try {
       let contentToSave;
       if (editMode === 'json') {
-        contentToSave = JSON.parse(jsonContent);
+        try {
+          contentToSave = JSON.parse(jsonContent);
+          debugService.contentUpdate('JSON parsed successfully', { contentKeys: Object.keys(contentToSave) });
+        } catch (parseError) {
+          debugService.saveError('JSON parse failed', parseError);
+          alert('Invalid JSON format. Please check your syntax.');
+          return;
+        }
       } else {
         contentToSave = savedContent;
+        debugService.contentUpdate('Using current saved content', { contentKeys: Object.keys(contentToSave) });
       }
       
-      setSavedContent(contentToSave);
+      let saveSuccess = false;
       
-      // Store in localStorage for persistence during the session
-      localStorage.setItem('bibliokit-content', JSON.stringify(contentToSave));
-      
-      // Notify parent component of content update
-      if (onContentUpdate) {
-        onContentUpdate(contentToSave);
+      // Try to save to database first if available
+      if (databaseAvailable) {
+        debugService.saveStart('Saving to database');
+        try {
+          const response = await contentApi.saveContent(contentToSave, true); // Save as published
+          if (response.success) {
+            debugService.saveSuccess('Database save completed', response.data);
+            saveSuccess = true;
+          } else {
+            debugService.saveError('Database save failed', response.error);
+            // Fall back to localStorage
+          }
+        } catch (error) {
+          debugService.saveError('Database save exception', error);
+          // Fall back to localStorage
+        }
       }
       
-      // Force a page reload to show changes
-      window.location.reload();
+      // Always save to localStorage as backup/fallback
+      debugService.saveStart('Saving to localStorage');
+      try {
+        localStorage.setItem('bibliokit-content', JSON.stringify(contentToSave));
+        debugService.saveSuccess('localStorage save completed');
+        if (!saveSuccess) saveSuccess = true; // At least localStorage worked
+      } catch (error) {
+        debugService.saveError('localStorage save failed', error);
+      }
       
-      setIsEditing(false);
+      if (saveSuccess) {
+        // Update state without page reload
+        setSavedContent(contentToSave);
+        setJsonContent(JSON.stringify(contentToSave, null, 2));
+        setIsEditing(false);
+        
+        // Notify parent component of content update
+        if (onContentUpdate) {
+          debugService.contentUpdate('Notifying parent component');
+          onContentUpdate(contentToSave);
+        }
+        
+        debugService.saveSuccess('Content save completed successfully');
+        
+        // Show success message briefly
+        const successMessage = databaseAvailable ? 'Content saved to database!' : 'Content saved locally!';
+        showSaveNotification(successMessage, 'success');
+        
+        // Reload database content to reflect changes for both database and JSON modes
+        if (databaseAvailable) {
+          await loadDatabaseContent();
+        }
+      } else {
+        debugService.saveError('All save methods failed', 'No successful save operation completed');
+        showSaveNotification('Failed to save content. Please try again.', 'error');
+      }
+      
     } catch (error) {
-      alert('Invalid JSON format. Please check your syntax.');
+      debugService.saveError('Unexpected error during save', error);
+      showSaveNotification('An unexpected error occurred while saving.', 'error');
     }
+  };
+
+  // Add notification system for save feedback
+  const [saveNotification, setSaveNotification] = useState<{
+    message: string;
+    type: 'success' | 'error' | 'info';
+  } | null>(null);
+
+  const showSaveNotification = (message: string, type: 'success' | 'error' | 'info') => {
+    setSaveNotification({ message, type });
+    setTimeout(() => setSaveNotification(null), 3000);
   };
 
   const handleReset = () => {
@@ -118,28 +271,45 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
   // Check database availability and load content
   useEffect(() => {
     const checkDatabase = async () => {
-      if (!isAuthenticated || !isAdmin) return;
+      if (!isAuthenticated || !isAdmin) {
+        debugService.authEvent('Content editor access denied - not authenticated or admin');
+        return;
+      }
       
+      debugService.info('Starting database availability check');
       setLoading(true);
-      const available = await contentApi.isDatabaseAvailable();
-      setDatabaseAvailable(available);
       
-      if (available) {
-        await loadDatabaseContent();
-      } else {
-        // Fallback to localStorage
-        const saved = localStorage.getItem('bibliokit-content');
-        if (saved) {
-          try {
-            const parsed = JSON.parse(saved);
-            setSavedContent(parsed);
-            setJsonContent(JSON.stringify(parsed, null, 2));
-          } catch (error) {
-            console.error('Failed to load saved content:', error);
+      try {
+        const available = await contentApi.isDatabaseAvailable();
+        setDatabaseAvailable(available);
+        debugService.dbConnection(available ? 'Database available' : 'Database unavailable');
+        
+        if (available) {
+          debugService.contentLoad('Loading content from database');
+          await loadDatabaseContent();
+        } else {
+          debugService.contentLoad('Falling back to localStorage');
+          // Fallback to localStorage
+          const saved = localStorage.getItem('bibliokit-content');
+          if (saved) {
+            try {
+              const parsed = JSON.parse(saved);
+              setSavedContent(parsed);
+              setJsonContent(JSON.stringify(parsed, null, 2));
+              debugService.contentLoad('localStorage content loaded successfully', { keys: Object.keys(parsed) });
+            } catch (error) {
+              debugService.error('Failed to parse localStorage content', error);
+            }
+          } else {
+            debugService.contentLoad('No localStorage content found, using defaults');
           }
         }
+      } catch (error) {
+        debugService.error('Database check failed', error);
+        setDatabaseAvailable(false);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     checkDatabase();
@@ -147,56 +317,113 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
 
   // Load all content from database
   const loadDatabaseContent = async () => {
+    debugService.contentLoad('Starting database content load');
     try {
       const [sectionsResponse, contactResponse] = await Promise.all([
         contentApi.getAllSections(),
         contentApi.getContactInfo()
       ]);
 
+      debugService.apiResponse('GET', 'sections', sectionsResponse);
+      debugService.apiResponse('GET', 'contact', contactResponse);
+
       if (sectionsResponse.success) {
         setSections(sectionsResponse.data || []);
+        debugService.contentLoad('Sections loaded', { count: sectionsResponse.data?.length || 0 });
+      } else {
+        debugService.error('Failed to load sections', sectionsResponse.error);
       }
 
       if (contactResponse.success) {
         setContactInfo(contactResponse.data || null);
+        debugService.contentLoad('Contact info loaded', contactResponse.data);
+      } else {
+        debugService.error('Failed to load contact info', contactResponse.error);
       }
+
+      // Rebuild unified content object from database sections and contact info
+      const liveContent = buildUnifiedContentFromDatabase(
+        sectionsResponse.success ? sectionsResponse.data || [] : [],
+        contactResponse.success ? contactResponse.data || null : null
+      );
+
+      // Update JSON editor state with live database content
+      setSavedContent(liveContent);
+      setJsonContent(JSON.stringify(liveContent, null, 2));
+      debugService.contentLoad('Unified content rebuilt from database', { 
+        sections: Object.keys(liveContent).filter(key => key !== 'contact'),
+        hasContact: !!liveContent.contact 
+      });
+
     } catch (error) {
-      console.error('Failed to load database content:', error);
+      debugService.error('Database content load failed', error);
       setError('Failed to load content from database');
     }
   };
 
   // Save section to database
   const saveSection = async (section: Partial<ContentSection>) => {
-    if (!section.id) {
-      // Create new section
-      const response = await contentApi.createSection(section as Omit<ContentSection, 'id' | 'created_at' | 'updated_at'>);
-      if (response.success) {
-        await loadDatabaseContent();
-        setError(null);
+    const operation = section.id ? 'update' : 'create';
+    debugService.saveStart(`Section ${operation}`, { sectionType: section.section_type, id: section.id });
+    
+    try {
+      let response;
+      if (!section.id) {
+        // Create new section
+        debugService.apiRequest('POST', 'content-sections', section);
+        response = await contentApi.createSection(section as Omit<ContentSection, 'id' | 'created_at' | 'updated_at'>);
       } else {
-        setError(response.error || 'Failed to create section');
+        // Update existing section
+        debugService.apiRequest('PUT', `content-sections/${section.id}`, section);
+        response = await contentApi.updateSection(section.id, section);
       }
-    } else {
-      // Update existing section
-      const response = await contentApi.updateSection(section.id, section);
+      
+      debugService.apiResponse(operation.toUpperCase(), 'content-sections', response);
+      
       if (response.success) {
-        await loadDatabaseContent();
+        debugService.saveSuccess(`Section ${operation} completed`, response.data);
+        await loadDatabaseContent(); // This will rebuild unified content automatically
         setError(null);
+        showSaveNotification(`${section.section_type} section ${operation}d successfully!`, 'success');
       } else {
-        setError(response.error || 'Failed to update section');
+        const errorMsg = response.error || `Failed to ${operation} section`;
+        debugService.saveError(`Section ${operation} failed`, errorMsg);
+        setError(errorMsg);
+        showSaveNotification(errorMsg, 'error');
       }
+    } catch (error) {
+      debugService.saveError(`Section ${operation} exception`, error);
+      const errorMsg = `Unexpected error during section ${operation}`;
+      setError(errorMsg);
+      showSaveNotification(errorMsg, 'error');
     }
   };
 
   // Delete section from database
   const deleteSection = async (sectionId: number) => {
-    const response = await contentApi.deleteSection(sectionId);
-    if (response.success) {
-      await loadDatabaseContent();
-      setError(null);
-    } else {
-      setError(response.error || 'Failed to delete section');
+    debugService.saveStart('Section delete', { sectionId });
+    
+    try {
+      debugService.apiRequest('DELETE', `content-sections/${sectionId}`);
+      const response = await contentApi.deleteSection(sectionId);
+      debugService.apiResponse('DELETE', 'content-sections', response);
+      
+      if (response.success) {
+        debugService.saveSuccess('Section delete completed', { sectionId });
+        await loadDatabaseContent(); // This will rebuild unified content automatically
+        setError(null);
+        showSaveNotification('Section deleted successfully!', 'success');
+      } else {
+        const errorMsg = response.error || 'Failed to delete section';
+        debugService.saveError('Section delete failed', errorMsg);
+        setError(errorMsg);
+        showSaveNotification(errorMsg, 'error');
+      }
+    } catch (error) {
+      debugService.saveError('Section delete exception', error);
+      const errorMsg = 'Unexpected error during section delete';
+      setError(errorMsg);
+      showSaveNotification(errorMsg, 'error');
     }
   };
 
@@ -1263,6 +1490,23 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+      {/* Save Notification */}
+      {saveNotification && (
+        <div className={`fixed top-4 right-4 z-[60] px-4 py-2 rounded-lg shadow-lg transition-all duration-300 ${
+          saveNotification.type === 'success' ? 'bg-green-500 text-white' :
+          saveNotification.type === 'error' ? 'bg-red-500 text-white' :
+          'bg-blue-500 text-white'
+        }`}>
+          <div className="flex items-center gap-2">
+            <span>
+              {saveNotification.type === 'success' ? '✅' :
+               saveNotification.type === 'error' ? '❌' : 'ℹ️'}
+            </span>
+            <span>{saveNotification.message}</span>
+          </div>
+        </div>
+      )}
+      
       <div className="bg-background border border-border rounded-lg w-full max-w-6xl max-h-[90vh] flex flex-col">
         <div className="flex items-center justify-between p-4 border-b border-border">
           <div className="flex items-center gap-4">
