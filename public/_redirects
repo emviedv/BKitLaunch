@@ -1,0 +1,8 @@
+# BiblioKit Netlify Redirects
+# Order matters - rules are processed from top to bottom
+
+# CRITICAL: Exempt functions from SPA fallback - MUST come before /* catch-all
+/.netlify/functions/*  /.netlify/functions/:splat  200
+
+# SPA fallback for all other routes (must be last)
+/*  /index.html  200

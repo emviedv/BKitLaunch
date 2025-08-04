@@ -47,11 +47,7 @@
 # Redirects moved to public/_redirects file for better dev compatibility
 
 # CRITICAL: Exempt functions from SPA fallback - MUST come before /* catch-all
-[[redirects]]
-  from = "/.netlify/functions/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-  force = true
+# Note: Using _redirects file instead as netlify.toml doesn't support /.netlify paths
 
 # Force HTTPS redirect - production only
 [[redirects]]
