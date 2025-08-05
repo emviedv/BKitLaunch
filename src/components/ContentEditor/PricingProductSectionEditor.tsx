@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextInput, Button, ButtonField } from './FormFields';
 
 interface PricingProductSectionEditorProps {
@@ -6,6 +6,7 @@ interface PricingProductSectionEditorProps {
   pricing?: any[];
   product?: any;
   updateNestedField: (section: string, index: number | null, field: string, value: any) => void;
+  updateSection: (section: string, newData: any) => void;
   setEditMode: (mode: 'json' | 'sections' | 'database') => void;
 }
 
@@ -14,8 +15,18 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
   pricing,
   product,
   updateNestedField,
+  updateSection,
   setEditMode 
 }) => {
+  const [jsonEdit, setJsonEdit] = useState(false);
+  const [localJson, setLocalJson] = useState(JSON.stringify(product || {}, null, 2));
+
+  useEffect(() => {
+    if (product) {
+      setLocalJson(JSON.stringify(product, null, 2));
+    }
+  }, [product]);
+
   if (activeSection === 'pricing' && pricing) {
     return (
       <div className="space-y-6">
@@ -43,12 +54,48 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
   }
 
   if (activeSection === 'product' && product) {
+    if (jsonEdit) {
+      return (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold text-lg">Product Details JSON Editor</h3>
+            <Button variant="secondary" size="sm" onClick={() => setJsonEdit(false)}>
+              Cancel
+            </Button>
+          </div>
+          <textarea
+            value={localJson}
+            onChange={(e) => setLocalJson(e.target.value)}
+            className="w-full h-64 p-2 border border-border rounded font-mono text-sm"
+          />
+          <div className="flex space-x-2">
+            <Button
+              onClick={() => {
+                try {
+                  const parsed = JSON.parse(localJson);
+                  updateSection('product', parsed);
+                  setJsonEdit(false);
+                } catch {
+                  alert('Invalid JSON. Please correct and try again.');
+                }
+              }}
+            >
+              Save JSON
+            </Button>
+            <Button variant="secondary" onClick={() => setJsonEdit(false)}>
+              Cancel
+            </Button>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold text-lg">Product Details</h3>
-          <Button onClick={() => setEditMode('json')} variant="secondary" size="sm">
-            Advanced Editor
+          <Button variant="secondary" size="sm" onClick={() => setJsonEdit(true)}>
+            Edit JSON
           </Button>
         </div>
         

@@ -4,12 +4,14 @@
   "description": "BiblioKit - Simple Launch Version",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 5176",
-    "build": "tsc && vite build",
-    "preview": "vite preview --port 5176",
-    "serve": "vite preview --port 5176",
+    "dev": "vite --port 9990",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --ssrManifest --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "preview": "vite preview --port 9990",
+    "serve": "vite preview --port 9990",
     "netlify:dev": "netlify dev",
-    "netlify:build": "netlify build"
+    "netlify:build": "npm run build"
   },
   "dependencies": {
     "clsx": "^2.0.0",

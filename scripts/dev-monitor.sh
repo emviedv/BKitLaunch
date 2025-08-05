@@ -9,8 +9,8 @@ echo ""
 
 # Check if server is running
 check_server() {
-    if curl -s --connect-timeout 2 http://localhost:5175 > /dev/null; then
-        echo "✅ Server is running on http://localhost:5175"
+    if curl -s --connect-timeout 2 http://localhost:9989 > /dev/null; then
+        echo "✅ Server is running on http://localhost:9989"
         return 0
     else
         echo "❌ Server is not responding"

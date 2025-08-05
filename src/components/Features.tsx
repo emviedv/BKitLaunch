@@ -5,6 +5,27 @@ const Features = () => {
   const { content } = usePublishedContent();
   const { features } = content;
   const colorClasses = ['purple', 'blue', 'green', 'orange', 'pink', 'indigo'];
+
+  // Helper function to determine if a link is external
+  const isExternalLink = (url: string) => {
+    return url.startsWith('http://') || url.startsWith('https://');
+  };
+
+  // Handle button click for featured cards
+  const handleButtonClick = (e: React.MouseEvent, buttonLink?: string) => {
+    if (!buttonLink) {
+      e.preventDefault();
+      return;
+    }
+    
+    if (isExternalLink(buttonLink)) {
+      // External links are handled by the anchor tag naturally
+      return;
+    }
+    
+    // For internal links, you could add navigation logic here if needed
+    // For now, we'll let the anchor tag handle it
+  };
   
   // Badge color mapping - supports both predefined colors and hex values
   const getBadgeColorClasses = (color: string) => {
@@ -80,8 +101,8 @@ const Features = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {features.map((feature: any, index: number) => (
-            <div key={index} className="feature-card">
+          {features.map((feature: any, index: number) => (
+            <div key={index} className={`feature-card ${feature.isFeatured ? 'featured' : ''} ${feature.isFeatured ? 'flex flex-col max-w-4xl mx-auto' : ''}`}>
               <div className="flex items-center justify-between mb-6">
                 <div className={`icon-container ${colorClasses[index % colorClasses.length]}`}>
                   {feature.icon}
@@ -96,9 +117,23 @@ const Features = () => {
                 )}
               </div>
               <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-              <p className="text-muted-foreground">
+              <p className={`text-muted-foreground ${feature.isFeatured ? 'flex-grow' : ''}`}>
                 {feature.description}
               </p>
+              
+              {/* Featured card button */}
+              {feature.isFeatured && feature.buttonText && (
+                <a
+                  href={feature.buttonLink || '#'}
+                  className="feature-card-button"
+                  onClick={(e) => handleButtonClick(e, feature.buttonLink)}
+                  target={feature.buttonLink && isExternalLink(feature.buttonLink) ? '_blank' : '_self'}
+                  rel={feature.buttonLink && isExternalLink(feature.buttonLink) ? 'noopener noreferrer' : undefined}
+                  aria-label={`${feature.buttonText} - ${feature.title}`}
+                >
+                  {feature.buttonText}
+                </a>
+              )}
             </div>
           ))}
         </div>

@@ -11,18 +11,18 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative py-24 px-4 lemon-gradient text-white">
+    <section className="relative py-24 px-4 bg-gradient-to-br from-yellow-50/30 to-orange-100/30 text-gray-900">
       <div className="container mx-auto text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="text-white">{hero.title}</span>
+            <span className="text-gray-900">{hero.title}</span>
             <br />
-            <span className="text-white/90">{hero.subtitle}</span>
+            <span className="text-gray-700">{hero.subtitle}</span>
           </h1>
-          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             {hero.description}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             {hero.primaryButtonLink ? (
               <a 
                 href={hero.primaryButtonLink} 

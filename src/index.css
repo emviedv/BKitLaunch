@@ -49,6 +49,20 @@
     @apply bg-background p-6 rounded-lg border shadow-sm hover:shadow-md transition-shadow;
   }
 
+  .feature-card.featured {
+    @apply bg-gradient-to-br from-primary/5 via-primary/30 to-background p-8 border-primary/20 shadow-md hover:shadow-lg transition-all duration-300 relative;
+    grid-column: 1 / -1; /* Span all columns in the grid */
+  }
+
+  .feature-card.featured::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-primary/80 to-primary/60 rounded-t-lg;
+  }
+
+  .feature-card-button {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 mt-4 px-4 py-2 w-full;
+  }
+
   .pricing-card {
     @apply relative bg-background p-8 rounded-xl border shadow-sm hover:shadow-lg transition-all;
   }

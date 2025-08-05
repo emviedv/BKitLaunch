@@ -10,16 +10,36 @@ interface ContentState {
   content: any;
   loading: boolean;
   error: string | null;
-  source: 'api' | 'localStorage' | 'static' | null;
+  source: 'api' | 'localStorage' | 'static' | 'ssr' | null;
+}
+
+// SSR data interface for type safety
+interface SSRData {
+  contentData?: any;
+  url?: string;
+}
+
+// Get SSR data from window if available
+function getSSRData(): any | null {
+  if (typeof window === 'undefined') return null;
+  
+  try {
+    const ssrData = (window as any).__SSR_DATA__ as SSRData;
+    return ssrData?.contentData || null;
+  } catch (error) {
+    console.error('Failed to parse SSR data:', error);
+    return null;
+  }
 }
 
 /**
  * Custom hook to fetch published content with graceful fallbacks
  * 
  * Loading hierarchy:
- * 1. API (published content from database)
- * 2. localStorage (saved local changes)
- * 3. Static productData (bundled fallback)
+ * 1. SSR data (from server-side rendering)
+ * 2. API (published content from database)
+ * 3. localStorage (saved local changes)
+ * 4. Static productData (bundled fallback)
  */
 export const usePublishedContent = (options: UsePublishedContentOptions = {}) => {
   const {
@@ -27,14 +47,23 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
     fallbackToStatic = true
   } = options;
 
+  // Check for SSR data first
+  const ssrData = getSSRData();
+  
   const [state, setState] = useState<ContentState>({
-    content: fallbackToStatic ? productData : null,
-    loading: true,
+    content: ssrData || (fallbackToStatic ? productData : null),
+    loading: !ssrData, // Skip loading if we have SSR data
     error: null,
-    source: fallbackToStatic ? 'static' : null
+    source: ssrData ? 'ssr' : (fallbackToStatic ? 'static' : null)
   });
 
   useEffect(() => {
+    // If we already have SSR data, don't fetch again
+    if (ssrData) {
+      console.log('Using SSR content data');
+      return;
+    }
+
     const loadContent = async () => {
       setState(prev => ({ ...prev, loading: true, error: null }));
 
@@ -98,7 +127,7 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
     };
 
     loadContent();
-  }, [fallbackToLocalStorage, fallbackToStatic]);
+  }, [fallbackToLocalStorage, fallbackToStatic, ssrData]);
 
   return state;
 };

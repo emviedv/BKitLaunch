@@ -12,6 +12,7 @@ import Waitlist from './components/Waitlist';
 import AdminDashboard from './components/AdminDashboard';
 import { AuthProvider } from './contexts/AuthContext';
 import { usePublishedContent } from './hooks/usePublishedContent';
+import { useSEO } from './hooks/useSEO';
 import productData from '@/data/products.json';
 
 // Simple test component
@@ -26,6 +27,9 @@ const TestPage = () => (
 const HomePage = () => {
   console.log('HomePage rendering...');
   const { content, loading, error, source } = usePublishedContent();
+  
+  // Update SEO metadata for client-side navigation
+  useSEO(content);
 
   // Show loading state
   if (loading) {

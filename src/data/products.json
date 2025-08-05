@@ -70,10 +70,10 @@
     },
     {
       "icon": "📊",
-      "title": "Component Usage Analytics",
-      "description": "SaaS service for tracking Figma component adoption, frequency, and design debt team-wide.",
-      "badge": "Coming Soon",
-      "badgeColor": "#8b5cf6"
+      "title": "BiblioKit Blocks",
+      "description": "Professional design system analytics platform that tracks Figma component usage, measures ROI, and optimizes component libraries for product teams.",
+      "badge": "Launched",
+      "badgeColor": "#10b981"
     },
     {
       "icon": "🛒",
@@ -139,77 +139,79 @@
     }
   ],
   "product": {
-    "title": "AI Rename Layers",
-    "description": "Automatically rename your Figma layers with AI intelligence. Transform messy, unnamed layers into perfectly organized, contextually named elements in one click.",
-    "primaryButton": "Get Plugin",
-    "secondaryButton": "Learn More",
+    "title": "BiblioKit Blocks",
+    "description": "Professional design system analytics platform that tracks Figma component usage, measures design system ROI, and optimizes component libraries with automated insights for product teams.",
+    "primaryButton": "Start Free Trial",
+    "primaryButtonLink": "https://blocks.bibliokit.com/signup",
+    "secondaryButton": "View Demo",
+    "secondaryButtonLink": "https://blocks.bibliokit.com/demo",
     "details": [
       {
-        "title": "One-Click Renaming",
-        "description": "Rename all your layers automatically in a single click - no manual work required"
+        "title": "Automated Figma Integration",
+        "description": "Connect via secure OAuth to automatically track component usage across all your design libraries and files in real-time"
       },
       {
-        "title": "Smart Context Analysis",
-        "description": "AI analyzes layer contents, location, and relationships to choose perfect contextual names"
+        "title": "Visual Analytics Dashboard",
+        "description": "Interactive charts showing usage trends, adoption rates, and performance metrics with exportable reports and insights"
       },
       {
-        "title": "Batch Processing",
-        "description": "Process multiple layers, frames, and components simultaneously for maximum efficiency"
+        "title": "Component Performance Insights",
+        "description": "Identify over-used, under-used, and unused components instantly with detailed breakdowns and recommendations"
       },
       {
-        "title": "Component Intelligence",
-        "description": "Detects and preserves component names while renaming instances and nested layers"
+        "title": "ROI Reporting & Metrics",
+        "description": "Generate executive reports demonstrating design system business impact with quantifiable time savings and efficiency gains"
       },
       {
-        "title": "Cross-Frame Sync",
-        "description": "Renames matching layers across multiple frames to maintain prototype connections"
+        "title": "Team Collaboration Analytics",
+        "description": "Multi-user access with role-based permissions, shared dashboards, and collaborative insights for entire product teams"
       }
     ],
     "benefits": [
-      "Save hours of manual layer organization work",
-      "Clean up inherited design files with better structure", 
-      "Improve team collaboration with consistent naming",
-      "Maintain design system standards automatically",
-      "Speed up design handoff to developers",
-      "Keep prototyping connections intact across frames"
+      "Increase design system adoption by 25%+ with usage visibility",
+      "Reduce component maintenance overhead by 30% through data-driven decisions",
+      "Demonstrate ROI with quantifiable time savings and efficiency metrics",
+      "Optimize team productivity with 20-40% faster feature development cycles",
+      "Achieve 85%+ component reuse rates across projects",
+      "Make informed decisions about component deprecation and optimization"
     ],
     "specifications": [
       {
-        "icon": "⚡",
-        "name": "Lightning Fast",
-        "value": "48k+ happy designers using it"
+        "icon": "📊",
+        "name": "Analytics Engine",
+        "value": "Real-time component tracking across unlimited files"
       },
       {
-        "icon": "🧠",
-        "name": "AI-Powered",
-        "value": "Context-aware intelligent naming"
+        "icon": "🔗",
+        "name": "Figma Integration",
+        "value": "Secure OAuth connection with automatic sync"
       },
       {
-        "icon": "🔄",
-        "name": "Batch Processing",
-        "value": "Rename unlimited layers at once"
+        "icon": "📈",
+        "name": "ROI Tracking",
+        "value": "Quantifiable business impact metrics"
+      },
+      {
+        "icon": "👥",
+        "name": "Team Support",
+        "value": "Multi-user access with role permissions"
+      },
+      {
+        "icon": "📋",
+        "name": "Export Options",
+        "value": "CSV, PDF reports, and shareable links"
       },
       {
         "icon": "🛡️",
-        "name": "Smart Protection",
-        "value": "Preserves existing custom names"
-      },
-      {
-        "icon": "🎯",
-        "name": "Layer Types",
-        "value": "Frames, groups, text, images, instances"
-      },
-      {
-        "icon": "🌐",
-        "name": "Open Source",
-        "value": "Free community-driven tool"
+        "name": "Enterprise Security",
+        "value": "SOC 2 compliant with 99.5% uptime"
       }
     ],
     "pricing": {
-      "price": "Free",
-      "period": "",
-      "description": "Community plugin - completely free to use forever",
-      "buttonText": "Install Plugin"
+      "price": "$49",
+      "period": "/month",
+      "description": "Professional design system analytics for growing product teams. 14-day free trial included.",
+      "buttonText": "Start Free Trial"
     }
   },
   "contact": {

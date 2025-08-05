@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import productData from '@/data/products.json';
 import { useSchema, createProductSchema, createBreadcrumbSchema, updatePageMeta } from '@/lib/useSchema';
+import { debugService } from '@/lib/debugService';
 import AnswerBox from './AnswerBox';
 import ExpertQuote from './ExpertQuote';
 import StatBox from './StatBox';
@@ -40,6 +41,12 @@ interface ProductInfo {
 
 const ProductPage = () => {
   const [content, setContent] = useState<any>(productData);
+
+  // Debug service for detailed logging
+  debugService.info('ProductPage mounted', { 
+    currentProduct: productData.product?.title, 
+    timestamp: new Date().toISOString() 
+  });
 
   useEffect(() => {
     const saved = localStorage.getItem('bibliokit-content');
@@ -94,38 +101,42 @@ const ProductPage = () => {
   const colorClasses = ['purple', 'blue', 'green', 'orange', 'pink', 'indigo'];
 
   // LLM-optimized content data
-  const answerBoxContent = "AI Rename Variants automatically transforms messy Figma component names into perfectly organized, consistent naming conventions using advanced natural language processing. Save hours of manual work while maintaining design system coherence across your entire team's workflow.";
+  const answerBoxContent = "BiblioKit Blocks provides comprehensive design system analytics that automatically tracks Figma component usage, measures ROI, and delivers actionable insights to optimize component libraries. Increase adoption rates by 25%+ and reduce maintenance overhead through data-driven decision making for product teams.";
 
   const expertQuote = {
-    quote: "Design systems with inconsistent naming conventions can reduce team productivity by up to 40%. AI-powered tools like BiblioKit's rename feature are game-changers for maintaining scalable design workflows.",
-    expertName: "Dr. Sarah Chen",
-    expertTitle: "Director of Design Technology",
-    institution: "Stanford HCI Lab"
+    quote: "Organizations with measurable design system analytics see 40% faster product development cycles and significantly higher component adoption rates. Data-driven insights are essential for proving design system ROI and optimizing team productivity.",
+    expertName: "Dr. Maria Rodriguez",
+    expertTitle: "Principal Design Systems Researcher",
+    institution: "Design Systems Institute"
   };
 
   const statistic = {
-    statistic: "73%",
-    description: "of design teams report improved workflow efficiency after implementing automated component naming systems",
-    source: "Design Systems Survey 2024",
-    date: "January 2024"
+    statistic: "85%",
+    description: "of product teams achieve higher component reuse rates when using design system analytics platforms",
+    source: "Product Team Analytics Report 2024",
+    date: "February 2024"
   };
 
   const faqs = [
     {
-      question: "How does AI Rename Variants understand my component context?",
-      answer: "Our AI analyzes your existing component structure, layer names, and design patterns to intelligently suggest consistent naming conventions that match your team's style and maintain semantic meaning."
+      question: "How does BiblioKit Blocks track component usage across my design files?",
+      answer: "BiblioKit Blocks connects to your Figma account via secure OAuth and automatically scans your design libraries and files to track component instances, usage frequency, and adoption patterns in real-time without manual setup."
     },
     {
-      question: "Can I customize the naming patterns for my design system?",
-      answer: "Yes, AI Rename Variants learns from your existing naming conventions and allows you to set custom rules and patterns that align with your specific design system requirements."
+      question: "Can I measure the ROI of my design system investment?",
+      answer: "Yes, BiblioKit Blocks provides comprehensive ROI reporting with quantifiable metrics including time savings, efficiency gains, component reuse rates, and productivity improvements that demonstrate clear business value to stakeholders."
     },
     {
-      question: "Does this work with complex component variants and properties?",
-      answer: "Absolutely. The AI handles complex multi-level component structures, boolean properties, text variants, and nested components while maintaining proper hierarchy and relationships."
+      question: "What kind of analytics insights will I get about my components?",
+      answer: "You'll receive detailed analytics on component usage trends, adoption rates, over-used vs. under-used components, team collaboration patterns, and actionable recommendations for optimizing your design system performance."
     },
     {
-      question: "Is my design data secure when using this plugin?",
-      answer: "Yes, all processing happens locally in your Figma environment. Your design data never leaves Figma's secure platform, ensuring complete privacy and security of your intellectual property."
+      question: "Is my Figma data secure with BiblioKit Blocks?",
+      answer: "Absolutely. We use enterprise-grade security with SOC 2 compliance, encrypted data transmission, and secure OAuth integration. Your design data is protected with the same security standards used by Fortune 500 companies."
+    },
+    {
+      question: "How quickly can I see results after connecting my Figma account?",
+      answer: "Initial analytics appear within 24 hours of connecting your account. The platform continuously syncs with your Figma files to provide real-time insights and updated reports as your design system evolves."
     }
   ];
 
@@ -149,7 +160,7 @@ const ProductPage = () => {
         <div className="container mx-auto text-center">
           <div className="max-w-4xl mx-auto">
             <div className="inline-block mb-6 bg-white/20 px-4 py-2 rounded-full">
-              <span className="text-white font-medium">Figma Plugin</span>
+              <span className="text-white font-medium">SaaS Analytics Platform</span>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="text-white">{product.title}</span>
@@ -164,14 +175,20 @@ const ProductPage = () => {
           {product.description}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="https://www.figma.com/community/plugin/1523817290746945616/ai-rename-variants"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 text-lg px-8 py-3"
-              >
-            {product.primaryButton || 'Get Started'}
-              </a>
+              {product.primaryButtonLink ? (
+                <a 
+                  href={product.primaryButtonLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 text-lg px-8 py-3"
+                >
+                  {product.primaryButton || 'Get Started'}
+                </a>
+              ) : (
+                <button className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 text-lg px-8 py-3">
+                  {product.primaryButton || 'Get Started'}
+                </button>
+              )}
               {product.secondaryButtonLink ? (
                 <a 
                   href={product.secondaryButtonLink}
@@ -216,7 +233,7 @@ const ProductPage = () => {
                   ⚡ Key Features
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Transform messy component variants into perfectly organized component sets
+                  Comprehensive design system analytics platform with automated Figma integration and ROI tracking
                 </p>
               </div>
             </ContentChunk>
@@ -254,7 +271,7 @@ const ProductPage = () => {
                 💡 Use Cases
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Perfect for design teams working with complex component systems
+                Perfect for product teams seeking data-driven design system optimization and ROI measurement
               </p>
             </div>
           </ContentChunk>
@@ -327,7 +344,7 @@ const ProductPage = () => {
                   Get Started Today
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Free community plugin - no subscription required
+                  Professional analytics platform with 14-day free trial - no setup fees
                 </p>
               </div>
             </ContentChunk>
@@ -335,7 +352,7 @@ const ProductPage = () => {
             <div className="flex justify-center">
               <div className="pricing-card max-w-md">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold mb-2">Community Plugin</h3>
+                  <h3 className="text-2xl font-bold mb-2">Professional Plan</h3>
                   <div className="mb-4">
                     <span className="text-4xl font-bold text-primary">{product.pricing.price}</span>
                     <span className="text-muted-foreground">{product.pricing.period}</span>
@@ -350,7 +367,7 @@ const ProductPage = () => {
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-sm">Unlimited variant renaming</span>
+                    <span className="text-sm">Unlimited component tracking</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
@@ -358,7 +375,7 @@ const ProductPage = () => {
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-sm">Batch processing capabilities</span>
+                    <span className="text-sm">Real-time analytics dashboard</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
@@ -366,7 +383,7 @@ const ProductPage = () => {
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-sm">Smart context analysis</span>
+                    <span className="text-sm">ROI reporting & metrics</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
@@ -374,7 +391,7 @@ const ProductPage = () => {
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-sm">Full undo/revert system</span>
+                    <span className="text-sm">Team collaboration features</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
@@ -382,18 +399,24 @@ const ProductPage = () => {
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-sm">Cross-platform compatibility</span>
+                    <span className="text-sm">CSV & PDF export options</span>
                   </li>
                 </ul>
 
-                <a 
-                  href="https://www.figma.com/community/plugin/1523817290746945616/ai-rename-variants"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary w-full"
-                >
-                  {product.pricing.buttonText || 'Install Now'}
-                </a>
+                {product.primaryButtonLink ? (
+                  <a 
+                    href={product.primaryButtonLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary w-full"
+                  >
+                    {product.pricing.buttonText || 'Get Started'}
+                  </a>
+                ) : (
+                  <button className="btn-primary w-full">
+                    {product.pricing.buttonText || 'Get Started'}
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -88,6 +88,9 @@ export interface FeatureItem {
   badge?: string;
   badge_color?: string;
   sort_order?: number;
+  is_featured?: boolean;
+  button_text?: string;
+  button_link?: string;
 }
 
 // Features Section

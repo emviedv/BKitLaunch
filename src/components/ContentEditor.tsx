@@ -605,6 +605,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
               pricing={savedContent.pricing}
               product={savedContent.product}
               updateNestedField={updateNestedField}
+              updateSection={updateSection}
               setEditMode={setEditMode}
             />
           )}
