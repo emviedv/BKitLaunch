@@ -19,9 +19,9 @@ When developing BiblioKit, use these commands to get AI assistance:
 
 ### Development Server Info
 
-- **Main URL**: http://localhost:5175
-- **Admin URL**: http://localhost:5175/admin
-- **Functions**: http://localhost:5175/.netlify/functions/[function-name]
+- **Main URL**: http://localhost:9989
+- **Admin URL**: http://localhost:9989/admin
+- **Functions**: http://localhost:9989/.netlify/functions/[function-name]
 - **Screen Session**: `bibliokit-dev` (use `screen -r bibliokit-dev` to view)
 
 ### Current Working State

@@ -39,11 +39,11 @@ interface ProductInfo {
   pricing?: ProductPricing;
 }
 
-const ProductPage = () => {
+const BiblioKitBlocksPage = () => {
   const [content, setContent] = useState<any>(productData);
 
   // Debug service for detailed logging
-  debugService.info('ProductPage mounted', { 
+  debugService.info('BiblioKitBlocksPage mounted', { 
     currentProduct: productData.product?.title, 
     timestamp: new Date().toISOString() 
   });
@@ -66,7 +66,7 @@ const ProductPage = () => {
     if (currentProduct) {
       // Update page meta tags
       updatePageMeta(
-        `${currentProduct.title} - BiblioKit`,
+        `${currentProduct.title} - Design System Analytics | BiblioKit`,
         currentProduct.description
       );
       
@@ -426,4 +426,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage; 
+export default BiblioKitBlocksPage; 

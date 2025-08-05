@@ -4,7 +4,8 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Pricing from './components/Pricing';
-import ProductPage from './components/ProductPage';
+import BiblioKitBlocksPage from './components/ProductPage';
+import AIRenameVariantsPage from './components/AIRenameVariantsPage';
 import DatabaseTest from './components/DatabaseTest';
 import Footer from './components/Footer';
 import ContentEditor from './components/ContentEditor';
@@ -105,7 +106,8 @@ const AppContent = () => {
         <Switch>
           <Route path="/" component={HomePage} />
           <Route path="/test" component={TestPage} />
-          <Route path="/product" component={ProductPage} />
+          <Route path="/bibliokit-blocks" component={BiblioKitBlocksPage} />
+          <Route path="/ai-rename-variants" component={AIRenameVariantsPage} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/database">
             <div className="container mx-auto px-4 py-16">

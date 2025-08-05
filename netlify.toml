@@ -127,15 +127,15 @@
 
 [dev]
   command = "npm run dev"
-  port = 5175
-  targetPort = 5176
+  port = 9989
+  targetPort = 9990
 
-# Edge Functions configuration
+# Edge Functions configuration - SSR handles all requests including bots
 [[edge_functions]]
   function = "ssr"
   path = "/*"
 
-# Bot detection comes after SSR
-[[edge_functions]]
-  function = "bot-detection"
-  path = "/*" 
+# Disable bot-detection since SSR handles bots properly
+# [[edge_functions]]
+#   function = "bot-detection"
+#   path = "/*" 
