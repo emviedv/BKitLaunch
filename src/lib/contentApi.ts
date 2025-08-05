@@ -247,11 +247,12 @@ class ContentAPI {
       }
 
       // Sync pricing section
-      if (jsonContent.pricing) {
+      if (jsonContent.pricing || jsonContent.pricingSection) {
         const pricingSection = {
           title: "Choose your plan",
           description: "Start free and scale as you grow. No hidden fees, no surprises.",
-          plans: jsonContent.pricing
+          plans: jsonContent.pricing || [],
+          isComingSoon: jsonContent.pricingSection?.isComingSoon !== false // Default to true if not explicitly set to false
         };
         const result = await upsertSection('pricing', pricingSection);
         syncResults.push(result);

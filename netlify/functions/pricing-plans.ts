@@ -80,7 +80,8 @@ const handlePost = async (client: Client, body: string | null) => {
     button_text, 
     button_link,
     is_popular = false, 
-    sort_order = 0 
+    sort_order = 0,
+    is_coming_soon = true // Default to Coming Soon state
   } = JSON.parse(body);
 
   if (!section_id || !name || !price || !button_text || !features) {
@@ -90,9 +91,9 @@ const handlePost = async (client: Client, body: string | null) => {
   }
 
   const result = await client.query(
-    `INSERT INTO pricing_plans (section_id, name, price, period, description, features, button_text, button_link, is_popular, sort_order)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
-    [section_id, name, price, period, description, JSON.stringify(features), button_text, button_link, is_popular, sort_order]
+    `INSERT INTO pricing_plans (section_id, name, price, period, description, features, button_text, button_link, is_popular, sort_order, is_coming_soon)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`,
+    [section_id, name, price, period, description, JSON.stringify(features), button_text, button_link, is_popular, sort_order, is_coming_soon]
   );
 
   return sendJSON(201, {
@@ -111,7 +112,7 @@ const handlePut = async (client: Client, body: string | null, planId: string) =>
     return sendJSON(400, { error: 'Invalid pricing plan ID' });
   }
 
-  const { name, price, period, description, features, button_text, button_link, is_popular, sort_order } = JSON.parse(body);
+  const { name, price, period, description, features, button_text, button_link, is_popular, sort_order, is_coming_soon } = JSON.parse(body);
   const updates: string[] = [];
   const values: any[] = [];
   let valueIndex = 1;
@@ -159,6 +160,11 @@ const handlePut = async (client: Client, body: string | null, planId: string) =>
   if (sort_order !== undefined) {
     updates.push(`sort_order = $${valueIndex++}`);
     values.push(sort_order);
+  }
+
+  if (is_coming_soon !== undefined) {
+    updates.push(`is_coming_soon = $${valueIndex++}`);
+    values.push(is_coming_soon);
   }
 
   updates.push(`updated_at = CURRENT_TIMESTAMP`);

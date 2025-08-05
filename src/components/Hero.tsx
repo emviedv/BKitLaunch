@@ -26,28 +26,28 @@ const Hero = () => {
             {hero.primaryButtonLink ? (
               <a 
                 href={hero.primaryButtonLink} 
-                className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 inline-block text-center"
+                className="btn-primary bg-purple-600 text-white hover:bg-purple-700 inline-block text-center w-auto"
                 target={hero.primaryButtonLink.startsWith('http') ? '_blank' : '_self'}
                 rel={hero.primaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
               >
                 {hero.primaryButton}
               </a>
             ) : (
-              <button className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700">
+              <button className="btn-primary bg-purple-600 text-white hover:bg-purple-700 w-auto">
                 {hero.primaryButton}
               </button>
             )}
             {hero.secondaryButtonLink ? (
               <a 
                 href={hero.secondaryButtonLink} 
-                className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white inline-block text-center"
+                className="btn-secondary border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900 inline-block text-center w-auto"
                 target={hero.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
                 rel={hero.secondaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
               >
                 {hero.secondaryButton}
               </a>
             ) : (
-              <button className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white">
+              <button className="btn-secondary border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900 w-auto">
                 {hero.secondaryButton}
               </button>
             )}
@@ -55,8 +55,8 @@ const Hero = () => {
         </div>
       </div>
       {/* Decorative elements */}
-      <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-      <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+      <div className="absolute top-10 left-10 w-20 h-20 bg-purple-200/30 rounded-full blur-xl"></div>
+      <div className="absolute bottom-10 right-10 w-32 h-32 bg-orange-200/30 rounded-full blur-xl"></div>
     </section>
   );
 };

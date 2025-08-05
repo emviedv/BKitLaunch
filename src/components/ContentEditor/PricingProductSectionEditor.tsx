@@ -28,6 +28,9 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
   }, [product]);
 
   if (activeSection === 'pricing' && pricing) {
+    // Get current Coming Soon state (default to true if not set)
+    const isComingSoon = (pricing as any)?.isComingSoon !== false;
+    
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -37,7 +40,32 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
           </Button>
         </div>
         
-        {pricing.map((plan: any, index: number) => (
+        {/* Coming Soon Toggle */}
+        <div className="border border-border rounded-lg p-4 space-y-4 bg-muted/5">
+          <div className="flex items-center justify-between">
+            <div>
+              <h4 className="font-medium text-base mb-1">Coming Soon Mode</h4>
+              <p className="text-sm text-muted-foreground">
+                Show "Coming Soon" message instead of pricing plans
+              </p>
+            </div>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                checked={isComingSoon}
+                onChange={(e) => updateSection('pricing', { 
+                  ...pricing, 
+                  isComingSoon: e.target.checked 
+                })}
+                className="sr-only peer"
+              />
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+            </label>
+          </div>
+        </div>
+        
+        {/* Show plan editors only when not in Coming Soon mode */}
+        {!isComingSoon && Array.isArray(pricing) && pricing.map((plan: any, index: number) => (
           <div key={index} className="border border-border rounded-lg p-4 space-y-4">
             <h4 className="font-medium text-base">{plan.name} Plan</h4>
             <ButtonField
@@ -49,6 +77,19 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
             />
           </div>
         ))}
+        
+        {/* Show message when in Coming Soon mode */}
+        {isComingSoon && (
+          <div className="border border-amber-200 bg-amber-50 rounded-lg p-4 text-center">
+            <div className="text-amber-800">
+              <h4 className="font-medium mb-2">Coming Soon Mode Active</h4>
+              <p className="text-sm">
+                Visitors will see a "Coming Soon" message instead of pricing plans. 
+                Toggle off to edit individual plans.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

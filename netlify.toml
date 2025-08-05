@@ -127,8 +127,8 @@
 
 [dev]
   command = "npm run dev"
-  port = 9989
-  targetPort = 9990
+  port = 5175
+  targetPort = 5176
 
 # Edge Functions configuration
 [[edge_functions]]

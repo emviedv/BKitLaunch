@@ -121,6 +121,7 @@ export interface PricingSection extends BaseContentSection {
   title: string;
   description: string;
   plans: PricingPlan[];
+  isComingSoon?: boolean; // Default: true (Coming Soon state)
 }
 
 // CTA Section

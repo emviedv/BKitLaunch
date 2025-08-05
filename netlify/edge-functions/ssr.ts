@@ -41,14 +41,21 @@ export default async (request: Request, context: Context) => {
   }
   
   try {
+    console.log('🔍 SSR: Processing request for:', url.pathname);
+    
     // Get the server rendering module
     const { renderToString, fetchContentData, generateMetadata } = await getServerModule();
+    console.log('✅ SSR: Server module loaded successfully');
     
     // Fetch content data for SSR
     const contentData = await fetchContentData(request.url);
+    console.log('📄 SSR: Content data fetched:', contentData ? 'SUCCESS' : 'FALLBACK');
     
     // Generate page metadata
     const { title, description, metaTags, structuredData } = generateMetadata(request.url, contentData);
+    console.log('🏷️ SSR: Generated meta tags length:', metaTags.length);
+    console.log('🏷️ SSR: Meta tags include canonical:', metaTags.includes('canonical'));
+    console.log('🏷️ SSR: Meta tags include keywords:', metaTags.includes('keywords'));
     
     // Render the React app to HTML
     const appHtml = renderToString(request.url, contentData);
@@ -95,16 +102,21 @@ export default async (request: Request, context: Context) => {
   </body>
 </html>`;
 
+    console.log('🚀 SSR: Generated HTML length:', html.length);
+    console.log('✅ SSR: Returning server-side rendered response');
+    
     return new Response(html, {
       status: 200,
       headers: {
         'Content-Type': 'text/html; charset=utf-8',
         'Cache-Control': 'public, max-age=300, s-maxage=600', // 5 min browser, 10 min CDN
+        'X-SSR-Generated': 'true', // Debug header to identify SSR responses
       },
     });
     
   } catch (error) {
-    console.error('SSR Error:', error);
+    console.error('❌ SSR Error:', error);
+    console.error('🔄 SSR: Falling back to SPA mode');
     
     // Fallback to standard SPA behavior
     return context.next();
