@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { debugService } from '../lib/debugService';
 import { contentApi } from '../lib/contentApi';
+import { usePublishedContent } from '../hooks/usePublishedContent';
 
 interface WaitlistState {
   email: string;
@@ -10,12 +11,20 @@ interface WaitlistState {
 }
 
 const Waitlist = () => {
+  const { content } = usePublishedContent();
   const [state, setState] = useState<WaitlistState>({
     email: '',
     isLoading: false,
     submitted: false,
     error: null
   });
+
+  // Check if waitlist should be visible
+  const shouldShowWaitlist = content.settings?.visibility?.waitlist !== false;
+  
+  if (!shouldShowWaitlist || !content.waitlist) {
+    return null;
+  }
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value;
@@ -59,15 +68,15 @@ const Waitlist = () => {
     <section className="py-16 px-4 bg-purple-50">
       <div className="container mx-auto max-w-3xl text-center">
         <h2 className="text-3xl font-bold mb-4 text-purple-900">
-          Join the Waitlist
+          {content.waitlist.title}
         </h2>
         <p className="text-lg mb-8 text-purple-700">
-          Be the first to know when BiblioKit launches. Get early access and exclusive updates.
+          {content.waitlist.description}
         </p>
         
         {state.submitted ? (
           <div className="bg-green-100 text-green-700 p-4 rounded-lg" role="status" aria-live="polite">
-            Thank you for joining our waitlist! We'll keep you updated.
+            {content.waitlist.successMessage}
           </div>
         ) : (
           <form
@@ -91,9 +100,9 @@ const Waitlist = () => {
             <button
               type="submit"
               disabled={state.isLoading || !state.email.trim()}
-              className="btn-primary bg-purple-600 text-white hover:bg-purple-700 px-8 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+              className="button bg-purple-600 text-white hover:bg-purple-700 px-8 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
             >
-              {state.isLoading ? 'Joining...' : 'Join Waitlist'}
+              {state.isLoading ? 'Joining...' : content.waitlist.buttonText}
             </button>
           </form>
         )}

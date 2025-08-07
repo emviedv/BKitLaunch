@@ -32,15 +32,8 @@ const HomePage = () => {
   // Update SEO metadata for client-side navigation
   useSEO(content);
 
-  // Show loading state
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-        <p className="text-muted-foreground">Loading content...</p>
-      </div>
-    );
-  }
+  // Note: Loading state removed to prevent flash during hydration
+  // Content will smoothly transition from static fallback to dynamic content
 
   // Show error state
   if (error && !content) {
@@ -64,23 +57,22 @@ const HomePage = () => {
       <Pricing />
       
       {/* CTA Section - conditionally rendered based on visibility settings */}
-      {shouldShowCTA && (
+      {shouldShowCTA && content.cta && (
         <section className="py-20 px-4 bg-muted/30">
           <div className="container mx-auto text-center">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Ready to get started?
+                {content.cta.title}
               </h2>
               <p className="text-xl text-muted-foreground mb-8">
-                Join thousands of developers and designers who trust BiblioKit 
-                for their SaaS and plugin development needs.
+                {content.cta.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="btn-primary">
-                  Start Free Trial
+                <button className="button">
+                  {content.cta.primaryButton}
                 </button>
-                <button className="btn-secondary">
-                  Schedule Demo
+                <button className="button-secondary">
+                  {content.cta.secondaryButton}
                 </button>
               </div>
             </div>
@@ -122,7 +114,7 @@ const AppContent = () => {
               </p>
               <a 
                 href="/" 
-                className="btn-primary"
+                className="button"
               >
                 Go Home
               </a>

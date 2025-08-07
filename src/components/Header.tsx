@@ -1,21 +1,33 @@
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { usePublishedContent } from '@/hooks/usePublishedContent';
 
 const Header = () => {
   const { isAuthenticated, isAdmin } = useAuth();
+  const { content } = usePublishedContent();
   const adminOffset = isAuthenticated && isAdmin ? 'top-10' : 'top-0';
+
+  // Check if header should be visible
+  const shouldShowHeader = content.settings?.visibility?.header !== false;
+  
+  if (!shouldShowHeader) {
+    return null;
+  }
 
   return (
     <header className={`bg-background border-b border-border fixed w-full ${adminOffset} z-50`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="font-bold text-xl text-primary">BiblioKit</div>
+        <div className="font-bold text-xl text-primary">{content.header?.logoText || 'BiblioKit'}</div>
         <nav className="hidden md:flex items-center space-x-6">
-          <a href="/" className="text-sm font-medium hover:text-primary transition-colors">
-            Home
-          </a>
-          <a href="#features" className="text-sm font-medium hover:text-primary transition-colors">
-            Features
-          </a>
+          {content.header?.navigation?.map((item: any, index: number) => (
+            <a 
+              key={index}
+              href={item.href} 
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
+              {item.label}
+            </a>
+          ))}
           <div className="relative group">
             <button className="text-sm font-medium hover:text-primary transition-colors flex items-center">
               Products
@@ -34,9 +46,6 @@ const Header = () => {
               </div>
             </div>
           </div>
-          <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
-            Contact
-          </a>
         </nav>
         <div className="flex items-center space-x-4">
           {/* Mobile menu button */}
@@ -49,11 +58,11 @@ const Header = () => {
             </svg>
           </button>
           
-          <button className="btn-secondary">
-            Sign In
+          <button className="button-secondary">
+            {content.header?.signInText || 'Sign In'}
           </button>
-          <button className="btn-primary">
-            Get Started
+          <button className="button">
+            {content.header?.getStartedText || 'Get Started'}
           </button>
         </div>
       </div>
@@ -61,12 +70,15 @@ const Header = () => {
       {/* Mobile menu */}
       <div id="mobile-menu" className="hidden md:hidden bg-white border-t border-gray-200">
         <div className="px-4 py-2 space-y-2">
-          <a href="/" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
-            Home
-          </a>
-          <a href="#features" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
-            Features
-          </a>
+          {content.header?.navigation?.map((item: any, index: number) => (
+            <a 
+              key={index}
+              href={item.href} 
+              className="block py-2 text-sm font-medium hover:text-primary transition-colors"
+            >
+              {item.label}
+            </a>
+          ))}
           <div className="py-2">
             <div className="text-sm font-medium text-gray-600 mb-2">Products</div>
             <a href="/ai-rename-variants" className="block py-2 pl-4 text-sm text-gray-700 hover:text-primary transition-colors">
@@ -76,9 +88,6 @@ const Header = () => {
               📊 BiblioKit Blocks
             </a>
           </div>
-          <a href="#contact" className="block py-2 text-sm font-medium hover:text-primary transition-colors">
-            Contact
-          </a>
         </div>
       </div>
     </header>

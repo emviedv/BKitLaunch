@@ -28,6 +28,7 @@ import { SettingsSectionEditor } from './ContentEditor/SettingsSectionEditor';
 import { LLMSectionEditor } from './ContentEditor/LLMSectionEditor';
 import { FeaturesSectionEditor } from './ContentEditor/FeaturesSectionEditor';
 import { PricingProductSectionEditor } from './ContentEditor/PricingProductSectionEditor';
+import { IndividualProductEditor } from './ContentEditor/IndividualProductEditor';
 
 interface ContentEditorProps {
   onContentUpdate?: (newContent: any) => void;
@@ -47,6 +48,54 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
   const [error, setError] = useState<string | null>(null);
   const [databaseAvailable, setDatabaseAvailable] = useState<boolean | null>(null);
   const { isAuthenticated, isAdmin, logout } = useAuth();
+
+  // Migrate content to ensure it has the new products structure
+  const migrateContentStructure = (content: any) => {
+    // If products object doesn't exist, create it from current productData
+    if (!content.products && productData.products) {
+      content.products = { ...productData.products };
+      debugService.contentUpdate('Migrated content to include products structure');
+    }
+    
+    // Ensure all required sections exist
+    const defaultContent = { ...productData } as any;
+    Object.keys(defaultContent).forEach(key => {
+      if (!content[key]) {
+        content[key] = defaultContent[key];
+      }
+    });
+    
+    // Ensure all visibility settings exist
+    if (!content.settings) {
+      content.settings = { visibility: {} };
+    }
+    if (!content.settings.visibility) {
+      content.settings.visibility = {};
+    }
+    
+                // Add default visibility for all sections
+    const defaultVisibility = {
+      hero: true,
+      features: true,
+      pricing: false,
+      'bibliokit-blocks': true,
+      'ai-rename-variants': true,
+      product: true,
+      contact: true,
+      cta: true,
+      waitlist: true,
+      header: true,
+      footer: true
+    };
+    
+    Object.entries(defaultVisibility).forEach(([key, defaultValue]) => {
+      if (content.settings.visibility[key] === undefined) {
+        content.settings.visibility[key] = defaultValue;
+      }
+    });
+    
+    return content;
+  };
 
   // Build unified content object from database sections and contact info
   const buildUnifiedContentFromDatabase = (sections: any[], contactInfo: ContactInfo | null) => {
@@ -249,17 +298,46 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
   };
 
   const updateSection = (section: string, newData: any) => {
-    const updatedContent = {
-      ...savedContent,
-      [section]: newData
-    };
+    let updatedContent = { ...savedContent } as any;
+    
+    // Handle nested paths like "products.bibliokit-blocks"
+    if (section.includes('.')) {
+      const path = section.split('.');
+      let current = updatedContent;
+      
+      // Navigate to the parent object
+      for (let i = 0; i < path.length - 1; i++) {
+        if (!current[path[i]]) {
+          current[path[i]] = {};
+        }
+        current = current[path[i]];
+      }
+      
+      // Set the final value
+      current[path[path.length - 1]] = newData;
+    } else {
+      updatedContent[section] = newData;
+    }
+    
     setSavedContent(updatedContent);
     setJsonContent(JSON.stringify(updatedContent, null, 2));
     setIsEditing(true);
   };
 
   const updateNestedField = (section: string, index: number | null, field: string, value: any) => {
-    const currentSection = (savedContent as any)[section];
+    let currentSection: any;
+    
+    // Handle nested paths like "products.bibliokit-blocks"
+    if (section.includes('.')) {
+      const path = section.split('.');
+      currentSection = savedContent as any;
+      for (const key of path) {
+        currentSection = currentSection?.[key];
+      }
+    } else {
+      currentSection = (savedContent as any)[section];
+    }
+    
     let updatedSection;
     
     if (Array.isArray(currentSection) && index !== null) {
@@ -273,17 +351,22 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     updateSection(section, updatedSection);
   };
 
-  const updateSettingsVisibility = (section: 'hero' | 'features' | 'pricing' | 'cta', isVisible: boolean) => {
+  const updateVisibility = (sectionKey: string, isVisible: boolean) => {
     const currentSettings = savedContent.settings || { visibility: {} };
     const updatedSettings = {
       ...currentSettings,
       visibility: {
         ...currentSettings.visibility,
-        [section]: isVisible
+        [sectionKey]: isVisible
       }
     };
 
     updateSection('settings', updatedSettings);
+  };
+
+  // Legacy function for backward compatibility
+  const updateSettingsVisibility = (section: 'hero' | 'features' | 'pricing' | 'cta', isVisible: boolean) => {
+    updateVisibility(section, isVisible);
   };
 
   // Check database availability and load content
@@ -312,9 +395,10 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
           if (saved) {
             try {
               const parsed = JSON.parse(saved);
-              setSavedContent(parsed);
-              setJsonContent(JSON.stringify(parsed, null, 2));
-              debugService.contentLoad('localStorage content loaded successfully', { keys: Object.keys(parsed) });
+              const migratedContent = migrateContentStructure(parsed);
+              setSavedContent(migratedContent);
+              setJsonContent(JSON.stringify(migratedContent, null, 2));
+              debugService.contentLoad('localStorage content loaded and migrated successfully', { keys: Object.keys(migratedContent) });
             } catch (error) {
               debugService.error('Failed to parse localStorage content', error);
             }
@@ -397,8 +481,9 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
       }
 
       // Update JSON editor state with live database content
-      setSavedContent(liveContent);
-      setJsonContent(JSON.stringify(liveContent, null, 2));
+      const migratedLiveContent = migrateContentStructure(liveContent);
+      setSavedContent(migratedLiveContent);
+      setJsonContent(JSON.stringify(migratedLiveContent, null, 2));
       debugService.contentLoad('Unified content loaded from database', { 
         source: publishedResponse.success && publishedResponse.data?.content_data ? 'site_content' : 'content_sections',
         sections: Object.keys(liveContent).filter(key => key !== 'contact'),
@@ -509,7 +594,13 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
       hero: 'Hero Section',
       features: 'Features Section',
       pricing: 'Pricing Section',
-      product: 'Product Page',
+      cta: 'CTA Section',
+      waitlist: 'Waitlist Section',
+      header: 'Header Section',
+      footer: 'Footer Section',
+      'product-bibliokit-blocks': 'BiblioKit Blocks',
+      'product-ai-rename-variants': 'AI Rename Variants',
+      product: 'Product Page (Legacy)',
       contact: 'Contact Info'
     };
 
@@ -528,7 +619,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
             {databaseAvailable && (
               <button
                 onClick={() => setEditMode('database')}
-                className="mt-2 w-full btn-primary text-xs"
+                className="mt-2 w-full button text-xs"
               >
                 Switch to Database Editor
               </button>
@@ -553,7 +644,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
           <div className="mt-6 pt-4 border-t border-border">
             <button
               onClick={() => setEditMode('json')}
-              className="w-full btn-secondary text-sm"
+              className="w-full button-secondary text-sm"
             >
               Advanced JSON Editor
             </button>
@@ -582,6 +673,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
             <HeroSectionEditor
               hero={savedContent.hero}
               updateNestedField={updateNestedField}
+              visible={savedContent.settings?.visibility?.hero ?? true}
+              updateVisibility={(isVisible) => updateVisibility('hero', isVisible)}
             />
           )}
 
@@ -596,6 +689,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
             <FeaturesSectionEditor
               features={savedContent.features}
               updateNestedField={updateNestedField}
+              visible={savedContent.settings?.visibility?.features ?? true}
+              updateVisibility={(isVisible) => updateVisibility('features', isVisible)}
             />
           )}
 
@@ -604,6 +699,248 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
               activeSection={activeSection}
               pricing={savedContent.pricing}
               product={savedContent.product}
+              updateNestedField={updateNestedField}
+              updateSection={updateSection}
+              setEditMode={setEditMode}
+              pricingVisible={savedContent.settings?.visibility?.pricing ?? false}
+              productVisible={(savedContent.settings?.visibility as any)?.product ?? true}
+              updateVisibility={updateVisibility}
+            />
+          )}
+
+          {activeSection === 'cta' && (
+            <div className="space-y-4">
+              <h3 className="font-semibold text-lg">CTA Section</h3>
+              <div className="flex items-center gap-2 mb-4">
+                <input
+                  type="checkbox"
+                  id="cta-visible"
+                  checked={savedContent.settings?.visibility?.cta ?? true}
+                  onChange={(e) => updateVisibility('cta', e.target.checked)}
+                  className="rounded border-border"
+                />
+                <label htmlFor="cta-visible" className="text-sm">Visible on website</label>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Title</label>
+                <input
+                  type="text"
+                  value={savedContent.cta?.title || ''}
+                  onChange={(e) => updateNestedField('cta', null, 'title', e.target.value)}
+                  className="w-full p-2 border border-border rounded"
+                  placeholder="Ready to get started?"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Description</label>
+                <textarea
+                  value={savedContent.cta?.description || ''}
+                  onChange={(e) => updateNestedField('cta', null, 'description', e.target.value)}
+                  className="w-full p-2 border border-border rounded h-24"
+                  placeholder="Description text"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Primary Button</label>
+                  <input
+                    type="text"
+                    value={savedContent.cta?.primaryButton || ''}
+                    onChange={(e) => updateNestedField('cta', null, 'primaryButton', e.target.value)}
+                    className="w-full p-2 border border-border rounded"
+                    placeholder="Start Free Trial"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Secondary Button</label>
+                  <input
+                    type="text"
+                    value={savedContent.cta?.secondaryButton || ''}
+                    onChange={(e) => updateNestedField('cta', null, 'secondaryButton', e.target.value)}
+                    className="w-full p-2 border border-border rounded"
+                    placeholder="Schedule Demo"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeSection === 'waitlist' && (
+            <div className="space-y-4">
+              <h3 className="font-semibold text-lg">Waitlist Section</h3>
+              <div className="flex items-center gap-2 mb-4">
+                <input
+                  type="checkbox"
+                  id="waitlist-visible"
+                  checked={savedContent.settings?.visibility?.waitlist ?? true}
+                  onChange={(e) => updateVisibility('waitlist', e.target.checked)}
+                  className="rounded border-border"
+                />
+                <label htmlFor="waitlist-visible" className="text-sm">Visible on website</label>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Title</label>
+                <input
+                  type="text"
+                  value={savedContent.waitlist?.title || ''}
+                  onChange={(e) => updateNestedField('waitlist', null, 'title', e.target.value)}
+                  className="w-full p-2 border border-border rounded"
+                  placeholder="Join the Waitlist"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Description</label>
+                <textarea
+                  value={savedContent.waitlist?.description || ''}
+                  onChange={(e) => updateNestedField('waitlist', null, 'description', e.target.value)}
+                  className="w-full p-2 border border-border rounded h-24"
+                  placeholder="Be the first to know when we launch..."
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Button Text</label>
+                <input
+                  type="text"
+                  value={savedContent.waitlist?.buttonText || ''}
+                  onChange={(e) => updateNestedField('waitlist', null, 'buttonText', e.target.value)}
+                  className="w-full p-2 border border-border rounded"
+                  placeholder="Join Waitlist"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Success Message</label>
+                <input
+                  type="text"
+                  value={savedContent.waitlist?.successMessage || ''}
+                  onChange={(e) => updateNestedField('waitlist', null, 'successMessage', e.target.value)}
+                  className="w-full p-2 border border-border rounded"
+                  placeholder="Thank you for joining our waitlist!"
+                />
+              </div>
+            </div>
+          )}
+
+          {activeSection === 'header' && (
+            <div className="space-y-4">
+              <h3 className="font-semibold text-lg">Header Section</h3>
+              <div className="flex items-center gap-2 mb-4">
+                <input
+                  type="checkbox"
+                  id="header-visible"
+                  checked={savedContent.settings?.visibility?.header ?? true}
+                  onChange={(e) => updateVisibility('header', e.target.checked)}
+                  className="rounded border-border"
+                />
+                <label htmlFor="header-visible" className="text-sm">Visible on website</label>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Logo Text</label>
+                <input
+                  type="text"
+                  value={savedContent.header?.logoText || ''}
+                  onChange={(e) => updateNestedField('header', null, 'logoText', e.target.value)}
+                  className="w-full p-2 border border-border rounded"
+                  placeholder="BiblioKit"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Sign In Text</label>
+                  <input
+                    type="text"
+                    value={savedContent.header?.signInText || ''}
+                    onChange={(e) => updateNestedField('header', null, 'signInText', e.target.value)}
+                    className="w-full p-2 border border-border rounded"
+                    placeholder="Sign In"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Get Started Text</label>
+                  <input
+                    type="text"
+                    value={savedContent.header?.getStartedText || ''}
+                    onChange={(e) => updateNestedField('header', null, 'getStartedText', e.target.value)}
+                    className="w-full p-2 border border-border rounded"
+                    placeholder="Get Started"
+                  />
+                </div>
+              </div>
+              <div className="border-t border-border pt-4">
+                <label className="block text-sm font-medium mb-2">Navigation (JSON format)</label>
+                <textarea
+                  value={JSON.stringify(savedContent.header?.navigation || [], null, 2)}
+                  onChange={(e) => {
+                    try {
+                      const navigation = JSON.parse(e.target.value);
+                      updateNestedField('header', null, 'navigation', navigation);
+                    } catch (error) {
+                      // Invalid JSON, ignore for now
+                    }
+                  }}
+                  className="w-full p-2 border border-border rounded h-32 font-mono text-sm"
+                  placeholder='[{"label": "Features", "href": "#features"}]'
+                />
+                <p className="text-xs text-muted-foreground mt-1">Edit navigation items as JSON array</p>
+              </div>
+            </div>
+          )}
+
+          {activeSection === 'footer' && (
+            <div className="space-y-4">
+              <h3 className="font-semibold text-lg">Footer Section</h3>
+              <div className="flex items-center gap-2 mb-4">
+                <input
+                  type="checkbox"
+                  id="footer-visible"
+                  checked={savedContent.settings?.visibility?.footer ?? true}
+                  onChange={(e) => updateVisibility('footer', e.target.checked)}
+                  className="rounded border-border"
+                />
+                <label htmlFor="footer-visible" className="text-sm">Visible on website</label>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Description</label>
+                <textarea
+                  value={savedContent.footer?.description || ''}
+                  onChange={(e) => updateNestedField('footer', null, 'description', e.target.value)}
+                  className="w-full p-2 border border-border rounded h-24"
+                  placeholder="Footer description"
+                />
+              </div>
+              <div className="border-t border-border pt-4">
+                <label className="block text-sm font-medium mb-2">Footer Sections (JSON format)</label>
+                <textarea
+                  value={JSON.stringify(savedContent.footer?.sections || [], null, 2)}
+                  onChange={(e) => {
+                    try {
+                      const sections = JSON.parse(e.target.value);
+                      updateNestedField('footer', null, 'sections', sections);
+                    } catch (error) {
+                      // Invalid JSON, ignore for now
+                    }
+                  }}
+                  className="w-full p-2 border border-border rounded h-40 font-mono text-sm"
+                  placeholder='[{"title": "Product", "links": [{"label": "Features", "href": "#features"}]}]'
+                />
+                <p className="text-xs text-muted-foreground mt-1">Edit footer sections as JSON array</p>
+              </div>
+            </div>
+          )}
+
+          {activeSection === 'product-bibliokit-blocks' && (
+            <IndividualProductEditor
+              productKey="bibliokit-blocks"
+              productData={savedContent.products?.['bibliokit-blocks']}
+              updateNestedField={updateNestedField}
+              updateSection={updateSection}
+              setEditMode={setEditMode}
+            />
+          )}
+
+          {activeSection === 'product-ai-rename-variants' && (
+            <IndividualProductEditor
+              productKey="ai-rename-variants"
+              productData={savedContent.products?.['ai-rename-variants']}
               updateNestedField={updateNestedField}
               updateSection={updateSection}
               setEditMode={setEditMode}
@@ -630,7 +967,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
             </div>
             <button
               onClick={() => setEditMode('sections')}
-              className="mt-2 w-full btn-secondary text-xs"
+              className="mt-2 w-full button-secondary text-xs"
             >
               Switch to Local Editor
             </button>
@@ -665,7 +1002,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
           <div className="mt-6 pt-4 border-t border-border">
             <button
               onClick={loadDatabaseContent}
-              className="w-full btn-secondary text-sm mb-2"
+              className="w-full button-secondary text-sm mb-2"
               disabled={loading}
             >
               {loading ? 'Loading...' : 'Refresh Data'}
@@ -696,7 +1033,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
           {currentSection && (
             <button
               onClick={() => deleteSection(currentSection.id!)}
-              className="btn-secondary text-red-600 hover:bg-red-50 text-xs"
+              className="button-secondary text-red-600 hover:bg-red-50 text-xs"
             >
               Delete Section
             </button>
@@ -761,7 +1098,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
               }
             }
           }}
-          className="btn-primary"
+          className="button"
         >
           Save Contact Info
         </button>
@@ -852,7 +1189,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
               await saveSection(formData);
               setFormData(section || formData);
             }}
-            className="btn-primary"
+            className="button"
           >
             {section ? 'Update Hero Section' : 'Create Hero Section'}
           </button>
@@ -861,38 +1198,518 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     );
   };
 
-  // Features Section Form (simplified for now - full CRUD would be more complex)
-  const renderFeaturesForm = (section: FeaturesSection | undefined) => (
-    <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">
-        Features section editing requires individual feature CRUD operations. 
-        This would include adding/removing features, editing each feature's icon, title, description, and badge.
-      </p>
-      <p className="text-xs text-gray-500">
-        Full feature management will be implemented with individual feature cards, 
-        add/remove buttons, and drag-and-drop reordering.
-      </p>
-      {section && (
-        <div className="p-2 bg-green-50 border border-green-200 rounded text-xs text-green-800">
-          Current section has {(section as any).features?.length || 0} features
-        </div>
-      )}
-    </div>
-  );
+  // Features Section Form
+  const renderFeaturesForm = (section: FeaturesSection | undefined) => {
+    const [formData, setFormData] = useState<Partial<FeaturesSection>>(
+      section || {
+        section_type: 'features' as const,
+        is_visible: true,
+        title: '',
+        description: ''
+      }
+    );
 
-  // Pricing Section Form (simplified)
-  const renderPricingForm = (section: PricingSection | undefined) => (
+    const [features, setFeatures] = useState<FeatureItem[]>(
+      (section as any)?.features || []
+    );
+
+    const addFeature = () => {
+      const newFeature: FeatureItem = {
+        icon: '🚀',
+        title: 'New Feature',
+        description: 'Feature description',
+        badge: '',
+        badge_color: 'green',
+        is_featured: false
+      };
+      setFeatures([...features, newFeature]);
+    };
+
+    const updateFeature = (index: number, field: string, value: any) => {
+      const updatedFeatures = features.map((feature, i) => 
+        i === index ? { ...feature, [field]: value } : feature
+      );
+      setFeatures(updatedFeatures);
+    };
+
+    const removeFeature = (index: number) => {
+      setFeatures(features.filter((_, i) => i !== index));
+    };
+
+    const saveFeatures = async () => {
+      const sectionToSave = {
+        ...formData,
+        section_data: {
+          title: formData.title,
+          description: formData.description,
+          features: features
+        }
+      };
+      
+      await saveSection(sectionToSave);
+    };
+
+    return (
+      <div className="space-y-6">
+        {/* Section Header Fields */}
+        <div className="grid grid-cols-1 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Section Title</label>
+            <input
+              type="text"
+              value={formData.title || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+              className="w-full p-2 border border-border rounded"
+              placeholder="Features"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">Section Description</label>
+            <textarea
+              value={formData.description || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+              className="w-full p-2 border border-border rounded h-20"
+              placeholder="Brief description of the features section"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="features-visible"
+              checked={formData.is_visible}
+              onChange={(e) => setFormData(prev => ({ ...prev, is_visible: e.target.checked }))}
+              className="rounded border-border"
+            />
+            <label htmlFor="features-visible" className="text-sm">Visible on website</label>
+          </div>
+        </div>
+
+        {/* Features Management */}
+        <div className="border-t border-border pt-6">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-medium">Individual Features</h4>
+            <button
+              onClick={addFeature}
+              className="button-secondary text-sm"
+            >
+              + Add Feature
+            </button>
+          </div>
+
     <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">
-        Pricing section editing requires individual pricing plan CRUD operations.
-      </p>
-      {section && (
-        <div className="p-2 bg-green-50 border border-green-200 rounded text-xs text-green-800">
-          Current section has {(section as any).plans?.length || 0} pricing plans
+            {features.map((feature, index) => (
+              <div key={index} className={`p-4 border rounded-lg ${feature.is_featured ? 'border-primary/30 bg-primary/5' : 'border-border'}`}>
+                {/* Featured Toggle */}
+                <div className="flex items-center justify-between mb-3">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={!!feature.is_featured}
+                      onChange={(e) => updateFeature(index, 'is_featured', e.target.checked)}
+                      className="rounded border-border"
+                    />
+                    <span className="text-sm font-medium">Featured Card</span>
+                    {feature.is_featured && (
+                      <span className="text-xs px-2 py-1 bg-primary text-primary-foreground rounded-full">
+                        FEATURED
+                      </span>
+                    )}
+                  </label>
+                  <button
+                    onClick={() => removeFeature(index)}
+                    className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-sm"
+                  >
+                    Remove
+                  </button>
+                </div>
+
+                {/* Feature Fields */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium mb-1">Icon</label>
+                    <input
+                      type="text"
+                      value={feature.icon}
+                      onChange={(e) => updateFeature(index, 'icon', e.target.value)}
+                      className="w-full p-2 border border-border rounded text-sm"
+                      placeholder="🚀 or icon name"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1">Title</label>
+                    <input
+                      type="text"
+                      value={feature.title}
+                      onChange={(e) => updateFeature(index, 'title', e.target.value)}
+                      className="w-full p-2 border border-border rounded text-sm"
+                      placeholder="Feature title"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1">Badge</label>
+                    <input
+                      type="text"
+                      value={feature.badge || ''}
+                      onChange={(e) => updateFeature(index, 'badge', e.target.value)}
+                      className="w-full p-2 border border-border rounded text-sm"
+                      placeholder="New, Coming Soon"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1">Badge Color</label>
+                    <select
+                      value={feature.badge_color || 'green'}
+                      onChange={(e) => updateFeature(index, 'badge_color', e.target.value)}
+                      className="w-full p-2 border border-border rounded text-sm"
+                    >
+                      <option value="green">Green</option>
+                      <option value="blue">Blue</option>
+                      <option value="orange">Orange</option>
+                      <option value="purple">Purple</option>
+                      <option value="red">Red</option>
+                      <option value="yellow">Yellow</option>
+                      <option value="pink">Pink</option>
+                      <option value="gray">Gray</option>
+                    </select>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-xs font-medium mb-1">Description</label>
+                    <textarea
+                      value={feature.description}
+                      onChange={(e) => updateFeature(index, 'description', e.target.value)}
+                      className="w-full p-2 border border-border rounded text-sm h-20"
+                      placeholder="Feature description"
+                    />
+                  </div>
+                </div>
+
+                {/* Featured Card Button Fields */}
+                {feature.is_featured && (
+                  <div className="border-t border-border/50 pt-3 mt-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-medium mb-1">Button Text</label>
+                        <input
+                          type="text"
+                          value={feature.button_text || ''}
+                          onChange={(e) => updateFeature(index, 'button_text', e.target.value)}
+                          className="w-full p-2 border border-border rounded text-sm"
+                          placeholder="Learn More"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium mb-1">Button Link</label>
+                        <input
+                          type="text"
+                          value={feature.button_link || ''}
+                          onChange={(e) => updateFeature(index, 'button_link', e.target.value)}
+                          className="w-full p-2 border border-border rounded text-sm"
+                          placeholder="/pricing or https://example.com"
+                        />
+                      </div>
+                    </div>
         </div>
       )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Save Button */}
+        <button
+          onClick={saveFeatures}
+          className="button w-full"
+        >
+          {section ? 'Update Features Section' : 'Create Features Section'}
+        </button>
     </div>
   );
+  };
+
+  // Pricing Section Form
+  const renderPricingForm = (section: PricingSection | undefined) => {
+    const [formData, setFormData] = useState<Partial<PricingSection>>(
+      section || {
+        section_type: 'pricing' as const,
+        is_visible: true,
+        title: '',
+        description: '',
+        isComingSoon: false
+      }
+    );
+
+    const [plans, setPlans] = useState<PricingPlan[]>(
+      (section as any)?.plans || []
+    );
+
+    const addPlan = () => {
+      const newPlan: PricingPlan = {
+        name: 'New Plan',
+        price: '$0',
+        period: 'month',
+        description: 'Plan description',
+        features: [],
+        is_popular: false,
+        button_text: 'Get Started',
+        button_link: '#'
+      };
+      setPlans([...plans, newPlan]);
+    };
+
+    const updatePlan = (index: number, field: string, value: any) => {
+      const updatedPlans = plans.map((plan, i) => 
+        i === index ? { ...plan, [field]: value } : plan
+      );
+      setPlans(updatedPlans);
+    };
+
+    const removePlan = (index: number) => {
+      setPlans(plans.filter((_, i) => i !== index));
+    };
+
+    const addFeatureToPlan = (planIndex: number) => {
+      const updatedPlans = [...plans];
+      if (!updatedPlans[planIndex].features) {
+        updatedPlans[planIndex].features = [];
+      }
+      updatedPlans[planIndex].features!.push('New feature');
+      setPlans(updatedPlans);
+    };
+
+    const updatePlanFeature = (planIndex: number, featureIndex: number, value: string) => {
+      const updatedPlans = [...plans];
+      updatedPlans[planIndex].features![featureIndex] = value;
+      setPlans(updatedPlans);
+    };
+
+    const removePlanFeature = (planIndex: number, featureIndex: number) => {
+      const updatedPlans = [...plans];
+      updatedPlans[planIndex].features!.splice(featureIndex, 1);
+      setPlans(updatedPlans);
+    };
+
+    const savePricing = async () => {
+      const sectionToSave = {
+        ...formData,
+        section_data: {
+          title: formData.title,
+          description: formData.description,
+          isComingSoon: formData.isComingSoon,
+          plans: plans
+        }
+      };
+      
+      await saveSection(sectionToSave);
+    };
+
+    return (
+      <div className="space-y-6">
+        {/* Section Header Fields */}
+        <div className="grid grid-cols-1 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Section Title</label>
+            <input
+              type="text"
+              value={formData.title || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+              className="w-full p-2 border border-border rounded"
+              placeholder="Pricing"
+            />
+        </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-2">Section Description</label>
+            <textarea
+              value={formData.description || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+              className="w-full p-2 border border-border rounded h-20"
+              placeholder="Brief description of the pricing section"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="pricing-visible"
+              checked={formData.is_visible}
+              onChange={(e) => setFormData(prev => ({ ...prev, is_visible: e.target.checked }))}
+              className="rounded border-border"
+            />
+            <label htmlFor="pricing-visible" className="text-sm">Visible on website</label>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="pricing-coming-soon"
+              checked={formData.isComingSoon}
+              onChange={(e) => setFormData(prev => ({ ...prev, isComingSoon: e.target.checked }))}
+              className="rounded border-border"
+            />
+            <label htmlFor="pricing-coming-soon" className="text-sm">Coming Soon Mode</label>
+          </div>
+
+        </div>
+
+        {/* Pricing Plans Management */}
+        {!formData.isComingSoon && (
+          <div className="border-t border-border pt-6">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="font-medium">Pricing Plans</h4>
+              <button
+                onClick={addPlan}
+                className="button-secondary text-sm"
+              >
+                + Add Plan
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              {plans.map((plan, planIndex) => (
+                <div key={planIndex} className={`p-4 border rounded-lg ${plan.is_popular ? 'border-primary/30 bg-primary/5' : 'border-border'}`}>
+                  {/* Plan Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={!!plan.is_popular}
+                        onChange={(e) => updatePlan(planIndex, 'is_popular', e.target.checked)}
+                        className="rounded border-border"
+                      />
+                      <span className="text-sm font-medium">Featured Plan</span>
+                      {plan.is_popular && (
+                        <span className="text-xs px-2 py-1 bg-primary text-primary-foreground rounded-full">
+                          POPULAR
+                        </span>
+                      )}
+                    </label>
+                    <button
+                      onClick={() => removePlan(planIndex)}
+                      className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-sm"
+                    >
+                      Remove Plan
+                    </button>
+                  </div>
+
+                  {/* Plan Basic Info */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Plan Name</label>
+                      <input
+                        type="text"
+                        value={plan.name}
+                        onChange={(e) => updatePlan(planIndex, 'name', e.target.value)}
+                        className="w-full p-2 border border-border rounded text-sm"
+                        placeholder="Starter, Pro, Enterprise"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Price</label>
+                      <input
+                        type="text"
+                        value={plan.price}
+                        onChange={(e) => updatePlan(planIndex, 'price', e.target.value)}
+                        className="w-full p-2 border border-border rounded text-sm"
+                        placeholder="$19, Free, Custom"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Period</label>
+                      <select
+                        value={plan.period || 'month'}
+                        onChange={(e) => updatePlan(planIndex, 'period', e.target.value)}
+                        className="w-full p-2 border border-border rounded text-sm"
+                      >
+                        <option value="month">per month</option>
+                        <option value="year">per year</option>
+                        <option value="one-time">one-time</option>
+                        <option value="custom">custom</option>
+                      </select>
+                    </div>
+
+                  </div>
+
+                  {/* Plan Description */}
+                  <div className="mb-4">
+                    <label className="block text-xs font-medium mb-1">Description</label>
+                    <textarea
+                      value={plan.description}
+                      onChange={(e) => updatePlan(planIndex, 'description', e.target.value)}
+                      className="w-full p-2 border border-border rounded text-sm h-20"
+                      placeholder="Plan description"
+                    />
+                  </div>
+
+                  {/* Plan Button */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Button Text</label>
+                      <input
+                        type="text"
+                        value={plan.button_text || ''}
+                        onChange={(e) => updatePlan(planIndex, 'button_text', e.target.value)}
+                        className="w-full p-2 border border-border rounded text-sm"
+                        placeholder="Get Started, Contact Sales"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Button Link</label>
+                      <input
+                        type="text"
+                        value={plan.button_link || ''}
+                        onChange={(e) => updatePlan(planIndex, 'button_link', e.target.value)}
+                        className="w-full p-2 border border-border rounded text-sm"
+                        placeholder="/signup, /contact"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Plan Features */}
+                  <div className="border-t border-border/50 pt-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <h5 className="text-sm font-medium">Features</h5>
+                      <button
+                        onClick={() => addFeatureToPlan(planIndex)}
+                        className="text-primary hover:bg-primary/10 px-2 py-1 rounded text-xs"
+                      >
+                        + Add Feature
+                      </button>
+                    </div>
+                    <div className="space-y-2">
+                      {(plan.features || []).map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={feature}
+                            onChange={(e) => updatePlanFeature(planIndex, featureIndex, e.target.value)}
+                            className="flex-1 p-2 border border-border rounded text-sm"
+                            placeholder="Feature description"
+                          />
+                          <button
+                            onClick={() => removePlanFeature(planIndex, featureIndex)}
+                            className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-xs"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Save Button */}
+        <button
+          onClick={savePricing}
+          className="button w-full"
+        >
+          {section ? 'Update Pricing Section' : 'Create Pricing Section'}
+        </button>
+    </div>
+  );
+  };
 
   // CTA Section Form
   const renderCTAForm = (section: CTASection | undefined) => {
@@ -965,7 +1782,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
             onClick={async () => {
               await saveSection(formData);
             }}
-            className="btn-primary"
+            className="button"
           >
             {section ? 'Update CTA Section' : 'Create CTA Section'}
           </button>
@@ -1043,7 +1860,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
             onClick={async () => {
               await saveSection(formData);
             }}
-            className="btn-primary"
+            className="button"
           >
             {section ? 'Update Waitlist Section' : 'Create Waitlist Section'}
           </button>
@@ -1052,14 +1869,268 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     );
   };
 
-  // Header and Footer forms (simplified for now)
-  const renderHeaderForm = (section: HeaderSection | undefined) => (
+  // Header Section Form
+  const renderHeaderForm = (section: HeaderSection | undefined) => {
+    const [formData, setFormData] = useState<Partial<HeaderSection>>(
+      section || {
+        section_type: 'header' as const,
+        is_visible: true,
+        logo_text: '',
+        sign_in_text: 'Sign In',
+        get_started_text: 'Get Started'
+      }
+    );
+
+    const [navigationItems, setNavigationItems] = useState<any[]>(
+      (section as any)?.navigation_items || []
+    );
+
+    const addNavigationItem = () => {
+      const newItem = {
+        label: 'New Link',
+        href: '#',
+        sort_order: navigationItems.length
+      };
+      setNavigationItems([...navigationItems, newItem]);
+    };
+
+    const updateNavigationItem = (index: number, field: string, value: any) => {
+      const updatedItems = navigationItems.map((item, i) => 
+        i === index ? { ...item, [field]: value } : item
+      );
+      setNavigationItems(updatedItems);
+    };
+
+    const removeNavigationItem = (index: number) => {
+      setNavigationItems(navigationItems.filter((_, i) => i !== index));
+    };
+
+    const moveNavigationItem = (index: number, direction: 'up' | 'down') => {
+      const newItems = [...navigationItems];
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      
+      if (targetIndex >= 0 && targetIndex < newItems.length) {
+        [newItems[index], newItems[targetIndex]] = [newItems[targetIndex], newItems[index]];
+                                // Update order values
+                        newItems.forEach((item, i) => {
+                          item.sort_order = i;
+                        });
+        setNavigationItems(newItems);
+      }
+    };
+
+    const saveHeader = async () => {
+      const sectionToSave = {
+        ...formData,
+        section_data: {
+          logo_text: formData.logo_text,
+          sign_in_text: formData.sign_in_text,
+          get_started_text: formData.get_started_text,
+          navigation_items: navigationItems
+        }
+      };
+      
+      await saveSection(sectionToSave);
+    };
+
+    return (
+      <div className="space-y-6">
+        {/* Header Configuration */}
+        <div className="grid grid-cols-1 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Logo Text</label>
+            <input
+              type="text"
+              value={formData.logo_text || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, logo_text: e.target.value }))}
+              className="w-full p-2 border border-border rounded"
+              placeholder="BiblioKit"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Sign In Text</label>
+            <input
+              type="text"
+              value={formData.sign_in_text || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, sign_in_text: e.target.value }))}
+              className="w-full p-2 border border-border rounded"
+              placeholder="Sign In"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Get Started Text</label>
+            <input
+              type="text"
+              value={formData.get_started_text || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, get_started_text: e.target.value }))}
+              className="w-full p-2 border border-border rounded"
+              placeholder="Get Started"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="header-visible"
+              checked={formData.is_visible}
+              onChange={(e) => setFormData(prev => ({ ...prev, is_visible: e.target.checked }))}
+              className="rounded border-border"
+            />
+            <label htmlFor="header-visible" className="text-sm">Visible on website</label>
+          </div>
+        </div>
+
+        {/* Navigation Items Management */}
+        <div className="border-t border-border pt-6">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-medium">Navigation Items</h4>
+            <button
+              onClick={addNavigationItem}
+              className="button-secondary text-sm"
+            >
+              + Add Navigation Item
+            </button>
+          </div>
+
     <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">
-        Header section editing requires navigation items CRUD operations.
-      </p>
+            {navigationItems.map((item, index) => (
+              <div key={index} className={`p-4 border rounded-lg ${item.isButton ? 'border-primary/30 bg-primary/5' : 'border-border'}`}>
+                {/* Item Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium">#{index + 1}</span>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={!!item.isButton}
+                        onChange={(e) => updateNavigationItem(index, 'isButton', e.target.checked)}
+                        className="rounded border-border"
+                      />
+                      <span className="text-sm">Button Style</span>
+                      {item.isButton && (
+                        <span className="text-xs px-2 py-1 bg-primary text-primary-foreground rounded-full">
+                          BUTTON
+                        </span>
+                      )}
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => moveNavigationItem(index, 'up')}
+                      disabled={index === 0}
+                      className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
+                      title="Move up"
+                    >
+                      ↑
+                    </button>
+                    <button
+                      onClick={() => moveNavigationItem(index, 'down')}
+                      disabled={index === navigationItems.length - 1}
+                      className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
+                      title="Move down"
+                    >
+                      ↓
+                    </button>
+                    <button
+                      onClick={() => removeNavigationItem(index)}
+                      className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-sm"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+
+                {/* Item Fields */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium mb-1">Link Text</label>
+                                          <input
+                        type="text"
+                        value={item.label}
+                        onChange={(e) => updateNavigationItem(index, 'label', e.target.value)}
+                        className="w-full p-2 border border-border rounded text-sm"
+                        placeholder="Home, About, Pricing"
+                      />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1">Link URL</label>
+                    <input
+                      type="text"
+                      value={item.href}
+                      onChange={(e) => updateNavigationItem(index, 'href', e.target.value)}
+                      className="w-full p-2 border border-border rounded text-sm"
+                      placeholder="/about, #pricing, https://example.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1">Link Type</label>
+                    <select
+                      value={item.type || 'link'}
+                      onChange={(e) => updateNavigationItem(index, 'type', e.target.value)}
+                      className="w-full p-2 border border-border rounded text-sm"
+                    >
+                      <option value="link">Regular Link</option>
+                      <option value="scroll">Scroll to Section</option>
+                      <option value="external">External Link</option>
+                      <option value="dropdown">Dropdown Menu</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Additional Options */}
+                <div className="mt-3 pt-3 border-t border-border/50">
+                  <div className="flex items-center gap-4">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={!!item.isExternal}
+                        onChange={(e) => updateNavigationItem(index, 'isExternal', e.target.checked)}
+                        className="rounded border-border"
+                      />
+                      <span className="text-xs">Open in new tab</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={!!item.nofollow}
+                        onChange={(e) => updateNavigationItem(index, 'nofollow', e.target.checked)}
+                        className="rounded border-border"
+                      />
+                      <span className="text-xs">Add rel="nofollow"</span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Dropdown Items (if dropdown type) */}
+                {item.type === 'dropdown' && (
+                  <div className="mt-3 pt-3 border-t border-border/50">
+                    <div className="text-xs font-medium mb-2">Dropdown Items</div>
+                    <div className="text-xs text-muted-foreground">
+                      Dropdown menu functionality requires additional implementation for nested items management.
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {navigationItems.length === 0 && (
+            <div className="text-center py-8 text-muted-foreground">
+              <p className="text-sm">No navigation items yet.</p>
+              <p className="text-xs">Click "Add Navigation Item" to get started.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Save Button */}
+        <button
+          onClick={saveHeader}
+          className="button w-full"
+        >
+          {section ? 'Update Header Section' : 'Create Header Section'}
+        </button>
     </div>
   );
+  };
 
   const renderFooterForm = (section: FooterSection | undefined) => (
     <div className="space-y-4">
@@ -1175,20 +2246,20 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
           <div className="flex gap-2">
             <button
               onClick={handleReset}
-              className="btn-secondary text-sm"
+              className="button-secondary text-sm"
             >
               Reset to Default
             </button>
             <button
               onClick={handleSave}
-              className="btn-primary text-sm"
+              className="button text-sm"
               disabled={!isEditing}
             >
               Save & Reload
             </button>
             <button
               onClick={() => setShowEditor(false)}
-              className="btn-secondary text-sm"
+              className="button-secondary text-sm"
             >
               Close
             </button>
