@@ -126,17 +126,46 @@ const contentSectionsHandler: Handler = async (event: HandlerEvent, context: Han
     await initializeTables(client);
 
     const pathParts = event.path.split('/').filter(part => part);
-    const resource = pathParts[pathParts.length - 1]; // content-sections or section-type/id
-    
-    // For routes like /.netlify/functions/content-sections/{type}
-    // we want to extract the type from the last segment
+    const lastPart = pathParts[pathParts.length - 1];
+    const prevPart = pathParts[pathParts.length - 2];
+
+    // Identify sub-resources for nested CRUD
+    const subResources = ['footer-link-groups', 'footer-links', 'navigation-items'];
+    const isSubResource = subResources.includes(lastPart) || subResources.includes(prevPart);
+
+    // Default resource is content-sections flow
+    let resource = lastPart; // content-sections or section-type or id
+    let subResource: string | null = null;
+    let subResourceId: number | null = null;
+
+    if (isSubResource) {
+      // Two patterns supported:
+      // 1) /.netlify/functions/content-sections/{subResource}
+      // 2) /.netlify/functions/content-sections/{subResource}/{id}
+      if (subResources.includes(lastPart)) {
+        subResource = lastPart;
+      } else if (subResources.includes(prevPart)) {
+        subResource = prevPart;
+        const maybeId = parseInt(lastPart, 10);
+        subResourceId = isNaN(maybeId) ? null : maybeId;
+      }
+    }
+
+    // For legacy section type routes, keep the last segment as section type or id
     let sectionTypeOrId = resource;
-    
-    // If this is a sub-route (more than just the function name), 
-    // check if we have a section type in the path
-    if (pathParts.length > 3) {
-      // Path like /.netlify/functions/content-sections/features
-      sectionTypeOrId = pathParts[pathParts.length - 1];
+
+    // Handle sub-resource CRUD if requested
+    if (subResource) {
+      switch (event.httpMethod) {
+        case 'POST':
+          return await handleSubResourcePost(client, subResource, event.body);
+        case 'PUT':
+          return await handleSubResourcePut(client, subResource, subResourceId, event.body);
+        case 'DELETE':
+          return await handleSubResourceDelete(client, subResource, subResourceId);
+        default:
+          return sendJSON(405, { error: 'Method not allowed for sub-resource' });
+      }
     }
 
     switch (event.httpMethod) {
@@ -160,6 +189,105 @@ const contentSectionsHandler: Handler = async (event: HandlerEvent, context: Han
   } finally {
     await client.end();
   }
+};
+
+// Sub-resource handlers for footer groups/links and navigation items
+const handleSubResourcePost = async (client: Client, subResource: string, body: string | null) => {
+  if (!body) return sendJSON(400, { error: 'Request body required' });
+  const data = JSON.parse(body);
+
+  if (subResource === 'footer-link-groups') {
+    const { section_id, title, sort_order = 0 } = data;
+    if (!section_id || !title) return sendJSON(400, { error: 'section_id and title are required' });
+    const result = await client.query(
+      `INSERT INTO footer_link_groups (section_id, title, sort_order)
+       VALUES ($1, $2, $3) RETURNING *`,
+      [section_id, title, sort_order]
+    );
+    return sendJSON(201, { success: true, data: result.rows[0] });
+  }
+
+  if (subResource === 'footer-links') {
+    const { group_id, label, href, sort_order = 0 } = data;
+    if (!group_id || !label || !href) return sendJSON(400, { error: 'group_id, label and href are required' });
+    const result = await client.query(
+      `INSERT INTO footer_links (group_id, label, href, sort_order)
+       VALUES ($1, $2, $3, $4) RETURNING *`,
+      [group_id, label, href, sort_order]
+    );
+    return sendJSON(201, { success: true, data: result.rows[0] });
+  }
+
+  if (subResource === 'navigation-items') {
+    const { section_id, label, href, sort_order = 0 } = data;
+    if (!section_id || !label || !href) return sendJSON(400, { error: 'section_id, label and href are required' });
+    const result = await client.query(
+      `INSERT INTO navigation_items (section_id, label, href, sort_order)
+       VALUES ($1, $2, $3, $4) RETURNING *`,
+      [section_id, label, href, sort_order]
+    );
+    return sendJSON(201, { success: true, data: result.rows[0] });
+  }
+
+  return sendJSON(400, { error: 'Unknown sub-resource' });
+};
+
+const handleSubResourcePut = async (client: Client, subResource: string, id: number | null, body: string | null) => {
+  if (!id) return sendJSON(400, { error: 'ID required' });
+  if (!body) return sendJSON(400, { error: 'Request body required' });
+  const data = JSON.parse(body);
+
+  if (subResource === 'footer-link-groups') {
+    const updates: string[] = [];
+    const values: any[] = [];
+    let idx = 1;
+    if (data.title !== undefined) { updates.push(`title = $${idx++}`); values.push(data.title); }
+    if (data.sort_order !== undefined) { updates.push(`sort_order = $${idx++}`); values.push(data.sort_order); }
+    if (updates.length === 0) return sendJSON(400, { error: 'No fields to update' });
+    values.push(id);
+    const result = await client.query(`UPDATE footer_link_groups SET ${updates.join(', ')} WHERE id = $${idx} RETURNING *`, values);
+    return sendJSON(200, { success: true, data: result.rows[0] });
+  }
+
+  if (subResource === 'footer-links') {
+    const updates: string[] = [];
+    const values: any[] = [];
+    let idx = 1;
+    if (data.label !== undefined) { updates.push(`label = $${idx++}`); values.push(data.label); }
+    if (data.href !== undefined) { updates.push(`href = $${idx++}`); values.push(data.href); }
+    if (data.sort_order !== undefined) { updates.push(`sort_order = $${idx++}`); values.push(data.sort_order); }
+    if (updates.length === 0) return sendJSON(400, { error: 'No fields to update' });
+    values.push(id);
+    const result = await client.query(`UPDATE footer_links SET ${updates.join(', ')} WHERE id = $${idx} RETURNING *`, values);
+    return sendJSON(200, { success: true, data: result.rows[0] });
+  }
+
+  if (subResource === 'navigation-items') {
+    const updates: string[] = [];
+    const values: any[] = [];
+    let idx = 1;
+    if (data.label !== undefined) { updates.push(`label = $${idx++}`); values.push(data.label); }
+    if (data.href !== undefined) { updates.push(`href = $${idx++}`); values.push(data.href); }
+    if (data.sort_order !== undefined) { updates.push(`sort_order = $${idx++}`); values.push(data.sort_order); }
+    if (updates.length === 0) return sendJSON(400, { error: 'No fields to update' });
+    values.push(id);
+    const result = await client.query(`UPDATE navigation_items SET ${updates.join(', ')} WHERE id = $${idx} RETURNING *`, values);
+    return sendJSON(200, { success: true, data: result.rows[0] });
+  }
+
+  return sendJSON(400, { error: 'Unknown sub-resource' });
+};
+
+const handleSubResourceDelete = async (client: Client, subResource: string, id: number | null) => {
+  if (!id) return sendJSON(400, { error: 'ID required' });
+  const table = subResource === 'footer-link-groups' ? 'footer_link_groups'
+               : subResource === 'footer-links' ? 'footer_links'
+               : subResource === 'navigation-items' ? 'navigation_items'
+               : null;
+  if (!table) return sendJSON(400, { error: 'Unknown sub-resource' });
+  const result = await client.query(`DELETE FROM ${table} WHERE id = $1 RETURNING *`, [id]);
+  if (result.rows.length === 0) return sendJSON(404, { error: 'Not found' });
+  return sendJSON(200, { success: true, message: 'Deleted successfully' });
 };
 
 // GET handler

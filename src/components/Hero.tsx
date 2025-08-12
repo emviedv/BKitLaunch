@@ -11,7 +11,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative py-24 px-4 bg-gradient-to-br from-yellow-50/30 to-orange-100/30 text-gray-900">
+    <section className="section-hero py-24 px-4">
       <div className="container mx-auto text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
@@ -91,8 +91,8 @@ const Hero = () => {
         </div>
       </div>
       {/* Decorative elements */}
-      <div className="absolute top-10 left-10 w-20 h-20 bg-purple-200/30 rounded-full blur-xl"></div>
-      <div className="absolute bottom-10 right-10 w-32 h-32 bg-orange-200/30 rounded-full blur-xl"></div>
+      <div className="absolute -z-10 top-10 left-10 w-24 h-24 bg-pink-300/30 rounded-full blur-2xl"></div>
+      <div className="absolute -z-10 bottom-10 right-10 w-40 h-40 bg-blue-300/30 rounded-full blur-2xl"></div>
     </section>
   );
 };

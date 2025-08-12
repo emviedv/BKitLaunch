@@ -78,7 +78,9 @@ const AdminDashboard: React.FC = () => {
 
   // ALL HOOKS MUST BE AT THE TOP - BEFORE ANY CONDITIONAL LOGIC
   const { isAuthenticated, isAdmin, email, logout, loading: authLoading } = authHookData;
-  const [activeTab, setActiveTab] = useState<'content' | 'versions' | 'settings' | 'analytics'>('content');
+  const [activeTab, setActiveTab] = useState<'content' | 'versions' | 'settings' | 'analytics' | 'waitlist'>('content');
+  const [waitlist, setWaitlist] = useState<Array<{ id: number; email: string; name?: string; source?: string; created_at: string }>>([]);
+  const [waitlistLoading, setWaitlistLoading] = useState(false);
   const [contentVersions, setContentVersions] = useState<ContentVersion[]>([]);
   const [currentContent, setCurrentContent] = useState(productData);
   const [loading, setLoading] = useState(false);
@@ -276,6 +278,7 @@ const AdminDashboard: React.FC = () => {
   const tabs = [
     { id: 'content', label: 'Content Editor', icon: '✏️' },
     { id: 'versions', label: 'Version History', icon: '🕒' },
+    { id: 'waitlist', label: 'Waitlist', icon: '📧' },
     { id: 'settings', label: 'Site Settings', icon: '⚙️' },
     { id: 'analytics', label: 'Analytics', icon: '📊' }
   ] as const;
@@ -456,6 +459,71 @@ const AdminDashboard: React.FC = () => {
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {activeTab === 'waitlist' && (
+          <div className="bg-background rounded-lg border p-6">
+            <div className="flex items-center justify-between mb  -6">
+              <h2 className="text-xl font-semibold">Waitlist Signups</h2>
+              <div className="flex gap-2">
+                <button
+                  className="button-secondary"
+                  onClick={async () => {
+                    setWaitlistLoading(true);
+                    const result = await contentApi.getWaitlistSignups(100, 0);
+                    if (result.success && result.data) setWaitlist(result.data as any);
+                    setWaitlistLoading(false);
+                  }}
+                >
+                  Refresh
+                </button>
+                <button
+                  className="button"
+                  onClick={() => {
+                    const csv = ['Email,Name,Source,Created At', ...waitlist.map(w => `${w.email},${w.name || ''},${w.source || ''},${new Date(w.created_at).toISOString()}`)].join('\n');
+                    const blob = new Blob([csv], { type: 'text/csv' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `waitlist-${new Date().toISOString().slice(0,10)}.csv`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  Export CSV
+                </button>
+              </div>
+            </div>
+
+            {waitlistLoading ? (
+              <div className="text-center py-12 text-muted-foreground">Loading...</div>
+            ) : waitlist.length === 0 ? (
+              <div className="text-center py-12 text-muted-foreground">No waitlist signups yet.</div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="min-w-full text-sm">
+                  <thead>
+                    <tr className="text-left border-b">
+                      <th className="py-2 pr-4">Email</th>
+                      <th className="py-2 pr-4">Name</th>
+                      <th className="py-2 pr-4">Source</th>
+                      <th className="py-2 pr-4">Created</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {waitlist.map((w) => (
+                      <tr key={w.id} className="border-b last:border-0">
+                        <td className="py-2 pr-4">{w.email}</td>
+                        <td className="py-2 pr-4">{w.name || '-'}</td>
+                        <td className="py-2 pr-4">{w.source || 'website'}</td>
+                        <td className="py-2 pr-4">{new Date(w.created_at).toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
 

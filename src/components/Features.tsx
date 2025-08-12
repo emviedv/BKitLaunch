@@ -107,7 +107,7 @@ const Features = () => {
                 <div className={`icon ${colorClasses[index % colorClasses.length]}`}>
                   {feature.icon}
                 </div>
-                {feature.badge && (
+                {feature.badge && (content.settings?.labels?.featuresBadges ?? true) && (feature as any).showBadge !== false && (
                   <span 
                     className={`text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(feature.badgeColor || 'primary')}`}
                     style={getBadgeStyle(feature.badgeColor || '')}
@@ -122,18 +122,29 @@ const Features = () => {
               </p>
               
               {/* Featured card button */}
-              {feature.isFeatured && feature.buttonText && (
-                <a
-                  href={feature.buttonLink || '#'}
-                  className="card-button"
-                  onClick={(e) => handleButtonClick(e, feature.buttonLink)}
-                  target={feature.buttonLink && isExternalLink(feature.buttonLink) ? '_blank' : '_self'}
-                  rel={feature.buttonLink && isExternalLink(feature.buttonLink) ? 'noopener noreferrer' : undefined}
-                  aria-label={`${feature.buttonText} - ${feature.title}`}
-                >
-                  {feature.buttonText}
-                </a>
-              )}
+              {(() => {
+                const label: string | undefined =
+                  feature.buttonPreset === 'beta' ? 'Sign Up for Beta' : feature.buttonText;
+                const computedLink: string | undefined =
+                  feature.productSlug ? `/${feature.productSlug}` : feature.buttonLink;
+
+                if (!feature.isFeatured || !label) return null;
+
+                const external = Boolean(computedLink && isExternalLink(computedLink));
+
+                return (
+                  <a
+                    href={computedLink || '#'}
+                    className="card-button"
+                    onClick={(e) => handleButtonClick(e, computedLink)}
+                    target={external ? '_blank' : '_self'}
+                    rel={external ? 'noopener noreferrer' : undefined}
+                    aria-label={`${label} - ${feature.title}`}
+                  >
+                    {label}
+                  </a>
+                );
+              })()}
             </div>
           ))}
         </div>

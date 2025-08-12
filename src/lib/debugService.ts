@@ -160,7 +160,7 @@ class DebugService {
 export const debugService = new DebugService();
 
 // Development mode detection
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && typeof window.location !== 'undefined') {
   const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   debugService.configure({ 
     enabled: isDev,

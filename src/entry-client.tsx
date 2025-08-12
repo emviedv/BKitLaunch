@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { Router } from 'wouter';
 import './index.css';
 
 // Basic production/consent-gated Hotjar loader for public routes only
@@ -31,14 +32,18 @@ if (hasSSRContent) {
   ReactDOM.hydrateRoot(
     rootElement,
     <React.StrictMode>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </React.StrictMode>
   );
 } else {
   // Normal client-side rendering (fallback)
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </React.StrictMode>
   );
 }

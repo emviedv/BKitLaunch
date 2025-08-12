@@ -45,8 +45,9 @@ export default defineConfig({
       'clsx',
       'lucide-react',
       'tailwind-merge',
-      // Ensure Deno-compatible SSR bundle by including this package
-      'use-sync-external-store'
+      // Ensure Deno-compatible SSR bundle by including these packages
+      'use-sync-external-store',
+      'use-sync-external-store/shim'
     ]
   }
 })

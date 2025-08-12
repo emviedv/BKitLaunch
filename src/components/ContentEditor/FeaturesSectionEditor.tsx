@@ -10,6 +10,9 @@ interface Feature {
   isFeatured?: boolean;
   buttonText?: string;
   buttonLink?: string;
+  buttonPreset?: 'beta' | 'custom';
+  productSlug?: string;
+  showBadge?: boolean;
 }
 
 interface FeaturesSectionEditorProps {
@@ -145,6 +148,19 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
             </div>
           </div>
 
+          {/* Badge visibility toggle */}
+          <div className="mb-3">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={feature.showBadge !== false}
+                onChange={(e) => updateNestedField('features', index, 'showBadge', e.target.checked)}
+                className="rounded border-border"
+              />
+              <span className="text-sm">Show Badge</span>
+            </label>
+          </div>
+
           {/* Description */}
           <div className="mb-3">
             <label className="block text-xs font-medium mb-1">Description</label>
@@ -158,34 +174,68 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
 
           {/* Featured Card Button Fields */}
           {feature.isFeatured && (
-            <div className="border-t border-border/50 pt-3">
+            <div className="border-t border-border/50 pt-3 space-y-2">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xs font-medium text-primary">Featured Card Button</span>
               </div>
-              <div className="grid grid-cols-2 gap-2 text-sm">
+
+              {/* Preset selector */}
+              <div className="grid grid-cols-3 gap-2 text-sm">
                 <div>
-                  <label className="block text-xs font-medium mb-1">Button Text</label>
-                  <input
-                    type="text"
-                    value={feature.buttonText || ''}
-                    onChange={(e) => updateNestedField('features', index, 'buttonText', e.target.value)}
+                  <label className="block text-xs font-medium mb-1">Preset</label>
+                  <select
+                    value={feature.buttonPreset || 'custom'}
+                    onChange={(e) => updateNestedField('features', index, 'buttonPreset', e.target.value)}
                     className="p-1 border border-border rounded w-full"
-                    placeholder="e.g. Learn More, Get Started"
-                  />
+                    aria-label="Button preset"
+                  >
+                    <option value="custom">Custom</option>
+                    <option value="beta">Sign Up for Beta</option>
+                  </select>
                 </div>
-                <div>
-                  <label className="block text-xs font-medium mb-1">Button Link</label>
+                <div className="col-span-2">
+                  <label className="block text-xs font-medium mb-1">Product Page Slug</label>
                   <input
                     type="text"
-                    value={feature.buttonLink || ''}
-                    onChange={(e) => updateNestedField('features', index, 'buttonLink', e.target.value)}
+                    value={feature.productSlug || ''}
+                    onChange={(e) => updateNestedField('features', index, 'productSlug', e.target.value)}
                     className="p-1 border border-border rounded w-full"
-                    placeholder="/pricing or https://example.com"
+                    placeholder="e.g. bibliokit-blocks (renders as /bibliokit-blocks)"
+                    aria-label="Product page slug"
                   />
                 </div>
               </div>
+
+              {/* Custom text/link fields - only when preset is custom */}
+              {(feature.buttonPreset || 'custom') === 'custom' && (
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>
+                    <label className="block text-xs font-medium mb-1">Button Text</label>
+                    <input
+                      type="text"
+                      value={feature.buttonText || ''}
+                      onChange={(e) => updateNestedField('features', index, 'buttonText', e.target.value)}
+                      className="p-1 border border-border rounded w-full"
+                      placeholder="e.g. Learn More, Get Started"
+                      aria-label="Button text"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1">Button Link</label>
+                    <input
+                      type="text"
+                      value={feature.buttonLink || ''}
+                      onChange={(e) => updateNestedField('features', index, 'buttonLink', e.target.value)}
+                      className="p-1 border border-border rounded w-full"
+                      placeholder="/pricing or https://example.com"
+                      aria-label="Button link"
+                    />
+                  </div>
+                </div>
+              )}
+
               <div className="text-xs text-muted-foreground mt-1">
-                Button only appears when both text and featured status are set
+                Button appears when the card is marked Featured and either a preset is selected or custom text is provided.
               </div>
             </div>
           )}

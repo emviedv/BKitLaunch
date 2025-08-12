@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Router, Route, Switch, useLocation } from 'wouter';
+import { Route, Switch, useLocation } from 'wouter';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import ContentEditor from './components/ContentEditor';
 import Waitlist from './components/Waitlist';
 import AdminDashboard from './components/AdminDashboard';
+import DesignSystem from './components/DesignSystem';
 import { AuthProvider } from './contexts/AuthContext';
 import { usePublishedContent } from './hooks/usePublishedContent';
 import { useSEO } from './hooks/useSEO';
@@ -98,6 +99,7 @@ const AppContent = () => {
         <Switch>
           <Route path="/" component={HomePage} />
           <Route path="/test" component={TestPage} />
+          <Route path="/design-system" component={DesignSystem} />
           <Route path="/bibliokit-blocks" component={BiblioKitBlocksPage} />
           <Route path="/ai-rename-variants" component={AIRenameVariantsPage} />
           <Route path="/admin" component={AdminDashboard} />
@@ -134,9 +136,7 @@ function App() {
   console.log('App rendering...');
   return (
     <AuthProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <AppContent />
     </AuthProvider>
   );
 }

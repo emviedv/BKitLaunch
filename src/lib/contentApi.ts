@@ -202,26 +202,28 @@ class ContentAPI {
     debugService.saveStart('Syncing JSON content to sections tables');
     
     try {
-      const syncResults = [];
+      const syncResults: Array<{ operation: string; sectionType: string; success: boolean }> = [];
       
       // Helper function to upsert a section
-      const upsertSection = async (sectionType: string, sectionData: any) => {
+      const upsertSection = async (sectionType: string, sectionData: any, isVisible?: boolean) => {
         // First, try to get existing section
         const existingResponse = await this.getSection(sectionType);
         
         if (existingResponse.success && existingResponse.data) {
           // Update existing section
-          const updateResponse = await this.updateSection(existingResponse.data.id, {
+          const updatePayload: any = {
             section_data: sectionData,
             updated_at: new Date().toISOString()
-          });
+          };
+          if (typeof isVisible === 'boolean') updatePayload.is_visible = isVisible;
+          const updateResponse = await this.updateSection((existingResponse.data as any).id, updatePayload);
           return { operation: 'updated', sectionType, success: updateResponse.success };
         } else {
           // Create new section
           const createResponse = await this.createSection({
             section_type: sectionType,
             section_data: sectionData,
-            is_visible: true,
+            is_visible: typeof isVisible === 'boolean' ? isVisible : true,
             sort_order: 0
           });
           return { operation: 'created', sectionType, success: createResponse.success };
@@ -230,7 +232,7 @@ class ContentAPI {
 
       // Sync hero section
       if (jsonContent.hero) {
-        const result = await upsertSection('hero', jsonContent.hero);
+        const result = await upsertSection('hero', jsonContent.hero, jsonContent.settings?.visibility?.hero !== false);
         syncResults.push(result);
       }
 
@@ -242,7 +244,7 @@ class ContentAPI {
           description: "From secure API management to comprehensive support systems, we provide all the tools you need for professional SaaS development.",
           items: jsonContent.features
         };
-        const result = await upsertSection('features', featuresSection);
+        const result = await upsertSection('features', featuresSection, jsonContent.settings?.visibility?.features !== false);
         syncResults.push(result);
       }
 
@@ -254,21 +256,107 @@ class ContentAPI {
           plans: jsonContent.pricing || [],
           isComingSoon: jsonContent.pricingSection?.isComingSoon !== false // Default to true if not explicitly set to false
         };
-        const result = await upsertSection('pricing', pricingSection);
+        const result = await upsertSection('pricing', pricingSection, jsonContent.settings?.visibility?.pricing !== false);
         syncResults.push(result);
       }
 
       // Sync settings visibility as CTA section
-      if (jsonContent.settings?.visibility?.cta !== false) {
+      if (jsonContent.cta) {
         const ctaSection = {
-          title: "Ready to get started?",
-          description: "Join thousands of developers and designers who trust BiblioKit for their SaaS and plugin development needs.",
-          primary_button: "Start Free Trial",
-          secondary_button: "Schedule Demo",
-          is_visible: jsonContent.settings?.visibility?.cta !== false
+          title: jsonContent.cta.title || "Ready to get started?",
+          description: jsonContent.cta.description || "Join thousands of developers and designers who trust BiblioKit for their SaaS and plugin development needs.",
+          primary_button: jsonContent.cta.primaryButton || "Start Free Trial",
+          secondary_button: jsonContent.cta.secondaryButton || "Schedule Demo"
         };
-        const result = await upsertSection('cta', ctaSection);
+        const result = await upsertSection('cta', ctaSection, jsonContent.settings?.visibility?.cta !== false);
         syncResults.push(result);
+      }
+
+      // Sync waitlist section
+      if (jsonContent.waitlist) {
+        const waitlistSection = {
+          title: jsonContent.waitlist.title || '',
+          description: jsonContent.waitlist.description || '',
+          button_text: jsonContent.waitlist.buttonText || '',
+          success_message: jsonContent.waitlist.successMessage || ''
+        };
+        const result = await upsertSection('waitlist', waitlistSection, jsonContent.settings?.visibility?.waitlist !== false);
+        syncResults.push(result);
+      }
+
+      // Sync header and navigation items
+      if (jsonContent.header) {
+        const headerData = {
+          logo_text: jsonContent.header.logoText || 'BiblioKit',
+          sign_in_text: jsonContent.header.signInText || 'Sign In',
+          get_started_text: jsonContent.header.getStartedText || 'Get Started'
+        };
+        await upsertSection('header', headerData, jsonContent.settings?.visibility?.header !== false);
+
+        // Ensure we have the section ID
+        const headerResponse = await this.getSection('header');
+        if (headerResponse.success && headerResponse.data) {
+          const headerSection: any = headerResponse.data;
+          const sectionId = headerSection.id;
+
+          // Remove existing nav items then re-create from JSON to keep it simple
+          const existingItems: any[] = headerSection.navigation_items || [];
+          for (const item of existingItems) {
+            if (item.id) {
+              await this.deleteNavigationItem(item.id);
+            }
+          }
+          const navItems: Array<{ label: string; href: string }> = jsonContent.header.navigation || [];
+          for (let i = 0; i < navItems.length; i++) {
+            const item = navItems[i];
+            await this.createNavigationItem(sectionId, { label: item.label, href: item.href, sort_order: i });
+          }
+          syncResults.push({ operation: 'synced', sectionType: 'header-navigation', success: true });
+        } else {
+          syncResults.push({ operation: 'synced', sectionType: 'header-navigation', success: false });
+        }
+      }
+
+      // Sync footer link groups and links
+      if (jsonContent.footer) {
+        const footerData = {
+          description: jsonContent.footer.description || '',
+          copyright_text: jsonContent.footer.copyright || ''
+        };
+        await upsertSection('footer', footerData, jsonContent.settings?.visibility?.footer !== false);
+
+        // Ensure we have the section ID
+        const footerResponse = await this.getSection('footer');
+        if (footerResponse.success && footerResponse.data) {
+          const footerSection: any = footerResponse.data;
+          const sectionId = footerSection.id;
+
+          // Delete existing groups (cascade deletes links)
+          const existingGroups: any[] = footerSection.footer_links || [];
+          for (const group of existingGroups) {
+            if (group.id) {
+              await this.deleteFooterLinkGroup(group.id);
+            }
+          }
+
+          // Create groups and links from JSON footer.sections
+          const groups: Array<{ title: string; links: Array<{ label: string; href: string }> }> = jsonContent.footer.sections || [];
+          for (let gi = 0; gi < groups.length; gi++) {
+            const group = groups[gi];
+            const createGroupRes = await this.createFooterLinkGroup(sectionId, group.title, gi);
+            if (createGroupRes.success && (createGroupRes.data as any)?.id) {
+              const groupId = (createGroupRes.data as any).id;
+              const links = group.links || [];
+              for (let li = 0; li < links.length; li++) {
+                const link = links[li];
+                await this.createFooterLink(groupId, { label: link.label, href: link.href, sort_order: li });
+              }
+            }
+          }
+          syncResults.push({ operation: 'synced', sectionType: 'footer-links', success: true });
+        } else {
+          syncResults.push({ operation: 'synced', sectionType: 'footer-links', success: false });
+        }
       }
 
       // Sync contact info if present
@@ -422,6 +510,132 @@ class ContentAPI {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to delete section'
       };
+    }
+  }
+
+  // Footer Link Groups CRUD
+  async createFooterLinkGroup(sectionId: number, title: string, sortOrder: number = 0): Promise<ApiResponse<any>> {
+    try {
+      const response = await fetch(this.getApiUrl('content-sections/footer-link-groups'), {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({ section_id: sectionId, title, sort_order: sortOrder }),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to create footer link group' };
+    }
+  }
+
+  async updateFooterLinkGroup(groupId: number, updates: { title?: string; sort_order?: number }): Promise<ApiResponse<any>> {
+    try {
+      const response = await fetch(this.getApiUrl(`content-sections/footer-link-groups/${groupId}`), {
+        method: 'PUT',
+        headers: this.getHeaders(),
+        body: JSON.stringify(updates),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to update footer link group' };
+    }
+  }
+
+  async deleteFooterLinkGroup(groupId: number): Promise<ApiResponse<null>> {
+    try {
+      const response = await fetch(this.getApiUrl(`content-sections/footer-link-groups/${groupId}`), {
+        method: 'DELETE',
+        headers: this.getHeaders(),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to delete footer link group' };
+    }
+  }
+
+  // Footer Links CRUD
+  async createFooterLink(groupId: number, link: { label: string; href: string; sort_order?: number }): Promise<ApiResponse<any>> {
+    try {
+      const response = await fetch(this.getApiUrl('content-sections/footer-links'), {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({ group_id: groupId, ...link }),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to create footer link' };
+    }
+  }
+
+  async updateFooterLink(linkId: number, updates: { label?: string; href?: string; sort_order?: number }): Promise<ApiResponse<any>> {
+    try {
+      const response = await fetch(this.getApiUrl(`content-sections/footer-links/${linkId}`), {
+        method: 'PUT',
+        headers: this.getHeaders(),
+        body: JSON.stringify(updates),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to update footer link' };
+    }
+  }
+
+  async deleteFooterLink(linkId: number): Promise<ApiResponse<null>> {
+    try {
+      const response = await fetch(this.getApiUrl(`content-sections/footer-links/${linkId}`), {
+        method: 'DELETE',
+        headers: this.getHeaders(),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to delete footer link' };
+    }
+  }
+
+  // Navigation Items CRUD
+  async createNavigationItem(sectionId: number, item: { label: string; href: string; sort_order?: number }): Promise<ApiResponse<any>> {
+    try {
+      const response = await fetch(this.getApiUrl('content-sections/navigation-items'), {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify({ section_id: sectionId, ...item }),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to create navigation item' };
+    }
+  }
+
+  async updateNavigationItem(itemId: number, updates: { label?: string; href?: string; sort_order?: number }): Promise<ApiResponse<any>> {
+    try {
+      const response = await fetch(this.getApiUrl(`content-sections/navigation-items/${itemId}`), {
+        method: 'PUT',
+        headers: this.getHeaders(),
+        body: JSON.stringify(updates),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to update navigation item' };
+    }
+  }
+
+  async deleteNavigationItem(itemId: number): Promise<ApiResponse<null>> {
+    try {
+      const response = await fetch(this.getApiUrl(`content-sections/navigation-items/${itemId}`), {
+        method: 'DELETE',
+        headers: this.getHeaders(),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to delete navigation item' };
     }
   }
 
@@ -608,8 +822,9 @@ class ContentAPI {
 
   // Join waitlist - adds email to users table
   async joinWaitingList(email: string): Promise<ApiResponse<any>> {
-    const url = this.getApiUrl('users');
-    const payload = { email, name: 'Waitlist User' };
+    // Use public waitlist endpoint (unauthenticated)
+    const url = this.getApiUrl('waitlist');
+    const payload = { email, name: 'Waitlist User', source: 'website' };
     
     debugService.apiRequest('POST', url, payload);
     debugService.info('Waitlist signup started', { email });
@@ -646,6 +861,27 @@ class ContentAPI {
         success: false,
         error: error instanceof Error ? error.message : 'Failed to join waitlist'
       };
+    }
+  }
+
+  // Admin: fetch waitlist signups (requires auth token)
+  async getWaitlistSignups(limit: number = 50, offset: number = 0): Promise<ApiResponse<any[]>> {
+    const url = `${this.getApiUrl('waitlist')}?limit=${encodeURIComponent(String(limit))}&offset=${encodeURIComponent(String(offset))}`;
+    debugService.apiRequest('GET', url);
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: this.getHeaders(),
+      });
+      const data = await response.json();
+      debugService.apiResponse('GET', url, data);
+      if (!response.ok || data.success === false) {
+        return { success: false, error: data.error || `HTTP ${response.status}: ${response.statusText}` };
+      }
+      return { success: true, data: data.data };
+    } catch (error) {
+      debugService.apiError('GET', url, error);
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to fetch waitlist signups' };
     }
   }
 }

@@ -177,7 +177,7 @@ const BiblioKitBlocksPage = () => {
   return (
     <>
       {/* Hero Section - matches home page styling */}
-      <section className="relative py-24 px-4 gradient-purple text-white">
+      <section className="relative py-24 px-4 gradient-brand text-white">
         <div className="container mx-auto text-center">
           <div className="max-w-4xl mx-auto">
             <div className="inline-block mb-6 bg-white/20 px-4 py-2 rounded-full">
@@ -375,7 +375,7 @@ const BiblioKitBlocksPage = () => {
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">Professional Plan</h3>
                   <div className="mb-4">
-                    <span className="text-4xl font-bold text-primary">{product.pricing.price}</span>
+                    <span className="text-4xl font-bold price-value">{product.pricing.price}</span>
                     <span className="text-muted-foreground">{product.pricing.period}</span>
                   </div>
                   <p className="text-muted-foreground">{product.pricing.description}</p>
@@ -383,40 +383,40 @@ const BiblioKitBlocksPage = () => {
 
                 <ul className="space-y-4 mb-8">
                   <li className="flex items-start">
-                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
-                      <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
+                      <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
                     <span className="text-sm">Unlimited component tracking</span>
                   </li>
                   <li className="flex items-start">
-                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
-                      <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
+                      <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
                     <span className="text-sm">Real-time analytics dashboard</span>
                   </li>
                   <li className="flex items-start">
-                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
-                      <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
+                      <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
                     <span className="text-sm">ROI reporting & metrics</span>
                   </li>
                   <li className="flex items-start">
-                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
-                      <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
+                      <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
                     <span className="text-sm">Team collaboration features</span>
                   </li>
                   <li className="flex items-start">
-                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mr-3 mt-0.5">
-                      <svg className="w-3 h-3 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
+                      <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>

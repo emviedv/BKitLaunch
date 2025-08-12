@@ -100,14 +100,14 @@ export default async (request: Request, context: Context) => {
       btoa(JSON.stringify(contentData)).slice(0, 8) : 
       'fallback';
     
-    // Use shorter cache times with content-based ETag for better invalidation
-    const cacheHeaders = contentData ? {
-      'Cache-Control': 'public, max-age=60, s-maxage=120', // 1 min browser, 2 min CDN - much shorter
-      'ETag': `"ssr-${contentHash}"`, // Content-based ETag for cache validation
-      'Vary': 'Accept, User-Agent', // Vary on content negotiation
-    } : {
-      'Cache-Control': 'public, max-age=30, s-maxage=60', // Even shorter for fallback content
-    };
+    // Disable caching of SSR HTML to prevent stale previews on reload; rely on client revalidation
+    const cacheHeaders = {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+      'ETag': `"ssr-${contentHash}"`,
+      'Vary': 'Accept, User-Agent',
+    } as Record<string, string>;
 
     return new Response(html, {
       status: 200,

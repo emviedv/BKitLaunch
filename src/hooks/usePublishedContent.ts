@@ -64,30 +64,42 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
   useEffect(() => {
     // Only run content loading after component has mounted
     if (!hasMounted) return;
-    
-    // Check for SSR data first after mount
+
+    let isActive = true;
+
+    // If SSR data exists, show it immediately but still revalidate in background
     const ssrData = getSSRData();
     if (ssrData) {
-      console.log('Using SSR content data after mount');
+      console.log('Using SSR content data after mount (will revalidate)');
       setState({
         content: ssrData,
-        loading: false,
+        loading: true, // keep loading true while we revalidate
         error: null,
         source: 'ssr'
       });
-      return;
+    } else {
+      // Begin loading if no SSR available
+      setState(prev => ({ ...prev, loading: true, error: null }));
     }
 
-    const loadContent = async () => {
-      setState(prev => ({ ...prev, loading: true, error: null }));
+    const controller = new AbortController();
 
+    const loadAndRevalidate = async () => {
       try {
-        // First, try to fetch published content from API
-        const response = await fetch('/.netlify/functions/content-management?action=current');
+        // Try to fetch published content from API with no-store to avoid cached responses
+        const response = await fetch('/.netlify/functions/content-management?action=current', {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+          },
+          signal: controller.signal,
+        });
         if (response.ok) {
           const result = await response.json();
           if (result.success && result.data && result.data.content_data) {
-            console.log('Loaded published content from API');
+            if (!isActive) return;
+            console.log('Loaded published content from API (revalidated)');
             setState({
               content: result.data.content_data,
               loading: false,
@@ -98,7 +110,9 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
           }
         }
       } catch (error) {
-        console.error('Failed to fetch from API, trying fallbacks...', error);
+        if ((error as any)?.name !== 'AbortError') {
+          console.error('Failed to fetch from API, trying fallbacks...', error);
+        }
       }
 
       // Fallback to localStorage
@@ -107,6 +121,7 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
         if (saved) {
           try {
             const parsed = JSON.parse(saved);
+            if (!isActive) return;
             console.log('Loaded content from localStorage');
             setState({
               content: parsed,
@@ -122,6 +137,7 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
       }
 
       // Final fallback to static data
+      if (!isActive) return;
       if (fallbackToStatic) {
         console.log('Using static productData as fallback');
         setState({
@@ -140,7 +156,12 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
       }
     };
 
-    loadContent();
+    loadAndRevalidate();
+
+    return () => {
+      isActive = false;
+      controller.abort();
+    };
   }, [fallbackToLocalStorage, fallbackToStatic, hasMounted]);
 
   return state;

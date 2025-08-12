@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import App from './App';
+import { Router } from 'wouter';
 import { generateMetadata as generateSEOMetadata, generateMetaTags, generateStructuredData } from './lib/seo';
 
 // Server-side data fetching function
@@ -52,9 +53,20 @@ export function renderToString(url: string, contentData?: any): string {
     contentData
   };
   
+  // Provide a static location hook to Wouter during SSR to avoid accessing window
+  const pathname = new URL(url).pathname;
+  const staticLocationHook = (path: string) => () => [
+    path,
+    (_to: string) => {
+      /* no-op on server */
+    },
+  ] as [string, (to: string) => void];
+
   // Render the app to string
   const html = ReactDOMServer.renderToString(
-    <App />
+    <Router hook={staticLocationHook(pathname)}>
+      <App />
+    </Router>
   );
   
   return html;

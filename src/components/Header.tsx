@@ -6,6 +6,7 @@ const Header = () => {
   const { isAuthenticated, isAdmin } = useAuth();
   const { content } = usePublishedContent();
   const adminOffset = isAuthenticated && isAdmin ? 'top-10' : 'top-0';
+  const isDev = import.meta.env && import.meta.env.DEV;
 
   // Check if header should be visible
   const shouldShowHeader = content.settings?.visibility?.header !== false;
@@ -15,9 +16,9 @@ const Header = () => {
   }
 
   return (
-    <header className={`bg-background border-b border-border fixed w-full ${adminOffset} z-50`}>
+    <header className={`bg-background/80 backdrop-blur border-b border-border fixed w-full ${adminOffset} z-50`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="font-bold text-xl text-primary">{content.header?.logoText || 'BiblioKit'}</div>
+        <div className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-500 to-green-500">{content.header?.logoText || 'BiblioKit'}</div>
         <nav className="hidden md:flex items-center space-x-6">
           {content.header?.navigation?.map((item: any, index: number) => (
             <a 
@@ -46,6 +47,15 @@ const Header = () => {
               </div>
             </div>
           </div>
+          {isDev && (
+            <a 
+              href="/design-system" 
+              className="text-sm font-medium hover:text-primary transition-colors"
+              aria-label="Design System Reference"
+            >
+              Design System
+            </a>
+          )}
         </nav>
         <div className="flex items-center space-x-4">
           {/* Mobile menu button */}
@@ -58,7 +68,7 @@ const Header = () => {
             </svg>
           </button>
           
-          <button className="button-secondary">
+          <button className="button-outline">
             {content.header?.signInText || 'Sign In'}
           </button>
           <button className="button">
@@ -88,6 +98,15 @@ const Header = () => {
               📊 BiblioKit Blocks
             </a>
           </div>
+          {isDev && (
+            <a 
+              href="/design-system" 
+              className="block py-2 text-sm font-medium hover:text-primary transition-colors"
+              aria-label="Design System Reference"
+            >
+              Design System
+            </a>
+          )}
         </div>
       </div>
     </header>

@@ -8,6 +8,13 @@
       "waitlist": true,
       "header": true,
       "footer": true
+    },
+    "labels": {
+      "featuresBadges": true,
+      "pricingBadges": true,
+      "heroBadges": true,
+      "productBadges": true,
+      "ctaBadges": true
     }
   },
   "hero": {

@@ -72,6 +72,23 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     if (!content.settings.visibility) {
       content.settings.visibility = {};
     }
+    // Ensure labels settings exist and have defaults
+    if (!content.settings.labels) {
+      (content.settings as any).labels = {
+        featuresBadges: true,
+        pricingBadges: true,
+        heroBadges: true,
+        productBadges: true,
+        ctaBadges: true,
+      };
+    } else {
+      const labels = (content.settings as any).labels;
+      if (labels.featuresBadges === undefined) labels.featuresBadges = true;
+      if (labels.pricingBadges === undefined) labels.pricingBadges = true;
+      if (labels.heroBadges === undefined) labels.heroBadges = true;
+      if (labels.productBadges === undefined) labels.productBadges = true;
+      if (labels.ctaBadges === undefined) labels.ctaBadges = true;
+    }
     
                 // Add default visibility for all sections
     const defaultVisibility = {
@@ -103,10 +120,16 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     
     // Start with default structure from productData as fallback
     const unifiedContent: any = { ...productData };
+    if (!unifiedContent.settings) unifiedContent.settings = {};
+    if (!unifiedContent.settings.visibility) unifiedContent.settings.visibility = {};
     
     // Map database sections to content structure
     sections.forEach((section: any) => {
       const sectionData = section.section_data || {};
+      // Mirror DB visibility into content.settings.visibility
+      if (section.section_type) {
+        unifiedContent.settings.visibility[section.section_type] = section.is_visible !== false;
+      }
       
       switch (section.section_type) {
         case 'hero':
@@ -147,24 +170,32 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
             ...sectionData
           };
           break;
-        case 'header':
+        case 'header': {
           if (!unifiedContent.header) unifiedContent.header = {};
+          const mappedHeader = {
+            logoText: sectionData.logoText || sectionData.logo_text || unifiedContent.header?.logoText,
+            signInText: sectionData.signInText || sectionData.sign_in_text || unifiedContent.header?.signInText,
+            getStartedText: sectionData.getStartedText || sectionData.get_started_text || unifiedContent.header?.getStartedText,
+            navigation: section.navigation_items || sectionData.navigation || sectionData.navigation_items || unifiedContent.header?.navigation || []
+          };
           unifiedContent.header = {
             ...unifiedContent.header,
-            ...sectionData,
-            // Include navigation items if present
-            navigation: section.navigation_items || sectionData.navigation || unifiedContent.header?.navigation || []
+            ...mappedHeader
           };
           break;
-        case 'footer':
+        }
+        case 'footer': {
           if (!unifiedContent.footer) unifiedContent.footer = {};
+          const mappedFooter = {
+            description: sectionData.description || unifiedContent.footer?.description,
+            sections: section.footer_links || sectionData.sections || unifiedContent.footer?.sections || []
+          };
           unifiedContent.footer = {
             ...unifiedContent.footer,
-            ...sectionData,
-            // Include footer links if present
-            links: section.footer_links || sectionData.links || unifiedContent.footer?.links || []
+            ...mappedFooter
           };
           break;
+        }
         default:
           // For any other section types, add them directly
           unifiedContent[section.section_type] = sectionData;
@@ -352,20 +383,23 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
   };
 
   const updateVisibility = (sectionKey: string, isVisible: boolean) => {
-    const currentSettings = savedContent.settings || { visibility: {} };
-    const updatedSettings = {
-      ...currentSettings,
-      visibility: {
-        ...currentSettings.visibility,
-        [sectionKey]: isVisible
-      }
-    };
-
+    const currentSettings: any = savedContent.settings || { visibility: {}, labels: {} };
+    const updatedSettings = { ...currentSettings } as any;
+    // Support nested label toggles via "labels.{key}" path
+    if (sectionKey.startsWith('labels.')) {
+      const labelKey = sectionKey.split('.')[1];
+      updatedSettings.labels = { ...(currentSettings.labels || {}), [labelKey]: isVisible };
+    } else {
+      updatedSettings.visibility = {
+        ...(currentSettings.visibility || {}),
+        [sectionKey]: isVisible,
+      };
+    }
     updateSection('settings', updatedSettings);
   };
 
   // Legacy function for backward compatibility
-  const updateSettingsVisibility = (section: 'hero' | 'features' | 'pricing' | 'cta', isVisible: boolean) => {
+  const updateSettingsVisibility = (section: string, isVisible: boolean) => {
     updateVisibility(section, isVisible);
   };
 
@@ -1920,17 +1954,65 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     };
 
     const saveHeader = async () => {
-      const sectionToSave = {
-        ...formData,
-        section_data: {
-          logo_text: formData.logo_text,
-          sign_in_text: formData.sign_in_text,
-          get_started_text: formData.get_started_text,
-          navigation_items: navigationItems
+      // First create or update the header section to ensure we have a section ID
+      let sectionId = section?.id;
+      try {
+        const payload = {
+          section_type: 'header' as const,
+          is_visible: formData.is_visible !== false,
+          section_data: {
+            logo_text: formData.logo_text,
+            sign_in_text: formData.sign_in_text,
+            get_started_text: formData.get_started_text
+          }
+        };
+
+        if (!sectionId) {
+          const createRes = await contentApi.createSection(payload as any);
+          if (!createRes.success || !(createRes.data as any)?.id) throw new Error(createRes.error || 'Failed to create header section');
+          sectionId = (createRes.data as any).id;
+        } else {
+          const updateRes = await contentApi.updateSection(sectionId, payload as any);
+          if (!updateRes.success) throw new Error(updateRes.error || 'Failed to update header section');
         }
-      };
-      
-      await saveSection(sectionToSave);
+
+        if (!sectionId) throw new Error('Header section ID unavailable');
+
+        // Prepare diffs for navigation items
+        const originalItems: any[] = ((section as any)?.navigation_items || []).map((i: any, idx: number) => ({ ...i, sort_order: i.sort_order ?? idx }));
+        const originalIds = new Set(originalItems.filter(i => i.id).map(i => i.id as number));
+        const currentItems = navigationItems.map((i: any, idx: number) => ({ ...i, sort_order: idx }));
+        const currentIds = new Set(currentItems.filter(i => i.id).map(i => i.id as number));
+
+        // Deletes
+        for (const id of originalIds) {
+          if (!currentIds.has(id)) {
+            await contentApi.deleteNavigationItem(id);
+          }
+        }
+
+        // Creates and updates
+        for (const item of currentItems) {
+          if (!item.id) {
+            await contentApi.createNavigationItem(sectionId, {
+              label: item.label,
+              href: item.href,
+              sort_order: item.sort_order ?? 0,
+            });
+          } else {
+            await contentApi.updateNavigationItem(item.id, {
+              label: item.label,
+              href: item.href,
+              sort_order: item.sort_order ?? 0,
+            });
+          }
+        }
+
+        await loadDatabaseContent();
+        showSaveNotification('Header updated successfully', 'success');
+      } catch (err) {
+        showSaveNotification(err instanceof Error ? err.message : 'Failed to save header', 'error');
+      }
     };
 
     return (
@@ -2132,13 +2214,303 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
   );
   };
 
-  const renderFooterForm = (section: FooterSection | undefined) => (
-    <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">
-        Footer section editing requires footer link groups and links CRUD operations.
-      </p>
-    </div>
-  );
+  const renderFooterForm = (section: FooterSection | undefined) => {
+    type FooterLink = { id?: number; label: string; href: string; sort_order?: number };
+    type FooterLinkGroupEditor = { id?: number; title: string; links: FooterLink[]; sort_order?: number };
+
+    const [formData, setFormData] = useState<Partial<FooterSection>>(
+      section || {
+        section_type: 'footer' as const,
+        is_visible: true,
+        description: '',
+        copyright_text: ''
+      }
+    );
+
+    const initialGroups: FooterLinkGroupEditor[] = (() => {
+      // Prefer relational data if present
+      const fromRel = (section as any)?.footer_links as any[] | undefined;
+      if (fromRel && Array.isArray(fromRel) && fromRel.length > 0) {
+        return fromRel.map((group: any) => ({
+          id: group.id,
+          title: group.title || '',
+          sort_order: group.sort_order || 0,
+          links: (group.links || []).map((l: any) => ({
+            id: l.id,
+            label: l.label || '',
+            href: l.href || '',
+            sort_order: l.sort_order || 0
+          }))
+        }));
+      }
+      // Fallback to JSON stored sections
+      const fromJson = (section as any)?.section_data?.sections as any[] | undefined;
+      if (fromJson && Array.isArray(fromJson)) {
+        return fromJson.map((group: any) => ({
+          title: group.title || '',
+          sort_order: group.sort_order || 0,
+          links: (group.links || []).map((l: any) => ({
+            label: l.label || '',
+            href: l.href || '',
+            sort_order: l.sort_order || 0
+          }))
+        }));
+      }
+      return [];
+    })();
+
+    const [linkGroups, setLinkGroups] = useState<FooterLinkGroupEditor[]>(initialGroups);
+
+    const addGroup = () => {
+      setLinkGroups(prev => [
+        ...prev,
+        { title: 'New Group', links: [], sort_order: prev.length }
+      ]);
+    };
+
+    const updateGroupTitle = (index: number, title: string) => {
+      setLinkGroups(prev => prev.map((g, i) => i === index ? { ...g, title } : g));
+    };
+
+    const removeGroup = (index: number) => {
+      setLinkGroups(prev => prev.filter((_, i) => i !== index).map((g, i2) => ({ ...g, sort_order: i2 })));
+    };
+
+    const moveGroup = (index: number, direction: 'up' | 'down') => {
+      setLinkGroups(prev => {
+        const arr = [...prev];
+        const target = direction === 'up' ? index - 1 : index + 1;
+        if (target < 0 || target >= arr.length) return prev;
+        [arr[index], arr[target]] = [arr[target], arr[index]];
+        return arr.map((g, i) => ({ ...g, sort_order: i }));
+      });
+    };
+
+    const addLinkToGroup = (groupIndex: number) => {
+      setLinkGroups(prev => prev.map((g, i) => (
+        i === groupIndex
+          ? { ...g, links: [...g.links, { label: 'New Link', href: '#', sort_order: g.links.length }] }
+          : g
+      )));
+    };
+
+    const updateLinkInGroup = (groupIndex: number, linkIndex: number, field: 'label' | 'href', value: string) => {
+      setLinkGroups(prev => prev.map((g, i) => {
+        if (i !== groupIndex) return g;
+        const links = g.links.map((l, li) => li === linkIndex ? { ...l, [field]: value } : l);
+        return { ...g, links };
+      }));
+    };
+
+    const removeLinkFromGroup = (groupIndex: number, linkIndex: number) => {
+      setLinkGroups(prev => prev.map((g, i) => {
+        if (i !== groupIndex) return g;
+        const links = g.links.filter((_, li) => li !== linkIndex).map((l, li2) => ({ ...l, sort_order: li2 }));
+        return { ...g, links };
+      }));
+    };
+
+    const moveLinkInGroup = (groupIndex: number, linkIndex: number, direction: 'up' | 'down') => {
+      setLinkGroups(prev => prev.map((g, i) => {
+        if (i !== groupIndex) return g;
+        const links = [...g.links];
+        const target = direction === 'up' ? linkIndex - 1 : linkIndex + 1;
+        if (target < 0 || target >= links.length) return g;
+        [links[linkIndex], links[target]] = [links[target], links[linkIndex]];
+        return { ...g, links: links.map((l, li) => ({ ...l, sort_order: li })) };
+      }));
+    };
+
+    const saveFooter = async () => {
+      // Ensure footer section exists
+      let sectionId = section?.id;
+      try {
+        const payload = {
+          section_type: 'footer' as const,
+          is_visible: formData.is_visible !== false,
+          section_data: {
+            description: formData.description || '',
+            copyright_text: (formData as any)?.copyright_text || ''
+          }
+        };
+
+        if (!sectionId) {
+          const createRes = await contentApi.createSection(payload as any);
+          if (!createRes.success || !(createRes.data as any)?.id) throw new Error(createRes.error || 'Failed to create footer section');
+          sectionId = (createRes.data as any).id;
+        } else {
+          const updateRes = await contentApi.updateSection(sectionId, payload as any);
+          if (!updateRes.success) throw new Error(updateRes.error || 'Failed to update footer section');
+        }
+
+        if (!sectionId) throw new Error('Footer section ID unavailable');
+
+        // Original groups/links from section
+        const originalGroups: any[] = ((section as any)?.footer_links || []).map((g: any, gi: number) => ({
+          ...g,
+          sort_order: g.sort_order ?? gi,
+          links: (g.links || []).map((l: any, li: number) => ({ ...l, sort_order: l.sort_order ?? li }))
+        }));
+        const originalGroupIdSet = new Set(originalGroups.filter(g => g.id).map(g => g.id as number));
+        const currentGroups = linkGroups.map((g, gi) => ({ ...g, sort_order: gi }));
+        const currentGroupIdSet = new Set(currentGroups.filter(g => g.id).map(g => g.id as number));
+
+        // Delete removed groups
+        for (const gid of originalGroupIdSet) {
+          if (!currentGroupIdSet.has(gid)) {
+            await contentApi.deleteFooterLinkGroup(gid);
+          }
+        }
+
+        // Upsert groups and their links
+        for (const group of currentGroups) {
+          let groupId = group.id;
+          if (!groupId) {
+          const created = await contentApi.createFooterLinkGroup(sectionId, group.title, group.sort_order ?? 0);
+          if (!created.success || !(created.data as any)?.id) throw new Error(created.error || 'Failed to create footer group');
+          groupId = (created.data as any).id;
+          } else {
+            await contentApi.updateFooterLinkGroup(groupId, { title: group.title, sort_order: group.sort_order ?? 0 });
+          }
+
+          // Original links for this group (by id)
+          const originalGroup = originalGroups.find(g => g.id === group.id);
+          const originalLinks: any[] = (originalGroup?.links || []);
+          const originalLinkIdSet = new Set(originalLinks.filter(l => l.id).map(l => l.id as number));
+
+          const currentLinks = (group.links || []).map((l, li) => ({ ...l, sort_order: li }));
+          const currentLinkIdSet = new Set(currentLinks.filter(l => l.id).map(l => l.id as number));
+
+          // Delete removed links
+          for (const lid of originalLinkIdSet) {
+            if (!currentLinkIdSet.has(lid)) {
+              await contentApi.deleteFooterLink(lid);
+            }
+          }
+
+          // Create or update links
+          for (const link of currentLinks) {
+            if (!link.id) {
+              await contentApi.createFooterLink(groupId!, { label: link.label, href: link.href, sort_order: link.sort_order ?? 0 });
+            } else {
+              await contentApi.updateFooterLink(link.id, { label: link.label, href: link.href, sort_order: link.sort_order ?? 0 });
+            }
+          }
+        }
+
+        await loadDatabaseContent();
+        showSaveNotification('Footer updated successfully', 'success');
+      } catch (err) {
+        showSaveNotification(err instanceof Error ? err.message : 'Failed to save footer', 'error');
+      }
+    };
+
+    return (
+      <div className="space-y-6">
+        {/* Footer Header Fields */}
+        <div className="grid grid-cols-1 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Description</label>
+            <textarea
+              value={formData.description || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+              className="w-full p-2 border border-border rounded h-24"
+              placeholder="Footer description"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Copyright Text</label>
+            <input
+              type="text"
+              value={(formData as any)?.copyright_text || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, copyright_text: e.target.value } as any))}
+              className="w-full p-2 border border-border rounded"
+              placeholder="© 2024 BiblioKit. All rights reserved."
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="footer-visible"
+              checked={formData.is_visible}
+              onChange={(e) => setFormData(prev => ({ ...prev, is_visible: e.target.checked }))}
+              className="rounded border-border"
+            />
+            <label htmlFor="footer-visible" className="text-sm">Visible on website</label>
+          </div>
+        </div>
+
+        {/* Footer Link Groups Management */}
+        <div className="border-t border-border pt-6">
+          <div className="flex items-center justify-between mb-4">
+            <h4 className="font-medium">Footer Link Groups</h4>
+            <button onClick={addGroup} className="button-secondary text-sm">+ Add Group</button>
+          </div>
+
+          <div className="space-y-4">
+            {linkGroups.map((group, gi) => (
+              <div key={gi} className="p-4 border rounded-lg">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium">Group #{gi + 1}</span>
+                    <input
+                      type="text"
+                      value={group.title}
+                      onChange={(e) => updateGroupTitle(gi, e.target.value)}
+                      className="p-2 border border-border rounded text-sm"
+                      placeholder="Group title (e.g., Product)"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => moveGroup(gi, 'up')} disabled={gi === 0} className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1" title="Move up">↑</button>
+                    <button onClick={() => moveGroup(gi, 'down')} disabled={gi === linkGroups.length - 1} className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1" title="Move down">↓</button>
+                    <button onClick={() => removeGroup(gi)} className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-sm">Remove</button>
+                  </div>
+                </div>
+
+                <div className="mt-3 pt-3 border-t border-border/50">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="text-sm font-medium">Links</div>
+                    <button onClick={() => addLinkToGroup(gi)} className="text-primary hover:bg-primary/10 px-2 py-1 rounded text-xs">+ Add Link</button>
+                  </div>
+                  <div className="space-y-2">
+                    {group.links.map((link, li) => (
+                      <div key={li} className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
+                        <input
+                          type="text"
+                          value={link.label}
+                          onChange={(e) => updateLinkInGroup(gi, li, 'label', e.target.value)}
+                          className="p-2 border border-border rounded text-sm"
+                          placeholder="Link label (e.g., Pricing)"
+                        />
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            value={link.href}
+                            onChange={(e) => updateLinkInGroup(gi, li, 'href', e.target.value)}
+                            className="flex-1 p-2 border border-border rounded text-sm"
+                            placeholder="#pricing or https://example.com"
+                          />
+                          <button onClick={() => moveLinkInGroup(gi, li, 'up')} disabled={li === 0} className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1" title="Move up">↑</button>
+                          <button onClick={() => moveLinkInGroup(gi, li, 'down')} disabled={li === group.links.length - 1} className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1" title="Move down">↓</button>
+                          <button onClick={() => removeLinkFromGroup(gi, li)} className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-sm">Remove</button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Save Button */}
+        <button onClick={saveFooter} className="button w-full">
+          {section ? 'Update Footer Section' : 'Create Footer Section'}
+        </button>
+      </div>
+    );
+  };
 
   // Show login modal if not authenticated but trying to access editor
   if (showLogin && !isAuthenticated) {
