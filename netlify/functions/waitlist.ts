@@ -71,7 +71,11 @@ const waitlistHandler: Handler = async (event: HandlerEvent, _context: HandlerCo
     // Basic rate limit by IP hash: max 3 signups per hour per IP
     const ipRaw = (event.headers['x-forwarded-for'] || event.headers['X-Forwarded-For'] || '').toString().split(',')[0].trim();
     const ua = (event.headers['user-agent'] || event.headers['User-Agent'] || '').toString();
-    const ipSecret = process.env.IP_HASH_SECRET || 'dev-ip-secret-change-me';
+    const ipSecret = process.env.IP_HASH_SECRET;
+    if (!ipSecret) {
+      // Fail fast if secret is not configured (only for POST to avoid leaking info)
+      return sendJSON(500, { error: 'Server configuration error' });
+    }
     const ipHash = ipRaw ? crypto.createHmac('sha256', ipSecret).update(ipRaw).digest('hex') : undefined;
 
     if (ipHash) {

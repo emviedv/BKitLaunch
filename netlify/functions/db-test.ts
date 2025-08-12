@@ -3,15 +3,12 @@ import { Client } from 'pg';
 import { withCors, createDbClient, sendJSON, handleError } from './utils';
 
 const dbTestHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  // Set CORS headers
+  // Use shared CORS via withCors wrapper; only set content-type here
   const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Content-Type': 'application/json',
   };
 
-  // Handle preflight OPTIONS request
+  // Handle preflight OPTIONS request via standard helper
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,

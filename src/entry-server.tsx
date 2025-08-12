@@ -55,16 +55,11 @@ export function renderToString(url: string, contentData?: any): string {
   
   // Provide a static location hook to Wouter during SSR to avoid accessing window
   const pathname = new URL(url).pathname;
-  const staticLocationHook = (path: string) => () => [
-    path,
-    (_to: string) => {
-      /* no-op on server */
-    },
-  ] as [string, (to: string) => void];
+  const makeStaticHook = (path: string) => () => [path, () => {}] as [string, (to: string) => void];
 
   // Render the app to string
   const html = ReactDOMServer.renderToString(
-    <Router hook={staticLocationHook(pathname)}>
+    <Router hook={makeStaticHook(pathname)}>
       <App />
     </Router>
   );

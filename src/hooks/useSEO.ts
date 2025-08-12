@@ -7,7 +7,7 @@ import { generateMetadata, updatePageMetadata } from '@/lib/seo';
  * This ensures proper metadata for client-side navigation
  */
 export function useSEO(contentData?: any) {
-  const [location] = useLocation();
+  const [location] = (typeof window !== 'undefined') ? useLocation() : (["/", () => {}] as unknown as ReturnType<typeof useLocation>);
   
   useEffect(() => {
     // Skip if this is SSR or if we don't have window

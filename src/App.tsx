@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, useLocation } from 'wouter';
+import { Route, Switch } from 'wouter';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
@@ -17,11 +17,11 @@ import { usePublishedContent } from './hooks/usePublishedContent';
 import { useSEO } from './hooks/useSEO';
 import productData from '@/data/products.json';
 
-// Simple test component
+// Simple test component (dev-only route)
 const TestPage = () => (
   <div className="container mx-auto px-4 py-16">
-    <h1 className="text-4xl font-bold">Test Page Works!</h1>
-    <p>If you see this, routing is working.</p>
+    <h1 className="text-4xl font-bold">Welcome</h1>
+    <p>Routing is configured.</p>
   </div>
 );
 
@@ -87,8 +87,7 @@ const HomePage = () => {
 
 // AppContent component to access useLocation hook inside Router
 const AppContent = () => {
-  const [location] = useLocation();
-  const isAdminRoute = location === '/admin';
+  const isAdminRoute = typeof window !== 'undefined' && window.location.pathname === '/admin';
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -98,16 +97,18 @@ const AppContent = () => {
       <main className="flex-1 pt-16">
         <Switch>
           <Route path="/" component={HomePage} />
-          <Route path="/test" component={TestPage} />
-          <Route path="/design-system" component={DesignSystem} />
+          {import.meta.env.DEV && <Route path="/test" component={TestPage} />}
+          {import.meta.env.DEV && <Route path="/design-system" component={DesignSystem} />}
           <Route path="/bibliokit-blocks" component={BiblioKitBlocksPage} />
           <Route path="/ai-rename-variants" component={AIRenameVariantsPage} />
           <Route path="/admin" component={AdminDashboard} />
-          <Route path="/database">
-            <div className="container mx-auto px-4 py-16">
-              <DatabaseTest />
-            </div>
-          </Route>
+          {import.meta.env.DEV && (
+            <Route path="/database">
+              <div className="container mx-auto px-4 py-16">
+                <DatabaseTest />
+              </div>
+            </Route>
+          )}
           <Route>
             <div className="container mx-auto px-4 py-16 text-center">
               <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>

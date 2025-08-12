@@ -61,7 +61,11 @@ const base64url = (input: Buffer | string): string => {
 
 const getJwtSecret = (): string => {
   const secret = process.env.JWT_SECRET;
-  if (secret && secret.length >= 16) return secret;
+  const isProd = (process.env.URL || '').startsWith('https://') || process.env.NODE_ENV === 'production';
+  if (secret && secret.length >= 32) return secret; // require stronger length
+  if (isProd) {
+    throw new Error('JWT_SECRET is missing or too short in production');
+  }
   console.warn('[Auth] JWT_SECRET not set or too short; using insecure dev secret.');
   return 'dev-insecure-secret-change-me';
 };
@@ -118,17 +122,19 @@ export const getAuthClaimsFromEvent = (event: HandlerEvent): JwtPayload | null =
     if (claims) return claims;
   }
 
-  // 2) Fallback to Bearer for tooling/backward-compat
-  const authHeader = event.headers?.authorization || event.headers?.Authorization as string | undefined;
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    const bearerToken = authHeader.substring(7);
-    // If it looks like a JWT, verify; otherwise retain legacy length check
-    if (bearerToken.split('.').length === 3) {
-      const claims = verifyJwt(bearerToken);
-      if (claims) return claims;
-      return null;
+  // 2) Optional Fallback to Bearer for tooling/backward-compat (disabled by default)
+  const allowBearer = (process.env.ADMIN_ALLOW_BEARER || 'false').toLowerCase() === 'true';
+  if (allowBearer) {
+    const authHeader = event.headers?.authorization || (event.headers?.Authorization as string | undefined);
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const bearerToken = authHeader.substring(7);
+      if (bearerToken.split('.').length === 3) {
+        const claims = verifyJwt(bearerToken);
+        if (claims) return claims;
+        return null;
+      }
+      return bearerToken.length > 10 ? { sub: 'legacy', method: 'bearer-legacy' } : null;
     }
-    return bearerToken.length > 10 ? { sub: 'legacy', method: 'bearer-legacy' } : null;
   }
 
   return null;
@@ -213,6 +219,8 @@ export const withCors = (handler: Handler): Handler => {
           ...(allowedOrigin ? { 'Access-Control-Allow-Origin': allowedOrigin } : {}),
           // Allow credentials to support cookie-based auth in the future
           'Access-Control-Allow-Credentials': 'true',
+          // Ensure caches/proxies differentiate by Origin
+          'Vary': 'Origin',
         },
       };
     }
@@ -225,6 +233,8 @@ export const withCors = (handler: Handler): Handler => {
         ...(response?.headers || {}),
         ...(allowedOrigin ? { 'Access-Control-Allow-Origin': allowedOrigin } : {}),
         'Access-Control-Allow-Credentials': 'true',
+        // Ensure caches/proxies differentiate by Origin
+        'Vary': 'Origin',
       },
     };
   };

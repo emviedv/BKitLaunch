@@ -6,7 +6,6 @@ const Header = () => {
   const { isAuthenticated, isAdmin } = useAuth();
   const { content } = usePublishedContent();
   const adminOffset = isAuthenticated && isAdmin ? 'top-10' : 'top-0';
-  const isDev = import.meta.env && import.meta.env.DEV;
 
   // Check if header should be visible
   const shouldShowHeader = content.settings?.visibility?.header !== false;
@@ -47,7 +46,7 @@ const Header = () => {
               </div>
             </div>
           </div>
-          {isDev && (
+          {import.meta.env.DEV && (
             <a 
               href="/design-system" 
               className="text-sm font-medium hover:text-primary transition-colors"
@@ -98,7 +97,7 @@ const Header = () => {
               📊 BiblioKit Blocks
             </a>
           </div>
-          {isDev && (
+          {import.meta.env.DEV && (
             <a 
               href="/design-system" 
               className="block py-2 text-sm font-medium hover:text-primary transition-colors"

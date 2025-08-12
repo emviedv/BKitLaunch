@@ -42,6 +42,7 @@ export default defineConfig({
       'react',
       'react-dom',
       'wouter',
+      'wouter/static-location',
       'clsx',
       'lucide-react',
       'tailwind-merge',

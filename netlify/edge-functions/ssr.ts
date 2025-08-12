@@ -60,6 +60,17 @@ export default async (request: Request, context: Context) => {
     // Render the React app to HTML
     const appHtml = renderToString(request.url, contentData);
     
+    // Generate a per-response nonce for inline hydration script
+    const nonceArray = new Uint8Array(16);
+    crypto.getRandomValues(nonceArray);
+    const nonce = btoa(String.fromCharCode(...nonceArray));
+
+    // Safely serialize JSON to prevent </script> and special char breakouts
+    const safeJson = JSON.stringify({ contentData, url: request.url })
+      .replace(/</g, '\\u003c')
+      .replace(/>/g, '\\u003e')
+      .replace(/&/g, '\\u0026');
+
     // Generate the full HTML document
     const html = `<!doctype html>
 <html lang="en">
@@ -84,9 +95,9 @@ export default async (request: Request, context: Context) => {
   </head>
   <body>
     <div id="root">${appHtml}</div>
-    <script>
+    <script nonce="${nonce}">
       // Hydration data
-      window.__SSR_DATA__ = ${JSON.stringify({ contentData, url: request.url })};
+      window.__SSR_DATA__ = ${safeJson};
     </script>
     <script type="module" src="/assets/main.js"></script>
   </body>
@@ -109,11 +120,17 @@ export default async (request: Request, context: Context) => {
       'Vary': 'Accept, User-Agent',
     } as Record<string, string>;
 
+    // Compose security headers including CSP-Report-Only with nonce to validate
+    const securityHeaders: Record<string, string> = {
+      'Content-Security-Policy-Report-Only': `default-src 'self' https:; script-src 'self' 'nonce-${nonce}' https://static.hotjar.com https://script.hotjar.com; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https: https://*.hotjar.com wss://*.hotjar.com;`,
+    };
+
     return new Response(html, {
       status: 200,
       headers: {
         'Content-Type': 'text/html; charset=utf-8',
         ...cacheHeaders,
+        ...securityHeaders,
         'X-SSR-Generated': 'true', // Debug header to identify SSR responses
         'X-Content-Hash': contentHash, // Debug header to track content versions
       },
