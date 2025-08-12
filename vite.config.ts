@@ -38,6 +38,15 @@ export default defineConfig({
   },
   ssr: {
     // Don't externalize dependencies for better Edge Function compatibility
-    noExternal: ['react', 'react-dom', 'wouter', 'clsx', 'lucide-react', 'tailwind-merge']
+    noExternal: [
+      'react',
+      'react-dom',
+      'wouter',
+      'clsx',
+      'lucide-react',
+      'tailwind-merge',
+      // Ensure Deno-compatible SSR bundle by including this package
+      'use-sync-external-store'
+    ]
   }
 })

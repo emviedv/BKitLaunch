@@ -1,9 +1,13 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
-import { withCors, createDbClient, sendJSON, handleError, verifyToken } from './utils';
+import { withCors, createDbClient, sendJSON, handleError, isAuthorized } from './utils';
 
 const featuresHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
-  if (!verifyToken(event.headers.authorization)) {
+  // Require authentication only for write operations; allow public GET
+  if (
+    ['POST', 'PUT', 'DELETE'].includes(event.httpMethod) &&
+    !isAuthorized(event)
+  ) {
     return sendJSON(401, { error: 'Unauthorized' });
   }
 

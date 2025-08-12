@@ -23,7 +23,7 @@ export interface RouteMetadata {
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
   title: "BiblioKit - SaaS Software & Figma Plugins",
-  description: "Professional SaaS software and Figma plugins with secure API management, comprehensive documentation, and world-class support.",
+  description: "Professional SaaS software and Figma plugins with secure API management and world-class support.",
   keywords: "SaaS software, Figma plugins, API management, secure proxy, developer tools, design tools",
   ogType: "website",
   twitterCard: "summary_large_image"
@@ -33,7 +33,7 @@ const defaultMetadata: SEOMetadata = {
 export const routeMetadata: RouteMetadata = {
   '/': {
     title: "BiblioKit - Professional SaaS Software & Figma Plugins",
-    description: "Streamline your development workflow with secure API management, comprehensive documentation, and world-class support for designers and developers.",
+    description: "Streamline your development workflow with secure API management and world-class support for designers and developers.",
     keywords: "SaaS software, Figma plugins, API management, developer tools, secure proxy, react components",
     ogTitle: "BiblioKit - Professional SaaS Software & Figma Plugins",
     ogDescription: "Streamline your development workflow with secure API management and comprehensive tools.",
@@ -46,7 +46,7 @@ export const routeMetadata: RouteMetadata = {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "BiblioKit",
-        "description": "Professional SaaS software and Figma plugins with secure API management, comprehensive documentation, and world-class support.",
+        "description": "Professional SaaS software and Figma plugins with secure API management and world-class support.",
         "url": "https://bibliokit-launch.netlify.app",
         "logo": "https://bibliokit-launch.netlify.app/vite.svg",
         "contactPoint": {
@@ -99,7 +99,7 @@ export const routeMetadata: RouteMetadata = {
         "@context": "https://schema.org",
         "@type": "Product",
         "name": "BiblioKit",
-        "description": "Professional SaaS software and Figma plugins with secure API management and comprehensive documentation.",
+        "description": "Professional SaaS software and Figma plugins with secure API management and world-class support.",
         "brand": {
           "@type": "Brand",
           "name": "BiblioKit"

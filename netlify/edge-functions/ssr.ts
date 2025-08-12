@@ -80,17 +80,7 @@ export default async (request: Request, context: Context) => {
     <!-- CSS will be injected here by build process -->
     <link rel="stylesheet" href="/assets/main.css" />
 
-    <!-- Hotjar Tracking Code for BiblioKit  -->
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:6484850,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
+    <!-- Hotjar moved to client-side loader with consent gate -->
   </head>
   <body>
     <div id="root">${appHtml}</div>
@@ -105,12 +95,27 @@ export default async (request: Request, context: Context) => {
     console.log('🚀 SSR: Generated HTML length:', html.length);
     console.log('✅ SSR: Returning server-side rendered response');
     
+    // Generate content-based cache key for invalidation
+    const contentHash = contentData ? 
+      btoa(JSON.stringify(contentData)).slice(0, 8) : 
+      'fallback';
+    
+    // Use shorter cache times with content-based ETag for better invalidation
+    const cacheHeaders = contentData ? {
+      'Cache-Control': 'public, max-age=60, s-maxage=120', // 1 min browser, 2 min CDN - much shorter
+      'ETag': `"ssr-${contentHash}"`, // Content-based ETag for cache validation
+      'Vary': 'Accept, User-Agent', // Vary on content negotiation
+    } : {
+      'Cache-Control': 'public, max-age=30, s-maxage=60', // Even shorter for fallback content
+    };
+
     return new Response(html, {
       status: 200,
       headers: {
         'Content-Type': 'text/html; charset=utf-8',
-        'Cache-Control': 'public, max-age=300, s-maxage=600', // 5 min browser, 10 min CDN
+        ...cacheHeaders,
         'X-SSR-Generated': 'true', // Debug header to identify SSR responses
+        'X-Content-Hash': contentHash, // Debug header to track content versions
       },
     });
     

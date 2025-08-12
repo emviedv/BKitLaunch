@@ -1,5 +1,5 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
-import { withCors, createDbClient, sendJSON, handleError } from './utils';
+import { withCors, createDbClient, sendJSON, handleError, isAuthorized } from './utils';
 
 const usersHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   const client = createDbClient();
@@ -25,6 +25,7 @@ const usersHandler: Handler = async (event: HandlerEvent, context: HandlerContex
         return sendJSON(200, result.rows);
 
       case 'POST':
+        if (!isAuthorized(event)) return sendJSON(401, { error: 'Unauthorized' });
         // Create new user
         if (!event.body) {
           return sendJSON(400, { error: 'Request body required' });

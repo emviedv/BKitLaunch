@@ -54,7 +54,11 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
     # Content Security Policy
-    Content-Security-Policy = "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:;"
+    # Notes:
+    # - Removed 'unsafe-eval'
+    # - Kept 'unsafe-inline' temporarily for existing inline SSR JSON; consider nonce/hash in future
+    # - Added Hotjar domains for production analytics (script + connect)
+    Content-Security-Policy = "default-src 'self' https:; script-src 'self' 'unsafe-inline' https://static.hotjar.com https://script.hotjar.com; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https: https://*.hotjar.com wss://*.hotjar.com;"
 
 # Redirects moved to public/_redirects file for better dev compatibility
 

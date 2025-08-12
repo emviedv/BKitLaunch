@@ -47,20 +47,34 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
     fallbackToStatic = true
   } = options;
 
-  // Check for SSR data first
-  const ssrData = getSSRData();
+  const [hasMounted, setHasMounted] = useState(false);
   
   const [state, setState] = useState<ContentState>({
-    content: ssrData || (fallbackToStatic ? productData : null),
-    loading: !ssrData, // Skip loading if we have SSR data
+    content: fallbackToStatic ? productData : null,
+    loading: false, // Never show loading during initial hydration
     error: null,
-    source: ssrData ? 'ssr' : (fallbackToStatic ? 'static' : null)
+    source: fallbackToStatic ? 'static' : null
   });
 
+  // Mount detection effect
   useEffect(() => {
-    // If we already have SSR data, don't fetch again
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    // Only run content loading after component has mounted
+    if (!hasMounted) return;
+    
+    // Check for SSR data first after mount
+    const ssrData = getSSRData();
     if (ssrData) {
-      console.log('Using SSR content data');
+      console.log('Using SSR content data after mount');
+      setState({
+        content: ssrData,
+        loading: false,
+        error: null,
+        source: 'ssr'
+      });
       return;
     }
 
@@ -127,7 +141,7 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
     };
 
     loadContent();
-  }, [fallbackToLocalStorage, fallbackToStatic, ssrData]);
+  }, [fallbackToLocalStorage, fallbackToStatic, hasMounted]);
 
   return state;
 };

@@ -29,9 +29,9 @@ export async function fetchContentData(url: string): Promise<any> {
   return {
     hero: {
       title: "Professional SaaS Software & Figma Plugins",
-      subtitle: "Streamline your development workflow with secure API management, comprehensive documentation, and world-class support for designers and developers.",
+      subtitle: "Streamline your development workflow with secure API management and world-class support for designers and developers.",
       primaryButton: "Start Free Trial",
-      secondaryButton: "View Documentation"
+      secondaryButton: "View Products"
     },
     features: {
       title: "Everything you need to succeed",

@@ -292,7 +292,7 @@ const AdminDashboard: React.FC = () => {
             </div>
             <div className="flex items-center gap-4">
               <span className="text-sm text-muted-foreground">Logged in as: {email}</span>
-              <button onClick={logout} className="btn-secondary">
+              <button onClick={logout} className="button-secondary">
                 Logout
               </button>
             </div>
@@ -327,14 +327,14 @@ const AdminDashboard: React.FC = () => {
                 <div className="flex gap-3">
                   <button
                     onClick={() => setShowContentEditor(true)}
-                    className="btn-primary"
+                    className="button"
                   >
                     ✏️ Edit Content
                   </button>
                   <button
                     onClick={publishContent}
                     disabled={loading}
-                    className="btn-secondary"
+                    className="button-secondary"
                   >
                     📤 Publish Changes
                   </button>
@@ -365,10 +365,10 @@ const AdminDashboard: React.FC = () => {
             <div className="bg-background rounded-lg border p-6">
               <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
               <div className="flex flex-wrap gap-3">
-                <button onClick={exportContent} className="btn-secondary">
+                <button onClick={exportContent} className="button-secondary">
                   📥 Export Content
                 </button>
-                <label className="btn-secondary cursor-pointer">
+                <label className="button-secondary cursor-pointer">
                   📤 Import Content
                   <input
                     type="file"
@@ -377,7 +377,7 @@ const AdminDashboard: React.FC = () => {
                     className="hidden"
                   />
                 </label>
-                <a href="/" className="btn-secondary">
+                <a href="/" className="button-secondary">
                   👀 Preview Site
                 </a>
               </div>
@@ -412,7 +412,7 @@ const AdminDashboard: React.FC = () => {
                        </span>
                        <button
                          onClick={() => revertToVersion(version)}
-                         className="btn-secondary text-sm"
+                         className="button-secondary text-sm"
                        >
                          Revert
                        </button>

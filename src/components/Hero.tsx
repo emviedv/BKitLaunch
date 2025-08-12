@@ -26,28 +26,64 @@ const Hero = () => {
             {hero.primaryButtonLink ? (
               <a 
                 href={hero.primaryButtonLink} 
-                className="btn-primary bg-purple-600 text-white hover:bg-purple-700 inline-block text-center w-auto"
+                className="button"
                 target={hero.primaryButtonLink.startsWith('http') ? '_blank' : '_self'}
                 rel={hero.primaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+                aria-label={`${hero.primaryButton} - Primary action`}
               >
                 {hero.primaryButton}
               </a>
             ) : (
-              <button className="btn-primary bg-purple-600 text-white hover:bg-purple-700 w-auto">
+              <button 
+                className="button"
+                onClick={() => {
+                  // Default action - could scroll to features or open waitlist
+                  const featuresSection = document.getElementById('features');
+                  if (featuresSection) {
+                    featuresSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    e.currentTarget.click();
+                  }
+                }}
+                aria-label={`${hero.primaryButton} - Primary action`}
+                tabIndex={0}
+              >
                 {hero.primaryButton}
               </button>
             )}
             {hero.secondaryButtonLink ? (
               <a 
                 href={hero.secondaryButtonLink} 
-                className="btn-secondary border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900 inline-block text-center w-auto"
+                className="button-secondary"
                 target={hero.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
                 rel={hero.secondaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+                aria-label={`${hero.secondaryButton} - Secondary action`}
               >
                 {hero.secondaryButton}
               </a>
             ) : (
-              <button className="btn-secondary border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900 w-auto">
+              <button 
+                className="button-secondary"
+                onClick={() => {
+                  // Default action - scroll to pricing section
+                  const pricingSection = document.getElementById('pricing');
+                  if (pricingSection) {
+                    pricingSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    e.currentTarget.click();
+                  }
+                }}
+                aria-label={`${hero.secondaryButton} - Secondary action`}
+                tabIndex={0}
+              >
                 {hero.secondaryButton}
               </button>
             )}

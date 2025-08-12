@@ -104,7 +104,7 @@ const DatabaseTest = () => {
             <button 
               onClick={testConnection}
               disabled={loading}
-              className="btn-secondary"
+              className="button-secondary"
             >
               {loading ? 'Testing...' : 'Test Connection'}
             </button>
@@ -128,20 +128,20 @@ const DatabaseTest = () => {
           <button 
             onClick={loadTables}
             disabled={loading}
-            className="btn-secondary"
+            className="button-secondary"
           >
             Load Tables
           </button>
           <button 
             onClick={loadUsers}
             disabled={loading}
-            className="btn-secondary"
+            className="button-secondary"
           >
             Load Users
           </button>
           <button 
             onClick={() => console.log('Database operations ready')}
-            className="btn-primary"
+            className="button"
           >
             Run Queries
           </button>
@@ -183,7 +183,7 @@ const DatabaseTest = () => {
           <button 
             onClick={createUser}
             disabled={loading || !newUser.email || !newUser.name}
-            className="btn-primary"
+            className="button"
           >
             Create User
           </button>

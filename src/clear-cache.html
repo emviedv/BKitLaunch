@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear BiblioKit Cache</title>
+</head>
+<body>
+    <h1>Clear BiblioKit Cache</h1>
+    <button onclick="clearCache()">Clear All Cache</button>
+    <div id="status"></div>
+    
+    <script>
+        function clearCache() {
+            // Clear localStorage
+            localStorage.removeItem('bibliokit-content');
+            localStorage.removeItem('bibliokit-blocks-content');
+            localStorage.clear();
+            
+            // Show status
+            document.getElementById('status').innerHTML = '<p style="color: green;">Cache cleared! Redirecting to BiblioKit Blocks...</p>';
+            
+            // Redirect after 2 seconds
+            setTimeout(() => {
+                window.location.href = '/bibliokit-blocks';
+            }, 2000);
+        }
+        
+        // Auto-run on load
+        clearCache();
+    </script>
+</body>
+</html>

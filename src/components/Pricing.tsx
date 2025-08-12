@@ -60,7 +60,7 @@ const Pricing = () => {
           {pricing.map((plan: any, index: number) => (
             <div 
               key={index} 
-              className={`pricing-card ${plan.popular ? 'popular' : ''}`}
+              className={`pricing-card ${plan.popular ? 'pricing-card-popular' : ''}`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -97,8 +97,8 @@ const Pricing = () => {
                   href={plan.buttonLink}
                   className={`w-full inline-block text-center ${
                     plan.popular
-                      ? 'btn-primary'
-                      : 'btn-secondary'
+                      ? 'button'
+                      : 'button-secondary'
                   }`}
                   target={plan.buttonLink.startsWith('http') ? '_blank' : '_self'}
                   rel={plan.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
@@ -109,8 +109,8 @@ const Pricing = () => {
                 <button 
                   className={`w-full ${
                     plan.popular
-                      ? 'btn-primary'
-                      : 'btn-secondary'
+                      ? 'button'
+                      : 'button-secondary'
                   }`}
                 >
                   {plan.buttonText}

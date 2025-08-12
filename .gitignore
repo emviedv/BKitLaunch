@@ -69,3 +69,4 @@ public
 .storybook-out 
 # Local Netlify folder
 .netlify
+cookies.txt

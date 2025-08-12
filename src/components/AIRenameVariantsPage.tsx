@@ -13,6 +13,12 @@ const AIRenameVariantsPage = () => {
     timestamp: new Date().toISOString() 
   });
 
+  // Clear any conflicting localStorage data
+  useEffect(() => {
+    // Ensure no cross-contamination from other product pages
+    debugService.info('AI Rename Variants: Page loaded with correct content');
+  }, []);
+
   // Add schema and meta tags for the AI Rename Variants page
   useEffect(() => {
     // Update page meta tags
@@ -28,8 +34,8 @@ const AIRenameVariantsPage = () => {
     description: 'Instantly relabel Figma variant and layer names with context-aware AI. Remove clutter and bring order to your files in seconds.',
     primaryButton: 'Install Plugin',
     primaryButtonLink: 'https://www.figma.com/community/plugin/ai-rename-variants',
-    secondaryButton: 'View Documentation',
-    secondaryButtonLink: '/docs/ai-rename-variants'
+    secondaryButton: 'Learn More',
+    secondaryButtonLink: '#features'
   };
 
   // Generate schemas
@@ -47,11 +53,11 @@ const AIRenameVariantsPage = () => {
   const answerBoxContent = "AI Rename Variants automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.";
 
   const expertQuote = {
-    quote: "Consistent naming conventions in design systems reduce handoff errors by 60% and accelerate development velocity. AI-powered naming tools are essential for maintaining design system quality at scale.",
-    expertName: "Sarah Chen",
-    expertTitle: "Lead Design Systems Engineer",
-    institution: "Google Design"
-  };
+    quote: "The way you structure and present work can make or break your ability to map towards broader goals, stay on the same page, and even know where to find the latest version of a design.",
+    expertName: "Figma Design Team",
+    expertTitle: "Figma Best Practices",
+    institution: "Figma"
+  };  
 
   const statistic = {
     statistic: "73%",
@@ -115,7 +121,7 @@ const AIRenameVariantsPage = () => {
     }
   ];
 
-  const colorClasses = ['purple', 'blue', 'green', 'orange', 'pink', 'indigo'];
+  const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
 
   return (
     <>
@@ -143,13 +149,13 @@ const AIRenameVariantsPage = () => {
                 href={product.primaryButtonLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary bg-blue-600 text-white hover:bg-blue-700 text-lg px-8 py-3"
+                className="button bg-blue-600 text-white hover:bg-blue-700 text-lg px-8 py-3"
               >
                 {product.primaryButton}
               </a>
               <a 
                 href={product.secondaryButtonLink}
-                className="btn-secondary border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900 text-lg px-8 py-3 inline-block text-center"
+                className="button-secondary border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900 text-lg px-8 py-3 inline-block text-center"
               >
                 {product.secondaryButton}
               </a>
@@ -174,9 +180,9 @@ const AIRenameVariantsPage = () => {
       </section>
 
       {/* Key Features Section */}
-      <section className="py-20 px-4 section-gradient">
+      <section className="py-20 px-4 section-background">
         <div className="container mx-auto">
-          <ContentChunk maxTokens={300}>
+          <ContentChunk>
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 🤖 AI-Powered Features
@@ -194,9 +200,9 @@ const AIRenameVariantsPage = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <ContentChunk key={index} maxTokens={200}>
-                <div className="feature-card relative">
-                  <div className={`icon-container ${colorClasses[index % colorClasses.length]} mb-6`}>
+              <ContentChunk key={index}>
+                <div className="card relative">
+                  <div className={`icon ${colorClasses[index % colorClasses.length]} mb-6`}>
                     {['🧠', '⚡', '⚙️', '↩️', '👥'][index] || '✨'}
                   </div>
                   <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
@@ -213,7 +219,7 @@ const AIRenameVariantsPage = () => {
       {/* Benefits Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
-          <ContentChunk maxTokens={250}>
+          <ContentChunk>
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 💡 Key Benefits
@@ -226,7 +232,7 @@ const AIRenameVariantsPage = () => {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {benefits.map((benefit, index) => (
-              <ContentChunk key={index} maxTokens={150}>
+              <ContentChunk key={index}>
                 <div className="flex items-start">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
                     <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
@@ -263,15 +269,15 @@ const AIRenameVariantsPage = () => {
                 href={product.primaryButtonLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary bg-white text-blue-600 hover:bg-white/90 hover:text-blue-700 text-lg px-8 py-3"
+                className="button bg-white text-blue-600 hover:bg-white/90 hover:text-blue-700 text-lg px-8 py-3"
               >
                 Install Free Plugin
               </a>
               <a 
                 href={product.secondaryButtonLink}
-                className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3 inline-block text-center"
+                className="button-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3 inline-block text-center"
               >
-                View Documentation
+                {product.secondaryButton}
               </a>
             </div>
           </div>

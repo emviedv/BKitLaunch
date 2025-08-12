@@ -26,27 +26,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loading: true
   });
 
-  // Check for existing session on mount
+  // Check session using HttpOnly cookie via /me endpoint
   useEffect(() => {
-    const checkSession = () => {
+    const checkSession = async () => {
       try {
-        console.log('AuthContext: Checking session...');
-        const token = localStorage.getItem('bibliokit-admin-token');
-        const email = localStorage.getItem('bibliokit-admin-email');
-        
-        console.log('AuthContext: Found credentials:', { hasToken: !!token, email });
-        
-        if (token && email) {
-          // Verify token is still valid (you can enhance this with expiration checking)
-          console.log('AuthContext: Setting authenticated state');
-          setAuthState({
-            isAuthenticated: true,
-            isAdmin: true,
-            email: email,
-            loading: false
-          });
+        const res = await fetch('/.netlify/functions/me', { credentials: 'include' });
+        const data = await res.json();
+        if (data.authenticated) {
+          setAuthState({ isAuthenticated: true, isAdmin: true, email: data.user?.email || null, loading: false });
         } else {
-          console.log('AuthContext: No valid credentials found');
           setAuthState(prev => ({ ...prev, loading: false }));
         }
       } catch (error) {
@@ -54,34 +42,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setAuthState(prev => ({ ...prev, loading: false }));
       }
     };
-
     checkSession();
   }, []);
 
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
-      // For now, we'll use environment variables for admin credentials
-      // In production, this should use a proper authentication API
       const response = await fetch('/.netlify/functions/admin-auth', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
 
       const result = await response.json();
 
       if (response.ok && result.success) {
-        localStorage.setItem('bibliokit-admin-token', result.token);
-        localStorage.setItem('bibliokit-admin-email', email);
-        
-        setAuthState({
-          isAuthenticated: true,
-          isAdmin: true,
-          email: email,
-          loading: false
-        });
+        // Cookie already set by server
+        setAuthState({ isAuthenticated: true, isAdmin: true, email, loading: false });
 
         return { success: true };
       } else {
@@ -93,16 +70,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem('bibliokit-admin-token');
-    localStorage.removeItem('bibliokit-admin-email');
-    
-    setAuthState({
-      isAuthenticated: false,
-      isAdmin: false,
-      email: null,
-      loading: false
-    });
+  const logout = async () => {
+    try {
+      await fetch('/.netlify/functions/logout', { credentials: 'include' });
+    } finally {
+      setAuthState({ isAuthenticated: false, isAdmin: false, email: null, loading: false });
+    }
   };
 
   const value: AuthContextType = {

@@ -49,14 +49,22 @@ const BiblioKitBlocksPage = () => {
   });
 
   useEffect(() => {
-    const saved = localStorage.getItem('bibliokit-content');
+    // Use page-specific localStorage to avoid conflicts
+    const saved = localStorage.getItem('bibliokit-blocks-content');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
         setContent(parsed);
+        debugService.info('BiblioKit Blocks: Loaded content from localStorage', { 
+          title: parsed.product?.title 
+        });
       } catch (error) {
         console.error('Failed to load saved content:', error);
       }
+    } else {
+      debugService.info('BiblioKit Blocks: Using default product data', { 
+        title: productData.product?.title 
+      });
     }
   }, []);
 
@@ -81,6 +89,19 @@ const BiblioKitBlocksPage = () => {
 
   const product: ProductInfo | undefined = content.product;
   
+  // Debug: Log what content is actually being displayed
+  useEffect(() => {
+    console.log('🔍 BiblioKit Blocks Debug:', {
+      productTitle: product?.title,
+      productDescription: product?.description,
+      contentSource: content === productData ? 'JSON file' : 'localStorage'
+    });
+    
+    if (product?.title && product?.title !== 'BiblioKit Blocks') {
+      console.warn('⚠️ Wrong product content detected!', product.title);
+    }
+  }, [product, content]);
+  
   // Generate schemas outside of effects
   const productSchema = product ? createProductSchema(product) : {
     '@context': 'https://schema.org',
@@ -98,17 +119,17 @@ const BiblioKitBlocksPage = () => {
   useSchema(productSchema, 'product-schema');
   useSchema(breadcrumbSchema, 'breadcrumb-schema');
   
-  const colorClasses = ['purple', 'blue', 'green', 'orange', 'pink', 'indigo'];
+  const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
 
   // LLM-optimized content data
   const answerBoxContent = "BiblioKit Blocks provides comprehensive design system analytics that automatically tracks Figma component usage, measures ROI, and delivers actionable insights to optimize component libraries. Increase adoption rates by 25%+ and reduce maintenance overhead through data-driven decision making for product teams.";
 
   const expertQuote = {
-    quote: "Organizations with measurable design system analytics see 40% faster product development cycles and significantly higher component adoption rates. Data-driven insights are essential for proving design system ROI and optimizing team productivity.",
-    expertName: "Dr. Maria Rodriguez",
-    expertTitle: "Principal Design Systems Researcher",
-    institution: "Design Systems Institute"
-  };
+    quote: "66.7% of organizations do not measure the ROI of their design system.",
+    expertName: "Romina Kavcic",
+    expertTitle: "Design System Researcher",
+    institution: "The Design System Guide"
+  };  
 
   const statistic = {
     statistic: "85%",
@@ -156,7 +177,7 @@ const BiblioKitBlocksPage = () => {
   return (
     <>
       {/* Hero Section - matches home page styling */}
-      <section className="relative py-24 px-4 lemon-gradient text-white">
+      <section className="relative py-24 px-4 gradient-purple text-white">
         <div className="container mx-auto text-center">
           <div className="max-w-4xl mx-auto">
             <div className="inline-block mb-6 bg-white/20 px-4 py-2 rounded-full">
@@ -180,26 +201,26 @@ const BiblioKitBlocksPage = () => {
                   href={product.primaryButtonLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 text-lg px-8 py-3"
+                  className="button bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 text-lg px-8 py-3"
                 >
                   {product.primaryButton || 'Get Started'}
                 </a>
               ) : (
-                <button className="btn-primary bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 text-lg px-8 py-3">
+                <button className="button bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 text-lg px-8 py-3">
                   {product.primaryButton || 'Get Started'}
                 </button>
               )}
               {product.secondaryButtonLink ? (
                 <a 
                   href={product.secondaryButtonLink}
-                  className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3 inline-block text-center"
+                  className="button-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3 inline-block text-center"
                   target={product.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
                   rel={product.secondaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
                 >
                   {product.secondaryButton || 'Learn More'}
                 </a>
               ) : (
-                <button className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3">
+                <button className="button-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3">
                   {product.secondaryButton || 'Learn More'}
                 </button>
               )}
@@ -225,9 +246,9 @@ const BiblioKitBlocksPage = () => {
 
       {/* Key Features Section */}
       {product.details && (
-        <section className="py-20 px-4 section-gradient">
+        <section className="py-20 px-4 section-background">
           <div className="container mx-auto">
-            <ContentChunk maxTokens={300}>
+            <ContentChunk>
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   ⚡ Key Features
@@ -245,9 +266,9 @@ const BiblioKitBlocksPage = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {product.details.map((detail: ProductDetail, index: number) => (
-                <ContentChunk key={index} maxTokens={200}>
-                  <div className="feature-card relative">
-                    <div className={`icon-container ${colorClasses[index % colorClasses.length]} mb-6`}>
+                <ContentChunk key={index}>
+                  <div className="card relative">
+                    <div className={`icon ${colorClasses[index % colorClasses.length]} mb-6`}>
                       {['⚡', '🧠', '↩️', '🔍', '🌐'][index] || '✨'}
                     </div>
                     <h3 className="text-xl font-semibold mb-3">{detail.title}</h3>
@@ -265,7 +286,7 @@ const BiblioKitBlocksPage = () => {
       {/* Use Cases Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
-          <ContentChunk maxTokens={250}>
+          <ContentChunk>
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 💡 Use Cases
@@ -278,7 +299,7 @@ const BiblioKitBlocksPage = () => {
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {product.benefits?.map((benefit: string, index: number) => (
-              <ContentChunk key={index} maxTokens={150}>
+              <ContentChunk key={index}>
                 <div className="flex items-start">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
                     <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
@@ -295,9 +316,9 @@ const BiblioKitBlocksPage = () => {
 
       {/* Technical Specifications */}
       {product.specifications && (
-        <section className="py-20 px-4 section-gradient">
+        <section className="py-20 px-4 section-background">
           <div className="container mx-auto">
-            <ContentChunk maxTokens={300}>
+            <ContentChunk>
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
                   Technical Capabilities
@@ -310,9 +331,9 @@ const BiblioKitBlocksPage = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {product.specifications.map((spec: ProductSpec, index: number) => (
-              <ContentChunk key={index} maxTokens={200}>
-                <div className="feature-card relative">
-                  <div className={`icon-container ${colorClasses[index % colorClasses.length]} mb-6`}>
+              <ContentChunk key={index}>
+                <div className="card relative">
+                  <div className={`icon ${colorClasses[index % colorClasses.length]} mb-6`}>
                     {spec.icon}
                   </div>
                   <h3 className="text-xl font-semibold mb-3">{spec.name}</h3>
@@ -338,7 +359,7 @@ const BiblioKitBlocksPage = () => {
       {product.pricing && (
         <section className="py-20 px-4">
           <div className="container mx-auto">
-            <ContentChunk maxTokens={250}>
+            <ContentChunk>
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
                   Get Started Today
@@ -408,12 +429,12 @@ const BiblioKitBlocksPage = () => {
                     href={product.primaryButtonLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary w-full"
+                    className="button w-full"
                   >
                     {product.pricing.buttonText || 'Get Started'}
                   </a>
                 ) : (
-                  <button className="btn-primary w-full">
+                  <button className="button w-full">
                     {product.pricing.buttonText || 'Get Started'}
                   </button>
                 )}

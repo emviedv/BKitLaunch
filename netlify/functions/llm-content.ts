@@ -1,11 +1,11 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
-import { withCors, createDbClient, sendJSON, handleError, verifyToken } from './utils';
+import { withCors, createDbClient, sendJSON, handleError, isAuthorized } from './utils';
 
 const llmContentHandler: Handler = async (event: HandlerEvent, _context: HandlerContext) => {
   // Protect mutating routes – allow GET for public consumption
   if (['POST', 'PUT', 'DELETE'].includes(event.httpMethod)) {
-    if (!verifyToken(event.headers.authorization)) {
+    if (!isAuthorized(event)) {
       return sendJSON(401, { error: 'Unauthorized' });
     }
   }
@@ -47,20 +47,37 @@ const llmContentHandler: Handler = async (event: HandlerEvent, _context: Handler
 
       // ────────────────────────────── CREATE ─────────────────────────────────────
       case 'POST': {
-        if (!event.body) return { statusCode: 400, headers, body: JSON.stringify({ error: 'Body required' }) };
-        const {
-          title,
-          answerBox,
-          expertQuote,
-          statistic,
-          faqs,
-          content,
-          lastUpdated,
-          citationCount = 0,
-          tokenCount,
-        } = JSON.parse(event.body);
+        if (!event.body) return sendJSON(400, { error: 'Body required' });
+        const payload = JSON.parse(event.body);
 
-        if (!title) return sendJSON(400, { error: 'Title required' });
+        // Extract and validate fields (accept camelCase input for convenience)
+        const title: unknown = payload.title;
+        const answerBox: unknown = payload.answerBox ?? payload.answer_box ?? null;
+        const expertQuote: unknown = payload.expertQuote ?? payload.expert_quote ?? null;
+        const statistic: unknown = payload.statistic ?? null;
+        const faqs: unknown = payload.faqs ?? null;
+        const content: unknown = payload.content ?? null;
+        const lastUpdated: unknown = payload.lastUpdated ?? payload.last_updated ?? null;
+        const citationCount: unknown = payload.citationCount ?? payload.citation_count ?? 0;
+        const tokenCount: unknown = payload.tokenCount ?? payload.token_count ?? null;
+
+        if (typeof title !== 'string' || title.trim().length === 0) {
+          return sendJSON(400, { error: 'Title required' });
+        }
+
+        // Basic type checks
+        if (citationCount !== null && citationCount !== undefined && Number.isNaN(Number(citationCount))) {
+          return sendJSON(400, { error: 'citationCount must be a number' });
+        }
+        if (tokenCount !== null && tokenCount !== undefined && Number.isNaN(Number(tokenCount))) {
+          return sendJSON(400, { error: 'tokenCount must be a number' });
+        }
+        if (lastUpdated && typeof lastUpdated === 'string') {
+          const d = new Date(lastUpdated);
+          if (Number.isNaN(d.getTime())) {
+            return sendJSON(400, { error: 'lastUpdated must be an ISO date string' });
+          }
+        }
 
         const insert = await client.query(
           `INSERT INTO llm_content (title, answer_box, expert_quote, statistic, faqs, content, last_updated, citation_count, token_count)
@@ -73,7 +90,7 @@ const llmContentHandler: Handler = async (event: HandlerEvent, _context: Handler
             faqs ? JSON.stringify(faqs) : null,
             content,
             lastUpdated,
-            citationCount,
+            citationCount ?? 0,
             tokenCount,
           ],
         );
@@ -84,22 +101,87 @@ const llmContentHandler: Handler = async (event: HandlerEvent, _context: Handler
       case 'PUT': {
         const id = event.path.split('/').pop(); // Expecting /.netlify/functions/llm-content/{id}
         if (!id) return sendJSON(400, { error: 'ID path param required' });
-        if (!event.body) return { statusCode: 400, headers, body: JSON.stringify({ error: 'Body required' }) };
+        if (!event.body) return sendJSON(400, { error: 'Body required' });
         const updatePayload = JSON.parse(event.body);
 
-        // Build dynamic set clause
-        const keys = Object.keys(updatePayload);
-        if (keys.length === 0) return { statusCode: 400, headers, body: JSON.stringify({ error: 'No fields provided' }) };
-        const setFragments = keys.map((k, idx) => `${k} = $${idx + 1}`);
-        const values = keys.map((k) => {
-          const v = updatePayload[k];
-          if (typeof v === 'object') return JSON.stringify(v);
-          return v;
-        });
+        // Whitelist allowed fields and accept camelCase input, mapping to DB columns
+        const allowedMap: Record<string, { column: string; transform?: (v: any) => any; validate?: (v: any) => string | null }> = {
+          title: { column: 'title', validate: (v) => (typeof v === 'string' ? null : 'title must be a string') },
+          answerBox: { column: 'answer_box' },
+          answer_box: { column: 'answer_box' },
+          expertQuote: { column: 'expert_quote', transform: (v) => (v ? JSON.stringify(v) : null) },
+          expert_quote: { column: 'expert_quote', transform: (v) => (v ? JSON.stringify(v) : null) },
+          statistic: { column: 'statistic', transform: (v) => (v ? JSON.stringify(v) : null) },
+          faqs: { column: 'faqs', transform: (v) => (v ? JSON.stringify(v) : null) },
+          content: { column: 'content' },
+          lastUpdated: {
+            column: 'last_updated',
+            validate: (v) => {
+              if (v == null) return null;
+              if (typeof v !== 'string') return 'lastUpdated must be an ISO date string';
+              const d = new Date(v);
+              return Number.isNaN(d.getTime()) ? 'lastUpdated must be an ISO date string' : null;
+            },
+          },
+          last_updated: {
+            column: 'last_updated',
+            validate: (v) => {
+              if (v == null) return null;
+              if (typeof v !== 'string') return 'last_updated must be an ISO date string';
+              const d = new Date(v);
+              return Number.isNaN(d.getTime()) ? 'last_updated must be an ISO date string' : null;
+            },
+          },
+          citationCount: {
+            column: 'citation_count',
+            validate: (v) => (v == null || !Number.isNaN(Number(v)) ? null : 'citationCount must be a number'),
+          },
+          citation_count: {
+            column: 'citation_count',
+            validate: (v) => (v == null || !Number.isNaN(Number(v)) ? null : 'citation_count must be a number'),
+          },
+          tokenCount: {
+            column: 'token_count',
+            validate: (v) => (v == null || !Number.isNaN(Number(v)) ? null : 'tokenCount must be a number'),
+          },
+          token_count: {
+            column: 'token_count',
+            validate: (v) => (v == null || !Number.isNaN(Number(v)) ? null : 'token_count must be a number'),
+          },
+        };
+
+        const setFragments: string[] = [];
+        const values: any[] = [];
+        let idx = 1;
+        const errors: string[] = [];
+
+        for (const [key, rawValue] of Object.entries(updatePayload)) {
+          const spec = allowedMap[key];
+          if (!spec) continue; // silently ignore unknown keys
+          if (spec.validate) {
+            const err = spec.validate(rawValue);
+            if (err) errors.push(err);
+          }
+          const value = spec.transform ? spec.transform(rawValue) : rawValue;
+          setFragments.push(`${spec.column} = $${idx++}`);
+          values.push(value);
+        }
+
+        if (errors.length > 0) {
+          return sendJSON(400, { error: 'Validation failed', details: errors });
+        }
+        if (setFragments.length === 0) {
+          return sendJSON(400, { error: 'No updatable fields provided' });
+        }
+
+        // Always bump updated_at
+        setFragments.push('updated_at = CURRENT_TIMESTAMP');
         values.push(id);
-        await client.query(`UPDATE llm_content SET ${setFragments.join(', ')}, updated_at = CURRENT_TIMESTAMP WHERE id = $${values.length}`, values);
-        const res = await client.query('SELECT * FROM llm_content WHERE id = $1', [id]);
-        return { statusCode: 200, headers, body: JSON.stringify(res.rows[0]) };
+
+        const updateSql = `UPDATE llm_content SET ${setFragments.join(', ')} WHERE id = $${idx} RETURNING *`;
+        const updated = await client.query(updateSql, values);
+        if (updated.rows.length === 0) return sendJSON(404, { error: 'Record not found' });
+        return sendJSON(200, updated.rows[0]);
       }
 
       default:

@@ -128,8 +128,8 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const baseClasses = 'px-3 py-2 rounded transition-colors text-sm';
   const variantClasses = {
-    primary: 'btn-primary',
-    secondary: 'btn-secondary',
+      primary: 'button',
+  secondary: 'button-secondary',
     danger: 'bg-red-600 text-white hover:bg-red-700'
   };
 

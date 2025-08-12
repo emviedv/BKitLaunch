@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextInput, Button, ButtonField } from './FormFields';
+import { TextInput, TextArea, Button, ButtonField } from './FormFields';
 
 interface PricingProductSectionEditorProps {
   activeSection: string;
@@ -8,6 +8,9 @@ interface PricingProductSectionEditorProps {
   updateNestedField: (section: string, index: number | null, field: string, value: any) => void;
   updateSection: (section: string, newData: any) => void;
   setEditMode: (mode: 'json' | 'sections' | 'database') => void;
+  pricingVisible: boolean;
+  productVisible: boolean;
+  updateVisibility: (sectionKey: string, isVisible: boolean) => void;
 }
 
 export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorProps> = ({ 
@@ -16,7 +19,10 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
   product,
   updateNestedField,
   updateSection,
-  setEditMode 
+  setEditMode,
+  pricingVisible,
+  productVisible,
+  updateVisibility 
 }) => {
   const [jsonEdit, setJsonEdit] = useState(false);
   const [localJson, setLocalJson] = useState(JSON.stringify(product || {}, null, 2));
@@ -38,6 +44,20 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
           <Button onClick={() => setEditMode('json')} variant="secondary" size="sm">
             Advanced Editor
           </Button>
+        </div>
+        
+        {/* Visibility Toggle */}
+        <div className="flex items-center gap-2 mb-4 p-3 bg-muted/20 rounded-lg">
+          <input
+            id="pricing-visible"
+            type="checkbox"
+            checked={pricingVisible}
+            onChange={(e) => updateVisibility('pricing', e.target.checked)}
+            className="rounded border-border"
+          />
+          <label htmlFor="pricing-visible" className="text-sm font-medium">
+            Visible on site
+          </label>
         </div>
         
         {/* Coming Soon Toggle */}
@@ -140,6 +160,20 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
           </Button>
         </div>
         
+        {/* Visibility Toggle */}
+        <div className="flex items-center gap-2 mb-4 p-3 bg-muted/20 rounded-lg">
+          <input
+            id="product-visible"
+            type="checkbox"
+            checked={productVisible}
+            onChange={(e) => updateVisibility('product', e.target.checked)}
+            className="rounded border-border"
+          />
+          <label htmlFor="product-visible" className="text-sm font-medium">
+            Visible on site
+          </label>
+        </div>
+        
         <div className="space-y-4">
           <h4 className="font-medium text-base">Buttons</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -157,6 +191,152 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
               onTextChange={(value) => updateNestedField('product', null, 'secondaryButton', value)}
               onLinkChange={(value) => updateNestedField('product', null, 'secondaryButtonLink', value)}
             />
+          </div>
+
+          {/* Key Features editing UI */}
+          <div className="space-y-4">
+            <h4 className="font-medium text-base">Key Features</h4>
+            {(product.details || []).map((detail: any, index: number) => (
+              <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+                <TextInput
+                  label="Title"
+                  value={detail.title}
+                  onChange={(value) => {
+                    const updated = [...product.details];
+                    updated[index].title = value;
+                    updateNestedField('product', null, 'details', updated);
+                  }}
+                />
+                <TextArea
+                  label="Description"
+                  value={detail.description}
+                  onChange={(value) => {
+                    const updated = [...product.details];
+                    updated[index].description = value;
+                    updateNestedField('product', null, 'details', updated);
+                  }}
+                  rows={3}
+                />
+                <button
+                  onClick={() => {
+                    const updated = product.details.filter((_: any, i: number) => i !== index);
+                    updateNestedField('product', null, 'details', updated);
+                  }}
+                  className="text-red-600 hover:text-red-800 text-sm"
+                >
+                  Remove Feature
+                </button>
+              </div>
+            ))}
+            <button
+              onClick={() => {
+                const newFeature = { title: '', description: '' };
+                const updated = [...(product.details || []), newFeature];
+                updateNestedField('product', null, 'details', updated);
+              }}
+              className="w-full p-2 border-2 border-dashed border-gray-300 rounded text-sm text-gray-600 hover:border-gray-400 hover:text-gray-800"
+            >
+              + Add Feature
+            </button>
+          </div>
+
+          {/* Use Cases editing UI */}
+          <div className="space-y-4">
+            <h4 className="font-medium text-base">Use Cases</h4>
+            {(product.benefits || []).map((benefit: string, index: number) => (
+              <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+                <TextArea
+                  label={`Use Case ${index + 1}`}
+                  value={benefit}
+                  onChange={(value) => {
+                    const updated = [...product.benefits];
+                    updated[index] = value;
+                    updateNestedField('product', null, 'benefits', updated);
+                  }}
+                  rows={2}
+                />
+                <button
+                  onClick={() => {
+                    const updated = product.benefits.filter((_: any, i: number) => i !== index);
+                    updateNestedField('product', null, 'benefits', updated);
+                  }}
+                  className="text-red-600 hover:text-red-800 text-sm"
+                >
+                  Remove Use Case
+                </button>
+              </div>
+            ))}
+            <button
+              onClick={() => {
+                const updated = [...(product.benefits || []), ''];
+                updateNestedField('product', null, 'benefits', updated);
+              }}
+              className="w-full p-2 border-2 border-dashed border-gray-300 rounded text-sm text-gray-600 hover:border-gray-400 hover:text-gray-800"
+            >
+              + Add Use Case
+            </button>
+          </div>
+
+          {/* Technical Capabilities editing UI */}
+          <div className="space-y-4">
+            <h4 className="font-medium text-base">Technical Capabilities</h4>
+            {(product.specifications || []).map((spec: any, index: number) => (
+              <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+                <div className="grid grid-cols-3 gap-3">
+                  <TextInput
+                    label="Icon"
+                    value={spec.icon}
+                    onChange={(value) => {
+                      const updated = [...product.specifications];
+                      updated[index].icon = value;
+                      updateNestedField('product', null, 'specifications', updated);
+                    }}
+                    placeholder="📊"
+                  />
+                  <TextInput
+                    label="Name"
+                    value={spec.name}
+                    onChange={(value) => {
+                      const updated = [...product.specifications];
+                      updated[index].name = value;
+                      updateNestedField('product', null, 'specifications', updated);
+                    }}
+                    placeholder="Analytics Engine"
+                  />
+                  <div></div>
+                </div>
+                <TextArea
+                  label="Value/Description"
+                  value={spec.value}
+                  onChange={(value) => {
+                    const updated = [...product.specifications];
+                    updated[index].value = value;
+                    updateNestedField('product', null, 'specifications', updated);
+                  }}
+                  rows={2}
+                  placeholder="Real-time component tracking..."
+                />
+                <button
+                  onClick={() => {
+                    const updated = product.specifications.filter((_: any, i: number) => i !== index);
+                    updateNestedField('product', null, 'specifications', updated);
+                  }}
+                  className="text-red-600 hover:text-red-800 text-sm"
+                >
+                  Remove Specification
+                </button>
+              </div>
+            ))}
+            <button
+              onClick={() => {
+                const newSpec = { icon: '', name: '', value: '' };
+                const updated = [...(product.specifications || []), newSpec];
+                updateNestedField('product', null, 'specifications', updated);
+              }}
+              className="w-full p-2 border-2 border-dashed border-gray-300 rounded text-sm text-gray-600 hover:border-gray-400 hover:text-gray-800"
+            >
+              + Add Specification
+            </button>
           </div>
         </div>
       </div>

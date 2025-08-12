@@ -1,6 +1,6 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
-import { withCors, createDbClient, sendJSON, handleError, verifyToken } from './utils';
+import { withCors, createDbClient, sendJSON, handleError, isAuthorized } from './utils';
 
 const initializeTables = async (client: Client) => {
   await client.query(`
@@ -16,7 +16,7 @@ const initializeTables = async (client: Client) => {
 
 const contactInfoHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   // Only require auth for write operations
-  if (['POST', 'PUT', 'DELETE'].includes(event.httpMethod) && !verifyToken(event.headers.authorization)) {
+  if (['POST', 'PUT', 'DELETE'].includes(event.httpMethod) && !isAuthorized(event)) {
     return sendJSON(401, { error: 'Unauthorized' });
   }
 

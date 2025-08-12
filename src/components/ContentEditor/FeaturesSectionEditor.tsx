@@ -15,6 +15,8 @@ interface Feature {
 interface FeaturesSectionEditorProps {
   features: Feature[];
   updateNestedField: (section: string, index: number | null, field: string, value: any) => void;
+  visible: boolean;
+  updateVisibility: (isVisible: boolean) => void;
 }
 
 const ColorPreview: React.FC<{ color: string }> = ({ color }) => {
@@ -48,10 +50,26 @@ const ColorPreview: React.FC<{ color: string }> = ({ color }) => {
 
 export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({ 
   features, 
-  updateNestedField 
+  updateNestedField,
+  visible,
+  updateVisibility 
 }) => (
   <div className="space-y-4">
     <h3 className="font-semibold text-lg">Features Section</h3>
+    
+    {/* Visibility Toggle */}
+    <div className="flex items-center gap-2 mb-4 p-3 bg-muted/20 rounded-lg">
+      <input
+        id="features-visible"
+        type="checkbox"
+        checked={visible}
+        onChange={(e) => updateVisibility(e.target.checked)}
+        className="rounded border-border"
+      />
+      <label htmlFor="features-visible" className="text-sm font-medium">
+        Visible on site
+      </label>
+    </div>
     <div className="space-y-4">
       {features?.map((feature, index) => (
         <div key={index} className={`p-3 border rounded ${feature.isFeatured ? 'border-primary/30 bg-primary/5' : 'border-border'}`}>

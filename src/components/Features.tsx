@@ -4,7 +4,7 @@ import { usePublishedContent } from '@/hooks/usePublishedContent';
 const Features = () => {
   const { content } = usePublishedContent();
   const { features } = content;
-  const colorClasses = ['purple', 'blue', 'green', 'orange', 'pink', 'indigo'];
+  const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
 
   // Helper function to determine if a link is external
   const isExternalLink = (url: string) => {
@@ -88,7 +88,7 @@ const Features = () => {
   }
 
   return (
-    <section id="features" className="py-20 px-4 section-gradient">
+    <section id="features" className="py-20 px-4 section-background">
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -102,9 +102,9 @@ const Features = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature: any, index: number) => (
-            <div key={index} className={`feature-card ${feature.isFeatured ? 'featured' : ''} ${feature.isFeatured ? 'flex flex-col max-w-4xl mx-auto' : ''}`}>
+            <div key={index} className={`card ${feature.isFeatured ? 'card-featured' : ''} ${feature.isFeatured ? 'flex flex-col max-w-4xl mx-auto' : ''}`}>
               <div className="flex items-center justify-between mb-6">
-                <div className={`icon-container ${colorClasses[index % colorClasses.length]}`}>
+                <div className={`icon ${colorClasses[index % colorClasses.length]}`}>
                   {feature.icon}
                 </div>
                 {feature.badge && (
@@ -125,7 +125,7 @@ const Features = () => {
               {feature.isFeatured && feature.buttonText && (
                 <a
                   href={feature.buttonLink || '#'}
-                  className="feature-card-button"
+                  className="card-button"
                   onClick={(e) => handleButtonClick(e, feature.buttonLink)}
                   target={feature.buttonLink && isExternalLink(feature.buttonLink) ? '_blank' : '_self'}
                   rel={feature.buttonLink && isExternalLink(feature.buttonLink) ? 'noopener noreferrer' : undefined}
