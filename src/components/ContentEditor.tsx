@@ -2522,6 +2522,14 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
     if (isAuthenticated && isAdmin) {
       return (
         <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+          <a
+            href="/admin"
+            className="bg-amber-500 text-white p-3 rounded-full shadow-lg hover:bg-amber-600 transition-colors text-base text-center"
+            title="Admin Dashboard"
+            aria-label="Admin Dashboard"
+          >
+            📊
+          </a>
           <button
             onClick={() => setShowEditor(true)}
             className="bg-primary text-primary-foreground p-3 rounded-full shadow-lg hover:bg-primary/90 transition-colors"
