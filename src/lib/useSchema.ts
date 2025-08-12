@@ -49,13 +49,6 @@ export const createProductSchema = (productData: any) => ({
     '@type': 'Organization',
     name: 'BiblioKit'
   },
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-    availability: 'https://schema.org/InStock',
-    description: productData.pricing?.description || 'Free community plugin'
-  },
   featureList: productData.details?.map((detail: any) => detail.title) || [],
   aggregateRating: {
     '@type': 'AggregateRating',
