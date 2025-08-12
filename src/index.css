@@ -151,4 +151,9 @@
   .section-hero {
     @apply relative gradient-brand-soft text-gray-900;
   }
+
+  /* Blue variant for product pages, matching home style but blue-focused */
+  .section-hero-blue {
+    @apply relative bg-gradient-to-br from-blue-50 via-blue-50 to-blue-100 text-gray-900;
+  }
 } 

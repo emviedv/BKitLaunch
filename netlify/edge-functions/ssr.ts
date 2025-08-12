@@ -73,11 +73,28 @@ export default async (request: Request, context: Context) => {
       .replace(/>/g, '\\u003e')
       .replace(/&/g, '\\u0026');
 
-    // Decide whether to include Hotjar tag (production, non-admin pages)
+    // Decide whether to include Hotjar loader (production, non-admin pages)
+    // Use inline snippet with nonce so CSP allows it, and include consent/admin checks client-side.
     const isProdHost = url.hostname !== 'localhost' && url.hostname !== '127.0.0.1';
     const isAdminPath = url.pathname.startsWith('/admin');
     const hotjarTag = isProdHost && !isAdminPath
-      ? '<script async src="https://static.hotjar.com/c/hotjar-6484850.js?sv=6"></script>'
+      ? `<script nonce="${nonce}">(function(){
+  try {
+    var isProd = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1';
+    var isAdmin = location.pathname.startsWith('/admin');
+    var consent = (window.__USER_CONSENT__ && window.__USER_CONSENT__.analytics === true) ||
+      (function(){ try { return localStorage.getItem('consent:analytics') === 'true'; } catch(e) { return false; } })();
+    var alreadyLoaded = typeof window.hj === 'function' || !!document.querySelector('script[src*="hotjar-6484850.js"]');
+    if (!isProd || isAdmin || !consent || alreadyLoaded) return;
+    (function(h,o,t,j,a,r){
+      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+      h._hjSettings={hjid:6484850,hjsv:6};
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script'); r.async=1; r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  } catch(e) { /* no-op */ }
+})();</script>`
       : '';
 
     // Generate the full HTML document

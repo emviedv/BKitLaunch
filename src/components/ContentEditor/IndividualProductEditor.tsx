@@ -102,6 +102,12 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
       <div className="space-y-4">
         <h4 className="font-medium text-base">Basic Information</h4>
         <TextInput
+          label="Hero Badge Label"
+          value={productData.badgeLabel || ''}
+          onChange={(value) => updateProductField('badgeLabel', value)}
+          placeholder="SaaS Analytics Platform"
+        />
+        <TextInput
           label="Title"
           value={productData.title || ''}
           onChange={(value) => updateProductField('title', value)}
@@ -258,6 +264,86 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
           className="w-full p-2 border-2 border-dashed border-gray-300 rounded text-sm text-gray-600 hover:border-gray-400 hover:text-gray-800"
         >
           + Add Specification
+        </button>
+      </div>
+
+      {/* Pricing */}
+      <div className="space-y-4">
+        <h4 className="font-medium text-base">Pricing</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <TextInput
+            label="Price"
+            value={productData.pricing?.price || ''}
+            onChange={(value) => {
+              const current = productData.pricing || {};
+              updateProductNestedField('pricing', null, 'price', value);
+            }}
+            placeholder="$49"
+          />
+          <TextInput
+            label="Period"
+            value={productData.pricing?.period || ''}
+            onChange={(value) => updateProductNestedField('pricing', null, 'period', value)}
+            placeholder="/month"
+          />
+        </div>
+        <TextArea
+          label="Pricing Description"
+          value={productData.pricing?.description || ''}
+          onChange={(value) => updateProductNestedField('pricing', null, 'description', value)}
+          rows={2}
+        />
+        <TextInput
+          label="Pricing Button Text"
+          value={productData.pricing?.buttonText || ''}
+          onChange={(value) => updateProductNestedField('pricing', null, 'buttonText', value)}
+          placeholder="Start Free Trial"
+        />
+      </div>
+
+      {/* FAQs */}
+      <div className="space-y-4">
+        <h4 className="font-medium text-base">FAQs</h4>
+        {(productData.faqs || []).map((faq: any, index: number) => (
+          <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+            <TextInput
+              label={`Question ${index + 1}`}
+              value={faq.question || ''}
+              onChange={(value) => {
+                const updated = [...(productData.faqs || [])];
+                updated[index] = { ...updated[index], question: value };
+                updateProductField('faqs', updated);
+              }}
+            />
+            <TextArea
+              label="Answer"
+              value={faq.answer || ''}
+              rows={3}
+              onChange={(value) => {
+                const updated = [...(productData.faqs || [])];
+                updated[index] = { ...updated[index], answer: value };
+                updateProductField('faqs', updated);
+              }}
+            />
+            <button
+              onClick={() => {
+                const updated = (productData.faqs || []).filter((_: any, i: number) => i !== index);
+                updateProductField('faqs', updated);
+              }}
+              className="text-red-600 hover:text-red-800 text-sm"
+            >
+              Remove FAQ
+            </button>
+          </div>
+        ))}
+        <button
+          onClick={() => {
+            const updated = [...(productData.faqs || []), { question: '', answer: '' }];
+            updateProductField('faqs', updated);
+          }}
+          className="w-full p-2 border-2 border-dashed border-gray-300 rounded text-sm text-gray-600 hover:border-gray-400 hover:text-gray-800"
+        >
+          + Add FAQ
         </button>
       </div>
 

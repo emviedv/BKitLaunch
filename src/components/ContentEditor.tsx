@@ -32,13 +32,14 @@ import { IndividualProductEditor } from './ContentEditor/IndividualProductEditor
 
 interface ContentEditorProps {
   onContentUpdate?: (newContent: any) => void;
+  initialOpen?: boolean;
 }
 
-const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate }) => {
+const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialOpen = false }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editMode, setEditMode] = useState<'json' | 'sections' | 'database'>('database');
   const [jsonContent, setJsonContent] = useState(JSON.stringify(productData, null, 2));
-  const [showEditor, setShowEditor] = useState(false);
+  const [showEditor, setShowEditor] = useState(initialOpen);
   const [showLogin, setShowLogin] = useState(false);
   const [savedContent, setSavedContent] = useState(productData);
   const [activeSection, setActiveSection] = useState<string>('hero');

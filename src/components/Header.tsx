@@ -55,6 +55,15 @@ const Header = () => {
               Design System
             </a>
           )}
+          {isAuthenticated && isAdmin && (
+            <a
+              href="/editor"
+              className="text-sm font-medium text-primary hover:underline"
+              aria-label="Open Content Editor"
+            >
+              Content Editor
+            </a>
+          )}
         </nav>
         <div className="flex items-center space-x-4">
           {/* Mobile menu button */}

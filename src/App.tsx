@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'wouter';
+import { Route, Switch, useLocation } from 'wouter';
 import Header from './components/Header';
+import AdminHeader from './components/AdminHeader';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Pricing from './components/Pricing';
@@ -12,7 +13,7 @@ import ContentEditor from './components/ContentEditor';
 import Waitlist from './components/Waitlist';
 import AdminDashboard from './components/AdminDashboard';
 import DesignSystem from './components/DesignSystem';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { usePublishedContent } from './hooks/usePublishedContent';
 import { useSEO } from './hooks/useSEO';
 import productData from '@/data/products.json';
@@ -87,13 +88,17 @@ const HomePage = () => {
 
 // AppContent component to access useLocation hook inside Router
 const AppContent = () => {
-  const isAdminRoute = typeof window !== 'undefined' && window.location.pathname === '/admin';
+  const [location] = useLocation();
+  const isAdminRoute = location === '/admin';
+  const isEditorRoute = location === '/editor' || location.startsWith('/editor/');
+  const { isAuthenticated, isAdmin } = useAuth();
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Don't render AdminHeader - no auth required */}
-      {/* Don't render Header on admin routes to prevent overlap */}
-      {!isAdminRoute && <Header />}
+      {/* Show AdminHeader banner for admins on all routes */}
+      <AdminHeader />
+      {/* Hide main site Header on admin and editor dedicated routes to avoid overlap */}
+      {!isAdminRoute && !isEditorRoute && <Header />}
       <main className="flex-1 pt-16">
         <Switch>
           <Route path="/" component={HomePage} />
@@ -102,6 +107,40 @@ const AppContent = () => {
           <Route path="/bibliokit-blocks" component={BiblioKitBlocksPage} />
           <Route path="/ai-rename-variants" component={AIRenameVariantsPage} />
           <Route path="/admin" component={AdminDashboard} />
+          <Route path="/editor">
+            {isAuthenticated && isAdmin ? (
+              <>
+                <div className="container mx-auto px-4 py-6">
+                  <h1 className="text-2xl font-bold mb-4">Content Editor</h1>
+                  <p className="text-muted-foreground mb-6">Make live edits to content sections and products.</p>
+                </div>
+                <ContentEditor initialOpen />
+              </>
+            ) : (
+              <div className="container mx-auto px-4 py-16 text-center">
+                <h1 className="text-3xl font-bold mb-4">Admins Only</h1>
+                <p className="text-muted-foreground mb-6">You must be an authenticated admin to access the editor.</p>
+                <a href="/admin" className="button">Go to Admin Login</a>
+              </div>
+            )}
+          </Route>
+          <Route path="/editor/">
+            {isAuthenticated && isAdmin ? (
+              <>
+                <div className="container mx-auto px-4 py-6">
+                  <h1 className="text-2xl font-bold mb-4">Content Editor</h1>
+                  <p className="text-muted-foreground mb-6">Make live edits to content sections and products.</p>
+                </div>
+                <ContentEditor initialOpen />
+              </>
+            ) : (
+              <div className="container mx-auto px-4 py-16 text-center">
+                <h1 className="text-3xl font-bold mb-4">Admins Only</h1>
+                <p className="text-muted-foreground mb-6">You must be an authenticated admin to access the editor.</p>
+                <a href="/admin" className="button">Go to Admin Login</a>
+              </div>
+            )}
+          </Route>
           {import.meta.env.DEV && (
             <Route path="/database">
               <div className="container mx-auto px-4 py-16">
@@ -125,10 +164,10 @@ const AppContent = () => {
           </Route>
         </Switch>
       </main>
-      {/* Don't render Footer on admin routes for cleaner admin experience */}
-      {!isAdminRoute && <Footer />}
-      {/* Only render ContentEditor on non-admin routes */}
-      {!isAdminRoute && <ContentEditor />}
+      {/* Don't render Footer on admin or editor routes for cleaner editing experience */}
+      {!isAdminRoute && !isEditorRoute && <Footer />}
+      {/* Only render ContentEditor overlay on non-admin, non-editor routes */}
+      {!isAdminRoute && !isEditorRoute && <ContentEditor />}
     </div>
   );
 };
