@@ -11,7 +11,8 @@
     "preview": "vite preview --port 9990",
     "serve": "vite preview --port 9990",
     "netlify:dev": "netlify dev",
-    "netlify:build": "npm run build"
+    "netlify:build": "npm run build",
+    "test:env": "bash tests/shell/dev-env.spec.sh"
   },
   "dependencies": {
     "clsx": "^2.0.0",
