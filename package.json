@@ -12,7 +12,8 @@
     "serve": "vite preview --port 9990",
     "netlify:dev": "netlify dev",
     "netlify:build": "npm run build",
-    "test:env": "bash tests/shell/dev-env.spec.sh"
+    "test:env": "bash tests/shell/dev-env.spec.sh",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "clsx": "^2.0.0",
@@ -24,6 +25,7 @@
     "wouter": "^3.7.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.47.2",
     "@netlify/functions": "^2.6.0",
     "@types/pg": "^8.10.9",
     "@types/react": "^18.2.43",
@@ -34,6 +36,7 @@
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
     "typescript": "^5.2.2",
+    "dotenv": "^16.4.5",
     "vite": "^5.0.8"
   }
 }
