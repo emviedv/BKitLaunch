@@ -913,9 +913,9 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                     }
                   }}
                   className="w-full p-2 border border-border rounded h-32 font-mono text-sm"
-                  placeholder='[{"label": "Features", "href": "#features"}]'
+                  placeholder='[{"label":"Features","href":"#features"},{"type":"dropdown","label":"Products","children":[{"label":"AI Rename Variants","href":"/ai-rename-variants"}]},{"label":"Get Started","href":"/#contact","isButton":true}]'
                 />
-                <p className="text-xs text-muted-foreground mt-1">Edit navigation items as JSON array</p>
+                <p className="text-xs text-muted-foreground mt-1">Supports dropdowns via {`type: "dropdown"`} with {`children: [{label, href}]`}, button style via {`isButton: true`}, and external flags {`isExternal`} / {`nofollow`}.</p>
               </div>
             </div>
           )}

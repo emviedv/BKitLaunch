@@ -14,38 +14,100 @@ const Header = () => {
     return null;
   }
 
+  // Support richer nav item types coming from content JSON
+  type NavChild = {
+    label: string;
+    href: string;
+    isExternal?: boolean;
+    nofollow?: boolean;
+  };
+
+  type DropdownNavItem = {
+    type: 'dropdown';
+    label: string;
+    children: NavChild[];
+  };
+
+  type LinkNavItem = {
+    label: string;
+    href?: string;
+    type?: 'link' | 'scroll' | 'external' | 'button';
+    isButton?: boolean;
+    isExternal?: boolean;
+    nofollow?: boolean;
+  };
+
+  type NavItem = DropdownNavItem | LinkNavItem;
+
+  const navItems: NavItem[] = Array.isArray(content.header?.navigation)
+    ? (content.header?.navigation as NavItem[])
+    : [];
+
+  const resolveExternal = (item: { type?: string; isExternal?: boolean }): boolean => {
+    if (typeof item.isExternal === 'boolean') return item.isExternal;
+    return item.type === 'external';
+  };
+
+  const linkRel = (nofollow?: boolean, external?: boolean): string | undefined => {
+    const parts: string[] = [];
+    if (external) parts.push('noopener', 'noreferrer');
+    if (nofollow) parts.push('nofollow');
+    return parts.length ? parts.join(' ') : undefined;
+  };
+
   return (
     <header className={`bg-background/80 backdrop-blur border-b border-border fixed w-full ${adminOffset} z-50`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-500 to-green-500">{content.header?.logoText || 'BiblioKit'}</div>
         <nav className="hidden md:flex items-center space-x-6">
-          {content.header?.navigation?.map((item: any, index: number) => (
-            <a 
-              key={index}
-              href={item.href} 
-              className="text-sm font-medium hover:text-primary transition-colors"
-            >
-              {item.label}
-            </a>
-          ))}
-          <div className="relative group">
-            <button className="text-sm font-medium hover:text-primary transition-colors flex items-center">
-              Products
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <div className="py-2">
-                <a href="/ai-rename-variants" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
-                  🏷️ AI Rename Variants
-                </a>
-                <a href="/bibliokit-blocks" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors">
-                  📊 BiblioKit Blocks
-                </a>
-              </div>
-            </div>
-          </div>
+          {navItems.map((item, index) => {
+            if ((item as DropdownNavItem).type === 'dropdown') {
+              const dd = item as DropdownNavItem;
+              return (
+                <div key={`dd-${index}`} className="relative group">
+                  <button className="text-sm font-medium hover:text-primary transition-colors flex items-center">
+                    {dd.label}
+                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="py-2">
+                      {(dd.children || []).map((child, ci) => (
+                        <a
+                          key={`dd-item-${index}-${ci}`}
+                          href={child.href}
+                          target={child.isExternal ? '_blank' : undefined}
+                          rel={linkRel(child.nofollow, !!child.isExternal)}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                        >
+                          {child.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            const li = item as LinkNavItem;
+            const isExternal = resolveExternal(li);
+            const isButton = li.isButton || li.type === 'button';
+            const classes = isButton
+              ? 'button text-sm'
+              : 'text-sm font-medium hover:text-primary transition-colors';
+            return (
+              <a
+                key={`nav-${index}`}
+                href={li.href || '#'}
+                target={isExternal ? '_blank' : undefined}
+                rel={linkRel(li.nofollow, isExternal)}
+                className={classes}
+              >
+                {li.label}
+              </a>
+            );
+          })}
           {import.meta.env.DEV && (
             <a 
               href="/design-system" 
@@ -88,24 +150,45 @@ const Header = () => {
       {/* Mobile menu */}
       <div id="mobile-menu" className="hidden md:hidden bg-white border-t border-gray-200">
         <div className="px-4 py-2 space-y-2">
-          {content.header?.navigation?.map((item: any, index: number) => (
-            <a 
-              key={index}
-              href={item.href} 
-              className="block py-2 text-sm font-medium hover:text-primary transition-colors"
-            >
-              {item.label}
-            </a>
-          ))}
-          <div className="py-2">
-            <div className="text-sm font-medium text-gray-600 mb-2">Products</div>
-            <a href="/ai-rename-variants" className="block py-2 pl-4 text-sm text-gray-700 hover:text-primary transition-colors">
-              🏷️ AI Rename Variants
-            </a>
-            <a href="/bibliokit-blocks" className="block py-2 pl-4 text-sm text-gray-700 hover:text-primary transition-colors">
-              📊 BiblioKit Blocks
-            </a>
-          </div>
+          {navItems.map((item, index) => {
+            if ((item as DropdownNavItem).type === 'dropdown') {
+              const dd = item as DropdownNavItem;
+              return (
+                <div key={`m-dd-${index}`} className="py-2">
+                  <div className="text-sm font-medium text-gray-600 mb-2">{dd.label}</div>
+                  {(dd.children || []).map((child, ci) => (
+                    <a
+                      key={`m-dd-item-${index}-${ci}`}
+                      href={child.href}
+                      target={child.isExternal ? '_blank' : undefined}
+                      rel={linkRel(child.nofollow, !!child.isExternal)}
+                      className="block py-2 pl-4 text-sm text-gray-700 hover:text-primary transition-colors"
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
+              );
+            }
+
+            const li = item as LinkNavItem;
+            const isExternal = resolveExternal(li);
+            const isButton = li.isButton || li.type === 'button';
+            const classes = isButton
+              ? 'button w-full text-sm'
+              : 'block py-2 text-sm font-medium hover:text-primary transition-colors';
+            return (
+              <a
+                key={`m-nav-${index}`}
+                href={li.href || '#'}
+                target={isExternal ? '_blank' : undefined}
+                rel={linkRel(li.nofollow, isExternal)}
+                className={classes}
+              >
+                {li.label}
+              </a>
+            );
+          })}
           {import.meta.env.DEV && (
             <a 
               href="/design-system" 

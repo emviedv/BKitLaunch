@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import productData from '@/data/products.json';
+import React, { useEffect } from 'react';
+import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { useSchema, createProductSchema, createBreadcrumbSchema, updatePageMeta } from '@/lib/useSchema';
 import { debugService } from '@/lib/debugService';
 import AnswerBox from './AnswerBox';
@@ -33,6 +33,10 @@ interface ProductInfo {
   primaryButtonLink?: string;
   secondaryButton?: string;
   secondaryButtonLink?: string;
+  badgeLabel?: string;
+  llm?: {
+    answerBox?: string;
+  };
   details?: ProductDetail[];
   benefits?: string[];
   specifications?: ProductSpec[];
@@ -40,7 +44,7 @@ interface ProductInfo {
 }
 
 const BiblioKitBlocksPage = () => {
-  const [content, setContent] = useState<any>(productData);
+  const { content } = usePublishedContent();
 
   // Debug service for detailed logging
   debugService.info('BiblioKitBlocksPage mounted', { 
@@ -49,28 +53,15 @@ const BiblioKitBlocksPage = () => {
   });
 
   useEffect(() => {
-    // Use page-specific localStorage to avoid conflicts
-    const saved = localStorage.getItem('bibliokit-blocks-content');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setContent(parsed);
-        debugService.info('BiblioKit Blocks: Loaded content from localStorage', { 
-          title: parsed.product?.title 
-        });
-      } catch (error) {
-        console.error('Failed to load saved content:', error);
-      }
-    } else {
-      debugService.info('BiblioKit Blocks: Using default product data', { 
-        title: productData.product?.title 
-      });
-    }
+    debugService.info('BiblioKit Blocks: Content loaded', {
+      source: 'usePublishedContent',
+    });
   }, []);
 
   // Add schema and meta tags for the product page
   useEffect(() => {
-    const currentProduct: ProductInfo | undefined = content.product;
+    const currentProduct: ProductInfo | undefined =
+      content.products?.['bibliokit-blocks'] || content.product;
     if (currentProduct) {
       // Update page meta tags
       updatePageMeta(
@@ -87,20 +78,16 @@ const BiblioKitBlocksPage = () => {
     }
   }, [content]);
 
-  const product: ProductInfo | undefined = content.product;
+  const product: ProductInfo | undefined =
+    content.products?.['bibliokit-blocks'] || content.product;
   
   // Debug: Log what content is actually being displayed
   useEffect(() => {
     console.log('🔍 BiblioKit Blocks Debug:', {
       productTitle: product?.title,
       productDescription: product?.description,
-      contentSource: content === productData ? 'JSON file' : 'localStorage'
     });
-    
-    if (product?.title && product?.title !== 'BiblioKit Blocks') {
-      console.warn('⚠️ Wrong product content detected!', product.title);
-    }
-  }, [product, content]);
+  }, [product]);
   
   // Generate schemas outside of effects
   const productSchema = product ? createProductSchema(product) : {
@@ -122,7 +109,9 @@ const BiblioKitBlocksPage = () => {
   const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
 
   // LLM-optimized content data
-  const answerBoxContent = "BiblioKit Blocks provides comprehensive design system analytics that automatically tracks Figma component usage, measures ROI, and delivers actionable insights to optimize component libraries. Increase adoption rates by 25%+ and reduce maintenance overhead through data-driven decision making for product teams.";
+  const answerBoxContent =
+    product?.llm?.answerBox ||
+    "BiblioKit Blocks provides comprehensive design system analytics that automatically tracks Figma component usage, measures ROI, and delivers actionable insights to optimize component libraries. Increase adoption rates by 25%+ and reduce maintenance overhead through data-driven decision making for product teams.";
 
   const expertQuote = {
     quote: "66.7% of organizations do not measure the ROI of their design system.",
@@ -180,9 +169,11 @@ const BiblioKitBlocksPage = () => {
       <section className="relative py-24 px-4 gradient-brand text-white">
         <div className="container mx-auto text-center">
           <div className="max-w-4xl mx-auto">
-            <div className="inline-block mb-6 bg-white/20 px-4 py-2 rounded-full">
-              <span className="text-white font-medium">SaaS Analytics Platform</span>
-            </div>
+            {product?.badgeLabel && (
+              <div className="inline-block mb-6 bg-white/20 px-4 py-2 rounded-full">
+                <span className="text-white font-medium">{product.badgeLabel}</span>
+              </div>
+            )}
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="text-white">{product.title}</span>
         </h1>

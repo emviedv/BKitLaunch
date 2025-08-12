@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { useSchema, createProductSchema, createBreadcrumbSchema, updatePageMeta } from '@/lib/useSchema';
 import { debugService } from '@/lib/debugService';
 import AnswerBox from './AnswerBox';
@@ -28,14 +29,14 @@ const AIRenameVariantsPage = () => {
     );
   }, []);
 
-  // Product information
-  const product = {
+  const { content } = usePublishedContent();
+  const product = content.products?.['ai-rename-variants'] || {
     title: 'AI Rename Variants',
     description: 'Instantly relabel Figma variant and layer names with context-aware AI. Remove clutter and bring order to your files in seconds.',
     primaryButton: 'Install Plugin',
     primaryButtonLink: 'https://www.figma.com/community/plugin/ai-rename-variants',
     secondaryButton: 'Learn More',
-    secondaryButtonLink: '#features'
+    secondaryButtonLink: '#features',
   };
 
   // Generate schemas
@@ -50,7 +51,9 @@ const AIRenameVariantsPage = () => {
   useSchema(breadcrumbSchema, 'breadcrumb-schema');
 
   // LLM-optimized content data
-  const answerBoxContent = "AI Rename Variants automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.";
+  const answerBoxContent =
+    product?.llm?.answerBox ||
+    "AI Rename Variants automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.";
 
   const expertQuote = {
     quote: "The way you structure and present work can make or break your ability to map towards broader goals, stay on the same page, and even know where to find the latest version of a design.",
@@ -129,9 +132,11 @@ const AIRenameVariantsPage = () => {
       <section className="relative py-24 px-4 bg-gradient-to-br from-blue-50/30 to-purple-100/30 text-gray-900">
         <div className="container mx-auto text-center">
           <div className="max-w-4xl mx-auto">
-            <div className="inline-block mb-6 bg-blue-600/10 px-4 py-2 rounded-full">
-              <span className="text-blue-600 font-medium">🏷️ Figma Plugin</span>
-            </div>
+            {(product as any)?.badgeLabel && (
+              <div className="inline-block mb-6 bg-blue-600/10 px-4 py-2 rounded-full">
+                <span className="text-blue-600 font-medium">{(product as any).badgeLabel}</span>
+              </div>
+            )}
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="text-gray-900">{product.title}</span>
             </h1>
