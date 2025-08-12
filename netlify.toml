@@ -74,6 +74,18 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "http://www.bibliokit.com/*"
+  to = "https://bibliokit.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.bibliokit.com/*"
+  to = "https://bibliokit.com/:splat"
+  status = 301
+  force = true
+
 # Exclude development files from SPA fallback - order matters!
 [[redirects]]
   from = "/node_modules/.vite/deps/*.mjs"

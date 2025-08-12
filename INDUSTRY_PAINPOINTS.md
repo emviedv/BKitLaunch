@@ -302,7 +302,7 @@
 ## Process & Workflow Issues
 
 ### 40. Design System as Product Challenge
-> *"A style guide is an artifact of design process. A design system is a living, funded product with a roadmap & backlog, serving an ecosystem."*
+c> *"A style guide is an artifact of design process. A design system is a living, funded product with a roadmap & backlog, serving an ecosystem."*
 
 **Source:** Maintaining Design Systems | Atomic Design  
 **Author:** Nathan Curtis  

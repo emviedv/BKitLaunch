@@ -47,8 +47,8 @@ export const routeMetadata: RouteMetadata = {
         "@type": "Organization",
         "name": "BiblioKit",
         "description": "Professional SaaS software and Figma plugins with secure API management and world-class support.",
-        "url": "https://bibliokit-launch.netlify.app",
-        "logo": "https://bibliokit-launch.netlify.app/vite.svg",
+         "url": "https://bibliokit.com",
+         "logo": "https://bibliokit.com/vite.svg",
         "contactPoint": {
           "@type": "ContactPoint",
           "email": "hello@bibliokit.com",
@@ -129,7 +129,7 @@ export const routeMetadata: RouteMetadata = {
 export function generateMetadata(
   path: string, 
   contentData?: any, 
-  baseUrl: string = 'https://bibliokit-launch.netlify.app'
+  baseUrl: string = 'https://bibliokit.com'
 ): SEOMetadata {
   // Get route-specific metadata or use default
   const routeData = routeMetadata[path] || {};

@@ -1,4 +1,9 @@
 User-agent: *
+Disallow: /admin
+
+Sitemap: https://bibliokit.com/sitemap.xml
+
+User-agent: *
 Allow: /
 
 User-agent: GPTBot

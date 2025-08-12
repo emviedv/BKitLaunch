@@ -35,6 +35,8 @@ export default async (request: Request, context: Context) => {
     url.pathname.startsWith('/.netlify/') ||
     url.pathname.startsWith('/admin') ||
     url.pathname.startsWith('/assets/') ||
+    url.pathname.endsWith('/robots.txt') ||
+    url.pathname.endsWith('/sitemap.xml') ||
     url.pathname.includes('.') // Files with extensions
   ) {
     return context.next();
@@ -71,6 +73,13 @@ export default async (request: Request, context: Context) => {
       .replace(/>/g, '\\u003e')
       .replace(/&/g, '\\u0026');
 
+    // Decide whether to include Hotjar tag (production, non-admin pages)
+    const isProdHost = url.hostname !== 'localhost' && url.hostname !== '127.0.0.1';
+    const isAdminPath = url.pathname.startsWith('/admin');
+    const hotjarTag = isProdHost && !isAdminPath
+      ? '<script async src="https://static.hotjar.com/c/hotjar-6484850.js?sv=6"></script>'
+      : '';
+
     // Generate the full HTML document
     const html = `<!doctype html>
 <html lang="en">
@@ -91,7 +100,7 @@ export default async (request: Request, context: Context) => {
     <!-- CSS will be injected here by build process -->
     <link rel="stylesheet" href="/assets/main.css" />
 
-    <!-- Hotjar moved to client-side loader with consent gate -->
+    ${hotjarTag}
   </head>
   <body>
     <div id="root">${appHtml}</div>

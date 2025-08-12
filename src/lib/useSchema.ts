@@ -79,10 +79,10 @@ export const createArticleSchema = (title: string, description: string, dateModi
   publisher: {
     '@type': 'Organization',
     name: 'BiblioKit',
-    logo: {
-      '@type': 'ImageObject',
-      url: 'https://bibliokit-launch.netlify.app/vite.svg'
-    }
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://bibliokit.com/vite.svg'
+      }
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
