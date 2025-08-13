@@ -22,7 +22,7 @@ const Hero = () => {
             </div>
           )}
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="text-gray-900">{hero.title}</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">{hero.title}</span>
             <br />
             <span className="text-gray-700">{hero.subtitle}</span>
           </h1>

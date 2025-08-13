@@ -58,7 +58,7 @@ const Header = () => {
   return (
     <header className={`bg-background/80 backdrop-blur border-b border-border fixed w-full ${adminOffset} z-50`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-500 to-green-500">{content.header?.logoText || 'BiblioKit'}</div>
+        <div className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">{content.header?.logoText || 'BiblioKit'}</div>
         <nav className="hidden md:flex items-center space-x-6">
           {navItems.map((item, index) => {
             if ((item as DropdownNavItem).type === 'dropdown') {

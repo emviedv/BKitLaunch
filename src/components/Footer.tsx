@@ -17,7 +17,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
-            <div className="font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-500 to-green-500 mb-4">
+            <div className="font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 mb-4">
               {header?.logoText || 'BiblioKit'}
             </div>
             <p className="text-sm text-muted-foreground">
