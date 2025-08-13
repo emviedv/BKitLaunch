@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { debugService } from '../lib/debugService';
 import { contentApi } from '../lib/contentApi';
 import { usePublishedContent } from '../hooks/usePublishedContent';
+
+const WAITLIST_BACKGROUND_CLASSES = [
+  'gradient-brand-soft',
+  'gradient-ocean-soft-radial',
+  'gradient-violet-soft-radial',
+  'gradient-mint-soft-radial',
+  'gradient-sunset-soft-radial',
+  'gradient-sand-soft-radial',
+] as const;
 
 interface WaitlistProps {
   visibleOverride?: boolean;
@@ -31,6 +40,11 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride }) => {
   if (!shouldShowWaitlist || !content.waitlist) {
     return null;
   }
+
+  const backgroundClassName = useMemo(() => {
+    const randomIndex = Math.floor(Math.random() * WAITLIST_BACKGROUND_CLASSES.length);
+    return WAITLIST_BACKGROUND_CLASSES[randomIndex];
+  }, []);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value;
@@ -71,7 +85,7 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride }) => {
   };
 
   return (
-    <section className="py-20 px-4 section-background">
+    <section className={`py-20 px-4 ${backgroundClassName}`}>
       <div className="container mx-auto max-w-3xl text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           {content.waitlist.title}

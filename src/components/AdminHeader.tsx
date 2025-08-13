@@ -37,6 +37,12 @@ const AdminHeader: React.FC = () => {
           >
             ✏️ Content Editor
           </a>
+          <a
+            href="/admin#designsystem"
+            className="bg-amber-200 hover:bg-amber-300 text-amber-800 px-3 py-1 rounded text-xs font-medium transition-colors"
+          >
+            🎨 Design System
+          </a>
 
           <div className="hidden md:flex items-center gap-2">
             <label htmlFor="admin-path-input" className="sr-only">Navigate to path</label>

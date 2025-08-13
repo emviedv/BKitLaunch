@@ -108,15 +108,7 @@ const Header = () => {
               </a>
             );
           })}
-          {import.meta.env.DEV && (
-            <a 
-              href="/design-system" 
-              className="text-sm font-medium hover:text-primary transition-colors"
-              aria-label="Design System Reference"
-            >
-              Design System
-            </a>
-          )}
+          
           {isAuthenticated && isAdmin && (
             <a
               href="/editor"
@@ -199,15 +191,7 @@ const Header = () => {
               </a>
             );
           })}
-          {import.meta.env.DEV && (
-            <a 
-              href="/design-system" 
-              className="block py-2 text-sm font-medium hover:text-primary transition-colors"
-              aria-label="Design System Reference"
-            >
-              Design System
-            </a>
-          )}
+          
         </div>
       </div>
     </header>

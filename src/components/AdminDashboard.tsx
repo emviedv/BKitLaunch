@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DesignSystem from './DesignSystem';
 import { useAuth } from '@/contexts/AuthContext';
 import ContentEditor from './ContentEditor';
 import AdminLogin from './AdminLogin';
@@ -78,7 +79,7 @@ const AdminDashboard: React.FC = () => {
 
   // ALL HOOKS MUST BE AT THE TOP - BEFORE ANY CONDITIONAL LOGIC
   const { isAuthenticated, isAdmin, email, logout, loading: authLoading } = authHookData;
-  const [activeTab, setActiveTab] = useState<'content' | 'versions' | 'settings' | 'analytics' | 'waitlist'>('content');
+  const [activeTab, setActiveTab] = useState<'content' | 'versions' | 'settings' | 'analytics' | 'waitlist' | 'designsystem'>('content');
   const [waitlist, setWaitlist] = useState<Array<{ id: number; email: string; name?: string; source?: string; created_at: string }>>([]);
   const [waitlistLoading, setWaitlistLoading] = useState(false);
   const [contentVersions, setContentVersions] = useState<ContentVersion[]>([]);
@@ -280,8 +281,32 @@ const AdminDashboard: React.FC = () => {
     { id: 'versions', label: 'Version History', icon: '🕒' },
     { id: 'waitlist', label: 'Waitlist', icon: '📧' },
     { id: 'settings', label: 'Site Settings', icon: '⚙️' },
-    { id: 'analytics', label: 'Analytics', icon: '📊' }
+    { id: 'analytics', label: 'Analytics', icon: '📊' },
+    { id: 'designsystem', label: 'Design System', icon: '🎨' }
   ] as const;
+
+  // Sync tab selection with URL hash for deep-linking (e.g., /admin#designsystem)
+  useEffect(() => {
+    const applyHash = () => {
+      const hash = (window.location.hash || '').replace('#', '');
+      if (!hash) return;
+      const validIds = tabs.map(t => t.id);
+      if ((validIds as ReadonlyArray<string>).includes(hash)) {
+        setActiveTab(hash as typeof tabs[number]['id']);
+      }
+    };
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+    return () => window.removeEventListener('hashchange', applyHash);
+  }, []);
+
+  // Keep hash updated when the active tab changes
+  useEffect(() => {
+    const nextHash = `#${activeTab}`;
+    if (window.location.hash !== nextHash) {
+      window.location.hash = nextHash;
+    }
+  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-muted/20 pt-16">
@@ -553,6 +578,15 @@ const AdminDashboard: React.FC = () => {
                 can be added in future updates.
               </p>
             </div>
+          </div>
+        )}
+        {activeTab === 'designsystem' && (
+          <div className="bg-background rounded-lg border p-6">
+            <div className="mb-4">
+              <h2 className="text-xl font-semibold">Design System</h2>
+              <p className="text-muted-foreground text-sm">Internal reference for tokens and components.</p>
+            </div>
+            <DesignSystem />
           </div>
         )}
       </div>
