@@ -167,24 +167,24 @@ const BiblioKitBlocksPage = () => {
   return (
     <>
       {/* Hero Section - matches home page styling */}
-      <section className="relative py-24 px-4 gradient-brand text-white">
+      <section className="section-hero py-24 px-4">
         <div className="container mx-auto text-center">
           <div className="max-w-4xl mx-auto">
             {product?.badgeLabel && (
-              <div className="inline-block mb-6 bg-white/20 px-4 py-2 rounded-full">
-                <span className="text-white font-medium">{product.badgeLabel}</span>
+              <div className="inline-block mb-6 bg-primary/10 px-4 py-2 rounded-full">
+                <span className="text-primary font-medium">{product.badgeLabel}</span>
               </div>
             )}
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="text-white">{product.title}</span>
+              <span className="text-gray-900">{product.title}</span>
         </h1>
             
             {/* Answer Box right under H1 - prime feature-snippet fodder */}
             <div className="mb-8">
-              <AnswerBox content={answerBoxContent} className="bg-white/95 text-gray-800 border-white shadow-lg" />
+              <AnswerBox content={answerBoxContent} className="bg-white/95 text-gray-800 border-gray-200 shadow-lg" />
             </div>
 
-            <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
           {product.description}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -193,26 +193,26 @@ const BiblioKitBlocksPage = () => {
                   href={product.primaryButtonLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="button bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 text-lg px-8 py-3"
+                  className="button text-lg px-8 py-3"
                 >
                   {product.primaryButton || 'Get Started'}
                 </a>
               ) : (
-                <button className="button bg-white text-purple-600 hover:bg-white/90 hover:text-purple-700 text-lg px-8 py-3">
+                <button className="button text-lg px-8 py-3">
                   {product.primaryButton || 'Get Started'}
                 </button>
               )}
               {product.secondaryButtonLink ? (
                 <a 
                   href={product.secondaryButtonLink}
-                  className="button-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3 inline-block text-center"
+                  className="button-secondary text-lg px-8 py-3 inline-block text-center"
                   target={product.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
                   rel={product.secondaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
                 >
                   {product.secondaryButton || 'Learn More'}
                 </a>
               ) : (
-                <button className="button-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3">
+                <button className="button-secondary text-lg px-8 py-3">
                   {product.secondaryButton || 'Learn More'}
                 </button>
               )}
@@ -220,8 +220,8 @@ const BiblioKitBlocksPage = () => {
       </div>
         </div>
         {/* Decorative elements */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+        <div className="absolute top-10 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-primary/10 rounded-full blur-xl"></div>
       </section>
 
       {/* Updated timestamp for AI crawlers */}

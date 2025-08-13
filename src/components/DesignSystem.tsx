@@ -47,7 +47,7 @@ const DesignSystem: React.FC = () => {
       {/* Gradients */}
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4">Gradients</h2>
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="card gradient-brand text-white">
             <h3 className="font-semibold">gradient-brand</h3>
             <p className="text-sm opacity-90">from-pink-500 → via-blue-500 → to-green-500</p>
@@ -55,6 +55,26 @@ const DesignSystem: React.FC = () => {
           <div className="card gradient-brand-soft">
             <h3 className="font-semibold">gradient-brand-soft</h3>
             <p className="text-sm text-muted-foreground">from-pink-50 → via-blue-50 → to-green-50</p>
+          </div>
+          <div className="card gradient-ocean-soft-radial">
+            <h3 className="font-semibold">gradient-ocean-soft-radial</h3>
+            <p className="text-sm text-muted-foreground">blue/cyan/teal soft with radial accents</p>
+          </div>
+          <div className="card gradient-violet-soft-radial">
+            <h3 className="font-semibold">gradient-violet-soft-radial</h3>
+            <p className="text-sm text-muted-foreground">violet/indigo/blue soft with radial accents</p>
+          </div>
+          <div className="card gradient-mint-soft-radial">
+            <h3 className="font-semibold">gradient-mint-soft-radial</h3>
+            <p className="text-sm text-muted-foreground">green/emerald/teal soft with radial accents</p>
+          </div>
+          <div className="card gradient-sunset-soft-radial">
+            <h3 className="font-semibold">gradient-sunset-soft-radial</h3>
+            <p className="text-sm text-muted-foreground">rose/pink/orange soft with radial accents</p>
+          </div>
+          <div className="card gradient-sand-soft-radial">
+            <h3 className="font-semibold">gradient-sand-soft-radial</h3>
+            <p className="text-sm text-muted-foreground">amber/warm sand soft with radial accents</p>
           </div>
         </div>
       </section>
