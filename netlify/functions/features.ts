@@ -74,16 +74,16 @@ const handlePost = async (client: Client, body: string | null) => {
     return sendJSON(400, { error: 'Request body required' });
   }
 
-  const { section_id, icon, title, description, badge, badge_color, sort_order = 0 } = JSON.parse(body);
+  const { section_id, icon, title, description, badge, badge_color, sort_order = 0, is_featured = false, button_text, button_link } = JSON.parse(body);
 
   if (!section_id || !icon || !title || !description) {
     return sendJSON(400, { error: 'section_id, icon, title, and description are required' });
   }
 
   const result = await client.query(
-    `INSERT INTO features (section_id, icon, title, description, badge, badge_color, sort_order)
-     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-    [section_id, icon, title, description, badge, badge_color, sort_order]
+    `INSERT INTO features (section_id, icon, title, description, badge, badge_color, sort_order, is_featured, button_text, button_link)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+    [section_id, icon, title, description, badge, badge_color, sort_order, is_featured, button_text, button_link]
   );
 
   return sendJSON(201, {
@@ -102,7 +102,7 @@ const handlePut = async (client: Client, body: string | null, featureId: string)
     return sendJSON(400, { error: 'Invalid feature ID' });
   }
 
-  const { icon, title, description, badge, badge_color, sort_order } = JSON.parse(body);
+  const { icon, title, description, badge, badge_color, sort_order, is_featured, button_text, button_link } = JSON.parse(body);
   const updates: string[] = [];
   const values: any[] = [];
   let valueIndex = 1;
@@ -137,6 +137,21 @@ const handlePut = async (client: Client, body: string | null, featureId: string)
     values.push(sort_order);
   }
 
+  if (is_featured !== undefined) {
+    updates.push(`is_featured = $${valueIndex++}`);
+    values.push(is_featured);
+  }
+
+  if (button_text !== undefined) {
+    updates.push(`button_text = $${valueIndex++}`);
+    values.push(button_text);
+  }
+
+  if (button_link !== undefined) {
+    updates.push(`button_link = $${valueIndex++}`);
+    values.push(button_link);
+  }
+
   updates.push(`updated_at = CURRENT_TIMESTAMP`);
   values.push(id);
 
@@ -158,11 +173,7 @@ const handlePut = async (client: Client, body: string | null, featureId: string)
 const handleDelete = async (client: Client, featureId: string) => {
   const id = parseInt(featureId);
   if (isNaN(id)) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Invalid feature ID' }),
-    };
+    return sendJSON(400, { error: 'Invalid feature ID' });
   }
 
   const result = await client.query(

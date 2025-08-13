@@ -1320,16 +1320,68 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
     };
 
     const saveFeatures = async () => {
-      const sectionToSave = {
-        ...formData,
-        section_data: {
-          title: formData.title,
-          description: formData.description,
-          features: features
+      try {
+        // 1) Create or update the features section metadata (title/description/visibility)
+        let sectionId = section?.id;
+        const payload = {
+          section_type: 'features' as const,
+          is_visible: formData.is_visible !== false,
+          section_data: {
+            title: formData.title,
+            description: formData.description
+          }
+        };
+
+        if (!sectionId) {
+          const createRes = await contentApi.createSection(payload as any);
+          if (!createRes.success || !(createRes.data as any)?.id) throw new Error(createRes.error || 'Failed to create features section');
+          sectionId = (createRes.data as any).id;
+        } else {
+          const updateRes = await contentApi.updateSection(sectionId, payload as any);
+          if (!updateRes.success) throw new Error(updateRes.error || 'Failed to update features section');
         }
-      };
-      
-      await saveSection(sectionToSave);
+
+        if (!sectionId) throw new Error('Features section ID unavailable');
+
+        // 2) Diff feature items and sync via API
+        const originalItems: any[] = ((section as any)?.features || []).map((f: any, idx: number) => ({ ...f, sort_order: f.sort_order ?? idx }));
+        const originalIds = new Set(originalItems.filter(f => f.id).map(f => f.id as number));
+        const currentItems = features.map((f, idx) => ({ ...f, sort_order: idx }));
+        const currentIds = new Set(currentItems.filter(f => (f as any).id).map(f => (f as any).id as number));
+
+        // Deletes
+        for (const id of originalIds) {
+          if (!currentIds.has(id)) {
+            await contentApi.deleteFeature(id);
+          }
+        }
+
+        // Creates and updates
+        for (const item of currentItems) {
+          const body = {
+            icon: item.icon,
+            title: item.title,
+            description: item.description,
+            badge: item.badge || '',
+            badge_color: item.badge_color || null,
+            sort_order: item.sort_order ?? 0,
+            is_featured: item.is_featured || false,
+            button_text: item.button_text || null,
+            button_link: item.button_link || null
+          } as any;
+
+          if (!(item as any).id) {
+            await contentApi.createFeature(sectionId, body);
+          } else {
+            await contentApi.updateFeature((item as any).id, body);
+          }
+        }
+
+        await loadDatabaseContent();
+        showSaveNotification('Features updated successfully', 'success');
+      } catch (err) {
+        showSaveNotification(err instanceof Error ? err.message : 'Failed to save features', 'error');
+      }
     };
 
     return (
