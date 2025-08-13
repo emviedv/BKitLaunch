@@ -2,6 +2,36 @@
 <html>
 <head>
     <title>Clear BiblioKit Cache</title>
+    <!-- Hotjar consent bootstrap + Tracking Code for BiblioKit (public routes only) -->
+    <script>
+        (function () {
+            try {
+                // Allow quick validation with ?hj=1 or ?analytics=1
+                var qp = new URLSearchParams(location.search);
+                var wants = qp.get('analytics') === '1' || qp.get('hj') === '1' || qp.get('consent') === '1';
+                if (wants) {
+                    try { localStorage.setItem('consent:analytics', 'true'); } catch(e) {}
+                    try { window.__USER_CONSENT__ = Object.assign({}, window.__USER_CONSENT__, { analytics: true }); } catch(e) {}
+                }
+            } catch (e) {}
+            try {
+                var isProd = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1';
+                var isAdmin = location.pathname.startsWith('/admin');
+                var consent = (window.__USER_CONSENT__ && window.__USER_CONSENT__.analytics === true) ||
+                    (function () { try { return localStorage.getItem('consent:analytics') === 'true'; } catch (e) { return false; } })();
+                var alreadyLoaded = typeof window.hj === 'function' || !!document.querySelector('script[src*="hotjar-6484850.js"]');
+                if (!isProd || isAdmin || !consent || alreadyLoaded) return;
+
+                // Official order: define before loading
+                window.hj = window.hj || function(){ (window.hj.q = window.hj.q || []).push(arguments) };
+                window._hjSettings = { hjid: 6484850, hjsv: 6 };
+                var a = document.getElementsByTagName('head')[0];
+                var r = document.createElement('script'); r.async = 1;
+                r.src = 'https://static.hotjar.com/c/hotjar-' + window._hjSettings.hjid + '.js?sv=' + window._hjSettings.hjsv;
+                a.appendChild(r);
+            } catch (e) {}
+        })();
+    </script>
 </head>
 <body>
     <h1>Clear BiblioKit Cache</h1>
