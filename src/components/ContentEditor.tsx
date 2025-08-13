@@ -1392,8 +1392,26 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
           }
         }
 
+        // Refresh local editor state from DB
         await loadDatabaseContent();
-        showSaveNotification('Features updated successfully', 'success');
+
+        // Publish unified content so live site reflects DB changes immediately
+        try {
+          const [sectionsRes, contactRes] = await Promise.all([
+            contentApi.getAllSections(),
+            contentApi.getContactInfo()
+          ]);
+          const unified = buildUnifiedContentFromDatabase(
+            sectionsRes.success ? (sectionsRes.data as any[]) : [],
+            contactRes.success ? (contactRes.data as any) : null
+          );
+          await contentApi.saveContent(unified, true);
+        } catch (publishErr) {
+          // Non-fatal: editor state updated even if publish failed
+          console.warn('Auto-publish after features update failed', publishErr);
+        }
+
+        showSaveNotification('Features updated and published', 'success');
       } catch (err) {
         showSaveNotification(err instanceof Error ? err.message : 'Failed to save features', 'error');
       }
