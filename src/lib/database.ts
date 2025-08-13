@@ -25,15 +25,8 @@ export const getDatabaseUrl = (): string => {
   return import.meta.env.VITE_DATABASE_URL || '';
 };
 
-// Get API base URL based on environment
-const getApiBaseUrl = (): string => {
-  // In production (Netlify), use the current domain
-  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-    return window.location.origin;
-  }
-  // In development, use localhost
-  return 'http://localhost:9501';
-};
+// Get API base URL: use relative paths so dev/prod work with redirects/proxy
+const getApiBaseUrl = (): string => '';
 
 // Test connection function (for backend use)
 export const testDatabaseConnection = async (): Promise<boolean> => {

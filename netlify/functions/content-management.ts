@@ -1,13 +1,13 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
-import { withCors, createDbClient, sendJSON, handleError, verifyToken } from './utils';
+import { withCors, createDbClient, sendJSON, handleError, isAuthorized } from './utils';
 
 const contentManagementHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   // Allow public GET of current published content
   if (event.httpMethod === 'GET' && event.queryStringParameters?.action === 'current') {
     // No authentication needed for fetching published content
   } else {
-    // Verify authentication for all other operations
-    if (!verifyToken(event.headers.authorization)) {
+    // Verify authentication for all other operations (cookie-based)
+    if (!isAuthorized(event)) {
       return sendJSON(401, { error: 'Unauthorized' });
     }
   }

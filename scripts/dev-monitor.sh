@@ -66,7 +66,7 @@ case "$1" in
         echo "🔄 Restarting development server..."
         screen -S bibliokit-dev -X quit 2>/dev/null || true
         sleep 2
-        screen -dmS bibliokit-dev bash -c 'cd "/Users/emily/Products/BiblioKit Launch " && npx netlify dev'
+        screen -dmS bibliokit-dev bash -c 'cd "/Users/emily/Products/BiblioKit Launch" && npx netlify dev'
         sleep 5
         check_server
         ;;

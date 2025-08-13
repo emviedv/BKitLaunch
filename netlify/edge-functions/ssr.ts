@@ -30,10 +30,14 @@ export default async (request: Request, context: Context) => {
     return context.next();
   }
   
-  // Skip SSR for API routes, admin assets, and static files
+  // Skip SSR for API routes, admin assets, dev/Vite assets, and static files
   if (
     url.pathname.startsWith('/.netlify/') ||
+    url.pathname.startsWith('/api/') ||
     url.pathname.startsWith('/admin') ||
+    url.pathname.startsWith('/@vite/') ||
+    url.pathname.startsWith('/@react-refresh') ||
+    url.pathname.startsWith('/node_modules/') ||
     url.pathname.startsWith('/assets/') ||
     url.pathname.endsWith('/robots.txt') ||
     url.pathname.endsWith('/sitemap.xml') ||
@@ -65,7 +69,10 @@ export default async (request: Request, context: Context) => {
     // Generate a per-response nonce for inline hydration script
     const nonceArray = new Uint8Array(16);
     crypto.getRandomValues(nonceArray);
-    const nonce = btoa(String.fromCharCode(...nonceArray));
+    // Edge-safe base64 for nonce
+    const nonce = Array.from(nonceArray)
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
 
     // Safely serialize JSON to prevent </script> and special char breakouts
     const safeJson = JSON.stringify({ contentData, url: request.url })
@@ -97,6 +104,31 @@ export default async (request: Request, context: Context) => {
 })();</script>`
       : '';
 
+    // Resolve Vite-built asset paths from manifest with safe fallbacks
+    let cssLinks = '';
+    let jsPath = '/assets/main.js';
+    if (!isProdHost) {
+      // In dev, use Vite entry directly
+      jsPath = '/src/entry-client.tsx';
+    } else {
+      try {
+        const manifestRes = await fetch(new URL('/.vite/manifest.json', request.url).toString());
+        if (manifestRes.ok) {
+          const manifest: any = await manifestRes.json();
+          const entry = manifest['src/entry-client.tsx'] || manifest['index.html'] || null;
+          if (entry && entry.file) {
+            jsPath = `/${String(entry.file).replace(/^\//, '')}`;
+          }
+          const cssArray: string[] = Array.isArray(entry?.css) ? entry.css : [];
+          if (cssArray.length > 0) {
+            cssLinks = cssArray
+              .map((href) => `<link rel="stylesheet" href="/${String(href).replace(/^\//, '')}" />`)
+              .join('\n     ');
+          }
+        }
+      } catch {}
+    }
+
     // Generate the full HTML document
     const html = `<!doctype html>
 <html lang="en">
@@ -111,11 +143,8 @@ export default async (request: Request, context: Context) => {
     <!-- Structured Data -->
     ${structuredData}
 
-    <!-- Preload critical assets -->
-    <link rel="preload" href="/assets/main.css" as="style" />
-    
-    <!-- CSS will be injected here by build process -->
-    <link rel="stylesheet" href="/assets/main.css" />
+    <!-- CSS injected via manifest -->
+    ${cssLinks}
 
     ${hotjarTag}
   </head>
@@ -125,17 +154,25 @@ export default async (request: Request, context: Context) => {
       // Hydration data
       window.__SSR_DATA__ = ${safeJson};
     </script>
-    <script type="module" src="/assets/main.js"></script>
+    <script type="module" src="${jsPath}"></script>
   </body>
 </html>`;
 
     console.log('🚀 SSR: Generated HTML length:', html.length);
     console.log('✅ SSR: Returning server-side rendered response');
     
-    // Generate content-based cache key for invalidation
-    const contentHash = contentData ? 
-      btoa(JSON.stringify(contentData)).slice(0, 8) : 
-      'fallback';
+    // Generate content-based cache key for invalidation (Edge-safe, non-Latin safe)
+    let contentHash = 'fallback';
+    try {
+      const encoder = new TextEncoder();
+      const bytes = encoder.encode(JSON.stringify(contentData || {}));
+      const digest = await crypto.subtle.digest('SHA-256', bytes);
+      const hashBytes = new Uint8Array(digest);
+      contentHash = Array.from(hashBytes)
+        .slice(0, 8)
+        .map((b) => b.toString(16).padStart(2, '0'))
+        .join('');
+    } catch {}
     
     // Disable caching of SSR HTML to prevent stale previews on reload; rely on client revalidation
     const cacheHeaders = {
@@ -177,6 +214,9 @@ export const config: Config = {
     "/assets/*",
     "/.netlify/*",
     "/admin/*",
+    "/@vite/*",
+    "/@react-refresh*",
+    "/node_modules/*",
     "/*.js",
     "/*.css",
     "/*.png",

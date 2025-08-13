@@ -43,9 +43,35 @@ function getSSRData(): any | null {
  */
 export const usePublishedContent = (options: UsePublishedContentOptions = {}) => {
   const {
-    fallbackToLocalStorage = true,
-    fallbackToStatic = true
+    fallbackToLocalStorage = false,
+    fallbackToStatic = false
   } = options;
+
+  const createEmptyContent = () => ({
+    hero: {
+      title: '',
+      subtitle: '',
+      description: '',
+      primaryButton: '',
+      secondaryButton: '',
+      primaryButtonLink: '',
+      secondaryButtonLink: '',
+      emoji: ''
+    },
+    features: {
+      title: '',
+      description: '',
+      items: [] as any[]
+    },
+    pricing: [] as any[],
+    pricingSection: { isComingSoon: true },
+    settings: { visibility: {} as Record<string, boolean>, labels: {} as Record<string, boolean> },
+    cta: null,
+    products: {} as Record<string, any>,
+    header: {},
+    footer: {},
+    waitlist: {}
+  });
 
   // Prefer SSR content immediately to avoid any flash of static data during hydration
   const ssrInitData = (() => {
@@ -64,9 +90,9 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
   const [hasMounted, setHasMounted] = useState(false);
   
   const [state, setState] = useState<ContentState>({
-    content: ssrInitData ?? (fallbackToStatic ? productData : null),
-    // If SSR data exists, mark loading true to revalidate in background; otherwise keep UX smooth
-    loading: !!ssrInitData ? true : false,
+    content: ssrInitData ?? (fallbackToStatic ? productData : createEmptyContent()),
+    // If SSR data exists, mark loading true to revalidate in background; otherwise block stale flash
+    loading: true,
     error: null,
     source: ssrInitData ? 'ssr' : (fallbackToStatic ? 'static' : null)
   });
@@ -93,7 +119,7 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
         source: 'ssr'
       });
     } else {
-      // Begin loading if no SSR available
+      // Begin loading if no SSR available; avoid showing static fallback by default
       setState(prev => ({ ...prev, loading: true, error: null }));
     }
 
@@ -151,7 +177,7 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
         }
       }
 
-      // Final fallback to static data
+      // Final fallback
       if (!isActive) return;
       if (fallbackToStatic) {
         console.log('Using static productData as fallback');
@@ -163,7 +189,7 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
         });
       } else {
         setState({
-          content: null,
+          content: createEmptyContent(),
           loading: false,
           error: 'No content source available',
           source: null

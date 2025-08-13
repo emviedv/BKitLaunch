@@ -17,17 +17,26 @@ In your Netlify dashboard, you need to configure these environment variables:
 Add the following variables:
 
 ```
-DATABASE_URL=postgresql://neondb_owner:npg_bS1zCfx7VYUy@ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
 
-VITE_DATABASE_URL=postgresql://neondb_owner:npg_bS1zCfx7VYUy@ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+VITE_DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
 
-VITE_DB_HOST=ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech
-VITE_DB_NAME=neondb
-VITE_DB_USER=neondb_owner
-VITE_DB_PASSWORD=npg_bS1zCfx7VYUy
+VITE_DB_HOST=<host>
+VITE_DB_NAME=<db>
+VITE_DB_USER=<user>
+VITE_DB_PASSWORD=<password>
 VITE_DB_PORT=5432
 VITE_DB_SSL=true
+
+# Required security/env
+ADMIN_EMAIL=<admin_email>
+ADMIN_PASSWORD=<admin_password>
+JWT_SECRET=<at_least_32_chars_secret>
+IP_HASH_SECRET=<random_secret_for_ip_hashing>
+ALLOWED_ORIGINS=https://bibliokit.com,https://www.bibliokit.com
 ```
+
+Important: Replace placeholders with your values. Rotate any credentials you previously committed.
 
 ## 🚀 Deployment Options
 

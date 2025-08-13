@@ -60,6 +60,7 @@ const initializeTables = async (client: Client) => {
       button_text VARCHAR(100) NOT NULL,
       button_link VARCHAR(255),
       is_popular BOOLEAN DEFAULT false,
+      is_coming_soon BOOLEAN DEFAULT true,
       sort_order INTEGER DEFAULT 0,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -70,6 +71,12 @@ const initializeTables = async (client: Client) => {
   await client.query(`
     ALTER TABLE pricing_plans 
     ADD COLUMN IF NOT EXISTS button_link VARCHAR(255);
+  `);
+
+  // Add is_coming_soon column if it doesn't exist (migration for existing tables)
+  await client.query(`
+    ALTER TABLE pricing_plans 
+    ADD COLUMN IF NOT EXISTS is_coming_soon BOOLEAN DEFAULT true;
   `);
 
   // Navigation items table

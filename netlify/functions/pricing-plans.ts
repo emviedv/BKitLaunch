@@ -183,14 +183,10 @@ const handlePut = async (client: Client, body: string | null, planId: string) =>
       return sendJSON(404, { error: 'Pricing plan not found' });
   }
 
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({
-      success: true,
-      data: result.rows[0]
-    }),
-  };
+  return sendJSON(200, {
+    success: true,
+    data: result.rows[0]
+  });
 };
 
 const handleDelete = async (client: Client, planId: string) => {

@@ -150,7 +150,11 @@ const AppContent = () => {
             </Route>
           )}
           <Route path="/:productSlug">
-            {({ params }) => <DynamicProductPage slug={(params as any).productSlug} />}
+            {({ params }) => (
+              (params as any)?.productSlug ? (
+                <DynamicProductPage slug={(params as any).productSlug} />
+              ) : null
+            )}
           </Route>
           <Route>
             <div className="container mx-auto px-4 py-16 text-center">

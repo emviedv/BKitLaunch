@@ -54,24 +54,30 @@ export async function fetchContentData(url: string): Promise<any> {
 
 // Server-side render function
 export function renderToString(url: string, contentData?: any): string {
-  // Create a context for SSR
-  const ssrContext = {
-    url,
-    contentData
-  };
-  
+  // Expose SSR content to hooks during server render to avoid static fallback
+  const previousSSRContent = (globalThis as any).__SSR_CONTENT__;
+  (globalThis as any).__SSR_CONTENT__ = contentData;
+
   // Provide a static location hook to Wouter during SSR to avoid accessing window
   const pathname = new URL(url).pathname;
   const makeStaticHook = (path: string) => () => [path, () => {}] as [string, (to: string) => void];
 
   // Render the app to string
-  const html = ReactDOMServer.renderToString(
-    <Router hook={makeStaticHook(pathname)}>
-      <App />
-    </Router>
-  );
-  
-  return html;
+  try {
+    const html = ReactDOMServer.renderToString(
+      <Router hook={makeStaticHook(pathname)}>
+        <App />
+      </Router>
+    );
+    return html;
+  } finally {
+    // Restore previous SSR content to avoid leaking across requests
+    if (typeof previousSSRContent === 'undefined') {
+      delete (globalThis as any).__SSR_CONTENT__;
+    } else {
+      (globalThis as any).__SSR_CONTENT__ = previousSSRContent;
+    }
+  }
 }
 
 // Generate page metadata based on route and content

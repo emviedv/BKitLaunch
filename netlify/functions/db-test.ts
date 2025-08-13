@@ -1,5 +1,4 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
-import { Client } from 'pg';
 import { withCors, createDbClient, sendJSON, handleError } from './utils';
 
 const dbTestHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
@@ -25,12 +24,7 @@ const dbTestHandler: Handler = async (event: HandlerEvent, context: HandlerConte
     };
   }
 
-  const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  });
+  const client = createDbClient();
 
   try {
     await client.connect();
