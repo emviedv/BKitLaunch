@@ -452,8 +452,8 @@ class ContentAPI {
     }
   }
 
-  // Create a new section
-  async createSection<T extends ContentSection>(section: Omit<T, 'id' | 'created_at' | 'updated_at'>): Promise<ApiResponse<T>> {
+  // Create a new section (accepts unified payload shape used by server)
+  async createSection<T = any>(section: any): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(this.getApiUrl('content-sections'), {
         method: 'POST',
@@ -474,8 +474,8 @@ class ContentAPI {
     }
   }
 
-  // Update an existing section
-  async updateSection<T extends ContentSection>(id: number, section: Partial<T>): Promise<ApiResponse<T>> {
+  // Update an existing section (accepts partial unified payload)
+  async updateSection<T = any>(id: number, section: Partial<T>): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(this.getApiUrl(`content-sections/${id}`), {
         method: 'PUT',
