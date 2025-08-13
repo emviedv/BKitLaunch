@@ -14,8 +14,15 @@ export async function fetchContentData(url: string): Promise<any> {
     // For server-side rendering, we'll fetch content from the API
     // This will be called during edge function execution
     const apiUrl = `${urlObj.origin}/.netlify/functions/content-management?action=current`;
-    
-    const response = await fetch(apiUrl);
+
+    // Force fresh data on SSR to avoid serving stale HTML
+    const response = await fetch(apiUrl, {
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+      },
+    });
     if (response.ok) {
       const result = await response.json();
       if (result.success && result.data && result.data.content_data) {

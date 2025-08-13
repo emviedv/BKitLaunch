@@ -74,7 +74,7 @@ export const createArticleSchema = (title: string, description: string, dateModi
     name: 'BiblioKit',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://bibliokit.com/vite.svg'
+        url: 'https://bibliokit.com/logo.svg'
       }
   },
   mainEntityOfPage: {

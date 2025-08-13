@@ -47,13 +47,28 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
     fallbackToStatic = true
   } = options;
 
+  // Prefer SSR content immediately to avoid any flash of static data during hydration
+  const ssrInitData = (() => {
+    const clientSSR = getSSRData();
+    if (clientSSR) return clientSSR;
+    try {
+      if (typeof window === 'undefined' && typeof globalThis !== 'undefined') {
+        return (globalThis as any).__SSR_CONTENT__ || null;
+      }
+    } catch {
+      // no-op
+    }
+    return null;
+  })();
+
   const [hasMounted, setHasMounted] = useState(false);
   
   const [state, setState] = useState<ContentState>({
-    content: fallbackToStatic ? productData : null,
-    loading: false, // Never show loading during initial hydration
+    content: ssrInitData ?? (fallbackToStatic ? productData : null),
+    // If SSR data exists, mark loading true to revalidate in background; otherwise keep UX smooth
+    loading: !!ssrInitData ? true : false,
     error: null,
-    source: fallbackToStatic ? 'static' : null
+    source: ssrInitData ? 'ssr' : (fallbackToStatic ? 'static' : null)
   });
 
   // Mount detection effect

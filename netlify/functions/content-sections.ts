@@ -354,14 +354,14 @@ const handleGet = async (client: Client, sectionTypeOrId: string, queryParams: a
       section.footer_links = groups.rows;
     }
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        success: true,
-        data: section
-      }),
-    };
+    return sendJSON(200, {
+      success: true,
+      data: section
+    }, {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+    });
   } else {
     // Get all sections with nested data - FIXED: now includes related data for all sections
     const result = await client.query(
@@ -432,14 +432,10 @@ const handlePost = async (client: Client, body: string | null, parentId?: string
          data.feature.is_featured || false, data.feature.button_text || null, data.feature.button_link || null]
       );
 
-      return {
-        statusCode: 201,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          data: result.rows[0]
-        }),
-      };
+    return sendJSON(201, {
+      success: true,
+      data: result.rows[0]
+    });
     } else if (data.plan) {
       // Create pricing plan
       const result = await client.query(
@@ -449,14 +445,10 @@ const handlePost = async (client: Client, body: string | null, parentId?: string
          JSON.stringify(data.plan.features), data.plan.button_text, data.plan.button_link, data.plan.is_popular, data.plan.sort_order || 0]
       );
 
-      return {
-        statusCode: 201,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          data: result.rows[0]
-        }),
-      };
+    return sendJSON(201, {
+      success: true,
+      data: result.rows[0]
+    });
     }
   }
 
@@ -489,11 +481,7 @@ const handlePut = async (client: Client, body: string | null, idOrType: string) 
   const id = parseInt(idOrType);
 
   if (isNaN(id)) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Invalid section ID' }),
-    };
+    return sendJSON(400, { error: 'Invalid section ID' });
   }
 
   const { section_data, is_visible, sort_order } = data;
@@ -539,11 +527,7 @@ const handleDelete = async (client: Client, idOrType: string) => {
   const id = parseInt(idOrType);
 
   if (isNaN(id)) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({ error: 'Invalid section ID' }),
-    };
+    return sendJSON(400, { error: 'Invalid section ID' });
   }
 
   const result = await client.query(

@@ -51,11 +51,40 @@ const contentManagementHandler: Handler = async (event: HandlerEvent, context: H
             'SELECT * FROM site_content WHERE content_key = $1 AND is_published = true ORDER BY version DESC LIMIT 1',
             ['main']
           );
-          
+
+          const record = result.rows[0] || null;
+          // Build a lightweight content hash for conditional requests
+          const rawHashSource = record ? JSON.stringify({
+            version: record.version,
+            updated_at: record.updated_at,
+            // keep hash small but responsive to changes
+            keys: Object.keys(record.content_data || {})
+          }) : 'empty';
+          const contentHash = Buffer.from(rawHashSource).toString('base64').slice(0, 12);
+          const etag = `"content-${contentHash}"`;
+          const requestETag = event.headers['if-none-match'] || (event.headers as any)['If-None-Match'] || (event.headers as any)['IF-NONE-MATCH'];
+
+          const commonHeaders: Record<string, string> = {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+            'ETag': etag,
+            // CORS and Vary are added by withCors, but explicit Vary on ETag validators is fine
+            'Vary': 'Origin'
+          };
+
+          if (requestETag && requestETag === etag) {
+            return {
+              statusCode: 304,
+              headers: { ...commonHeaders },
+              body: ''
+            };
+          }
+
           return sendJSON(200, {
             success: true,
-            data: result.rows[0] || null
-          });
+            data: record
+          }, commonHeaders);
         } else if (action === 'versions') {
           const result = await client.query(
             'SELECT * FROM content_versions ORDER BY created_at DESC LIMIT 20'
@@ -64,6 +93,11 @@ const contentManagementHandler: Handler = async (event: HandlerEvent, context: H
           return sendJSON(200, {
             success: true,
             data: result.rows
+          }, {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+            'Vary': 'Origin'
           });
         }
         break;

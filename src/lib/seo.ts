@@ -48,7 +48,7 @@ export const routeMetadata: RouteMetadata = {
         "name": "BiblioKit",
         "description": "Professional SaaS software and Figma plugins with secure API management and world-class support.",
          "url": "https://bibliokit.com",
-         "logo": "https://bibliokit.com/vite.svg",
+         "logo": "https://bibliokit.com/logo.svg",
         "contactPoint": {
           "@type": "ContactPoint",
           "email": "hello@bibliokit.com",

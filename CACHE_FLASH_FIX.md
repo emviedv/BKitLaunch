@@ -43,10 +43,7 @@ Website keeps flashing old cached content before showing updated version when ad
 ### Phase 4: Root Cause Identification
 ✅ **COMPLETED** - Determined definitive cause through evidence
 
-**DEFINITIVE ROOT CAUSE**: SSR Edge Function Cache Headers in `netlify/edge-functions/ssr.ts` line 112:
-```typescript
-'Cache-Control': 'public, max-age=300, s-maxage=600', // 5 min browser, 10 min CDN
-```
+**DEFINITIVE ROOT CAUSE**: SSR/HTML and content API caching caused stale content flashes across refresh.
 
 This causes:
 1. **Browser Level**: Caches SSR response for 5 minutes (`max-age=300`)
@@ -81,13 +78,13 @@ const contentHash = contentData ?
   Buffer.from(JSON.stringify(contentData)).toString('base64').slice(0, 8) : 
   'fallback';
 
-// Use shorter cache times with content-based ETag for better invalidation
-const cacheHeaders = contentData ? {
-  'Cache-Control': 'public, max-age=60, s-maxage=120', // 1 min browser, 2 min CDN - much shorter
-  'ETag': `"ssr-${contentHash}"`, // Content-based ETag for cache validation
-  'Vary': 'Accept, User-Agent', // Vary on content negotiation
-} : {
-  'Cache-Control': 'public, max-age=30, s-maxage=60', // Even shorter for fallback content
+// Force no-store on SSR HTML to eliminate stale flashes entirely
+const cacheHeaders = {
+  'Cache-Control': 'no-cache, no-store, must-revalidate',
+  'Pragma': 'no-cache',
+  'Expires': '0',
+  'ETag': `"ssr-${contentHash}"`,
+  'Vary': 'Accept, User-Agent',
 };
 
 return new Response(html, {
@@ -156,10 +153,10 @@ try {
 ## Expected User Experience After Fix
 
 1. **Admin publishes new content** → Database updated ✅
-2. **Content hash changes** → ETag changes ✅  
-3. **Next user visits site** → Browser/CDN cache miss due to ETag change ✅
+2. **Content hash changes** → ETag changes ✅
+3. **SSR/HTML served with no-store** → Browser always revalidates ✅
 4. **Fresh content loads immediately** → No cache flash ✅
-5. **Maximum cache time**: 1-2 minutes instead of 5-10 minutes ✅
+5. **APIs**: no-store + ETag 304s for efficiency ✅
 
 ## Future Enhancements
 

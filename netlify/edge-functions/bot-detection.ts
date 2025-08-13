@@ -45,7 +45,7 @@ function generateStaticHtml(pathname: string, origin: string): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/svg+xml" href="/vite.svg">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50%25' x='50%25' dominant-baseline='middle' text-anchor='middle' font-size='52'%3E%F0%9F%92%AB%3C/text%3E%3C/svg%3E">
   ${getPageMetadata(pathname)}
   ${getPageSchema(pathname, origin)}
 </head>
@@ -105,7 +105,7 @@ function getPageSchema(pathname: string, origin: string): string {
       "name": "BiblioKit",
       "description": "Professional SaaS software and Figma plugins with secure API management, comprehensive documentation, and world-class support for designers and developers.",
       "url": "${origin}",
-      "logo": "${origin}/vite.svg",
+      "logo": "${origin}/logo.svg",
       "contactPoint": {
         "@type": "ContactPoint",
         "email": "hello@bibliokit.com",
