@@ -24,7 +24,13 @@ async function getServerModule(): Promise<SSRModule> {
 
 export default async (request: Request, context: Context) => {
   const url = new URL(request.url);
+  const isProdHost = url.hostname !== 'localhost' && url.hostname !== '127.0.0.1';
   
+  // In local development, skip SSR completely and let Vite SPA handle routing to avoid hydration noise
+  if (!isProdHost) {
+    return context.next();
+  }
+
   // Only handle GET requests for HTML pages
   if (request.method !== 'GET') {
     return context.next();
@@ -82,7 +88,6 @@ export default async (request: Request, context: Context) => {
 
     // Decide whether to include Hotjar loader (production, non-admin pages)
     // Use inline snippet with nonce so CSP allows it, and include consent/admin checks client-side.
-    const isProdHost = url.hostname !== 'localhost' && url.hostname !== '127.0.0.1';
     const isAdminPath = url.pathname.startsWith('/admin');
     const hotjarTag = isProdHost && !isAdminPath
       ? `<script nonce="${nonce}">(function(){
@@ -129,6 +134,12 @@ export default async (request: Request, context: Context) => {
       } catch {}
     }
 
+    // In local development with Vite, we must include the Vite client and React Refresh preamble
+    // so that @vitejs/plugin-react can detect it and enable HMR without errors.
+    const viteDevPreamble = !isProdHost
+      ? `\n    <script type="module" src="/@vite/client"></script>\n    <script type="module">\n      import RefreshRuntime from "/@react-refresh";\n      RefreshRuntime.injectIntoGlobalHook(window);\n      window.$RefreshReg$ = () => {};\n      window.$RefreshSig$ = () => (type) => type;\n      window.__vite_plugin_react_preamble_installed__ = true;\n    </script>`
+      : '';
+
     // Generate the full HTML document
     const html = `<!doctype html>
 <html lang="en">
@@ -136,6 +147,8 @@ export default async (request: Request, context: Context) => {
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50%25' x='50%25' dominant-baseline='middle' text-anchor='middle' font-size='52'%3E%F0%9F%92%AB%3C/text%3E%3C/svg%3E" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    ${viteDevPreamble}
     
     <!-- SEO Meta Tags -->
     ${metaTags}

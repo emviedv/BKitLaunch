@@ -37,10 +37,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: "SaaS software, Figma plugins, API management, developer tools, secure proxy, react components",
     ogTitle: "BiblioKit - Professional SaaS Software & Figma Plugins",
     ogDescription: "Streamline your development workflow with secure API management and comprehensive tools.",
-    ogImage: "/og-home.jpg",
+    ogImage: "https://dummyimage.com/1200x630/0b3d91/ffffff.png&text=BiblioKit",
     twitterTitle: "BiblioKit - Professional SaaS Software & Figma Plugins",
     twitterDescription: "Streamline your development workflow with secure API management and comprehensive tools.",
-    twitterImage: "/twitter-home.jpg",
+    twitterImage: "https://dummyimage.com/1200x630/0b3d91/ffffff.png&text=BiblioKit",
     structuredData: [
       {
         "@context": "https://schema.org",
@@ -90,10 +90,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: "BiblioKit features, API management tools, Figma plugin features, developer tools, SaaS features",
     ogTitle: "BiblioKit Product Features & Benefits",
     ogDescription: "Comprehensive SaaS tools for developers and designers with secure API management and premium support.",
-    ogImage: "/og-product.jpg",
+    ogImage: "https://dummyimage.com/1200x630/111827/ffffff.png&text=BiblioKit+Product",
     twitterTitle: "BiblioKit Product Features",
     twitterDescription: "Comprehensive SaaS tools for developers and designers with secure API management.",
-    twitterImage: "/twitter-product.jpg",
+    twitterImage: "https://dummyimage.com/1200x630/111827/ffffff.png&text=BiblioKit+Product",
     structuredData: [
       {
         "@context": "https://schema.org",

@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50%25' x='50%25' dominant-baseline='middle' text-anchor='middle' font-size='52'%3E%F0%9F%92%AB%3C/text%3E%3C/svg%3E" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Vite + React Refresh preamble for Netlify dev (explicit to avoid proxy issues) -->
+    <script type="module" src="/@vite/client"></script>
+    <script type="module">
+      import RefreshRuntime from "/@react-refresh";
+      RefreshRuntime.injectIntoGlobalHook(window);
+      window.$RefreshReg$ = () => {};
+      window.$RefreshSig$ = () => (type) => type;
+      window.__vite_plugin_react_preamble_installed__ = true;
+    </script>
     <title>BiblioKit - SaaS Software & Figma Plugins</title>
     <meta name="description" content="Professional SaaS software and Figma plugins with secure API management, comprehensive documentation, and world-class support." />
     <meta name="keywords" content="SaaS software, Figma plugins, API management, secure proxy, developer tools, design tools" />

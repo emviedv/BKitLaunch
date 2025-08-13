@@ -91,6 +91,27 @@ simple/
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 
+### Netlify Dev (Functions + SSR)
+
+Use the project script:
+
+```bash
+npm run netlify:dev
+```
+
+If you see a port conflict on 9989:
+
+```bash
+lsof -n -i :9989
+kill <PID>
+```
+
+If an integrations port error appears, stop previous sessions:
+
+```bash
+pkill -f "netlify dev"
+```
+
 ## Support
 
 For questions about this simplified version, refer to the main BiblioKit documentation or contact support. 

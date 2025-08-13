@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 
 const Header = () => {
   const { isAuthenticated, isAdmin } = useAuth();
   const { content } = usePublishedContent();
-  const adminOffset = isAuthenticated && isAdmin ? 'top-10' : 'top-0';
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => setHasMounted(true), []);
+  const adminOffset = hasMounted && isAuthenticated && isAdmin ? 'top-10' : 'top-0';
 
   // Check if header should be visible
   const shouldShowHeader = content.settings?.visibility?.header !== false;
@@ -109,7 +111,7 @@ const Header = () => {
             );
           })}
           
-          {isAuthenticated && isAdmin && (
+          {hasMounted && isAuthenticated && isAdmin && (
             <a
               href="/editor"
               className="text-sm font-medium text-primary hover:underline"

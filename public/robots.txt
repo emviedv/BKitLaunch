@@ -1,4 +1,8 @@
 User-agent: *
+Allow: /
+Sitemap: https://bibliokit.com/sitemap.xml
+
+User-agent: *
 Disallow: /admin
 
 Sitemap: https://bibliokit.com/sitemap.xml

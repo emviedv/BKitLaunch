@@ -30,9 +30,10 @@ const loadHotjarIfAllowed = (): void => {
 // Check if we're doing SSR hydration or normal client rendering
 const rootElement = document.getElementById('root')!;
 const hasSSRContent = rootElement.innerHTML.trim().length > 0;
+const isLocalDevHost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
-if (hasSSRContent) {
-  // SSR hydration
+// In local dev, prefer a clean client render to avoid noisy hydration warnings/mismatches
+if (hasSSRContent && !isLocalDevHost) {
   ReactDOM.hydrateRoot(
     rootElement,
     <React.StrictMode>
@@ -42,7 +43,6 @@ if (hasSSRContent) {
     </React.StrictMode>
   );
 } else {
-  // Normal client-side rendering (fallback)
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
       <Router>

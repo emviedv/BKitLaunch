@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLocation } from 'wouter';
 
@@ -6,8 +6,11 @@ const AdminHeader: React.FC = () => {
   const { isAuthenticated, isAdmin, email, logout } = useAuth();
   const [, setLocation] = useLocation();
   const [pathInput, setPathInput] = useState<string>('');
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => setHasMounted(true), []);
 
-  if (!isAuthenticated || !isAdmin) {
+  // Avoid hydration mismatch by deferring admin bar until after mount
+  if (!hasMounted || !isAuthenticated || !isAdmin) {
     return null;
   }
 

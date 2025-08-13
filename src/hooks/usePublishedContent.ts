@@ -42,9 +42,11 @@ function getSSRData(): any | null {
  * 4. Static productData (bundled fallback)
  */
 export const usePublishedContent = (options: UsePublishedContentOptions = {}) => {
+  const isLocalDev = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
   const {
     fallbackToLocalStorage = false,
-    fallbackToStatic = false
+    // In local dev (no SSR), prefer static content immediately to avoid empty UI until API loads
+    fallbackToStatic = isLocalDev
   } = options;
 
   const createEmptyContent = () => ({
