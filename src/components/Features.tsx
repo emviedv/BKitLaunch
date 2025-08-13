@@ -3,7 +3,13 @@ import { usePublishedContent } from '@/hooks/usePublishedContent';
 
 const Features = () => {
   const { content } = usePublishedContent();
-  const { features } = content;
+  // Support both legacy array shape and DB object shape with { title, description, items }
+  const featuresSection = content.features && !Array.isArray(content.features) ? content.features : null;
+  const featuresList = Array.isArray(content.features)
+    ? content.features
+    : (content.features?.items || []);
+  const sectionTitle = featuresSection?.title || content.featuresSection?.title || 'Everything you need to build and scale';
+  const sectionDescription = featuresSection?.description || content.featuresSection?.description || 'From secure API management to comprehensive support systems, we provide all the tools you need for professional SaaS development.';
   const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
 
   // Helper function to determine if a link is external
@@ -92,43 +98,52 @@ const Features = () => {
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Everything you need to build and scale
+            {sectionTitle}
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            From secure API management to comprehensive support systems, 
-            we provide all the tools you need for professional SaaS development.
-          </p>
+          {sectionDescription && (
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              {sectionDescription}
+            </p>
+          )}
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature: any, index: number) => (
-            <div key={index} className={`card ${feature.isFeatured ? 'card-featured' : ''} ${feature.isFeatured ? 'flex flex-col max-w-4xl mx-auto' : ''}`}>
+          {featuresList.map((feature: any, index: number) => {
+            const isFeatured = feature.isFeatured || feature.is_featured;
+            const badgeColor = feature.badgeColor || feature.badge_color;
+            const buttonText = feature.buttonText || feature.button_text;
+            const buttonLink = feature.buttonLink || feature.button_link;
+            const productSlug = feature.productSlug || feature.product_slug;
+            const showBadge = (feature as any).showBadge !== false; // default true for legacy
+
+            return (
+              <div key={index} className={`card ${isFeatured ? 'card-featured' : ''} ${isFeatured ? 'flex flex-col max-w-4xl mx-auto' : ''}`}>
               <div className="flex items-center justify-between mb-6">
                 <div className={`icon ${colorClasses[index % colorClasses.length]}`}>
                   {feature.icon}
                 </div>
-                {feature.badge && (content.settings?.labels?.featuresBadges ?? true) && (feature as any).showBadge !== false && (
+                {feature.badge && (content.settings?.labels?.featuresBadges ?? true) && showBadge && (
                   <span 
-                    className={`text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(feature.badgeColor || 'primary')}`}
-                    style={getBadgeStyle(feature.badgeColor || '')}
+                    className={`text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(badgeColor || 'primary')}`}
+                    style={getBadgeStyle(badgeColor || '')}
                   >
                     {feature.badge}
                   </span>
                 )}
               </div>
               <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-              <p className={`text-muted-foreground ${feature.isFeatured ? 'flex-grow' : ''}`}>
+              <p className={`text-muted-foreground ${isFeatured ? 'flex-grow' : ''}`}>
                 {feature.description}
               </p>
               
               {/* Featured card button */}
               {(() => {
                 const label: string | undefined =
-                  feature.buttonPreset === 'beta' ? 'Sign Up for Beta' : feature.buttonText;
+                  feature.buttonPreset === 'beta' ? 'Sign Up for Beta' : buttonText;
                 const computedLink: string | undefined =
-                  feature.productSlug ? `/${feature.productSlug}` : feature.buttonLink;
+                  productSlug ? `/${productSlug}` : buttonLink;
 
-                if (!feature.isFeatured || !label) return null;
+                if (!isFeatured || !label) return null;
 
                 const external = Boolean(computedLink && isExternalLink(computedLink));
 
@@ -146,7 +161,8 @@ const Features = () => {
                 );
               })()}
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

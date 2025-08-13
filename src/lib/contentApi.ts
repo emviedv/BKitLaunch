@@ -386,6 +386,47 @@ class ContentAPI {
         }
       }
 
+      // Sync pages (CRUD mapped from JSON)
+      if (Array.isArray(jsonContent.pages)) {
+        try {
+          const pagesResponse = await this.getPages(false);
+          const existingPages: any[] = pagesResponse.success && pagesResponse.data ? (pagesResponse.data as any[]) : [];
+          const existingBySlug = new Map<string, any>();
+          for (const p of existingPages) existingBySlug.set(p.slug, p);
+
+          const incomingBySlug = new Map<string, any>();
+          for (const p of jsonContent.pages) incomingBySlug.set(p.slug, p);
+
+          // Delete pages not present anymore
+          for (const p of existingPages) {
+            if (!incomingBySlug.has(p.slug)) {
+              await this.deletePage(p.id);
+            }
+          }
+
+          // Create or update pages
+          for (const page of jsonContent.pages) {
+            const existing = existingBySlug.get(page.slug);
+            const payload = {
+              slug: page.slug,
+              title: page.title,
+              content: page.content || {},
+              is_published: page.isPublished ?? page.is_published ?? false
+            } as any;
+            if (existing && existing.id) {
+              await this.updatePage(existing.id, payload);
+            } else {
+              await this.createPage(payload);
+            }
+          }
+
+          syncResults.push({ operation: 'synced', sectionType: 'pages', success: true });
+        } catch (error) {
+          debugService.saveError('Failed to sync pages', error);
+          syncResults.push({ operation: 'failed', sectionType: 'pages', success: false });
+        }
+      }
+
       const allSuccessful = syncResults.every(result => result.success);
       
       debugService.saveSuccess('JSON to sections sync completed', { 
