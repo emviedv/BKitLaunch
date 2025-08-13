@@ -751,6 +751,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
               updateNestedField={updateNestedField}
               visible={savedContent.settings?.visibility?.features ?? true}
               updateVisibility={(isVisible) => updateVisibility('features', isVisible)}
+              updateSection={updateSection}
             />
           )}
 

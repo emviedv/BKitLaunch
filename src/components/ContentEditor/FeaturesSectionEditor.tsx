@@ -20,6 +20,7 @@ interface FeaturesSectionEditorProps {
   updateNestedField: (section: string, index: number | null, field: string, value: any) => void;
   visible: boolean;
   updateVisibility: (isVisible: boolean) => void;
+  updateSection: (section: string, newData: any) => void;
 }
 
 const ColorPreview: React.FC<{ color: string }> = ({ color }) => {
@@ -55,10 +56,35 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
   features, 
   updateNestedField,
   visible,
-  updateVisibility 
+  updateVisibility,
+  updateSection 
 }) => (
   <div className="space-y-4">
-    <h3 className="font-semibold text-lg">Features Section</h3>
+    <div className="flex items-center justify-between">
+      <h3 className="font-semibold text-lg">Features Section</h3>
+      <button
+        className="px-3 py-1 text-sm rounded border border-border hover:bg-muted"
+        onClick={() => {
+          const newFeature: Feature = {
+            icon: '🚀',
+            title: 'New Feature',
+            description: 'Description',
+            badge: '',
+            badgeColor: 'green',
+            isFeatured: false,
+            showBadge: true,
+            buttonPreset: 'custom',
+            buttonText: '',
+            buttonLink: ''
+          };
+          const updated = [...(features || []), newFeature];
+          updateSection('features', updated);
+        }}
+        aria-label="Add feature"
+      >
+        + Add Feature
+      </button>
+    </div>
     
     {/* Visibility Toggle */}
     <div className="flex items-center gap-2 mb-4 p-3 bg-muted/20 rounded-lg">
@@ -77,21 +103,33 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
       {features?.map((feature, index) => (
         <div key={index} className={`p-3 border rounded ${feature.isFeatured ? 'border-primary/30 bg-primary/5' : 'border-border'}`}>
           {/* Featured Toggle */}
-          <div className="flex items-center gap-2 mb-3">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={!!feature.isFeatured}
-                onChange={(e) => updateNestedField('features', index, 'isFeatured', e.target.checked)}
-                className="rounded border-border"
-              />
-              <span className="text-sm font-medium">Featured Card</span>
-            </label>
-            {feature.isFeatured && (
-              <span className="text-xs px-2 py-1 bg-primary text-primary-foreground rounded-full">
-                FEATURED
-              </span>
-            )}
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={!!feature.isFeatured}
+                  onChange={(e) => updateNestedField('features', index, 'isFeatured', e.target.checked)}
+                  className="rounded border-border"
+                />
+                <span className="text-sm font-medium">Featured Card</span>
+              </label>
+              {feature.isFeatured && (
+                <span className="text-xs px-2 py-1 bg-primary text-primary-foreground rounded-full">
+                  FEATURED
+                </span>
+              )}
+            </div>
+            <button
+              className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-xs"
+              onClick={() => {
+                const updated = (features || []).filter((_, i) => i !== index);
+                updateSection('features', updated);
+              }}
+              aria-label={`Remove feature ${index + 1}`}
+            >
+              Remove
+            </button>
           </div>
 
           {/* Main Fields */}
