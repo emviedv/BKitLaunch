@@ -930,7 +930,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                   <label className="block text-sm font-medium mb-2">Sign In Link</label>
                   <input
                     type="text"
-                    value={savedContent.header?.signInHref || ''}
+                    value={(savedContent.header as any)?.signInHref || ''}
                     onChange={(e) => updateNestedField('header', null, 'signInHref', e.target.value)}
                     className="w-full p-2 border border-border rounded"
                     placeholder="/admin or /login"
@@ -940,7 +940,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                   <label className="block text-sm font-medium mb-2">Get Started Link</label>
                   <input
                     type="text"
-                    value={savedContent.header?.getStartedHref || ''}
+                    value={(savedContent.header as any)?.getStartedHref || ''}
                     onChange={(e) => updateNestedField('header', null, 'getStartedHref', e.target.value)}
                     className="w-full p-2 border border-border rounded"
                     placeholder="/#contact or /signup"
@@ -952,7 +952,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                   <input
                     type="checkbox"
                     id="show-sign-in-sections"
-                    checked={savedContent.header?.showSignIn ?? true}
+                    checked={(savedContent.header as any)?.showSignIn ?? true}
                     onChange={(e) => updateNestedField('header', null, 'showSignIn', e.target.checked)}
                     className="rounded border-border"
                   />
@@ -962,7 +962,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                   <input
                     type="checkbox"
                     id="show-get-started-sections"
-                    checked={savedContent.header?.showGetStarted ?? true}
+                    checked={(savedContent.header as any)?.showGetStarted ?? true}
                     onChange={(e) => updateNestedField('header', null, 'showGetStarted', e.target.checked)}
                     className="rounded border-border"
                   />

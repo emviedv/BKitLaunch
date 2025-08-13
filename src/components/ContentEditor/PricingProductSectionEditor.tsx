@@ -41,7 +41,7 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold text-lg">Pricing Plans</h3>
-          <Button onClick={() => setEditMode('json')} variant="secondary" size="sm">
+          <Button onClick={() => setEditMode('json')} variant="secondary">
             Advanced Editor
           </Button>
         </div>
@@ -120,7 +120,7 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-semibold text-lg">Product Details JSON Editor</h3>
-            <Button variant="secondary" size="sm" onClick={() => setJsonEdit(false)}>
+            <Button variant="secondary" onClick={() => setJsonEdit(false)}>
               Cancel
             </Button>
           </div>
@@ -155,7 +155,7 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold text-lg">Product Details</h3>
-          <Button variant="secondary" size="sm" onClick={() => setJsonEdit(true)}>
+          <Button variant="secondary" onClick={() => setJsonEdit(true)}>
             Edit JSON
           </Button>
         </div>

@@ -202,10 +202,10 @@ class ContentAPI {
     debugService.saveStart('Syncing JSON content to sections tables');
     
     try {
-      const syncResults: Array<{ operation: string; sectionType: string; success: boolean }> = [];
+      const syncResults: Array<{ operation: string; sectionType: SectionType | string; success: boolean }> = [];
       
       // Helper function to upsert a section
-      const upsertSection = async (sectionType: string, sectionData: any, isVisible?: boolean) => {
+      const upsertSection = async (sectionType: SectionType, sectionData: any, isVisible?: boolean) => {
         // First, try to get existing section
         const existingResponse = await this.getSection(sectionType);
         
