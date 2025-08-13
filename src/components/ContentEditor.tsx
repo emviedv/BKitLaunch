@@ -1222,6 +1222,16 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       <div className="space-y-4">
         <div className="grid grid-cols-1 gap-4">
           <div>
+            <label className="block text-sm font-medium mb-2">Emoji</label>
+            <input
+              type="text"
+              value={(formData as any).emoji || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, emoji: e.target.value }))}
+              className="w-full p-2 border border-border rounded"
+              placeholder="e.g. ✨"
+            />
+          </div>
+          <div>
             <label className="block text-sm font-medium mb-2">Title</label>
             <input
               type="text"

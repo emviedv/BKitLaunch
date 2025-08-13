@@ -70,6 +70,7 @@ export interface BaseContentSection {
 // Hero Section
 export interface HeroSection extends BaseContentSection {
   section_type: 'hero';
+  emoji?: string;
   title: string;
   subtitle: string;
   description: string;

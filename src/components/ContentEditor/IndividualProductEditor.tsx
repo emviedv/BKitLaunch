@@ -102,6 +102,12 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
       <div className="space-y-4">
         <h4 className="font-medium text-base">Basic Information</h4>
         <TextInput
+          label="Emoji"
+          value={productData.emoji || ''}
+          onChange={(value) => updateProductField('emoji', value)}
+          placeholder="e.g. ✨"
+        />
+        <TextInput
           label="Hero Badge Label"
           value={productData.badgeLabel || ''}
           onChange={(value) => updateProductField('badgeLabel', value)}
