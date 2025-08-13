@@ -602,12 +602,21 @@ class ContentAPI {
   }
 
   // Navigation Items CRUD
-  async createNavigationItem(sectionId: number, item: { label: string; href: string; sort_order?: number }): Promise<ApiResponse<any>> {
+  async createNavigationItem(sectionId: number, item: { label: string; href: string; sort_order?: number; type?: string; isExternal?: boolean; nofollow?: boolean; isButton?: boolean }): Promise<ApiResponse<any>> {
     try {
       const response = await fetch(this.getApiUrl('content-sections/navigation-items'), {
         method: 'POST',
         headers: this.getHeaders(),
-        body: JSON.stringify({ section_id: sectionId, ...item }),
+        body: JSON.stringify({
+          section_id: sectionId,
+          label: item.label,
+          href: item.href,
+          sort_order: item.sort_order,
+          type: item.type,
+          is_external: item.isExternal,
+          nofollow: item.nofollow,
+          is_button: item.isButton
+        }),
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       return await response.json();
@@ -616,12 +625,20 @@ class ContentAPI {
     }
   }
 
-  async updateNavigationItem(itemId: number, updates: { label?: string; href?: string; sort_order?: number }): Promise<ApiResponse<any>> {
+  async updateNavigationItem(itemId: number, updates: { label?: string; href?: string; sort_order?: number; type?: string; isExternal?: boolean; nofollow?: boolean; isButton?: boolean }): Promise<ApiResponse<any>> {
     try {
       const response = await fetch(this.getApiUrl(`content-sections/navigation-items/${itemId}`), {
         method: 'PUT',
         headers: this.getHeaders(),
-        body: JSON.stringify(updates),
+        body: JSON.stringify({
+          label: updates.label,
+          href: updates.href,
+          sort_order: updates.sort_order,
+          type: updates.type,
+          is_external: updates.isExternal,
+          nofollow: updates.nofollow,
+          is_button: updates.isButton
+        }),
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       return await response.json();

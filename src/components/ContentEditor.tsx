@@ -2150,12 +2150,20 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
               label: item.label,
               href: item.href,
               sort_order: item.sort_order ?? 0,
+              type: item.type,
+              isExternal: item.isExternal,
+              nofollow: item.nofollow,
+              isButton: item.isButton,
             });
           } else {
             await contentApi.updateNavigationItem(item.id, {
               label: item.label,
               href: item.href,
               sort_order: item.sort_order ?? 0,
+              type: item.type,
+              isExternal: item.isExternal,
+              nofollow: item.nofollow,
+              isButton: item.isButton,
             });
           }
         }

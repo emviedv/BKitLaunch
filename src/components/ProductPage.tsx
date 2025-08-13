@@ -28,6 +28,7 @@ interface ProductPricing {
 }
 
 interface ProductInfo {
+  emoji?: string;
   title: string;
   description: string;
   primaryButton?: string;
@@ -174,6 +175,13 @@ const BiblioKitBlocksPage = () => {
             {product?.badgeLabel && (
               <div className="inline-block mb-6 bg-primary/10 px-4 py-2 rounded-full">
                 <span className="text-primary font-medium">{product.badgeLabel}</span>
+              </div>
+            )}
+            {product.emoji && (
+              <div className="mb-4">
+                <span role="img" aria-label="product emoji" className="text-5xl md:text-6xl">
+                  {product.emoji}
+                </span>
               </div>
             )}
             <h1 className="text-5xl md:text-6xl font-bold mb-6">

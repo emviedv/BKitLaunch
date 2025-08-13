@@ -14,6 +14,13 @@ const Hero = () => {
     <section className="section-hero py-24 px-4">
       <div className="container mx-auto text-center">
         <div className="max-w-4xl mx-auto">
+          {hero.emoji && (
+            <div className="mb-4">
+              <span role="img" aria-label="hero emoji" className="text-5xl md:text-6xl">
+                {hero.emoji}
+              </span>
+            </div>
+          )}
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             <span className="text-gray-900">{hero.title}</span>
             <br />

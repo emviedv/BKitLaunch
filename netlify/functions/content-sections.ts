@@ -80,8 +80,30 @@ const initializeTables = async (client: Client) => {
       label VARCHAR(100) NOT NULL,
       href VARCHAR(255) NOT NULL,
       sort_order INTEGER DEFAULT 0,
+      type VARCHAR(20),
+      is_external BOOLEAN,
+      nofollow BOOLEAN,
+      is_button BOOLEAN,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
+  `);
+
+  // Add new navigation item columns if they don't exist (migration for existing tables)
+  await client.query(`
+    ALTER TABLE navigation_items
+    ADD COLUMN IF NOT EXISTS type VARCHAR(20);
+  `);
+  await client.query(`
+    ALTER TABLE navigation_items
+    ADD COLUMN IF NOT EXISTS is_external BOOLEAN;
+  `);
+  await client.query(`
+    ALTER TABLE navigation_items
+    ADD COLUMN IF NOT EXISTS nofollow BOOLEAN;
+  `);
+  await client.query(`
+    ALTER TABLE navigation_items
+    ADD COLUMN IF NOT EXISTS is_button BOOLEAN;
   `);
 
   // Footer link groups table
@@ -233,12 +255,12 @@ const handleSubResourcePost = async (client: Client, subResource: string, body: 
   }
 
   if (subResource === 'navigation-items') {
-    const { section_id, label, href, sort_order = 0 } = data;
+    const { section_id, label, href, sort_order = 0, type, is_external, nofollow, is_button } = data;
     if (!section_id || !label || !href) return sendJSON(400, { error: 'section_id, label and href are required' });
     const result = await client.query(
-      `INSERT INTO navigation_items (section_id, label, href, sort_order)
-       VALUES ($1, $2, $3, $4) RETURNING *`,
-      [section_id, label, href, sort_order]
+      `INSERT INTO navigation_items (section_id, label, href, sort_order, type, is_external, nofollow, is_button)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+      [section_id, label, href, sort_order, type || null, is_external ?? null, nofollow ?? null, is_button ?? null]
     );
     return sendJSON(201, { success: true, data: result.rows[0] });
   }
@@ -283,6 +305,10 @@ const handleSubResourcePut = async (client: Client, subResource: string, id: num
     if (data.label !== undefined) { updates.push(`label = $${idx++}`); values.push(data.label); }
     if (data.href !== undefined) { updates.push(`href = $${idx++}`); values.push(data.href); }
     if (data.sort_order !== undefined) { updates.push(`sort_order = $${idx++}`); values.push(data.sort_order); }
+    if (data.type !== undefined) { updates.push(`type = $${idx++}`); values.push(data.type); }
+    if (data.is_external !== undefined) { updates.push(`is_external = $${idx++}`); values.push(data.is_external); }
+    if (data.nofollow !== undefined) { updates.push(`nofollow = $${idx++}`); values.push(data.nofollow); }
+    if (data.is_button !== undefined) { updates.push(`is_button = $${idx++}`); values.push(data.is_button); }
     if (updates.length === 0) return sendJSON(400, { error: 'No fields to update' });
     values.push(id);
     const result = await client.query(`UPDATE navigation_items SET ${updates.join(', ')} WHERE id = $${idx} RETURNING *`, values);

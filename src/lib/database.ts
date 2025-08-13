@@ -162,6 +162,11 @@ export interface NavigationItem {
   label: string;
   href: string;
   sort_order?: number;
+  // Extended fields for richer header navigation behavior
+  type?: 'link' | 'scroll' | 'external' | 'button' | 'dropdown';
+  isExternal?: boolean;
+  nofollow?: boolean;
+  isButton?: boolean;
 }
 
 // Footer Section
