@@ -48,7 +48,6 @@ const BiblioKitBlocksPage = () => {
 
   // Debug service for detailed logging
   debugService.info('BiblioKitBlocksPage mounted', { 
-    currentProduct: productData.product?.title, 
     timestamp: new Date().toISOString() 
   });
 
@@ -97,9 +96,11 @@ const BiblioKitBlocksPage = () => {
     description: 'BiblioKit Product Page'
   };
   
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://bibliokit.com';
+  const href = typeof window !== 'undefined' ? window.location.href : 'https://bibliokit.com/bibliokit-blocks';
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: window.location.origin },
-    { name: 'Product', url: window.location.href }
+    { name: 'Home', url: origin },
+    { name: 'Product', url: href }
   ]);
 
   // Inject schemas using hooks
