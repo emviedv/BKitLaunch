@@ -202,10 +202,10 @@ class ContentAPI {
     debugService.saveStart('Syncing JSON content to sections tables');
     
     try {
-      const syncResults: Array<{ operation: string; sectionType: string; success: boolean }> = [];
+      const syncResults: Array<{ operation: string; sectionType: SectionType | string; success: boolean }> = [];
       
       // Helper function to upsert a section
-      const upsertSection = async (sectionType: string, sectionData: any, isVisible?: boolean) => {
+      const upsertSection = async (sectionType: SectionType, sectionData: any, isVisible?: boolean) => {
         // First, try to get existing section
         const existingResponse = await this.getSection(sectionType);
         
@@ -452,8 +452,8 @@ class ContentAPI {
     }
   }
 
-  // Create a new section
-  async createSection<T extends ContentSection>(section: Omit<T, 'id' | 'created_at' | 'updated_at'>): Promise<ApiResponse<T>> {
+  // Create a new section (accepts unified payload shape used by server)
+  async createSection<T = any>(section: any): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(this.getApiUrl('content-sections'), {
         method: 'POST',
@@ -474,8 +474,8 @@ class ContentAPI {
     }
   }
 
-  // Update an existing section
-  async updateSection<T extends ContentSection>(id: number, section: Partial<T>): Promise<ApiResponse<T>> {
+  // Update an existing section (accepts partial unified payload)
+  async updateSection<T = any>(id: number, section: Partial<T>): Promise<ApiResponse<T>> {
     try {
       const response = await fetch(this.getApiUrl(`content-sections/${id}`), {
         method: 'PUT',

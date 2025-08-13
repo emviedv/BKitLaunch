@@ -637,9 +637,6 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       waitlist: 'Waitlist Section',
       header: 'Header Section',
       footer: 'Footer Section',
-      'product-bibliokit-blocks': 'BiblioKit Blocks',
-      'product-ai-rename-variants': 'AI Rename Variants',
-      product: 'Product Page (Legacy)',
       contact: 'Contact Info'
     };
 
@@ -680,6 +677,30 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
               </button>
             ))}
           </div>
+          {Object.keys((savedContent as any)?.products || {}).length > 0 && (
+            <div className="mt-6">
+              <h4 className="font-semibold mb-2 text-sm">Product Pages</h4>
+              <div className="space-y-2">
+                {Object.keys((savedContent as any).products || {}).map((productKey) => {
+                  const label = ((savedContent as any).products?.[productKey]?.title) || productKey.replace(/-/g, ' ');
+                  const key = `product-${productKey}`;
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => setActiveSection(key)}
+                      className={`w-full text-left p-2 rounded text-sm transition-colors ${
+                        activeSection === key 
+                          ? 'bg-primary text-primary-foreground' 
+                          : 'hover:bg-muted/40'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
           <div className="mt-6 pt-4 border-t border-border">
             <button
               onClick={() => setEditMode('json')}
@@ -909,7 +930,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                   <label className="block text-sm font-medium mb-2">Sign In Link</label>
                   <input
                     type="text"
-                    value={savedContent.header?.signInHref || ''}
+                    value={(savedContent.header as any)?.signInHref || ''}
                     onChange={(e) => updateNestedField('header', null, 'signInHref', e.target.value)}
                     className="w-full p-2 border border-border rounded"
                     placeholder="/admin or /login"
@@ -919,7 +940,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                   <label className="block text-sm font-medium mb-2">Get Started Link</label>
                   <input
                     type="text"
-                    value={savedContent.header?.getStartedHref || ''}
+                    value={(savedContent.header as any)?.getStartedHref || ''}
                     onChange={(e) => updateNestedField('header', null, 'getStartedHref', e.target.value)}
                     className="w-full p-2 border border-border rounded"
                     placeholder="/#contact or /signup"
@@ -931,7 +952,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                   <input
                     type="checkbox"
                     id="show-sign-in-sections"
-                    checked={savedContent.header?.showSignIn ?? true}
+                    checked={(savedContent.header as any)?.showSignIn ?? true}
                     onChange={(e) => updateNestedField('header', null, 'showSignIn', e.target.checked)}
                     className="rounded border-border"
                   />
@@ -941,7 +962,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                   <input
                     type="checkbox"
                     id="show-get-started-sections"
-                    checked={savedContent.header?.showGetStarted ?? true}
+                    checked={(savedContent.header as any)?.showGetStarted ?? true}
                     onChange={(e) => updateNestedField('header', null, 'showGetStarted', e.target.checked)}
                     className="rounded border-border"
                   />
@@ -1010,25 +1031,18 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
             </div>
           )}
 
-          {activeSection === 'product-bibliokit-blocks' && (
-            <IndividualProductEditor
-              productKey="bibliokit-blocks"
-              productData={savedContent.products?.['bibliokit-blocks']}
-              updateNestedField={updateNestedField}
-              updateSection={updateSection}
-              setEditMode={setEditMode}
-            />
-          )}
-
-          {activeSection === 'product-ai-rename-variants' && (
-            <IndividualProductEditor
-              productKey="ai-rename-variants"
-              productData={savedContent.products?.['ai-rename-variants']}
-              updateNestedField={updateNestedField}
-              updateSection={updateSection}
-              setEditMode={setEditMode}
-            />
-          )}
+          {Object.keys((savedContent as any)?.products || {}).map((productKey) => (
+            activeSection === `product-${productKey}` && (
+              <IndividualProductEditor
+                key={productKey}
+                productKey={productKey}
+                productData={(savedContent as any).products?.[productKey]}
+                updateNestedField={updateNestedField}
+                updateSection={updateSection}
+                setEditMode={setEditMode}
+              />
+            )
+          ))}
         </div>
       </div>
     );

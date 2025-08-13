@@ -58,9 +58,7 @@ export const SettingsSectionEditor: React.FC<SettingsSectionEditorProps> = ({
             label={label}
             checked={enabled}
             onChange={(checked) => {
-              // Parent will interpret nested path and persist
-              // @ts-expect-error nested path handled upstream
-              updateSettingsVisibility(`labels.${key}`, checked);
+              updateSettingsVisibility(`labels.${key}`, checked as unknown as boolean);
             }}
           />
         );
@@ -83,9 +81,7 @@ export const SettingsSectionEditor: React.FC<SettingsSectionEditorProps> = ({
             label={label}
             checked={enabled}
             onChange={(checked) => {
-              // NOTE: Parent component handles nested updates via special key path
-              // @ts-expect-error nested path handled upstream
-              updateSettingsVisibility(`labels.${key}`, checked);
+              updateSettingsVisibility(`labels.${key}`, checked as unknown as boolean);
             }}
           />
         );
