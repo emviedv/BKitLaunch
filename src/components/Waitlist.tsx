@@ -3,6 +3,10 @@ import { debugService } from '../lib/debugService';
 import { contentApi } from '../lib/contentApi';
 import { usePublishedContent } from '../hooks/usePublishedContent';
 
+interface WaitlistProps {
+  visibleOverride?: boolean;
+}
+
 interface WaitlistState {
   email: string;
   isLoading: boolean;
@@ -10,7 +14,7 @@ interface WaitlistState {
   error: string | null;
 }
 
-const Waitlist = () => {
+const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride }) => {
   const { content } = usePublishedContent();
   const [state, setState] = useState<WaitlistState>({
     email: '',
@@ -20,7 +24,9 @@ const Waitlist = () => {
   });
 
   // Check if waitlist should be visible
-  const shouldShowWaitlist = content.settings?.visibility?.waitlist !== false;
+  const globalVisible = content.settings?.visibility?.waitlist !== false;
+  const shouldShowWaitlist =
+    typeof visibleOverride === 'boolean' ? visibleOverride : globalVisible;
   
   if (!shouldShowWaitlist || !content.waitlist) {
     return null;
@@ -65,17 +71,16 @@ const Waitlist = () => {
   };
 
   return (
-    <section className="py-16 px-4 bg-purple-50">
+    <section className="py-20 px-4 section-background">
       <div className="container mx-auto max-w-3xl text-center">
-        <h2 className="text-3xl font-bold mb-4 text-purple-900">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">
           {content.waitlist.title}
         </h2>
-        <p className="text-lg mb-8 text-purple-700">
+        <p className="text-lg text-muted-foreground mb-8">
           {content.waitlist.description}
         </p>
-        
         {state.submitted ? (
-          <div className="bg-green-100 text-green-700 p-4 rounded-lg" role="status" aria-live="polite">
+          <div className="card bg-green-50 border-green-200 text-green-800" role="status" aria-live="polite">
             {content.waitlist.successMessage}
           </div>
         ) : (
@@ -94,24 +99,23 @@ const Waitlist = () => {
               placeholder="Enter your email"
               required
               disabled={state.isLoading}
-              className="flex-1 max-w-md px-4 py-2 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-describedby={state.error ? "waitlist-error" : undefined}
+              className="input flex-1 max-w-md disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-describedby={state.error ? 'waitlist-error' : undefined}
             />
             <button
               type="submit"
               disabled={state.isLoading || !state.email.trim()}
-              className="button bg-purple-600 text-white hover:bg-purple-700 px-8 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+              className="button px-8 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {state.isLoading ? 'Joining...' : content.waitlist.buttonText}
             </button>
           </form>
         )}
-        
         {state.error && (
-          <div 
-            id="waitlist-error" 
-            className="mt-4 bg-red-100 text-red-700 p-3 rounded-lg" 
-            role="alert" 
+          <div
+            id="waitlist-error"
+            className="card mt-4 bg-red-50 border-red-200 text-red-800"
+            role="alert"
             aria-live="assertive"
           >
             {state.error}

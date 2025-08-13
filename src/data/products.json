@@ -150,6 +150,9 @@
   ],
   "products": {
     "bibliokit-blocks": {
+      "visibility": {
+        "waitlist": true
+      },
       "badgeLabel": "SaaS Analytics Platform",
       "title": "BiblioKit Blocks",
       "description": "Professional design system analytics platform that tracks Figma component usage, measures design system ROI, and optimizes component libraries with automated insights for product teams.",
@@ -264,6 +267,9 @@
       }
     },
     "ai-rename-variants": {
+      "visibility": {
+        "waitlist": true
+      },
       "badgeLabel": "🏷️ Figma Plugin",
       "title": "AI Rename Variants",
       "description": "Instantly relabel Figma variant and layer names with context-aware AI. Remove clutter and bring order to your files in seconds.",
@@ -373,6 +379,9 @@
     }
   },
   "product": {
+    "visibility": {
+      "waitlist": true
+    },
     "title": "BiblioKit Blocks",
     "description": "Professional design system analytics platform that tracks Figma component usage, measures design system ROI, and optimizes component libraries with automated insights for product teams.",
     "primaryButton": "Start Free Trial",

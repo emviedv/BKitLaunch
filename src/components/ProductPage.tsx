@@ -7,6 +7,7 @@ import ExpertQuote from './ExpertQuote';
 import StatBox from './StatBox';
 import ContentChunk from './ContentChunk';
 import FAQSchema from './FAQSchema';
+import Waitlist from './Waitlist';
 
 interface ProductDetail {
   title: string;
@@ -346,6 +347,9 @@ const BiblioKitBlocksPage = () => {
           <FAQSchema faqs={faqs} />
         </div>
       </section>
+
+      {/* Waitlist Section */}
+      <Waitlist visibleOverride={(product as any)?.visibility?.waitlist} />
 
       
     </>

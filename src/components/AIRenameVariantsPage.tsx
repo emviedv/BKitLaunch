@@ -7,6 +7,7 @@ import ExpertQuote from './ExpertQuote';
 import StatBox from './StatBox';
 import ContentChunk from './ContentChunk';
 import FAQSchema from './FAQSchema';
+import Waitlist from './Waitlist';
 
 const AIRenameVariantsPage = () => {
   // Debug service for detailed logging
@@ -258,6 +259,9 @@ const AIRenameVariantsPage = () => {
           <FAQSchema faqs={faqs} />
         </div>
       </section>
+
+      {/* Waitlist Section */}
+      <Waitlist visibleOverride={(product as any)?.visibility?.waitlist} />
 
       {/* CTA Section */}
       <section className="py-20 px-4 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
