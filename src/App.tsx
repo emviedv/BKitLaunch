@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import Features from './components/Features';
 import Pricing from './components/Pricing';
 import BiblioKitBlocksPage from './components/ProductPage';
+import DynamicProductPage from './components/DynamicProductPage';
 import AIRenameVariantsPage from './components/AIRenameVariantsPage';
 import DatabaseTest from './components/DatabaseTest';
 import Footer from './components/Footer';
@@ -148,6 +149,9 @@ const AppContent = () => {
               </div>
             </Route>
           )}
+          <Route path="/:productSlug">
+            {({ params }) => <DynamicProductPage slug={(params as any).productSlug} />}
+          </Route>
           <Route>
             <div className="container mx-auto px-4 py-16 text-center">
               <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>

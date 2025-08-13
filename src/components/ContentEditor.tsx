@@ -50,6 +50,118 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
   const [databaseAvailable, setDatabaseAvailable] = useState<boolean | null>(null);
   const { isAuthenticated, isAdmin, logout } = useAuth();
 
+  // Local product CRUD UI state
+  const [showNewProductForm, setShowNewProductForm] = useState(false);
+  const [newProductSlug, setNewProductSlug] = useState('');
+  const [newProductTitle, setNewProductTitle] = useState('');
+
+  const normalizeSlug = (value: string) =>
+    value
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
+
+  const ensureUniqueSlug = (baseSlug: string) => {
+    const existing = Object.keys(((savedContent as any)?.products) || {});
+    if (!existing.includes(baseSlug)) return baseSlug;
+    let i = 2;
+    let candidate = `${baseSlug}-${i}`;
+    while (existing.includes(candidate)) {
+      i += 1;
+      candidate = `${baseSlug}-${i}`;
+    }
+    return candidate;
+  };
+
+  const addHeaderNavigationForProduct = (slug: string, title: string) => {
+    const currentNav: Array<{ label: string; href: string }> = Array.isArray((savedContent as any)?.header?.navigation)
+      ? ([...(savedContent as any).header.navigation] as any)
+      : [];
+    const href = `/${slug}`;
+    const exists = currentNav.some((n) => n.href === href);
+    if (exists) return; // no-op if already present
+    const updatedNav = [...currentNav, { label: title || slug.replace(/-/g, ' '), href }];
+    const nextHeader = { ...((savedContent as any)?.header || {}), navigation: updatedNav };
+    updateSection('header', nextHeader);
+  };
+
+  const removeHeaderNavigationForProduct = (slug: string) => {
+    const currentNav: Array<{ label: string; href: string }> = Array.isArray((savedContent as any)?.header?.navigation)
+      ? ([...(savedContent as any).header.navigation] as any)
+      : [];
+    const href = `/${slug}`;
+    const filtered = currentNav.filter((n) => n.href !== href);
+    const nextHeader = { ...((savedContent as any)?.header || {}), navigation: filtered };
+    updateSection('header', nextHeader);
+  };
+
+  const handleCreateProduct = () => {
+    const normalized = normalizeSlug(newProductSlug || newProductTitle);
+    if (!normalized) {
+      showSaveNotification('Enter a slug or title to create a product page', 'error');
+      return;
+    }
+    const unique = ensureUniqueSlug(normalized);
+    const title = newProductTitle || unique.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+    const newProduct = {
+      visibility: { waitlist: true },
+      badgeLabel: '',
+      title,
+      description: '',
+      primaryButton: 'Get Started',
+      primaryButtonLink: '',
+      secondaryButton: 'Learn More',
+      secondaryButtonLink: '',
+      details: [],
+      benefits: [],
+      specifications: [],
+      pricing: { price: '', period: '', description: '', buttonText: '' },
+      llm: {
+        answerBox: '',
+        expertQuote: {},
+        statistic: {},
+        faqs: []
+      }
+    };
+    const nextProducts = { ...((savedContent as any).products || {}) } as any;
+    nextProducts[unique] = newProduct;
+    updateSection('products', nextProducts);
+    addHeaderNavigationForProduct(unique, title);
+    setShowNewProductForm(false);
+    setNewProductSlug('');
+    setNewProductTitle('');
+    setActiveSection(`product-${unique}`);
+    showSaveNotification('Product page created. Remember to Publish Changes.', 'success');
+  };
+
+  const handleDuplicateProduct = (productKey: string) => {
+    const source = (savedContent as any)?.products?.[productKey];
+    if (!source) return;
+    const baseSlug = normalizeSlug(`${productKey}-copy`);
+    const unique = ensureUniqueSlug(baseSlug);
+    const cloned = JSON.parse(JSON.stringify(source));
+    const title = `${cloned.title || productKey} (Copy)`;
+    cloned.title = title;
+    const nextProducts = { ...((savedContent as any).products || {}) } as any;
+    nextProducts[unique] = cloned;
+    updateSection('products', nextProducts);
+    addHeaderNavigationForProduct(unique, title);
+    setActiveSection(`product-${unique}`);
+    showSaveNotification('Product duplicated. Remember to Publish Changes.', 'success');
+  };
+
+  const handleDeleteProduct = (productKey: string) => {
+    const current = { ...((savedContent as any).products || {}) } as any;
+    if (!current[productKey]) return;
+    delete current[productKey];
+    updateSection('products', current);
+    removeHeaderNavigationForProduct(productKey);
+    if (activeSection === `product-${productKey}`) setActiveSection('settings');
+    showSaveNotification('Product removed. Remember to Publish Changes.', 'info');
+  };
+
   // Migrate content to ensure it has the new products structure
   const migrateContentStructure = (content: any) => {
     // If products object doesn't exist, create it from current productData
@@ -685,23 +797,90 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                 {Object.keys((savedContent as any).products || {}).map((productKey) => {
                   const label = ((savedContent as any).products?.[productKey]?.title) || productKey.replace(/-/g, ' ');
                   const key = `product-${productKey}`;
+                  const isActive = activeSection === key;
                   return (
-                    <button
-                      key={key}
-                      onClick={() => setActiveSection(key)}
-                      className={`w-full text-left p-2 rounded text-sm transition-colors ${
-                        activeSection === key 
-                          ? 'bg-primary text-primary-foreground' 
-                          : 'hover:bg-muted/40'
-                      }`}
-                    >
-                      {label}
-                    </button>
+                    <div key={key} className={`flex items-center justify-between rounded ${isActive ? 'bg-primary text-primary-foreground' : ''}`}>
+                      <button
+                        onClick={() => setActiveSection(key)}
+                        className={`flex-1 text-left p-2 text-sm transition-colors ${isActive ? '' : 'hover:bg-muted/40'}`}
+                      >
+                        {label}
+                      </button>
+                      <div className="flex items-center gap-1 pr-1">
+                        <a
+                          href={`/${productKey}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Open"
+                          aria-label={`Open ${label}`}
+                          className={`text-xs px-2 py-1 rounded ${isActive ? 'bg-primary/20' : 'hover:bg-muted/40'}`}
+                        >
+                          Open
+                        </a>
+                        <button
+                          title="Duplicate"
+                          aria-label={`Duplicate ${label}`}
+                          className={`text-xs px-2 py-1 rounded ${isActive ? 'bg-primary/20' : 'hover:bg-muted/40'}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDuplicateProduct(productKey);
+                          }}
+                        >
+                          Copy
+                        </button>
+                        <button
+                          title="Delete"
+                          aria-label={`Delete ${label}`}
+                          className={`text-xs px-2 py-1 rounded ${isActive ? 'bg-primary/20' : 'hover:bg-muted/40'} text-red-600`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (confirm('Delete this product page? This only affects local JSON until you Publish.')) {
+                              handleDeleteProduct(productKey);
+                            }
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
                   );
                 })}
               </div>
             </div>
           )}
+          <div className="mt-3">
+            {!showNewProductForm ? (
+              <button
+                onClick={() => setShowNewProductForm(true)}
+                className="w-full button-secondary text-xs"
+              >
+                + New Product Page
+              </button>
+            ) : (
+              <div className="space-y-2 p-2 border rounded bg-white">
+                <label className="block text-xs">Slug</label>
+                <input
+                  type="text"
+                  value={newProductSlug}
+                  onChange={(e) => setNewProductSlug(e.target.value)}
+                  placeholder="my-product"
+                  className="w-full p-2 border rounded text-sm"
+                />
+                <label className="block text-xs">Title</label>
+                <input
+                  type="text"
+                  value={newProductTitle}
+                  onChange={(e) => setNewProductTitle(e.target.value)}
+                  placeholder="My Product"
+                  className="w-full p-2 border rounded text-sm"
+                />
+                <div className="flex gap-2">
+                  <button onClick={handleCreateProduct} className="button text-xs">Create</button>
+                  <button onClick={() => { setShowNewProductForm(false); setNewProductSlug(''); setNewProductTitle(''); }} className="button-secondary text-xs">Cancel</button>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="mt-6 pt-4 border-t border-border">
             <button
               onClick={() => setEditMode('json')}
