@@ -289,7 +289,11 @@ class ContentAPI {
         const headerData = {
           logo_text: jsonContent.header.logoText || 'BiblioKit',
           sign_in_text: jsonContent.header.signInText || 'Sign In',
-          get_started_text: jsonContent.header.getStartedText || 'Get Started'
+          get_started_text: jsonContent.header.getStartedText || 'Get Started',
+          sign_in_href: jsonContent.header.signInHref || '',
+          get_started_href: jsonContent.header.getStartedHref || '',
+          show_sign_in: jsonContent.header.showSignIn !== false,
+          show_get_started: jsonContent.header.showGetStarted !== false
         };
         await upsertSection('header', headerData, jsonContent.settings?.visibility?.header !== false);
 

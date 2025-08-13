@@ -138,12 +138,22 @@ const Header = () => {
             </svg>
           </button>
           
-          <button className="button-outline">
-            {content.header?.signInText || 'Sign In'}
-          </button>
-          <button className="button">
-            {content.header?.getStartedText || 'Get Started'}
-          </button>
+          {content.header?.showSignIn !== false && (
+            <a
+              href={content.header?.signInHref || content.header?.signInLink || '#'}
+              className="button-outline"
+            >
+              {content.header?.signInText || 'Sign In'}
+            </a>
+          )}
+          {content.header?.showGetStarted !== false && (
+            <a
+              href={content.header?.getStartedHref || content.header?.getStartedLink || '#'}
+              className="button"
+            >
+              {content.header?.getStartedText || 'Get Started'}
+            </a>
+          )}
         </div>
       </div>
 

@@ -149,6 +149,11 @@ export interface HeaderSection extends BaseContentSection {
   navigation_items: NavigationItem[];
   sign_in_text: string;
   get_started_text: string;
+  // Optional links and visibility flags for header CTAs
+  sign_in_href?: string;
+  get_started_href?: string;
+  show_sign_in?: boolean;
+  show_get_started?: boolean;
 }
 
 export interface NavigationItem {

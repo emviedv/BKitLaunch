@@ -171,12 +171,16 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
             ...sectionData
           };
           break;
-        case 'header': {
+         case 'header': {
           if (!unifiedContent.header) unifiedContent.header = {};
           const mappedHeader = {
             logoText: sectionData.logoText || sectionData.logo_text || unifiedContent.header?.logoText,
             signInText: sectionData.signInText || sectionData.sign_in_text || unifiedContent.header?.signInText,
             getStartedText: sectionData.getStartedText || sectionData.get_started_text || unifiedContent.header?.getStartedText,
+             signInHref: sectionData.signInHref || sectionData.sign_in_href || unifiedContent.header?.signInHref,
+             getStartedHref: sectionData.getStartedHref || sectionData.get_started_href || unifiedContent.header?.getStartedHref,
+             showSignIn: (sectionData.showSignIn ?? sectionData.show_sign_in ?? unifiedContent.header?.showSignIn ?? true),
+             showGetStarted: (sectionData.showGetStarted ?? sectionData.show_get_started ?? unifiedContent.header?.showGetStarted ?? true),
             navigation: section.navigation_items || sectionData.navigation || sectionData.navigation_items || unifiedContent.header?.navigation || []
           };
           unifiedContent.header = {
@@ -898,6 +902,50 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                     className="w-full p-2 border border-border rounded"
                     placeholder="Get Started"
                   />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Sign In Link</label>
+                  <input
+                    type="text"
+                    value={savedContent.header?.signInHref || ''}
+                    onChange={(e) => updateNestedField('header', null, 'signInHref', e.target.value)}
+                    className="w-full p-2 border border-border rounded"
+                    placeholder="/admin or /login"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Get Started Link</label>
+                  <input
+                    type="text"
+                    value={savedContent.header?.getStartedHref || ''}
+                    onChange={(e) => updateNestedField('header', null, 'getStartedHref', e.target.value)}
+                    className="w-full p-2 border border-border rounded"
+                    placeholder="/#contact or /signup"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="show-sign-in-sections"
+                    checked={savedContent.header?.showSignIn ?? true}
+                    onChange={(e) => updateNestedField('header', null, 'showSignIn', e.target.checked)}
+                    className="rounded border-border"
+                  />
+                  <label htmlFor="show-sign-in-sections" className="text-sm">Show Sign In Button</label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="show-get-started-sections"
+                    checked={savedContent.header?.showGetStarted ?? true}
+                    onChange={(e) => updateNestedField('header', null, 'showGetStarted', e.target.checked)}
+                    className="rounded border-border"
+                  />
+                  <label htmlFor="show-get-started-sections" className="text-sm">Show Get Started Button</label>
                 </div>
               </div>
               <div className="border-t border-border pt-4">
@@ -1912,7 +1960,11 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
         is_visible: true,
         logo_text: '',
         sign_in_text: 'Sign In',
-        get_started_text: 'Get Started'
+        get_started_text: 'Get Started',
+        sign_in_href: '',
+        get_started_href: '',
+        show_sign_in: true,
+        show_get_started: true
       }
     );
 
@@ -1964,7 +2016,11 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
           section_data: {
             logo_text: formData.logo_text,
             sign_in_text: formData.sign_in_text,
-            get_started_text: formData.get_started_text
+            get_started_text: formData.get_started_text,
+            sign_in_href: (formData as any).sign_in_href,
+            get_started_href: (formData as any).get_started_href,
+            show_sign_in: (formData as any).show_sign_in,
+            show_get_started: (formData as any).show_get_started
           }
         };
 
@@ -2041,6 +2097,16 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
             />
           </div>
           <div>
+            <label className="block text-sm font-medium mb-2">Sign In Link</label>
+            <input
+              type="text"
+              value={(formData as any).sign_in_href || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, sign_in_href: e.target.value } as any))}
+              className="w-full p-2 border border-border rounded"
+              placeholder="/admin or /login"
+            />
+          </div>
+          <div>
             <label className="block text-sm font-medium mb-2">Get Started Text</label>
             <input
               type="text"
@@ -2048,6 +2114,16 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
               onChange={(e) => setFormData(prev => ({ ...prev, get_started_text: e.target.value }))}
               className="w-full p-2 border border-border rounded"
               placeholder="Get Started"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Get Started Link</label>
+            <input
+              type="text"
+              value={(formData as any).get_started_href || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, get_started_href: e.target.value } as any))}
+              className="w-full p-2 border border-border rounded"
+              placeholder="/#contact or /signup"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -2059,6 +2135,26 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
               className="rounded border-border"
             />
             <label htmlFor="header-visible" className="text-sm">Visible on website</label>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={(formData as any).show_sign_in !== false}
+                onChange={(e) => setFormData(prev => ({ ...prev, show_sign_in: e.target.checked } as any))}
+                className="rounded border-border"
+              />
+              <span className="text-sm">Show Sign In Button</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={(formData as any).show_get_started !== false}
+                onChange={(e) => setFormData(prev => ({ ...prev, show_get_started: e.target.checked } as any))}
+                className="rounded border-border"
+              />
+              <span className="text-sm">Show Get Started Button</span>
+            </label>
           </div>
         </div>
 
