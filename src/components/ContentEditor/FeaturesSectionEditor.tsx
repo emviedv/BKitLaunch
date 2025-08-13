@@ -1,11 +1,14 @@
 import React from 'react';
 import { TextInput, TextArea } from './FormFields';
 
+interface FeatureBadge { label: string; type?: 'figma' | 'saas' | 'custom'; color?: string }
+
 interface Feature {
   icon: string;
   title: string;
   badge: string;
   badgeColor?: string;
+  badges?: FeatureBadge[];
   description: string;
   isFeatured?: boolean;
   buttonText?: string;
@@ -76,6 +79,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
             description: 'Description',
             badge: '',
             badgeColor: 'green',
+            badges: [],
             isFeatured: false,
             showBadge: true,
             buttonPreset: 'custom',
@@ -163,7 +167,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
           </div>
 
           {/* Main Fields */}
-          <div className="grid grid-cols-6 gap-2 text-sm mb-3">
+            <div className="grid grid-cols-6 gap-2 text-sm mb-3">
             <div>
               <label className="block text-xs font-medium mb-1">Icon</label>
               <input
@@ -214,6 +218,92 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                 Use hex (#10b981) or predefined (green, blue, orange, etc.)
               </div>
             </div>
+          </div>
+
+          {/* Multiple badges */}
+          <div className="mb-3">
+            <div className="flex items-center justify-between">
+              <label className="block text-xs font-medium">Badges</label>
+              <button
+                className="text-xs px-2 py-1 rounded border border-border hover:bg-muted"
+                onClick={() => {
+                  const next = [...(feature.badges || []), { label: 'Badge', type: 'custom', color: 'green' } as FeatureBadge];
+                  updateNestedField('features', index, 'badges', next);
+                }}
+                aria-label={`Add badge to feature ${index + 1}`}
+              >
+                + Add Badge
+              </button>
+            </div>
+            {(feature.badges || []).length > 0 && (
+              <div className="space-y-2 mt-2">
+                {(feature.badges || []).map((b, bi) => (
+                  <div key={bi} className="grid grid-cols-6 gap-2 text-sm items-end">
+                    <div className="col-span-2">
+                      <label className="block text-xs font-medium mb-1">Label</label>
+                      <input
+                        type="text"
+                        value={b.label}
+                        onChange={(e) => {
+                          const next = [...(feature.badges || [])];
+                          next[bi] = { ...next[bi], label: e.target.value };
+                          updateNestedField('features', index, 'badges', next);
+                        }}
+                        className="p-1 border border-border rounded w-full"
+                        placeholder="e.g. Figma, SaaS"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium mb-1">Type</label>
+                      <select
+                        value={b.type || 'custom'}
+                        onChange={(e) => {
+                          const next = [...(feature.badges || [])];
+                          next[bi] = { ...next[bi], type: e.target.value as any };
+                          updateNestedField('features', index, 'badges', next);
+                        }}
+                        className="p-1 border border-border rounded w-full"
+                      >
+                        <option value="custom">Custom</option>
+                        <option value="figma">Figma</option>
+                        <option value="saas">SaaS</option>
+                      </select>
+                    </div>
+                    <div className="col-span-2">
+                      <label className="block text-xs font-medium mb-1">Color</label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          value={b.color || ''}
+                          onChange={(e) => {
+                            const next = [...(feature.badges || [])];
+                            next[bi] = { ...next[bi], color: e.target.value };
+                            updateNestedField('features', index, 'badges', next);
+                          }}
+                          className="p-1 border border-border rounded w-full"
+                          placeholder="#10b981 or green"
+                        />
+                        {b.color && (
+                          <ColorPreview color={b.color} />
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <button
+                        className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-xs"
+                        onClick={() => {
+                          const next = (feature.badges || []).filter((_, i) => i !== bi);
+                          updateNestedField('features', index, 'badges', next);
+                        }}
+                        aria-label={`Remove badge ${bi + 1}`}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Badge visibility toggle */}

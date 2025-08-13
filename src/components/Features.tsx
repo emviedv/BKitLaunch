@@ -55,6 +55,28 @@ const Features = () => {
     return badgeColors[color as keyof typeof badgeColors] || badgeColors.primary;
   };
 
+  const FigmaIcon = () => (
+    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 384" className="w-3.5 h-3.5 mr-1">
+      <path fill="#0ACF83" d="M128 192a64 64 0 1 1 64 64h-64v-64Z"/>
+      <path fill="#A259FF" d="M64 128a64 64 0 1 1 64 64H64v-64Z"/>
+      <path fill="#F24E1E" d="M128 64a64 64 0 1 1 64-64H128v64Z"/>
+      <path fill="#FF7262" d="M64 64a64 64 0 1 1 64-64H64v64Z"/>
+      <path fill="#1ABCFE" d="M64 256a64 64 0 1 0 64-64H64v64Z"/>
+    </svg>
+  );
+
+  const SaaSIcon = () => (
+    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 mr-1">
+      <path fill="currentColor" d="M6 14a4 4 0 0 1 3.874-3.997A5.5 5.5 0 0 1 19.5 9a4.5 4.5 0 0 1 .5 8.973V18H7a4 4 0 0 1-1-7.874V10A4 4 0 0 1 6 14Z"/>
+    </svg>
+  );
+
+  const renderBadgeIcon = (type?: string) => {
+    if (type === 'figma') return <FigmaIcon />;
+    if (type === 'saas') return <SaaSIcon />;
+    return null;
+  };
+
   // Generate inline styles for hex colors
   const getBadgeStyle = (color: string) => {
     if (color && color.startsWith('#')) {
@@ -122,13 +144,35 @@ const Features = () => {
                 <div className={`icon ${colorClasses[index % colorClasses.length]}`}>
                   {feature.icon}
                 </div>
-                {feature.badge && (content.settings?.labels?.featuresBadges ?? true) && showBadge && (
-                  <span 
-                    className={`text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(badgeColor || 'primary')}`}
-                    style={getBadgeStyle(badgeColor || '')}
-                  >
-                    {feature.badge}
-                  </span>
+                {/* Multi-badge support with fallback to legacy single badge */}
+                {(Array.isArray((feature as any).badges) && (feature as any).badges.length > 0 && (content.settings?.labels?.featuresBadges ?? true) && showBadge) ? (
+                  <div className="flex flex-wrap gap-1">
+                    {(feature as any).badges.map((b: any, bi: number) => (
+                      <span key={bi}
+                        className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(b.color || 'primary')}`}
+                        style={getBadgeStyle(b.color || '')}
+                        aria-label={`${b.type || 'badge'}: ${b.label}`}
+                      >
+                        {renderBadgeIcon(b.type)}
+                        {b.label}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  feature.badge && (content.settings?.labels?.featuresBadges ?? true) && showBadge && (() => {
+                    const label = String(feature.badge);
+                    const lower = label.toLowerCase();
+                    const icon = lower.includes('figma') ? <FigmaIcon /> : lower.includes('saas') ? <SaaSIcon /> : null;
+                    return (
+                      <span 
+                        className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(badgeColor || 'primary')}`}
+                        style={getBadgeStyle(badgeColor || '')}
+                      >
+                        {icon}
+                        {label}
+                      </span>
+                    );
+                  })()
                 )}
               </div>
               <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>

@@ -15,13 +15,14 @@ const loadHotjarIfAllowed = (): void => {
       !!document.querySelector('script[src*="hotjar-6484850.js"]');
     if (!isProd || isAdmin || !consent || alreadyLoaded) return;
 
-    // Allowlist domains via CSP (updated in netlify.toml): static.hotjar.com, script.hotjar.com
+    // Define hj and _hjSettings BEFORE injecting the loader script
+    (window as any).hj = (window as any).hj || function () { ((window as any).hj.q = (window as any).hj.q || []).push(arguments); };
+    (window as any)._hjSettings = { hjid: 6484850, hjsv: 6 };
+    // Allowlist domains via CSP (Edge sends Report-Only policy allowing Hotjar domains)
     const s = document.createElement('script');
     s.async = true;
     s.src = 'https://static.hotjar.com/c/hotjar-6484850.js?sv=6';
     document.head.appendChild(s);
-    (window as any).hj = (window as any).hj || function () { ((window as any).hj.q = (window as any).hj.q || []).push(arguments); };
-    (window as any)._hjSettings = { hjid: 6484850, hjsv: 6 };
   } catch {
     // no-op
   }

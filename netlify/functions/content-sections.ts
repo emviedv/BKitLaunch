@@ -27,6 +27,7 @@ const initializeTables = async (client: Client) => {
       description TEXT NOT NULL,
       badge VARCHAR(100),
       badge_color VARCHAR(50),
+      badges JSONB,
       sort_order INTEGER DEFAULT 0,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -45,6 +46,10 @@ const initializeTables = async (client: Client) => {
   await client.query(`
     ALTER TABLE features 
     ADD COLUMN IF NOT EXISTS button_link VARCHAR(255);
+  `);
+  await client.query(`
+    ALTER TABLE features 
+    ADD COLUMN IF NOT EXISTS badges JSONB;
   `);
 
   // Pricing plans table
@@ -358,7 +363,10 @@ const handleGet = async (client: Client, sectionTypeOrId: string, queryParams: a
         'SELECT * FROM features WHERE section_id = $1 ORDER BY sort_order ASC',
         [section.id]
       );
-      section.features = features.rows;
+      section.features = features.rows.map((row: any) => ({
+        ...row,
+        badges: Array.isArray(row.badges) ? row.badges : (row.badges ? row.badges : [])
+      }));
     } else if (section.section_type === 'pricing') {
       const plans = await client.query(
         'SELECT * FROM pricing_plans WHERE section_id = $1 ORDER BY sort_order ASC',
@@ -408,7 +416,10 @@ const handleGet = async (client: Client, sectionTypeOrId: string, queryParams: a
           'SELECT * FROM features WHERE section_id = $1 ORDER BY sort_order ASC',
           [section.id]
         );
-        section.features = features.rows;
+        section.features = features.rows.map((row: any) => ({
+          ...row,
+          badges: Array.isArray(row.badges) ? row.badges : (row.badges ? row.badges : [])
+        }));
       } else if (section.section_type === 'pricing') {
         const plans = await client.query(
           'SELECT * FROM pricing_plans WHERE section_id = $1 ORDER BY sort_order ASC',
@@ -458,10 +469,11 @@ const handlePost = async (client: Client, body: string | null, parentId?: string
     if (data.feature) {
       // Create feature item
       const result = await client.query(
-        `INSERT INTO features (section_id, icon, title, description, badge, badge_color, sort_order, is_featured, button_text, button_link)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+        `INSERT INTO features (section_id, icon, title, description, badge, badge_color, badges, sort_order, is_featured, button_text, button_link)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`,
         [parentId, data.feature.icon, data.feature.title, data.feature.description,
-         data.feature.badge, data.feature.badge_color, data.feature.sort_order || 0,
+         data.feature.badge, data.feature.badge_color, data.feature.badges ? JSON.stringify(data.feature.badges) : null,
+         data.feature.sort_order || 0,
          data.feature.is_featured || false, data.feature.button_text || null, data.feature.button_link || null]
       );
 

@@ -89,6 +89,20 @@ export default async (request: Request, context: Context) => {
     // Decide whether to include Hotjar loader (production, non-admin pages)
     // Use inline snippet with nonce so CSP allows it, and include consent/admin checks client-side.
     const isAdminPath = url.pathname.startsWith('/admin');
+    // Allow a query switch to quickly grant analytics consent for validation: ?hj=1 or ?analytics=1 or ?consent=1
+    // This runs before the Hotjar loader so consent is available on first render.
+    const consentBootstrapTag = isProdHost && !isAdminPath
+      ? `<script nonce="${nonce}">(function(){
+  try {
+    var qp = new URLSearchParams(location.search);
+    var wants = qp.get('analytics') === '1' || qp.get('hj') === '1' || qp.get('consent') === '1';
+    if (wants) {
+      try { localStorage.setItem('consent:analytics', 'true'); } catch(e) {}
+      try { window.__USER_CONSENT__ = Object.assign({}, window.__USER_CONSENT__, { analytics: true }); } catch(e) {}
+    }
+  } catch(e) { /* no-op */ }
+})();</script>`
+      : '';
     const hotjarTag = isProdHost && !isAdminPath
       ? `<script nonce="${nonce}">(function(){
   try {
@@ -160,6 +174,7 @@ export default async (request: Request, context: Context) => {
     <!-- CSS injected via manifest -->
     ${cssLinks}
 
+    ${consentBootstrapTag}
     ${hotjarTag}
   </head>
   <body>

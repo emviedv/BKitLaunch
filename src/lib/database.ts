@@ -74,6 +74,12 @@ export interface HeroSection extends BaseContentSection {
 }
 
 // Feature Item
+export interface FeatureBadge {
+  label: string;
+  type?: 'figma' | 'saas' | 'custom';
+  color?: string; // hex or named Tailwind token like 'green'
+}
+
 export interface FeatureItem {
   id?: number;
   icon: string;
@@ -81,6 +87,8 @@ export interface FeatureItem {
   description: string;
   badge?: string;
   badge_color?: string;
+  // New multi-badge support; prefer this over legacy single badge fields
+  badges?: FeatureBadge[];
   sort_order?: number;
   is_featured?: boolean;
   button_text?: string;

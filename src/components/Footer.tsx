@@ -1,9 +1,11 @@
 import React from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Footer = () => {
   const { content } = usePublishedContent();
   const { contact, footer, header } = content;
+  const { isAuthenticated, isAdmin } = useAuth();
 
   // Check if footer should be visible
   const shouldShowFooter = content.settings?.visibility?.footer !== false;
@@ -44,6 +46,20 @@ const Footer = () => {
               </ul>
             </div>
           ))}
+
+          {isAuthenticated && isAdmin && (
+            <div>
+              <h3 className="font-semibold mb-4">Admin</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>
+                  <a href="/editor" className="hover:text-foreground transition-colors">Content Editor</a>
+                </li>
+                <li>
+                  <a href="/admin" className="hover:text-foreground transition-colors">Admin Dashboard</a>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
         
         <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">

@@ -2,6 +2,40 @@ import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
 import { withCors, createDbClient, sendJSON, handleError, isAuthorized } from './utils';
 
+const ensureFeaturesTable = async (client: Client) => {
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS features (
+      id SERIAL PRIMARY KEY,
+      section_id INTEGER REFERENCES content_sections(id) ON DELETE CASCADE,
+      icon VARCHAR(10) NOT NULL,
+      title VARCHAR(255) NOT NULL,
+      description TEXT NOT NULL,
+      badge VARCHAR(100),
+      badge_color VARCHAR(50),
+      badges JSONB,
+      sort_order INTEGER DEFAULT 0,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
+  await client.query(`
+    ALTER TABLE features 
+    ADD COLUMN IF NOT EXISTS is_featured BOOLEAN DEFAULT false;
+  `);
+  await client.query(`
+    ALTER TABLE features 
+    ADD COLUMN IF NOT EXISTS button_text VARCHAR(100);
+  `);
+  await client.query(`
+    ALTER TABLE features 
+    ADD COLUMN IF NOT EXISTS button_link VARCHAR(255);
+  `);
+  await client.query(`
+    ALTER TABLE features 
+    ADD COLUMN IF NOT EXISTS badges JSONB;
+  `);
+};
+
 const featuresHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   // Require authentication only for write operations; allow public GET
   if (
@@ -15,6 +49,7 @@ const featuresHandler: Handler = async (event: HandlerEvent, context: HandlerCon
 
   try {
     await client.connect();
+    await ensureFeaturesTable(client);
 
     const pathParts = event.path.split('/').filter(part => part);
     const featureId = pathParts[pathParts.length - 1];
@@ -74,16 +109,16 @@ const handlePost = async (client: Client, body: string | null) => {
     return sendJSON(400, { error: 'Request body required' });
   }
 
-  const { section_id, icon, title, description, badge, badge_color, sort_order = 0, is_featured = false, button_text, button_link } = JSON.parse(body);
+  const { section_id, icon, title, description, badge, badge_color, badges, sort_order = 0, is_featured = false, button_text, button_link } = JSON.parse(body);
 
   if (!section_id || !icon || !title || !description) {
     return sendJSON(400, { error: 'section_id, icon, title, and description are required' });
   }
 
   const result = await client.query(
-    `INSERT INTO features (section_id, icon, title, description, badge, badge_color, sort_order, is_featured, button_text, button_link)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
-    [section_id, icon, title, description, badge, badge_color, sort_order, is_featured, button_text, button_link]
+    `INSERT INTO features (section_id, icon, title, description, badge, badge_color, badges, sort_order, is_featured, button_text, button_link)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`,
+    [section_id, icon, title, description, badge, badge_color, badges ? JSON.stringify(badges) : null, sort_order, is_featured, button_text, button_link]
   );
 
   return sendJSON(201, {
@@ -102,7 +137,7 @@ const handlePut = async (client: Client, body: string | null, featureId: string)
     return sendJSON(400, { error: 'Invalid feature ID' });
   }
 
-  const { icon, title, description, badge, badge_color, sort_order, is_featured, button_text, button_link } = JSON.parse(body);
+  const { icon, title, description, badge, badge_color, badges, sort_order, is_featured, button_text, button_link } = JSON.parse(body);
   const updates: string[] = [];
   const values: any[] = [];
   let valueIndex = 1;
@@ -130,6 +165,11 @@ const handlePut = async (client: Client, body: string | null, featureId: string)
   if (badge_color !== undefined) {
     updates.push(`badge_color = $${valueIndex++}`);
     values.push(badge_color);
+  }
+
+  if (badges !== undefined) {
+    updates.push(`badges = $${valueIndex++}`);
+    values.push(badges ? JSON.stringify(badges) : null);
   }
 
   if (sort_order !== undefined) {
