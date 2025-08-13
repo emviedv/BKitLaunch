@@ -660,6 +660,76 @@ class ContentAPI {
     }
   }
 
+  // Pages CRUD
+  async getPages(publishedOnly: boolean = false): Promise<ApiResponse<any[]>> {
+    try {
+      const qs = publishedOnly ? '?published=true' : '';
+      const response = await fetch(this.getApiUrl(`pages${qs}`), {
+        method: 'GET',
+        headers: this.getHeaders(),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to fetch pages' };
+    }
+  }
+
+  async getPage(idOrSlug: number | string): Promise<ApiResponse<any>> {
+    try {
+      const idPath = typeof idOrSlug === 'number' ? `${idOrSlug}` : `${idOrSlug}`;
+      const response = await fetch(this.getApiUrl(`pages/${idPath}`), {
+        method: 'GET',
+        headers: this.getHeaders(),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to fetch page' };
+    }
+  }
+
+  async createPage(page: { slug: string; title: string; content: any; is_published?: boolean }): Promise<ApiResponse<any>> {
+    try {
+      const response = await fetch(this.getApiUrl('pages'), {
+        method: 'POST',
+        headers: this.getHeaders(),
+        body: JSON.stringify(page),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to create page' };
+    }
+  }
+
+  async updatePage(id: number, page: Partial<{ slug: string; title: string; content: any; is_published: boolean }>): Promise<ApiResponse<any>> {
+    try {
+      const response = await fetch(this.getApiUrl(`pages/${id}`), {
+        method: 'PUT',
+        headers: this.getHeaders(),
+        body: JSON.stringify(page),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to update page' };
+    }
+  }
+
+  async deletePage(id: number): Promise<ApiResponse<null>> {
+    try {
+      const response = await fetch(this.getApiUrl(`pages/${id}`), {
+        method: 'DELETE',
+        headers: this.getHeaders(),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      return await response.json();
+    } catch (error) {
+      return { success: false, error: error instanceof Error ? error.message : 'Failed to delete page' };
+    }
+  }
+
   // Feature Items CRUD
 
   // Create a new feature

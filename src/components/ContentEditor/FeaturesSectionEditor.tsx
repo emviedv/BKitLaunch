@@ -21,6 +21,10 @@ interface FeaturesSectionEditorProps {
   visible: boolean;
   updateVisibility: (isVisible: boolean) => void;
   updateSection: (section: string, newData: any) => void;
+  sectionData?: {
+    title?: string;
+    description?: string;
+  };
 }
 
 const ColorPreview: React.FC<{ color: string }> = ({ color }) => {
@@ -57,7 +61,8 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
   updateNestedField,
   visible,
   updateVisibility,
-  updateSection 
+  updateSection,
+  sectionData
 }) => (
   <div className="space-y-4">
     <div className="flex items-center justify-between">
@@ -86,6 +91,31 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
       </button>
     </div>
     
+    {/* Section header fields */}
+    <div className="grid grid-cols-1 gap-4">
+      <div>
+        <label className="block text-sm font-medium mb-2">Section Title</label>
+        <input
+          type="text"
+          value={sectionData?.title || ''}
+          onChange={(e) => updateNestedField('featuresSection', null, 'title', e.target.value)}
+          className="w-full p-2 border border-border rounded"
+          placeholder="Features"
+          aria-label="Features section title"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-2">Section Description</label>
+        <textarea
+          value={sectionData?.description || ''}
+          onChange={(e) => updateNestedField('featuresSection', null, 'description', e.target.value)}
+          className="w-full p-2 border border-border rounded h-20"
+          placeholder="Brief description of the features section"
+          aria-label="Features section description"
+        />
+      </div>
+    </div>
+
     {/* Visibility Toggle */}
     <div className="flex items-center gap-2 mb-4 p-3 bg-muted/20 rounded-lg">
       <input

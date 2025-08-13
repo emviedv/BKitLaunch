@@ -169,6 +169,17 @@ export interface NavigationItem {
   isButton?: boolean;
 }
 
+// Pages
+export interface Page {
+  id?: number;
+  slug: string;
+  title: string;
+  content: any; // JSON payload per-page
+  is_published?: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
 // Footer Section
 export interface FooterSection extends BaseContentSection {
   section_type: 'footer';

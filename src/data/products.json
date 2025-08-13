@@ -478,8 +478,7 @@
     "logoText": "BiblioKit",
     "navigation": [
       { "label": "BiblioKit Blocks", "href": "/bibliokit-blocks" },
-      { "label": "AI Rename Variants", "href": "/ai-rename-variants" },
-      { "label": "Contact", "href": "#contact" }
+      { "label": "AI Rename Variants", "href": "/ai-rename-variants" }
     ],
     "signInText": "Sign In",
     "getStartedText": "Get Started"

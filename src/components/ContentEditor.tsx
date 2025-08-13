@@ -752,6 +752,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
               visible={savedContent.settings?.visibility?.features ?? true}
               updateVisibility={(isVisible) => updateVisibility('features', isVisible)}
               updateSection={updateSection}
+              sectionData={(savedContent as any).featuresSection}
             />
           )}
 
@@ -1079,7 +1080,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
 
           {/* Section Types */}
           <div className="space-y-2">
-            {['hero', 'features', 'pricing', 'cta', 'waitlist', 'header', 'footer', 'contact'].map((sectionType) => (
+            {['hero', 'features', 'pricing', 'cta', 'waitlist', 'header', 'footer', 'contact', 'pages'].map((sectionType) => (
               <button
                 key={sectionType}
                 onClick={() => setActiveSection(sectionType)}
@@ -1124,6 +1125,10 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       return renderContactForm();
     }
 
+    if (activeSection === 'pages') {
+      return renderPagesForm();
+    }
+
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -1145,6 +1150,145 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
         {activeSection === 'waitlist' && renderWaitlistForm(currentSection as WaitlistSection)}
         {activeSection === 'header' && renderHeaderForm(currentSection as HeaderSection)}
         {activeSection === 'footer' && renderFooterForm(currentSection as FooterSection)}
+      </div>
+    );
+  };
+
+  // Pages CRUD Form (database mode)
+  const renderPagesForm = () => {
+    const [pages, setPages] = useState<Array<{ id?: number; slug: string; title: string; is_published?: boolean }>>([]);
+    const [loadingPages, setLoadingPages] = useState(false);
+    const [editingPage, setEditingPage] = useState<{ id?: number; slug: string; title: string; content: any; is_published?: boolean } | null>(null);
+
+    useEffect(() => {
+      const load = async () => {
+        setLoadingPages(true);
+        const res = await contentApi.getPages(false);
+        if (res.success && res.data) {
+          const list = (res.data as any[]).map(p => ({ id: p.id, slug: p.slug, title: p.title, is_published: p.is_published }));
+          setPages(list);
+        }
+        setLoadingPages(false);
+      };
+      load();
+    }, []);
+
+    const startCreate = () => {
+      setEditingPage({ slug: '', title: '', content: {}, is_published: false });
+    };
+
+    const startEdit = async (id: number) => {
+      const res = await contentApi.getPage(id);
+      if (res.success && res.data) {
+        setEditingPage({
+          id: (res.data as any).id,
+          slug: (res.data as any).slug,
+          title: (res.data as any).title,
+          content: (res.data as any).content || {},
+          is_published: (res.data as any).is_published || false
+        });
+      }
+    };
+
+    const savePage = async () => {
+      if (!editingPage) return;
+      if (editingPage.id) {
+        const res = await contentApi.updatePage(editingPage.id, {
+          slug: editingPage.slug,
+          title: editingPage.title,
+          content: editingPage.content,
+          is_published: editingPage.is_published
+        });
+        if (res.success) {
+          setEditingPage(null);
+          const refreshed = await contentApi.getPages(false);
+          if (refreshed.success && refreshed.data) setPages((refreshed.data as any[]).map(p => ({ id: p.id, slug: p.slug, title: p.title, is_published: p.is_published })));
+        }
+      } else {
+        const res = await contentApi.createPage({
+          slug: editingPage.slug,
+          title: editingPage.title,
+          content: editingPage.content,
+          is_published: editingPage.is_published
+        });
+        if (res.success) {
+          setEditingPage(null);
+          const refreshed = await contentApi.getPages(false);
+          if (refreshed.success && refreshed.data) setPages((refreshed.data as any[]).map(p => ({ id: p.id, slug: p.slug, title: p.title, is_published: p.is_published })));
+        }
+      }
+    };
+
+    const deletePage = async (id: number) => {
+      const res = await contentApi.deletePage(id);
+      if (res.success) {
+        setPages(prev => prev.filter(p => p.id !== id));
+      }
+    };
+
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="font-semibold text-lg">Pages</h3>
+          <button onClick={startCreate} className="button-secondary text-sm">+ New Page</button>
+        </div>
+
+        {loadingPages ? (
+          <div className="text-sm text-muted-foreground">Loading pages...</div>
+        ) : (
+          <div className="space-y-2">
+            {pages.map((p) => (
+              <div key={p.id} className="flex items-center justify-between p-3 border rounded">
+                <div className="text-sm">
+                  <div className="font-medium">{p.title}</div>
+                  <div className="text-muted-foreground">/{p.slug}</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className={`text-xs px-2 py-1 rounded ${p.is_published ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>{p.is_published ? 'Published' : 'Draft'}</span>
+                  <button onClick={() => startEdit(p.id!)} className="button-secondary text-xs">Edit</button>
+                  <button onClick={() => deletePage(p.id!)} className="text-red-600 text-xs hover:bg-red-50 px-2 py-1 rounded">Delete</button>
+                </div>
+              </div>
+            ))}
+            {pages.length === 0 && (
+              <div className="text-sm text-muted-foreground">No pages yet.</div>
+            )}
+          </div>
+        )}
+
+        {editingPage && (
+          <div className="border-t pt-4 space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-medium mb-1">Slug</label>
+                <input type="text" value={editingPage.slug} onChange={(e) => setEditingPage({ ...editingPage, slug: e.target.value })} className="w-full p-2 border rounded" placeholder="about"/>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Title</label>
+                <input type="text" value={editingPage.title} onChange={(e) => setEditingPage({ ...editingPage, title: e.target.value })} className="w-full p-2 border rounded" placeholder="About Us"/>
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Content (JSON)</label>
+              <textarea
+                value={JSON.stringify(editingPage.content || {}, null, 2)}
+                onChange={(e) => {
+                  try { setEditingPage({ ...editingPage, content: JSON.parse(e.target.value) }); } catch {}
+                }}
+                className="w-full p-2 border rounded font-mono text-sm h-48"
+                placeholder='{"blocks":[{"type":"paragraph","text":"Hello"}]}'
+              />
+            </div>
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={!!editingPage.is_published} onChange={(e) => setEditingPage({ ...editingPage, is_published: e.target.checked })} className="rounded border-border"/>
+              <span>Published</span>
+            </label>
+            <div className="flex gap-2">
+              <button onClick={savePage} className="button">Save Page</button>
+              <button onClick={() => setEditingPage(null)} className="button-secondary">Cancel</button>
+            </div>
+          </div>
+        )}
       </div>
     );
   };
