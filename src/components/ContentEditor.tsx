@@ -9,6 +9,7 @@ import { useContentEditorState } from './ContentEditor/useContentEditorState';
 import { HeaderNavigationEditor } from './ContentEditor/HeaderNavigationEditor';
 import { FooterEditor } from './ContentEditor/FooterEditor';
 import { HeaderCtasEditor } from './ContentEditor/HeaderCtasEditor';
+import { ProductsManager } from './ContentEditor/ProductsManager';
 import { 
   ContentSection, 
   SectionType, 
@@ -749,97 +750,20 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
               </button>
             ))}
           </div>
-          {Object.keys((savedContent as any)?.products || {}).length > 0 && (
-            <div className="mt-6">
-              <h4 className="font-semibold mb-2 text-sm">Product Pages</h4>
-              <div className="space-y-2">
-                {Object.keys((savedContent as any).products || {}).map((productKey) => {
-                  const label = ((savedContent as any).products?.[productKey]?.title) || productKey.replace(/-/g, ' ');
-                  const key = `product-${productKey}`;
-                  const isActive = activeSection === key;
-                  return (
-                    <div key={key} className={`flex items-center justify-between rounded ${isActive ? 'bg-primary text-primary-foreground' : ''}`}>
-                      <button
-                        onClick={() => setActiveSection(key)}
-                        className={`flex-1 text-left p-2 text-sm transition-colors ${isActive ? '' : 'hover:bg-muted/40'}`}
-                      >
-                        {label}
-                      </button>
-                      <div className="flex items-center gap-1 pr-1">
-                        <a
-                          href={`/${productKey}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title="Open"
-                          aria-label={`Open ${label}`}
-                          className={`text-xs px-2 py-1 rounded ${isActive ? 'bg-primary/20' : 'hover:bg-muted/40'}`}
-                        >
-                          Open
-                        </a>
-                        <button
-                          title="Duplicate"
-                          aria-label={`Duplicate ${label}`}
-                          className={`text-xs px-2 py-1 rounded ${isActive ? 'bg-primary/20' : 'hover:bg-muted/40'}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDuplicateProduct(productKey);
-                          }}
-                        >
-                          Copy
-                        </button>
-                        <button
-                          title="Delete"
-                          aria-label={`Delete ${label}`}
-                          className={`text-xs px-2 py-1 rounded ${isActive ? 'bg-primary/20' : 'hover:bg-muted/40'} text-red-600`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (confirm('Delete this product page? This only affects local JSON until you Publish.')) {
-                              handleDeleteProduct(productKey);
-                            }
-                          }}
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-          <div className="mt-3">
-            {!showNewProductForm ? (
-              <button
-                onClick={() => setShowNewProductForm(true)}
-                className="w-full button-secondary text-xs"
-              >
-                + New Product Page
-              </button>
-            ) : (
-              <div className="space-y-2 p-2 border rounded bg-white">
-                <label className="block text-xs">Slug</label>
-                <input
-                  type="text"
-                  value={newProductSlug}
-                  onChange={(e) => setNewProductSlug(e.target.value)}
-                  placeholder="my-product"
-                  className="w-full p-2 border rounded text-sm"
-                />
-                <label className="block text-xs">Title</label>
-                <input
-                  type="text"
-                  value={newProductTitle}
-                  onChange={(e) => setNewProductTitle(e.target.value)}
-                  placeholder="My Product"
-                  className="w-full p-2 border rounded text-sm"
-                />
-                <div className="flex gap-2">
-                  <button onClick={handleCreateProduct} className="button text-xs">Create</button>
-                  <button onClick={() => { setShowNewProductForm(false); setNewProductSlug(''); setNewProductTitle(''); }} className="button-secondary text-xs">Cancel</button>
-                </div>
-              </div>
-            )}
-          </div>
+          <ProductsManager
+            products={(savedContent as any)?.products || {}}
+            activeSection={activeSection}
+            showNewProductForm={showNewProductForm}
+            newProductSlug={newProductSlug}
+            newProductTitle={newProductTitle}
+            setActiveSection={setActiveSection}
+            setShowNewProductForm={setShowNewProductForm}
+            setNewProductSlug={setNewProductSlug}
+            setNewProductTitle={setNewProductTitle}
+            onDuplicate={handleDuplicateProduct}
+            onDelete={handleDeleteProduct}
+            onCreate={handleCreateProduct}
+          />
           <div className="mt-6 pt-4 border-t border-border">
             <button
               onClick={() => setEditMode('json')}
@@ -1401,6 +1325,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       section || {
         section_type: 'hero' as const,
         is_visible: true,
+        badgeLabel: '',
         title: '',
         subtitle: '',
         description: '',
@@ -1412,6 +1337,16 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
     return (
       <div className="space-y-4">
         <div className="grid grid-cols-1 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Badge Label</label>
+            <input
+              type="text"
+              value={(formData as any).badgeLabel || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, badgeLabel: e.target.value }))}
+              className="w-full p-2 border border-border rounded"
+              placeholder="SaaS Analytics Platform"
+            />
+          </div>
           <div>
             <label className="block text-sm font-medium mb-2">Emoji</label>
             <input

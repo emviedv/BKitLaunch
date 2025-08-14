@@ -31,6 +31,12 @@ export const HeroSectionEditor: React.FC<HeroSectionEditorProps> = ({
       </label>
     </div>
     <TextInput
+      label="Badge Label"
+      value={hero?.badgeLabel || ''}
+      onChange={(value) => updateNestedField('hero', null, 'badgeLabel', value)}
+      placeholder="SaaS Analytics Platform"
+    />
+    <TextInput
       label="Emoji"
       value={hero?.emoji || ''}
       onChange={(value) => updateNestedField('hero', null, 'emoji', value)}

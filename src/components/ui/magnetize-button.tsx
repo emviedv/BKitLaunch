@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { motion, useAnimation } from "framer-motion";
-import { Beaker } from "lucide-react";
+import { Star } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -100,7 +100,7 @@ function MagnetizeButton({
             />
           ))}
           <span className="relative w-full flex items-center justify-center gap-2">
-            <Beaker
+            <Star
               className={cn(
                 "w-4 h-4 transition-transform duration-300",
                 isAttracting && "scale-110"
@@ -137,7 +137,7 @@ function MagnetizeButton({
         />
       ))}
       <span className="relative w-full flex items-center justify-center gap-2">
-        <Beaker
+        <Star
           className={cn(
             "w-4 h-4 transition-transform duration-300",
             isAttracting && "scale-110"

@@ -3,6 +3,7 @@
 
 export interface DefaultContent {
   hero: {
+    badgeLabel: string;
     title: string;
     subtitle: string;
     description: string;
@@ -36,6 +37,7 @@ export interface DefaultContent {
 
 export const createEmptyContent = (): DefaultContent => ({
   hero: {
+    badgeLabel: '',
     title: '',
     subtitle: '',
     description: '',

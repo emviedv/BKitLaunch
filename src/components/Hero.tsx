@@ -8,6 +8,7 @@ import { Zap } from 'lucide-react';
 const Hero = () => {
   const { content } = usePublishedContent();
   const { hero } = content;
+  const displayBadge = (hero as any)?.badgeLabel || (hero as any)?.badge_label;
   
   // Return null if hero section is set to hidden
   if (content.settings?.visibility?.hero === false) {
@@ -34,6 +35,12 @@ const Hero = () => {
       <HeroBackground />
       <div className="container mx-auto text-center relative z-10">
         <div className="max-w-4xl mx-auto flex flex-col items-center justify-center min-h-[60vh] space-y-8">
+          {displayBadge && (
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/50">
+              <span className="inline-flex h-2 w-2 rounded-full bg-primary" />
+              <span className="text-sm font-medium text-gray-800">{displayBadge}</span>
+            </div>
+          )}
           {hero.emoji && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
