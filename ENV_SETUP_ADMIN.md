@@ -29,8 +29,11 @@ ADMIN_PASSWORD=your-secure-password
 
 ### Database Configuration (Already documented in NETLIFY_DEPLOY.md)
 ```bash
-DATABASE_URL=postgresql://neondb_owner:npg_bS1zCfx7VYUy@ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+# Use your own connection string; do NOT commit real credentials
+DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
 ```
+
+Note: If any real credentials were previously committed, rotate them immediately in your database provider and update the environment variable with a new secret value.
 
 ## 🚀 Setup Instructions
 
@@ -51,7 +54,9 @@ npx netlify env:set ADMIN_EMAIL "admin@bibliokit.com"
 npx netlify env:set ADMIN_PASSWORD "your-secure-password-here"
 
 # Database URL (if not already set)
-npx netlify env:set DATABASE_URL "postgresql://neondb_owner:npg_bS1zCfx7VYUy@ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+# Provide your own connection string; example format:
+# postgresql://<user>:<password>@<host>/<db>?sslmode=require
+npx netlify env:set DATABASE_URL "postgresql://<user>:<password>@<host>/<db>?sslmode=require"
 ```
 
 ### Step 4: Redeploy

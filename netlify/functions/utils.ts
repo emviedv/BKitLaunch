@@ -27,9 +27,15 @@ const getAllowedOrigin = (originHeader?: string | null): string | undefined => {
     'http://localhost:5175',
     'http://localhost:5176',
     'http://localhost:9989',
+    'http://localhost:12089',
+    'http://localhost:12090',
+    'http://bibliokit.localhost',
+    'https://bibliokit.localhost',
     'http://127.0.0.1:5173',
     'http://127.0.0.1:5175',
     'http://127.0.0.1:9989',
+    'http://127.0.0.1:12089',
+    'http://127.0.0.1:12090',
   ];
 
   const allowed = new Set<string>([...allowedFromEnv, ...devOrigins]);

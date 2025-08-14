@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
+import { MagnetizeButton } from '@/components/ui/magnetize-button';
 
 const Header = () => {
   const { isAuthenticated, isAdmin } = useAuth();
@@ -60,7 +61,14 @@ const Header = () => {
   return (
     <header className={`bg-background/80 backdrop-blur border-b border-border fixed w-full ${adminOffset} z-50`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">{content.header?.logoText || 'BiblioKit'}</div>
+        <a
+          href={hasMounted && isAuthenticated && isAdmin ? '/admin' : '/'}
+          aria-label={hasMounted && isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
+          title={hasMounted && isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
+          className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-sm"
+        >
+          {content.header?.logoText || 'BiblioKit'}
+        </a>
         <nav className="hidden md:flex items-center space-x-6">
           {navItems.map((item, index) => {
             if ((item as DropdownNavItem).type === 'dropdown') {
@@ -148,12 +156,17 @@ const Header = () => {
             </a>
           )}
           {content.header?.showGetStarted !== false && (
-            <a
-              href={(content.header?.getStartedHref || content.header?.getStartedLink || '#').startsWith('#') ? `/${content.header?.getStartedHref || content.header?.getStartedLink || '#'}` : (content.header?.getStartedHref || content.header?.getStartedLink || '#')}
-              className="button"
+            <MagnetizeButton
+              onClick={() => {
+                const target = (content.header?.getStartedHref || content.header?.getStartedLink || '#');
+                const normalized = target.startsWith('#') ? `/${target}` : target;
+                window.location.href = normalized;
+              }}
+              aria-label={content.header?.getStartedText || 'Get Started'}
+              title={content.header?.getStartedText || 'Get Started'}
             >
               {content.header?.getStartedText || 'Get Started'}
-            </a>
+            </MagnetizeButton>
           )}
         </div>
       </div>

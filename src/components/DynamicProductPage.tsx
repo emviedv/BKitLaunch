@@ -8,6 +8,7 @@ import StatBox from './StatBox';
 import ContentChunk from './ContentChunk';
 import FAQSchema from './FAQSchema';
 import Waitlist from './Waitlist';
+import { HeroBackground } from './HeroBackground';
 
 interface ProductDetail {
   title: string;
@@ -147,8 +148,9 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
 
   return (
     <>
-      <section className="section-hero py-24 px-4">
-        <div className="container mx-auto text-center">
+      <section className="section-hero relative overflow-hidden py-24 px-4 min-h-[calc(100vh-60px)] flex items-center">
+        <HeroBackground />
+        <div className="container mx-auto text-center relative z-10">
           <div className="max-w-4xl mx-auto">
             {product?.badgeLabel && (
               <div className="inline-block mb-6 bg-primary/10 px-4 py-2 rounded-full">
@@ -197,8 +199,6 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
             </div>
           </div>
         </div>
-        <div className="absolute top-10 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-primary/10 rounded-full blur-xl"></div>
       </section>
 
       <div className="text-center py-4 text-sm text-muted-foreground bg-gray-50">

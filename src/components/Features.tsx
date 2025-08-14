@@ -8,8 +8,8 @@ const Features = () => {
   const featuresList = Array.isArray(content.features)
     ? content.features
     : (content.features?.items || []);
-  const sectionTitle = featuresSection?.title || content.featuresSection?.title || 'Everything you need to build and scale';
-  const sectionDescription = featuresSection?.description || content.featuresSection?.description || 'From secure API management to comprehensive support systems, we provide all the tools you need for professional SaaS development.';
+  const sectionTitle = featuresSection?.title || content.featuresSection?.title || '';
+  const sectionDescription = featuresSection?.description || content.featuresSection?.description || '';
   const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
 
   // Helper function to determine if a link is external
@@ -115,13 +115,22 @@ const Features = () => {
     return null;
   }
 
+  // Hide entire section when there are no items and no heading content
+  const hasHeading = Boolean(sectionTitle || sectionDescription);
+  const hasItems = Array.isArray(featuresList) && featuresList.length > 0;
+  if (!hasHeading && !hasItems) {
+    return null;
+  }
+
   return (
     <section id="features" className="py-20 px-4 section-background scroll-mt-28">
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {sectionTitle}
-          </h2>
+          {sectionTitle && (
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {sectionTitle}
+            </h2>
+          )}
           {sectionDescription && (
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               {sectionDescription}

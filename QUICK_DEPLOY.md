@@ -57,17 +57,19 @@ ADMIN_EMAIL=your-admin@email.com
 ADMIN_PASSWORD=your-secure-password
 
 # Optional: Database (for advanced features)
-DATABASE_URL=postgresql://neondb_owner:npg_bS1zCfx7VYUy@ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
 
-VITE_DATABASE_URL=postgresql://neondb_owner:npg_bS1zCfx7VYUy@ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+VITE_DATABASE_URL=postgresql://<user>:<password>@<host>/<db>?sslmode=require
 
-VITE_DB_HOST=ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech
-VITE_DB_NAME=neondb
-VITE_DB_USER=neondb_owner
-VITE_DB_PASSWORD=npg_bS1zCfx7VYUy
+VITE_DB_HOST=<host>
+VITE_DB_NAME=<db>
+VITE_DB_USER=<user>
+VITE_DB_PASSWORD=<password>
 VITE_DB_PORT=5432
 VITE_DB_SSL=true
 ```
+
+Note: Do not commit real credentials. Rotate any credentials if they were ever committed previously.
 
 ## 🧪 Test After Deployment
 

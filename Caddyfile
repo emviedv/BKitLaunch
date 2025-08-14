@@ -1,0 +1,55 @@
+# BiblioKit Launch – Local Caddy reverse proxy
+#
+# Goals:
+# - Serve the app at http://localhost and https://localhost (ports 80/443)
+# - Reverse proxy frontend to Vite (targetPort) and APIs to Netlify Dev
+# - Avoid conflicts with other projects that may use 5175/5501
+#
+# Defaults:
+#   FRONTEND_PORT (Vite target): 9990
+#   DEV_PORT (Netlify Dev):      9989
+# You can override via env vars: FRONTEND_PORT, DEV_PORT
+
+(common_headers) {
+    header -Server
+}
+
+localhost, 127.0.0.1 {
+    tls internal
+    encode zstd gzip
+
+    import common_headers
+
+    @static {
+        path *.js *.mjs *.css *.map *.png *.svg *.ico *.jpg *.jpeg *.gif *.webp *.woff *.woff2 *.ttf *.eot
+    }
+    header @static Cache-Control "public, max-age=60"
+
+    @api path /api/* /.netlify/functions/*
+    reverse_proxy @api http://127.0.0.1:{$DEV_PORT-9989}
+
+    # Everything else → Vite target (frontend)
+    reverse_proxy http://127.0.0.1:{$FRONTEND_PORT-9990}
+}
+
+
+# BiblioKit custom local domain
+bibliokit.localhost {
+    tls internal
+    encode zstd gzip
+
+    import common_headers
+
+    @static {
+        path *.js *.mjs *.css *.map *.png *.svg *.ico *.jpg *.jpeg *.gif *.webp *.woff *.woff2 *.ttf *.eot
+    }
+    header @static Cache-Control "public, max-age=60"
+
+    @api path /api/* /.netlify/functions/*
+    reverse_proxy @api http://127.0.0.1:{$DEV_PORT-9989}
+
+    # Everything else → Vite target (frontend)
+    reverse_proxy http://127.0.0.1:{$FRONTEND_PORT-9990}
+}
+
+

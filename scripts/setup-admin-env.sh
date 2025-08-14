@@ -94,12 +94,16 @@ if [ "$DATABASE_URL_SET" = "false" ]; then
     echo ""
     echo "🗄️  Setting up database URL..."
     echo ""
-    echo "Using the database URL from NETLIFY_DEPLOY.md..."
-    
-    DATABASE_URL="postgresql://neondb_owner:npg_bS1zCfx7VYUy@ep-late-forest-aedui9mf-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
-    
-    $NETLIFY_CMD env:set DATABASE_URL "$DATABASE_URL"
-    echo "✅ DATABASE_URL set successfully"
+    echo "No default database URL is provided by this script."
+    echo "If you have a PostgreSQL connection string, you can set it now."
+    echo "Example format: postgresql://<user>:<password>@<host>/<db>?sslmode=require"
+    read -p "Enter DATABASE_URL (leave blank to skip): " DATABASE_URL
+    if [ -n "$DATABASE_URL" ]; then
+        $NETLIFY_CMD env:set DATABASE_URL "$DATABASE_URL"
+        echo "✅ DATABASE_URL set successfully"
+    else
+        echo "⏭️  Skipping DATABASE_URL setup. Admin will work with localStorage fallback."
+    fi
 fi
 
 echo ""

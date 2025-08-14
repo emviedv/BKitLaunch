@@ -3,6 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import App from './App';
 import { Router } from 'wouter';
 import { generateMetadata as generateSEOMetadata, generateMetaTags, generateStructuredData } from './lib/seo';
+import { createEmptyContent } from './lib/defaultContent';
 
 // Server-side data fetching function
 export async function fetchContentData(url: string): Promise<any> {
@@ -33,23 +34,8 @@ export async function fetchContentData(url: string): Promise<any> {
     console.error('SSR: Failed to fetch content data:', error);
   }
   
-  // Fallback to default content structure
-  return {
-    hero: {
-      title: "Professional SaaS Software & Figma Plugins",
-      subtitle: "Streamline your development workflow with secure API management and world-class support for designers and developers.",
-      primaryButton: "Start Free Trial",
-      secondaryButton: "View Products"
-    },
-    features: {
-      title: "Everything you need to succeed",
-      subtitle: "Comprehensive tools and services designed for modern development teams"
-    },
-    pricing: {
-      title: "Simple, transparent pricing",
-      subtitle: "Choose the plan that's right for your team"
-    }
-  };
+  // Fallback to empty content structure (no placeholder copy)
+  return createEmptyContent();
 }
 
 // Server-side render function

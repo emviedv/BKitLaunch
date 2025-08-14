@@ -45,6 +45,7 @@ export default defineConfig({
       'wouter/static-location',
       'clsx',
       'lucide-react',
+      'framer-motion',
       'tailwind-merge',
       // Ensure Deno-compatible SSR bundle by including these packages
       'use-sync-external-store',

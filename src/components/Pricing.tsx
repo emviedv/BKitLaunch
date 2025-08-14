@@ -25,11 +25,9 @@ const Pricing = () => {
     <section id="pricing" className="py-20 px-4 scroll-mt-28" role="region" aria-label="Pricing coming soon">
         <div className="container mx-auto text-center">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Pricing Coming Soon
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Pricing</h2>
             <p className="text-xl text-muted-foreground mb-8">
-              We're finalizing our plans to offer you the best value. Check back soon for our transparent pricing options.
+              Pricing information will be available soon.
             </p>
           <div className="inline-flex items-center justify-center px-6 py-3 border border-muted-foreground/20 rounded-lg bg-muted/10">
               <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -44,16 +42,16 @@ const Pricing = () => {
     );
   }
 
+  // If not coming soon but pricing data is empty, hide section
+  if (!Array.isArray(pricing) || pricing.length === 0) {
+    return null;
+  }
+
   return (
     <section id="pricing" className="py-20 px-4 scroll-mt-28">
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Simple, transparent pricing
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Choose the perfect plan for your needs. Start free and scale as you grow.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Pricing</h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">

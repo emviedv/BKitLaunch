@@ -112,6 +112,33 @@ If an integrations port error appears, stop previous sessions:
 pkill -f "netlify dev"
 ```
 
+### Local reverse proxy with Caddy (http://localhost)
+
+This project includes a Caddy configuration to serve the app at `http://localhost` and `https://localhost` on ports 80/443, while proxying to the development servers.
+
+Defaults:
+
+- Frontend target (Vite): `FRONTEND_PORT=9990`
+- Netlify dev (functions): `DEV_PORT=9989`
+
+Steps:
+
+1. Start Netlify Dev in another terminal:
+   ```bash
+   npx netlify dev --port 9989 --targetPort 9990 --command "npm run dev -- --port 9990"
+   ```
+2. Start Caddy:
+   ```bash
+   FRONTEND_PORT=9990 DEV_PORT=9989 ./scripts/run-caddy.sh
+   ```
+3. Open `http://localhost` (or `https://localhost`).
+
+Notes:
+
+- API is available under `/api/*` or `/.netlify/functions/*` and is proxied to Netlify Dev.
+- You can adjust ports by setting `FRONTEND_PORT` and `DEV_PORT` env vars before running Caddy.
+- If you have another Caddy instance running, stop it or use a different site address in `Caddyfile`.
+
 ## Support
 
 For questions about this simplified version, refer to the main BiblioKit documentation or contact support. 

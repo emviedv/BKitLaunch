@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
+import { HeroBackground } from './HeroBackground';
 
 const Hero = () => {
   const { content } = usePublishedContent();
@@ -10,9 +11,25 @@ const Hero = () => {
     return null;
   }
 
+  // Hide hero if there is no meaningful content to show
+  const hasAnyHeroContent = Boolean(
+    (hero && (
+      hero.title ||
+      hero.subtitle ||
+      hero.description ||
+      hero.primaryButton ||
+      hero.secondaryButton ||
+      hero.emoji
+    ))
+  );
+  if (!hasAnyHeroContent) {
+    return null;
+  }
+
   return (
-    <section className="section-hero py-24 px-4">
-      <div className="container mx-auto text-center">
+    <section className="section-hero relative overflow-hidden py-24 px-4 min-h-[calc(100vh-60px)] flex items-center">
+      <HeroBackground />
+      <div className="container mx-auto text-center relative z-10">
         <div className="max-w-4xl mx-auto">
           {hero.emoji && (
             <div className="mb-4">
@@ -21,16 +38,25 @@ const Hero = () => {
               </span>
             </div>
           )}
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">{hero.title}</span>
-            <br />
-            <span className="text-gray-700">{hero.subtitle}</span>
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            {hero.description}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            {hero.primaryButtonLink ? (
+          {(hero.title || hero.subtitle) && (
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              {hero.title && (
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">{hero.title}</span>
+              )}
+              {hero.title && hero.subtitle && <br />}
+              {hero.subtitle && (
+                <span className="text-gray-700">{hero.subtitle}</span>
+              )}
+            </h1>
+          )}
+          {hero.description && (
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+              {hero.description}
+            </p>
+          )}
+          {(hero.primaryButton || hero.secondaryButton) && (
+            <div className="relative z-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {hero.primaryButton && (hero.primaryButtonLink ? (
               <a 
                 href={(hero.primaryButtonLink.startsWith('#') ? `/${hero.primaryButtonLink}` : hero.primaryButtonLink)} 
                 className="button"
@@ -61,8 +87,8 @@ const Hero = () => {
               >
                 {hero.primaryButton}
               </button>
-            )}
-            {hero.secondaryButtonLink ? (
+            ))}
+            {hero.secondaryButton && (hero.secondaryButtonLink ? (
               <a 
                 href={(hero.secondaryButtonLink.startsWith('#') ? `/${hero.secondaryButtonLink}` : hero.secondaryButtonLink)} 
                 className="button-secondary"
@@ -93,13 +119,12 @@ const Hero = () => {
               >
                 {hero.secondaryButton}
               </button>
-            )}
+            ))}
           </div>
+          )}
         </div>
       </div>
-      {/* Decorative elements */}
-      <div className="absolute -z-10 top-10 left-10 w-24 h-24 bg-pink-300/30 rounded-full blur-2xl"></div>
-      <div className="absolute -z-10 bottom-10 right-10 w-40 h-40 bg-blue-300/30 rounded-full blur-2xl"></div>
+      {/* Animated background is handled by HeroBackground */}
     </section>
   );
 };

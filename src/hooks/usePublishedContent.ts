@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import productData from '@/data/products.json';
+import { createEmptyContent } from '@/lib/defaultContent';
 
 interface UsePublishedContentOptions {
   fallbackToLocalStorage?: boolean;
@@ -49,31 +50,7 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
     fallbackToStatic = isLocalDev
   } = options;
 
-  const createEmptyContent = () => ({
-    hero: {
-      title: '',
-      subtitle: '',
-      description: '',
-      primaryButton: '',
-      secondaryButton: '',
-      primaryButtonLink: '',
-      secondaryButtonLink: '',
-      emoji: ''
-    },
-    features: {
-      title: '',
-      description: '',
-      items: [] as any[]
-    },
-    pricing: [] as any[],
-    pricingSection: { isComingSoon: true },
-    settings: { visibility: {} as Record<string, boolean>, labels: {} as Record<string, boolean> },
-    cta: null,
-    products: {} as Record<string, any>,
-    header: {},
-    footer: {},
-    waitlist: {}
-  });
+  // use shared empty content
 
   // Prefer SSR content immediately to avoid any flash of static data during hydration
   const ssrInitData = (() => {

@@ -19,9 +19,14 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
-            <div className="font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 mb-4">
+            <a
+              href={isAuthenticated && isAdmin ? '/admin' : '/'}
+              aria-label={isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
+              title={isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
+              className="inline-block font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 mb-4 focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-sm"
+            >
               {header?.logoText || 'BiblioKit'}
-            </div>
+            </a>
             <p className="text-sm text-muted-foreground">
               {footer?.description || 'Professional SaaS software and Figma plugins with secure API management.'}
             </p>
