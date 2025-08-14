@@ -23,7 +23,7 @@ const Footer = () => {
               href={isAuthenticated && isAdmin ? '/admin' : '/'}
               aria-label={isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
               title={isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
-              className="inline-block font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 mb-4 focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-sm"
+              className="inline-block font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 mb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
             >
               {header?.logoText || 'BiblioKit'}
             </a>

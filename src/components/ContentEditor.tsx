@@ -8,6 +8,7 @@ import { reorderArray } from '@/lib/utils';
 import { useContentEditorState } from './ContentEditor/useContentEditorState';
 import { HeaderNavigationEditor } from './ContentEditor/HeaderNavigationEditor';
 import { FooterEditor } from './ContentEditor/FooterEditor';
+import { HeaderCtasEditor } from './ContentEditor/HeaderCtasEditor';
 import { 
   ContentSection, 
   SectionType, 
@@ -1045,92 +1046,24 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
           {activeSection === 'header' && (
             <div className="space-y-4">
               <h3 className="font-semibold text-lg">Header Section</h3>
-              <div className="flex items-center gap-2 mb-4">
-                <input
-                  type="checkbox"
-                  id="header-visible"
-                  checked={savedContent.settings?.visibility?.header ?? true}
-                  onChange={(e) => updateVisibility('header', e.target.checked)}
-                  className="rounded border-border"
-                />
-                <label htmlFor="header-visible" className="text-sm">Visible on website</label>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Logo Text</label>
-                <input
-                  type="text"
-                  value={savedContent.header?.logoText || ''}
-                  onChange={(e) => updateNestedField('header', null, 'logoText', e.target.value)}
-                  className="w-full p-2 border border-border rounded"
-                  placeholder="BiblioKit"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Sign In Text</label>
-                  <input
-                    type="text"
-                    value={savedContent.header?.signInText || ''}
-                    onChange={(e) => updateNestedField('header', null, 'signInText', e.target.value)}
-                    className="w-full p-2 border border-border rounded"
-                    placeholder="Sign In"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Get Started Text</label>
-                  <input
-                    type="text"
-                    value={savedContent.header?.getStartedText || ''}
-                    onChange={(e) => updateNestedField('header', null, 'getStartedText', e.target.value)}
-                    className="w-full p-2 border border-border rounded"
-                    placeholder="Get Started"
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Sign In Link</label>
-                  <input
-                    type="text"
-                    value={(savedContent.header as any)?.signInHref || ''}
-                    onChange={(e) => updateNestedField('header', null, 'signInHref', e.target.value)}
-                    className="w-full p-2 border border-border rounded"
-                    placeholder="/admin or /login"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Get Started Link</label>
-                  <input
-                    type="text"
-                    value={(savedContent.header as any)?.getStartedHref || ''}
-                    onChange={(e) => updateNestedField('header', null, 'getStartedHref', e.target.value)}
-                    className="w-full p-2 border border-border rounded"
-                    placeholder="/#contact or /signup"
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    id="show-sign-in-sections"
-                    checked={(savedContent.header as any)?.showSignIn ?? true}
-                    onChange={(e) => updateNestedField('header', null, 'showSignIn', e.target.checked)}
-                    className="rounded border-border"
-                  />
-                  <label htmlFor="show-sign-in-sections" className="text-sm">Show Sign In Button</label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    id="show-get-started-sections"
-                    checked={(savedContent.header as any)?.showGetStarted ?? true}
-                    onChange={(e) => updateNestedField('header', null, 'showGetStarted', e.target.checked)}
-                    className="rounded border-border"
-                  />
-                  <label htmlFor="show-get-started-sections" className="text-sm">Show Get Started Button</label>
-                </div>
-              </div>
+              <HeaderCtasEditor
+                visibility={savedContent.settings?.visibility?.header ?? true}
+                logoText={savedContent.header?.logoText || ''}
+                signInText={savedContent.header?.signInText || ''}
+                getStartedText={savedContent.header?.getStartedText || ''}
+                signInHref={(savedContent.header as any)?.signInHref || ''}
+                getStartedHref={(savedContent.header as any)?.getStartedHref || ''}
+                showSignIn={(savedContent.header as any)?.showSignIn ?? true}
+                showGetStarted={(savedContent.header as any)?.showGetStarted ?? true}
+                onChangeVisibility={(isVisible) => updateVisibility('header', isVisible)}
+                onChangeLogoText={(value) => updateNestedField('header', null, 'logoText', value)}
+                onChangeSignInText={(value) => updateNestedField('header', null, 'signInText', value)}
+                onChangeGetStartedText={(value) => updateNestedField('header', null, 'getStartedText', value)}
+                onChangeSignInHref={(value) => updateNestedField('header', null, 'signInHref', value)}
+                onChangeGetStartedHref={(value) => updateNestedField('header', null, 'getStartedHref', value)}
+                onChangeShowSignIn={(checked) => updateNestedField('header', null, 'showSignIn', checked)}
+                onChangeShowGetStarted={(checked) => updateNestedField('header', null, 'showGetStarted', checked)}
+              />
               <HeaderNavigationEditor
                 items={(((savedContent as any)?.header?.navigation as any[]) || [])}
                 onChange={(next) => updateSection('header.navigation', next)}

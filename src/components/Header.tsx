@@ -65,7 +65,7 @@ const Header = () => {
           href={hasMounted && isAuthenticated && isAdmin ? '/admin' : '/'}
           aria-label={hasMounted && isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
           title={hasMounted && isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
-          className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-sm"
+          className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
         >
           {content.header?.logoText || 'BiblioKit'}
         </a>

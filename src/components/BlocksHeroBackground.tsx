@@ -56,7 +56,16 @@ const floatingIcons: FloatingIconDef[] = [
   { Icon: Music, x: 500, y: 550 }
 ];
 
-const renderComponent = (component: UIComponentOutline) => {
+// Use the same color family as the primary Hero animation
+const heroPalette: string[] = ['#98fb98', '#dda0dd', '#87ceeb']; // soft green, purple, blue
+const cycleFrom = (start: number): string[] => [
+  heroPalette[start % heroPalette.length],
+  heroPalette[(start + 1) % heroPalette.length],
+  heroPalette[(start + 2) % heroPalette.length],
+];
+const translucent = (hex: string, alphaHex: string = '66') => (hex.length === 7 ? `${hex}${alphaHex}` : hex);
+
+const renderComponent = (component: UIComponentOutline, colorIndex: number = 0) => {
   const baseClasses = 'absolute border-2 border-white/60 bg-transparent';
 
   const slowTransition = {
@@ -77,13 +86,13 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.95, 1.02, 0.95],
-            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
+            borderColor: cycleFrom(colorIndex)
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 border border-white/60 rounded-full" />
-          <div className="absolute left-10 top-1/2 transform -translate-y-1/2 w-20 h-2 bg-white/40 rounded" />
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 border rounded-full" style={{ borderColor: translucent(heroPalette[colorIndex]) }} />
+          <div className="absolute left-10 top-1/2 transform -translate-y-1/2 w-20 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
         </motion.div>
       );
 
@@ -97,12 +106,12 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.95, 1.06, 0.95],
-            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
+            borderColor: cycleFrom(colorIndex)
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
-          <div className="absolute inset-2 border border-white/60 rounded-full" />
+          <div className="absolute inset-2 border rounded-full" style={{ borderColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
         </motion.div>
       );
 
@@ -116,15 +125,15 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.96, 1.02, 0.96],
-            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
+            borderColor: cycleFrom(colorIndex)
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
           <div className="p-4 space-y-2">
-            <div className="w-3/4 h-3 bg-white/40 rounded" />
-            <div className="w-1/2 h-2 bg-white/30 rounded" />
-            <div className="w-full h-2 bg-white/30 rounded" />
+            <div className="w-3/4 h-3 rounded" style={{ backgroundColor: translucent(heroPalette[colorIndex]) }} />
+            <div className="w-1/2 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
+            <div className="w-full h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 2) % heroPalette.length]) }} />
           </div>
         </motion.div>
       );
@@ -139,13 +148,13 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.98, 1.03, 0.98],
-            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
+            borderColor: cycleFrom(colorIndex)
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
           <div className="flex items-center justify-center h-full">
-            <div className="w-12 h-2 bg-white/40 rounded" />
+            <div className="w-12 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
           </div>
         </motion.div>
       );
@@ -160,15 +169,15 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.96, 1.02, 0.96],
-            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
+            borderColor: cycleFrom(colorIndex)
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
           <div className="p-4 space-y-3">
-            <div className="w-full h-6 border border-white/50 rounded" />
-            <div className="w-full h-6 border border-white/50 rounded" />
-            <div className="w-20 h-6 border border-white/50 rounded" />
+            <div className="w-full h-6 border rounded" style={{ borderColor: translucent(heroPalette[colorIndex]) }} />
+            <div className="w-full h-6 border rounded" style={{ borderColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
+            <div className="w-20 h-6 border rounded" style={{ borderColor: translucent(heroPalette[(colorIndex + 2) % heroPalette.length]) }} />
           </div>
         </motion.div>
       );
@@ -183,21 +192,21 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.96, 1.02, 0.96],
-            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
+            borderColor: cycleFrom(colorIndex)
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
           <div className="p-2 space-y-2">
             <div className="flex space-x-2">
-              <div className="w-1/3 h-2 bg-white/35 rounded" />
-              <div className="w-1/3 h-2 bg-white/35 rounded" />
-              <div className="w-1/3 h-2 bg-white/35 rounded" />
+              <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[colorIndex]) }} />
+              <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
+              <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 2) % heroPalette.length]) }} />
             </div>
             <div className="flex space-x-2">
-              <div className="w-1/3 h-2 bg-white/35 rounded" />
-              <div className="w-1/3 h-2 bg-white/35 rounded" />
-              <div className="w-1/3 h-2 bg-white/35 rounded" />
+              <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
+              <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 2) % heroPalette.length]) }} />
+              <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[colorIndex]) }} />
             </div>
           </div>
         </motion.div>
@@ -213,13 +222,13 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.95, 1.08, 0.95],
-            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99'],
+            borderColor: cycleFrom(colorIndex),
             rotate: [0, 120, 240, 360]
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
-          <div className="w-full h-full border border-white/50 rounded" />
+          <div className="w-full h-full border rounded" style={{ borderColor: translucent(heroPalette[(colorIndex + 2) % heroPalette.length]) }} />
         </motion.div>
       );
 
@@ -268,6 +277,11 @@ export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ clas
 
   return (
     <div ref={containerRef} className={`absolute inset-0 pointer-events-none ${className || ''}`} aria-hidden="true">
+      {/* Soft green → purple → blue background gradient */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/40 via-purple-100/35 to-sky-100/40" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-emerald-50/30 via-purple-50/25 to-sky-50/30" />
+      </div>
       <div
         className="absolute"
         style={{
@@ -281,15 +295,15 @@ export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ clas
         }}
       >
         <div className="absolute inset-0">
-          {components.map(renderComponent)}
+          {components.map((component, index) => renderComponent(component, index))}
         </div>
 
         <div className="absolute inset-0">
           {floatingIcons.map(({ Icon, x, y }, index) => (
             <motion.div
               key={`floating-${index}`}
-              className="absolute text-white/60"
-              style={{ left: x, top: y }}
+              className="absolute"
+              style={{ left: x, top: y, color: translucent(heroPalette[index % heroPalette.length], '99') }}
               initial={{ opacity: 0, scale: 0 }}
               animate={{
                 opacity: [0, 0.35, 0.2, 0.35],
