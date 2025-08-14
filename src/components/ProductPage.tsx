@@ -171,21 +171,16 @@ const BiblioKitBlocksPage = () => {
     <>
       {/* Hero Section - matches home page styling */}
       <section className="section-hero relative overflow-hidden py-24 px-4 min-h-[calc(100vh-60px)] flex items-center">
-        <BlocksHeroBackground />
+        <BlocksHeroBackground emoji={product?.emoji} />
         <div className="container mx-auto text-center relative z-10">
           <div className="max-w-4xl mx-auto">
             {product?.badgeLabel && (
-              <div className="inline-block mb-6 bg-primary/10 px-4 py-2 rounded-full">
-                <span className="text-primary font-medium">{product.badgeLabel}</span>
+              <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-primary/20 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/50">
+                <span className="inline-flex h-2 w-2 rounded-full bg-primary" />
+                <span className="text-sm font-medium text-gray-800">{product.badgeLabel}</span>
               </div>
             )}
-            {product.emoji && (
-              <div className="mb-4">
-                <span role="img" aria-label="product emoji" className="text-5xl md:text-6xl">
-                  {product.emoji}
-                </span>
-              </div>
-            )}
+            {/* Emoji moved into BlocksHeroBackground canvas for consistent layout scaling */}
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="text-gray-900">{product.title}</span>
         </h1>

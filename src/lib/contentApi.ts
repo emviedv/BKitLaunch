@@ -6,6 +6,7 @@ import type {
   ContactInfo 
 } from './database';
 import { debugService } from './debugService';
+import { apiRequest, getApiUrl } from './http';
 
 interface ContentVersion {
   id: number;
@@ -37,59 +38,18 @@ class ContentAPI {
     };
   }
 
-  private getApiUrl(endpoint: string): string {
-    // Always use relative paths - works in both dev and production
-    // Netlify dev proxy handles localhost routing automatically
-    // Production deployment serves from same origin
-    return `/.netlify/functions/${endpoint}`;
-  }
+  private getApiUrl(endpoint: string): string { return getApiUrl(endpoint); }
 
   // Get current published content
   async getCurrentContent(): Promise<ApiResponse<ContentVersion>> {
-    try {
-      const response = await fetch(
-        `${this.getApiUrl('content-management')}?action=current`,
-        {
-          method: 'GET',
-          headers: this.getHeaders(),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to get current content'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<ContentVersion>(`content-management?action=current`, 'GET', undefined, token);
   }
 
   // Get all content versions
   async getContentVersions(): Promise<ApiResponse<ContentVersion[]>> {
-    try {
-      const response = await fetch(
-        `${this.getApiUrl('content-management')}?action=versions`,
-        {
-          method: 'GET',
-          headers: this.getHeaders(),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to get content versions'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<ContentVersion[]>(`content-management?action=versions`, 'GET', undefined, token);
   }
 
   // Save new content (draft or published)
@@ -103,35 +63,14 @@ class ContentAPI {
       isPublished 
     });
     
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify(payload),
-      });
-
-      const responseData = await response.json();
-      debugService.apiResponse('POST', url, responseData);
-
-      if (!response.ok) {
-        debugService.apiError('POST', url, `HTTP ${response.status}: ${response.statusText}`);
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      if (responseData.success) {
-        debugService.saveSuccess('Content save API completed', responseData.data);
-      } else {
-        debugService.saveError('Content save API failed', responseData.error);
-      }
-
-      return responseData;
-    } catch (error) {
-      debugService.saveError('Content save API exception', error);
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to save content'
-      };
+    const token = this.getAuthToken() || undefined;
+    const res = await apiRequest<ContentVersion>('content-management', 'POST', payload, token);
+    if (res.success) {
+      debugService.saveSuccess('Content save API completed', res.data);
+    } else {
+      debugService.saveError('Content save API failed', res.error);
     }
+    return res;
   }
 
   // Publish existing content version

@@ -63,7 +63,10 @@ const cycleFrom = (start: number): string[] => [
   heroPalette[(start + 1) % heroPalette.length],
   heroPalette[(start + 2) % heroPalette.length],
 ];
-const translucent = (hex: string, alphaHex: string = '66') => (hex.length === 7 ? `${hex}${alphaHex}` : hex);
+const translucent = (hex: string | undefined, alphaHex: string = '66') => {
+  if (!hex) return `#ffffff${alphaHex}`;
+  return hex.length === 7 ? `${hex}${alphaHex}` : hex;
+};
 
 const renderComponent = (component: UIComponentOutline, colorIndex: number = 0) => {
   const baseClasses = 'absolute border-2 border-white/60 bg-transparent';
@@ -91,7 +94,7 @@ const renderComponent = (component: UIComponentOutline, colorIndex: number = 0) 
           transition={slowTransition}
           aria-hidden="true"
         >
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 border rounded-full" style={{ borderColor: translucent(heroPalette[colorIndex]) }} />
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 border rounded-full" style={{ borderColor: translucent(heroPalette[colorIndex % heroPalette.length]) }} />
           <div className="absolute left-10 top-1/2 transform -translate-y-1/2 w-20 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
         </motion.div>
       );
@@ -131,7 +134,7 @@ const renderComponent = (component: UIComponentOutline, colorIndex: number = 0) 
           aria-hidden="true"
         >
           <div className="p-4 space-y-2">
-            <div className="w-3/4 h-3 rounded" style={{ backgroundColor: translucent(heroPalette[colorIndex]) }} />
+            <div className="w-3/4 h-3 rounded" style={{ backgroundColor: translucent(heroPalette[colorIndex % heroPalette.length]) }} />
             <div className="w-1/2 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
             <div className="w-full h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 2) % heroPalette.length]) }} />
           </div>
@@ -175,7 +178,7 @@ const renderComponent = (component: UIComponentOutline, colorIndex: number = 0) 
           aria-hidden="true"
         >
           <div className="p-4 space-y-3">
-            <div className="w-full h-6 border rounded" style={{ borderColor: translucent(heroPalette[colorIndex]) }} />
+            <div className="w-full h-6 border rounded" style={{ borderColor: translucent(heroPalette[colorIndex % heroPalette.length]) }} />
             <div className="w-full h-6 border rounded" style={{ borderColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
             <div className="w-20 h-6 border rounded" style={{ borderColor: translucent(heroPalette[(colorIndex + 2) % heroPalette.length]) }} />
           </div>
@@ -199,14 +202,14 @@ const renderComponent = (component: UIComponentOutline, colorIndex: number = 0) 
         >
           <div className="p-2 space-y-2">
             <div className="flex space-x-2">
-              <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[colorIndex]) }} />
+              <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[colorIndex % heroPalette.length]) }} />
               <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
               <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 2) % heroPalette.length]) }} />
             </div>
             <div className="flex space-x-2">
               <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 1) % heroPalette.length]) }} />
               <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[(colorIndex + 2) % heroPalette.length]) }} />
-              <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[colorIndex]) }} />
+              <div className="w-1/3 h-2 rounded" style={{ backgroundColor: translucent(heroPalette[colorIndex % heroPalette.length]) }} />
             </div>
           </div>
         </motion.div>
@@ -239,9 +242,12 @@ const renderComponent = (component: UIComponentOutline, colorIndex: number = 0) 
 
 export interface BlocksHeroBackgroundProps {
   className?: string;
+  emoji?: string;
+  emojiX?: number;
+  emojiY?: number;
 }
 
-export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ className }) => {
+export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ className, emoji, emojiX, emojiY }) => {
   // Centered, responsive canvas for consistent layout
   const designWidth = 1000;
   const designHeight = 700;
@@ -294,6 +300,24 @@ export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ clas
           willChange: 'transform',
         }}
       >
+        {/* Optional emoji rendered within the scaled canvas to avoid layout shifts */}
+        {emoji && (
+          <motion.div
+            className="absolute select-none"
+            style={{
+              left: `${typeof emojiX === 'number' ? emojiX : designWidth / 2}px`,
+              top: `${typeof emojiY === 'number' ? emojiY : 110}px`,
+              transform: 'translate(-50%, -50%)',
+            }}
+            initial={{ opacity: 0, y: -8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            aria-hidden="true"
+          >
+            <span style={{ fontSize: 56, lineHeight: '56px' }}>{emoji}</span>
+          </motion.div>
+        )}
+
         <div className="absolute inset-0">
           {components.map((component, index) => renderComponent(component, index))}
         </div>
