@@ -1,4 +1,7 @@
 import React from 'react';
+import { Button } from '@/components/ui/button';
+import { MagnetizeButton } from '@/components/ui/magnetize-button';
+import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
 
 const Swatch: React.FC<{ name: string; className: string; textClass?: string }> = ({ name, className, textClass }) => (
   <div className="flex items-center gap-3">
@@ -56,6 +59,13 @@ const DesignSystem: React.FC = () => {
             <h3 className="font-semibold">gradient-brand-soft</h3>
             <p className="text-sm text-muted-foreground">from-pink-50 → via-blue-50 → to-green-50</p>
           </div>
+          <div className="card relative overflow-hidden h-32 flex items-center justify-center">
+            <AnimatedGradientBackground Breathing startingGap={125} containerClassName="opacity-90" />
+            <div className="relative z-10 text-center">
+              <h3 className="font-semibold">Animated Gradient</h3>
+              <p className="text-sm text-muted-foreground">Configurable radial breathing</p>
+            </div>
+          </div>
           <div className="card gradient-ocean-soft-radial">
             <h3 className="font-semibold">gradient-ocean-soft-radial</h3>
             <p className="text-sm text-muted-foreground">blue/cyan/teal soft with radial accents</p>
@@ -76,6 +86,127 @@ const DesignSystem: React.FC = () => {
             <h3 className="font-semibold">gradient-sand-soft-radial</h3>
             <p className="text-sm text-muted-foreground">amber/warm sand soft with radial accents</p>
           </div>
+          <div className="card gradient-ice-soft-radial">
+            <h3 className="font-semibold">gradient-ice-soft-radial</h3>
+            <p className="text-sm text-muted-foreground">icy blue/indigo soft with radial accents</p>
+          </div>
+          <div className="card gradient-rosewater-soft-radial">
+            <h3 className="font-semibold">gradient-rosewater-soft-radial</h3>
+            <p className="text-sm text-muted-foreground">rose/pink/violet soft with radial accents</p>
+          </div>
+          <div className="card gradient-aurora-soft-radial">
+            <h3 className="font-semibold">gradient-aurora-soft-radial</h3>
+            <p className="text-sm text-muted-foreground">green/cyan/violet aurora-inspired soft blend</p>
+          </div>
+          <div className="card gradient-meadow-soft-radial">
+            <h3 className="font-semibold">gradient-meadow-soft-radial</h3>
+            <p className="text-sm text-muted-foreground">lime/green/mint meadow soft blend</p>
+          </div>
+          <div className="card gradient-moonlight-soft-radial">
+            <h3 className="font-semibold">gradient-moonlight-soft-radial</h3>
+            <p className="text-sm text-muted-foreground">slate/indigo/violet moonlight soft blend</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Border Radius */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4">Border Radius</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="card">
+            <h3 className="font-medium mb-3">rounded-sm</h3>
+            <div className="h-16 w-full bg-muted rounded-sm border" />
+          </div>
+          <div className="card">
+            <h3 className="font-medium mb-3">rounded-md</h3>
+            <div className="h-16 w-full bg-muted rounded-md border" />
+          </div>
+          <div className="card">
+            <h3 className="font-medium mb-3">rounded-lg</h3>
+            <div className="h-16 w-full bg-muted rounded-lg border" />
+          </div>
+          <div className="card">
+            <h3 className="font-medium mb-3">rounded-xl</h3>
+            <div className="h-16 w-full bg-muted rounded-xl border" />
+          </div>
+          <div className="card">
+            <h3 className="font-medium mb-3">rounded-2xl</h3>
+            <div className="h-16 w-full bg-muted rounded-2xl border" />
+          </div>
+          <div className="card">
+            <h3 className="font-medium mb-3">rounded-full</h3>
+            <div className="h-16 w-16 bg-muted rounded-full border" />
+          </div>
+        </div>
+        <p className="text-xs text-muted-foreground mt-3">Note: `rounded-*` values are aligned to the theme radius token `--radius`.</p>
+      </section>
+
+      {/* Shadows */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4">Shadows</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="card shadow-sm">
+            <h3 className="font-medium">shadow-sm</h3>
+            <p className="text-sm text-muted-foreground">Subtle elevation</p>
+          </div>
+          <div className="card shadow">
+            <h3 className="font-medium">shadow</h3>
+            <p className="text-sm text-muted-foreground">Default elevation</p>
+          </div>
+          <div className="card shadow-md">
+            <h3 className="font-medium">shadow-md</h3>
+            <p className="text-sm text-muted-foreground">Medium elevation</p>
+          </div>
+          <div className="card shadow-lg">
+            <h3 className="font-medium">shadow-lg</h3>
+            <p className="text-sm text-muted-foreground">Large elevation</p>
+          </div>
+          <div className="card shadow-xl">
+            <h3 className="font-medium">shadow-xl</h3>
+            <p className="text-sm text-muted-foreground">Extra large elevation</p>
+          </div>
+          <div className="card shadow-2xl">
+            <h3 className="font-medium">shadow-2xl</h3>
+            <p className="text-sm text-muted-foreground">Max elevation</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Spacing Scale */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4">Spacing Scale</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="card">
+            <h3 className="font-medium mb-3">Padding Examples</h3>
+            <div className="space-y-2 text-sm">
+              <div className="bg-muted rounded border p-1"><span className="inline-block bg-background px-2 py-1 rounded border">p-1</span></div>
+              <div className="bg-muted rounded border p-2"><span className="inline-block bg-background px-2 py-1 rounded border">p-2</span></div>
+              <div className="bg-muted rounded border p-4"><span className="inline-block bg-background px-2 py-1 rounded border">p-4</span></div>
+              <div className="bg-muted rounded border p-6"><span className="inline-block bg-background px-2 py-1 rounded border">p-6</span></div>
+              <div className="bg-muted rounded border p-8"><span className="inline-block bg-background px-2 py-1 rounded border">p-8</span></div>
+            </div>
+          </div>
+          <div className="card">
+            <h3 className="font-medium mb-3">Gap/Space Examples</h3>
+            <div className="space-y-3 text-sm">
+              <div>
+                <div className="flex items-center gap-1"><span className="badge">gap-1</span></div>
+                <div className="flex gap-1"><div className="h-3 w-8 bg-muted rounded" /><div className="h-3 w-8 bg-muted rounded" /><div className="h-3 w-8 bg-muted rounded" /></div>
+              </div>
+              <div>
+                <div className="flex items-center gap-2"><span className="badge">gap-2</span></div>
+                <div className="flex gap-2"><div className="h-3 w-8 bg-muted rounded" /><div className="h-3 w-8 bg-muted rounded" /><div className="h-3 w-8 bg-muted rounded" /></div>
+              </div>
+              <div>
+                <div className="flex items-center gap-4"><span className="badge">gap-4</span></div>
+                <div className="flex gap-4"><div className="h-3 w-8 bg-muted rounded" /><div className="h-3 w-8 bg-muted rounded" /><div className="h-3 w-8 bg-muted rounded" /></div>
+              </div>
+              <div>
+                <div className="flex items-center gap-6"><span className="badge">gap-6</span></div>
+                <div className="flex gap-6"><div className="h-3 w-8 bg-muted rounded" /><div className="h-3 w-8 bg-muted rounded" /><div className="h-3 w-8 bg-muted rounded" /></div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -83,10 +214,15 @@ const DesignSystem: React.FC = () => {
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4">Buttons</h2>
         <div className="flex flex-wrap gap-3">
-          <button className="button">Primary</button>
-          <button className="button-outline">Outline</button>
-          <button className="button-ghost">Ghost</button>
-          <button className="button-secondary">Secondary</button>
+          <Button>Primary</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="ghost">Ghost</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="destructive">Destructive</Button>
+          <Button variant="link">Link</Button>
+        </div>
+        <div className="mt-4">
+          <MagnetizeButton aria-label="Magnetize button demo">Magnetize</MagnetizeButton>
         </div>
       </section>
 

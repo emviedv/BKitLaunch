@@ -9,6 +9,8 @@ import ContentChunk from './ContentChunk';
 import FAQSchema from './FAQSchema';
 import Waitlist from './Waitlist';
 import { HeroBackground } from './HeroBackground';
+import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
+import { Button } from '@/components/ui/button';
 
 interface ProductDetail {
   title: string;
@@ -150,6 +152,14 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
     <>
       <section className="section-hero relative overflow-hidden py-24 px-4 min-h-[calc(100vh-60px)] flex items-center">
         <HeroBackground />
+        <AnimatedGradientBackground
+          Breathing
+          startingGap={118}
+          topOffset={-20}
+          gradientColors={((product as any)?.gradientColors && Array.isArray((product as any).gradientColors) && (product as any).gradientColors.length > 0) ? (product as any).gradientColors : ["#ecfeff00","#ecfeff10","#c7d2fe40","#a7f3d040","#a5b4fc50","#93c5fd40","#ffffff00"]}
+          gradientStops={[18, 44, 58, 70, 82, 90, 100]}
+          containerClassName="pointer-events-none"
+        />
         <div className="container mx-auto text-center relative z-10">
           <div className="max-w-4xl mx-auto">
             {product?.badgeLabel && (
@@ -173,28 +183,31 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
             <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">{product.description}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {product.primaryButtonLink ? (
-                <a
-                  href={product.primaryButtonLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="button text-lg px-8 py-3"
-                >
-                  {product.primaryButton || 'Get Started'}
-                </a>
+                <Button asChild size="lg" className="w-full sm:w-auto min-w-[12rem]">
+                  <a
+                    href={product.primaryButtonLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {product.primaryButton || 'Get Started'}
+                  </a>
+                </Button>
               ) : (
-                <button className="button text-lg px-8 py-3">{product.primaryButton || 'Get Started'}</button>
+                <Button size="lg" className="w-full sm:w-auto min-w-[12rem]">{product.primaryButton || 'Get Started'}</Button>
               )}
               {product.secondaryButtonLink ? (
-                <a
-                  href={product.secondaryButtonLink}
-                  className="button-secondary text-lg px-8 py-3 inline-block text-center"
-                  target={product.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
-                  rel={product.secondaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
-                >
-                  {product.secondaryButton || 'Learn More'}
-                </a>
+                <Button asChild size="lg" variant="outline" className="w-full sm:w-auto min-w-[12rem]">
+                  <a
+                    href={product.secondaryButtonLink}
+                    className="inline-block text-center"
+                    target={product.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
+                    rel={product.secondaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  >
+                    {product.secondaryButton || 'Learn More'}
+                  </a>
+                </Button>
               ) : (
-                <button className="button-secondary text-lg px-8 py-3">{product.secondaryButton || 'Learn More'}</button>
+                <Button size="lg" variant="outline" className="w-full sm:w-auto min-w-[12rem]">{product.secondaryButton || 'Learn More'}</Button>
               )}
             </div>
           </div>

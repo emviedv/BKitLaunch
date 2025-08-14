@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 import { motion, useAnimation } from "framer-motion";
 import { Star } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
-import { Button } from "@/components/ui/button";
+import { Button, type ButtonProps } from "@/components/ui/button";
 
-interface MagnetizeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface MagnetizeButtonProps extends ButtonProps {
   particleCount?: number;
   attractRadius?: number;
   href?: string;

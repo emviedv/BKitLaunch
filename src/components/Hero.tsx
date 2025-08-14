@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { HeroBackground } from './HeroBackground';
 import { Button } from '@/components/ui/button';
-import { Zap } from 'lucide-react';
 import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
 
 const Hero = () => {
@@ -32,7 +31,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="section-hero relative overflow-hidden py-24 px-4 min-h-[calc(100vh-60px)] flex items-center">
+    <section id="hero" className="section-hero relative overflow-hidden py-24 px-4 min-h-[calc(100vh-60px)] flex items-center">
       <HeroBackground />
       {/* Bottom breathing gradient accent */}
       <AnimatedGradientBackground
@@ -76,7 +75,7 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.6 }}
-                    className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-500 to-green-500"
+                    className="block pb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-500 to-green-500"
                   >
                     {hero.title}
                   </motion.span>
@@ -117,7 +116,7 @@ const Hero = () => {
                 <Button
                   asChild
                   size="lg"
-                  className="gap-2 bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600"
+                  className="w-full sm:w-auto min-w-[12rem]"
                   aria-label={`${hero.primaryButton} - Primary action`}
                 >
                   <a
@@ -125,14 +124,13 @@ const Hero = () => {
                     target={hero.primaryButtonLink.startsWith('http') ? '_blank' : '_self'}
                     rel={hero.primaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
                   >
-                    <Zap className="w-4 h-4" />
                     {hero.primaryButton}
                   </a>
                 </Button>
               ) : (
                 <Button
                   size="lg"
-                  className="gap-2 bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600"
+                  className="w-full sm:w-auto min-w-[12rem]"
                   onClick={() => {
                     const featuresSection = document.getElementById('features');
                     if (featuresSection) {
@@ -147,13 +145,12 @@ const Hero = () => {
                   }}
                   aria-label={`${hero.primaryButton} - Primary action`}
                 >
-                  <Zap className="w-4 h-4" />
                   {hero.primaryButton}
                 </Button>
               ))}
 
               {hero.secondaryButton && (hero.secondaryButtonLink ? (
-                <Button asChild size="lg" variant="outline" className="gap-2" aria-label={`${hero.secondaryButton} - Secondary action`}>
+                <Button asChild size="lg" variant="outline" className="w-full sm:w-auto min-w-[12rem]" aria-label={`${hero.secondaryButton} - Secondary action`}>
                   <a
                     href={(hero.secondaryButtonLink.startsWith('#') ? `/${hero.secondaryButtonLink}` : hero.secondaryButtonLink)}
                     target={hero.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
@@ -166,7 +163,7 @@ const Hero = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="gap-2"
+                  className="w-full sm:w-auto min-w-[12rem]"
                   onClick={() => {
                     const pricingSection = document.getElementById('pricing');
                     if (pricingSection) {

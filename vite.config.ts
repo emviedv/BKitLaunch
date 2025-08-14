@@ -16,9 +16,18 @@ export default defineConfig({
     },
   ],
   resolve: {
+    dedupe: ["react", "react-dom"],
     alias: {
       "@": resolve(__dirname, "./src"),
+      // Hard-dedupe React to avoid multiple copies causing invalid hook calls (#321)
+      react: resolve(__dirname, "./node_modules/react"),
+      "react-dom": resolve(__dirname, "./node_modules/react-dom"),
+      "react/jsx-runtime": resolve(__dirname, "./node_modules/react/jsx-runtime"),
+      "react/jsx-dev-runtime": resolve(__dirname, "./node_modules/react/jsx-dev-runtime"),
     },
+  },
+  optimizeDeps: {
+    include: ["react", "react-dom"],
   },
   server: {
     host: '0.0.0.0',

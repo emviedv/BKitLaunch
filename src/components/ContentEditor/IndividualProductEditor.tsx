@@ -113,6 +113,17 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
           onChange={(value) => updateProductField('badgeLabel', value)}
           placeholder="SaaS Analytics Platform"
         />
+        <div className="space-y-2">
+          <label className="block text-sm font-medium">Hero Gradient Colors (comma-separated hex)</label>
+          <input
+            type="text"
+            value={((productData as any).gradientColors || []).join(', ')}
+            onChange={(e) => updateProductField('gradientColors', e.target.value.split(',').map(v => v.trim()).filter(Boolean))}
+            className="w-full p-2 border border-border rounded"
+            placeholder="#ecfeff00, #ecfeff10, #c7d2fe40, #a7f3d040, #a5b4fc50, #93c5fd40, #ffffff00"
+          />
+          <p className="text-xs text-muted-foreground">Provide 5–8 RGBA/hex values with alpha for best effect.</p>
+        </div>
         <TextInput
           label="Title"
           value={productData.title || ''}

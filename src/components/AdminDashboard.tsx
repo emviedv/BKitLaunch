@@ -67,18 +67,8 @@ const AdminFallback: React.FC = () => (
 );
 
 const AdminDashboard: React.FC = () => {
-  // Robust error handling for hook initialization
-  let authHookData;
-  try {
-    authHookData = useAuth();
-  } catch (error) {
-    console.error('Auth hook error:', error);
-    // If auth context fails, show fallback immediately
-    return <AdminFallback />;
-  }
-
   // ALL HOOKS MUST BE AT THE TOP - BEFORE ANY CONDITIONAL LOGIC
-  const { isAuthenticated, isAdmin, email, logout, loading: authLoading } = authHookData;
+  const { isAuthenticated, isAdmin, email, logout, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState<'content' | 'versions' | 'settings' | 'analytics' | 'waitlist' | 'designsystem'>('content');
   const [waitlist, setWaitlist] = useState<Array<{ id: number; email: string; name?: string; source?: string; created_at: string }>>([]);
   const [waitlistLoading, setWaitlistLoading] = useState(false);
@@ -87,6 +77,16 @@ const AdminDashboard: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [showContentEditor, setShowContentEditor] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // Tabs configuration (used by effects and UI)
+  const tabs = [
+    { id: 'content', label: 'Content Editor', icon: '✏️' },
+    { id: 'versions', label: 'Version History', icon: '🕒' },
+    { id: 'waitlist', label: 'Waitlist', icon: '📧' },
+    { id: 'settings', label: 'Site Settings', icon: '⚙️' },
+    { id: 'analytics', label: 'Analytics', icon: '📊' },
+    { id: 'designsystem', label: 'Design System', icon: '🎨' }
+  ] as const;
 
   // Debug logging - Enhanced
   console.log('AdminDashboard render:', { isAuthenticated, isAdmin, email, authLoading });
@@ -145,6 +145,29 @@ const AdminDashboard: React.FC = () => {
     loadContentVersions();
     loadCurrent();
   }, []); // Empty dependency array - runs only once on mount
+
+  // Sync tab selection with URL hash for deep-linking (e.g., /admin#designsystem)
+  useEffect(() => {
+    const applyHash = () => {
+      const hash = (window.location.hash || '').replace('#', '');
+      if (!hash) return;
+      const validIds = tabs.map(t => t.id);
+      if ((validIds as ReadonlyArray<string>).includes(hash)) {
+        setActiveTab(hash as typeof tabs[number]['id']);
+      }
+    };
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+    return () => window.removeEventListener('hashchange', applyHash);
+  }, []);
+
+  // Keep hash updated when the active tab changes
+  useEffect(() => {
+    const nextHash = `#${activeTab}`;
+    if (window.location.hash !== nextHash) {
+      window.location.hash = nextHash;
+    }
+  }, [activeTab]);
 
   // NOW DO CONDITIONAL RENDERING AFTER ALL HOOKS
   // Show loading state while authentication is being checked
@@ -275,38 +298,6 @@ const AdminDashboard: React.FC = () => {
       reader.readAsText(file);
     }
   };
-
-  const tabs = [
-    { id: 'content', label: 'Content Editor', icon: '✏️' },
-    { id: 'versions', label: 'Version History', icon: '🕒' },
-    { id: 'waitlist', label: 'Waitlist', icon: '📧' },
-    { id: 'settings', label: 'Site Settings', icon: '⚙️' },
-    { id: 'analytics', label: 'Analytics', icon: '📊' },
-    { id: 'designsystem', label: 'Design System', icon: '🎨' }
-  ] as const;
-
-  // Sync tab selection with URL hash for deep-linking (e.g., /admin#designsystem)
-  useEffect(() => {
-    const applyHash = () => {
-      const hash = (window.location.hash || '').replace('#', '');
-      if (!hash) return;
-      const validIds = tabs.map(t => t.id);
-      if ((validIds as ReadonlyArray<string>).includes(hash)) {
-        setActiveTab(hash as typeof tabs[number]['id']);
-      }
-    };
-    applyHash();
-    window.addEventListener('hashchange', applyHash);
-    return () => window.removeEventListener('hashchange', applyHash);
-  }, []);
-
-  // Keep hash updated when the active tab changes
-  useEffect(() => {
-    const nextHash = `#${activeTab}`;
-    if (window.location.hash !== nextHash) {
-      window.location.hash = nextHash;
-    }
-  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-muted/20 pt-16">

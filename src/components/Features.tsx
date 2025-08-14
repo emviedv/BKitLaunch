@@ -103,7 +103,8 @@ const Features = () => {
           backgroundColor: lightBg,
           color: textColor,
           borderColor: borderColor,
-          border: '1px solid'
+          borderWidth: '1px',
+          borderStyle: 'solid'
         };
       }
     }
@@ -123,9 +124,9 @@ const Features = () => {
   }
 
   return (
-    <section id="features" className="py-20 px-4 section-background scroll-mt-28">
+    <section id="features" className="pt-40 pb-20 px-4 section-background scroll-mt-28">
       <div className="container mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 pb-16">
           {sectionTitle && (
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {sectionTitle}

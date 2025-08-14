@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@/components/ui/button';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 
 const Pricing = () => {
@@ -91,20 +92,19 @@ const Pricing = () => {
               </ul>
 
               {plan.buttonLink ? (
-                <a 
-                  href={plan.buttonLink}
-                  className={`w-full inline-block text-center ${plan.popular ? 'button' : 'button-outline'}`}
-                  target={plan.buttonLink.startsWith('http') ? '_blank' : '_self'}
-                  rel={plan.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
-                >
-                  {plan.buttonText}
-                </a>
+                <Button asChild size="lg" variant={plan.popular ? 'default' : 'outline'} className="w-full">
+                  <a 
+                    href={plan.buttonLink}
+                    target={plan.buttonLink.startsWith('http') ? '_blank' : '_self'}
+                    rel={plan.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  >
+                    {plan.buttonText}
+                  </a>
+                </Button>
               ) : (
-                <button 
-                  className={`w-full ${plan.popular ? 'button' : 'button-outline'}`}
-                >
+                <Button size="lg" variant={plan.popular ? 'default' : 'outline'} className="w-full">
                   {plan.buttonText}
-                </button>
+                </Button>
               )}
             </div>
           ))}

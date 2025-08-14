@@ -29,6 +29,7 @@ export async function apiRequest<T>(
     const response = await fetch(url, {
       method,
       headers: buildAuthHeaders(token),
+      credentials: 'include',
       body: method === 'GET' || method === 'DELETE' ? undefined : JSON.stringify(payload),
     });
     const contentType = response.headers.get('content-type') || '';

@@ -40,9 +40,18 @@ export const ProductsManager: React.FC<ProductsManagerProps> = ({
               const isActive = activeSection === `product-${productKey}`;
               const title = products[productKey]?.title || productKey.replace(/-/g, ' ');
               return (
-                <button
+                <div
                   key={productKey}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={isActive}
                   onClick={() => setActiveSection(`product-${productKey}`)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setActiveSection(`product-${productKey}`);
+                    }
+                  }}
                   className={`w-full text-left p-2 rounded text-sm transition-colors flex items-center justify-between ${
                     isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-muted/40'
                   }`}
@@ -53,6 +62,7 @@ export const ProductsManager: React.FC<ProductsManagerProps> = ({
                   </span>
                   <span className="flex items-center gap-2">
                     <button
+                      type="button"
                       className={`text-xs px-2 py-1 rounded ${isActive ? 'bg-white/20' : 'bg-muted'}`}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -62,6 +72,7 @@ export const ProductsManager: React.FC<ProductsManagerProps> = ({
                       Duplicate
                     </button>
                     <button
+                      type="button"
                       className={`text-xs px-2 py-1 rounded ${isActive ? 'bg-white/20' : 'bg-muted'} text-red-700`}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -73,7 +84,7 @@ export const ProductsManager: React.FC<ProductsManagerProps> = ({
                       Delete
                     </button>
                   </span>
-                </button>
+                </div>
               );
             })}
           </div>

@@ -19,6 +19,8 @@ import { usePublishedContent } from './hooks/usePublishedContent';
 import { useSEO } from './hooks/useSEO';
 import { useHashScroll } from './hooks/useHashScroll';
 import productData from '@/data/products.json';
+import { Button } from '@/components/ui/button';
+import ScrollRadialGradient from '@/components/ui/scroll-radial-gradient';
 
 // Simple test component (dev-only route)
 const TestPage = () => (
@@ -72,12 +74,8 @@ const HomePage = () => {
                 {content.cta.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="button">
-                  {content.cta.primaryButton}
-                </button>
-                <button className="button-secondary">
-                  {content.cta.secondaryButton}
-                </button>
+                <Button size="lg">{content.cta.primaryButton}</Button>
+                <Button size="lg" variant="outline">{content.cta.secondaryButton}</Button>
               </div>
             </div>
           </div>
@@ -100,6 +98,8 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Scroll-reactive radial gradient overlay (public routes only) */}
+      {!isAdminRoute && !isEditorRoute && <ScrollRadialGradient />}
       {/* Show AdminHeader banner for admins on all routes */}
       <AdminHeader />
       {/* Hide main site Header on admin and editor dedicated routes to avoid overlap */}
@@ -125,7 +125,9 @@ const AppContent = () => {
               <div className="container mx-auto px-4 py-16 text-center">
                 <h1 className="text-3xl font-bold mb-4">Admins Only</h1>
                 <p className="text-muted-foreground mb-6">You must be an authenticated admin to access the editor.</p>
-                <a href="/admin" className="button">Go to Admin Login</a>
+                <Button asChild size="lg">
+                  <a href="/admin">Go to Admin Login</a>
+                </Button>
               </div>
             )}
           </Route>
@@ -142,7 +144,9 @@ const AppContent = () => {
               <div className="container mx-auto px-4 py-16 text-center">
                 <h1 className="text-3xl font-bold mb-4">Admins Only</h1>
                 <p className="text-muted-foreground mb-6">You must be an authenticated admin to access the editor.</p>
-                <a href="/admin" className="button">Go to Admin Login</a>
+                <Button asChild size="lg">
+                  <a href="/admin">Go to Admin Login</a>
+                </Button>
               </div>
             )}
           </Route>
@@ -166,12 +170,9 @@ const AppContent = () => {
               <p className="text-muted-foreground mb-8">
                 The page you're looking for doesn't exist.
               </p>
-              <a 
-                href="/" 
-                className="button"
-              >
-                Go Home
-              </a>
+              <Button asChild size="lg">
+                <a href="/">Go Home</a>
+              </Button>
             </div>
           </Route>
         </Switch>

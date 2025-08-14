@@ -43,7 +43,6 @@ interface ContentEditorProps {
 }
 
 const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialOpen = false }) => {
-  const [isEditing, setIsEditing] = useState(false);
   const [editMode, setEditMode] = useState<'json' | 'sections' | 'database'>('database');
   const [showEditor, setShowEditor] = useState(initialOpen);
   const [showLogin, setShowLogin] = useState(false);
@@ -52,6 +51,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
     setSavedContent,
     jsonContent,
     setJsonContent,
+    isEditing,
+    setIsEditing,
     updateSection,
     updateNestedField,
   } = useContentEditorState();
@@ -293,7 +294,11 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
           if (!unifiedContent.waitlist) unifiedContent.waitlist = {};
           unifiedContent.waitlist = {
             ...unifiedContent.waitlist,
-            ...sectionData
+            // normalize snake_case -> camelCase
+            title: sectionData.title ?? unifiedContent.waitlist.title,
+            description: sectionData.description ?? unifiedContent.waitlist.description,
+            buttonText: sectionData.buttonText ?? sectionData.button_text ?? unifiedContent.waitlist.buttonText,
+            successMessage: sectionData.successMessage ?? sectionData.success_message ?? unifiedContent.waitlist.successMessage
           };
           break;
          case 'header': {
@@ -365,6 +370,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       }
       
       let saveSuccess = false;
+      let dbSaveSuccess = false;
       
       // Try to save to database first if available
       if (databaseAvailable) {
@@ -374,6 +380,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
           if (response.success) {
             debugService.saveSuccess('Database save completed', response.data);
             saveSuccess = true;
+            dbSaveSuccess = true;
             
             // If this is JSON mode, also sync to content_sections tables
             if (editMode === 'json') {
@@ -421,11 +428,11 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
         debugService.saveSuccess('Content save completed successfully');
         
         // Show success message briefly
-        const successMessage = databaseAvailable ? 'Content saved to database!' : 'Content saved locally!';
+        const successMessage = dbSaveSuccess ? 'Content saved to database!' : 'Content saved locally!';
         showSaveNotification(successMessage, 'success');
         
         // Reload database content to reflect changes for both database and JSON modes
-        if (databaseAvailable) {
+        if (dbSaveSuccess) {
           await loadDatabaseContent();
         }
       } else {
@@ -596,6 +603,12 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       const migratedLiveContent = migrateContentStructure(liveContent);
       setSavedContent(migratedLiveContent);
       setJsonContent(JSON.stringify(migratedLiveContent, null, 2));
+      try {
+        localStorage.setItem('bibliokit-content', JSON.stringify(migratedLiveContent));
+      } catch {}
+      if (onContentUpdate) {
+        try { onContentUpdate(migratedLiveContent); } catch {}
+      }
       debugService.contentLoad('Unified content loaded from database', { 
         source: publishedResponse.success && publishedResponse.data?.content_data ? 'site_content' : 'content_sections',
         sections: Object.keys(liveContent).filter(key => key !== 'contact'),

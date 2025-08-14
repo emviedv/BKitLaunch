@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { MagnetizeButton } from '@/components/ui/magnetize-button';
+import { Button } from '@/components/ui/button';
 
 const Header = () => {
   const { isAuthenticated, isAdmin } = useAuth();
@@ -107,19 +108,30 @@ const Header = () => {
             const li = item as LinkNavItem;
             const isExternal = resolveExternal(li);
             const isButton = li.isButton || li.type === 'button';
-            const classes = isButton
-              ? 'button text-sm'
-              : 'text-sm font-medium hover:text-primary transition-colors';
             // Normalize hash-only links to root anchored navigation (e.g., "#pricing" -> "/#pricing")
             const href = (li.href || '#');
             const normalizedHref = href.startsWith('#') ? `/${href}` : href;
+            if (isButton) {
+              return (
+                <Button asChild key={`nav-${index}`} size="sm">
+                  <a
+                    href={normalizedHref}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={linkRel(li.nofollow, isExternal)}
+                    aria-label={li.label}
+                  >
+                    {li.label}
+                  </a>
+                </Button>
+              );
+            }
             return (
               <a
                 key={`nav-${index}`}
                 href={normalizedHref}
                 target={isExternal ? '_blank' : undefined}
                 rel={linkRel(li.nofollow, isExternal)}
-                className={classes}
+                className="text-sm font-medium hover:text-primary transition-colors"
               >
                 {li.label}
               </a>
@@ -148,16 +160,22 @@ const Header = () => {
           </button>
           
           {content.header?.showSignIn !== false && (
-            <a
-              href={(content.header?.signInHref || content.header?.signInLink || '#').startsWith('#') ? `/${content.header?.signInHref || content.header?.signInLink || '#'}` : (content.header?.signInHref || content.header?.signInLink || '#')}
-              className="button-outline"
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
             >
-              {content.header?.signInText || 'Sign In'}
-            </a>
+              <a
+                href={(content.header?.signInHref || content.header?.signInLink || '#').startsWith('#') ? `/${content.header?.signInHref || content.header?.signInLink || '#'}` : (content.header?.signInHref || content.header?.signInLink || '#')}
+                aria-label={content.header?.signInText || 'Sign In'}
+              >
+                {content.header?.signInText || 'Sign In'}
+              </a>
+            </Button>
           )}
           {content.header?.showGetStarted !== false && (
             <MagnetizeButton
-              className="button"
+              size="sm"
               href={(content.header?.getStartedHref || content.header?.getStartedLink || '#').startsWith('#') ? `/${content.header?.getStartedHref || content.header?.getStartedLink || '#'}` : (content.header?.getStartedHref || content.header?.getStartedLink || '#')}
               aria-label={content.header?.getStartedText || 'Get Started'}
               title={content.header?.getStartedText || 'Get Started'}
@@ -195,18 +213,29 @@ const Header = () => {
             const li = item as LinkNavItem;
             const isExternal = resolveExternal(li);
             const isButton = li.isButton || li.type === 'button';
-            const classes = isButton
-              ? 'button w-full text-sm'
-              : 'block py-2 text-sm font-medium hover:text-primary transition-colors';
             const href = (li.href || '#');
             const normalizedHref = href.startsWith('#') ? `/${href}` : href;
+            if (isButton) {
+              return (
+                <Button asChild key={`m-nav-${index}`} size="sm" className="w-full text-sm">
+                  <a
+                    href={normalizedHref}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={linkRel(li.nofollow, isExternal)}
+                    aria-label={li.label}
+                  >
+                    {li.label}
+                  </a>
+                </Button>
+              );
+            }
             return (
               <a
                 key={`m-nav-${index}`}
                 href={normalizedHref}
                 target={isExternal ? '_blank' : undefined}
                 rel={linkRel(li.nofollow, isExternal)}
-                className={classes}
+                className="block py-2 text-sm font-medium hover:text-primary transition-colors"
               >
                 {li.label}
               </a>

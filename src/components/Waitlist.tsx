@@ -3,6 +3,7 @@ import { debugService } from '../lib/debugService';
 import { contentApi } from '../lib/contentApi';
 import { usePublishedContent } from '../hooks/usePublishedContent';
 import { HeroBackground } from './HeroBackground';
+import { Button } from '@/components/ui/button';
 
 const WAITLIST_BACKGROUND_CLASSES = [
   'gradient-brand-soft',
@@ -47,6 +48,13 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride }) => {
     return WAITLIST_BACKGROUND_CLASSES[randomIndex];
   }, []);
 
+  // Normalize field names from DB (snake_case) and JSON (camelCase)
+  const waitlistData: any = content.waitlist || {};
+  const waitlistTitle: string = (waitlistData.title as string) || '';
+  const waitlistDescription: string = (waitlistData.description as string) || '';
+  const buttonLabel: string = (waitlistData.buttonText as string) || (waitlistData.button_text as string) || 'Join Waitlist';
+  const successMessageText: string = (waitlistData.successMessage as string) || (waitlistData.success_message as string) || "Thank you for joining our waitlist! We'll keep you updated.";
+
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value;
     setState(prev => ({ ...prev, email: newEmail, error: null }));
@@ -90,14 +98,14 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride }) => {
       <HeroBackground variant="white" />
       <div className="container mx-auto max-w-3xl text-center relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-500 to-green-500">
-          {content.waitlist.title}
+          {waitlistTitle}
         </h2>
         <p className="text-lg text-muted-foreground mb-8">
-          {content.waitlist.description}
+          {waitlistDescription}
         </p>
         {state.submitted ? (
           <div className="card bg-green-50 border-green-200 text-green-800" role="status" aria-live="polite">
-            {content.waitlist.successMessage}
+            {successMessageText}
           </div>
         ) : (
           <form
@@ -118,13 +126,14 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride }) => {
               className="input flex-1 max-w-md disabled:opacity-50 disabled:cursor-not-allowed"
               aria-describedby={state.error ? 'waitlist-error' : undefined}
             />
-            <button
+            <Button
               type="submit"
+              size="lg"
               disabled={state.isLoading || !state.email.trim()}
-              className="button px-8 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {state.isLoading ? 'Joining...' : content.waitlist.buttonText}
-            </button>
+              {state.isLoading ? 'Joining...' : buttonLabel}
+            </Button>
           </form>
         )}
         {state.error && (
