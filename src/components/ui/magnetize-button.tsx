@@ -8,10 +8,12 @@ import { Magnet } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 
-interface MagnetizeButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface MagnetizeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   particleCount?: number;
   attractRadius?: number;
+  href?: string;
+  target?: React.HTMLAttributeAnchorTarget;
+  rel?: string;
 }
 
 interface Particle {
@@ -24,6 +26,10 @@ function MagnetizeButton({
   className,
   particleCount = 12,
   attractRadius = 50,
+  children,
+  href,
+  target,
+  rel,
   ...props
 }: MagnetizeButtonProps) {
   const [isAttracting, setIsAttracting] = useState(false);
@@ -65,17 +71,51 @@ function MagnetizeButton({
     }));
   }, [particlesControl, particles]);
 
+  const isLink = typeof href === "string" && href.length > 0;
+
+  if (isLink) {
+    return (
+      <Button
+        asChild
+        className={cn("relative touch-none transition-all duration-300", className)}
+        onMouseEnter={handleInteractionStart}
+        onMouseLeave={handleInteractionEnd}
+        onTouchStart={handleInteractionStart}
+        onTouchEnd={handleInteractionEnd}
+        {...props}
+      >
+        <a href={href} target={target} rel={rel}>
+          {particles.map((_, index) => (
+            <motion.div
+              key={index}
+              custom={index}
+              initial={{ x: particles[index].x, y: particles[index].y }}
+              animate={particlesControl}
+              className={cn(
+                "absolute w-1.5 h-1.5 rounded-full",
+                "bg-violet-400 dark:bg-violet-300",
+                "transition-opacity duration-300",
+                isAttracting ? "opacity-100" : "opacity-40"
+              )}
+            />
+          ))}
+          <span className="relative w-full flex items-center justify-center gap-2">
+            <Magnet
+              className={cn(
+                "w-4 h-4 transition-transform duration-300",
+                isAttracting && "scale-110"
+              )}
+            />
+            {children}
+          </span>
+        </a>
+      </Button>
+    );
+  }
+
   return (
     <Button
-      className={cn(
-        "min-w-40 relative touch-none",
-        "bg-violet-100 dark:bg-violet-900",
-        "hover:bg-violet-200 dark:hover:bg-violet-800",
-        "text-violet-600 dark:text-violet-300",
-        "border border-violet-300 dark:border-violet-700",
-        "transition-all duration-300",
-        className
-      )}
+      className={cn("relative touch-none transition-all duration-300", className)}
       onMouseEnter={handleInteractionStart}
       onMouseLeave={handleInteractionEnd}
       onTouchStart={handleInteractionStart}
@@ -103,7 +143,7 @@ function MagnetizeButton({
             isAttracting && "scale-110"
           )}
         />
-        {isAttracting ? "Attracting" : "Hover me"}
+        {children}
       </span>
     </Button>
   );

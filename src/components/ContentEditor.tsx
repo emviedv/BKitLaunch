@@ -5,6 +5,7 @@ import productData from '@/data/products.json';
 import { contentApi } from '@/lib/contentApi';
 import { debugService } from '@/lib/debugService';
 import { reorderArray } from '@/lib/utils';
+import { useContentEditorState } from './ContentEditor/useContentEditorState';
 import { 
   ContentSection, 
   SectionType, 
@@ -39,10 +40,16 @@ interface ContentEditorProps {
 const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialOpen = false }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editMode, setEditMode] = useState<'json' | 'sections' | 'database'>('database');
-  const [jsonContent, setJsonContent] = useState(JSON.stringify(productData, null, 2));
   const [showEditor, setShowEditor] = useState(initialOpen);
   const [showLogin, setShowLogin] = useState(false);
-  const [savedContent, setSavedContent] = useState(productData);
+  const {
+    savedContent,
+    setSavedContent,
+    jsonContent,
+    setJsonContent,
+    updateSection,
+    updateNestedField,
+  } = useContentEditorState();
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [sections, setSections] = useState<ContentSection[]>([]);
   const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
@@ -446,59 +453,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
     window.location.reload();
   };
 
-  const updateSection = (section: string, newData: any) => {
-    let updatedContent = { ...savedContent } as any;
-    
-    // Handle nested paths like "products.bibliokit-blocks"
-    if (section.includes('.')) {
-      const path = section.split('.');
-      let current = updatedContent;
-      
-      // Navigate to the parent object
-      for (let i = 0; i < path.length - 1; i++) {
-        if (!current[path[i]]) {
-          current[path[i]] = {};
-        }
-        current = current[path[i]];
-      }
-      
-      // Set the final value
-      current[path[path.length - 1]] = newData;
-    } else {
-      updatedContent[section] = newData;
-    }
-    
-    setSavedContent(updatedContent);
-    setJsonContent(JSON.stringify(updatedContent, null, 2));
-    setIsEditing(true);
-  };
-
-  const updateNestedField = (section: string, index: number | null, field: string, value: any) => {
-    let currentSection: any;
-    
-    // Handle nested paths like "products.bibliokit-blocks"
-    if (section.includes('.')) {
-      const path = section.split('.');
-      currentSection = savedContent as any;
-      for (const key of path) {
-        currentSection = currentSection?.[key];
-      }
-    } else {
-      currentSection = (savedContent as any)[section];
-    }
-    
-    let updatedSection;
-    
-    if (Array.isArray(currentSection) && index !== null) {
-      updatedSection = currentSection.map((item, i) => 
-        i === index ? { ...item, [field]: value } : item
-      );
-    } else {
-      updatedSection = { ...currentSection, [field]: value };
-    }
-    
-    updateSection(section, updatedSection);
-  };
+  // updateSection and updateNestedField now come from useContentEditorState
 
   const updateVisibility = (sectionKey: string, isVisible: boolean) => {
     const currentSettings: any = savedContent.settings || { visibility: {}, labels: {} };

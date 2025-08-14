@@ -157,11 +157,8 @@ const Header = () => {
           )}
           {content.header?.showGetStarted !== false && (
             <MagnetizeButton
-              onClick={() => {
-                const target = (content.header?.getStartedHref || content.header?.getStartedLink || '#');
-                const normalized = target.startsWith('#') ? `/${target}` : target;
-                window.location.href = normalized;
-              }}
+              className="button"
+              href={(content.header?.getStartedHref || content.header?.getStartedLink || '#').startsWith('#') ? `/${content.header?.getStartedHref || content.header?.getStartedLink || '#'}` : (content.header?.getStartedHref || content.header?.getStartedLink || '#')}
               aria-label={content.header?.getStartedText || 'Get Started'}
               title={content.header?.getStartedText || 'Get Started'}
             >
