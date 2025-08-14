@@ -116,7 +116,7 @@ const Features = () => {
   }
 
   return (
-    <section id="features" className="py-20 px-4 section-background">
+    <section id="features" className="py-20 px-4 section-background scroll-mt-28">
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -191,9 +191,12 @@ const Features = () => {
 
                 const external = Boolean(computedLink && isExternalLink(computedLink));
 
+                const normalizedHref = computedLink && computedLink.startsWith('#')
+                  ? `/${computedLink}`
+                  : computedLink;
                 return (
                   <a
-                    href={computedLink || '#'}
+                    href={normalizedHref || '#'}
                     className="card-button"
                     onClick={(e) => handleButtonClick(e, computedLink)}
                     target={external ? '_blank' : '_self'}

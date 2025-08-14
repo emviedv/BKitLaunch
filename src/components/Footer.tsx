@@ -33,14 +33,20 @@ const Footer = () => {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 {section.links?.map((link: any, linkIndex: number) => (
                   <li key={linkIndex}>
-                    <a 
-                      href={link.href} 
+                    {(() => {
+                      const href: string = link.href || '#';
+                      const normalizedHref = href.startsWith('#') ? `/${href}` : href;
+                      return (
+                        <a 
+                      href={normalizedHref} 
                       className="hover:text-foreground transition-colors"
                       target={link.href.startsWith('http') ? '_blank' : undefined}
                       rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     >
                       {link.label}
                     </a>
+                      );
+                    })()}
                   </li>
                 ))}
               </ul>

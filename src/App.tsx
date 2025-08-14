@@ -17,6 +17,7 @@ import DesignSystem from './components/DesignSystem';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { usePublishedContent } from './hooks/usePublishedContent';
 import { useSEO } from './hooks/useSEO';
+import { useHashScroll } from './hooks/useHashScroll';
 import productData from '@/data/products.json';
 
 // Simple test component (dev-only route)
@@ -93,6 +94,9 @@ const AppContent = () => {
   const isAdminRoute = location === '/admin';
   const isEditorRoute = location === '/editor' || location.startsWith('/editor/');
   const { isAuthenticated, isAdmin } = useAuth();
+
+  // Ensure #hash links scroll to sections correctly
+  useHashScroll();
 
   return (
     <div className="min-h-screen flex flex-col">

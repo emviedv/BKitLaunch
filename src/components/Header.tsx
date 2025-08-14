@@ -75,17 +75,21 @@ const Header = () => {
                   </button>
                   <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                     <div className="py-2">
-                      {(dd.children || []).map((child, ci) => (
-                        <a
-                          key={`dd-item-${index}-${ci}`}
-                          href={child.href}
-                          target={child.isExternal ? '_blank' : undefined}
-                          rel={linkRel(child.nofollow, !!child.isExternal)}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
-                        >
-                          {child.label}
-                        </a>
-                      ))}
+                      {(dd.children || []).map((child, ci) => {
+                        const href = child.href || '#';
+                        const normalizedHref = href.startsWith('#') ? `/${href}` : href;
+                        return (
+                          <a
+                            key={`dd-item-${index}-${ci}`}
+                            href={normalizedHref}
+                            target={child.isExternal ? '_blank' : undefined}
+                            rel={linkRel(child.nofollow, !!child.isExternal)}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                          >
+                            {child.label}
+                          </a>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -98,10 +102,13 @@ const Header = () => {
             const classes = isButton
               ? 'button text-sm'
               : 'text-sm font-medium hover:text-primary transition-colors';
+            // Normalize hash-only links to root anchored navigation (e.g., "#pricing" -> "/#pricing")
+            const href = (li.href || '#');
+            const normalizedHref = href.startsWith('#') ? `/${href}` : href;
             return (
               <a
                 key={`nav-${index}`}
-                href={li.href || '#'}
+                href={normalizedHref}
                 target={isExternal ? '_blank' : undefined}
                 rel={linkRel(li.nofollow, isExternal)}
                 className={classes}
@@ -134,7 +141,7 @@ const Header = () => {
           
           {content.header?.showSignIn !== false && (
             <a
-              href={content.header?.signInHref || content.header?.signInLink || '#'}
+              href={(content.header?.signInHref || content.header?.signInLink || '#').startsWith('#') ? `/${content.header?.signInHref || content.header?.signInLink || '#'}` : (content.header?.signInHref || content.header?.signInLink || '#')}
               className="button-outline"
             >
               {content.header?.signInText || 'Sign In'}
@@ -142,7 +149,7 @@ const Header = () => {
           )}
           {content.header?.showGetStarted !== false && (
             <a
-              href={content.header?.getStartedHref || content.header?.getStartedLink || '#'}
+              href={(content.header?.getStartedHref || content.header?.getStartedLink || '#').startsWith('#') ? `/${content.header?.getStartedHref || content.header?.getStartedLink || '#'}` : (content.header?.getStartedHref || content.header?.getStartedLink || '#')}
               className="button"
             >
               {content.header?.getStartedText || 'Get Started'}
@@ -181,10 +188,12 @@ const Header = () => {
             const classes = isButton
               ? 'button w-full text-sm'
               : 'block py-2 text-sm font-medium hover:text-primary transition-colors';
+            const href = (li.href || '#');
+            const normalizedHref = href.startsWith('#') ? `/${href}` : href;
             return (
               <a
                 key={`m-nav-${index}`}
-                href={li.href || '#'}
+                href={normalizedHref}
                 target={isExternal ? '_blank' : undefined}
                 rel={linkRel(li.nofollow, isExternal)}
                 className={classes}

@@ -85,7 +85,7 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride }) => {
   };
 
   return (
-    <section className={`py-20 px-4 ${backgroundClassName}`}>
+    <section id="waitlist" className={`py-20 px-4 scroll-mt-28 ${backgroundClassName}`}>
       <div className="container mx-auto max-w-3xl text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-500 to-green-500">
           {content.waitlist.title}

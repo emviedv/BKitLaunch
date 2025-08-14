@@ -32,7 +32,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             {hero.primaryButtonLink ? (
               <a 
-                href={hero.primaryButtonLink} 
+                href={(hero.primaryButtonLink.startsWith('#') ? `/${hero.primaryButtonLink}` : hero.primaryButtonLink)} 
                 className="button"
                 target={hero.primaryButtonLink.startsWith('http') ? '_blank' : '_self'}
                 rel={hero.primaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
@@ -64,7 +64,7 @@ const Hero = () => {
             )}
             {hero.secondaryButtonLink ? (
               <a 
-                href={hero.secondaryButtonLink} 
+                href={(hero.secondaryButtonLink.startsWith('#') ? `/${hero.secondaryButtonLink}` : hero.secondaryButtonLink)} 
                 className="button-secondary"
                 target={hero.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
                 rel={hero.secondaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
