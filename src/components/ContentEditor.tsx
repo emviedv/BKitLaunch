@@ -7,6 +7,7 @@ import { debugService } from '@/lib/debugService';
 import { reorderArray } from '@/lib/utils';
 import { useContentEditorState } from './ContentEditor/useContentEditorState';
 import { HeaderNavigationEditor } from './ContentEditor/HeaderNavigationEditor';
+import { FooterEditor } from './ContentEditor/FooterEditor';
 import { 
   ContentSection, 
   SectionType, 
@@ -1138,200 +1139,14 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
           )}
 
           {activeSection === 'footer' && (
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Footer Section</h3>
-              <div className="flex items-center gap-2 mb-4">
-                <input
-                  type="checkbox"
-                  id="footer-visible"
-                  checked={savedContent.settings?.visibility?.footer ?? true}
-                  onChange={(e) => updateVisibility('footer', e.target.checked)}
-                  className="rounded border-border"
-                />
-                <label htmlFor="footer-visible" className="text-sm">Visible on website</label>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Description</label>
-                <textarea
-                  value={savedContent.footer?.description || ''}
-                  onChange={(e) => updateNestedField('footer', null, 'description', e.target.value)}
-                  className="w-full p-2 border border-border rounded h-24"
-                  placeholder="Footer description"
-                />
-              </div>
-
-              {/* Footer link groups & links (local sections mode) */}
-              <div className="border-t border-border pt-4">
-                <div className="flex items-center justify-between mb-3">
-                  <label className="block text-sm font-medium">Footer Sections</label>
-                  <button
-                    onClick={() => {
-                      const current = (savedContent as any)?.footer?.sections || [];
-                      const next = [...current, { title: 'New Section', links: [] }];
-                      updateNestedField('footer', null, 'sections', next);
-                    }}
-                    className="button-secondary text-xs"
-                  >
-                    + Add Section
-                  </button>
-                </div>
-
-                <div className="space-y-4">
-                  {(((savedContent as any)?.footer?.sections as any[]) || []).map((sectionItem: any, si: number) => (
-                    <div key={si} className="p-4 border rounded-lg">
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-2 w-full">
-                          <span className="text-sm text-muted-foreground">Section #{si + 1}</span>
-                          <input
-                            type="text"
-                            value={sectionItem?.title || ''}
-                            onChange={(e) => updateNestedField('footer.sections', si, 'title', e.target.value)}
-                            className="flex-1 p-2 border border-border rounded text-sm"
-                            placeholder="Section title (e.g., Product)"
-                            aria-label={`Footer section ${si + 1} title`}
-                          />
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => {
-                              const current = (((savedContent as any)?.footer?.sections as any[]) || []);
-                              if (si <= 0) return;
-                              const next = reorderArray(current, si, si - 1);
-                              updateNestedField('footer', null, 'sections', next);
-                            }}
-                            disabled={si === 0}
-                            className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
-                            title="Move up"
-                            aria-label={`Move footer section ${si + 1} up`}
-                          >
-                            ↑
-                          </button>
-                          <button
-                            onClick={() => {
-                              const current = (((savedContent as any)?.footer?.sections as any[]) || []);
-                              if (si >= current.length - 1) return;
-                              const next = reorderArray(current, si, si + 1);
-                              updateNestedField('footer', null, 'sections', next);
-                            }}
-                            disabled={si === ((((savedContent as any)?.footer?.sections as any[]) || []).length - 1)}
-                            className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
-                            title="Move down"
-                            aria-label={`Move footer section ${si + 1} down`}
-                          >
-                            ↓
-                          </button>
-                          <button
-                            onClick={() => {
-                              const current = ((savedContent as any)?.footer?.sections as any[]) || [];
-                              const next = current.filter((_: any, i: number) => i !== si);
-                              updateNestedField('footer', null, 'sections', next);
-                            }}
-                            className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-sm"
-                            aria-label={`Remove footer section ${si + 1}`}
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="mt-2 pt-3 border-t border-border/50">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="text-sm font-medium">Links</div>
-                          <button
-                            onClick={() => {
-                              const current = ((savedContent as any)?.footer?.sections as any[]) || [];
-                              const group = current[si] || { title: '', links: [] };
-                              const nextLinks = [...(group.links || []), { label: 'New Link', href: '#' }];
-                              // replace only this group's links
-                              updateNestedField('footer.sections', si, 'links', nextLinks);
-                            }}
-                            className="text-primary hover:bg-primary/10 px-2 py-1 rounded text-xs"
-                          >
-                            + Add Link
-                          </button>
-                        </div>
-
-                        <div className="space-y-2">
-                          {((sectionItem?.links as any[]) || []).map((link: any, li: number) => (
-                            <div key={li} className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
-                              <input
-                                type="text"
-                                value={link?.label || ''}
-                                onChange={(e) => {
-                                  const group = (((savedContent as any)?.footer?.sections as any[]) || [])[si] || { links: [] };
-                                  const links = [...(group.links || [])];
-                                  links[li] = { ...(links[li] || {}), label: e.target.value };
-                                  updateNestedField('footer.sections', si, 'links', links);
-                                }}
-                                className="p-2 border border-border rounded text-sm"
-                                placeholder="Link label (e.g., Pricing)"
-                                aria-label={`Footer link ${li + 1} label in section ${si + 1}`}
-                              />
-                              <div className="flex gap-2">
-                                <input
-                                  type="text"
-                                  value={link?.href || ''}
-                                  onChange={(e) => {
-                                    const group = (((savedContent as any)?.footer?.sections as any[]) || [])[si] || { links: [] };
-                                    const links = [...(group.links || [])];
-                                    links[li] = { ...(links[li] || {}), href: e.target.value };
-                                    updateNestedField('footer.sections', si, 'links', links);
-                                  }}
-                                  className="flex-1 p-2 border border-border rounded text-sm"
-                                  placeholder="#pricing or https://example.com"
-                                  aria-label={`Footer link ${li + 1} href in section ${si + 1}`}
-                                />
-                                <button
-                                  onClick={() => {
-                                    const group = (((savedContent as any)?.footer?.sections as any[]) || [])[si] || { links: [] };
-                                    const links = [...(group.links || [])];
-                                    if (li <= 0) return;
-                                    const nextLinks = reorderArray(links, li, li - 1);
-                                    updateNestedField('footer.sections', si, 'links', nextLinks);
-                                  }}
-                                  disabled={li === 0}
-                                  className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
-                                  title="Move up"
-                                  aria-label={`Move link ${li + 1} up in section ${si + 1}`}
-                                >
-                                  ↑
-                                </button>
-                                <button
-                                  onClick={() => {
-                                    const group = (((savedContent as any)?.footer?.sections as any[]) || [])[si] || { links: [] };
-                                    const links = [...(group.links || [])];
-                                    if (li >= links.length - 1) return;
-                                    const nextLinks = reorderArray(links, li, li + 1);
-                                    updateNestedField('footer.sections', si, 'links', nextLinks);
-                                  }}
-                                  disabled={li === (((sectionItem?.links as any[]) || []).length - 1)}
-                                  className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
-                                  title="Move down"
-                                  aria-label={`Move link ${li + 1} down in section ${si + 1}`}
-                                >
-                                  ↓
-                                </button>
-                                <button
-                                  onClick={() => {
-                                    const group = (((savedContent as any)?.footer?.sections as any[]) || [])[si] || { links: [] };
-                                    const links = (group.links || []).filter((_: any, idx: number) => idx !== li);
-                                    updateNestedField('footer.sections', si, 'links', links);
-                                  }}
-                                  className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-sm"
-                                  aria-label={`Remove footer link ${li + 1} in section ${si + 1}`}
-                                >
-                                  Remove
-                                </button>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <FooterEditor
+              description={savedContent.footer?.description || ''}
+              sections={(((savedContent as any)?.footer?.sections as any[]) || [])}
+              visibility={savedContent.settings?.visibility?.footer ?? true}
+              onChangeDescription={(value) => updateNestedField('footer', null, 'description', value)}
+              onChangeSections={(next) => updateNestedField('footer', null, 'sections', next)}
+              onChangeVisibility={(isVisible) => updateVisibility('footer', isVisible)}
+            />
           )}
 
           {Object.keys((savedContent as any)?.products || {}).map((productKey) => (
