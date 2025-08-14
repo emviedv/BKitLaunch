@@ -2750,7 +2750,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
               value={(formData as any)?.copyright_text || ''}
               onChange={(e) => setFormData(prev => ({ ...prev, copyright_text: e.target.value } as any))}
               className="w-full p-2 border border-border rounded"
-              placeholder="© 2024 BiblioKit. All rights reserved."
+              placeholder={`© ${new Date().getFullYear()} BiblioKit. All rights reserved.`}
             />
           </div>
           <div className="flex items-center gap-2">

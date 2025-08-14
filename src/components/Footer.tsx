@@ -74,7 +74,19 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 {header?.logoText || 'BiblioKit'}. All rights reserved.</p>
+          {(() => {
+            const currentYear = new Date().getFullYear();
+            const brand = header?.logoText || 'BiblioKit';
+            const raw = (footer as any)?.copyright_text as string | undefined;
+            const computed = raw
+              ? (raw.includes('{year}') || raw.includes('{brand}')
+                  ? raw
+                      .replaceAll('{year}', String(currentYear))
+                      .replaceAll('{brand}', brand)
+                  : raw.replace(/20\d{2}/, String(currentYear)))
+              : `© ${currentYear} ${brand}. All rights reserved.`;
+            return <p>{computed}</p>;
+          })()}
         </div>
       </div>
     </footer>

@@ -1,15 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
+import { useLocation } from 'wouter';
 import { MagnetizeButton } from '@/components/ui/magnetize-button';
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
   const { isAuthenticated, isAdmin } = useAuth();
   const { content } = usePublishedContent();
+  const [location] = useLocation();
   const [hasMounted, setHasMounted] = useState(false);
-  useEffect(() => setHasMounted(true), []);
-  const adminOffset = hasMounted && isAuthenticated && isAdmin ? 'top-10' : 'top-0';
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 4);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  const topClass = hasMounted && isAuthenticated && isAdmin
+    ? (isScrolled ? 'top-10' : 'top-14')
+    : (isScrolled ? 'top-0' : 'top-4');
+  const isHomeRoute = location === '/';
+  const isTopTransparent = isHomeRoute && !isScrolled;
+  const positionClass = isTopTransparent ? 'absolute' : 'fixed';
 
   // Check if header should be visible
   const shouldShowHeader = content.settings?.visibility?.header !== false;
@@ -60,7 +76,7 @@ const Header = () => {
   };
 
   return (
-    <header className={`bg-background/80 backdrop-blur border-b border-border fixed w-full ${adminOffset} z-50`}>
+    <header className={`${isScrolled ? 'bg-background/80 backdrop-blur border-b border-border' : 'bg-transparent'} ${positionClass} w-full ${topClass} z-50 transition-all duration-300`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <a
           href={hasMounted && isAuthenticated && isAdmin ? '/admin' : '/'}
@@ -187,7 +203,10 @@ const Header = () => {
       </div>
 
       {/* Mobile menu */}
-      <div id="mobile-menu" className="hidden md:hidden bg-white border-t border-gray-200">
+      <div
+        id="mobile-menu"
+        className={`hidden md:hidden ${isScrolled ? 'bg-background/80 backdrop-blur border-t border-border' : 'bg-transparent'} transition-colors duration-300`}
+      >
         <div className="px-4 py-2 space-y-2">
           {navItems.map((item, index) => {
             if ((item as DropdownNavItem).type === 'dropdown') {

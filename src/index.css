@@ -248,19 +248,16 @@
 } 
 
 /* Pink shimmer focus effect for inputs, textareas, selects */
-@layer base {
+@layer utilities {
   @keyframes input-pink-shimmer {
     0% { background-position: 0% 50%; }
     100% { background-position: 200% 50%; }
   }
 
-  input:not([type="checkbox"]):not([type="radio"]):focus,
-  input:not([type="checkbox"]):not([type="radio"]):focus-visible,
-  textarea:focus,
-  textarea:focus-visible,
-  select:focus,
-  select:focus-visible {
-    border-color: transparent;
+  .input:focus,
+  .input:focus-visible {
+    border-width: 2px;
+    border-color: transparent !important;
     background-image:
       linear-gradient(hsl(var(--background)), hsl(var(--background))),
       linear-gradient(90deg, rgba(244, 63, 94, 0.6), rgba(236, 72, 153, 0.7), rgba(244, 63, 94, 0.6));
@@ -272,12 +269,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    input:not([type="checkbox"]):not([type="radio"]):focus,
-    input:not([type="checkbox"]):not([type="radio"]):focus-visible,
-    textarea:focus,
-    textarea:focus-visible,
-    select:focus,
-    select:focus-visible {
+    .input:focus,
+    .input:focus-visible {
       animation: none;
     }
   }

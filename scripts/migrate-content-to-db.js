@@ -206,7 +206,7 @@ const footerSection = {
         sort_order: 2
       }
     ],
-    copyright_text: '© 2024 BiblioKit. All rights reserved.'
+    copyright_text: `© ${new Date().getFullYear()} BiblioKit. All rights reserved.`
   },
   is_visible: true,
   sort_order: 6

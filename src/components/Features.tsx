@@ -1,8 +1,11 @@
 import React from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
+import { BentoGrid } from '@/components/ui/bento-grid';
+import { Button } from '@/components/ui/button';
 
 const Features = () => {
   const { content } = usePublishedContent();
+  
   // Support both legacy array shape and DB object shape with { title, description, items }
   const featuresSection = content.features && !Array.isArray(content.features) ? content.features : null;
   const featuresList = Array.isArray(content.features)
@@ -123,6 +126,16 @@ const Features = () => {
     return null;
   }
 
+  const bentoClasses = [
+    "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
+    "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
+    "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
+    "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
+    "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-4",
+  ];
+
+  // Background images removed per request, retaining clean card styling
+
   return (
     <section id="features" className="pt-40 pb-20 px-4 section-background scroll-mt-28">
       <div className="container mx-auto">
@@ -139,88 +152,113 @@ const Features = () => {
           )}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <BentoGrid className="lg:grid-rows-3">
           {featuresList.map((feature: any, index: number) => {
             const isFeatured = feature.isFeatured || feature.is_featured;
             const badgeColor = feature.badgeColor || feature.badge_color;
             const buttonText = feature.buttonText || feature.button_text;
             const buttonLink = feature.buttonLink || feature.button_link;
             const productSlug = feature.productSlug || feature.product_slug;
-            const showBadge = (feature as any).showBadge !== false; // default true for legacy
+            const showBadge = (feature as any).showBadge !== false;
+
+            const computedLink: string | undefined = productSlug ? `/${productSlug}` : buttonLink;
+            const external = Boolean(computedLink && isExternalLink(computedLink));
+            const normalizedHref = computedLink && computedLink.startsWith('#')
+              ? `/${computedLink}`
+              : computedLink;
 
             return (
-              <div key={index} className={`card ${isFeatured ? 'card-featured' : ''} ${isFeatured ? 'flex flex-col max-w-4xl mx-auto' : ''}`}>
-              <div className="flex items-center justify-between mb-6">
-                <div className={`icon ${colorClasses[index % colorClasses.length]}`}>
-                  {feature.icon}
-                </div>
-                {/* Multi-badge support with fallback to legacy single badge */}
-                {(Array.isArray((feature as any).badges) && (feature as any).badges.length > 0 && (content.settings?.labels?.featuresBadges ?? true) && showBadge) ? (
-                  <div className="flex flex-wrap gap-1">
-                    {(feature as any).badges.map((b: any, bi: number) => (
-                      <span key={bi}
-                        className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(b.color || 'primary')}`}
-                        style={getBadgeStyle(b.color || '')}
-                        aria-label={`${b.type || 'badge'}: ${b.label}`}
-                      >
-                        {renderBadgeIcon(b.type)}
-                        {b.label}
-                      </span>
-                    ))}
+              <div
+                key={index}
+                className={`col-span-3 ${bentoClasses[index % bentoClasses.length]}`}
+              >
+                <div className={`group relative overflow-hidden h-full card ${isFeatured ? 'card-featured' : ''}`}>
+                  {/* Soft circular gradient on hover */}
+                  <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 gradient-rosewater-soft-radial" />
+                  <div className="relative z-10 flex h-full flex-col justify-end">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className={`icon ${colorClasses[index % colorClasses.length]}`}>
+                        {feature.icon}
+                      </div>
+                      {(Array.isArray((feature as any).badges) && (feature as any).badges.length > 0 && (content.settings?.labels?.featuresBadges ?? true) && showBadge) ? (
+                        <div className="flex flex-wrap gap-1">
+                          {(feature as any).badges.map((b: any, bi: number) => (
+                            <span key={bi}
+                              className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(b.color || 'primary')}`}
+                              style={getBadgeStyle(b.color || '')}
+                              aria-label={`${b.type || 'badge'}: ${b.label}`}
+                            >
+                              {renderBadgeIcon(b.type)}
+                              {b.label}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        feature.badge && (content.settings?.labels?.featuresBadges ?? true) && showBadge && (() => {
+                          const label = String(feature.badge);
+                          const lower = label.toLowerCase();
+                          const icon = lower.includes('figma') ? <FigmaIcon /> : lower.includes('saas') ? <SaaSIcon /> : null;
+                          return (
+                            <span 
+                              className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(badgeColor || 'primary')}`}
+                              style={getBadgeStyle(badgeColor || '')}
+                            >
+                              {icon}
+                              {label}
+                            </span>
+                          );
+                        })()
+                      )}
+                    </div>
+                    <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                    <p className="text-muted-foreground">
+                      {feature.description}
+                    </p>
+                    {/* Buttons area aligned to bottom */}
+                    {(() => {
+                      const label: string | undefined =
+                        feature.buttonPreset === 'beta' ? 'Sign Up for Beta' : buttonText;
+
+                      if (isFeatured && label) {
+                        return (
+                          <a
+                            href={normalizedHref || '#'}
+                            className="card-button mt-4"
+                            onClick={(e) => handleButtonClick(e, computedLink)}
+                            target={external ? '_blank' : '_self'}
+                            rel={external ? 'noopener noreferrer' : undefined}
+                            aria-label={`${label} - ${feature.title}`}
+                          >
+                            {label}
+                          </a>
+                        );
+                      }
+
+                      if (!isFeatured && normalizedHref) {
+                        return (
+                          <div className="mt-4">
+                            <Button variant="ghost" asChild size="sm">
+                              <a
+                                href={normalizedHref}
+                                target={external ? '_blank' : '_self'}
+                                rel={external ? 'noopener noreferrer' : undefined}
+                                aria-label={`Learn more - ${feature.title}`}
+                              >
+                                Learn more
+                              </a>
+                            </Button>
+                          </div>
+                        );
+                      }
+
+                      return null;
+                    })()}
                   </div>
-                ) : (
-                  feature.badge && (content.settings?.labels?.featuresBadges ?? true) && showBadge && (() => {
-                    const label = String(feature.badge);
-                    const lower = label.toLowerCase();
-                    const icon = lower.includes('figma') ? <FigmaIcon /> : lower.includes('saas') ? <SaaSIcon /> : null;
-                    return (
-                      <span 
-                        className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(badgeColor || 'primary')}`}
-                        style={getBadgeStyle(badgeColor || '')}
-                      >
-                        {icon}
-                        {label}
-                      </span>
-                    );
-                  })()
-                )}
+                </div>
               </div>
-              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-              <p className={`text-muted-foreground ${isFeatured ? 'flex-grow' : ''}`}>
-                {feature.description}
-              </p>
-              
-              {/* Featured card button */}
-              {(() => {
-                const label: string | undefined =
-                  feature.buttonPreset === 'beta' ? 'Sign Up for Beta' : buttonText;
-                const computedLink: string | undefined =
-                  productSlug ? `/${productSlug}` : buttonLink;
-
-                if (!isFeatured || !label) return null;
-
-                const external = Boolean(computedLink && isExternalLink(computedLink));
-
-                const normalizedHref = computedLink && computedLink.startsWith('#')
-                  ? `/${computedLink}`
-                  : computedLink;
-                return (
-                  <a
-                    href={normalizedHref || '#'}
-                    className="card-button"
-                    onClick={(e) => handleButtonClick(e, computedLink)}
-                    target={external ? '_blank' : '_self'}
-                    rel={external ? 'noopener noreferrer' : undefined}
-                    aria-label={`${label} - ${feature.title}`}
-                  >
-                    {label}
-                  </a>
-                );
-              })()}
-            </div>
             );
           })}
-        </div>
+        </BentoGrid>
       </div>
     </section>
   );

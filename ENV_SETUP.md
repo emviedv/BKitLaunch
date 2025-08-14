@@ -12,9 +12,15 @@ To secure your BiblioKit admin access, you need to set up the following environm
 
 ### 1. Admin Credentials
 
+Prefer hashed password via bcrypt.
+
 ```bash
 ADMIN_EMAIL=your-email@domain.com
-ADMIN_PASSWORD=your-secure-password
+# Use one of the following (HASH strongly recommended):
+# OPTION A (recommended): bcrypt hash
+ADMIN_PASSWORD_HASH=$2a$12$exampleExampleExampleExampleExampleExampleExampleEx
+# OPTION B (dev-only fallback): plaintext password (not for production)
+# ADMIN_PASSWORD=your-secure-password
 ```
 
 ## Setting Up in Netlify
@@ -25,9 +31,13 @@ ADMIN_PASSWORD=your-secure-password
 3. Click **Add variable** and add:
    - **Variable name**: `ADMIN_EMAIL`
    - **Value**: Your admin email address
-4. Click **Add variable** again and add:
+4. Click **Add variable** again and add either:
+   - **Variable name**: `ADMIN_PASSWORD_HASH`
+   - **Value**: Bcrypt hash of your password (recommended)
+   
+   Or, for development only:
    - **Variable name**: `ADMIN_PASSWORD`
-   - **Value**: Your secure admin password (use a strong password!)
+   - **Value**: Your plaintext password (NOT for production)
 
 ### Option 2: Netlify CLI
 ```bash
@@ -36,7 +46,14 @@ netlify login
 
 # Set environment variables
 netlify env:set ADMIN_EMAIL "your-email@domain.com"
-netlify env:set ADMIN_PASSWORD "your-secure-password"
+# Recommended (bcrypt hash)
+netlify env:set ADMIN_PASSWORD_HASH "<bcrypt-hash>"
+# Dev-only fallback (do not set both)
+# netlify env:set ADMIN_PASSWORD "your-secure-password"
+
+# Optional rate-limit tuning (defaults: 10 per IP, 7 per identifier in 10 minutes)
+netlify env:set ADMIN_RATE_LIMIT_PER_IP "10"
+netlify env:set ADMIN_RATE_LIMIT_PER_ID "7"
 ```
 
 ## Security Best Practices
@@ -52,6 +69,16 @@ netlify env:set ADMIN_PASSWORD "your-secure-password"
 MySecure2024!Admin@BiblioKit
 ```
 
+## Generate a bcrypt hash
+
+You can generate a bcrypt hash locally:
+
+```bash
+node -e "(async () => { const bcrypt = await import('bcryptjs'); const hash = bcrypt.default.hashSync(process.argv[1], 12); console.log(hash); })()" 'YourStrongPasswordHere'
+```
+
+Copy the printed hash into `ADMIN_PASSWORD_HASH`.
+
 ## After Setting Variables
 
 1. **Redeploy your site** to apply the new environment variables
@@ -62,7 +89,7 @@ MySecure2024!Admin@BiblioKit
 
 - The 🔒 button appears for non-authenticated users
 - Click it to open the admin login form
-- Enter your `ADMIN_EMAIL` and `ADMIN_PASSWORD`
+- Enter your `ADMIN_EMAIL` and your password; the server verifies via bcrypt against `ADMIN_PASSWORD_HASH`
 - Once authenticated, the ✏️ edit button and 🚪 logout button appear
 - The content editor is now protected and only accessible to you
 

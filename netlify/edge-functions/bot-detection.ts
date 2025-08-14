@@ -62,6 +62,7 @@ function generateStaticHtml(pathname: string, origin: string): string {
         <a href="https://twitter.com/bibliokit" style="color: #9ca3af;">@bibliokit</a>
         <a href="https://github.com/bibliokit" style="color: #9ca3af;">GitHub</a>
       </div>
+      <div style="margin-top: 1rem; color: #9ca3af; font-size: 0.875rem;">&copy; ${new Date().getFullYear()} BiblioKit. All rights reserved.</div>
     </div>
   </footer>
 </body>

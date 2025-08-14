@@ -20,7 +20,6 @@ import { useSEO } from './hooks/useSEO';
 import { useHashScroll } from './hooks/useHashScroll';
 import productData from '@/data/products.json';
 import { Button } from '@/components/ui/button';
-import ScrollRadialGradient from '@/components/ui/scroll-radial-gradient';
 
 // Simple test component (dev-only route)
 const TestPage = () => (
@@ -91,6 +90,7 @@ const AppContent = () => {
   const [location] = useLocation();
   const isAdminRoute = location === '/admin';
   const isEditorRoute = location === '/editor' || location.startsWith('/editor/');
+  const isHomeRoute = location === '/';
   const { isAuthenticated, isAdmin } = useAuth();
 
   // Ensure #hash links scroll to sections correctly
@@ -98,13 +98,11 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Scroll-reactive radial gradient overlay (public routes only) */}
-      {!isAdminRoute && !isEditorRoute && <ScrollRadialGradient />}
       {/* Show AdminHeader banner for admins on all routes */}
       <AdminHeader />
       {/* Hide main site Header on admin and editor dedicated routes to avoid overlap */}
       {!isAdminRoute && !isEditorRoute && <Header />}
-      <main className="flex-1 pt-16">
+      <main className={`flex-1 ${(!isAdminRoute && !isEditorRoute && isHomeRoute) ? 'pt-0' : 'pt-16'}`}>
         <Switch>
           <Route path="/" component={HomePage} />
           {import.meta.env.DEV && <Route path="/test" component={TestPage} />}
