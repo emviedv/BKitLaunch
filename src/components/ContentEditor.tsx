@@ -4,6 +4,7 @@ import AdminLogin from './AdminLogin';
 import productData from '@/data/products.json';
 import { contentApi } from '@/lib/contentApi';
 import { debugService } from '@/lib/debugService';
+import { reorderArray } from '@/lib/utils';
 import { 
   ContentSection, 
   SectionType, 
@@ -1216,9 +1217,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                           onClick={() => {
                             const current = (((savedContent as any)?.header?.navigation as any[]) || []);
                             if (ni <= 0) return;
-                            const arr = [...current];
-                            [arr[ni - 1], arr[ni]] = [arr[ni], arr[ni - 1]];
-                            updateSection('header.navigation', arr);
+                            const next = reorderArray(current, ni, ni - 1);
+                            updateSection('header.navigation', next);
                           }}
                           disabled={ni === 0}
                           className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
@@ -1231,9 +1231,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                           onClick={() => {
                             const current = (((savedContent as any)?.header?.navigation as any[]) || []);
                             if (ni >= current.length - 1) return;
-                            const arr = [...current];
-                            [arr[ni + 1], arr[ni]] = [arr[ni], arr[ni + 1]];
-                            updateSection('header.navigation', arr);
+                            const next = reorderArray(current, ni, ni + 1);
+                            updateSection('header.navigation', next);
                           }}
                           disabled={ni === ((((savedContent as any)?.header?.navigation as any[]) || []).length - 1)}
                           className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
@@ -1324,9 +1323,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                             onClick={() => {
                               const current = (((savedContent as any)?.footer?.sections as any[]) || []);
                               if (si <= 0) return;
-                              const arr = [...current];
-                              [arr[si - 1], arr[si]] = [arr[si], arr[si - 1]];
-                              updateNestedField('footer', null, 'sections', arr);
+                              const next = reorderArray(current, si, si - 1);
+                              updateNestedField('footer', null, 'sections', next);
                             }}
                             disabled={si === 0}
                             className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
@@ -1339,9 +1337,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                             onClick={() => {
                               const current = (((savedContent as any)?.footer?.sections as any[]) || []);
                               if (si >= current.length - 1) return;
-                              const arr = [...current];
-                              [arr[si + 1], arr[si]] = [arr[si], arr[si + 1]];
-                              updateNestedField('footer', null, 'sections', arr);
+                              const next = reorderArray(current, si, si + 1);
+                              updateNestedField('footer', null, 'sections', next);
                             }}
                             disabled={si === ((((savedContent as any)?.footer?.sections as any[]) || []).length - 1)}
                             className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
@@ -1416,8 +1413,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                                     const group = (((savedContent as any)?.footer?.sections as any[]) || [])[si] || { links: [] };
                                     const links = [...(group.links || [])];
                                     if (li <= 0) return;
-                                    [links[li - 1], links[li]] = [links[li], links[li - 1]];
-                                    updateNestedField('footer.sections', si, 'links', links);
+                                    const nextLinks = reorderArray(links, li, li - 1);
+                                    updateNestedField('footer.sections', si, 'links', nextLinks);
                                   }}
                                   disabled={li === 0}
                                   className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
@@ -1431,8 +1428,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                                     const group = (((savedContent as any)?.footer?.sections as any[]) || [])[si] || { links: [] };
                                     const links = [...(group.links || [])];
                                     if (li >= links.length - 1) return;
-                                    [links[li + 1], links[li]] = [links[li], links[li + 1]];
-                                    updateNestedField('footer.sections', si, 'links', links);
+                                    const nextLinks = reorderArray(links, li, li + 1);
+                                    updateNestedField('footer.sections', si, 'links', nextLinks);
                                   }}
                                   disabled={li === (((sectionItem?.links as any[]) || []).length - 1)}
                                   className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
