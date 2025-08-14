@@ -56,6 +56,7 @@ export default defineConfig({
       'lucide-react',
       'framer-motion',
       'tailwind-merge',
+      'canvas-confetti',
       // Ensure Deno-compatible SSR bundle by including these packages
       'use-sync-external-store',
       'use-sync-external-store/shim'

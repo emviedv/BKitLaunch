@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { HeroBackground } from './HeroBackground';
 import { Button } from '@/components/ui/button';
 import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
+import { Confetti, type ConfettiRef } from '@/components/ui/confetti';
 
 const Hero = () => {
   const { content } = usePublishedContent();
   const { hero } = content;
   const displayBadge = (hero as any)?.badgeLabel || (hero as any)?.badge_label;
+  const confettiRef = useRef<ConfettiRef>(null);
   
   // Return null if hero section is set to hidden
   if (content.settings?.visibility?.hero === false) {
@@ -31,8 +33,14 @@ const Hero = () => {
   }
 
   return (
-    <section id="hero" className="section-hero relative overflow-hidden py-24 px-4 min-h-[calc(100vh-60px)] flex items-center">
+    <section className="section-hero relative overflow-hidden py-24 px-4 min-h-screen flex items-center">
+      <div className="absolute inset-0 -z-0" aria-hidden="true" />
       <HeroBackground />
+      <Confetti
+        ref={confettiRef}
+        className="absolute left-0 top-0 z-0 w-full h-full pointer-events-none"
+        manualstart
+      />
       {/* Bottom breathing gradient accent */}
       <AnimatedGradientBackground
         Breathing
@@ -117,6 +125,9 @@ const Hero = () => {
                   asChild
                   size="lg"
                   className="w-full sm:w-auto min-w-[12rem]"
+                  onMouseEnter={() => {
+                    confettiRef.current?.fire({});
+                  }}
                   aria-label={`${hero.primaryButton} - Primary action`}
                 >
                   <a
@@ -142,6 +153,9 @@ const Hero = () => {
                       e.preventDefault();
                       (e.currentTarget as HTMLButtonElement).click();
                     }
+                  }}
+                  onMouseEnter={() => {
+                    confettiRef.current?.fire({});
                   }}
                   aria-label={`${hero.primaryButton} - Primary action`}
                 >
@@ -184,6 +198,20 @@ const Hero = () => {
             </motion.div>
           )}
         </div>
+      </div>
+      {/* Soft curved divider to create a natural circular flow into the next section */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 overflow-hidden leading-[0] z-10" aria-hidden="true">
+        <svg
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          className="relative block w-[calc(100%+1.3px)] h-24 text-background"
+          role="presentation"
+        >
+          <path
+            d="M0,0 C 200,40 420,40 600,20 C 800,0 1000,20 1200,0 V120 H0 Z"
+            className="fill-current"
+          />
+        </svg>
       </div>
       {/* Animated background is handled by HeroBackground */}
     </section>
