@@ -4,6 +4,7 @@
 export interface DefaultContent {
   hero: {
     badgeLabel: string;
+    gradientColors?: string[];
     title: string;
     subtitle: string;
     description: string;
@@ -38,6 +39,15 @@ export interface DefaultContent {
 export const createEmptyContent = (): DefaultContent => ({
   hero: {
     badgeLabel: '',
+    gradientColors: [
+      '#ecfeff00',
+      '#ecfeff10',
+      '#c7d2fe40',
+      '#a7f3d040',
+      '#a5b4fc50',
+      '#93c5fd40',
+      '#ffffff00'
+    ],
     title: '',
     subtitle: '',
     description: '',

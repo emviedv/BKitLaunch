@@ -36,6 +36,17 @@ export const HeroSectionEditor: React.FC<HeroSectionEditorProps> = ({
       onChange={(value) => updateNestedField('hero', null, 'badgeLabel', value)}
       placeholder="SaaS Analytics Platform"
     />
+    <div className="space-y-2">
+      <label className="block text-sm font-medium">Gradient Colors (comma-separated hex)</label>
+      <input
+        type="text"
+        value={(hero?.gradientColors || []).join(', ')}
+        onChange={(e) => updateNestedField('hero', null, 'gradientColors', e.target.value.split(',').map(v => v.trim()).filter(Boolean))}
+        className="w-full p-2 border border-border rounded"
+        placeholder="#ecfeff00, #ecfeff10, #c7d2fe40, #a7f3d040, #a5b4fc50, #93c5fd40, #ffffff00"
+      />
+      <p className="text-xs text-muted-foreground">Provide 5–8 RGBA/hex values with alpha for best effect.</p>
+    </div>
     <TextInput
       label="Emoji"
       value={hero?.emoji || ''}

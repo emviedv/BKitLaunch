@@ -10,6 +10,7 @@ import { HeaderNavigationEditor } from './ContentEditor/HeaderNavigationEditor';
 import { FooterEditor } from './ContentEditor/FooterEditor';
 import { HeaderCtasEditor } from './ContentEditor/HeaderCtasEditor';
 import { ProductsManager } from './ContentEditor/ProductsManager';
+import { PagesEditor } from './ContentEditor/PagesEditor';
 import { 
   ContentSection, 
   SectionType, 
@@ -802,25 +803,10 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
           )}
 
           {activeSection === 'pages' && (
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg">Pages</h3>
-              <p className="text-sm text-muted-foreground">Manage static pages. These are saved in JSON first; when you Save & Reload, they sync to the database.</p>
-              <div className="space-y-3">
-                <label className="block text-sm font-medium">Pages (JSON array)</label>
-                <textarea
-                  className="w-full p-2 border border-border rounded h-64 font-mono text-sm"
-                  value={JSON.stringify((savedContent as any).pages || [], null, 2)}
-                  onChange={(e) => {
-                    try {
-                      const next = JSON.parse(e.target.value);
-                      updateSection('pages', next);
-                    } catch {}
-                  }}
-                  placeholder='[{"slug":"about","title":"About Us","content":{"blocks":[]},"isPublished":true}]'
-                />
-              </div>
-              <div className="text-xs text-muted-foreground">Tip: Use unique slugs. Content can be any JSON shape you render on that page.</div>
-            </div>
+            <PagesEditor
+              pages={(savedContent as any).pages || []}
+              onChange={(next) => updateSection('pages', next)}
+            />
           )}
 
           {activeSection === 'contact' && (

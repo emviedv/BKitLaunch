@@ -39,7 +39,7 @@ const Hero = () => {
         Breathing
         startingGap={110}
         topOffset={-30}
-        gradientColors={["#ecfeff00","#ecfeff10","#c7d2fe40","#a7f3d040","#a5b4fc50","#93c5fd40","#ffffff00"]}
+        gradientColors={((hero as any)?.gradientColors && Array.isArray((hero as any).gradientColors) && (hero as any).gradientColors.length > 0) ? (hero as any).gradientColors : ["#ecfeff00","#ecfeff10","#c7d2fe40","#a7f3d040","#a5b4fc50","#93c5fd40","#ffffff00"]}
         gradientStops={[20, 45, 60, 72, 82, 90, 100]}
         containerClassName="pointer-events-none"
       />
