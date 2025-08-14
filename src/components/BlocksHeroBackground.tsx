@@ -57,7 +57,7 @@ const floatingIcons: FloatingIconDef[] = [
 ];
 
 const renderComponent = (component: UIComponentOutline) => {
-  const baseClasses = 'absolute border-2 border-gray-300/70 bg-transparent';
+  const baseClasses = 'absolute border-2 border-white/60 bg-transparent';
 
   const slowTransition = {
     delay: component.delay,
@@ -77,13 +77,13 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.95, 1.02, 0.95],
-            borderColor: ['#cbd5e1', '#94a3b8', '#cbd5e1']
+            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 border border-gray-400/70 rounded-full" />
-          <div className="absolute left-10 top-1/2 transform -translate-y-1/2 w-20 h-2 bg-gray-300/70 rounded" />
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 border border-white/60 rounded-full" />
+          <div className="absolute left-10 top-1/2 transform -translate-y-1/2 w-20 h-2 bg-white/40 rounded" />
         </motion.div>
       );
 
@@ -97,12 +97,12 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.95, 1.06, 0.95],
-            borderColor: ['#cbd5e1', '#94a3b8', '#cbd5e1']
+            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
-          <div className="absolute inset-2 border border-gray-400/70 rounded-full" />
+          <div className="absolute inset-2 border border-white/60 rounded-full" />
         </motion.div>
       );
 
@@ -116,15 +116,15 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.96, 1.02, 0.96],
-            borderColor: ['#cbd5e1', '#94a3b8', '#cbd5e1']
+            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
           <div className="p-4 space-y-2">
-            <div className="w-3/4 h-3 bg-gray-300/70 rounded" />
-            <div className="w-1/2 h-2 bg-gray-300/70 rounded" />
-            <div className="w-full h-2 bg-gray-300/70 rounded" />
+            <div className="w-3/4 h-3 bg-white/40 rounded" />
+            <div className="w-1/2 h-2 bg-white/30 rounded" />
+            <div className="w-full h-2 bg-white/30 rounded" />
           </div>
         </motion.div>
       );
@@ -139,13 +139,13 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.98, 1.03, 0.98],
-            borderColor: ['#cbd5e1', '#94a3b8', '#cbd5e1']
+            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
           <div className="flex items-center justify-center h-full">
-            <div className="w-12 h-2 bg-gray-300/70 rounded" />
+            <div className="w-12 h-2 bg-white/40 rounded" />
           </div>
         </motion.div>
       );
@@ -160,15 +160,15 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.96, 1.02, 0.96],
-            borderColor: ['#cbd5e1', '#94a3b8', '#cbd5e1']
+            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
           <div className="p-4 space-y-3">
-            <div className="w-full h-6 border border-gray-300/70 rounded" />
-            <div className="w-full h-6 border border-gray-300/70 rounded" />
-            <div className="w-20 h-6 border border-gray-300/70 rounded" />
+            <div className="w-full h-6 border border-white/50 rounded" />
+            <div className="w-full h-6 border border-white/50 rounded" />
+            <div className="w-20 h-6 border border-white/50 rounded" />
           </div>
         </motion.div>
       );
@@ -183,21 +183,21 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.96, 1.02, 0.96],
-            borderColor: ['#cbd5e1', '#94a3b8', '#cbd5e1']
+            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99']
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
           <div className="p-2 space-y-2">
             <div className="flex space-x-2">
-              <div className="w-1/3 h-2 bg-gray-300/70 rounded" />
-              <div className="w-1/3 h-2 bg-gray-300/70 rounded" />
-              <div className="w-1/3 h-2 bg-gray-300/70 rounded" />
+              <div className="w-1/3 h-2 bg-white/35 rounded" />
+              <div className="w-1/3 h-2 bg-white/35 rounded" />
+              <div className="w-1/3 h-2 bg-white/35 rounded" />
             </div>
             <div className="flex space-x-2">
-              <div className="w-1/3 h-2 bg-gray-300/70 rounded" />
-              <div className="w-1/3 h-2 bg-gray-300/70 rounded" />
-              <div className="w-1/3 h-2 bg-gray-300/70 rounded" />
+              <div className="w-1/3 h-2 bg-white/35 rounded" />
+              <div className="w-1/3 h-2 bg-white/35 rounded" />
+              <div className="w-1/3 h-2 bg-white/35 rounded" />
             </div>
           </div>
         </motion.div>
@@ -213,13 +213,13 @@ const renderComponent = (component: UIComponentOutline) => {
           animate={{
             opacity: [0.15, 0.45, 0.15],
             scale: [0.95, 1.08, 0.95],
-            borderColor: ['#cbd5e1', '#94a3b8', '#cbd5e1'],
+            borderColor: ['#ffffff99', '#ffffffff', '#ffffff99'],
             rotate: [0, 120, 240, 360]
           }}
           transition={slowTransition}
           aria-hidden="true"
         >
-          <div className="w-full h-full border border-gray-300/70 rounded" />
+          <div className="w-full h-full border border-white/50 rounded" />
         </motion.div>
       );
 
@@ -233,36 +233,82 @@ export interface BlocksHeroBackgroundProps {
 }
 
 export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ className }) => {
-  return (
-    <div className={`absolute inset-0 pointer-events-none ${className || ''}`} aria-hidden="true">
-      <div className="absolute inset-0">
-        {components.map(renderComponent)}
-      </div>
+  // Centered, responsive canvas for consistent layout
+  const designWidth = 1000;
+  const designHeight = 700;
 
-      <div className="absolute inset-0">
-        {floatingIcons.map(({ Icon, x, y }, index) => (
-          <motion.div
-            key={`floating-${index}`}
-            className="absolute text-gray-400/70"
-            style={{ left: x, top: y }}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{
-              opacity: [0, 0.35, 0.2, 0.35],
-              scale: [0, 1.05, 0.9, 1.05],
-              rotate: [0, 360],
-              x: [0, Math.sin(index) * 14, 0],
-              y: [0, Math.cos(index) * 10, 0]
-            }}
-            transition={{
-              delay: index * 0.4,
-              duration: 7,
-              repeat: Infinity,
-              ease: 'easeInOut'
-            }}
-          >
-            <Icon size={20} />
-          </motion.div>
-        ))}
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+  const [scale, setScale] = React.useState<number>(1);
+
+  React.useEffect(() => {
+    const updateScale = () => {
+      const el = containerRef.current;
+      if (!el) return;
+      const { clientWidth, clientHeight } = el;
+      if (!clientWidth || !clientHeight) return;
+      const widthScale = clientWidth / designWidth;
+      const heightScale = clientHeight / designHeight;
+      setScale(Math.min(widthScale, heightScale));
+    };
+
+    updateScale();
+
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(updateScale);
+      if (containerRef.current) ro.observe(containerRef.current);
+    } else {
+      window.addEventListener('resize', updateScale);
+    }
+    return () => {
+      if (ro && containerRef.current) ro.unobserve(containerRef.current);
+      window.removeEventListener('resize', updateScale);
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} className={`absolute inset-0 pointer-events-none ${className || ''}`} aria-hidden="true">
+      <div
+        className="absolute"
+        style={{
+          left: '50%',
+          top: '50%',
+          width: `${designWidth}px`,
+          height: `${designHeight}px`,
+          transform: `translate(-50%, -50%) scale(${scale})`,
+          transformOrigin: 'center',
+          willChange: 'transform',
+        }}
+      >
+        <div className="absolute inset-0">
+          {components.map(renderComponent)}
+        </div>
+
+        <div className="absolute inset-0">
+          {floatingIcons.map(({ Icon, x, y }, index) => (
+            <motion.div
+              key={`floating-${index}`}
+              className="absolute text-white/60"
+              style={{ left: x, top: y }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: [0, 0.35, 0.2, 0.35],
+                scale: [0, 1.05, 0.9, 1.05],
+                rotate: [0, 360],
+                x: [0, Math.sin(index) * 14, 0],
+                y: [0, Math.cos(index) * 10, 0]
+              }}
+              transition={{
+                delay: index * 0.4,
+                duration: 7,
+                repeat: Infinity,
+                ease: 'easeInOut'
+              }}
+            >
+              <Icon size={20} />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   );

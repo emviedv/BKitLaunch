@@ -6,6 +6,7 @@ import { contentApi } from '@/lib/contentApi';
 import { debugService } from '@/lib/debugService';
 import { reorderArray } from '@/lib/utils';
 import { useContentEditorState } from './ContentEditor/useContentEditorState';
+import { HeaderNavigationEditor } from './ContentEditor/HeaderNavigationEditor';
 import { 
   ContentSection, 
   SectionType, 
@@ -1129,93 +1130,10 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                   <label htmlFor="show-get-started-sections" className="text-sm">Show Get Started Button</label>
                 </div>
               </div>
-              <div className="border-t border-border pt-4">
-                <div className="flex items-center justify-between mb-3">
-                  <label className="block text-sm font-medium">Navigation Links</label>
-                  <button
-                    onClick={() => {
-                      const current = (((savedContent as any)?.header?.navigation as any[]) || []);
-                      const next = [...current, { label: 'New Link', href: '#' }];
-                      updateSection('header.navigation', next);
-                    }}
-                    className="button-secondary text-xs"
-                  >
-                    + Add Link
-                  </button>
-                </div>
-
-                <div className="space-y-3">
-                  {((((savedContent as any)?.header?.navigation as any[]) || []).map((navItem: any, ni: number) => (
-                    <div key={ni} className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
-                      <input
-                        type="text"
-                        value={navItem?.label || ''}
-                        onChange={(e) => {
-                          updateNestedField('header.navigation', ni, 'label', e.target.value);
-                        }}
-                        className="p-2 border border-border rounded text-sm"
-                        placeholder="Link label (e.g., Features)"
-                        aria-label={`Header nav ${ni + 1} label`}
-                      />
-                      <div className="flex gap-2">
-                        <input
-                          type="text"
-                          value={navItem?.href || ''}
-                          onChange={(e) => {
-                            updateNestedField('header.navigation', ni, 'href', e.target.value);
-                          }}
-                          className="flex-1 p-2 border border-border rounded text-sm"
-                          placeholder="/#contact or #pricing or /about"
-                          aria-label={`Header nav ${ni + 1} href`}
-                        />
-                        <button
-                          onClick={() => {
-                            const current = (((savedContent as any)?.header?.navigation as any[]) || []);
-                            if (ni <= 0) return;
-                            const next = reorderArray(current, ni, ni - 1);
-                            updateSection('header.navigation', next);
-                          }}
-                          disabled={ni === 0}
-                          className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
-                          title="Move up"
-                          aria-label={`Move header nav link ${ni + 1} up`}
-                        >
-                          ↑
-                        </button>
-                        <button
-                          onClick={() => {
-                            const current = (((savedContent as any)?.header?.navigation as any[]) || []);
-                            if (ni >= current.length - 1) return;
-                            const next = reorderArray(current, ni, ni + 1);
-                            updateSection('header.navigation', next);
-                          }}
-                          disabled={ni === ((((savedContent as any)?.header?.navigation as any[]) || []).length - 1)}
-                          className="text-gray-500 hover:text-gray-700 disabled:opacity-50 px-2 py-1"
-                          title="Move down"
-                          aria-label={`Move header nav link ${ni + 1} down`}
-                        >
-                          ↓
-                        </button>
-                        <button
-                          onClick={() => {
-                            const current = (((savedContent as any)?.header?.navigation as any[]) || []);
-                            const next = current.filter((_: any, i: number) => i !== ni);
-                            updateSection('header.navigation', next);
-                          }}
-                          className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-sm"
-                          aria-label={`Remove header nav link ${ni + 1}`}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-                  )))}
-
-                  {((((savedContent as any)?.header?.navigation as any[]) || []).length === 0) && (
-                    <div className="text-center py-6 text-muted-foreground text-sm">No navigation links yet.</div>
-                  )}
-                </div>
-              </div>
+              <HeaderNavigationEditor
+                items={(((savedContent as any)?.header?.navigation as any[]) || [])}
+                onChange={(next) => updateSection('header.navigation', next)}
+              />
             </div>
           )}
 
