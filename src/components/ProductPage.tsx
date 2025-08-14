@@ -4,6 +4,7 @@ import { useSchema, createProductSchema, createBreadcrumbSchema, updatePageMeta 
 import { debugService } from '@/lib/debugService';
 import AnswerBox from './AnswerBox';
 import { BlocksHeroBackground } from './BlocksHeroBackground';
+import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
 import ExpertQuote from './ExpertQuote';
 import StatBox from './StatBox';
 import ContentChunk from './ContentChunk';
@@ -172,6 +173,14 @@ const BiblioKitBlocksPage = () => {
       {/* Hero Section - matches home page styling */}
       <section className="section-hero relative overflow-hidden py-24 px-4 min-h-[calc(100vh-60px)] flex items-center">
         <BlocksHeroBackground emoji={product?.emoji} />
+        <AnimatedGradientBackground
+          Breathing
+          startingGap={118}
+          topOffset={-20}
+          gradientColors={["#ecfeff00","#ecfeff10","#c7d2fe40","#a7f3d040","#a5b4fc50","#93c5fd40","#ffffff00"]}
+          gradientStops={[18, 44, 58, 70, 82, 90, 100]}
+          containerClassName="pointer-events-none"
+        />
         <div className="container mx-auto text-center relative z-10">
           <div className="max-w-4xl mx-auto">
             {product?.badgeLabel && (

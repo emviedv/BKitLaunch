@@ -101,16 +101,19 @@ const FloatingElement: React.FC<FloatingElementProps> = ({ delay, x, y, size, co
 
 export interface HeroBackgroundProps {
   className?: string;
+  // variant controls the color scheme of the animation
+  // 'color' = default colorful variant; 'white' = monochrome white variant
+  variant?: 'color' | 'white';
 }
 
-export const HeroBackground: React.FC<HeroBackgroundProps> = ({ className }) => {
+export const HeroBackground: React.FC<HeroBackgroundProps> = ({ className, variant = 'color' }) => {
   // Avoid SSR hydration mismatches from random initial values
   const [isMounted, setIsMounted] = React.useState(false);
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const kitPieces: KitPieceProps[] = [
+  const kitPiecesBase: KitPieceProps[] = [
     { delay: 0.5, x: '20%', y: '15%', width: 120, height: 80, rotation: -15, color: '#ff69b4' },
     { delay: 0.8, x: '70%', y: '20%', width: 100, height: 60, rotation: 25, color: '#87ceeb' },
     { delay: 1.1, x: '15%', y: '60%', width: 140, height: 70, rotation: 10, color: '#98fb98' },
@@ -118,14 +121,22 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({ className }) => 
     { delay: 1.7, x: '45%', y: '25%', width: 110, height: 50, rotation: 45, color: '#f0e68c' },
     { delay: 2.0, x: '35%', y: '70%', width: 80, height: 100, rotation: -10, color: '#ffa07a' },
   ];
+  const kitPieces: KitPieceProps[] =
+    variant === 'white'
+      ? kitPiecesBase.map((p) => ({ ...p, color: '#ffffff' }))
+      : kitPiecesBase;
 
-  const floatingElements: FloatingElementProps[] = [
+  const floatingElementsBase: FloatingElementProps[] = [
     { delay: 0.3, x: '10%', y: '30%', size: 40, color: '#ff69b4' },
     { delay: 0.6, x: '85%', y: '40%', size: 30, color: '#87ceeb' },
     { delay: 0.9, x: '25%', y: '80%', size: 35, color: '#98fb98' },
     { delay: 1.2, x: '80%', y: '10%', size: 25, color: '#dda0dd' },
     { delay: 1.5, x: '60%', y: '85%', size: 45, color: '#f0e68c' },
   ];
+  const floatingElements: FloatingElementProps[] =
+    variant === 'white'
+      ? floatingElementsBase.map((f) => ({ ...f, color: '#ffffff' }))
+      : floatingElementsBase;
 
   // Render nothing on server to prevent hydration mismatch for animated random initial states
   if (!isMounted) {
@@ -135,8 +146,17 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({ className }) => 
   return (
     <div className={cn('absolute inset-0 pointer-events-none', className)} aria-hidden="true">
       {/* Gradient Backgrounds */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-100/30 via-blue-100/20 to-green-100/30" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-purple-100/20 via-transparent to-yellow-100/20" />
+      {variant === 'white' ? (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-white/10" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/5" />
+        </>
+      ) : (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-br from-pink-100/30 via-blue-100/20 to-green-100/30" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-purple-100/20 via-transparent to-yellow-100/20" />
+        </>
+      )}
 
       {/* Animated Kit Pieces */}
       <div className="absolute inset-0">
@@ -174,12 +194,30 @@ export const HeroBackground: React.FC<HeroBackgroundProps> = ({ className }) => 
         />
         <defs>
           <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ff69b4" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#87ceeb" stopOpacity="0.8" />
+            {variant === 'white' ? (
+              <>
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#ffffff" stopOpacity="0.8" />
+              </>
+            ) : (
+              <>
+                <stop offset="0%" stopColor="#ff69b4" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#87ceeb" stopOpacity="0.8" />
+              </>
+            )}
           </linearGradient>
           <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#98fb98" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#dda0dd" stopOpacity="0.8" />
+            {variant === 'white' ? (
+              <>
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#ffffff" stopOpacity="0.8" />
+              </>
+            ) : (
+              <>
+                <stop offset="0%" stopColor="#98fb98" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#dda0dd" stopOpacity="0.8" />
+              </>
+            )}
           </linearGradient>
         </defs>
       </svg>

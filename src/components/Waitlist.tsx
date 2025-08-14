@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { debugService } from '../lib/debugService';
 import { contentApi } from '../lib/contentApi';
 import { usePublishedContent } from '../hooks/usePublishedContent';
+import { HeroBackground } from './HeroBackground';
 
 const WAITLIST_BACKGROUND_CLASSES = [
   'gradient-brand-soft',
@@ -85,8 +86,9 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride }) => {
   };
 
   return (
-    <section id="waitlist" className={`py-20 px-4 scroll-mt-28 ${backgroundClassName}`}>
-      <div className="container mx-auto max-w-3xl text-center">
+    <section id="waitlist" className={`relative overflow-hidden py-20 px-4 scroll-mt-28 ${backgroundClassName}`}>
+      <HeroBackground variant="white" />
+      <div className="container mx-auto max-w-3xl text-center relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-500 to-green-500">
           {content.waitlist.title}
         </h2>

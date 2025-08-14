@@ -392,568 +392,199 @@ class ContentAPI {
 
   // Get all sections
   async getAllSections(): Promise<ApiResponse<ContentSection[]>> {
-    try {
-      const response = await fetch(this.getApiUrl('content-sections'), {
-        method: 'GET',
-        headers: this.getHeaders(),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to get sections'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<ContentSection[]>('content-sections', 'GET', undefined, token);
   }
 
   // Get specific section by type
   async getSection<T extends ContentSection>(sectionType: SectionType): Promise<ApiResponse<T>> {
-    try {
-      const response = await fetch(this.getApiUrl(`content-sections/${sectionType}`), {
-        method: 'GET',
-        headers: this.getHeaders(),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : `Failed to get ${sectionType} section`
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<T>(`content-sections/${sectionType}`, 'GET', undefined, token);
   }
 
   // Create a new section (accepts unified payload shape used by server)
   async createSection<T = any>(section: any): Promise<ApiResponse<T>> {
-    try {
-      const response = await fetch(this.getApiUrl('content-sections'), {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify(section),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to create section'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<T>('content-sections', 'POST', section, token);
   }
 
   // Update an existing section (accepts partial unified payload)
   async updateSection<T = any>(id: number, section: Partial<T>): Promise<ApiResponse<T>> {
-    try {
-      const response = await fetch(this.getApiUrl(`content-sections/${id}`), {
-        method: 'PUT',
-        headers: this.getHeaders(),
-        body: JSON.stringify(section),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to update section'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<T>(`content-sections/${id}`, 'PUT', section, token);
   }
 
   // Delete a section
   async deleteSection(id: number): Promise<ApiResponse<null>> {
-    try {
-      const response = await fetch(this.getApiUrl(`content-sections/${id}`), {
-        method: 'DELETE',
-        headers: this.getHeaders(),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to delete section'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<null>(`content-sections/${id}`, 'DELETE', undefined, token);
   }
 
   // Footer Link Groups CRUD
   async createFooterLinkGroup(sectionId: number, title: string, sortOrder: number = 0): Promise<ApiResponse<any>> {
-    try {
-      const response = await fetch(this.getApiUrl('content-sections/footer-link-groups'), {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify({ section_id: sectionId, title, sort_order: sortOrder }),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to create footer link group' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<any>('content-sections/footer-link-groups', 'POST', { section_id: sectionId, title, sort_order: sortOrder }, token);
   }
 
   async updateFooterLinkGroup(groupId: number, updates: { title?: string; sort_order?: number }): Promise<ApiResponse<any>> {
-    try {
-      const response = await fetch(this.getApiUrl(`content-sections/footer-link-groups/${groupId}`), {
-        method: 'PUT',
-        headers: this.getHeaders(),
-        body: JSON.stringify(updates),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to update footer link group' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<any>(`content-sections/footer-link-groups/${groupId}`, 'PUT', updates, token);
   }
 
   async deleteFooterLinkGroup(groupId: number): Promise<ApiResponse<null>> {
-    try {
-      const response = await fetch(this.getApiUrl(`content-sections/footer-link-groups/${groupId}`), {
-        method: 'DELETE',
-        headers: this.getHeaders(),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to delete footer link group' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<null>(`content-sections/footer-link-groups/${groupId}`, 'DELETE', undefined, token);
   }
 
   // Footer Links CRUD
   async createFooterLink(groupId: number, link: { label: string; href: string; sort_order?: number }): Promise<ApiResponse<any>> {
-    try {
-      const response = await fetch(this.getApiUrl('content-sections/footer-links'), {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify({ group_id: groupId, ...link }),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to create footer link' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<any>('content-sections/footer-links', 'POST', { group_id: groupId, ...link }, token);
   }
 
   async updateFooterLink(linkId: number, updates: { label?: string; href?: string; sort_order?: number }): Promise<ApiResponse<any>> {
-    try {
-      const response = await fetch(this.getApiUrl(`content-sections/footer-links/${linkId}`), {
-        method: 'PUT',
-        headers: this.getHeaders(),
-        body: JSON.stringify(updates),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to update footer link' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<any>(`content-sections/footer-links/${linkId}`, 'PUT', updates, token);
   }
 
   async deleteFooterLink(linkId: number): Promise<ApiResponse<null>> {
-    try {
-      const response = await fetch(this.getApiUrl(`content-sections/footer-links/${linkId}`), {
-        method: 'DELETE',
-        headers: this.getHeaders(),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to delete footer link' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<null>(`content-sections/footer-links/${linkId}`, 'DELETE', undefined, token);
   }
 
   // Navigation Items CRUD
   async createNavigationItem(sectionId: number, item: { label: string; href: string; sort_order?: number; type?: string; isExternal?: boolean; nofollow?: boolean; isButton?: boolean }): Promise<ApiResponse<any>> {
-    try {
-      const response = await fetch(this.getApiUrl('content-sections/navigation-items'), {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify({
-          section_id: sectionId,
-          label: item.label,
-          href: item.href,
-          sort_order: item.sort_order,
-          type: item.type,
-          is_external: item.isExternal,
-          nofollow: item.nofollow,
-          is_button: item.isButton
-        }),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to create navigation item' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<any>('content-sections/navigation-items', 'POST', {
+      section_id: sectionId,
+      label: item.label,
+      href: item.href,
+      sort_order: item.sort_order,
+      type: item.type,
+      is_external: item.isExternal,
+      nofollow: item.nofollow,
+      is_button: item.isButton
+    }, token);
   }
 
   async updateNavigationItem(itemId: number, updates: { label?: string; href?: string; sort_order?: number; type?: string; isExternal?: boolean; nofollow?: boolean; isButton?: boolean }): Promise<ApiResponse<any>> {
-    try {
-      const response = await fetch(this.getApiUrl(`content-sections/navigation-items/${itemId}`), {
-        method: 'PUT',
-        headers: this.getHeaders(),
-        body: JSON.stringify({
-          label: updates.label,
-          href: updates.href,
-          sort_order: updates.sort_order,
-          type: updates.type,
-          is_external: updates.isExternal,
-          nofollow: updates.nofollow,
-          is_button: updates.isButton
-        }),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to update navigation item' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<any>(`content-sections/navigation-items/${itemId}`, 'PUT', {
+      label: updates.label,
+      href: updates.href,
+      sort_order: updates.sort_order,
+      type: updates.type,
+      is_external: updates.isExternal,
+      nofollow: updates.nofollow,
+      is_button: updates.isButton
+    }, token);
   }
 
   async deleteNavigationItem(itemId: number): Promise<ApiResponse<null>> {
-    try {
-      const response = await fetch(this.getApiUrl(`content-sections/navigation-items/${itemId}`), {
-        method: 'DELETE',
-        headers: this.getHeaders(),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to delete navigation item' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<null>(`content-sections/navigation-items/${itemId}`, 'DELETE', undefined, token);
   }
 
   // Pages CRUD
   async getPages(publishedOnly: boolean = false): Promise<ApiResponse<any[]>> {
-    try {
-      const qs = publishedOnly ? '?published=true' : '';
-      const response = await fetch(this.getApiUrl(`pages${qs}`), {
-        method: 'GET',
-        headers: this.getHeaders(),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to fetch pages' };
-    }
+    const token = this.getAuthToken() || undefined;
+    const qs = publishedOnly ? '?published=true' : '';
+    return apiRequest<any[]>(`pages${qs}`, 'GET', undefined, token);
   }
 
   async getPage(idOrSlug: number | string): Promise<ApiResponse<any>> {
-    try {
-      const idPath = typeof idOrSlug === 'number' ? `${idOrSlug}` : `${idOrSlug}`;
-      const response = await fetch(this.getApiUrl(`pages/${idPath}`), {
-        method: 'GET',
-        headers: this.getHeaders(),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to fetch page' };
-    }
+    const token = this.getAuthToken() || undefined;
+    const idPath = typeof idOrSlug === 'number' ? `${idOrSlug}` : `${idOrSlug}`;
+    return apiRequest<any>(`pages/${idPath}`, 'GET', undefined, token);
   }
 
   async createPage(page: { slug: string; title: string; content: any; is_published?: boolean }): Promise<ApiResponse<any>> {
-    try {
-      const response = await fetch(this.getApiUrl('pages'), {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify(page),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to create page' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<any>('pages', 'POST', page, token);
   }
 
   async updatePage(id: number, page: Partial<{ slug: string; title: string; content: any; is_published: boolean }>): Promise<ApiResponse<any>> {
-    try {
-      const response = await fetch(this.getApiUrl(`pages/${id}`), {
-        method: 'PUT',
-        headers: this.getHeaders(),
-        body: JSON.stringify(page),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to update page' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<any>(`pages/${id}`, 'PUT', page, token);
   }
 
   async deletePage(id: number): Promise<ApiResponse<null>> {
-    try {
-      const response = await fetch(this.getApiUrl(`pages/${id}`), {
-        method: 'DELETE',
-        headers: this.getHeaders(),
-      });
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      return await response.json();
-    } catch (error) {
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to delete page' };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<null>(`pages/${id}`, 'DELETE', undefined, token);
   }
 
   // Feature Items CRUD
 
   // Create a new feature
   async createFeature(sectionId: number, feature: Omit<FeatureItem, 'id'>): Promise<ApiResponse<FeatureItem>> {
-    try {
-      const response = await fetch(this.getApiUrl('features'), {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify({ section_id: sectionId, ...feature }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to create feature'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<FeatureItem>('features', 'POST', { section_id: sectionId, ...feature }, token);
   }
 
   // Update a feature
   async updateFeature(featureId: number, feature: Partial<FeatureItem>): Promise<ApiResponse<FeatureItem>> {
-    try {
-      const response = await fetch(this.getApiUrl(`features/${featureId}`), {
-        method: 'PUT',
-        headers: this.getHeaders(),
-        body: JSON.stringify(feature),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to update feature'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<FeatureItem>(`features/${featureId}`, 'PUT', feature, token);
   }
 
   // Delete a feature
   async deleteFeature(featureId: number): Promise<ApiResponse<null>> {
-    try {
-      const response = await fetch(this.getApiUrl(`features/${featureId}`), {
-        method: 'DELETE',
-        headers: this.getHeaders(),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to delete feature'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<null>(`features/${featureId}`, 'DELETE', undefined, token);
   }
 
   // Pricing Plans CRUD
 
   // Create a new pricing plan
   async createPricingPlan(sectionId: number, plan: Omit<PricingPlan, 'id'>): Promise<ApiResponse<PricingPlan>> {
-    try {
-      const response = await fetch(this.getApiUrl('pricing-plans'), {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify({ section_id: sectionId, ...plan }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to create pricing plan'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<PricingPlan>('pricing-plans', 'POST', { section_id: sectionId, ...plan }, token);
   }
 
   // Update a pricing plan
   async updatePricingPlan(planId: number, plan: Partial<PricingPlan>): Promise<ApiResponse<PricingPlan>> {
-    try {
-      const response = await fetch(this.getApiUrl(`pricing-plans/${planId}`), {
-        method: 'PUT',
-        headers: this.getHeaders(),
-        body: JSON.stringify(plan),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to update pricing plan'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<PricingPlan>(`pricing-plans/${planId}`, 'PUT', plan, token);
   }
 
   // Delete a pricing plan
   async deletePricingPlan(planId: number): Promise<ApiResponse<null>> {
-    try {
-      const response = await fetch(this.getApiUrl(`pricing-plans/${planId}`), {
-        method: 'DELETE',
-        headers: this.getHeaders(),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to delete pricing plan'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<null>(`pricing-plans/${planId}`, 'DELETE', undefined, token);
   }
 
   // Contact Info CRUD
 
   // Get contact info
   async getContactInfo(): Promise<ApiResponse<ContactInfo>> {
-    try {
-      const response = await fetch(this.getApiUrl('contact-info'), {
-        method: 'GET',
-        headers: this.getHeaders(),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to get contact info'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<ContactInfo>('contact-info', 'GET', undefined, token);
   }
 
   // Update contact info
   async updateContactInfo(contactInfo: Partial<ContactInfo>): Promise<ApiResponse<ContactInfo>> {
-    try {
-      const response = await fetch(this.getApiUrl('contact-info'), {
-        method: 'PUT',
-        headers: this.getHeaders(),
-        body: JSON.stringify(contactInfo),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to update contact info'
-      };
-    }
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<ContactInfo>('contact-info', 'PUT', contactInfo, token);
   }
 
   // Waitlist Operations
 
   // Join waitlist - adds email to users table
   async joinWaitingList(email: string): Promise<ApiResponse<any>> {
-    // Use public waitlist endpoint (unauthenticated)
-    const url = this.getApiUrl('waitlist');
     const payload = { email, name: 'Waitlist User', source: 'website' };
-    
-    debugService.apiRequest('POST', url, payload);
-    debugService.info('Waitlist signup started', { email });
-    
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const responseData = await response.json();
-      debugService.apiResponse('POST', url, responseData);
-
-      if (!response.ok) {
-        debugService.apiError('POST', url, `HTTP ${response.status}: ${response.statusText}`);
-        return {
-          success: false,
-          error: responseData.error || `HTTP ${response.status}: ${response.statusText}`
-        };
-      }
-
-      debugService.info('Waitlist signup successful', { email, userData: responseData });
-      return {
-        success: true,
-        data: responseData,
-        message: 'Successfully joined waitlist'
-      };
-    } catch (error) {
-      debugService.apiError('POST', url, error);
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to join waitlist'
-      };
+    const res = await apiRequest<any>('waitlist', 'POST', payload);
+    if (res.success) {
+      debugService.info('Waitlist signup successful', { email, userData: res.data });
+      return { success: true, data: res.data, message: 'Successfully joined waitlist' };
     }
+    return res;
   }
 
   // Admin: fetch waitlist signups (requires auth token)
   async getWaitlistSignups(limit: number = 50, offset: number = 0): Promise<ApiResponse<any[]>> {
-    const url = `${this.getApiUrl('waitlist')}?limit=${encodeURIComponent(String(limit))}&offset=${encodeURIComponent(String(offset))}`;
-    debugService.apiRequest('GET', url);
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: this.getHeaders(),
-      });
-      const data = await response.json();
-      debugService.apiResponse('GET', url, data);
-      if (!response.ok || data.success === false) {
-        return { success: false, error: data.error || `HTTP ${response.status}: ${response.statusText}` };
-      }
-      return { success: true, data: data.data };
-    } catch (error) {
-      debugService.apiError('GET', url, error);
-      return { success: false, error: error instanceof Error ? error.message : 'Failed to fetch waitlist signups' };
-    }
+    const token = this.getAuthToken() || undefined;
+    const qs = `?limit=${encodeURIComponent(String(limit))}&offset=${encodeURIComponent(String(offset))}`;
+    return apiRequest<any[]>(`waitlist${qs}`, 'GET', undefined, token);
   }
 }
 
