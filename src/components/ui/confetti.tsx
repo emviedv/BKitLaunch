@@ -100,7 +100,7 @@ interface ConfettiButtonProps extends ButtonProps {
 }
 
 function ConfettiButton({ options, children, ...props }: ConfettiButtonProps) {
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseEnter = (event: React.MouseEvent<HTMLButtonElement>) => {
     const rect = event.currentTarget.getBoundingClientRect()
     const x = rect.left + rect.width / 2
     const y = rect.top + rect.height / 2
@@ -114,7 +114,7 @@ function ConfettiButton({ options, children, ...props }: ConfettiButtonProps) {
   }
 
   return (
-    <Button onClick={handleClick} {...props}>
+    <Button onMouseEnter={handleMouseEnter} {...props}>
       {children}
     </Button>
   )
