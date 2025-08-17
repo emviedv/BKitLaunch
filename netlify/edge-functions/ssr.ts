@@ -156,17 +156,39 @@ export default async (request: Request, context: Context) => {
       : '';
 
     // Early scroll control to avoid browser restoring prior position before hydration
+    const preHydrationStyleTag = `
+    <style id="pre-hydration-scroll-guard">html{overflow-anchor:none!important;scroll-behavior:auto!important}</style>`;
     const scrollControlTag = `
-    <script nonce="${nonce}">
+    <script nonce="${nonce}">(function(){
+      function scrollTopNow(){
+        try { window.scrollTo(0, 0); } catch(e) {}
+        try { document.documentElement.scrollTop = 0; } catch(e) {}
+        try { document.body && (document.body.scrollTop = 0); } catch(e) {}
+      }
       try {
-        if ('scrollRestoration' in history) {
-          history.scrollRestoration = 'manual';
-        }
-        if (location.pathname === '/' && !location.hash) {
-          window.scrollTo(0, 0);
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+        var isHomeNoHash = location && location.pathname === '/' && !location.hash;
+        if (isHomeNoHash) {
+          scrollTopNow();
+          requestAnimationFrame(scrollTopNow);
+          setTimeout(scrollTopNow, 50);
         }
       } catch (e) { /* no-op */ }
-    </script>`;
+      try {
+        // Remove guard style after first frame
+        requestAnimationFrame(function(){
+          var el = document.getElementById('pre-hydration-scroll-guard');
+          if (el && el.parentNode) { el.parentNode.removeChild(el); }
+        });
+      } catch(e) { /* no-op */ }
+      try {
+        // Minimal instrumentation for diagnosis
+        if (typeof console !== 'undefined') {
+          console.debug('[scroll-guard] path:', location && location.pathname, 'hash:', location && location.hash, 'scrollY:', (typeof window!=='undefined' && window.scrollY));
+          setTimeout(function(){ console.debug('[scroll-guard] after 50ms scrollY:', (typeof window!=='undefined' && window.scrollY)); }, 50);
+        }
+      } catch(e) { /* no-op */ }
+    })();</script>`;
 
     // Generate the full HTML document
     const html = `<!doctype html>
@@ -176,6 +198,7 @@ export default async (request: Request, context: Context) => {
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50%25' x='50%25' dominant-baseline='middle' text-anchor='middle' font-size='52'%3E%F0%9F%92%AB%3C/text%3E%3C/svg%3E" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
+    ${preHydrationStyleTag}
     ${scrollControlTag}
     
     ${viteDevPreamble}

@@ -11,12 +11,21 @@ export const useScrollTopOnHome = (): void => {
     ? useLocation()
     : (['/', () => {}] as unknown as ReturnType<typeof useLocation>);
 
+  const scrollTopNow = () => {
+    if (typeof window === 'undefined') return;
+    try { window.scrollTo(0, 0); } catch {}
+    try { document.documentElement.scrollTop = 0; } catch {}
+    try { (document.body as any).scrollTop = 0; } catch {}
+  };
+
   // After initial hydration
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const { pathname, hash } = window.location;
     if (pathname === '/' && !hash) {
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      scrollTopNow();
+      requestAnimationFrame(scrollTopNow);
+      window.setTimeout(scrollTopNow, 50);
     }
   }, []);
 
@@ -25,9 +34,28 @@ export const useScrollTopOnHome = (): void => {
     if (typeof window === 'undefined') return;
     const { pathname, hash } = window.location;
     if (pathname === '/' && !hash) {
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      scrollTopNow();
+      requestAnimationFrame(scrollTopNow);
+      window.setTimeout(scrollTopNow, 50);
     }
   }, [location]);
+
+  // Handle BFCache and pageshow
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const handler = (e: PageTransitionEvent) => {
+      try {
+        const { pathname, hash } = window.location;
+        if (pathname === '/' && !hash) {
+          scrollTopNow();
+          requestAnimationFrame(scrollTopNow);
+          window.setTimeout(scrollTopNow, 50);
+        }
+      } catch {}
+    };
+    window.addEventListener('pageshow', handler as any);
+    return () => window.removeEventListener('pageshow', handler as any);
+  }, []);
 };
 
 
