@@ -10,6 +10,8 @@ interface Feature {
   badgeColor?: string;
   badges?: FeatureBadge[];
   description: string;
+  idea?: string; // short idea/tagline shown inside the card
+  topItems?: string[]; // up to three bullet points shown inside the card
   isFeatured?: boolean;
   buttonText?: string;
   buttonLink?: string;
@@ -77,6 +79,8 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
             icon: '🚀',
             title: 'New Feature',
             description: 'Description',
+            idea: '',
+            topItems: ['', '', ''],
             badge: '',
             badgeColor: 'green',
             badges: [],
@@ -117,6 +121,30 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
           placeholder="Brief description of the features section"
           aria-label="Features section description"
         />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-2">Product Page CTA Label</label>
+          <input
+            type="text"
+            value={(sectionData as any)?.productPageLabel || ''}
+            onChange={(e) => updateNestedField('featuresSection', null, 'productPageLabel', e.target.value)}
+            className="w-full p-2 border border-border rounded"
+            placeholder="Visit product page"
+            aria-label="Product page CTA label"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Product Page Link or Slug</label>
+          <input
+            type="text"
+            value={(sectionData as any)?.productPageLink || ''}
+            onChange={(e) => updateNestedField('featuresSection', null, 'productPageLink', e.target.value)}
+            className="w-full p-2 border border-border rounded"
+            placeholder="/bibliokit-blocks or https://example.com/product"
+            aria-label="Product page link"
+          />
+        </div>
       </div>
     </div>
 
@@ -330,12 +358,45 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
             />
           </div>
 
-          {/* Featured Card Button Fields */}
-          {feature.isFeatured && (
+          {/* Idea / Tagline inside the card */}
+          <div className="mb-3">
+            <label className="block text-xs font-medium mb-1">Idea / Tagline</label>
+            <input
+              type="text"
+              value={(feature as any).idea || ''}
+              onChange={(e) => updateNestedField('features', index, 'idea', e.target.value)}
+              className="p-1 border border-border rounded w-full text-sm"
+              placeholder="Short idea or tagline shown inside the card"
+              aria-label="Feature idea or tagline"
+            />
+          </div>
+
+          {/* Key features for this card */}
+          <div className="mb-3">
+            <label className="block text-xs font-medium mb-2">Key Features (bullets)</label>
+            <div className="space-y-2">
+              {[0,1,2].map((i) => (
+                <input
+                  key={i}
+                  type="text"
+                  value={((feature as any).topItems || [])[i] || ''}
+                  onChange={(e) => {
+                    const arr = Array.isArray((feature as any).topItems) ? ([...(feature as any).topItems] as string[]) : ['', '', ''];
+                    arr[i] = e.target.value;
+                    updateNestedField('features', index, 'topItems', arr);
+                  }}
+                  className="p-1 border border-border rounded w-full text-sm"
+                  placeholder={`Bullet ${i+1}`}
+                  aria-label={`Top feature bullet ${i+1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Button fields (always available per card) */}
+          {true && (
             <div className="border-t border-border/50 pt-3 space-y-2">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-medium text-primary">Featured Card Button</span>
-              </div>
+              <div className="text-xs font-medium text-primary">Card Button</div>
 
               {/* Preset selector */}
               <div className="grid grid-cols-3 gap-2 text-sm">
@@ -364,37 +425,33 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                 </div>
               </div>
 
-              {/* Custom text/link fields - only when preset is custom */}
-              {(feature.buttonPreset || 'custom') === 'custom' && (
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div>
-                    <label className="block text-xs font-medium mb-1">Button Text</label>
-                    <input
-                      type="text"
-                      value={feature.buttonText || ''}
-                      onChange={(e) => updateNestedField('features', index, 'buttonText', e.target.value)}
-                      className="p-1 border border-border rounded w-full"
-                      placeholder="e.g. Learn More, Get Started"
-                      aria-label="Button text"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium mb-1">Button Link</label>
-                    <input
-                      type="text"
-                      value={feature.buttonLink || ''}
-                      onChange={(e) => updateNestedField('features', index, 'buttonLink', e.target.value)}
-                      className="p-1 border border-border rounded w-full"
-                      placeholder="/pricing or https://example.com"
-                      aria-label="Button link"
-                    />
-                  </div>
+              {/* Custom text/link fields */}
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <div>
+                  <label className="block text-xs font-medium mb-1">Button Text</label>
+                  <input
+                    type="text"
+                    value={feature.buttonText || ''}
+                    onChange={(e) => updateNestedField('features', index, 'buttonText', e.target.value)}
+                    className="p-1 border border-border rounded w-full"
+                    placeholder="e.g. Learn More, Visit product page"
+                    aria-label="Button text"
+                  />
                 </div>
-              )}
-
-              <div className="text-xs text-muted-foreground mt-1">
-                Button appears when the card is marked Featured and either a preset is selected or custom text is provided.
+                <div>
+                  <label className="block text-xs font-medium mb-1">Button Link</label>
+                  <input
+                    type="text"
+                    value={feature.buttonLink || ''}
+                    onChange={(e) => updateNestedField('features', index, 'buttonLink', e.target.value)}
+                    className="p-1 border border-border rounded w-full"
+                    placeholder="/bibliokit-blocks or https://example.com"
+                    aria-label="Button link"
+                  />
+                </div>
               </div>
+
+              <div className="text-xs text-muted-foreground mt-1">Button appears when text and link are provided.</div>
             </div>
           )}
         </div>

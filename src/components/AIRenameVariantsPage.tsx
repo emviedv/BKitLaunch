@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
-import { useSchema, createProductSchema, createBreadcrumbSchema, updatePageMeta } from '@/lib/useSchema';
+import { useSchema, createProductSchema, createBreadcrumbSchema } from '@/lib/useSchema';
+import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import AnswerBox from './AnswerBox';
 import ExpertQuote from './ExpertQuote';
@@ -23,12 +24,10 @@ const AIRenameVariantsPage = () => {
 
   // Add schema and meta tags for the AI Rename Variants page
   useEffect(() => {
-    // Update page meta tags
-    updatePageMeta(
-      'AI Rename Variants - Figma Plugin | BiblioKit',
-      'Instantly relabel Figma variant and layer names with context-aware AI. Remove clutter and bring order to your files in seconds.'
-    );
-  }, []);
+    const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://bibliokit.com';
+    const metadata = generateMetadata('/ai-rename-variants', content, baseUrl);
+    updatePageMetadata(metadata);
+  }, [content]);
 
   const { content } = usePublishedContent();
   const product = content.products?.['ai-rename-variants'] || {

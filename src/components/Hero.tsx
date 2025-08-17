@@ -5,12 +5,15 @@ import { HeroBackground } from './HeroBackground';
 import { Button } from '@/components/ui/button';
 import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
 import { Confetti, type ConfettiRef } from '@/components/ui/confetti';
+ 
 
 const Hero = () => {
   const { content } = usePublishedContent();
   const { hero } = content;
   const displayBadge = (hero as any)?.badgeLabel || (hero as any)?.badge_label;
   const confettiRef = useRef<ConfettiRef>(null);
+  
+  
   
   // Return null if hero section is set to hidden
   if (content.settings?.visibility?.hero === false) {
@@ -50,6 +53,7 @@ const Hero = () => {
         gradientStops={[20, 45, 60, 72, 82, 90, 100]}
         containerClassName="pointer-events-none"
       />
+      
       <div className="container mx-auto text-center relative z-10">
         <div className="max-w-4xl mx-auto flex flex-col items-center justify-center min-h-[60vh] space-y-8">
           {displayBadge && (
@@ -199,20 +203,12 @@ const Hero = () => {
           )}
         </div>
       </div>
-      {/* Soft curved divider to create a natural circular flow into the next section */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 overflow-hidden leading-[0] z-10" aria-hidden="true">
-        <svg
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-          className="relative block w-[calc(100%+1.3px)] h-24 text-background"
-          role="presentation"
-        >
-          <path
-            d="M0,0 C 200,40 420,40 600,20 C 800,0 1000,20 1200,0 V120 H0 Z"
-            className="fill-current"
-          />
-        </svg>
-      </div>
+      {/* Bottom fade overlay to blend into next section */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 md:h-32 z-0 bg-gradient-to-b from-transparent via-background/70 to-background"
+        aria-hidden="true"
+      />
+      
       {/* Animated background is handled by HeroBackground */}
     </section>
   );

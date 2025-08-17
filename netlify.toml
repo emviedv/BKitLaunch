@@ -11,6 +11,18 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+  external_node_modules = [
+    "pg",
+    "pg-connection-string",
+    "pg-cloudflare",
+    "pg-pool",
+    "pg-protocol",
+    "pg-types",
+    "pgpass",
+    "postgres-interval",
+    "postgres-date",
+    "postgres-bytea"
+  ]
 
 # Prevent HTML caching to fix reload issues
 [[headers]]
@@ -61,6 +73,21 @@
     Permissions-Policy = "geolocation=(), microphone=(), camera=(), usb=(), payment=()"
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Resource-Policy = "same-origin"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
+[[headers]]
+  for = "/editor"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
+[[headers]]
+  for = "/editor/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
 
 # Redirects moved to public/_redirects file for better dev compatibility
 

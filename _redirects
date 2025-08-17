@@ -1,3 +1,6 @@
 /api/*  /.netlify/functions/:splat  200
 /*      /index.html  200
 
+# Serve dynamic sitemap from Netlify function
+/sitemap.xml  /.netlify/functions/sitemap  200
+

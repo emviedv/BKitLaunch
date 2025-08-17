@@ -9,10 +9,17 @@ export interface SEOMetadata {
   ogDescription?: string;
   ogImage?: string;
   ogType?: string;
+  siteName?: string;
+  locale?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   twitterCard?: string;
   twitterTitle?: string;
   twitterDescription?: string;
   twitterImage?: string;
+  twitterSite?: string;
+  twitterCreator?: string;
+  twitterImageAlt?: string;
   structuredData?: any[];
 }
 
@@ -26,6 +33,10 @@ const defaultMetadata: SEOMetadata = {
   description: "Professional SaaS software and Figma plugins with secure API management and world-class support.",
   keywords: "SaaS software, Figma plugins, API management, secure proxy, developer tools, design tools",
   ogType: "website",
+  siteName: "BiblioKit",
+  locale: "en_US",
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
   twitterCard: "summary_large_image"
 };
 
@@ -37,10 +48,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: "SaaS software, Figma plugins, API management, developer tools, secure proxy, react components",
     ogTitle: "BiblioKit - Professional SaaS Software & Figma Plugins",
     ogDescription: "Streamline your development workflow with secure API management and comprehensive tools.",
-    ogImage: "https://dummyimage.com/1200x630/0b3d91/ffffff.png&text=BiblioKit",
+    ogImage: "/og/og-default.svg",
     twitterTitle: "BiblioKit - Professional SaaS Software & Figma Plugins",
     twitterDescription: "Streamline your development workflow with secure API management and comprehensive tools.",
-    twitterImage: "https://dummyimage.com/1200x630/0b3d91/ffffff.png&text=BiblioKit",
+    twitterImage: "/og/og-default.svg",
     structuredData: [
       {
         "@context": "https://schema.org",
@@ -90,10 +101,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: "BiblioKit features, API management tools, Figma plugin features, developer tools, SaaS features",
     ogTitle: "BiblioKit Product Features & Benefits",
     ogDescription: "Comprehensive SaaS tools for developers and designers with secure API management and premium support.",
-    ogImage: "https://dummyimage.com/1200x630/111827/ffffff.png&text=BiblioKit+Product",
+    ogImage: "/og/og-default.svg",
     twitterTitle: "BiblioKit Product Features",
     twitterDescription: "Comprehensive SaaS tools for developers and designers with secure API management.",
-    twitterImage: "https://dummyimage.com/1200x630/111827/ffffff.png&text=BiblioKit+Product",
+    twitterImage: "/og/og-default.svg",
     structuredData: [
       {
         "@context": "https://schema.org",
@@ -159,6 +170,59 @@ export function generateMetadata(
         }
         break;
     }
+
+    // Dynamic product route handling: e.g., "/bibliokit-blocks" or other slugged pages
+    if (!routeMetadata[path] && path !== '/' && !path.startsWith('/admin')) {
+      const slug = String(path).replace(/^\/+/, '').split('/')[0];
+      const product = contentData.products?.[slug];
+      if (product) {
+        const productTitle: string = product.title || metadata.title;
+        const productDescription: string = product.description || metadata.description;
+        metadata.title = `${productTitle} | BiblioKit`;
+        metadata.description = productDescription;
+        metadata.ogTitle = productTitle;
+        metadata.ogDescription = productDescription;
+        metadata.twitterTitle = productTitle;
+        metadata.twitterDescription = productDescription;
+        if (product.ogImage && typeof product.ogImage === 'string') {
+          metadata.ogImage = product.ogImage;
+        }
+        if (product.twitterImage && typeof product.twitterImage === 'string') {
+          metadata.twitterImage = product.twitterImage;
+        }
+        // Add SSR JSON-LD
+        const origin = baseUrl;
+        const productUrl = `${origin}/${slug}`;
+        const productSchema = {
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: productTitle,
+          description: productDescription,
+          brand: { '@type': 'Brand', name: 'BiblioKit' },
+          category: 'Software'
+        };
+        const breadcrumbSchema = {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+            { '@type': 'ListItem', position: 2, name: productTitle, item: productUrl }
+          ]
+        };
+        metadata.structuredData = [...(metadata.structuredData || []), productSchema, breadcrumbSchema];
+      }
+    }
+
+    // Social accounts from content
+    const twitterHandle = contentData?.contact?.twitter;
+    if (twitterHandle && typeof twitterHandle === 'string') {
+      const normalized = twitterHandle.startsWith('@') ? twitterHandle : `@${twitterHandle}`;
+      metadata.twitterSite = normalized;
+      metadata.twitterCreator = normalized;
+    }
+    if (!metadata.twitterImageAlt) {
+      metadata.twitterImageAlt = metadata.title;
+    }
   }
   
   // Ensure absolute URLs for social media
@@ -168,9 +232,18 @@ export function generateMetadata(
   if (metadata.twitterImage && !metadata.twitterImage.startsWith('http')) {
     metadata.twitterImage = `${baseUrl}${metadata.twitterImage}`;
   }
+  // Fallback to default on-site OG/Twitter image if missing
+  if (!metadata.ogImage) {
+    metadata.ogImage = `${baseUrl}/og/og-default.svg`;
+  }
+  if (!metadata.twitterImage) {
+    metadata.twitterImage = `${baseUrl}/og/og-default.svg`;
+  }
   
-  // Set canonical URL
+  // Set canonical URL and clamp lengths
   metadata.canonical = `${baseUrl}${path}`;
+  metadata.title = clampText(metadata.title, 60);
+  metadata.description = clampText(metadata.description, 160);
   
   return metadata;
 }
@@ -196,18 +269,39 @@ export function generateMetaTags(metadata: SEOMetadata): string {
   tags.push(`<meta property="og:description" content="${escapeHtml(metadata.ogDescription || metadata.description)}" />`);
   tags.push(`<meta property="og:type" content="${escapeHtml(metadata.ogType || 'website')}" />`);
   tags.push(`<meta property="og:url" content="${escapeHtml(metadata.canonical || '')}" />`);
+  if (metadata.siteName) {
+    tags.push(`<meta property="og:site_name" content="${escapeHtml(metadata.siteName)}" />`);
+  }
+  if (metadata.locale) {
+    tags.push(`<meta property="og:locale" content="${escapeHtml(metadata.locale)}" />`);
+  }
   
   if (metadata.ogImage) {
     tags.push(`<meta property="og:image" content="${escapeHtml(metadata.ogImage)}" />`);
+    if (metadata.ogImageWidth) {
+      tags.push(`<meta property="og:image:width" content="${escapeHtml(String(metadata.ogImageWidth))}" />`);
+    }
+    if (metadata.ogImageHeight) {
+      tags.push(`<meta property="og:image:height" content="${escapeHtml(String(metadata.ogImageHeight))}" />`);
+    }
   }
   
   // Twitter Card tags
   tags.push(`<meta name="twitter:card" content="${escapeHtml(metadata.twitterCard || 'summary_large_image')}" />`);
   tags.push(`<meta name="twitter:title" content="${escapeHtml(metadata.twitterTitle || metadata.title)}" />`);
   tags.push(`<meta name="twitter:description" content="${escapeHtml(metadata.twitterDescription || metadata.description)}" />`);
+  if (metadata.twitterSite) {
+    tags.push(`<meta name="twitter:site" content="${escapeHtml(metadata.twitterSite)}" />`);
+  }
+  if (metadata.twitterCreator) {
+    tags.push(`<meta name="twitter:creator" content="${escapeHtml(metadata.twitterCreator)}" />`);
+  }
   
   if (metadata.twitterImage) {
     tags.push(`<meta name="twitter:image" content="${escapeHtml(metadata.twitterImage)}" />`);
+    if (metadata.twitterImageAlt) {
+      tags.push(`<meta name="twitter:image:alt" content="${escapeHtml(metadata.twitterImageAlt)}" />`);
+    }
   }
   
   return tags.join('\n    ');
@@ -244,6 +338,13 @@ function escapeHtml(text: string): string {
     .replace(/'/g, '&#x27;');
 }
 
+function clampText(text: string, maxLength: number): string {
+  if (!text) return text;
+  if (text.length <= maxLength) return text;
+  const truncated = text.slice(0, Math.max(0, maxLength - 1)).trimEnd();
+  return `${truncated}…`;
+}
+
 // Client-side function to update page metadata
 export function updatePageMetadata(metadata: SEOMetadata): void {
   if (typeof document === 'undefined') return;
@@ -258,9 +359,16 @@ export function updatePageMetadata(metadata: SEOMetadata): void {
     { selector: 'meta[property="og:title"]', content: metadata.ogTitle || metadata.title },
     { selector: 'meta[property="og:description"]', content: metadata.ogDescription || metadata.description },
     { selector: 'meta[property="og:image"]', content: metadata.ogImage },
+    { selector: 'meta[property="og:site_name"]', content: metadata.siteName },
+    { selector: 'meta[property="og:locale"]', content: metadata.locale },
+    { selector: 'meta[property="og:image:width"]', content: metadata.ogImageWidth ? String(metadata.ogImageWidth) : undefined },
+    { selector: 'meta[property="og:image:height"]', content: metadata.ogImageHeight ? String(metadata.ogImageHeight) : undefined },
     { selector: 'meta[name="twitter:title"]', content: metadata.twitterTitle || metadata.title },
     { selector: 'meta[name="twitter:description"]', content: metadata.twitterDescription || metadata.description },
-    { selector: 'meta[name="twitter:image"]', content: metadata.twitterImage }
+    { selector: 'meta[name="twitter:site"]', content: metadata.twitterSite },
+    { selector: 'meta[name="twitter:creator"]', content: metadata.twitterCreator },
+    { selector: 'meta[name="twitter:image"]', content: metadata.twitterImage },
+    { selector: 'meta[name="twitter:image:alt"]', content: metadata.twitterImageAlt }
   ];
   
   metaSelectors.forEach(({ selector, content }) => {

@@ -1,7 +1,8 @@
 import React from 'react';
+import { FigmaIconAnimation } from '@/components/decor/FigmaIconAnimation';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { BentoGrid } from '@/components/ui/bento-grid';
-import { Button } from '@/components/ui/button';
+import { ShootingStarsBackground } from '@/components/ui/shooting-stars';
 
 const Features = () => {
   const { content } = usePublishedContent();
@@ -11,8 +12,9 @@ const Features = () => {
   const featuresList = Array.isArray(content.features)
     ? content.features
     : (content.features?.items || []);
-  const sectionTitle = featuresSection?.title || content.featuresSection?.title || '';
+  const sectionTitleRaw = featuresSection?.title || content.featuresSection?.title || '';
   const sectionDescription = featuresSection?.description || content.featuresSection?.description || '';
+  // Section-level CTA not used; every card has its own link
   const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
 
   // Helper function to determine if a link is external
@@ -120,29 +122,28 @@ const Features = () => {
   }
 
   // Hide entire section when there are no items and no heading content
-  const hasHeading = Boolean(sectionTitle || sectionDescription);
   const hasItems = Array.isArray(featuresList) && featuresList.length > 0;
+  const effectiveSectionTitle = sectionTitleRaw || (hasItems ? 'Features' : '');
+  const hasHeading = Boolean(effectiveSectionTitle || sectionDescription);
   if (!hasHeading && !hasItems) {
     return null;
   }
 
-  const bentoClasses = [
-    "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
-    "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
-    "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
-    "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
-    "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-4",
-  ];
+  // Traditional card grid layout; responsive columns and auto row height
 
   // Background images removed per request, retaining clean card styling
+  
+  // No top-level CTA or list
 
   return (
-    <section id="features" className="pt-40 pb-20 px-4 section-background scroll-mt-28">
-      <div className="container mx-auto">
+    <section id="features" className="relative z-10 -mt-8 pt-[148px] pb-20 px-4 section-background-blend-top scroll-mt-28">
+      {/* Subtle shooting stars background */}
+      <ShootingStarsBackground density={22} speedMs={8000} />
+      <div className="container mx-auto relative z-30">
         <div className="text-center mb-16 pb-16">
-          {sectionTitle && (
+          {effectiveSectionTitle && (
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {sectionTitle}
+              {effectiveSectionTitle}
             </h2>
           )}
           {sectionDescription && (
@@ -152,7 +153,7 @@ const Features = () => {
           )}
         </div>
 
-        <BentoGrid className="lg:grid-rows-3">
+        <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto gap-6">
           {featuresList.map((feature: any, index: number) => {
             const isFeatured = feature.isFeatured || feature.is_featured;
             const badgeColor = feature.badgeColor || feature.badge_color;
@@ -160,8 +161,18 @@ const Features = () => {
             const buttonLink = feature.buttonLink || feature.button_link;
             const productSlug = feature.productSlug || feature.product_slug;
             const showBadge = (feature as any).showBadge !== false;
+            const ideaText: string | undefined = (feature as any).idea || (feature as any).ideaText || (feature as any).tagline;
+            const topItems: string[] = Array.isArray((feature as any).topItems)
+              ? (feature as any).topItems
+              : Array.isArray((feature as any).top_items)
+                ? (feature as any).top_items
+                : Array.isArray((feature as any).top3)
+                  ? (feature as any).top3
+                  : [];
 
-            const computedLink: string | undefined = productSlug ? `/${productSlug}` : buttonLink;
+            const computedLink: string | undefined = productSlug
+              ? `/${productSlug}`
+              : buttonLink;
             const external = Boolean(computedLink && isExternalLink(computedLink));
             const normalizedHref = computedLink && computedLink.startsWith('#')
               ? `/${computedLink}`
@@ -170,11 +181,20 @@ const Features = () => {
             return (
               <div
                 key={index}
-                className={`col-span-3 ${bentoClasses[index % bentoClasses.length]}`}
+                className="col-span-1"
               >
                 <div className={`group relative overflow-hidden h-full card ${isFeatured ? 'card-featured' : ''}`}>
-                  {/* Soft circular gradient on hover */}
-                  <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 gradient-rosewater-soft-radial" />
+                  {isFeatured && (
+                    <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                      <FigmaIconAnimation
+                        fit
+                        strokeWidth={2}
+                        animationDuration={3.5}
+                        variant="sequential"
+                        className="opacity-70"
+                      />
+                    </div>
+                  )}
                   <div className="relative z-10 flex h-full flex-col justify-end">
                     <div className="flex items-center justify-between mb-6">
                       <div className={`icon ${colorClasses[index % colorClasses.length]}`}>
@@ -210,16 +230,36 @@ const Features = () => {
                         })()
                       )}
                     </div>
-                    <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                    <h3 className="text-xl font-semibold mb-6">{feature.title}</h3>
                     <p className="text-muted-foreground">
                       {feature.description}
                     </p>
-                    {/* Buttons area aligned to bottom */}
+                    {ideaText && (
+                      <p className="mt-2 text-sm italic text-muted-foreground/80">
+                        {ideaText}
+                      </p>
+                    )}
+                    {/* Key features for this card */}
+                    {topItems.length > 0 && (
+                      <div className="mt-7">
+                        <h4 className="text-sm font-semibold mb-2">Key Features</h4>
+                        <ul className="grid grid-cols-1 gap-2">
+                          {topItems.slice(0, 3).map((t: string, ti: number) => (
+                            <li key={ti} className="flex items-start gap-2">
+                              <span className="mt-1 inline-block w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
+                              <span className="text-sm text-muted-foreground">{t}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Button area aligned to bottom */}
                     {(() => {
                       const label: string | undefined =
-                        feature.buttonPreset === 'beta' ? 'Sign Up for Beta' : buttonText;
+                        feature.buttonPreset === 'beta' ? 'Sign Up for Beta' : (buttonText || 'Visit product page');
 
-                      if (isFeatured && label) {
+                      if (label && normalizedHref) {
                         return (
                           <a
                             href={normalizedHref || '#'}
@@ -231,23 +271,6 @@ const Features = () => {
                           >
                             {label}
                           </a>
-                        );
-                      }
-
-                      if (!isFeatured && normalizedHref) {
-                        return (
-                          <div className="mt-4">
-                            <Button variant="ghost" asChild size="sm">
-                              <a
-                                href={normalizedHref}
-                                target={external ? '_blank' : '_self'}
-                                rel={external ? 'noopener noreferrer' : undefined}
-                                aria-label={`Learn more - ${feature.title}`}
-                              >
-                                Learn more
-                              </a>
-                            </Button>
-                          </div>
                         );
                       }
 

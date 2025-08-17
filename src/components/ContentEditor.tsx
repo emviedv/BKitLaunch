@@ -1189,6 +1189,68 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       }
     };
 
+    // Duplicate a page in the database and ensure it is added to the Product Pages list
+    const duplicatePage = async (pageToDuplicate: { id?: number; slug: string; title: string }) => {
+      if (!pageToDuplicate?.id) return;
+      // Build a unique slug based on existing pages list
+      const baseSlug = `${pageToDuplicate.slug}-copy`;
+      const existingSlugs = pages.map(p => p.slug);
+      let uniqueSlug = baseSlug;
+      let counter = 2;
+      while (existingSlugs.includes(uniqueSlug)) {
+        uniqueSlug = `${baseSlug}-${counter}`;
+        counter += 1;
+      }
+
+      // Fetch full page content to clone
+      const sourceRes = await contentApi.getPage(pageToDuplicate.id!);
+      const sourceContent = sourceRes.success && sourceRes.data ? (sourceRes.data as any).content || {} : {};
+      const newTitle = `${pageToDuplicate.title} (Copy)`;
+
+      // Create the duplicated page record
+      const createRes = await contentApi.createPage({
+        slug: uniqueSlug,
+        title: newTitle,
+        content: sourceContent,
+        is_published: false
+      });
+
+      if (createRes.success) {
+        // Refresh list
+        const refreshed = await contentApi.getPages(false);
+        if (refreshed.success && refreshed.data) {
+          setPages((refreshed.data as any[]).map(p => ({ id: p.id, slug: p.slug, title: p.title, is_published: p.is_published })));
+        }
+
+        // Also add a corresponding product entry so it appears under Product Pages
+        const currentProducts = { ...(((savedContent as any) || {}).products || {}) } as Record<string, any>;
+        if (!currentProducts[uniqueSlug]) {
+          const newProduct = {
+            visibility: { waitlist: true },
+            badgeLabel: '',
+            title: newTitle,
+            description: '',
+            primaryButton: 'Get Started',
+            primaryButtonLink: '',
+            secondaryButton: 'Learn More',
+            secondaryButtonLink: '',
+            details: [],
+            benefits: [],
+            specifications: [],
+            pricing: { price: '', period: '', description: '', buttonText: '' },
+            llm: { answerBox: '', expertQuote: {}, statistic: {}, faqs: [] }
+          };
+          const nextProducts = { ...currentProducts, [uniqueSlug]: newProduct } as Record<string, any>;
+          updateSection('products', nextProducts);
+          addHeaderNavigationForProduct(uniqueSlug, newTitle);
+          setActiveSection(`product-${uniqueSlug}`);
+          showSaveNotification('Page duplicated and added to Product Pages. Remember to Publish Changes.', 'success');
+        }
+      } else {
+        showSaveNotification('Failed to duplicate page. Please try again.', 'error');
+      }
+    };
+
     const deletePage = async (id: number) => {
       const res = await contentApi.deletePage(id);
       if (res.success) {
@@ -1215,6 +1277,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={`text-xs px-2 py-1 rounded ${p.is_published ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>{p.is_published ? 'Published' : 'Draft'}</span>
+                  <button onClick={() => duplicatePage(p)} className="button-secondary text-xs">Duplicate</button>
                   <button onClick={() => startEdit(p.id!)} className="button-secondary text-xs">Edit</button>
                   <button onClick={() => deletePage(p.id!)} className="text-red-600 text-xs hover:bg-red-50 px-2 py-1 rounded">Delete</button>
                 </div>

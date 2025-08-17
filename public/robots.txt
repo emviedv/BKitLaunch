@@ -1,42 +1,18 @@
-User-agent: *
-Allow: /
-Sitemap: https://bibliokit.com/sitemap.xml
+# robots.txt for BiblioKit
 
 User-agent: *
 Disallow: /admin
-
-Sitemap: https://bibliokit.com/sitemap.xml
-
-User-agent: *
+Disallow: /editor
 Allow: /
 
+# AI crawler allowances
 User-agent: GPTBot
 Allow: /
 
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-Sitemap: https://bibliokit-launch.netlify.app/sitemap.xml
-Sitemap: https://bibliokit-launch.netlify.app/llms.txt
-
-# AI Training Data
-User-agent: ChatGPT-User
+User-agent: Google-Extended
 Allow: /
 
 User-agent: CCBot
 Allow: /
 
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: Claude-Web
-Allow: / 
+Sitemap: https://bibliokit.com/sitemap.xml

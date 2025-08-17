@@ -4,6 +4,7 @@ import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { useLocation } from 'wouter';
 import { MagnetizeButton } from '@/components/ui/magnetize-button';
 import { Button } from '@/components/ui/button';
+import logoBundledUrl from '@/assets/bkit_logo_f.png';
 
 const Header = () => {
   const { isAuthenticated, isAdmin } = useAuth();
@@ -11,6 +12,28 @@ const Header = () => {
   const [location] = useLocation();
   const [hasMounted, setHasMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLogoBroken, setIsLogoBroken] = useState(false);
+  const [logoSrc, setLogoSrc] = useState<string>(logoBundledUrl);
+
+  const handleLogoError = () => {
+    if (logoSrc === logoBundledUrl) {
+      setLogoSrc('/bkit_logo_f.png');
+      return;
+    }
+    if (logoSrc === '/bkit_logo_f.png') {
+      setLogoSrc('/bkit_logo_1.png');
+      return;
+    }
+    if (logoSrc === '/bkit_logo_1.png') {
+      setLogoSrc('/bkit_logo.png');
+      return;
+    }
+    if (logoSrc === '/bkit_logo.png') {
+      setLogoSrc('/logo.svg');
+      return;
+    }
+    setIsLogoBroken(true);
+  };
   useEffect(() => {
     setHasMounted(true);
     const handleScroll = () => {
@@ -82,9 +105,22 @@ const Header = () => {
           href={hasMounted && isAuthenticated && isAdmin ? '/admin' : '/'}
           aria-label={hasMounted && isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
           title={hasMounted && isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
-          className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
+          className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
         >
-          {content.header?.logoText || 'BiblioKit'}
+          {!isLogoBroken && (
+            <img
+              src={logoSrc}
+              alt=""
+              aria-hidden="true"
+              width={32}
+              height={32}
+              className="w-8 h-8 mr-2 drop-shadow-sm"
+              onError={handleLogoError}
+            />
+          )}
+          <span className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">
+            {content.header?.logoText || 'BiblioKit'}
+          </span>
         </a>
         <nav className="hidden md:flex items-center space-x-6">
           {navItems.map((item, index) => {

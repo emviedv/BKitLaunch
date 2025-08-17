@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
-import { useSchema, createProductSchema, createBreadcrumbSchema, updatePageMeta } from '@/lib/useSchema';
+import { useSchema, createProductSchema, createBreadcrumbSchema } from '@/lib/useSchema';
+import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import AnswerBox from './AnswerBox';
 import { BlocksHeroBackground } from './BlocksHeroBackground';
@@ -67,13 +68,11 @@ const BiblioKitBlocksPage = () => {
     const currentProduct: ProductInfo | undefined =
       content.products?.['bibliokit-blocks'] || content.product;
     if (currentProduct) {
-      // Update page meta tags
-      updatePageMeta(
-        `${currentProduct.title} - Design System Analytics | BiblioKit`,
-        currentProduct.description
-      );
-      
-      // Add timestamp to content
+      const path = '/bibliokit-blocks';
+      const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://bibliokit.com';
+      const metadata = generateMetadata(path, content, baseUrl);
+      updatePageMetadata(metadata);
+
       const currentDate = new Date().toISOString().split('T')[0];
       const updatedDiv = document.querySelector('.updated-date');
       if (updatedDiv) {

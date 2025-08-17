@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
+ 
 
 export default defineConfig({
   plugins: [
     react(),
+    
     {
       name: 'html-cache-bust',
       transformIndexHtml(html) {
@@ -31,7 +33,8 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 5176,
+    port: 9990,
+    strictPort: true,
   },
   build: {
     outDir: 'dist',

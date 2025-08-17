@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
-import { useSchema, createProductSchema, createBreadcrumbSchema, updatePageMeta } from '@/lib/useSchema';
+import { useSchema, createProductSchema, createBreadcrumbSchema } from '@/lib/useSchema';
+import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import AnswerBox from './AnswerBox';
 import ExpertQuote from './ExpertQuote';
@@ -80,9 +81,12 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
 
   useEffect(() => {
     if (product) {
-      updatePageMeta(`${product.title} | BiblioKit`, product.description);
+      const path = `/${slug}`;
+      const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://bibliokit.com';
+      const metadata = generateMetadata(path, content, baseUrl);
+      updatePageMetadata(metadata);
     }
-  }, [product]);
+  }, [product, slug, content]);
 
   const productSchema = product
     ? createProductSchema(product)

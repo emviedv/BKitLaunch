@@ -177,6 +177,11 @@
     @apply bg-gradient-to-b from-background to-muted/30;
   }
 
+  /* Variant for first section after hero to blend seamlessly */
+  .section-background-blend-top {
+    @apply bg-gradient-to-b from-transparent via-background to-muted/30;
+  }
+
   .icon {
     @apply w-12 h-12 rounded-lg flex items-center justify-center text-2xl;
   }
