@@ -155,6 +155,19 @@ export default async (request: Request, context: Context) => {
       ? `\n    <script type="module" src="/@vite/client"></script>\n    <script type="module">\n      import RefreshRuntime from "/@react-refresh";\n      RefreshRuntime.injectIntoGlobalHook(window);\n      window.$RefreshReg$ = () => {};\n      window.$RefreshSig$ = () => (type) => type;\n      window.__vite_plugin_react_preamble_installed__ = true;\n    </script>`
       : '';
 
+    // Early scroll control to avoid browser restoring prior position before hydration
+    const scrollControlTag = `
+    <script nonce="${nonce}">
+      try {
+        if ('scrollRestoration' in history) {
+          history.scrollRestoration = 'manual';
+        }
+        if (location.pathname === '/' && !location.hash) {
+          window.scrollTo(0, 0);
+        }
+      } catch (e) { /* no-op */ }
+    </script>`;
+
     // Generate the full HTML document
     const html = `<!doctype html>
 <html lang="en">
@@ -162,6 +175,8 @@ export default async (request: Request, context: Context) => {
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50%25' x='50%25' dominant-baseline='middle' text-anchor='middle' font-size='52'%3E%F0%9F%92%AB%3C/text%3E%3C/svg%3E" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    ${scrollControlTag}
     
     ${viteDevPreamble}
     

@@ -4,6 +4,13 @@ import App from './App';
 import { Router } from 'wouter';
 import './index.css';
 
+// Disable native scroll restoration so refresh starts at the top unless a hash is present
+try {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+} catch {}
+
 // Basic production/consent-gated Hotjar loader for public routes only
 const loadHotjarIfAllowed = (): void => {
   try {

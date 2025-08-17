@@ -18,6 +18,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { usePublishedContent } from './hooks/usePublishedContent';
 import { useSEO } from './hooks/useSEO';
 import { useHashScroll } from './hooks/useHashScroll';
+import { useScrollTopOnHome } from './hooks/useScrollTopOnHome';
 import productData from '@/data/products.json';
 import { Button } from '@/components/ui/button';
 
@@ -94,6 +95,7 @@ const AppContent = () => {
   const { isAuthenticated, isAdmin } = useAuth();
 
   // Ensure #hash links scroll to sections correctly
+  useScrollTopOnHome();
   useHashScroll();
 
   return (

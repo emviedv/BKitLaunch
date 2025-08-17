@@ -11,16 +11,9 @@ const Pricing = () => {
     return null;
   }
 
-  // Check if pricing is in "Coming Soon" state
-  // Default to Coming Soon if:
-  // 1. No pricingSection exists, OR
-  // 2. pricingSection.isComingSoon is not explicitly set to false, OR  
-  // 3. pricingSection.isComingSoon is explicitly true
-  const isComingSoon = content.pricingSection?.isComingSoon !== false || 
-                       !content.pricingSection || 
-                       content.pricingSection?.isComingSoon === true;
-  
-  // Show Coming Soon state
+  // Only show Coming Soon when explicitly configured; otherwise hide by default to avoid flash on SSR
+  const isComingSoon = content.pricingSection?.isComingSoon === true || (content.pricingSection as any)?.is_coming_soon === true;
+
   if (isComingSoon) {
     return (
     <section id="pricing" className="py-20 px-4 scroll-mt-28" role="region" aria-label="Pricing coming soon">
