@@ -9,9 +9,10 @@ import StatBox from './StatBox';
 import ContentChunk from './ContentChunk';
 import FAQSchema from './FAQSchema';
 import Waitlist from './Waitlist';
-import { HeroBackground } from './HeroBackground';
+import { BlocksHeroBackground } from './BlocksHeroBackground';
 import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface ProductDetail {
   title: string;
@@ -68,7 +69,8 @@ type DynamicProductPageProps = {
 };
 
 const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
-  const { content } = usePublishedContent();
+  const { content, loading } = usePublishedContent();
+  const { isAuthenticated, isAdmin } = useAuth();
 
   useEffect(() => {
     debugService.info('DynamicProductPage mounted', {
@@ -78,6 +80,13 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
   }, [slug]);
 
   const product: ProductInfo | undefined = content.products?.[slug];
+
+  useEffect(() => {
+    try {
+      const keys = Object.keys((content as any)?.products || {});
+      console.log('DynamicProductPage content.products keys:', keys);
+    } catch {}
+  }, [content]);
 
   useEffect(() => {
     if (product) {
@@ -142,6 +151,19 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
     ];
 
   if (!product) {
+    if (loading) {
+      return (
+        <div className="container mx-auto px-4 py-20">
+          <div className="animate-pulse space-y-6 max-w-3xl mx-auto">
+            <div className="h-6 bg-gray-200 rounded w-40" />
+            <div className="h-10 bg-gray-200 rounded w-2/3" />
+            <div className="h-4 bg-gray-200 rounded w-full" />
+            <div className="h-4 bg-gray-200 rounded w-11/12" />
+            <div className="h-10 bg-gray-200 rounded w-48" />
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="container mx-auto px-4 py-16">
         <div className="text-center">
@@ -154,8 +176,12 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
 
   return (
     <>
-      <section className="section-hero relative overflow-hidden py-24 px-4 min-h-[calc(100vh-60px)] flex items-center">
-        <HeroBackground />
+      <section className="section-hero relative overflow-hidden py-28 md:py-32 px-4 min-h-screen flex items-center">
+        <BlocksHeroBackground
+          emoji={product?.emoji}
+          emojiY={(isAuthenticated && isAdmin) ? 160 : 110}
+          minEmojiViewportTop={(isAuthenticated && isAdmin) ? 96 : 0}
+        />
         <AnimatedGradientBackground
           Breathing
           startingGap={118}
@@ -167,15 +193,9 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
         <div className="container mx-auto text-center relative z-10">
           <div className="max-w-4xl mx-auto">
             {product?.badgeLabel && (
-              <div className="inline-block mb-6 bg-primary/10 px-4 py-2 rounded-full">
-                <span className="text-primary font-medium">{product.badgeLabel}</span>
-              </div>
-            )}
-            {product.emoji && (
-              <div className="mb-4">
-                <span role="img" aria-label="product emoji" className="text-5xl md:text-6xl">
-                  {product.emoji}
-                </span>
+              <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-primary/20 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/50">
+                <span className="inline-flex h-2 w-2 rounded-full bg-primary" />
+                <span className="text-sm font-medium text-gray-800">{product.badgeLabel}</span>
               </div>
             )}
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
@@ -218,18 +238,16 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
         </div>
       </section>
 
-      <div className="text-center py-4 text-sm text-muted-foreground bg-gray-50">
-        <span className="updated-date">Updated {new Date().toISOString().split('T')[0]}</span>
-      </div>
+
 
       {product.details && (
         <section className="py-20 px-4 section-background">
           <div className="container mx-auto">
             <ContentChunk>
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">⚡ Key Features</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">{(product as any)?.sections?.features?.title || '⚡ Key Features'}</h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Comprehensive analytics with automated integrations and ROI tracking
+                  {(product as any)?.sections?.features?.description || 'Comprehensive design system analytics platform with automated Figma integration and ROI tracking'}
                 </p>
               </div>
             </ContentChunk>
@@ -259,9 +277,9 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
         <div className="container mx-auto">
           <ContentChunk>
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">💡 Use Cases</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">{(product as any)?.sections?.useCases?.title || '💡 Use Cases'}</h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Built for product teams seeking data-driven optimization and better outcomes
+                {(product as any)?.sections?.useCases?.description || 'Perfect for product teams seeking data-driven design system optimization and ROI measurement'}
               </p>
             </div>
           </ContentChunk>
@@ -292,9 +310,9 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
           <div className="container mx-auto">
             <ContentChunk>
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Technical Capabilities</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">{(product as any)?.sections?.specifications?.title || 'Technical Capabilities'}</h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Built with powerful features for professional workflows
+                  {(product as any)?.sections?.specifications?.description || 'Built with powerful features for professional design workflows'}
                 </p>
               </div>
             </ContentChunk>

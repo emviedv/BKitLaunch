@@ -13,9 +13,60 @@ export const HeroSectionEditor: React.FC<HeroSectionEditorProps> = ({
   updateNestedField, 
   visible, 
   updateVisibility 
-}) => (
+}) => {
+  const [jsonEdit, setJsonEdit] = React.useState(false);
+  const [jsonValue, setJsonValue] = React.useState<string>(
+    JSON.stringify({ visible, hero }, null, 2)
+  );
+
+  React.useEffect(() => {
+    setJsonValue(JSON.stringify({ visible, hero }, null, 2));
+  }, [hero, visible]);
+
+  const applyJson = () => {
+    try {
+      const parsed = JSON.parse(jsonValue);
+      if (parsed && typeof parsed === 'object') {
+        const nextHero = (parsed as any).hero || parsed;
+        if (nextHero && typeof nextHero === 'object') {
+          Object.entries(nextHero).forEach(([k, v]) => updateNestedField('hero', null, k, v));
+        }
+        if (typeof (parsed as any).visible === 'boolean') {
+          updateVisibility((parsed as any).visible);
+        }
+      }
+      setJsonEdit(false);
+    } catch {
+      alert('Invalid JSON. Please correct and try again.');
+    }
+  };
+
+  if (jsonEdit) {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="font-semibold text-lg">Hero Section — JSON Editor</h3>
+          <div className="flex items-center gap-2">
+            <button className="button-secondary text-xs" onClick={() => setJsonEdit(false)}>Cancel</button>
+            <button className="button text-xs" onClick={applyJson}>Apply JSON</button>
+          </div>
+        </div>
+        <textarea
+          className="w-full p-2 border border-border rounded h-64 font-mono text-sm"
+          value={jsonValue}
+          onChange={(e) => setJsonValue(e.target.value)}
+          placeholder='{"visible":true,"hero":{"badgeLabel":"","gradientColors":["#ecfeff00"],"emoji":"✨","title":"","subtitle":"","description":"","primaryButton":"","primaryButtonLink":"","secondaryButton":"","secondaryButtonLink":""}}'
+        />
+      </div>
+    );
+  }
+
+  return (
   <div className="space-y-4">
-    <h3 className="font-semibold text-lg">Hero Section</h3>
+    <div className="flex items-center justify-between">
+      <h3 className="font-semibold text-lg">Hero Section</h3>
+      <button className="px-3 py-1 text-sm rounded border border-border hover:bg-muted" onClick={() => setJsonEdit(true)}>Edit JSON</button>
+    </div>
     
     {/* Visibility Toggle */}
     <div className="flex items-center gap-2 mb-4 p-3 bg-muted/20 rounded-lg">
@@ -89,4 +140,5 @@ export const HeroSectionEditor: React.FC<HeroSectionEditorProps> = ({
       </div>
     </div>
   </div>
-);
+  );
+};

@@ -5,9 +5,7 @@ import AdminHeader from './components/AdminHeader';
 import Hero from './components/Hero';
 import Features from './components/Features';
 import Pricing from './components/Pricing';
-import BiblioKitBlocksPage from './components/ProductPage';
 import DynamicProductPage from './components/DynamicProductPage';
-import AIRenameVariantsPage from './components/AIRenameVariantsPage';
 import DatabaseTest from './components/DatabaseTest';
 import Footer from './components/Footer';
 import ContentEditor from './components/ContentEditor';
@@ -93,6 +91,10 @@ const AppContent = () => {
   const isEditorRoute = location === '/editor' || location.startsWith('/editor/');
   const isHomeRoute = location === '/';
   const { isAuthenticated, isAdmin } = useAuth();
+  const slug = (location || '/').replace(/^\/+/, '').split('/')[0] || '';
+  const isAdminEditor = location.startsWith('/admin') || location.startsWith('/editor');
+  const isProductPathFallback = !!(slug && !['', 'admin', 'editor', 'design-system', 'test', 'database'].includes(slug));
+  const isTransparentRoute = (!isAdminRoute && !isEditorRoute) && (isHomeRoute || (isProductPathFallback && !isAdminEditor));
 
   // Ensure #hash links scroll to sections correctly
   useScrollTopOnHome();
@@ -104,13 +106,12 @@ const AppContent = () => {
       <AdminHeader />
       {/* Hide main site Header on admin and editor dedicated routes to avoid overlap */}
       {!isAdminRoute && !isEditorRoute && <Header />}
-      <main className={`flex-1 ${(!isAdminRoute && !isEditorRoute && isHomeRoute) ? 'pt-0' : 'pt-16'}`}>
+      <main className={`flex-1 ${isTransparentRoute ? 'pt-0' : 'pt-16'}`}>
         <Switch>
           <Route path="/" component={HomePage} />
           {import.meta.env.DEV && <Route path="/test" component={TestPage} />}
           {import.meta.env.DEV && <Route path="/design-system" component={DesignSystem} />}
-          <Route path="/bibliokit-blocks" component={BiblioKitBlocksPage} />
-          <Route path="/ai-rename-variants" component={AIRenameVariantsPage} />
+          {/* All product pages are handled by the dynamic slug route below */}
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/editor">
             {isAuthenticated && isAdmin ? (
@@ -158,9 +159,9 @@ const AppContent = () => {
             </Route>
           )}
           <Route path="/:productSlug">
-            {({ params }) => (
-              (params as any)?.productSlug ? (
-                <DynamicProductPage slug={(params as any).productSlug} />
+            {(params: { productSlug?: string }) => (
+              params?.productSlug ? (
+                <DynamicProductPage slug={params.productSlug} />
               ) : null
             )}
           </Route>

@@ -5,6 +5,7 @@ export interface ShootingStarsBackgroundProps {
   className?: string;
   density?: number; // number of stars
   speedMs?: number; // average time for a star to travel top -> bottom
+  debug?: boolean; // shows a tinted overlay and outline to confirm visibility
 }
 
 interface StarConfig {
@@ -14,6 +15,7 @@ interface StarConfig {
   durationMs: number;
   sizePx: number;
   xDriftPx: number;
+  twinkleDelayMs: number;
 }
 
 const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(max, val));
@@ -22,6 +24,7 @@ export const ShootingStarsBackground: React.FC<ShootingStarsBackgroundProps> = (
   className,
   density = 18,
   speedMs = 6000,
+  debug = false,
 }) => {
   const [mounted, setMounted] = React.useState(false);
   const [stars, setStars] = React.useState<StarConfig[]>([]);
@@ -81,6 +84,7 @@ export const ShootingStarsBackground: React.FC<ShootingStarsBackgroundProps> = (
       const durationMs = clamp(speedTarget * durationJitter, 2800, 14000);
       const sizePx = 2 + Math.floor(Math.random() * 2); // 2..3 px core for visibility
       const xDriftPx = (Math.random() * 60 - 30) * (Math.random() > 0.5 ? 1 : 0.6); // gentle horizontal drift
+      const twinkleDelayMs = Math.random() * 800;
       return {
         id: `star-${i}`,
         leftPercent,
@@ -88,6 +92,7 @@ export const ShootingStarsBackground: React.FC<ShootingStarsBackgroundProps> = (
         durationMs,
         sizePx,
         xDriftPx,
+        twinkleDelayMs,
       };
     });
     setStars(configs);
@@ -100,8 +105,11 @@ export const ShootingStarsBackground: React.FC<ShootingStarsBackgroundProps> = (
 
   return (
     <div
-      className={`absolute inset-0 pointer-events-none overflow-hidden ${className || ''}`}
-      style={{ opacity: isReducedMotion ? 0.5 : undefined }}
+      className={`absolute inset-0 pointer-events-none overflow-hidden ${debug ? 'z-40' : 'z-20'} ${debug ? 'bg-emerald-300/15' : ''} ${className || ''}`}
+      style={{
+        opacity: isReducedMotion ? 0.5 : undefined,
+        outline: debug ? '1px dashed rgba(16,185,129,0.6)' : undefined,
+      }}
       aria-hidden="true"
     >
       {stars.map((star) => (
@@ -118,14 +126,35 @@ export const ShootingStarsBackground: React.FC<ShootingStarsBackgroundProps> = (
             repeat: Infinity,
           }}
         >
-          <div className="relative flex flex-col items-center">
-            {/* tail */}
-            <div className="w-px h-12 md:h-16 lg:h-20 bg-gradient-to-b from-white/90 via-white/30 to-transparent blur-[0.5px]" />
-            {/* core */}
+          <div className="relative flex flex-col items-center mix-blend-screen">
+            {/* tail (brighter golden with glow) */}
+            <div className="relative">
+              <div className="w-[2px] h-16 md:h-24 lg:h-32 bg-gradient-to-b from-yellow-200 via-yellow-200 to-transparent" />
+              <div className="absolute inset-0 blur-[2px] bg-gradient-to-b from-yellow-300/70 via-yellow-200/50 to-transparent" />
+            </div>
+            {/* core (stronger glow) */}
             <div
-              className="rounded-full bg-white/90 shadow-[0_0_6px_rgba(255,255,255,0.6)]"
-              style={{ width: star.sizePx, height: star.sizePx }}
+              className="relative rounded-full bg-yellow-300 shadow-[0_0_16px_rgba(250,204,21,0.95),0_0_30px_rgba(253,224,71,0.7)]"
+              style={{ width: star.sizePx + 1, height: star.sizePx + 1 }}
             />
+            {/* sparkle pulse with randomized phase */}
+            <motion.div
+              className="absolute rounded-full bg-yellow-200"
+              style={{ width: star.sizePx + 3, height: star.sizePx + 3 }}
+              initial={{ opacity: 0.75, scale: 0.9 }}
+              animate={{ opacity: [0.6, 1, 0.6], scale: [0.9, 1.25, 0.95] }}
+              transition={{ duration: 1.1, repeat: Infinity, ease: 'easeInOut', delay: star.twinkleDelayMs / 1000 }}
+            />
+            {/* animated glint cross */}
+            <motion.div
+              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              initial={{ rotate: 0, opacity: 0.9 }}
+              animate={{ rotate: [0, 20, -10, 0], opacity: [0.8, 1, 0.85, 1] }}
+              transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: star.twinkleDelayMs / 1200 }}
+            >
+              <div className="absolute w-4 h-px bg-gradient-to-r from-transparent via-yellow-300 to-transparent" />
+              <div className="absolute h-4 w-px bg-gradient-to-b from-transparent via-yellow-300 to-transparent" />
+            </motion.div>
           </div>
         </motion.div>
       ))}

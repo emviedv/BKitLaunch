@@ -10,6 +10,22 @@ const Swatch: React.FC<{ name: string; className: string; textClass?: string }> 
   </div>
 );
 
+const TextSwatch: React.FC<{ name: string; textClass: string }> = ({ name, textClass }) => (
+  <div className="flex items-center gap-3">
+    <div className="h-8 w-8 rounded-md border bg-background flex items-center justify-center">
+      <span className={`text-base leading-none ${textClass}`}>Aa</span>
+    </div>
+    <span className="text-sm text-foreground">{name}</span>
+  </div>
+);
+
+const BorderSwatch: React.FC<{ name: string; borderClass: string }> = ({ name, borderClass }) => (
+  <div className="flex items-center gap-3">
+    <div className={`h-8 w-8 rounded-md bg-background border ${borderClass}`} />
+    <span className="text-sm text-foreground">{name}</span>
+  </div>
+);
+
 const DesignSystem: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-16">
@@ -42,6 +58,62 @@ const DesignSystem: React.FC = () => {
             <div className="flex flex-col gap-3">
               <Swatch name="success" className="bg-green-500" />
               <Swatch name="success soft" className="bg-green-100" />
+            </div>
+          </div>
+
+          {/* Neutrals (Gray Scale) */}
+          <div className="card">
+            <h3 className="font-medium mb-3">Neutrals (Gray)</h3>
+            <div className="flex flex-col gap-3">
+              <Swatch name="gray-50" className="bg-gray-50" />
+              <Swatch name="gray-100" className="bg-gray-100" />
+              <Swatch name="gray-200" className="bg-gray-200" />
+              <Swatch name="gray-300" className="bg-gray-300" />
+              <Swatch name="gray-400" className="bg-gray-400" />
+              <Swatch name="gray-500" className="bg-gray-500" textClass="text-white" />
+              <Swatch name="gray-600" className="bg-gray-600" textClass="text-white" />
+              <Swatch name="gray-700" className="bg-gray-700" textClass="text-white" />
+              <Swatch name="gray-800" className="bg-gray-800" textClass="text-white" />
+              <Swatch name="gray-900" className="bg-gray-900" textClass="text-white" />
+            </div>
+          </div>
+
+          {/* Surface & Border Tokens */}
+          <div className="card">
+            <h3 className="font-medium mb-3">Surfaces & Borders</h3>
+            <div className="flex flex-col gap-3">
+              <Swatch name="background" className="bg-background" />
+              <Swatch name="foreground" className="bg-foreground" textClass="text-white" />
+              <Swatch name="muted" className="bg-muted" />
+              <Swatch name="muted-foreground" className="bg-muted-foreground" textClass="text-white" />
+              <Swatch name="border" className="bg-border" />
+              <Swatch name="input" className="bg-input" />
+            </div>
+          </div>
+
+          {/* Text (Gray) */}
+          <div className="card">
+            <h3 className="font-medium mb-3">Text (Gray)</h3>
+            <div className="flex flex-col gap-3">
+              <TextSwatch name="foreground" textClass="text-foreground" />
+              <TextSwatch name="muted-foreground" textClass="text-muted-foreground" />
+              <TextSwatch name="gray-500" textClass="text-gray-500" />
+              <TextSwatch name="gray-600" textClass="text-gray-600" />
+              <TextSwatch name="gray-700" textClass="text-gray-700" />
+              <TextSwatch name="gray-800" textClass="text-gray-800" />
+              <TextSwatch name="gray-900" textClass="text-gray-900" />
+            </div>
+          </div>
+
+          {/* Borders (Gray) */}
+          <div className="card">
+            <h3 className="font-medium mb-3">Borders (Gray)</h3>
+            <div className="flex flex-col gap-3">
+              <BorderSwatch name="border" borderClass="border-border" />
+              <BorderSwatch name="gray-100" borderClass="border-gray-100" />
+              <BorderSwatch name="gray-200" borderClass="border-gray-200" />
+              <BorderSwatch name="gray-300" borderClass="border-gray-300" />
+              <BorderSwatch name="gray-400" borderClass="border-gray-400" />
             </div>
           </div>
         </div>

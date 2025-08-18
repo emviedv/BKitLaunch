@@ -26,7 +26,8 @@ interface WaitlistState {
 }
 
 const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride }) => {
-  const { content } = usePublishedContent();
+  // Avoid static fallback and hide while loading to prevent bottom-first flash before Hero
+  const { content, loading } = usePublishedContent({ fallbackToStatic: false });
   const [state, setState] = useState<WaitlistState>({
     email: '',
     isLoading: false,
@@ -34,24 +35,35 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride }) => {
     error: null
   });
 
-  // Check if waitlist should be visible
-  const globalVisible = content.settings?.visibility?.waitlist !== false;
-  const shouldShowWaitlist =
-    typeof visibleOverride === 'boolean' ? visibleOverride : globalVisible;
-  
-  if (!shouldShowWaitlist || !content.waitlist) {
-    return null;
-  }
-
+  // MUST be declared before any early returns to maintain stable hook order
   const backgroundClassName = useMemo(() => {
     const randomIndex = Math.floor(Math.random() * WAITLIST_BACKGROUND_CLASSES.length);
     return WAITLIST_BACKGROUND_CLASSES[randomIndex];
   }, []);
 
+  // Check if waitlist should be visible
+  const globalVisible = content.settings?.visibility?.waitlist !== false;
+  const shouldShowWaitlist =
+    typeof visibleOverride === 'boolean' ? visibleOverride : globalVisible;
+  
+  // Hide entirely while loading to avoid appearing before Hero/Features
+  if (loading) {
+    return null;
+  }
+
+  if (!shouldShowWaitlist || !content.waitlist) {
+    return null;
+  }
+
   // Normalize field names from DB (snake_case) and JSON (camelCase)
   const waitlistData: any = content.waitlist || {};
   const waitlistTitle: string = (waitlistData.title as string) || '';
   const waitlistDescription: string = (waitlistData.description as string) || '';
+
+  // If there's no meaningful waitlist content, do not render
+  if (!waitlistTitle && !waitlistDescription) {
+    return null;
+  }
   const buttonLabel: string = (waitlistData.buttonText as string) || (waitlistData.button_text as string) || 'Join Waitlist';
   const successMessageText: string = (waitlistData.successMessage as string) || (waitlistData.success_message as string) || "Thank you for joining our waitlist! We'll keep you updated.";
 

@@ -23,6 +23,26 @@ export const FooterEditor: React.FC<FooterEditorProps> = ({
   onChangeSections,
   onChangeVisibility,
 }) => {
+  const [jsonEdit, setJsonEdit] = React.useState(false);
+  const [jsonValue, setJsonValue] = React.useState<string>(JSON.stringify({ visibility, description, sections }, null, 2));
+
+  React.useEffect(() => {
+    setJsonValue(JSON.stringify({ visibility, description, sections }, null, 2));
+  }, [visibility, description, sections]);
+
+  const applyJson = () => {
+    try {
+      const parsed = JSON.parse(jsonValue);
+      if (parsed && typeof parsed === 'object') {
+        if (typeof (parsed as any).visibility === 'boolean') onChangeVisibility((parsed as any).visibility);
+        if (typeof (parsed as any).description === 'string') onChangeDescription((parsed as any).description);
+        if (Array.isArray((parsed as any).sections)) onChangeSections((parsed as any).sections as any);
+      }
+      setJsonEdit(false);
+    } catch {
+      alert('Invalid JSON. Please correct and try again.');
+    }
+  };
   const addSection = () => {
     const next = [...(sections || []), { title: 'New Section', links: [] }];
     onChangeSections(next);
@@ -74,7 +94,10 @@ export const FooterEditor: React.FC<FooterEditorProps> = ({
 
   return (
     <div className="space-y-4">
-      <h3 className="font-semibold text-lg">Footer Section</h3>
+      <div className="flex items-center justify-between">
+        <h3 className="font-semibold text-lg">Footer Section</h3>
+        <button className="px-3 py-1 text-sm rounded border border-border hover:bg-muted" onClick={() => setJsonEdit(true)}>Edit JSON</button>
+      </div>
       <div className="flex items-center gap-2 mb-4">
         <input
           type="checkbox"

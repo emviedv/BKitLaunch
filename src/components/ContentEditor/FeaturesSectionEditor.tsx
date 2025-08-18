@@ -68,35 +68,136 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
   updateVisibility,
   updateSection,
   sectionData
-}) => (
+}) => {
+  const [jsonEdit, setJsonEdit] = React.useState(false);
+  const [jsonValue, setJsonValue] = React.useState<string>(
+    JSON.stringify({ section: sectionData || {}, items: features || [], visible }, null, 2)
+  );
+
+  // Reorder helpers
+  const moveFeature = React.useCallback((fromIndex: number, toIndex: number) => {
+    const list = features || [];
+    if (fromIndex === toIndex) return;
+    if (toIndex < 0 || toIndex >= list.length) return;
+    const next = [...list];
+    const [moved] = next.splice(fromIndex, 1);
+    next.splice(toIndex, 0, moved);
+    updateSection('features', next);
+  }, [features, updateSection]);
+
+  const handleDragStart = (e: React.DragEvent<HTMLButtonElement>, index: number) => {
+    e.dataTransfer.setData('text/plain', String(index));
+    // For Firefox
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDropOnCard = (e: React.DragEvent<HTMLDivElement>, dropIndex: number) => {
+    e.preventDefault();
+    const from = parseInt(e.dataTransfer.getData('text/plain'), 10);
+    if (!Number.isNaN(from)) {
+      moveFeature(from, dropIndex);
+    }
+  };
+
+  React.useEffect(() => {
+    setJsonValue(JSON.stringify({ section: sectionData || {}, items: features || [], visible }, null, 2));
+  }, [features, sectionData, visible]);
+
+  const applyJson = () => {
+    try {
+      const parsed = JSON.parse(jsonValue);
+      if (Array.isArray(parsed)) {
+        // Array provided → treat as features list only
+        updateSection('features', parsed);
+        setJsonValue(JSON.stringify({ section: sectionData || {}, items: parsed, visible }, null, 2));
+      } else if (parsed && typeof parsed === 'object') {
+        // Accept various shapes: { items: [...] } or { features: [...] }
+        const nextFeatures = Array.isArray((parsed as any).items)
+          ? (parsed as any).items
+          : Array.isArray((parsed as any).features)
+          ? (parsed as any).features
+          : Array.isArray(parsed)
+          ? parsed
+          : undefined;
+        if (nextFeatures) {
+          updateSection('features', nextFeatures);
+        }
+        // Section header under section / featuresSection
+        const nextSection = (parsed as any).section || (parsed as any).featuresSection;
+        if (nextSection && typeof nextSection === 'object') {
+          updateSection('featuresSection', nextSection);
+        }
+        // Visibility flag
+        const nextVisible = typeof (parsed as any).visible === 'boolean' ? Boolean((parsed as any).visible) : visible;
+        if (typeof (parsed as any).visible === 'boolean') updateVisibility(nextVisible);
+
+        // Normalize editor JSON view after apply
+        setJsonValue(JSON.stringify({ section: nextSection || sectionData || {}, items: nextFeatures || features || [], visible: nextVisible }, null, 2));
+      }
+      setJsonEdit(false);
+    } catch {
+      alert('Invalid JSON. Please correct and try again.');
+    }
+  };
+
+  if (jsonEdit) {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="font-semibold text-lg">Features Section — JSON Editor</h3>
+          <div className="flex items-center gap-2">
+            <button className="button-secondary text-xs" onClick={() => setJsonEdit(false)}>Cancel</button>
+            <button className="button text-xs" onClick={applyJson}>Apply JSON</button>
+          </div>
+        </div>
+        <textarea
+          className="w-full p-2 border border-border rounded h-64 font-mono text-sm"
+          value={jsonValue}
+          onChange={(e) => setJsonValue(e.target.value)}
+          placeholder='{"section":{"title":"Features","description":"...","productPageLabel":"Visit product page","productPageLink":"/bibliokit-blocks"},"items":[{"icon":"🚀","title":"","description":"","idea":"","topItems":["","",""],"badge":"","badgeColor":"green","badges":[],"isFeatured":false,"showBadge":true,"buttonPreset":"custom","buttonText":"","buttonLink":""}],"visible":true}'
+        />
+      </div>
+    );
+  }
+
+  return (
   <div className="space-y-4">
     <div className="flex items-center justify-between">
       <h3 className="font-semibold text-lg">Features Section</h3>
-      <button
-        className="px-3 py-1 text-sm rounded border border-border hover:bg-muted"
-        onClick={() => {
-          const newFeature: Feature = {
-            icon: '🚀',
-            title: 'New Feature',
-            description: 'Description',
-            idea: '',
-            topItems: ['', '', ''],
-            badge: '',
-            badgeColor: 'green',
-            badges: [],
-            isFeatured: false,
-            showBadge: true,
-            buttonPreset: 'custom',
-            buttonText: '',
-            buttonLink: ''
-          };
-          const updated = [...(features || []), newFeature];
-          updateSection('features', updated);
-        }}
-        aria-label="Add feature"
-      >
-        + Add Feature
-      </button>
+      <div className="flex items-center gap-2">
+        <button
+          className="px-3 py-1 text-sm rounded border border-border hover:bg-muted"
+          onClick={() => setJsonEdit(true)}
+          aria-label="Edit section JSON"
+        >
+          Edit JSON
+        </button>
+        <button
+          className="px-3 py-1 text-sm rounded border border-border hover:bg-muted"
+          onClick={() => {
+            const newFeature: Feature = {
+              icon: '🚀',
+              title: 'New Feature',
+              description: 'Description',
+              idea: '',
+              topItems: ['', '', ''],
+              badge: '',
+              badgeColor: 'green',
+              badges: [],
+              isFeatured: false,
+              showBadge: true,
+              buttonPreset: 'custom',
+              buttonText: '',
+              buttonLink: ''
+            };
+            const updated = [...(features || []), newFeature];
+            updateSection('features', updated);
+          }}
+          aria-label="Add feature"
+        >
+          + Add Feature
+        </button>
+      </div>
     </div>
     
     {/* Section header fields */}
@@ -163,10 +264,46 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
     </div>
     <div className="space-y-4">
       {features?.map((feature, index) => (
-        <div key={index} className={`p-3 border rounded ${feature.isFeatured ? 'border-primary/30 bg-primary/5' : 'border-border'}`}>
+        <div
+          key={index}
+          className={`p-3 border rounded ${feature.isFeatured ? 'border-primary/30 bg-primary/5' : 'border-border'}`}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => handleDropOnCard(e, index)}
+        >
           {/* Featured Toggle */}
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
+              {/* Reorder controls */}
+              <div className="flex items-center gap-1" aria-label={`Reorder feature ${index + 1}`}>
+                <button
+                  type="button"
+                  className="px-2 py-1 text-xs rounded border border-border hover:bg-muted disabled:opacity-50"
+                  onClick={() => moveFeature(index, index - 1)}
+                  disabled={index === 0}
+                  aria-label="Move up"
+                >
+                  ↑
+                </button>
+                <button
+                  type="button"
+                  className="px-2 py-1 text-xs rounded border border-border hover:bg-muted disabled:opacity-50"
+                  onClick={() => moveFeature(index, index + 1)}
+                  disabled={index === (features?.length || 0) - 1}
+                  aria-label="Move down"
+                >
+                  ↓
+                </button>
+                <button
+                  type="button"
+                  className="px-2 py-1 text-xs rounded border border-border hover:bg-muted cursor-move"
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, index)}
+                  aria-label="Drag to reorder"
+                  title="Drag to reorder"
+                >
+                  ⋮⋮
+                </button>
+              </div>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
@@ -458,4 +595,5 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
       ))}
     </div>
   </div>
-);
+  );
+};

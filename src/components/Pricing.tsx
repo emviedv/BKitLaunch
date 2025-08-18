@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 
 const Pricing = () => {
-  const { content } = usePublishedContent();
+  // Avoid static fallback to prevent showing pricing before real content loads
+  const { content, loading, source } = usePublishedContent({ fallbackToStatic: false });
   const { pricing } = content;
   
   // Return null if pricing section is set to hidden
@@ -11,8 +12,14 @@ const Pricing = () => {
     return null;
   }
 
-  // Only show Coming Soon when explicitly configured; otherwise hide by default to avoid flash on SSR
-  const isComingSoon = content.pricingSection?.isComingSoon === true || (content.pricingSection as any)?.is_coming_soon === true;
+  // Hide entirely while loading to prevent any flash
+  if (loading) {
+    return null;
+  }
+
+  // Only show Coming Soon when explicitly configured AND when content comes from a real source (api/localStorage)
+  const comingSoonConfigured = content.pricingSection?.isComingSoon === true || (content.pricingSection as any)?.is_coming_soon === true;
+  const isComingSoon = (source === 'api' || source === 'localStorage') && comingSoonConfigured;
 
   if (isComingSoon) {
     return (

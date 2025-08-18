@@ -43,9 +43,18 @@ function getSSRData(): any | null {
  * 4. Static productData (bundled fallback)
  */
 export const usePublishedContent = (options: UsePublishedContentOptions = {}) => {
-  const isLocalDev = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+  const isLocalDev = typeof window !== 'undefined' && (() => {
+    try {
+      const host = window.location.hostname;
+      return host === 'localhost' || host === '127.0.0.1' || host.endsWith('.localhost');
+    } catch {
+      return false;
+    }
+  })();
   const {
-    fallbackToLocalStorage = false,
+    // In local dev, allow falling back to localStorage so editor-saved drafts (saved locally)
+    // are visible during development even when the database isn't reachable
+    fallbackToLocalStorage = isLocalDev,
     // In local dev (no SSR), prefer static content immediately to avoid empty UI until API loads
     fallbackToStatic = isLocalDev
   } = options;
@@ -68,13 +77,29 @@ export const usePublishedContent = (options: UsePublishedContentOptions = {}) =>
 
   const [hasMounted, setHasMounted] = useState(false);
   
-  const [state, setState] = useState<ContentState>({
-    content: ssrInitData ?? (fallbackToStatic ? productData : createEmptyContent()),
-    // If SSR data exists, mark loading true to revalidate in background; otherwise block stale flash
-    loading: true,
-    error: null,
-    source: ssrInitData ? 'ssr' : (fallbackToStatic ? 'static' : null)
-  });
+  // Decide initial content prioritizing SSR, then localStorage (when enabled), then static (when enabled), then empty
+  const initialState: ContentState = (() => {
+    if (ssrInitData) {
+      return { content: ssrInitData, loading: true, error: null, source: 'ssr' };
+    }
+    if (fallbackToLocalStorage && typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('bibliokit-content');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return { content: parsed, loading: true, error: null, source: 'localStorage' };
+        }
+      } catch {
+        // no-op
+      }
+    }
+    if (fallbackToStatic) {
+      return { content: productData, loading: true, error: null, source: 'static' };
+    }
+    return { content: createEmptyContent(), loading: true, error: null, source: null };
+  })();
+
+  const [state, setState] = useState<ContentState>(initialState);
 
   // Mount detection effect
   useEffect(() => {

@@ -102,13 +102,6 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onClose }) => {
             {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
-
-        <div className="mt-6 text-sm text-muted-foreground">
-          <p><strong>Note:</strong> This is the admin login for content management.</p>
-          <p className="mt-2 text-xs">
-            If admin credentials are not configured, please check the environment variables setup in your deployment.
-          </p>
-        </div>
       </div>
     </div>
   );

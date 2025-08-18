@@ -66,6 +66,7 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
           value={localJson}
           onChange={(e) => setLocalJson(e.target.value)}
           className="w-full h-64 p-2 border border-border rounded font-mono text-sm"
+          placeholder='{"title":"My Product","description":"...","primaryButton":"Get Started","primaryButtonLink":"/start","secondaryButton":"Learn More","secondaryButtonLink":"/learn","details":[{"title":"","description":""}],"benefits":[],"specifications":[],"pricing":{"price":"","period":"/month","description":"","buttonText":""},"visibility":{"waitlist":true},"llm":{"answerBox":"","expertQuote":{},"statistic":{},"faqs":[]}}'
         />
         <div className="flex space-x-2">
           <Button
@@ -158,6 +159,28 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
         </div>
       </div>
 
+      {/* Section Headings: Key Features */}
+      <div className="space-y-3">
+        <h4 className="font-medium text-base">Key Features Section</h4>
+        <TextInput
+          label="Section Title"
+          value={(productData as any)?.sections?.features?.title || ''}
+          onChange={(value) => {
+            const next = { ...((productData as any).sections || {}), features: { ...(((productData as any).sections || {}).features || {}), title: value } };
+            updateProductField('sections', next);
+          }}
+        />
+        <TextArea
+          label="Section Description"
+          value={(productData as any)?.sections?.features?.description || ''}
+          onChange={(value) => {
+            const next = { ...((productData as any).sections || {}), features: { ...(((productData as any).sections || {}).features || {}), description: value } };
+            updateProductField('sections', next);
+          }}
+          rows={2}
+        />
+      </div>
+
       {/* Key Features */}
       <div className="space-y-4">
         <h4 className="font-medium text-base">Key Features</h4>
@@ -197,6 +220,28 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
         </button>
       </div>
 
+      {/* Section Headings: Use Cases */}
+      <div className="space-y-3">
+        <h4 className="font-medium text-base">Use Cases Section</h4>
+        <TextInput
+          label="Section Title"
+          value={(productData as any)?.sections?.useCases?.title || ''}
+          onChange={(value) => {
+            const next = { ...((productData as any).sections || {}), useCases: { ...(((productData as any).sections || {}).useCases || {}), title: value } };
+            updateProductField('sections', next);
+          }}
+        />
+        <TextArea
+          label="Section Description"
+          value={(productData as any)?.sections?.useCases?.description || ''}
+          onChange={(value) => {
+            const next = { ...((productData as any).sections || {}), useCases: { ...(((productData as any).sections || {}).useCases || {}), description: value } };
+            updateProductField('sections', next);
+          }}
+          rows={2}
+        />
+      </div>
+
       {/* Use Cases */}
       <div className="space-y-4">
         <h4 className="font-medium text-base">Use Cases</h4>
@@ -232,6 +277,28 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
         >
           + Add Use Case
         </button>
+      </div>
+
+      {/* Section Headings: Technical Capabilities */}
+      <div className="space-y-3">
+        <h4 className="font-medium text-base">Technical Capabilities Section</h4>
+        <TextInput
+          label="Section Title"
+          value={(productData as any)?.sections?.specifications?.title || ''}
+          onChange={(value) => {
+            const next = { ...((productData as any).sections || {}), specifications: { ...(((productData as any).sections || {}).specifications || {}), title: value } };
+            updateProductField('sections', next);
+          }}
+        />
+        <TextArea
+          label="Section Description"
+          value={(productData as any)?.sections?.specifications?.description || ''}
+          onChange={(value) => {
+            const next = { ...((productData as any).sections || {}), specifications: { ...(((productData as any).sections || {}).specifications || {}), description: value } };
+            updateProductField('sections', next);
+          }}
+          rows={2}
+        />
       </div>
 
       {/* Technical Capabilities */}
@@ -316,6 +383,20 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
           onChange={(value) => updateProductNestedField('pricing', null, 'buttonText', value)}
           placeholder="Start Free Trial"
         />
+      </div>
+
+      {/* Visibility */}
+      <div className="space-y-2">
+        <h4 className="font-medium text-base">Visibility</h4>
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={productData.visibility?.waitlist ?? true}
+            onChange={(e) => updateProductNestedField('visibility', null, 'waitlist', e.target.checked)}
+            className="rounded border-border"
+          />
+          <span>Show Waitlist section on this product page</span>
+        </label>
       </div>
 
       {/* FAQs */}
@@ -457,6 +538,52 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
                 updateProductNestedField('llm', null, 'statistic', { ...current, source: value });
               }}
             />
+          </div>
+
+          {/* FAQs (LLM) */}
+          <div className="space-y-4">
+            <h5 className="font-medium">FAQs</h5>
+            {(productData.llm?.faqs || []).map((faq: any, index: number) => (
+              <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+                <TextInput
+                  label={`Question ${index + 1}`}
+                  value={faq.question || ''}
+                  onChange={(value) => {
+                    const updated = [...(productData.llm?.faqs || [])];
+                    updated[index] = { ...updated[index], question: value };
+                    updateProductNestedField('llm', null, 'faqs', updated);
+                  }}
+                />
+                <TextArea
+                  label="Answer"
+                  value={faq.answer || ''}
+                  rows={3}
+                  onChange={(value) => {
+                    const updated = [...(productData.llm?.faqs || [])];
+                    updated[index] = { ...updated[index], answer: value };
+                    updateProductNestedField('llm', null, 'faqs', updated);
+                  }}
+                />
+                <button
+                  onClick={() => {
+                    const updated = (productData.llm?.faqs || []).filter((_: any, i: number) => i !== index);
+                    updateProductNestedField('llm', null, 'faqs', updated);
+                  }}
+                  className="text-red-600 hover:text-red-800 text-sm"
+                >
+                  Remove FAQ
+                </button>
+              </div>
+            ))}
+            <button
+              onClick={() => {
+                const updated = [...(productData.llm?.faqs || []), { question: '', answer: '' }];
+                updateProductNestedField('llm', null, 'faqs', updated);
+              }}
+              className="w-full p-2 border-2 border-dashed border-gray-300 rounded text-sm text-gray-600 hover:border-gray-400 hover:text-gray-800"
+            >
+              + Add FAQ
+            </button>
           </div>
         </div>
       )}

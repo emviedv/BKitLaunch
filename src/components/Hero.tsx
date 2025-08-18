@@ -5,10 +5,12 @@ import { HeroBackground } from './HeroBackground';
 import { Button } from '@/components/ui/button';
 import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
 import { Confetti, type ConfettiRef } from '@/components/ui/confetti';
+import { useAuth } from '@/contexts/AuthContext';
  
 
 const Hero = () => {
   const { content } = usePublishedContent();
+  const { isAuthenticated, isAdmin } = useAuth();
   const { hero } = content;
   const displayBadge = (hero as any)?.badgeLabel || (hero as any)?.badge_label;
   const confettiRef = useRef<ConfettiRef>(null);
@@ -68,7 +70,11 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span role="img" aria-label="hero emoji" className="text-5xl md:text-6xl">
+              <span
+                role="img"
+                aria-label="hero emoji"
+                className={`text-5xl md:text-6xl ${isAuthenticated && isAdmin ? 'mt-10 md:mt-14' : ''}`}
+              >
                 {hero.emoji}
               </span>
             </motion.div>

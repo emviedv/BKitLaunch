@@ -43,12 +43,17 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  const isHomeRoute = location === '/';
+  const slug = (location || '/').replace(/^\/+/, '').split('/')[0] || '';
+  const isAdminEditor = location.startsWith('/admin') || location.startsWith('/editor');
+  const isProductFromContent = !!(content?.products && slug && (content.products as any)[slug]);
+  const isProductPathFallback = !!(slug && !['', 'admin', 'editor', 'design-system', 'test', 'database'].includes(slug));
+  const isProductLike = isProductFromContent || isProductPathFallback;
   const topClass = hasMounted && isAuthenticated && isAdmin
     ? (isScrolled ? 'top-10' : 'top-14')
-    : (isScrolled ? 'top-0' : 'top-4');
-  const isHomeRoute = location === '/';
-  const isTopTransparent = isHomeRoute && !isScrolled;
-  const positionClass = isTopTransparent ? 'absolute' : 'fixed';
+    : (((isHomeRoute || (isProductLike && !isAdminEditor)) && !isScrolled) ? 'top-0' : (isScrolled ? 'top-0' : 'top-4'));
+  const isTopTransparent = (isHomeRoute || (isProductLike && !isAdminEditor)) && !isScrolled;
+  const positionClass = !hasMounted ? 'absolute' : (isTopTransparent ? 'absolute' : 'fixed');
 
   // Check if header should be visible
   const shouldShowHeader = content.settings?.visibility?.header !== false;
@@ -86,6 +91,18 @@ const Header = () => {
     ? (content.header?.navigation as NavItem[])
     : [];
 
+  // Ensure Docs link exists even if not present in published content
+  const hasDocsLink = navItems.some((item) => {
+    const asLink = item as LinkNavItem;
+    return (
+      (asLink.label && asLink.label.toLowerCase() === 'docs') ||
+      (asLink.href && asLink.href.toLowerCase() === '/docs')
+    );
+  });
+  const navItemsWithDocs: NavItem[] = hasDocsLink
+    ? navItems
+    : [...navItems, { label: 'Docs', href: '/docs', type: 'link' } as LinkNavItem];
+
   const resolveExternal = (item: { type?: string; isExternal?: boolean }): boolean => {
     if (typeof item.isExternal === 'boolean') return item.isExternal;
     return item.type === 'external';
@@ -98,8 +115,10 @@ const Header = () => {
     return parts.length ? parts.join(' ') : undefined;
   };
 
+  const bgClass = !hasMounted ? 'bg-transparent' : (isScrolled ? 'bg-background/80 backdrop-blur border-b border-border' : 'bg-transparent');
+
   return (
-    <header className={`${isScrolled ? 'bg-background/80 backdrop-blur border-b border-border' : 'bg-transparent'} ${positionClass} w-full ${topClass} z-50 transition-all duration-300`}>
+    <header className={`${bgClass} ${positionClass} w-full ${topClass} z-50 transition-all duration-300`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <a
           href={hasMounted && isAuthenticated && isAdmin ? '/admin' : '/'}
@@ -123,7 +142,7 @@ const Header = () => {
           </span>
         </a>
         <nav className="hidden md:flex items-center space-x-6">
-          {navItems.map((item, index) => {
+          {navItemsWithDocs.map((item, index) => {
             if ((item as DropdownNavItem).type === 'dropdown') {
               const dd = item as DropdownNavItem;
               return (

@@ -376,6 +376,31 @@
           }
         ]
       }
+    },
+    "uxbiblio": {
+      "visibility": { "waitlist": true },
+      "badgeLabel": "Pattern Library",
+      "title": "UXBiblio",
+      "description": "Curated UI/UX patterns, templates, and best practices. Save and organize inspiration with AI-powered tagging.",
+      "primaryButton": "Open UXBiblio",
+      "primaryButtonLink": "https://uxbiblio.localhost",
+      "secondaryButton": "Learn More",
+      "secondaryButtonLink": "/",
+      "details": [
+        { "title": "AI Tagging", "description": "Automatic tagging and categorization for screenshots and patterns." },
+        { "title": "Collections", "description": "Organize inspiration into collections and projects." },
+        { "title": "Search", "description": "Find patterns fast across your entire library." }
+      ],
+      "benefits": [
+        "Centralize scattered inspiration",
+        "Discover patterns quickly",
+        "Standardize UX documentation"
+      ],
+      "specifications": [
+        { "icon": "🏷️", "name": "Auto Tags", "value": "AI-powered tagging on upload" },
+        { "icon": "🗂️", "name": "Collections", "value": "Flexible folders and favorites" },
+        { "icon": "🔎", "name": "Search", "value": "Fast, semantic search across items" }
+      ]
     }
   },
   "product": {
@@ -478,7 +503,8 @@
     "logoText": "BiblioKit",
     "navigation": [
       { "label": "BiblioKit Blocks", "href": "/bibliokit-blocks" },
-      { "label": "AI Rename Variants", "href": "/ai-rename-variants" }
+      { "label": "AI Rename Variants", "href": "/ai-rename-variants" },
+      { "label": "Docs", "href": "/docs" }
     ],
     "signInText": "Sign In",
     "getStartedText": "Get Started"
@@ -491,6 +517,7 @@
         "links": [
           { "label": "Features", "href": "#features" },
           { "label": "Pricing", "href": "#pricing" },
+          { "label": "Documentation", "href": "/docs" },
           { "label": "Get Started", "href": "#contact" }
         ]
       },

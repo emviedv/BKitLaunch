@@ -9,8 +9,56 @@ interface SettingsSectionEditorProps {
 export const SettingsSectionEditor: React.FC<SettingsSectionEditorProps> = ({ 
   settings, 
   updateSettingsVisibility 
-}) => (
+}) => {
+  const [jsonEdit, setJsonEdit] = React.useState(false);
+  const [jsonValue, setJsonValue] = React.useState<string>(JSON.stringify(settings || {}, null, 2));
+
+  React.useEffect(() => {
+    setJsonValue(JSON.stringify(settings || {}, null, 2));
+  }, [settings]);
+
+  const applyJson = () => {
+    try {
+      const parsed = JSON.parse(jsonValue || '{}');
+      if (parsed && typeof parsed === 'object') {
+        // Support settings.visibility and settings.labels boolean maps
+        if (parsed.visibility && typeof parsed.visibility === 'object') {
+          Object.entries(parsed.visibility).forEach(([key, value]) => {
+            updateSettingsVisibility(String(key), Boolean(value));
+          });
+        }
+        if (parsed.labels && typeof parsed.labels === 'object') {
+          Object.entries(parsed.labels).forEach(([key, value]) => {
+            updateSettingsVisibility(`labels.${String(key)}`, Boolean(value));
+          });
+        }
+      }
+      setJsonEdit(false);
+    } catch {
+      alert('Invalid JSON. Please correct and try again.');
+    }
+  };
+
+  return (
   <>
+  <div className="flex items-center justify-between">
+    <h3 className="font-semibold text-lg">Visibility Settings</h3>
+    <button className="px-3 py-1 text-sm rounded border border-border hover:bg-muted" onClick={() => setJsonEdit(true)}>Edit JSON</button>
+  </div>
+  {jsonEdit && (
+    <div className="space-y-3 mb-4">
+      <textarea
+        className="w-full p-2 border border-border rounded h-64 font-mono text-sm"
+        value={jsonValue}
+        onChange={(e) => setJsonValue(e.target.value)}
+        placeholder='{"visibility":{"hero":true,"features":true},"labels":{"featuresBadges":true}}'
+      />
+      <div className="flex gap-2">
+        <button className="button text-xs" onClick={applyJson}>Apply JSON</button>
+        <button className="button-secondary text-xs" onClick={() => setJsonEdit(false)}>Cancel</button>
+      </div>
+    </div>
+  )}
   <div className="space-y-4">
     <h3 className="font-semibold text-lg">Visibility Settings</h3>
     <p className="text-sm text-muted-foreground mb-4">
@@ -89,4 +137,5 @@ export const SettingsSectionEditor: React.FC<SettingsSectionEditorProps> = ({
     </div>
   </div>
   </>
-);
+  );
+};

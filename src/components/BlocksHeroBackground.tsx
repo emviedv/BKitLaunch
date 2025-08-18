@@ -245,9 +245,11 @@ export interface BlocksHeroBackgroundProps {
   emoji?: string;
   emojiX?: number;
   emojiY?: number;
+  // Ensure the emoji appears at least this many viewport pixels from the top
+  minEmojiViewportTop?: number;
 }
 
-export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ className, emoji, emojiX, emojiY }) => {
+export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ className, emoji, emojiX, emojiY, minEmojiViewportTop }) => {
   // Centered, responsive canvas for consistent layout
   const designWidth = 1000;
   const designHeight = 700;
@@ -306,7 +308,15 @@ export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ clas
             className="absolute select-none"
             style={{
               left: `${typeof emojiX === 'number' ? emojiX : designWidth / 2}px`,
-              top: `${typeof emojiY === 'number' ? emojiY : 110}px`,
+              top: (() => {
+                const baseY = (typeof emojiY === 'number' ? emojiY : 110);
+                if (typeof minEmojiViewportTop === 'number' && scale > 0) {
+                  // Convert desired viewport px offset to canvas space by dividing by scale
+                  const minCanvasY = minEmojiViewportTop / scale;
+                  return `${Math.max(baseY, minCanvasY)}px`;
+                }
+                return `${baseY}px`;
+              })(),
               transform: 'translate(-50%, -50%)',
             }}
             initial={{ opacity: 0, y: -8, scale: 0.95 }}

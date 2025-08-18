@@ -32,11 +32,11 @@ const Footer = () => {
             </p>
           </div>
           
-          {footer?.sections?.map((section: any, index: number) => (
+          {(footer?.sections || []).map((section: any, index: number) => (
             <div key={index}>
               <h3 className="font-semibold mb-4">{section.title}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                {section.links?.map((link: any, linkIndex: number) => (
+                {(section.links || []).map((link: any, linkIndex: number) => (
                   <li key={linkIndex}>
                     {(() => {
                       const href: string = link.href || '#';
@@ -57,6 +57,17 @@ const Footer = () => {
               </ul>
             </div>
           ))}
+          {/* Ensure Documentation link exists under Product section */}
+          {!((footer?.sections || []).some((s: any) => s.title === 'Product' && (s.links || []).some((l: any) => (l.label || '').toLowerCase().includes('doc')))) && (
+            <div>
+              <h3 className="font-semibold mb-4">Product</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>
+                  <a href="/docs" className="hover:text-foreground transition-colors">Documentation</a>
+                </li>
+              </ul>
+            </div>
+          )}
 
           {isAuthenticated && isAdmin && (
             <div>

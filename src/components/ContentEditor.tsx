@@ -10,6 +10,7 @@ import { HeaderNavigationEditor } from './ContentEditor/HeaderNavigationEditor';
 import { FooterEditor } from './ContentEditor/FooterEditor';
 import { HeaderCtasEditor } from './ContentEditor/HeaderCtasEditor';
 import { ProductsManager } from './ContentEditor/ProductsManager';
+import { PagesManager } from './ContentEditor/PagesManager';
 import { PagesEditor } from './ContentEditor/PagesEditor';
 import { 
   ContentSection, 
@@ -176,6 +177,173 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
     showSaveNotification('Product removed. Remember to Publish Changes.', 'info');
   };
 
+  // Accept either our internal product object OR a JSON-LD array (FAQPage/Product) and normalize
+  const normalizeProductImportJson = (input: any): any => {
+    try {
+      // If already looks like our internal object, return as-is
+      if (input && typeof input === 'object' && !Array.isArray(input)) {
+        if (typeof input.title === 'string' || typeof input.description === 'string' || input?.llm || input?.pricing) {
+          return input;
+        }
+      }
+
+      // If input is a JSON-LD array, extract FAQPage and Product
+      const sourceArray: any[] = Array.isArray(input) ? input : [];
+      if (sourceArray.length === 0) return input;
+
+      const hasType = (obj: any, type: string) => {
+        const t = obj?.['@type'];
+        return t === type || (Array.isArray(t) && t.includes(type));
+      };
+
+      const faqPage = sourceArray.find((o) => hasType(o, 'FAQPage')) || null;
+      const productLd = sourceArray.find((o) => hasType(o, 'Product')) || null;
+
+      const llmFaqs = Array.isArray(faqPage?.mainEntity)
+        ? faqPage.mainEntity.map((q: any) => ({
+            question: q?.name || '',
+            answer: q?.acceptedAnswer?.text || ''
+          }))
+        : [];
+
+      const offers = productLd?.offers || {};
+      const additionalProps: any[] = Array.isArray(productLd?.additionalProperty) ? productLd.additionalProperty : [];
+
+      const specifications = additionalProps.map((p: any) => ({
+        icon: '',
+        name: p?.name || '',
+        value: p?.value || ''
+      }));
+
+      const normalized = {
+        visibility: { waitlist: true },
+        badgeLabel: '',
+        title: productLd?.name || '',
+        description: productLd?.description || '',
+        primaryButton: 'Get Started',
+        primaryButtonLink: typeof offers?.url === 'string' ? offers.url : '',
+        secondaryButton: 'Learn More',
+        secondaryButtonLink: '',
+        details: [] as any[],
+        benefits: [] as any[],
+        specifications,
+        pricing: {
+          price: typeof offers?.price === 'string' || typeof offers?.price === 'number' ? String(offers.price) : '',
+          period: '/month',
+          description: offers?.description || '',
+          buttonText: ''
+        },
+        llm: {
+          answerBox: '',
+          expertQuote: {},
+          statistic: {},
+          faqs: llmFaqs
+        }
+      } as any;
+
+      return normalized;
+    } catch {
+      return input;
+    }
+  };
+
+  // Import JSON into an existing product (replace contents)
+  const handleImportProductJson = (productKey: string, nextData: any) => {
+    try {
+      const currentProducts = { ...((((savedContent as any) || {}).products) || {}) } as Record<string, any>;
+      if (!currentProducts[productKey]) {
+        showSaveNotification('Product not found', 'error');
+        return;
+      }
+      currentProducts[productKey] = normalizeProductImportJson(nextData);
+      updateSection('products', currentProducts);
+      // Keep header nav existing entry; label will refresh from new title when rendering
+      if (activeSection === `product-${productKey}`) {
+        setActiveSection(`product-${productKey}`);
+      }
+      showSaveNotification('Product JSON applied. Remember to Publish Changes.', 'success');
+    } catch (e) {
+      showSaveNotification('Failed to import JSON for product', 'error');
+    }
+  };
+
+  // Create a new product from pasted JSON
+  const handleCreateProductFromJson = (slug: string, nextData: any) => {
+    const parsedData = normalizeProductImportJson(nextData);
+    const normalized = normalizeSlug(slug || (parsedData?.title as string) || (parsedData?.name as string) || 'new-product');
+    if (!normalized) {
+      showSaveNotification('Enter a valid slug for the new product', 'error');
+      return;
+    }
+    const unique = ensureUniqueSlug(normalized);
+    const nextProducts = { ...((((savedContent as any) || {}).products) || {}) } as Record<string, any>;
+    if (nextProducts[unique]) {
+      showSaveNotification('Slug already exists', 'error');
+      return;
+    }
+    nextProducts[unique] = parsedData;
+    updateSection('products', nextProducts);
+    addHeaderNavigationForProduct(unique, (parsedData?.title as string) || unique.replace(/-/g, ' '));
+    setShowNewProductForm(false);
+    setNewProductSlug('');
+    setNewProductTitle('');
+    setActiveSection(`product-${unique}`);
+    showSaveNotification('Product created from JSON. Remember to Publish Changes.', 'success');
+  };
+
+  const handleRenameProductSlug = (productKey: string, nextSlugOrTitle: string) => {
+    const normalized = normalizeSlug(nextSlugOrTitle);
+    if (!normalized) {
+      showSaveNotification('Enter a valid slug', 'error');
+      return;
+    }
+    const unique = productKey === normalized ? normalized : ensureUniqueSlug(normalized);
+    const currentProducts = { ...(((savedContent as any) || {}).products || {}) } as Record<string, any>;
+    const product = currentProducts[productKey];
+    if (!product) return;
+    if (currentProducts[unique] && unique !== productKey) {
+      showSaveNotification('Slug already exists', 'error');
+      return;
+    }
+    delete currentProducts[productKey];
+    currentProducts[unique] = product;
+    updateSection('products', currentProducts);
+    removeHeaderNavigationForProduct(productKey);
+    addHeaderNavigationForProduct(unique, product.title || unique.replace(/-/g, ' '));
+    if (activeSection === `product-${productKey}`) setActiveSection(`product-${unique}`);
+    showSaveNotification('Product slug updated. Remember to Publish Changes.', 'success');
+  };
+
+  const handleRenameProductTitle = (productKey: string, nextTitle: string) => {
+    const title = (nextTitle || '').trim();
+    if (!title) {
+      showSaveNotification('Enter a valid title', 'error');
+      return;
+    }
+    const currentProducts = { ...(((savedContent as any) || {}).products || {}) } as Record<string, any>;
+    const product = currentProducts[productKey];
+    if (!product) return;
+    currentProducts[productKey] = { ...product, title };
+    updateSection('products', currentProducts);
+    // Update header nav label
+    removeHeaderNavigationForProduct(productKey);
+    addHeaderNavigationForProduct(productKey, title);
+    showSaveNotification('Product title updated. Remember to Publish Changes.', 'success');
+  };
+
+  const handleMoveProduct = (productKey: string, direction: 'up' | 'down') => {
+    const currentProducts = { ...(((savedContent as any) || {}).products || {}) } as Record<string, any>;
+    const keys = Object.keys(currentProducts);
+    const fromIndex = keys.indexOf(productKey);
+    if (fromIndex === -1) return;
+    const toIndex = direction === 'up' ? fromIndex - 1 : fromIndex + 1;
+    if (toIndex < 0 || toIndex >= keys.length) return;
+    const reorderedKeys = reorderArray(keys, fromIndex, toIndex);
+    const nextProducts: Record<string, any> = {};
+    for (const k of reorderedKeys) nextProducts[k] = currentProducts[k];
+    updateSection('products', nextProducts);
+  };
+
   // Migrate content to ensure it has the new products structure
   const migrateContentStructure = (content: any) => {
     // If products object doesn't exist, create it from current productData
@@ -192,6 +360,46 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       }
     });
     
+    // Ensure products object exists and includes any missing default products
+    if (!content.products || typeof content.products !== 'object') {
+      content.products = {};
+    }
+    const defaultProducts: Record<string, any> = (productData as any)?.products || {};
+    Object.entries(defaultProducts).forEach(([slug, prod]) => {
+      if (!(content.products as any)[slug]) {
+        (content.products as any)[slug] = prod;
+      }
+    });
+
+    // Also infer product pages from header navigation if missing
+    const navItems: Array<{ label?: string; href?: string }> = Array.isArray((content as any)?.header?.navigation)
+      ? ([...(content as any).header.navigation] as any)
+      : [];
+    navItems.forEach((item) => {
+      const href = (item?.href || '').toString();
+      if (!href.startsWith('/') || href.includes('#')) return;
+      const slug = href.replace(/^\//, '').trim();
+      if (!slug) return;
+      if (!(content.products as any)[slug]) {
+        const title = (item?.label || slug.replace(/-/g, ' ')).replace(/\b\w/g, (c) => c.toUpperCase());
+        (content.products as any)[slug] = {
+          visibility: { waitlist: true },
+          badgeLabel: '',
+          title,
+          description: '',
+          primaryButton: 'Get Started',
+          primaryButtonLink: '',
+          secondaryButton: 'Learn More',
+          secondaryButtonLink: '',
+          details: [],
+          benefits: [],
+          specifications: [],
+          pricing: { price: '', period: '', description: '', buttonText: '' },
+          llm: { answerBox: '', expertQuote: {}, statistic: {}, faqs: [] }
+        };
+      }
+    });
+
     // Ensure all visibility settings exist
     if (!content.settings) {
       content.settings = { visibility: {} };
@@ -235,6 +443,12 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
     Object.entries(defaultVisibility).forEach(([key, defaultValue]) => {
       if (content.settings.visibility[key] === undefined) {
         content.settings.visibility[key] = defaultValue;
+      }
+    });
+    // Ensure visibility entries exist for all current product slugs
+    Object.keys(content.products || {}).forEach((slug) => {
+      if (content.settings.visibility[slug] === undefined) {
+        content.settings.visibility[slug] = true;
       }
     });
     
@@ -777,6 +991,16 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
             onDuplicate={handleDuplicateProduct}
             onDelete={handleDeleteProduct}
             onCreate={handleCreateProduct}
+            onRenameSlug={handleRenameProductSlug}
+            onRenameTitle={handleRenameProductTitle}
+            onMove={handleMoveProduct}
+            onImportJson={handleImportProductJson}
+            onCreateFromJson={handleCreateProductFromJson}
+          />
+          <PagesManager
+            pages={(savedContent as any)?.pages || []}
+            activeSection={activeSection}
+            setActiveSection={setActiveSection}
           />
           <div className="mt-6 pt-4 border-t border-border">
             <button
@@ -1509,6 +1733,29 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       (section as any)?.features || []
     );
 
+    // Reorder helpers
+    const moveFeature = (fromIndex: number, toIndex: number) => {
+      if (fromIndex === toIndex) return;
+      if (toIndex < 0 || toIndex >= features.length) return;
+      const next = [...features];
+      const [moved] = next.splice(fromIndex, 1);
+      next.splice(toIndex, 0, moved);
+      setFeatures(next);
+    };
+
+    const handleDragStart = (e: React.DragEvent<HTMLButtonElement>, index: number) => {
+      e.dataTransfer.setData('text/plain', String(index));
+      e.dataTransfer.effectAllowed = 'move';
+    };
+
+    const handleDropOnCard = (e: React.DragEvent<HTMLDivElement>, dropIndex: number) => {
+      e.preventDefault();
+      const from = parseInt(e.dataTransfer.getData('text/plain'), 10);
+      if (!Number.isNaN(from)) {
+        moveFeature(from, dropIndex);
+      }
+    };
+
     const addFeature = () => {
       const newFeature: FeatureItem = {
         icon: '🚀',
@@ -1665,10 +1912,46 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
 
     <div className="space-y-4">
             {features.map((feature, index) => (
-              <div key={index} className={`p-4 border rounded-lg ${feature.is_featured ? 'border-primary/30 bg-primary/5' : 'border-border'}`}>
+              <div
+                key={index}
+                className={`p-4 border rounded-lg ${feature.is_featured ? 'border-primary/30 bg-primary/5' : 'border-border'}`}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => handleDropOnCard(e, index)}
+              >
                 {/* Featured Toggle */}
                 <div className="flex items-center justify-between mb-3">
                   <label className="flex items-center gap-2 cursor-pointer">
+                    {/* Reorder controls */}
+                    <div className="flex items-center gap-1 mr-2" aria-label={`Reorder feature ${index + 1}`}>
+                      <button
+                        type="button"
+                        className="px-2 py-1 text-xs rounded border border-border hover:bg-muted disabled:opacity-50"
+                        onClick={() => moveFeature(index, index - 1)}
+                        disabled={index === 0}
+                        aria-label="Move up"
+                      >
+                        ↑
+                      </button>
+                      <button
+                        type="button"
+                        className="px-2 py-1 text-xs rounded border border-border hover:bg-muted disabled:opacity-50"
+                        onClick={() => moveFeature(index, index + 1)}
+                        disabled={index === features.length - 1}
+                        aria-label="Move down"
+                      >
+                        ↓
+                      </button>
+                      <button
+                        type="button"
+                        className="px-2 py-1 text-xs rounded border border-border hover:bg-muted cursor-move"
+                        draggable
+                        onDragStart={(e) => handleDragStart(e, index)}
+                        aria-label="Drag to reorder"
+                        title="Drag to reorder"
+                      >
+                        ⋮⋮
+                      </button>
+                    </div>
                     <input
                       type="checkbox"
                       checked={!!feature.is_featured}

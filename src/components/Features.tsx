@@ -1,5 +1,4 @@
 import React from 'react';
-import { FigmaIconAnimation } from '@/components/decor/FigmaIconAnimation';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { BentoGrid } from '@/components/ui/bento-grid';
 import { ShootingStarsBackground } from '@/components/ui/shooting-stars';
@@ -138,7 +137,7 @@ const Features = () => {
   return (
     <section id="features" className="relative z-10 -mt-8 pt-[148px] pb-20 px-4 section-background-blend-top scroll-mt-28">
       {/* Subtle shooting stars background */}
-      <ShootingStarsBackground density={22} speedMs={8000} />
+      <ShootingStarsBackground density={24} speedMs={9000} />
       <div className="container mx-auto relative z-30">
         <div className="text-center mb-16 pb-16">
           {effectiveSectionTitle && (
@@ -153,7 +152,7 @@ const Features = () => {
           )}
         </div>
 
-        <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto gap-6">
+        <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-auto gap-6">
           {featuresList.map((feature: any, index: number) => {
             const isFeatured = feature.isFeatured || feature.is_featured;
             const badgeColor = feature.badgeColor || feature.badge_color;
@@ -181,20 +180,9 @@ const Features = () => {
             return (
               <div
                 key={index}
-                className="col-span-1"
+                className={`col-span-1 ${isFeatured ? 'md:col-span-2 lg:col-span-4' : ''}`}
               >
-                <div className={`group relative overflow-hidden h-full card ${isFeatured ? 'card-featured' : ''}`}>
-                  {isFeatured && (
-                    <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-                      <FigmaIconAnimation
-                        fit
-                        strokeWidth={2}
-                        animationDuration={3.5}
-                        variant="sequential"
-                        className="opacity-70"
-                      />
-                    </div>
-                  )}
+                <div className={`group relative overflow-hidden h-full card ${isFeatured ? 'card-featured max-w-3xl mx-auto' : ''}`}>
                   <div className="relative z-10 flex h-full flex-col justify-end">
                     <div className="flex items-center justify-between mb-6">
                       <div className={`icon ${colorClasses[index % colorClasses.length]}`}>
@@ -263,7 +251,7 @@ const Features = () => {
                         return (
                           <a
                             href={normalizedHref || '#'}
-                            className="card-button mt-4"
+                            className="card-button mt-4 self-start"
                             onClick={(e) => handleButtonClick(e, computedLink)}
                             target={external ? '_blank' : '_self'}
                             rel={external ? 'noopener noreferrer' : undefined}

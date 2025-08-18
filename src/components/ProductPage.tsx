@@ -72,12 +72,6 @@ const BiblioKitBlocksPage = () => {
       const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://bibliokit.com';
       const metadata = generateMetadata(path, content, baseUrl);
       updatePageMetadata(metadata);
-
-      const currentDate = new Date().toISOString().split('T')[0];
-      const updatedDiv = document.querySelector('.updated-date');
-      if (updatedDiv) {
-        updatedDiv.textContent = `Updated ${currentDate}`;
-      }
     }
   }, [content]);
 
@@ -239,10 +233,7 @@ const BiblioKitBlocksPage = () => {
         </div>
       </section>
 
-      {/* Updated timestamp for AI crawlers */}
-      <div className="text-center py-4 text-sm text-muted-foreground bg-gray-50">
-        <span className="updated-date">Updated {new Date().toISOString().split('T')[0]}</span>
-      </div>
+
 
       {/* Expert Quote Section */}
       <section className="py-12 px-4 bg-gray-50">

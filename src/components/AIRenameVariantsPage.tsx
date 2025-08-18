@@ -16,6 +16,9 @@ const AIRenameVariantsPage = () => {
     timestamp: new Date().toISOString() 
   });
 
+  // Load published content before any effects that depend on it
+  const { content } = usePublishedContent();
+
   // Clear any conflicting localStorage data
   useEffect(() => {
     // Ensure no cross-contamination from other product pages
@@ -29,7 +32,6 @@ const AIRenameVariantsPage = () => {
     updatePageMetadata(metadata);
   }, [content]);
 
-  const { content } = usePublishedContent();
   const product = content.products?.['ai-rename-variants'] || {
     title: 'AI Rename Variants',
     description: 'Instantly relabel Figma variant and layer names with context-aware AI. Remove clutter and bring order to your files in seconds.',
@@ -41,9 +43,11 @@ const AIRenameVariantsPage = () => {
 
   // Generate schemas
   const productSchema = createProductSchema(product);
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://bibliokit.com';
+  const href = typeof window !== 'undefined' ? window.location.href : `${origin}/ai-rename-variants`;
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: window.location.origin },
-    { name: 'AI Rename Variants', url: window.location.href }
+    { name: 'Home', url: origin },
+    { name: 'AI Rename Variants', url: href }
   ]);
 
   // Inject schemas
@@ -172,10 +176,7 @@ const AIRenameVariantsPage = () => {
         <div className="absolute bottom-10 right-10 w-32 h-32 bg-purple-200/30 rounded-full blur-xl"></div>
       </section>
 
-      {/* Updated timestamp for AI crawlers */}
-      <div className="text-center py-4 text-sm text-muted-foreground bg-gray-50">
-        <span className="updated-date">Updated {new Date().toISOString().split('T')[0]}</span>
-      </div>
+
 
       {/* Expert Quote Section */}
       <section className="py-12 px-4 bg-gray-50">
