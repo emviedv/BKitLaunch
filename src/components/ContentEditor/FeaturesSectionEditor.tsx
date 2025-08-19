@@ -1,4 +1,5 @@
 import React from 'react';
+import { debugService } from '@/lib/debugService';
 import { TextInput, TextArea } from './FormFields';
 
 interface FeatureBadge { label: string; type?: 'figma' | 'saas' | 'custom'; color?: string }
@@ -69,6 +70,29 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
   updateSection,
   sectionData
 }) => {
+  // Normalize incoming feature items to editor's canonical shape so all inputs reflect JSON
+  const normalizeFeatureItem = React.useCallback((raw: any) => {
+    const item = { ...(raw || {}) } as any;
+    // Key remapping (snake_case → camelCase and known aliases)
+    if (item.badge_color && !item.badgeColor) item.badgeColor = item.badge_color;
+    if (item.is_featured !== undefined && item.isFeatured === undefined) item.isFeatured = !!item.is_featured;
+    if (item.button_text && !item.buttonText) item.buttonText = item.button_text;
+    if (item.button_link && !item.buttonLink) item.buttonLink = item.button_link;
+    if (item.product_slug && !item.productSlug) item.productSlug = item.product_slug;
+    if (item.top_items && !item.topItems) item.topItems = item.top_items;
+    if (item.top3 && !item.topItems && Array.isArray(item.top3)) item.topItems = item.top3;
+    if (item.ideaText && !item.idea) item.idea = item.ideaText;
+    if (item.tagline && !item.idea) item.idea = item.tagline;
+    if (item.show_badge !== undefined && item.showBadge === undefined) item.showBadge = !!item.show_badge;
+    // Sanitize productSlug: editor expects slug without leading '/'
+    if (typeof item.productSlug === 'string') {
+      item.productSlug = item.productSlug.replace(/^\/+/, '');
+    }
+    // Ensure arrays
+    if (!Array.isArray(item.topItems)) item.topItems = Array.isArray(item.top_items) ? item.top_items : (Array.isArray(item.top3) ? item.top3 : []);
+    if (!Array.isArray(item.badges)) item.badges = Array.isArray(item.badges) ? item.badges : [];
+    return item;
+  }, []);
   const [jsonEdit, setJsonEdit] = React.useState(false);
   const [jsonValue, setJsonValue] = React.useState<string>(
     JSON.stringify({ section: sectionData || {}, items: features || [], visible }, null, 2)
@@ -100,42 +124,94 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
   };
 
   React.useEffect(() => {
-    setJsonValue(JSON.stringify({ section: sectionData || {}, items: features || [], visible }, null, 2));
+    const payload = { section: sectionData || {}, items: (features || []).map(normalizeFeatureItem), visible };
+    setJsonValue(JSON.stringify(payload, null, 2));
+    debugService.contentUpdate('Features.useEffect: sync jsonValue from props', payload);
+    try {
+      (window as any).__FEATURES_SYNC__ = payload;
+      // Plain console for visibility
+      // eslint-disable-next-line no-console
+      console.log('[Features.useEffect] sync payload', payload);
+    } catch {}
   }, [features, sectionData, visible]);
 
   const applyJson = () => {
     try {
       const parsed = JSON.parse(jsonValue);
+      debugService.contentUpdate('Features.applyJson: parsed', parsed);
+      try {
+        (window as any).__FEATURES_PARSED__ = parsed;
+        // eslint-disable-next-line no-console
+        console.log('[Features.applyJson] parsed', parsed);
+      } catch {}
       if (Array.isArray(parsed)) {
         // Array provided → treat as features list only
         updateSection('features', parsed);
-        setJsonValue(JSON.stringify({ section: sectionData || {}, items: parsed, visible }, null, 2));
+        const nextPayload = { section: sectionData || {}, items: parsed, visible };
+        setJsonValue(JSON.stringify(nextPayload, null, 2));
+        debugService.contentUpdate('Features.applyJson: applied array', nextPayload);
+        try { (window as any).__FEATURES_APPLY__ = nextPayload; console.log('[Features.applyJson] applied array', nextPayload); } catch {}
       } else if (parsed && typeof parsed === 'object') {
-        // Accept various shapes: { items: [...] } or { features: [...] }
-        const nextFeatures = Array.isArray((parsed as any).items)
-          ? (parsed as any).items
-          : Array.isArray((parsed as any).features)
-          ? (parsed as any).features
-          : Array.isArray(parsed)
-          ? parsed
-          : undefined;
-        if (nextFeatures) {
-          updateSection('features', nextFeatures);
-        }
-        // Section header under section / featuresSection
-        const nextSection = (parsed as any).section || (parsed as any).featuresSection;
-        if (nextSection && typeof nextSection === 'object') {
-          updateSection('featuresSection', nextSection);
-        }
-        // Visibility flag
-        const nextVisible = typeof (parsed as any).visible === 'boolean' ? Boolean((parsed as any).visible) : visible;
-        if (typeof (parsed as any).visible === 'boolean') updateVisibility(nextVisible);
+        // Accept robust shapes:
+        // 1) { items: [...] }
+        // 2) { features: [...] }
+        // 3) { features: { title, description, items } }
+        // 4) { section: { title, description }, items: [...] }
+        let nextFeatures: any[] | undefined;
+        let nextSectionObj: any | undefined;
 
-        // Normalize editor JSON view after apply
-        setJsonValue(JSON.stringify({ section: nextSection || sectionData || {}, items: nextFeatures || features || [], visible: nextVisible }, null, 2));
+        const parsedAny: any = parsed as any;
+        const featuresValue = parsedAny.features;
+        const itemsValue = parsedAny.items;
+
+        if (Array.isArray(itemsValue)) {
+          nextFeatures = itemsValue;
+        } else if (Array.isArray(featuresValue)) {
+          nextFeatures = featuresValue;
+        } else if (featuresValue && typeof featuresValue === 'object' && Array.isArray(featuresValue.items)) {
+          nextFeatures = featuresValue.items;
+        } else if (Array.isArray(parsedAny)) {
+          nextFeatures = parsedAny as any[];
+        }
+
+        nextSectionObj = parsedAny.section || parsedAny.featuresSection;
+        if (!nextSectionObj && featuresValue && typeof featuresValue === 'object') {
+          const maybeTitle = featuresValue.title;
+          const maybeDesc = featuresValue.description;
+          if (typeof maybeTitle === 'string' || typeof maybeDesc === 'string') {
+            nextSectionObj = {
+              ...(typeof maybeTitle === 'string' ? { title: maybeTitle } : {}),
+              ...(typeof maybeDesc === 'string' ? { description: maybeDesc } : {})
+            };
+          }
+        }
+
+        if (nextFeatures) {
+          const normalizedList = nextFeatures.map(normalizeFeatureItem);
+          // Update both array shape and object-with-items shape for maximum compatibility
+          updateSection('features', normalizedList);
+          updateSection('features.items', normalizedList);
+          debugService.contentUpdate('Features.applyJson: features updated', { count: normalizedList.length, first: normalizedList[0] });
+          try { (window as any).__FEATURES_NORMALIZED__ = normalizedList; console.log('[Features.applyJson] normalized first', normalizedList[0]); } catch {}
+        }
+        if (nextSectionObj && typeof nextSectionObj === 'object') {
+          updateSection('featuresSection', nextSectionObj);
+          debugService.contentUpdate('Features.applyJson: featuresSection updated', nextSectionObj);
+          try { (window as any).__FEATURES_SECTION__ = nextSectionObj; console.log('[Features.applyJson] section', nextSectionObj); } catch {}
+        }
+
+        const nextVisible = typeof parsedAny.visible === 'boolean' ? Boolean(parsedAny.visible) : visible;
+        if (typeof parsedAny.visible === 'boolean') updateVisibility(nextVisible);
+
+        const finalPayload = { section: nextSectionObj || sectionData || {}, items: (nextFeatures || features || []).map(normalizeFeatureItem), visible: nextVisible };
+        setJsonValue(JSON.stringify(finalPayload, null, 2));
+        debugService.contentUpdate('Features.applyJson: final payload', finalPayload);
+        try { (window as any).__FEATURES_FINAL__ = finalPayload; console.log('[Features.applyJson] final payload', finalPayload); } catch {}
       }
       setJsonEdit(false);
+      debugService.saveSuccess('Features.applyJson: done');
     } catch {
+      debugService.saveError('Features.applyJson: invalid JSON', jsonValue);
       alert('Invalid JSON. Please correct and try again.');
     }
   };

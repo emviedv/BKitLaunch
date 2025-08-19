@@ -1053,16 +1053,29 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
             />
           )}
 
-          {activeSection === 'features' && (
-            <FeaturesSectionEditor
-              features={savedContent.features}
-              updateNestedField={updateNestedField}
-              visible={savedContent.settings?.visibility?.features ?? true}
-              updateVisibility={(isVisible) => updateVisibility('features', isVisible)}
-              updateSection={updateSection}
-              sectionData={(savedContent as any).featuresSection}
-            />
-          )}
+          {activeSection === 'features' && (() => {
+            const featuresArray = Array.isArray(savedContent.features)
+              ? savedContent.features
+              : (((savedContent as any)?.features?.items) || []);
+            const featuresSectionData = (savedContent as any).featuresSection || (
+              Array.isArray(savedContent.features)
+                ? undefined
+                : ({
+                    title: (savedContent as any)?.features?.title,
+                    description: (savedContent as any)?.features?.description,
+                  } as any)
+            );
+            return (
+              <FeaturesSectionEditor
+                features={featuresArray}
+                updateNestedField={updateNestedField}
+                visible={savedContent.settings?.visibility?.features ?? true}
+                updateVisibility={(isVisible) => updateVisibility('features', isVisible)}
+                updateSection={updateSection}
+                sectionData={featuresSectionData}
+              />
+            );
+          })()}
 
           {(activeSection === 'pricing' || activeSection === 'product') && (
             <PricingProductSectionEditor

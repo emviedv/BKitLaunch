@@ -101,7 +101,7 @@ function BentoDemo() {
   ];
 
   return (
-    <BentoGrid className="lg:grid-rows-3">
+    <BentoGrid className="grid-cols-3 lg:grid-rows-3">
       {features.map((feature) => (
         <BentoCard key={feature.name} {...feature} />
       ))}

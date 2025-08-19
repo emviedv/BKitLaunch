@@ -177,11 +177,16 @@ class ContentAPI {
 
       // Sync features section
       if (jsonContent.features) {
-        // For features, we need to handle the array structure
+        // Prefer explicit section metadata from JSON if provided
+        const sectionFromJson = (jsonContent as any).featuresSection || (jsonContent as any).features;
         const featuresSection = {
-          title: "Everything you need to build and scale",
-          description: "From secure API management to comprehensive support systems, we provide all the tools you need for professional SaaS development.",
-          items: jsonContent.features
+          title: (sectionFromJson && typeof sectionFromJson === 'object' && sectionFromJson.title) 
+            ? sectionFromJson.title 
+            : 'Features',
+          description: (sectionFromJson && typeof sectionFromJson === 'object' && sectionFromJson.description)
+            ? sectionFromJson.description
+            : '',
+          items: Array.isArray(jsonContent.features) ? jsonContent.features : ((jsonContent.features?.items) || [])
         };
         const result = await upsertSection('features', featuresSection, jsonContent.settings?.visibility?.features !== false);
         syncResults.push(result);

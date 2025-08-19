@@ -128,6 +128,13 @@ const Features = () => {
     return null;
   }
 
+  // Determine featured vs non-featured items
+  const featuredIndex = featuresList.findIndex((f: any) => f.isFeatured || f.is_featured);
+  const featuredItem = featuredIndex >= 0 ? featuresList[featuredIndex] : null;
+  const otherItems = featuredIndex >= 0
+    ? featuresList.filter((_: any, i: number) => i !== featuredIndex)
+    : featuresList;
+
   // Traditional card grid layout; responsive columns and auto row height
 
   // Background images removed per request, retaining clean card styling
@@ -152,9 +159,127 @@ const Features = () => {
           )}
         </div>
 
+        {/* Featured card on its own centered row */}
+        {featuredItem && (() => {
+          const feature = featuredItem;
+          const isFeatured = true;
+          const badgeColor = feature.badgeColor || feature.badge_color;
+          const buttonText = feature.buttonText || feature.button_text;
+          const buttonLink = feature.buttonLink || feature.button_link;
+          const productSlug = feature.productSlug || feature.product_slug;
+          const showBadge = (feature as any).showBadge !== false;
+          const ideaText: string | undefined = (feature as any).idea || (feature as any).ideaText || (feature as any).tagline;
+          const topItems: string[] = Array.isArray((feature as any).topItems)
+            ? (feature as any).topItems
+            : Array.isArray((feature as any).top_items)
+              ? (feature as any).top_items
+              : Array.isArray((feature as any).top3)
+                ? (feature as any).top3
+                : [];
+
+          const computedLink: string | undefined = productSlug
+            ? `/${productSlug}`
+            : buttonLink;
+          const external = Boolean(computedLink && isExternalLink(computedLink));
+          const normalizedHref = computedLink && computedLink.startsWith('#')
+            ? `/${computedLink}`
+            : computedLink;
+
+          return (
+            <div className="mb-8">
+              <div className="max-w-3xl mx-auto">
+                <div className={`group relative overflow-hidden h-full card ${isFeatured ? 'card-featured' : ''}`}>
+                  <div className="relative z-10 flex h-full flex-col justify-start">
+                    <div className="min-h-56 md:min-h-60 lg:min-h-64">
+                      <div className="flex items-center justify-between mb-6">
+                        <div className={`icon ${colorClasses[0]}`}>
+                          {feature.icon}
+                        </div>
+                        {(Array.isArray((feature as any).badges) && (feature as any).badges.length > 0 && (content.settings?.labels?.featuresBadges ?? true) && showBadge) ? (
+                          <div className="flex flex-wrap gap-1">
+                            {(feature as any).badges.map((b: any, bi: number) => (
+                              <span key={bi}
+                                className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(b.color || 'primary')}`}
+                                style={getBadgeStyle(b.color || '')}
+                                aria-label={`${b.type || 'badge'}: ${b.label}`}
+                              >
+                                {renderBadgeIcon(b.type)}
+                                {b.label}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          feature.badge && (content.settings?.labels?.featuresBadges ?? true) && showBadge && (() => {
+                            const label = String(feature.badge);
+                            const lower = label.toLowerCase();
+                            const icon = lower.includes('figma') ? <FigmaIcon /> : lower.includes('saas') ? <SaaSIcon /> : null;
+                            return (
+                              <span 
+                                className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(badgeColor || 'primary')}`}
+                                style={getBadgeStyle(badgeColor || '')}
+                              >
+                                {icon}
+                                {label}
+                              </span>
+                            );
+                          })()
+                        )}
+                      </div>
+                      <h3 className="text-xl font-semibold mb-6">{feature.title}</h3>
+                      <p className="text-muted-foreground">
+                        {feature.description}
+                      </p>
+                      {ideaText && (
+                        <p className="mt-2 text-sm italic text-muted-foreground/80">
+                          {ideaText}
+                        </p>
+                      )}
+                    </div>
+                    <div className="mt-7 min-h-32">
+                      {topItems.length > 0 && (
+                        <>
+                          <h4 className="text-sm font-semibold mb-2">Key Features</h4>
+                          <ul className="grid grid-cols-1 gap-2">
+                            {topItems.slice(0, 3).map((t: string, ti: number) => (
+                              <li key={ti} className="flex items-start gap-2">
+                                <span className="mt-1 inline-block w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
+                                <span className="text-sm text-muted-foreground">{t}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </div>
+                    {(() => {
+                      const label: string | undefined =
+                        feature.buttonPreset === 'beta' ? 'Sign Up for Beta' : (buttonText || 'Visit product page');
+                      if (label && normalizedHref) {
+                        return (
+                          <a
+                            href={normalizedHref || '#'}
+                            className="card-button mt-auto self-start"
+                            onClick={(e) => handleButtonClick(e, computedLink)}
+                            target={external ? '_blank' : '_self'}
+                            rel={external ? 'noopener noreferrer' : undefined}
+                            aria-label={`${label} - ${feature.title}`}
+                          >
+                            {label}
+                          </a>
+                        );
+                      }
+                      return null;
+                    })()}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Grid with remaining cards should be full width within content area */}
         <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-auto gap-6">
-          {featuresList.map((feature: any, index: number) => {
-            const isFeatured = feature.isFeatured || feature.is_featured;
+          {otherItems.map((feature: any, index: number) => {
+            const isFeatured = false;
             const badgeColor = feature.badgeColor || feature.badge_color;
             const buttonText = feature.buttonText || feature.button_text;
             const buttonLink = feature.buttonLink || feature.button_link;
@@ -180,67 +305,71 @@ const Features = () => {
             return (
               <div
                 key={index}
-                className={`col-span-1 ${isFeatured ? 'md:col-span-2 lg:col-span-4' : ''}`}
+                className="col-span-1"
               >
-                <div className={`group relative overflow-hidden h-full card ${isFeatured ? 'card-featured max-w-3xl mx-auto' : ''}`}>
-                  <div className="relative z-10 flex h-full flex-col justify-end">
-                    <div className="flex items-center justify-between mb-6">
-                      <div className={`icon ${colorClasses[index % colorClasses.length]}`}>
-                        {feature.icon}
-                      </div>
-                      {(Array.isArray((feature as any).badges) && (feature as any).badges.length > 0 && (content.settings?.labels?.featuresBadges ?? true) && showBadge) ? (
-                        <div className="flex flex-wrap gap-1">
-                          {(feature as any).badges.map((b: any, bi: number) => (
-                            <span key={bi}
-                              className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(b.color || 'primary')}`}
-                              style={getBadgeStyle(b.color || '')}
-                              aria-label={`${b.type || 'badge'}: ${b.label}`}
-                            >
-                              {renderBadgeIcon(b.type)}
-                              {b.label}
-                            </span>
-                          ))}
+                <div className={`group relative overflow-hidden h-full card ${isFeatured ? 'card-featured' : ''}`}>
+                  <div className="relative z-10 flex h-full flex-col justify-start">
+                    <div className="min-h-56 md:min-h-60 lg:min-h-64">
+                      <div className="flex items-center justify-between mb-6">
+                        <div className={`icon ${colorClasses[index % colorClasses.length]}`}>
+                          {feature.icon}
                         </div>
-                      ) : (
-                        feature.badge && (content.settings?.labels?.featuresBadges ?? true) && showBadge && (() => {
-                          const label = String(feature.badge);
-                          const lower = label.toLowerCase();
-                          const icon = lower.includes('figma') ? <FigmaIcon /> : lower.includes('saas') ? <SaaSIcon /> : null;
-                          return (
-                            <span 
-                              className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(badgeColor || 'primary')}`}
-                              style={getBadgeStyle(badgeColor || '')}
-                            >
-                              {icon}
-                              {label}
-                            </span>
-                          );
-                        })()
+                        {(Array.isArray((feature as any).badges) && (feature as any).badges.length > 0 && (content.settings?.labels?.featuresBadges ?? true) && showBadge) ? (
+                          <div className="flex flex-wrap gap-1">
+                            {(feature as any).badges.map((b: any, bi: number) => (
+                              <span key={bi}
+                                className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(b.color || 'primary')}`}
+                                style={getBadgeStyle(b.color || '')}
+                                aria-label={`${b.type || 'badge'}: ${b.label}`}
+                              >
+                                {renderBadgeIcon(b.type)}
+                                {b.label}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          feature.badge && (content.settings?.labels?.featuresBadges ?? true) && showBadge && (() => {
+                            const label = String(feature.badge);
+                            const lower = label.toLowerCase();
+                            const icon = lower.includes('figma') ? <FigmaIcon /> : lower.includes('saas') ? <SaaSIcon /> : null;
+                            return (
+                              <span 
+                                className={`inline-flex items-center text-xs px-2 py-1 rounded-full font-medium ${getBadgeColorClasses(badgeColor || 'primary')}`}
+                                style={getBadgeStyle(badgeColor || '')}
+                              >
+                                {icon}
+                                {label}
+                              </span>
+                            );
+                          })()
+                        )}
+                      </div>
+                      <h3 className="text-xl font-semibold mb-6">{feature.title}</h3>
+                      <p className="text-muted-foreground">
+                        {feature.description}
+                      </p>
+                      {ideaText && (
+                        <p className="mt-2 text-sm italic text-muted-foreground/80">
+                          {ideaText}
+                        </p>
                       )}
                     </div>
-                    <h3 className="text-xl font-semibold mb-6">{feature.title}</h3>
-                    <p className="text-muted-foreground">
-                      {feature.description}
-                    </p>
-                    {ideaText && (
-                      <p className="mt-2 text-sm italic text-muted-foreground/80">
-                        {ideaText}
-                      </p>
-                    )}
                     {/* Key features for this card */}
-                    {topItems.length > 0 && (
-                      <div className="mt-7">
-                        <h4 className="text-sm font-semibold mb-2">Key Features</h4>
-                        <ul className="grid grid-cols-1 gap-2">
-                          {topItems.slice(0, 3).map((t: string, ti: number) => (
-                            <li key={ti} className="flex items-start gap-2">
-                              <span className="mt-1 inline-block w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
-                              <span className="text-sm text-muted-foreground">{t}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                    <div className="mt-7 min-h-32">
+                      {topItems.length > 0 && (
+                        <>
+                          <h4 className="text-sm font-semibold mb-2">Key Features</h4>
+                          <ul className="grid grid-cols-1 gap-2">
+                            {topItems.slice(0, 3).map((t: string, ti: number) => (
+                              <li key={ti} className="flex items-start gap-2">
+                                <span className="mt-1 inline-block w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
+                                <span className="text-sm text-muted-foreground">{t}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                    </div>
 
                     {/* Button area aligned to bottom */}
                     {(() => {
@@ -251,7 +380,7 @@ const Features = () => {
                         return (
                           <a
                             href={normalizedHref || '#'}
-                            className="card-button mt-4 self-start"
+                            className="card-button mt-auto self-start"
                             onClick={(e) => handleButtonClick(e, computedLink)}
                             target={external ? '_blank' : '_self'}
                             rel={external ? 'noopener noreferrer' : undefined}

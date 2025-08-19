@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import productData from '@/data/products.json';
+import { debugService } from '@/lib/debugService';
 
 export const useContentEditorState = () => {
   const [savedContent, setSavedContent] = useState<any>(productData);
@@ -30,6 +31,20 @@ export const useContentEditorState = () => {
     setSavedContent(updatedContent);
     setJsonContent(JSON.stringify(updatedContent, null, 2));
     setIsEditing(true);
+
+    try {
+      const sample = section.startsWith('features') && Array.isArray((updatedContent as any)?.features)
+        ? (updatedContent as any).features[0]
+        : section === 'features' && Array.isArray(newData)
+          ? newData[0]
+          : undefined;
+      debugService.contentUpdate('useContentEditorState.updateSection', {
+        section,
+        keys: Object.keys(updatedContent || {}),
+        featuresCount: Array.isArray((updatedContent as any)?.features) ? (updatedContent as any).features.length : undefined,
+        sample
+      });
+    } catch {}
   };
 
   const updateNestedField = (
@@ -57,10 +72,30 @@ export const useContentEditorState = () => {
         i === index ? { ...item, [field]: value } : item
       );
     } else {
-      updatedSection = { ...currentSection, [field]: value };
+      // Ensure we have an object to spread into when the section doesn't exist yet
+      const baseObject = (currentSection && typeof currentSection === 'object' && !Array.isArray(currentSection))
+        ? currentSection
+        : {};
+      updatedSection = { ...baseObject, [field]: value };
     }
 
+    try {
+      debugService.contentUpdate('useContentEditorState.updateNestedField(before)', {
+        section,
+        index,
+        field,
+        value: typeof value === 'string' ? value.slice(0, 120) : value
+      });
+    } catch {}
+
     updateSection(section, updatedSection);
+
+    try {
+      const after = section.includes('.')
+        ? section
+        : `${section}`;
+      debugService.contentUpdate('useContentEditorState.updateNestedField(after)', { path: after });
+    } catch {}
   };
 
   return {
