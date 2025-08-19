@@ -132,7 +132,16 @@ export default async (request: Request, context: Context) => {
     } else {
       try {
         // Vite writes manifest.json at the client outDir root (e.g., dist/client/manifest.json)
-        const manifestRes = await fetch(new URL('/manifest.json', request.url).toString());
+        // Try both top-level and /client paths for compatibility
+        let manifestUrl = new URL('/manifest.json', request.url).toString();
+        let manifestRes = await fetch(manifestUrl);
+        if (!manifestRes.ok) {
+          const alt = new URL('/client/manifest.json', request.url).toString();
+          const altRes = await fetch(alt);
+          if (altRes.ok) {
+            manifestRes = altRes;
+          }
+        }
         if (manifestRes.ok) {
           const manifest: any = await manifestRes.json();
           const entry = manifest['src/entry-client.tsx'] || manifest['index.html'] || null;
