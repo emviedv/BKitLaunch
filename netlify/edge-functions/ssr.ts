@@ -131,19 +131,15 @@ export default async (request: Request, context: Context) => {
       jsPath = '/src/entry-client.tsx';
     } else {
       try {
-        // Vite writes manifest at '/.vite/manifest.json' under the publish root (dist/client)
-        // Try /.vite/manifest.json first, then fall back to /manifest.json and /client/manifest.json for older configs
-        let manifestUrl = new URL('/.vite/manifest.json', request.url).toString();
+        // Vite manifest: try /manifest.json, then /client/manifest.json (mapped via _redirects to /.vite/manifest.json)
+        let manifestUrl = new URL('/manifest.json', request.url).toString();
         let manifestRes = await fetch(manifestUrl);
         if (!manifestRes.ok) {
-          const alt1 = new URL('/manifest.json', request.url).toString();
-          const altRes1 = await fetch(alt1);
-          if (altRes1.ok) manifestRes = altRes1;
-        }
-        if (!manifestRes.ok) {
-          const alt2 = new URL('/client/manifest.json', request.url).toString();
-          const altRes2 = await fetch(alt2);
-          if (altRes2.ok) manifestRes = altRes2;
+          const alt = new URL('/client/manifest.json', request.url).toString();
+          const altRes = await fetch(alt);
+          if (altRes.ok) {
+            manifestRes = altRes;
+          }
         }
         if (manifestRes.ok) {
           const manifest: any = await manifestRes.json();
@@ -160,24 +156,7 @@ export default async (request: Request, context: Context) => {
         }
       } catch {}
 
-      // Fallback: parse built index.html to extract CSS and module script when manifest is not available
-      if (!cssLinks || !jsPath || jsPath === '/assets/main.js') {
-        try {
-          const indexUrl = new URL('/index.html', request.url).toString();
-          const indexRes = await fetch(indexUrl);
-          if (indexRes.ok) {
-            const indexHtml = await indexRes.text();
-            const linkMatches = Array.from(indexHtml.matchAll(/<link[^>]*rel=["']stylesheet["'][^>]*>/gi));
-            if (linkMatches.length > 0) {
-              cssLinks = linkMatches.map((m) => m[0]).join('\n     ');
-            }
-            const scriptMatch = indexHtml.match(/<script[^>]*type=["']module["'][^>]*src=["']([^"']+)["'][^>]*><\\/script>/i);
-            if (scriptMatch && scriptMatch[1]) {
-              jsPath = scriptMatch[1];
-            }
-          }
-        } catch {}
-      }
+      // If manifest lookup failed silently, keep safe defaults (jsPath fallback will still hydrate client)
     }
 
     // In local development with Vite, we must include the Vite client and React Refresh preamble
