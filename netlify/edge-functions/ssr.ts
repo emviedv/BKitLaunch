@@ -130,6 +130,7 @@ export default async (request: Request, context: Context) => {
       // In dev, use Vite entry directly
       jsPath = '/src/entry-client.tsx';
     } else {
+      let manifestFound = false;
       try {
         // Vite manifest: try /manifest.json, then /client/manifest.json (mapped via _redirects to /.vite/manifest.json)
         let manifestUrl = new URL('/manifest.json', request.url).toString();
@@ -142,6 +143,7 @@ export default async (request: Request, context: Context) => {
           }
         }
         if (manifestRes.ok) {
+          manifestFound = true;
           const manifest: any = await manifestRes.json();
           const entry = manifest['src/entry-client.tsx'] || manifest['index.html'] || null;
           if (entry && entry.file) {
@@ -156,7 +158,10 @@ export default async (request: Request, context: Context) => {
         }
       } catch {}
 
-      // If manifest lookup failed silently, keep safe defaults (jsPath fallback will still hydrate client)
+      // If manifest lookup failed, skip SSR and let the static index.html handle asset injection
+      if (!manifestFound) {
+        return context.next();
+      }
     }
 
     // In local development with Vite, we must include the Vite client and React Refresh preamble
