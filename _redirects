@@ -2,6 +2,8 @@
 
 # Serve static assets and critical files directly (prevent SPA fallback from hijacking)
 /assets/*        /assets/:splat                  200
+/.vite/*         /.vite/:splat                   200
+/client/manifest.json /.vite/manifest.json      200
 /manifest.json   /manifest.json                  200
 /favicon.ico     /favicon.ico                    200
 /favicon.svg     /favicon.svg                    200
