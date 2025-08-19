@@ -47,6 +47,11 @@
     Content-Type = "text/javascript; charset=utf-8"
 
 [[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Content-Type = "application/json; charset=utf-8"
+
+[[headers]]
   for = "*.tsx"
   [headers.values]
     Content-Type = "text/javascript; charset=utf-8"
@@ -114,6 +119,31 @@
   force = true
 
 # Exclude development files from SPA fallback - order matters!
+[[redirects]]
+  from = "/manifest.json"
+  to = "/manifest.json"
+  status = 200
+
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/favicon.ico"
+  status = 200
+
+[[redirects]]
+  from = "/favicon.svg"
+  to = "/favicon.svg"
+  status = 200
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+
 [[redirects]]
   from = "/node_modules/.vite/deps/*.mjs"
   to = "/node_modules/.vite/deps/:splat"
