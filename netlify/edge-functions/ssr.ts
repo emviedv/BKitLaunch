@@ -131,16 +131,19 @@ export default async (request: Request, context: Context) => {
       jsPath = '/src/entry-client.tsx';
     } else {
       try {
-        // Vite writes manifest.json at the client outDir root (e.g., dist/client/manifest.json)
-        // Try both top-level and /client paths for compatibility
-        let manifestUrl = new URL('/manifest.json', request.url).toString();
+        // Vite writes manifest at '/.vite/manifest.json' under the publish root (dist/client)
+        // Try /.vite/manifest.json first, then fall back to /manifest.json and /client/manifest.json for older configs
+        let manifestUrl = new URL('/.vite/manifest.json', request.url).toString();
         let manifestRes = await fetch(manifestUrl);
         if (!manifestRes.ok) {
-          const alt = new URL('/client/manifest.json', request.url).toString();
-          const altRes = await fetch(alt);
-          if (altRes.ok) {
-            manifestRes = altRes;
-          }
+          const alt1 = new URL('/manifest.json', request.url).toString();
+          const altRes1 = await fetch(alt1);
+          if (altRes1.ok) manifestRes = altRes1;
+        }
+        if (!manifestRes.ok) {
+          const alt2 = new URL('/client/manifest.json', request.url).toString();
+          const altRes2 = await fetch(alt2);
+          if (altRes2.ok) manifestRes = altRes2;
         }
         if (manifestRes.ok) {
           const manifest: any = await manifestRes.json();
