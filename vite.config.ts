@@ -39,7 +39,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
-    manifest: true,
+    // Emit manifest at top-level so Netlify publishes it (avoid hidden .vite directory)
+    manifest: 'manifest.json',
     rollupOptions: {
       input: './index.html'
     }
