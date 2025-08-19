@@ -156,6 +156,25 @@ export default async (request: Request, context: Context) => {
           }
         }
       } catch {}
+
+      // Fallback: parse built index.html to extract CSS and module script when manifest is not available
+      if (!cssLinks || !jsPath || jsPath === '/assets/main.js') {
+        try {
+          const indexUrl = new URL('/index.html', request.url).toString();
+          const indexRes = await fetch(indexUrl);
+          if (indexRes.ok) {
+            const indexHtml = await indexRes.text();
+            const linkMatches = Array.from(indexHtml.matchAll(/<link[^>]*rel=["']stylesheet["'][^>]*>/gi));
+            if (linkMatches.length > 0) {
+              cssLinks = linkMatches.map((m) => m[0]).join('\n     ');
+            }
+            const scriptMatch = indexHtml.match(/<script[^>]*type=["']module["'][^>]*src=["']([^"']+)["'][^>]*><\\/script>/i);
+            if (scriptMatch && scriptMatch[1]) {
+              jsPath = scriptMatch[1];
+            }
+          }
+        } catch {}
+      }
     }
 
     // In local development with Vite, we must include the Vite client and React Refresh preamble
