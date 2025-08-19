@@ -1,6 +1,15 @@
-/api/*  /.netlify/functions/:splat  200
-/*      /index.html  200
+/api/*           /.netlify/functions/:splat  200
+
+# Serve static assets and critical files directly (prevent SPA fallback from hijacking)
+/assets/*        /assets/:splat                  200
+/manifest.json   /manifest.json                  200
+/favicon.ico     /favicon.ico                    200
+/favicon.svg     /favicon.svg                    200
+/robots.txt      /robots.txt                     200
 
 # Serve dynamic sitemap from Netlify function
 /sitemap.xml  /.netlify/functions/sitemap  200
+
+# SPA fallback for everything else
+/*      /index.html  200
 
