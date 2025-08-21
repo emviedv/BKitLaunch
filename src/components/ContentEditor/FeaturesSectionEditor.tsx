@@ -93,21 +93,104 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
     if (!Array.isArray(item.badges)) item.badges = Array.isArray(item.badges) ? item.badges : [];
     return item;
   }, []);
+  
   const [jsonEdit, setJsonEdit] = React.useState(false);
   const [jsonValue, setJsonValue] = React.useState<string>(
     JSON.stringify({ section: sectionData || {}, items: features || [], visible }, null, 2)
   );
+  
+  // Keep normalized features in local state to ensure form inputs stay in sync
+  const [normalizedFeatures, setNormalizedFeatures] = React.useState<Feature[]>(() => 
+    (features || []).map(normalizeFeatureItem)
+  );
+  
+  // Keep section data in local state to ensure section inputs stay in sync
+  const [localSectionData, setLocalSectionData] = React.useState(() => sectionData || {});
+  
+  // Track if user is actively editing to prevent prop sync resets
+  const isActivelyEditing = React.useRef(false);
+  const lastPropUpdate = React.useRef(Date.now());
+  
+  // Update normalized features only on initial mount or explicit prop changes (not re-renders)
+  React.useEffect(() => {
+    const now = Date.now();
+    const timeSinceLastUpdate = now - lastPropUpdate.current;
+    
+    // Only sync from props if:
+    // 1. Initial mount (no local data)
+    // 2. Substantial time has passed (not a re-render)
+    // 3. Not actively editing
+    if (normalizedFeatures.length === 0 || (timeSinceLastUpdate > 1000 && !isActivelyEditing.current)) {
+      const newNormalized = (features || []).map(normalizeFeatureItem);
+      setNormalizedFeatures(newNormalized);
+      lastPropUpdate.current = now;
+    }
+  }, [features, normalizeFeatureItem]);
+  
+  // Update local section data only on initial mount
+  React.useEffect(() => {
+    if (Object.keys(localSectionData).length === 0) {
+      setLocalSectionData(sectionData || {});
+    }
+  }, [sectionData]);
+
+  // Custom update handler that updates both local state and parent state
+  const updateFeatureField = React.useCallback((index: number, field: string, value: any) => {
+    // Mark as actively editing
+    isActivelyEditing.current = true;
+    
+    // Update local state immediately for responsive UI
+    const updatedFeatures = [...normalizedFeatures];
+    updatedFeatures[index] = { ...updatedFeatures[index], [field]: value };
+    setNormalizedFeatures(updatedFeatures);
+    
+    // Update parent state
+    updateNestedField('features', index, field, value);
+    
+    // Clear editing flag after a delay
+    setTimeout(() => {
+      isActivelyEditing.current = false;
+    }, 2000);
+  }, [normalizedFeatures, updateNestedField]);
+
+  // Custom update handler for section fields
+  const updateSectionField = React.useCallback((field: string, value: any) => {
+    // Mark as actively editing
+    isActivelyEditing.current = true;
+    
+    // Update local state immediately for responsive UI
+    const updatedSection = { ...localSectionData, [field]: value };
+    setLocalSectionData(updatedSection);
+    
+    // Update parent state
+    updateNestedField('featuresSection', null, field, value);
+    
+    // Clear editing flag after a delay
+    setTimeout(() => {
+      isActivelyEditing.current = false;
+    }, 2000);
+  }, [localSectionData, updateNestedField]);
 
   // Reorder helpers
   const moveFeature = React.useCallback((fromIndex: number, toIndex: number) => {
-    const list = features || [];
+    const list = normalizedFeatures || [];
     if (fromIndex === toIndex) return;
     if (toIndex < 0 || toIndex >= list.length) return;
+    
+    // Mark as actively editing
+    isActivelyEditing.current = true;
+    
     const next = [...list];
     const [moved] = next.splice(fromIndex, 1);
     next.splice(toIndex, 0, moved);
     updateSection('features', next);
-  }, [features, updateSection]);
+    setNormalizedFeatures(next);
+    
+    // Clear editing flag after a delay
+    setTimeout(() => {
+      isActivelyEditing.current = false;
+    }, 2000);
+  }, [normalizedFeatures, updateSection]);
 
   const handleDragStart = (e: React.DragEvent<HTMLButtonElement>, index: number) => {
     e.dataTransfer.setData('text/plain', String(index));
@@ -124,19 +207,23 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
   };
 
   React.useEffect(() => {
-    const payload = { section: sectionData || {}, items: (features || []).map(normalizeFeatureItem), visible };
+    const payload = { section: localSectionData || {}, items: normalizedFeatures || [], visible };
     setJsonValue(JSON.stringify(payload, null, 2));
-    debugService.contentUpdate('Features.useEffect: sync jsonValue from props', payload);
+    debugService.contentUpdate('Features.useEffect: sync jsonValue from local state', payload);
     try {
       (window as any).__FEATURES_SYNC__ = payload;
       // Plain console for visibility
       // eslint-disable-next-line no-console
       console.log('[Features.useEffect] sync payload', payload);
     } catch {}
-  }, [features, sectionData, visible]);
+  }, [normalizedFeatures, localSectionData, visible]);
 
   const applyJson = () => {
     try {
+      // Temporarily disable editing protection for JSON application
+      const wasEditing = isActivelyEditing.current;
+      isActivelyEditing.current = false;
+      
       const parsed = JSON.parse(jsonValue);
       debugService.contentUpdate('Features.applyJson: parsed', parsed);
       try {
@@ -146,8 +233,13 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
       } catch {}
       if (Array.isArray(parsed)) {
         // Array provided → treat as features list only
-        updateSection('features', parsed);
-        const nextPayload = { section: sectionData || {}, items: parsed, visible };
+        const normalizedArray = parsed.map(normalizeFeatureItem);
+        updateSection('features', normalizedArray);
+        
+        // Force immediate local state update for JSON application
+        setNormalizedFeatures(normalizedArray);
+        
+        const nextPayload = { section: localSectionData || {}, items: normalizedArray, visible };
         setJsonValue(JSON.stringify(nextPayload, null, 2));
         debugService.contentUpdate('Features.applyJson: applied array', nextPayload);
         try { (window as any).__FEATURES_APPLY__ = nextPayload; console.log('[Features.applyJson] applied array', nextPayload); } catch {}
@@ -191,11 +283,19 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
           // Update both array shape and object-with-items shape for maximum compatibility
           updateSection('features', normalizedList);
           updateSection('features.items', normalizedList);
+          
+          // Force immediate local state update for JSON application
+          setNormalizedFeatures(normalizedList);
+          
           debugService.contentUpdate('Features.applyJson: features updated', { count: normalizedList.length, first: normalizedList[0] });
           try { (window as any).__FEATURES_NORMALIZED__ = normalizedList; console.log('[Features.applyJson] normalized first', normalizedList[0]); } catch {}
         }
         if (nextSectionObj && typeof nextSectionObj === 'object') {
           updateSection('featuresSection', nextSectionObj);
+          
+          // Force immediate local state update for JSON application
+          setLocalSectionData(nextSectionObj);
+          
           debugService.contentUpdate('Features.applyJson: featuresSection updated', nextSectionObj);
           try { (window as any).__FEATURES_SECTION__ = nextSectionObj; console.log('[Features.applyJson] section', nextSectionObj); } catch {}
         }
@@ -203,14 +303,36 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
         const nextVisible = typeof parsedAny.visible === 'boolean' ? Boolean(parsedAny.visible) : visible;
         if (typeof parsedAny.visible === 'boolean') updateVisibility(nextVisible);
 
-        const finalPayload = { section: nextSectionObj || sectionData || {}, items: (nextFeatures || features || []).map(normalizeFeatureItem), visible: nextVisible };
+        const finalFeatures = (nextFeatures || normalizedFeatures || []).map(normalizeFeatureItem);
+        const finalSection = nextSectionObj || localSectionData || {};
+        const finalPayload = { section: finalSection, items: finalFeatures, visible: nextVisible };
         setJsonValue(JSON.stringify(finalPayload, null, 2));
         debugService.contentUpdate('Features.applyJson: final payload', finalPayload);
         try { (window as any).__FEATURES_FINAL__ = finalPayload; console.log('[Features.applyJson] final payload', finalPayload); } catch {}
+        
+        // Update local state to ensure form inputs sync
+        if (finalFeatures) {
+          setNormalizedFeatures(finalFeatures);
+        }
+        if (finalSection) {
+          setLocalSectionData(finalSection);
+        }
       }
       setJsonEdit(false);
       debugService.saveSuccess('Features.applyJson: done');
+      
+      // Force a re-render to ensure all inputs reflect the new state
+      setTimeout(() => {
+        // Update the JSON display with the latest local state
+        const refreshPayload = { section: localSectionData, items: normalizedFeatures, visible };
+        setJsonValue(JSON.stringify(refreshPayload, null, 2));
+        
+        // Restore previous editing state
+        isActivelyEditing.current = wasEditing;
+      }, 50);
     } catch {
+      // Restore editing state even on error
+      isActivelyEditing.current = wasEditing;
       debugService.saveError('Features.applyJson: invalid JSON', jsonValue);
       alert('Invalid JSON. Please correct and try again.');
     }
@@ -251,6 +373,9 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
         <button
           className="px-3 py-1 text-sm rounded border border-border hover:bg-muted"
           onClick={() => {
+            // Mark as actively editing
+            isActivelyEditing.current = true;
+            
             const newFeature: Feature = {
               icon: '🚀',
               title: 'New Feature',
@@ -266,8 +391,14 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
               buttonText: '',
               buttonLink: ''
             };
-            const updated = [...(features || []), newFeature];
+            const updated = [...(normalizedFeatures || []), newFeature];
             updateSection('features', updated);
+            setNormalizedFeatures(updated);
+            
+            // Clear editing flag after a delay
+            setTimeout(() => {
+              isActivelyEditing.current = false;
+            }, 2000);
           }}
           aria-label="Add feature"
         >
@@ -282,8 +413,8 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
         <label className="block text-sm font-medium mb-2">Section Title</label>
         <input
           type="text"
-          value={sectionData?.title || ''}
-          onChange={(e) => updateNestedField('featuresSection', null, 'title', e.target.value)}
+          value={localSectionData?.title || ''}
+          onChange={(e) => updateSectionField('title', e.target.value)}
           className="w-full p-2 border border-border rounded"
           placeholder="Features"
           aria-label="Features section title"
@@ -292,8 +423,8 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
       <div>
         <label className="block text-sm font-medium mb-2">Section Description</label>
         <textarea
-          value={sectionData?.description || ''}
-          onChange={(e) => updateNestedField('featuresSection', null, 'description', e.target.value)}
+          value={localSectionData?.description || ''}
+          onChange={(e) => updateSectionField('description', e.target.value)}
           className="w-full p-2 border border-border rounded h-20"
           placeholder="Brief description of the features section"
           aria-label="Features section description"
@@ -304,8 +435,8 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
           <label className="block text-sm font-medium mb-2">Product Page CTA Label</label>
           <input
             type="text"
-            value={(sectionData as any)?.productPageLabel || ''}
-            onChange={(e) => updateNestedField('featuresSection', null, 'productPageLabel', e.target.value)}
+            value={(localSectionData as any)?.productPageLabel || ''}
+            onChange={(e) => updateSectionField('productPageLabel', e.target.value)}
             className="w-full p-2 border border-border rounded"
             placeholder="Visit product page"
             aria-label="Product page CTA label"
@@ -315,8 +446,8 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
           <label className="block text-sm font-medium mb-2">Product Page Link or Slug</label>
           <input
             type="text"
-            value={(sectionData as any)?.productPageLink || ''}
-            onChange={(e) => updateNestedField('featuresSection', null, 'productPageLink', e.target.value)}
+            value={(localSectionData as any)?.productPageLink || ''}
+            onChange={(e) => updateSectionField('productPageLink', e.target.value)}
             className="w-full p-2 border border-border rounded"
             placeholder="/bibliokit-blocks or https://example.com/product"
             aria-label="Product page link"
@@ -339,7 +470,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
       </label>
     </div>
     <div className="space-y-4">
-      {features?.map((feature, index) => (
+      {normalizedFeatures?.map((feature, index) => (
         <div
           key={index}
           className={`p-3 border rounded ${feature.isFeatured ? 'border-primary/30 bg-primary/5' : 'border-border'}`}
@@ -364,7 +495,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                   type="button"
                   className="px-2 py-1 text-xs rounded border border-border hover:bg-muted disabled:opacity-50"
                   onClick={() => moveFeature(index, index + 1)}
-                  disabled={index === (features?.length || 0) - 1}
+                  disabled={index === (normalizedFeatures?.length || 0) - 1}
                   aria-label="Move down"
                 >
                   ↓
@@ -384,7 +515,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                 <input
                   type="checkbox"
                   checked={!!feature.isFeatured}
-                  onChange={(e) => updateNestedField('features', index, 'isFeatured', e.target.checked)}
+                  onChange={(e) => updateFeatureField(index, 'isFeatured', e.target.checked)}
                   className="rounded border-border"
                 />
                 <span className="text-sm font-medium">Featured Card</span>
@@ -398,8 +529,17 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
             <button
               className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-xs"
               onClick={() => {
-                const updated = (features || []).filter((_, i) => i !== index);
+                // Mark as actively editing
+                isActivelyEditing.current = true;
+                
+                const updated = (normalizedFeatures || []).filter((_, i) => i !== index);
                 updateSection('features', updated);
+                setNormalizedFeatures(updated);
+                
+                // Clear editing flag after a delay
+                setTimeout(() => {
+                  isActivelyEditing.current = false;
+                }, 2000);
               }}
               aria-label={`Remove feature ${index + 1}`}
             >
@@ -414,7 +554,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
               <input
                 type="text"
                 value={feature.icon}
-                onChange={(e) => updateNestedField('features', index, 'icon', e.target.value)}
+                onChange={(e) => updateFeatureField(index, 'icon', e.target.value)}
                 className="p-1 border border-border rounded w-full"
                 placeholder="Icon"
               />
@@ -424,7 +564,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
               <input
                 type="text"
                 value={feature.title}
-                onChange={(e) => updateNestedField('features', index, 'title', e.target.value)}
+                onChange={(e) => updateFeatureField(index, 'title', e.target.value)}
                 className="p-1 border border-border rounded w-full"
                 placeholder="Title"
               />
@@ -434,7 +574,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
               <input
                 type="text"
                 value={feature.badge}
-                onChange={(e) => updateNestedField('features', index, 'badge', e.target.value)}
+                onChange={(e) => updateFeatureField(index, 'badge', e.target.value)}
                 className="p-1 border border-border rounded w-full"
                 placeholder="e.g. New, Coming Soon"
               />
@@ -445,7 +585,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                 <input
                   type="text"
                   value={feature.badgeColor || ''}
-                  onChange={(e) => updateNestedField('features', index, 'badgeColor', e.target.value)}
+                  onChange={(e) => updateFeatureField(index, 'badgeColor', e.target.value)}
                   className="p-1 border border-border rounded flex-1"
                   placeholder="#10b981 or green"
                 />
@@ -469,7 +609,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                 className="text-xs px-2 py-1 rounded border border-border hover:bg-muted"
                 onClick={() => {
                   const next = [...(feature.badges || []), { label: 'Badge', type: 'custom', color: 'green' } as FeatureBadge];
-                  updateNestedField('features', index, 'badges', next);
+                  updateFeatureField(index, 'badges', next);
                 }}
                 aria-label={`Add badge to feature ${index + 1}`}
               >
@@ -488,7 +628,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                         onChange={(e) => {
                           const next = [...(feature.badges || [])];
                           next[bi] = { ...next[bi], label: e.target.value };
-                          updateNestedField('features', index, 'badges', next);
+                          updateFeatureField(index, 'badges', next);
                         }}
                         className="p-1 border border-border rounded w-full"
                         placeholder="e.g. Figma, SaaS"
@@ -501,7 +641,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                         onChange={(e) => {
                           const next = [...(feature.badges || [])];
                           next[bi] = { ...next[bi], type: e.target.value as any };
-                          updateNestedField('features', index, 'badges', next);
+                          updateFeatureField(index, 'badges', next);
                         }}
                         className="p-1 border border-border rounded w-full"
                       >
@@ -519,7 +659,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                           onChange={(e) => {
                             const next = [...(feature.badges || [])];
                             next[bi] = { ...next[bi], color: e.target.value };
-                            updateNestedField('features', index, 'badges', next);
+                            updateFeatureField(index, 'badges', next);
                           }}
                           className="p-1 border border-border rounded w-full"
                           placeholder="#10b981 or green"
@@ -534,7 +674,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                         className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-xs"
                         onClick={() => {
                           const next = (feature.badges || []).filter((_, i) => i !== bi);
-                          updateNestedField('features', index, 'badges', next);
+                          updateFeatureField(index, 'badges', next);
                         }}
                         aria-label={`Remove badge ${bi + 1}`}
                       >
@@ -553,7 +693,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
               <input
                 type="checkbox"
                 checked={feature.showBadge !== false}
-                onChange={(e) => updateNestedField('features', index, 'showBadge', e.target.checked)}
+                onChange={(e) => updateFeatureField(index, 'showBadge', e.target.checked)}
                 className="rounded border-border"
               />
               <span className="text-sm">Show Badge</span>
@@ -565,7 +705,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
             <label className="block text-xs font-medium mb-1">Description</label>
             <textarea
               value={feature.description}
-              onChange={(e) => updateNestedField('features', index, 'description', e.target.value)}
+              onChange={(e) => updateFeatureField(index, 'description', e.target.value)}
               className="p-1 border border-border rounded h-16 text-xs w-full"
               placeholder="Description"
             />
@@ -577,7 +717,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
             <input
               type="text"
               value={(feature as any).idea || ''}
-              onChange={(e) => updateNestedField('features', index, 'idea', e.target.value)}
+              onChange={(e) => updateFeatureField(index, 'idea', e.target.value)}
               className="p-1 border border-border rounded w-full text-sm"
               placeholder="Short idea or tagline shown inside the card"
               aria-label="Feature idea or tagline"
@@ -596,7 +736,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                   onChange={(e) => {
                     const arr = Array.isArray((feature as any).topItems) ? ([...(feature as any).topItems] as string[]) : ['', '', ''];
                     arr[i] = e.target.value;
-                    updateNestedField('features', index, 'topItems', arr);
+                    updateFeatureField(index, 'topItems', arr);
                   }}
                   className="p-1 border border-border rounded w-full text-sm"
                   placeholder={`Bullet ${i+1}`}
@@ -617,7 +757,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                   <label className="block text-xs font-medium mb-1">Preset</label>
                   <select
                     value={feature.buttonPreset || 'custom'}
-                    onChange={(e) => updateNestedField('features', index, 'buttonPreset', e.target.value)}
+                    onChange={(e) => updateFeatureField(index, 'buttonPreset', e.target.value)}
                     className="p-1 border border-border rounded w-full"
                     aria-label="Button preset"
                   >
@@ -630,7 +770,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                   <input
                     type="text"
                     value={feature.productSlug || ''}
-                    onChange={(e) => updateNestedField('features', index, 'productSlug', e.target.value)}
+                    onChange={(e) => updateFeatureField(index, 'productSlug', e.target.value)}
                     className="p-1 border border-border rounded w-full"
                     placeholder="e.g. bibliokit-blocks (renders as /bibliokit-blocks)"
                     aria-label="Product page slug"
@@ -645,7 +785,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                   <input
                     type="text"
                     value={feature.buttonText || ''}
-                    onChange={(e) => updateNestedField('features', index, 'buttonText', e.target.value)}
+                    onChange={(e) => updateFeatureField(index, 'buttonText', e.target.value)}
                     className="p-1 border border-border rounded w-full"
                     placeholder="e.g. Learn More, Visit product page"
                     aria-label="Button text"
@@ -656,7 +796,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
                   <input
                     type="text"
                     value={feature.buttonLink || ''}
-                    onChange={(e) => updateNestedField('features', index, 'buttonLink', e.target.value)}
+                    onChange={(e) => updateFeatureField(index, 'buttonLink', e.target.value)}
                     className="p-1 border border-border rounded w-full"
                     placeholder="/bibliokit-blocks or https://example.com"
                     aria-label="Button link"

@@ -12,6 +12,7 @@ import StatBox from './StatBox';
 import ContentChunk from './ContentChunk';
 import FAQSchema from './FAQSchema';
 import Waitlist from './Waitlist';
+import { DEFAULT_SPECIFICATIONS_TITLE, getSpecIconFallback } from '@/lib/uiDefaults';
 
 interface ProductDetail {
   title: string;
@@ -319,7 +320,7 @@ const BiblioKitBlocksPage = () => {
             <ContentChunk>
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Technical Capabilities
+                  {DEFAULT_SPECIFICATIONS_TITLE}
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                   Built with powerful features for professional design workflows
@@ -332,7 +333,7 @@ const BiblioKitBlocksPage = () => {
               <ContentChunk key={index}>
                 <div className="card relative">
                   <div className={`icon ${colorClasses[index % colorClasses.length]} mb-6`}>
-                    {spec.icon}
+                    {spec.icon || getSpecIconFallback(index)}
                   </div>
                   <h3 className="text-xl font-semibold mb-3">{spec.name}</h3>
                   <p className="text-muted-foreground">

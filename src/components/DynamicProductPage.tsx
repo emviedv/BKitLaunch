@@ -13,6 +13,7 @@ import { BlocksHeroBackground } from './BlocksHeroBackground';
 import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import { DEFAULT_SPECIFICATIONS_TITLE, getSpecIconFallback } from '@/lib/uiDefaults';
 
 interface ProductDetail {
   title: string;
@@ -310,7 +311,7 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
           <div className="container mx-auto">
             <ContentChunk>
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">{(product as any)?.sections?.specifications?.title || 'Technical Capabilities'}</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">{(product as any)?.sections?.specifications?.title || DEFAULT_SPECIFICATIONS_TITLE}</h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                   {(product as any)?.sections?.specifications?.description || 'Built with powerful features for professional design workflows'}
                 </p>
@@ -321,7 +322,7 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
               {product.specifications.map((spec: ProductSpec, index: number) => (
                 <ContentChunk key={index}>
                   <div className="card relative">
-                    <div className={`icon ${colorClasses[index % colorClasses.length]} mb-6`}>{spec.icon}</div>
+                    <div className={`icon ${colorClasses[index % colorClasses.length]} mb-6`}>{spec.icon || getSpecIconFallback(index)}</div>
                     <h3 className="text-xl font-semibold mb-3">{spec.name}</h3>
                     <p className="text-muted-foreground">{spec.value}</p>
                   </div>

@@ -645,10 +645,11 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
         const successMessage = dbSaveSuccess ? 'Content saved to database!' : 'Content saved locally!';
         showSaveNotification(successMessage, 'success');
         
-        // Reload database content to reflect changes for both database and JSON modes
-        if (dbSaveSuccess) {
-          await loadDatabaseContent();
-        }
+        // Only reload database content if user explicitly requests it via "Refresh Data"
+        // Automatic reload after save would reset user's current edits in other sections
+        // if (dbSaveSuccess) {
+        //   await loadDatabaseContent();
+        // }
       } else {
         debugService.saveError('All save methods failed', 'No successful save operation completed');
         showSaveNotification('Failed to save content. Please try again.', 'error');
@@ -856,7 +857,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       
       if (response.success) {
         debugService.saveSuccess(`Section ${operation} completed`, response.data);
-        await loadDatabaseContent(); // This will rebuild unified content automatically
+        // await loadDatabaseContent(); // Commented to prevent resetting user's current edits
         setError(null);
         showSaveNotification(`${section.section_type} section ${operation}d successfully!`, 'success');
       } else {
@@ -884,7 +885,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
       
       if (response.success) {
         debugService.saveSuccess('Section delete completed', { sectionId });
-        await loadDatabaseContent(); // This will rebuild unified content automatically
+        // await loadDatabaseContent(); // Commented to prevent resetting user's current edits
         setError(null);
         showSaveNotification('Section deleted successfully!', 'success');
       } else {
@@ -1604,7 +1605,8 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
               const response = await contentApi.updateContactInfo(contactInfo);
               if (response.success) {
                 setError(null);
-                await loadDatabaseContent();
+                // await loadDatabaseContent(); // Commented to prevent resetting user's current edits
+                showSaveNotification('Contact info saved successfully!', 'success');
               } else {
                 setError(response.error || 'Failed to update contact info');
               }
@@ -1851,7 +1853,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
         }
 
         // Refresh local editor state from DB
-        await loadDatabaseContent();
+        // await loadDatabaseContent(); // Commented to prevent resetting user's current edits
 
         // Publish unified content so live site reflects DB changes immediately
         try {
@@ -2652,7 +2654,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
           }
         }
 
-        await loadDatabaseContent();
+        // await loadDatabaseContent(); // Commented to prevent resetting user's current edits
         showSaveNotification('Header updated successfully', 'success');
       } catch (err) {
         showSaveNotification(err instanceof Error ? err.message : 'Failed to save header', 'error');
@@ -3082,7 +3084,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
           }
         }
 
-        await loadDatabaseContent();
+        // await loadDatabaseContent(); // Commented to prevent resetting user's current edits
         showSaveNotification('Footer updated successfully', 'success');
       } catch (err) {
         showSaveNotification(err instanceof Error ? err.message : 'Failed to save footer', 'error');

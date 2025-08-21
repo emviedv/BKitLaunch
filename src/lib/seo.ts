@@ -95,6 +95,17 @@ export const routeMetadata: RouteMetadata = {
       }
     ]
   },
+  '/docs': {
+    title: 'BiblioKit Docs – Quickstart & API Reference',
+    description: 'Get started with BiblioKit. Quickstart guides and API examples for integrating products and plugins.',
+    keywords: 'BiblioKit docs, API reference, quickstart, integration guides',
+    ogTitle: 'BiblioKit Documentation',
+    ogDescription: 'Quickstart and API reference for BiblioKit products.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'BiblioKit Docs',
+    twitterDescription: 'Quickstart and API reference for BiblioKit products.',
+    twitterImage: '/og/og-default.svg'
+  },
   '/product': {
     title: "BiblioKit Product - Features & Benefits | SaaS Tools",
     description: "Explore BiblioKit's comprehensive feature set including secure API management, Figma plugin support, developer-first tools, and premium support options.",

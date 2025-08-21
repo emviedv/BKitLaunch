@@ -19,16 +19,62 @@ export const HeroSectionEditor: React.FC<HeroSectionEditorProps> = ({
     JSON.stringify({ visible, hero }, null, 2)
   );
 
+  // Keep local hero data to prevent resets when other sections are edited
+  const [localHero, setLocalHero] = React.useState(() => hero || {});
+  
+  // Track if user is actively editing to prevent prop sync resets
+  const isActivelyEditing = React.useRef(false);
+  const lastPropUpdate = React.useRef(Date.now());
+
+  // Update local hero only on initial mount or explicit prop changes (not re-renders)
   React.useEffect(() => {
-    setJsonValue(JSON.stringify({ visible, hero }, null, 2));
-  }, [hero, visible]);
+    const now = Date.now();
+    const timeSinceLastUpdate = now - lastPropUpdate.current;
+    
+    // Only sync from props if:
+    // 1. Initial mount (no local data)
+    // 2. Substantial time has passed (not a re-render)
+    // 3. Not actively editing
+    if (Object.keys(localHero).length === 0 || (timeSinceLastUpdate > 1000 && !isActivelyEditing.current)) {
+      setLocalHero(hero || {});
+      lastPropUpdate.current = now;
+    }
+  }, [hero, localHero]);
+
+  React.useEffect(() => {
+    setJsonValue(JSON.stringify({ visible, hero: localHero }, null, 2));
+  }, [localHero, visible]);
+
+  // Custom update handler that updates both local state and parent state
+  const updateHeroField = React.useCallback((field: string, value: any) => {
+    // Mark as actively editing
+    isActivelyEditing.current = true;
+    
+    // Update local state immediately for responsive UI
+    const updatedHero = { ...localHero, [field]: value };
+    setLocalHero(updatedHero);
+    
+    // Update parent state
+    updateNestedField('hero', null, field, value);
+    
+    // Clear editing flag after a delay
+    setTimeout(() => {
+      isActivelyEditing.current = false;
+    }, 2000);
+  }, [localHero, updateNestedField]);
 
   const applyJson = () => {
     try {
+      // Temporarily disable editing protection for JSON application
+      const wasEditing = isActivelyEditing.current;
+      isActivelyEditing.current = false;
+      
       const parsed = JSON.parse(jsonValue);
       if (parsed && typeof parsed === 'object') {
         const nextHero = (parsed as any).hero || parsed;
         if (nextHero && typeof nextHero === 'object') {
+          // Update both local state and parent state
+          setLocalHero(nextHero);
           Object.entries(nextHero).forEach(([k, v]) => updateNestedField('hero', null, k, v));
         }
         if (typeof (parsed as any).visible === 'boolean') {
@@ -36,7 +82,15 @@ export const HeroSectionEditor: React.FC<HeroSectionEditorProps> = ({
         }
       }
       setJsonEdit(false);
+      
+      // Force a re-render to ensure all inputs reflect the new state
+      setTimeout(() => {
+        const refreshPayload = { visible, hero: localHero };
+        setJsonValue(JSON.stringify(refreshPayload, null, 2));
+        isActivelyEditing.current = wasEditing;
+      }, 50);
     } catch {
+      isActivelyEditing.current = wasEditing;
       alert('Invalid JSON. Please correct and try again.');
     }
   };
@@ -83,16 +137,16 @@ export const HeroSectionEditor: React.FC<HeroSectionEditorProps> = ({
     </div>
     <TextInput
       label="Badge Label"
-      value={hero?.badgeLabel || ''}
-      onChange={(value) => updateNestedField('hero', null, 'badgeLabel', value)}
+      value={localHero?.badgeLabel || ''}
+      onChange={(value) => updateHeroField('badgeLabel', value)}
       placeholder="SaaS Analytics Platform"
     />
     <div className="space-y-2">
       <label className="block text-sm font-medium">Gradient Colors (comma-separated hex)</label>
       <input
         type="text"
-        value={(hero?.gradientColors || []).join(', ')}
-        onChange={(e) => updateNestedField('hero', null, 'gradientColors', e.target.value.split(',').map(v => v.trim()).filter(Boolean))}
+        value={(localHero?.gradientColors || []).join(', ')}
+        onChange={(e) => updateHeroField('gradientColors', e.target.value.split(',').map(v => v.trim()).filter(Boolean))}
         className="w-full p-2 border border-border rounded"
         placeholder="#ecfeff00, #ecfeff10, #c7d2fe40, #a7f3d040, #a5b4fc50, #93c5fd40, #ffffff00"
       />
@@ -100,24 +154,24 @@ export const HeroSectionEditor: React.FC<HeroSectionEditorProps> = ({
     </div>
     <TextInput
       label="Emoji"
-      value={hero?.emoji || ''}
-      onChange={(value) => updateNestedField('hero', null, 'emoji', value)}
+      value={localHero?.emoji || ''}
+      onChange={(value) => updateHeroField('emoji', value)}
       placeholder="e.g. ✨"
     />
     <TextInput
       label="Title"
-      value={hero?.title || ''}
-      onChange={(value) => updateNestedField('hero', null, 'title', value)}
+      value={localHero?.title || ''}
+      onChange={(value) => updateHeroField('title', value)}
     />
     <TextInput
       label="Subtitle"
-      value={hero?.subtitle || ''}
-      onChange={(value) => updateNestedField('hero', null, 'subtitle', value)}
+      value={localHero?.subtitle || ''}
+      onChange={(value) => updateHeroField('subtitle', value)}
     />
     <TextArea
       label="Description"
-      value={hero?.description || ''}
-      onChange={(value) => updateNestedField('hero', null, 'description', value)}
+      value={localHero?.description || ''}
+      onChange={(value) => updateHeroField('description', value)}
       rows={3}
     />
     <div className="space-y-4">
@@ -125,17 +179,17 @@ export const HeroSectionEditor: React.FC<HeroSectionEditorProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <ButtonField
           label="Primary Button"
-          buttonText={hero?.primaryButton || ''}
-          buttonLink={hero?.primaryButtonLink || ''}
-          onTextChange={(value) => updateNestedField('hero', null, 'primaryButton', value)}
-          onLinkChange={(value) => updateNestedField('hero', null, 'primaryButtonLink', value)}
+          buttonText={localHero?.primaryButton || ''}
+          buttonLink={localHero?.primaryButtonLink || ''}
+          onTextChange={(value) => updateHeroField('primaryButton', value)}
+          onLinkChange={(value) => updateHeroField('primaryButtonLink', value)}
         />
         <ButtonField
           label="Secondary Button"
-          buttonText={hero?.secondaryButton || ''}
-          buttonLink={hero?.secondaryButtonLink || ''}
-          onTextChange={(value) => updateNestedField('hero', null, 'secondaryButton', value)}
-          onLinkChange={(value) => updateNestedField('hero', null, 'secondaryButtonLink', value)}
+          buttonText={localHero?.secondaryButton || ''}
+          buttonLink={localHero?.secondaryButtonLink || ''}
+          onTextChange={(value) => updateHeroField('secondaryButton', value)}
+          onLinkChange={(value) => updateHeroField('secondaryButtonLink', value)}
         />
       </div>
     </div>

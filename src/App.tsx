@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import Features from './components/Features';
 import Pricing from './components/Pricing';
 import DynamicProductPage from './components/DynamicProductPage';
+import { Docs } from './components/Docs';
 import DatabaseTest from './components/DatabaseTest';
 import Footer from './components/Footer';
 import ContentEditor from './components/ContentEditor';
@@ -111,6 +112,8 @@ const AppContent = () => {
           <Route path="/" component={HomePage} />
           {import.meta.env.DEV && <Route path="/test" component={TestPage} />}
           {import.meta.env.DEV && <Route path="/design-system" component={DesignSystem} />}
+          {/* Docs page */}
+          <Route path="/docs" component={Docs} />
           {/* All product pages are handled by the dynamic slug route below */}
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/editor">

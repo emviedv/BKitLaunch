@@ -11,18 +11,71 @@ export const ContactSectionEditor: React.FC<ContactSectionEditorProps> = ({ cont
   const [jsonEdit, setJsonEdit] = React.useState(false);
   const [jsonValue, setJsonValue] = React.useState<string>(JSON.stringify(contact || {}, null, 2));
 
+  // Keep local contact data to prevent resets when other sections are edited
+  const [localContact, setLocalContact] = React.useState(() => contact || {});
+  
+  // Track if user is actively editing to prevent prop sync resets
+  const isActivelyEditing = React.useRef(false);
+  const lastPropUpdate = React.useRef(Date.now());
+
+  // Update local contact only on initial mount or explicit prop changes (not re-renders)
   React.useEffect(() => {
-    setJsonValue(JSON.stringify(contact || {}, null, 2));
-  }, [contact]);
+    const now = Date.now();
+    const timeSinceLastUpdate = now - lastPropUpdate.current;
+    
+    // Only sync from props if:
+    // 1. Initial mount (no local data)
+    // 2. Substantial time has passed (not a re-render)
+    // 3. Not actively editing
+    if (Object.keys(localContact).length === 0 || (timeSinceLastUpdate > 1000 && !isActivelyEditing.current)) {
+      setLocalContact(contact || {});
+      lastPropUpdate.current = now;
+    }
+  }, [contact, localContact]);
+
+  React.useEffect(() => {
+    setJsonValue(JSON.stringify(localContact || {}, null, 2));
+  }, [localContact]);
+
+  // Custom update handler that updates both local state and parent state
+  const updateContactField = React.useCallback((field: string, value: any) => {
+    // Mark as actively editing
+    isActivelyEditing.current = true;
+    
+    // Update local state immediately for responsive UI
+    const updatedContact = { ...localContact, [field]: value };
+    setLocalContact(updatedContact);
+    
+    // Update parent state
+    updateNestedField('contact', null, field, value);
+    
+    // Clear editing flag after a delay
+    setTimeout(() => {
+      isActivelyEditing.current = false;
+    }, 2000);
+  }, [localContact, updateNestedField]);
 
   const applyJson = () => {
     try {
+      // Temporarily disable editing protection for JSON application
+      const wasEditing = isActivelyEditing.current;
+      isActivelyEditing.current = false;
+      
       const parsed = JSON.parse(jsonValue || '{}');
       if (parsed && typeof parsed === 'object') {
+        // Update both local state and parent state
+        setLocalContact(parsed);
         Object.entries(parsed).forEach(([k, v]) => updateNestedField('contact', null, k, v));
       }
       setJsonEdit(false);
+      
+      // Force a re-render to ensure all inputs reflect the new state
+      setTimeout(() => {
+        setJsonValue(JSON.stringify(localContact, null, 2));
+        isActivelyEditing.current = wasEditing;
+      }, 50);
     } catch {
+      isActivelyEditing.current = wasEditing;
       alert('Invalid JSON. Please correct and try again.');
     }
   };
@@ -56,20 +109,20 @@ export const ContactSectionEditor: React.FC<ContactSectionEditorProps> = ({ cont
     <TextInput
       label="Email"
       type="email"
-      value={contact?.email || ''}
-      onChange={(value) => updateNestedField('contact', null, 'email', value)}
+      value={localContact?.email || ''}
+      onChange={(value) => updateContactField('email', value)}
       placeholder="hello@example.com"
     />
     <TextInput
       label="Twitter"
-      value={contact?.twitter || ''}
-      onChange={(value) => updateNestedField('contact', null, 'twitter', value)}
+      value={localContact?.twitter || ''}
+      onChange={(value) => updateContactField('twitter', value)}
       placeholder="@username"
     />
     <TextInput
       label="GitHub"
-      value={contact?.github || ''}
-      onChange={(value) => updateNestedField('contact', null, 'github', value)}
+      value={localContact?.github || ''}
+      onChange={(value) => updateContactField('github', value)}
       placeholder="username"
     />
   </div>

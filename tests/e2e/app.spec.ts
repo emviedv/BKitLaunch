@@ -45,6 +45,11 @@ test.describe('SSR and Content Editor smoke', () => {
       await expect(page.getByRole('button', { name: 'Footer Section' })).toBeVisible();
     }
   });
+
+  test('docs page renders', async ({ page, baseURL }) => {
+    await page.goto(`${baseURL}/docs`);
+    await expect(page.locator('h1')).toHaveText(/Documentation/i);
+  });
 });
 
 
