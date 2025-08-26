@@ -1,27 +1,11 @@
 {
-  "settings": {
-    "visibility": {
-      "cta": true,
-      "docs": false,
-      "hero": true,
-      "footer": true,
-      "header": true,
-      "contact": true,
-      "pricing": false,
-      "product": true,
-      "features": true,
-      "uxbiblio": true,
-      "waitlist": true,
-      "bibliokit-blocks": true,
-      "ai-rename-variants": true
-    },
-    "labels": {
-      "ctaBadges": true,
-      "heroBadges": true,
-      "pricingBadges": true,
-      "productBadges": true,
-      "featuresBadges": true
-    }
+  "cta": {
+    "title": "Ready to Transform Your Workflow?",
+    "description": "Join thousands of designers and developers who rely on BiblioKit's Figma plugins and SaaS tools for faster, smarter, and more efficient product design.",
+    "primaryButton": "Start Free Trial",
+    "secondaryButton": "Schedule Demo",
+    "primaryButtonLink": "https://blocks.bibliokit.com/signup",
+    "secondaryButtonLink": "https://blocks.bibliokit.com/demo"
   },
   "hero": {
     "visible": true,
@@ -34,6 +18,36 @@
     "primaryButtonLink": "https://blocks.bibliokit.com/signup",
     "secondaryButtonLink": "#features",
     "gradientColors": ["#ecfeff00", "#ecfeff10", "#c7d2fe40", "#a7f3d040", "#a5b4fc50", "#93c5fd40", "#ffffff00"]
+  },
+  "footer": {
+    "sections": [
+      {
+        "title": "Product",
+        "links": [
+          { "href": "#features", "label": "Features" },
+          { "href": "#pricing", "label": "Pricing" },
+          { "href": "/docs", "label": "Documentation" },
+          { "href": "#contact", "label": "Get Started" }
+        ]
+      },
+      {
+        "title": "Support",
+        "links": [
+          { "href": "#help", "label": "Help Center" },
+          { "href": "#contact", "label": "Contact" },
+          { "href": "#status", "label": "System Status" }
+        ]
+      },
+      {
+        "title": "Connect",
+        "links": [
+          { "href": "mailto:hello@bibliokit.com", "label": "Email Us" },
+          { "href": "https://twitter.com/bibliokit", "label": "Twitter" },
+          { "href": "https://github.com/bibliokit", "label": "GitHub" }
+        ]
+      }
+    ],
+    "description": "BiblioKit provides enterprise-ready SaaS tools and Figma plugins for API management, design system analytics, and team collaboration."
   },
   "header": {
     "logoText": "BiblioKit",
@@ -48,95 +62,10 @@
     "signInLink": "https://blocks.bibliokit.com/login",
     "getStartedLink": "https://blocks.bibliokit.com/signup"
   },
-  "features": [
-    {
-      "icon": "üè∑Ô∏è",
-      "idea": "AI-powered variant renaming at scale.",
-      "badge": "Launched",
-      "title": "AI Rename Variants",
-      "badges": [],
-      "topItems": [
-        "Batch rename sets",
-        "Detect states & sizes",
-        "Undo changes safely",
-        "Spot missing variants",
-        "Cross-platform names"
-      ],
-      "showBadge": true,
-      "badgeColor": "#10b981",
-      "buttonLink": "/ai-rename-variants",
-      "buttonText": "Learn More",
-      "isFeatured": false,
-      "description": "Batch-rename Figma variants with AI. Context-aware analysis ensures consistent naming conventions, cleaner files, and reduced design debt.",
-      "buttonPreset": "custom"
-    },
-    {
-      "icon": "üîç",
-      "idea": "File-level component audits for better design.",
-      "badge": "Coming Soon",
-      "title": "Component Auditor",
-      "badges": [],
-      "topItems": [
-        "Scan all components",
-        "Check naming consistency",
-        "Validate structure",
-        "Detect missing variants",
-        "Generate reports"
-      ],
-      "showBadge": true,
-      "badgeColor": "#8b5cf6",
-      "buttonLink": "/component-auditor-figma-plugin",
-      "buttonText": "Learn More",
-      "isFeatured": false,
-      "description": "Audit components inside a single Figma file. Check naming, structure, and variant coverage to ensure consistent, high-quality component usage.",
-      "buttonPreset": "custom"
-    },
-    {
-      "icon": "üìä",
-      "idea": "Cross-file analytics for design systems at scale.",
-      "badge": "Launched",
-      "title": "BiblioKit Blocks",
-      "badges": [],
-      "topItems": [
-        "Connect via MCP or oAuth",
-        "Track usage across files",
-        "Spot duplicates fast",
-        "Quantify ROI impact",
-        "Weekly digests + dashboards"
-      ],
-      "showBadge": true,
-      "badgeColor": "#10b981",
-      "buttonLink": "/bibliokit-blocks",
-      "buttonText": "Learn More",
-      "isFeatured": false,
-      "description": "Analytics platform for Figma libraries. Track usage across files, measure adoption, highlight duplicates, and quantify ROI to optimize design systems.",
-      "buttonPreset": "custom"
-    },
-    {
-      "icon": "üõí",
-      "idea": "Your personal UX library for patterns and ideas.",
-      "badge": "Coming Soon",
-      "title": "UXBiblio",
-      "badges": [],
-      "topItems": [
-        "AI-powered tagging",
-        "Heuristic analysis",
-        "Centralized repository",
-        "Supports code, PDFs, GIFs",
-        "Add notes + insights"
-      ],
-      "showBadge": true,
-      "badgeColor": "#8b5cf6",
-      "buttonLink": "/uxbiblio",
-      "buttonText": "Learn More",
-      "isFeatured": true,
-      "description": "A centralized UX/UI repository. Save screenshots, patterns, and resources with AI tagging, heuristic analysis, and visual documentation for inspiration.",
-      "buttonPreset": "custom"
-    }
-  ],
-  "featuresSection": {
-    "title": "Work x1000 Faster",
-    "description": "Professional SaaS software and Figma plugins with secure API management and world-class support for designers and developers."
+  "contact": {
+    "email": "hello@bibliokit.com",
+    "github": "bibliokit",
+    "twitter": "@bibliokit"
   },
   "pricing": [
     {
@@ -196,54 +125,95 @@
       "description": "Tailored solutions for enterprises with large-scale design system and API needs."
     }
   ],
-  "cta": {
-    "title": "Ready to Transform Your Workflow?",
-    "description": "Join thousands of designers and developers who rely on BiblioKit's Figma plugins and SaaS tools for faster, smarter, and more efficient product design.",
-    "primaryButton": "Start Free Trial",
-    "secondaryButton": "Schedule Demo",
-    "primaryButtonLink": "https://blocks.bibliokit.com/signup",
-    "secondaryButtonLink": "https://blocks.bibliokit.com/demo"
-  },
-  "footer": {
-    "sections": [
-      {
-        "title": "Product",
-        "links": [
-          { "href": "#features", "label": "Features" },
-          { "href": "#pricing", "label": "Pricing" },
-          { "href": "/docs", "label": "Documentation" },
-          { "href": "#contact", "label": "Get Started" }
-        ]
-      },
-      {
-        "title": "Support",
-        "links": [
-          { "href": "#help", "label": "Help Center" },
-          { "href": "#contact", "label": "Contact" },
-          { "href": "#status", "label": "System Status" }
-        ]
-      },
-      {
-        "title": "Connect",
-        "links": [
-          { "href": "mailto:hello@bibliokit.com", "label": "Email Us" },
-          { "href": "https://twitter.com/bibliokit", "label": "Twitter" },
-          { "href": "https://github.com/bibliokit", "label": "GitHub" }
-        ]
-      }
-    ],
-    "description": "BiblioKit provides enterprise-ready SaaS tools and Figma plugins for API management, design system analytics, and team collaboration."
-  },
-  "contact": {
-    "email": "hello@bibliokit.com",
-    "github": "bibliokit",
-    "twitter": "@bibliokit"
-  },
-  "waitlist": {
-    "title": "Get Early Access",
-    "buttonText": "Join the Waitlist",
-    "description": "Sign up now for early access to new BiblioKit features, exclusive updates, and launch announcements.",
-    "successMessage": "Thank you for joining our waitlist! You'll receive exclusive updates soon."
+  "features": [
+    {
+      "icon": "<˜",
+      "idea": "AI-powered variant renaming at scale.",
+      "badge": "Launched",
+      "title": "AI Rename Variants",
+      "badges": [],
+      "topItems": [
+        "Batch rename sets",
+        "Detect states & sizes",
+        "Undo changes safely",
+        "Spot missing variants",
+        "Cross-platform names"
+      ],
+      "showBadge": true,
+      "badgeColor": "#10b981",
+      "buttonLink": "/ai-rename-variants",
+      "buttonText": "Learn More",
+      "isFeatured": false,
+      "description": "Batch-rename Figma variants with AI. Context-aware analysis ensures consistent naming conventions, cleaner files, and reduced design debt.",
+      "buttonPreset": "custom"
+    },
+    {
+      "icon": "=",
+      "idea": "File-level component audits for better design.",
+      "badge": "Coming Soon",
+      "title": "Component Auditor",
+      "badges": [],
+      "topItems": [
+        "Scan all components",
+        "Check naming consistency",
+        "Validate structure",
+        "Detect missing variants",
+        "Generate reports"
+      ],
+      "showBadge": true,
+      "badgeColor": "#8b5cf6",
+      "buttonLink": "/component-auditor-figma-plugin",
+      "buttonText": "Learn More",
+      "isFeatured": false,
+      "description": "Audit components inside a single Figma file. Check naming, structure, and variant coverage to ensure consistent, high-quality component usage.",
+      "buttonPreset": "custom"
+    },
+    {
+      "icon": "= ",
+      "idea": "Cross-file analytics for design systems at scale.",
+      "badge": "Launched",
+      "title": "BiblioKit Blocks",
+      "badges": [],
+      "topItems": [
+        "Connect via MCP or oAuth",
+        "Track usage across files",
+        "Spot duplicates fast",
+        "Quantify ROI impact",
+        "Weekly digests + dashboards"
+      ],
+      "showBadge": true,
+      "badgeColor": "#10b981",
+      "buttonLink": "/bibliokit-blocks",
+      "buttonText": "Learn More",
+      "isFeatured": false,
+      "description": "Analytics platform for Figma libraries. Track usage across files, measure adoption, highlight duplicates, and quantify ROI to optimize design systems.",
+      "buttonPreset": "custom"
+    },
+    {
+      "icon": "=“",
+      "idea": "Your personal UX library for patterns and ideas.",
+      "badge": "Coming Soon",
+      "title": "UXBiblio",
+      "badges": [],
+      "topItems": [
+        "AI-powered tagging",
+        "Heuristic analysis",
+        "Centralized repository",
+        "Supports code, PDFs, GIFs",
+        "Add notes + insights"
+      ],
+      "showBadge": true,
+      "badgeColor": "#8b5cf6",
+      "buttonLink": "/uxbiblio",
+      "buttonText": "Learn More",
+      "isFeatured": true,
+      "description": "A centralized UX/UI repository. Save screenshots, patterns, and resources with AI tagging, heuristic analysis, and visual documentation for inspiration.",
+      "buttonPreset": "custom"
+    }
+  ],
+  "featuresSection": {
+    "title": "Design Smarter, Build Faster",
+    "description": "AI-powered tools for modern product teams."
   },
   "products": {
     "bibliokit-blocks": {
@@ -261,7 +231,7 @@
           "description": "Connect via secure OAuth to automatically track component usage across all your design libraries and files in real-time"
         },
         {
-          "title": "Visual Analytics Dashboard", 
+          "title": "Visual Analytics Dashboard",
           "description": "Interactive charts showing usage trends, adoption rates, and performance metrics with exportable reports and insights"
         },
         {
@@ -287,32 +257,32 @@
       ],
       "specifications": [
         {
-          "icon": "üìä",
+          "icon": "= ",
           "name": "Analytics Engine",
           "value": "Real-time component tracking across unlimited files"
         },
         {
-          "icon": "üîó",
+          "icon": "=",
           "name": "Figma Integration",
           "value": "Secure OAuth connection with automatic sync"
         },
         {
-          "icon": "üìà",
+          "icon": "=»",
           "name": "ROI Tracking",
           "value": "Quantifiable business impact metrics"
         },
         {
-          "icon": "üë•",
+          "icon": "=e",
           "name": "Team Support",
           "value": "Multi-user access with role permissions"
         },
         {
-          "icon": "üìã",
+          "icon": "=À",
           "name": "Export Options",
           "value": "CSV, PDF reports, and shareable links"
         },
         {
-          "icon": "üõ°Ô∏è",
+          "icon": "=·",
           "name": "Enterprise Security",
           "value": "SOC 2 compliant with 99.5% uptime"
         }
@@ -368,7 +338,7 @@
       "secondaryButton": "Learn More",
       "primaryButtonLink": "https://www.figma.com/community/plugin/ai-rename-variants",
       "secondaryButtonLink": "#features",
-      "badgeLabel": "üè∑Ô∏è Figma Plugin",
+      "badgeLabel": "<˜ Figma Plugin",
       "visibility": { "waitlist": true },
       "details": [
         {
@@ -402,32 +372,32 @@
       ],
       "specifications": [
         {
-          "icon": "üß†",
+          "icon": ">‡",
           "name": "AI Engine",
           "value": "Context-aware machine learning algorithm"
         },
         {
-          "icon": "‚ö°",
+          "icon": "°",
           "name": "Batch Processing",
           "value": "Hundreds of variants renamed simultaneously"
         },
         {
-          "icon": "‚öôÔ∏è",
+          "icon": "ô",
           "name": "Custom Rules",
           "value": "Configurable naming patterns and conventions"
         },
         {
-          "icon": "‚Ü©Ô∏è",
+          "icon": "©",
           "name": "Undo Support",
           "value": "Full version control and change tracking"
         },
         {
-          "icon": "üë•",
+          "icon": "=e",
           "name": "Team Sharing",
           "value": "Consistent conventions across teams"
         },
         {
-          "icon": "üîí",
+          "icon": "=",
           "name": "Safe Operation",
           "value": "Non-destructive with complete rollback"
         }
@@ -500,21 +470,51 @@
       ],
       "specifications": [
         {
-          "icon": "üè∑Ô∏è",
+          "icon": "<˜",
           "name": "Auto Tags",
           "value": "AI-powered tagging on upload"
         },
         {
-          "icon": "üóÇÔ∏è",
+          "icon": "=¬",
           "name": "Collections",
           "value": "Flexible folders and favorites"
         },
         {
-          "icon": "üîé",
+          "icon": "=",
           "name": "Search",
           "value": "Fast, semantic search across items"
         }
       ]
+    }
+  },
+  "waitlist": {
+    "title": "Get Early Access",
+    "buttonText": "Join the Waitlist",
+    "description": "Sign up now for early access to new BiblioKit features, exclusive updates, and launch announcements.",
+    "successMessage": "Thank you for joining our waitlist! You'll receive exclusive updates soon."
+  },
+  "settings": {
+    "labels": {
+      "ctaBadges": true,
+      "heroBadges": true,
+      "pricingBadges": true,
+      "productBadges": true,
+      "featuresBadges": true
+    },
+    "visibility": {
+      "cta": true,
+      "docs": false,
+      "hero": true,
+      "footer": true,
+      "header": true,
+      "contact": true,
+      "pricing": false,
+      "product": true,
+      "features": true,
+      "uxbiblio": true,
+      "waitlist": true,
+      "bibliokit-blocks": true,
+      "ai-rename-variants": true
     }
   }
 }

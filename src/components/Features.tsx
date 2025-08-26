@@ -148,12 +148,12 @@ const Features = () => {
       <div className="container mx-auto relative z-30">
         <div className="text-center mb-16 pb-16">
           {effectiveSectionTitle && (
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4">
               {effectiveSectionTitle}
             </h2>
           )}
           {sectionDescription && (
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
               {sectionDescription}
             </p>
           )}
@@ -235,7 +235,7 @@ const Features = () => {
                         </p>
                       )}
                     </div>
-                    <div className="mt-4 min-h-32">
+                    <div className="mt-2 min-h-32">
                       {topItems.length > 0 && (
                         <>
                           <h4 className="text-sm font-semibold mb-1">Key Features</h4>
@@ -277,7 +277,7 @@ const Features = () => {
         })()}
 
         {/* Grid with remaining cards should be full width within content area */}
-        <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-auto gap-6">
+        <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-auto gap-6">
           {otherItems.map((feature: any, index: number) => {
             const isFeatured = false;
             const badgeColor = feature.badgeColor || feature.badge_color;
@@ -355,7 +355,7 @@ const Features = () => {
                       )}
                     </div>
                     {/* Key features for this card */}
-                    <div className="mt-4 min-h-32">
+                    <div className="mt-2 min-h-32">
                       {topItems.length > 0 && (
                         <>
                           <h4 className="text-sm font-semibold mb-1">Key Features</h4>
