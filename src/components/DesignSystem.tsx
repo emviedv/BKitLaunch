@@ -3,10 +3,13 @@ import { Button } from '@/components/ui/button';
 import { MagnetizeButton } from '@/components/ui/magnetize-button';
 import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
 
-const Swatch: React.FC<{ name: string; className: string; textClass?: string }> = ({ name, className, textClass }) => (
+const Swatch: React.FC<{ name: string; className: string; textClass?: string; hex?: string }> = ({ name, className, textClass, hex }) => (
   <div className="flex items-center gap-3">
     <div className={`h-8 w-8 rounded-md border ${className}`} />
-    <span className={`text-sm ${textClass || 'text-foreground'}`}>{name}</span>
+    <div className="flex flex-col">
+      <span className={`text-sm font-medium ${textClass || 'text-foreground'}`}>{name}</span>
+      {hex && <span className="text-xs text-muted-foreground font-mono">{hex}</span>}
+    </div>
   </div>
 );
 
@@ -38,26 +41,38 @@ const DesignSystem: React.FC = () => {
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4">Colors</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Brand Colors */}
+          <div className="card">
+            <h3 className="font-medium mb-3">Brand Colors</h3>
+            <div className="flex flex-col gap-3">
+              <Swatch name="pink-500" className="bg-pink-500" hex="#ec4899" />
+              <Swatch name="blue-500" className="bg-blue-500" hex="#3b82f6" />
+              <Swatch name="green-500" className="bg-green-500" hex="#22c55e" />
+              <Swatch name="pink-50" className="bg-pink-50" hex="#fdf2f8" />
+              <Swatch name="blue-50" className="bg-blue-50" hex="#eff6ff" />
+              <Swatch name="green-50" className="bg-green-50" hex="#f0fdf4" />
+            </div>
+          </div>
           <div className="card">
             <h3 className="font-medium mb-3">Primary (Pink)</h3>
             <div className="flex flex-col gap-3">
-              <Swatch name="primary" className="bg-pink-500" />
-              <Swatch name="primary-foreground" className="bg-pink-500" textClass="text-white" />
-              <Swatch name="ring" className="bg-pink-400" />
+              <Swatch name="primary" className="bg-pink-500" hex="#ec4899" />
+              <Swatch name="primary-foreground" className="bg-pink-500" textClass="text-white" hex="#fdf2f8" />
+              <Swatch name="ring" className="bg-pink-400" hex="#f472b6" />
             </div>
           </div>
           <div className="card">
             <h3 className="font-medium mb-3">Accent (Blue)</h3>
             <div className="flex flex-col gap-3">
-              <Swatch name="accent" className="bg-blue-500" />
-              <Swatch name="accent-foreground" className="bg-blue-500" textClass="text-white" />
+              <Swatch name="accent" className="bg-blue-500" hex="#3b82f6" />
+              <Swatch name="accent-foreground" className="bg-blue-500" textClass="text-white" hex="#eff6ff" />
             </div>
           </div>
           <div className="card">
             <h3 className="font-medium mb-3">Success (Green)</h3>
             <div className="flex flex-col gap-3">
-              <Swatch name="success" className="bg-green-500" />
-              <Swatch name="success soft" className="bg-green-100" />
+              <Swatch name="success" className="bg-green-500" hex="#22c55e" />
+              <Swatch name="success soft" className="bg-green-100" hex="#dcfce7" />
             </div>
           </div>
 
@@ -65,16 +80,16 @@ const DesignSystem: React.FC = () => {
           <div className="card">
             <h3 className="font-medium mb-3">Neutrals (Gray)</h3>
             <div className="flex flex-col gap-3">
-              <Swatch name="gray-50" className="bg-gray-50" />
-              <Swatch name="gray-100" className="bg-gray-100" />
-              <Swatch name="gray-200" className="bg-gray-200" />
-              <Swatch name="gray-300" className="bg-gray-300" />
-              <Swatch name="gray-400" className="bg-gray-400" />
-              <Swatch name="gray-500" className="bg-gray-500" textClass="text-white" />
-              <Swatch name="gray-600" className="bg-gray-600" textClass="text-white" />
-              <Swatch name="gray-700" className="bg-gray-700" textClass="text-white" />
-              <Swatch name="gray-800" className="bg-gray-800" textClass="text-white" />
-              <Swatch name="gray-900" className="bg-gray-900" textClass="text-white" />
+              <Swatch name="gray-50" className="bg-gray-50" hex="#f9fafb" />
+              <Swatch name="gray-100" className="bg-gray-100" hex="#f3f4f6" />
+              <Swatch name="gray-200" className="bg-gray-200" hex="#e5e7eb" />
+              <Swatch name="gray-300" className="bg-gray-300" hex="#d1d5db" />
+              <Swatch name="gray-400" className="bg-gray-400" hex="#9ca3af" />
+              <Swatch name="gray-500" className="bg-gray-500" textClass="text-white" hex="#6b7280" />
+              <Swatch name="gray-600" className="bg-gray-600" textClass="text-white" hex="#4b5563" />
+              <Swatch name="gray-700" className="bg-gray-700" textClass="text-white" hex="#374151" />
+              <Swatch name="gray-800" className="bg-gray-800" textClass="text-white" hex="#1f2937" />
+              <Swatch name="gray-900" className="bg-gray-900" textClass="text-white" hex="#111827" />
             </div>
           </div>
 
@@ -82,12 +97,12 @@ const DesignSystem: React.FC = () => {
           <div className="card">
             <h3 className="font-medium mb-3">Surfaces & Borders</h3>
             <div className="flex flex-col gap-3">
-              <Swatch name="background" className="bg-background" />
-              <Swatch name="foreground" className="bg-foreground" textClass="text-white" />
-              <Swatch name="muted" className="bg-muted" />
-              <Swatch name="muted-foreground" className="bg-muted-foreground" textClass="text-white" />
-              <Swatch name="border" className="bg-border" />
-              <Swatch name="input" className="bg-input" />
+              <Swatch name="background" className="bg-background" hex="#ffffff" />
+              <Swatch name="foreground" className="bg-foreground" textClass="text-white" hex="#0f172a" />
+              <Swatch name="muted" className="bg-muted" hex="#f1f5f9" />
+              <Swatch name="muted-foreground" className="bg-muted-foreground" textClass="text-white" hex="#64748b" />
+              <Swatch name="border" className="bg-border" hex="#e2e8f0" />
+              <Swatch name="input" className="bg-input" hex="#e2e8f0" />
             </div>
           </div>
 
@@ -177,6 +192,65 @@ const DesignSystem: React.FC = () => {
           <div className="card gradient-moonlight-soft-radial">
             <h3 className="font-semibold">gradient-moonlight-soft-radial</h3>
             <p className="text-sm text-muted-foreground">slate/indigo/violet moonlight soft blend</p>
+          </div>
+        </div>
+        
+        {/* HSL Gradients Examples */}
+        <div className="mt-8">
+          <h3 className="text-lg font-semibold mb-4">HSL Gradients Examples</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="card h-32 flex items-center justify-center" style={{background: 'linear-gradient(135deg, hsl(240, 100%, 95%), hsl(280, 100%, 95%), hsl(320, 100%, 95%))'}}>
+              <div className="text-center">
+                <h4 className="font-semibold">Purple HSL Soft</h4>
+                <p className="text-xs text-muted-foreground">hsl(240,100%,95%) → hsl(280,100%,95%) → hsl(320,100%,95%)</p>
+              </div>
+            </div>
+            
+            <div className="card h-32 flex items-center justify-center" style={{background: 'radial-gradient(ellipse at center, hsl(200, 80%, 90%), hsl(220, 70%, 85%), hsl(240, 60%, 80%))'}}>
+              <div className="text-center">
+                <h4 className="font-semibold">Blue HSL Radial</h4>
+                <p className="text-xs text-muted-foreground">radial hsl(200,80%,90%) → hsl(220,70%,85%) → hsl(240,60%,80%)</p>
+              </div>
+            </div>
+            
+            <div className="card h-32 flex items-center justify-center" style={{background: 'linear-gradient(45deg, hsl(120, 60%, 95%), hsl(150, 70%, 92%), hsl(180, 80%, 90%))'}}>
+              <div className="text-center">
+                <h4 className="font-semibold">Green HSL Diagonal</h4>
+                <p className="text-xs text-muted-foreground">45deg hsl(120,60%,95%) → hsl(150,70%,92%) → hsl(180,80%,90%)</p>
+              </div>
+            </div>
+            
+            <div className="card h-32 flex items-center justify-center" style={{background: 'conic-gradient(from 0deg, hsl(0, 70%, 90%), hsl(60, 80%, 85%), hsl(120, 70%, 90%), hsl(180, 80%, 85%), hsl(240, 70%, 90%), hsl(300, 80%, 85%), hsl(0, 70%, 90%))'}}>
+              <div className="text-center">
+                <h4 className="font-semibold">Rainbow HSL Conic</h4>
+                <p className="text-xs text-muted-foreground">conic-gradient with 360° HSL color wheel</p>
+              </div>
+            </div>
+            
+            <div className="card h-32 flex items-center justify-center" style={{background: 'linear-gradient(to bottom right, hsl(40, 100%, 95%), hsl(50, 90%, 88%), hsl(60, 80%, 85%))'}}>
+              <div className="text-center">
+                <h4 className="font-semibold">Warm HSL Gradient</h4>
+                <p className="text-xs text-muted-foreground">diagonal hsl(40,100%,95%) → hsl(50,90%,88%) → hsl(60,80%,85%)</p>
+              </div>
+            </div>
+            
+            <div className="card h-32 flex items-center justify-center" style={{background: 'linear-gradient(90deg, hsla(200, 100%, 95%, 0.8), hsla(220, 80%, 90%, 0.6), hsla(240, 60%, 85%, 0.8))'}}>
+              <div className="text-center">
+                <h4 className="font-semibold">HSL with Alpha</h4>
+                <p className="text-xs text-muted-foreground">hsla() with varying alpha transparency</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+            <h4 className="font-medium mb-2">HSL Benefits</h4>
+            <ul className="text-sm text-muted-foreground space-y-1">
+              <li>• <strong>Intuitive:</strong> Hue (0-360°), Saturation (0-100%), Lightness (0-100%)</li>
+              <li>• <strong>Consistent brightness:</strong> Easy to create harmonious color schemes</li>
+              <li>• <strong>Better gradients:</strong> Smooth transitions through color wheel</li>
+              <li>• <strong>Alpha support:</strong> Use hsla() for transparency effects</li>
+              <li>• <strong>Design-friendly:</strong> Matches how designers think about color</li>
+            </ul>
           </div>
         </div>
       </section>

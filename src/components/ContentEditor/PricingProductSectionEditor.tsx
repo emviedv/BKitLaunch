@@ -85,8 +85,10 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
         </div>
         
         {/* Show plan editors only when not in Coming Soon mode */}
-        {!isComingSoon && Array.isArray(pricing) && pricing.map((plan: any, index: number) => (
-          <div key={index} className="border border-border rounded-lg p-4 space-y-4">
+        {!isComingSoon && Array.isArray(pricing) && pricing.map((plan: any, index: number) => {
+          const stableKey = `plan-${index}-${plan.name?.length || 0}-${plan.buttonText?.length || 0}`;
+          return (
+          <div key={stableKey} className="border border-border rounded-lg p-4 space-y-4">
             <h4 className="font-medium text-base">{plan.name} Plan</h4>
             <ButtonField
               label="Plan Button"
@@ -96,7 +98,8 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
               onLinkChange={(value) => updateNestedField('pricing', index, 'buttonLink', value)}
             />
           </div>
-        ))}
+          )
+        })}
         
         {/* Show message when in Coming Soon mode */}
         {isComingSoon && (
@@ -136,6 +139,12 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
                   const parsed = JSON.parse(localJson);
                   updateSection('product', parsed);
                   setJsonEdit(false);
+                  
+                  // Force a re-render to ensure all inputs reflect the new state
+                  setTimeout(() => {
+                    // Trigger a parent component re-render by updating the section again
+                    updateSection('product', { ...parsed });
+                  }, 50);
                 } catch {
                   alert('Invalid JSON. Please correct and try again.');
                 }
@@ -196,8 +205,10 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
           {/* Key Features editing UI */}
           <div className="space-y-4">
             <h4 className="font-medium text-base">Key Features</h4>
-            {(product.details || []).map((detail: any, index: number) => (
-              <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+            {(product.details || []).map((detail: any, index: number) => {
+              const stableKey = `detail-${index}-${detail.title?.length || 0}-${detail.description?.length || 0}`;
+              return (
+              <div key={stableKey} className="border border-border rounded-lg p-4 space-y-2">
                 <TextInput
                   label="Title"
                   value={detail.title}
@@ -227,7 +238,8 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
                   Remove Feature
                 </button>
               </div>
-            ))}
+              )
+            })}
             <button
               onClick={() => {
                 const newFeature = { title: '', description: '' };
@@ -243,8 +255,10 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
           {/* Use Cases editing UI */}
           <div className="space-y-4">
             <h4 className="font-medium text-base">Use Cases</h4>
-            {(product.benefits || []).map((benefit: string, index: number) => (
-              <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+            {(product.benefits || []).map((benefit: string, index: number) => {
+              const stableKey = `benefit-${index}-${benefit?.length || 0}`;
+              return (
+              <div key={stableKey} className="border border-border rounded-lg p-4 space-y-2">
                 <TextArea
                   label={`Use Case ${index + 1}`}
                   value={benefit}
@@ -265,7 +279,8 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
                   Remove Use Case
                 </button>
               </div>
-            ))}
+              )
+            })}
             <button
               onClick={() => {
                 const updated = [...(product.benefits || []), ''];
@@ -280,8 +295,10 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
           {/* Technical Capabilities editing UI */}
           <div className="space-y-4">
             <h4 className="font-medium text-base">Technical Capabilities</h4>
-            {(product.specifications || []).map((spec: any, index: number) => (
-              <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+            {(product.specifications || []).map((spec: any, index: number) => {
+              const stableKey = `spec-${index}-${spec.name?.length || 0}-${spec.icon?.length || 0}`;
+              return (
+              <div key={stableKey} className="border border-border rounded-lg p-4 space-y-2">
                 <div className="grid grid-cols-3 gap-3">
                   <TextInput
                     label="Icon"
@@ -326,7 +343,8 @@ export const PricingProductSectionEditor: React.FC<PricingProductSectionEditorPr
                   Remove Specification
                 </button>
               </div>
-            ))}
+              )
+            })}
             <button
               onClick={() => {
                 const newSpec = { icon: '', name: '', value: '' };

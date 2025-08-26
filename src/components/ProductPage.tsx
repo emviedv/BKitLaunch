@@ -167,7 +167,7 @@ const BiblioKitBlocksPage = () => {
     <>
       {/* Hero Section - matches home page styling */}
       <section className="section-hero relative overflow-hidden py-24 px-4 min-h-[calc(100vh-60px)] flex items-center">
-        <BlocksHeroBackground emoji={product?.emoji} />
+        <BlocksHeroBackground />
         <AnimatedGradientBackground
           Breathing
           startingGap={118}

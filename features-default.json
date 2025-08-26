@@ -1,0 +1,221 @@
+{
+  "features": {
+    "section": {
+      "title": "Features",
+      "description": "Professional SaaS tools and Figma plugins designed for modern teams"
+    },
+    "items": [
+      {
+        "icon": "🔒",
+        "title": "Secure API Management",
+        "description": "Manage and protect API keys with enterprise security, usage tracking, and customizable rate limiting for SaaS apps and Figma plugin workflows.",
+        "idea": "Enterprise-grade API key management made simple.",
+        "topItems": [
+          "Enterprise security controls",
+          "Custom rate limiting",
+          "Detailed usage tracking",
+          "Multi-key management",
+          "Supports SaaS + plugins"
+        ],
+        "badge": "",
+        "badgeColor": "green",
+        "badges": [],
+        "isFeatured": false,
+        "showBadge": true,
+        "buttonPreset": "custom",
+        "buttonText": "",
+        "buttonLink": ""
+      },
+      {
+        "icon": "⚡",
+        "title": "Figma Plugin Proxy",
+        "description": "Secure your Figma plugins with an OpenAI API proxy. Adds CORS protection, request validation, and automatic throttling for stable performance.",
+        "idea": "A security and performance layer for plugins.",
+        "topItems": [
+          "CORS protection built-in",
+          "Request validation",
+          "Traffic throttling",
+          "OpenAI proxy support",
+          "Reliable plugin scaling"
+        ],
+        "badge": "Popular",
+        "badgeColor": "#10b981",
+        "badges": [],
+        "isFeatured": false,
+        "showBadge": true,
+        "buttonPreset": "custom",
+        "buttonText": "",
+        "buttonLink": ""
+      },
+      {
+        "icon": "👥",
+        "title": "Help Desk System",
+        "description": "Deliver scalable support with real-time chat, priority ticket workflows, and an admin dashboard designed for SaaS and plugin product teams.",
+        "idea": "Professional ticketing built for SaaS products.",
+        "topItems": [
+          "Real-time chat",
+          "Priority workflows",
+          "Admin dashboard",
+          "Team inbox support",
+          "Plugin + SaaS ready"
+        ],
+        "badge": "Coming Soon",
+        "badgeColor": "blue",
+        "badges": [],
+        "isFeatured": false,
+        "showBadge": true,
+        "buttonPreset": "custom",
+        "buttonText": "",
+        "buttonLink": ""
+      },
+      {
+        "icon": "💻",
+        "title": "Developer-First",
+        "description": "Accelerate plugin and SaaS integration with SDKs, code samples, and developer-focused toolkits designed to speed up onboarding and scaling.",
+        "idea": "Everything devs need to build faster.",
+        "topItems": [
+          "Prebuilt SDKs",
+          "Code samples",
+          "Detailed API docs",
+          "Quickstart templates",
+          "Onboarding resources"
+        ],
+        "badge": "",
+        "badgeColor": "green",
+        "badges": [],
+        "isFeatured": false,
+        "showBadge": true,
+        "buttonPreset": "custom",
+        "buttonText": "",
+        "buttonLink": ""
+      },
+      {
+        "icon": "⭐",
+        "title": "Premium Support",
+        "description": "Access 24/7 expert help with SLA-backed response times, priority handling, and dedicated account managers for enterprise-level customers.",
+        "idea": "Always-on support with guaranteed SLAs.",
+        "topItems": [
+          "24/7 global support",
+          "SLA response times",
+          "Dedicated managers",
+          "Priority handling",
+          "Enterprise onboarding"
+        ],
+        "badge": "",
+        "badgeColor": "green",
+        "badges": [],
+        "isFeatured": false,
+        "showBadge": true,
+        "buttonPreset": "custom",
+        "buttonText": "",
+        "buttonLink": ""
+      },
+      {
+        "icon": "✅",
+        "title": "Production Ready",
+        "description": "Built for reliability with monitoring, error tracking, and automatic failover—ensuring 99.9% uptime for SaaS apps and Figma plugin products.",
+        "idea": "Reliability and uptime baked into the core.",
+        "topItems": [
+          "99.9% uptime SLA",
+          "Error tracking",
+          "Monitoring tools",
+          "Failover recovery",
+          "Scalable infra"
+        ],
+        "badge": "New",
+        "badgeColor": "#f59e0b",
+        "badges": [],
+        "isFeatured": false,
+        "showBadge": true,
+        "buttonPreset": "custom",
+        "buttonText": "",
+        "buttonLink": ""
+      },
+      {
+        "icon": "🏷️",
+        "title": "AI Rename Variants",
+        "description": "Batch-rename Figma variants with AI. Context-aware analysis ensures consistent naming conventions, cleaner files, and reduced design debt.",
+        "idea": "AI-powered variant renaming at scale.",
+        "topItems": [
+          "Batch rename sets",
+          "Detect states & sizes",
+          "Undo changes safely",
+          "Spot missing variants",
+          "Cross-platform names"
+        ],
+        "badge": "Launched",
+        "badgeColor": "#10b981",
+        "badges": [],
+        "isFeatured": false,
+        "showBadge": true,
+        "buttonPreset": "custom",
+        "buttonText": "Learn More",
+        "buttonLink": "/ai-rename-variants"
+      },
+      {
+        "icon": "🔍",
+        "title": "Component Auditor",
+        "description": "Audit components inside a single Figma file. Check naming, structure, and variant coverage to ensure consistent, high-quality component usage.",
+        "idea": "File-level component audits for better design.",
+        "topItems": [
+          "Scan all components",
+          "Check naming consistency",
+          "Validate structure",
+          "Detect missing variants",
+          "Generate reports"
+        ],
+        "badge": "Coming Soon",
+        "badgeColor": "#8b5cf6",
+        "badges": [],
+        "isFeatured": false,
+        "showBadge": true,
+        "buttonPreset": "custom",
+        "buttonText": "Learn More",
+        "buttonLink": "/component-auditor-figma-plugin"
+      },
+      {
+        "icon": "📊",
+        "title": "BiblioKit Blocks",
+        "description": "Track design system adoption across Figma files with analytics. Measure ROI, spot duplicates, and optimize component libraries at scale.",
+        "idea": "Cross-file analytics for design systems at scale.",
+        "topItems": [
+          "Track usage across files",
+          "Measure adoption trends",
+          "Spot duplicates quickly",
+          "Quantify ROI impact",
+          "Optimize libraries"
+        ],
+        "badge": "Launched",
+        "badgeColor": "#10b981",
+        "badges": [],
+        "isFeatured": true,
+        "showBadge": true,
+        "buttonPreset": "custom",
+        "buttonText": "Learn More",
+        "buttonLink": "/bibliokit-blocks"
+      },
+      {
+        "icon": "🛒",
+        "title": "UXBiblio",
+        "description": "Analyze, capture, and organize UI patterns with AI. Run heuristic checks, accessibility reviews, and build team-shared UX libraries.",
+        "idea": "Every webpage becomes a UX learning tool.",
+        "topItems": [
+          "AI screenshot analysis",
+          "Heuristic evaluations",
+          "Accessibility checks",
+          "Pattern recognition",
+          "Team collaboration"
+        ],
+        "badge": "Coming Soon",
+        "badgeColor": "#8b5cf6",
+        "badges": [],
+        "isFeatured": true,
+        "showBadge": true,
+        "buttonPreset": "custom",
+        "buttonText": "Learn More",
+        "buttonLink": "/uxbiblio"
+      }
+    ],
+    "visible": true
+  }
+}

@@ -16,20 +16,33 @@ const loadHotjarIfAllowed = (): void => {
   try {
     const isProd = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1';
     const isAdmin = location.pathname.startsWith('/admin');
+    
+    // Auto-grant consent for now (you can add a consent banner later)
+    if (isProd && !isAdmin && typeof localStorage !== 'undefined') {
+      localStorage.setItem('consent:analytics', 'true');
+      (window as any).__USER_CONSENT__ = { analytics: true };
+    }
+    
     const consent = (window as any).__USER_CONSENT__?.analytics === true ||
       (typeof localStorage !== 'undefined' && localStorage.getItem('consent:analytics') === 'true');
     const alreadyLoaded = typeof (window as any).hj === 'function' ||
       !!document.querySelector('script[src*="hotjar-6484850.js"]');
+    
+    console.log('HotJar Debug:', { isProd, isAdmin, consent, alreadyLoaded, hostname: location.hostname });
+    
     if (!isProd || isAdmin || !consent || alreadyLoaded) return;
 
     // Define hj and _hjSettings BEFORE injecting the loader script
     (window as any).hj = (window as any).hj || function () { ((window as any).hj.q = (window as any).hj.q || []).push(arguments); };
     (window as any)._hjSettings = { hjid: 6484850, hjsv: 6 };
+    
     // Allowlist domains via CSP (Edge sends Report-Only policy allowing Hotjar domains)
     const s = document.createElement('script');
     s.async = true;
     s.src = 'https://static.hotjar.com/c/hotjar-6484850.js?sv=6';
     document.head.appendChild(s);
+    
+    console.log('✅ HotJar script injected successfully');
   } catch {
     // no-op
   }

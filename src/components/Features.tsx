@@ -225,20 +225,20 @@ const Features = () => {
                           })()
                         )}
                       </div>
-                      <h3 className="text-xl font-semibold mb-6">{feature.title}</h3>
+                      <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
                       <p className="text-muted-foreground">
                         {feature.description}
                       </p>
                       {ideaText && (
-                        <p className="mt-2 text-sm italic text-muted-foreground/80">
+                        <p className="mt-1 text-sm italic text-muted-foreground/80">
                           {ideaText}
                         </p>
                       )}
                     </div>
-                    <div className="mt-7 min-h-32">
+                    <div className="mt-4 min-h-32">
                       {topItems.length > 0 && (
                         <>
-                          <h4 className="text-sm font-semibold mb-2">Key Features</h4>
+                          <h4 className="text-sm font-semibold mb-1">Key Features</h4>
                           <ul className="grid grid-cols-1 gap-2">
                             {topItems.slice(0, 3).map((t: string, ti: number) => (
                               <li key={ti} className="flex items-start gap-2">
@@ -344,21 +344,21 @@ const Features = () => {
                           })()
                         )}
                       </div>
-                      <h3 className="text-xl font-semibold mb-6">{feature.title}</h3>
+                      <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
                       <p className="text-muted-foreground">
                         {feature.description}
                       </p>
                       {ideaText && (
-                        <p className="mt-2 text-sm italic text-muted-foreground/80">
+                        <p className="mt-1 text-sm italic text-muted-foreground/80">
                           {ideaText}
                         </p>
                       )}
                     </div>
                     {/* Key features for this card */}
-                    <div className="mt-7 min-h-32">
+                    <div className="mt-4 min-h-32">
                       {topItems.length > 0 && (
                         <>
-                          <h4 className="text-sm font-semibold mb-2">Key Features</h4>
+                          <h4 className="text-sm font-semibold mb-1">Key Features</h4>
                           <ul className="grid grid-cols-1 gap-2">
                             {topItems.slice(0, 3).map((t: string, ti: number) => (
                               <li key={ti} className="flex items-start gap-2">

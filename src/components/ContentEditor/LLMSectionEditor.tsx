@@ -160,8 +160,10 @@ export const LLMSectionEditor: React.FC<LLMSectionEditorProps> = ({
     <div className="border border-gray-200 rounded-lg p-4">
       <h4 className="font-medium mb-3">❓ FAQ Schema (Copilot Reads Verbatim)</h4>
       <div className="space-y-4">
-        {(llmContent?.faqs || []).map((faq: FAQItem, index: number) => (
-          <div key={index} className="border border-gray-100 rounded p-3 bg-gray-50">
+        {(llmContent?.faqs || []).map((faq: FAQItem, index: number) => {
+          const stableKey = `llm-faq-${index}-${faq.question?.length || 0}-${faq.answer?.length || 0}`;
+          return (
+          <div key={stableKey} className="border border-gray-100 rounded p-3 bg-gray-50">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium">FAQ #{index + 1}</span>
               <button
@@ -199,7 +201,8 @@ export const LLMSectionEditor: React.FC<LLMSectionEditorProps> = ({
               />
             </div>
           </div>
-        ))}
+          )
+        })}
         <button
           onClick={() => {
             const currentFaqs = llmContent?.faqs || [];

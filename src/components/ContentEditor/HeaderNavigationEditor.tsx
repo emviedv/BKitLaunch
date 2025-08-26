@@ -42,8 +42,10 @@ export const HeaderNavigationEditor: React.FC<HeaderNavigationEditorProps> = ({ 
       </div>
 
       <div className="space-y-3">
-        {(items || []).map((navItem, index) => (
-          <div key={index} className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
+        {(items || []).map((navItem, index) => {
+          const stableKey = `nav-${index}-${navItem?.label?.length || 0}-${navItem?.href?.length || 0}`;
+          return (
+          <div key={stableKey} className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
             <input
               type="text"
               value={navItem?.label || ''}
@@ -94,7 +96,8 @@ export const HeaderNavigationEditor: React.FC<HeaderNavigationEditorProps> = ({ 
               </button>
             </div>
           </div>
-        ))}
+          )
+        })}
 
         {(items?.length || 0) === 0 && (
           <div className="text-center py-6 text-muted-foreground text-sm">No navigation links yet.</div>

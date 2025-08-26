@@ -125,17 +125,20 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
       setNormalizedFeatures(newNormalized);
       lastPropUpdate.current = now;
     }
-  }, [features, normalizeFeatureItem]);
+  }, [features, normalizeFeatureItem, normalizedFeatures.length]); // Add normalizedFeatures.length to deps
   
-  // Update local section data only on initial mount
+  // Update local section data only on initial mount or when sectionData changes
   React.useEffect(() => {
     if (Object.keys(localSectionData).length === 0) {
       setLocalSectionData(sectionData || {});
     }
-  }, [sectionData]);
+  }, [sectionData]); // Remove localSectionData from dependencies to prevent infinite loop
 
   // Custom update handler that updates both local state and parent state
   const updateFeatureField = React.useCallback((index: number, field: string, value: any) => {
+    // Debug logging for troubleshooting
+    console.log(`[Features] Updating feature ${index}, field: ${field}, value:`, value);
+    
     // Mark as actively editing
     isActivelyEditing.current = true;
     
@@ -143,6 +146,8 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
     const updatedFeatures = [...normalizedFeatures];
     updatedFeatures[index] = { ...updatedFeatures[index], [field]: value };
     setNormalizedFeatures(updatedFeatures);
+    
+    console.log(`[Features] Updated local state for feature ${index}:`, updatedFeatures[index]);
     
     // Update parent state
     updateNestedField('features', index, field, value);
@@ -231,6 +236,12 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
         // eslint-disable-next-line no-console
         console.log('[Features.applyJson] parsed', parsed);
       } catch {}
+      
+      // Declare variables in function scope to avoid undefined reference issues
+      let finalFeatures: Feature[] = normalizedFeatures;
+      let finalSection: any = localSectionData || {};
+      let nextVisible = visible;
+      
       if (Array.isArray(parsed)) {
         // Array provided → treat as features list only
         const normalizedArray = parsed.map(normalizeFeatureItem);
@@ -238,8 +249,9 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
         
         // Force immediate local state update for JSON application
         setNormalizedFeatures(normalizedArray);
+        finalFeatures = normalizedArray;
         
-        const nextPayload = { section: localSectionData || {}, items: normalizedArray, visible };
+        const nextPayload = { section: finalSection, items: normalizedArray, visible };
         setJsonValue(JSON.stringify(nextPayload, null, 2));
         debugService.contentUpdate('Features.applyJson: applied array', nextPayload);
         try { (window as any).__FEATURES_APPLY__ = nextPayload; console.log('[Features.applyJson] applied array', nextPayload); } catch {}
@@ -286,6 +298,7 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
           
           // Force immediate local state update for JSON application
           setNormalizedFeatures(normalizedList);
+          finalFeatures = normalizedList;
           
           debugService.contentUpdate('Features.applyJson: features updated', { count: normalizedList.length, first: normalizedList[0] });
           try { (window as any).__FEATURES_NORMALIZED__ = normalizedList; console.log('[Features.applyJson] normalized first', normalizedList[0]); } catch {}
@@ -295,42 +308,38 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
           
           // Force immediate local state update for JSON application
           setLocalSectionData(nextSectionObj);
+          finalSection = nextSectionObj;
           
           debugService.contentUpdate('Features.applyJson: featuresSection updated', nextSectionObj);
           try { (window as any).__FEATURES_SECTION__ = nextSectionObj; console.log('[Features.applyJson] section', nextSectionObj); } catch {}
         }
 
-        const nextVisible = typeof parsedAny.visible === 'boolean' ? Boolean(parsedAny.visible) : visible;
+        nextVisible = typeof parsedAny.visible === 'boolean' ? Boolean(parsedAny.visible) : visible;
         if (typeof parsedAny.visible === 'boolean') updateVisibility(nextVisible);
 
-        const finalFeatures = (nextFeatures || normalizedFeatures || []).map(normalizeFeatureItem);
-        const finalSection = nextSectionObj || localSectionData || {};
         const finalPayload = { section: finalSection, items: finalFeatures, visible: nextVisible };
         setJsonValue(JSON.stringify(finalPayload, null, 2));
         debugService.contentUpdate('Features.applyJson: final payload', finalPayload);
         try { (window as any).__FEATURES_FINAL__ = finalPayload; console.log('[Features.applyJson] final payload', finalPayload); } catch {}
-        
-        // Update local state to ensure form inputs sync
-        if (finalFeatures) {
-          setNormalizedFeatures(finalFeatures);
-        }
-        if (finalSection) {
-          setLocalSectionData(finalSection);
-        }
       }
+      
       setJsonEdit(false);
       debugService.saveSuccess('Features.applyJson: done');
       
       // Force a re-render to ensure all inputs reflect the new state
       setTimeout(() => {
         // Update the JSON display with the latest local state
-        const refreshPayload = { section: localSectionData, items: normalizedFeatures, visible };
+        const refreshPayload = { section: finalSection, items: finalFeatures, visible: nextVisible };
         setJsonValue(JSON.stringify(refreshPayload, null, 2));
+        
+        // Force local state update one more time to ensure form inputs sync
+        setNormalizedFeatures([...finalFeatures]);
+        setLocalSectionData({...finalSection});
         
         // Restore previous editing state
         isActivelyEditing.current = wasEditing;
       }, 50);
-    } catch {
+    } catch (error) {
       // Restore editing state even on error
       isActivelyEditing.current = wasEditing;
       debugService.saveError('Features.applyJson: invalid JSON', jsonValue);
@@ -470,9 +479,23 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
       </label>
     </div>
     <div className="space-y-4">
-      {normalizedFeatures?.map((feature, index) => (
+      {normalizedFeatures?.map((feature, index) => {
+        // Use index for SSR stability, but include content ID to force re-render when content changes
+        const stableKey = `feature-${index}-${feature.title?.length || 0}-${feature.icon?.length || 0}`;
+        
+        // Debug logging for specific problematic features
+        if (feature.title?.toLowerCase().includes('bibliokit') || feature.title?.toLowerCase().includes('new feature')) {
+          console.log(`[Features] Rendering feature ${index}:`, {
+            title: feature.title,
+            icon: feature.icon,
+            key: stableKey,
+            fullFeature: feature
+          });
+        }
+        
+        return (
         <div
-          key={index}
+          key={stableKey}
           className={`p-3 border rounded ${feature.isFeatured ? 'border-primary/30 bg-primary/5' : 'border-border'}`}
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => handleDropOnCard(e, index)}
@@ -808,7 +831,8 @@ export const FeaturesSectionEditor: React.FC<FeaturesSectionEditorProps> = ({
             </div>
           )}
         </div>
-      ))}
+        )
+      })}
     </div>
   </div>
   );

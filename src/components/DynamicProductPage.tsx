@@ -178,11 +178,7 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
   return (
     <>
       <section className="section-hero relative overflow-hidden py-28 md:py-32 px-4 min-h-screen flex items-center">
-        <BlocksHeroBackground
-          emoji={product?.emoji}
-          emojiY={(isAuthenticated && isAdmin) ? 160 : 110}
-          minEmojiViewportTop={(isAuthenticated && isAdmin) ? 96 : 0}
-        />
+        <BlocksHeroBackground />
         <AnimatedGradientBackground
           Breathing
           startingGap={118}

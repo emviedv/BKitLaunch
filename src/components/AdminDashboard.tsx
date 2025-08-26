@@ -128,6 +128,21 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  // Load waitlist function
+  const loadWaitlist = async () => {
+    try {
+      setWaitlistLoading(true);
+      const result = await contentApi.getWaitlistSignups(100, 0);
+      if (result.success && result.data) {
+        setWaitlist(result.data as any);
+      }
+    } catch (error) {
+      console.error('Failed to load waitlist:', error);
+    } finally {
+      setWaitlistLoading(false);
+    }
+  };
+
   // Load content versions on mount
   useEffect(() => {
     // Load current content
@@ -144,6 +159,7 @@ const AdminDashboard: React.FC = () => {
 
     loadContentVersions();
     loadCurrent();
+    loadWaitlist(); // Auto-load waitlist on mount
   }, []); // Empty dependency array - runs only once on mount
 
   // Sync tab selection with URL hash for deep-linking (e.g., /admin#designsystem)
@@ -323,11 +339,12 @@ const AdminDashboard: React.FC = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-4 py-2 text-sm font-medium transition-colors ${
                   activeTab === tab.id
                     ? 'bg-primary text-primary-foreground'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
+                style={{ borderRadius: '6px' }}
               >
                 {tab.icon} {tab.label}
               </button>
@@ -485,12 +502,7 @@ const AdminDashboard: React.FC = () => {
               <div className="flex gap-2">
                 <button
                   className="button-secondary"
-                  onClick={async () => {
-                    setWaitlistLoading(true);
-                    const result = await contentApi.getWaitlistSignups(100, 0);
-                    if (result.success && result.data) setWaitlist(result.data as any);
-                    setWaitlistLoading(false);
-                  }}
+                  onClick={loadWaitlist}
                 >
                   Refresh
                 </button>

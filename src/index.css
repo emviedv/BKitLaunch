@@ -46,19 +46,21 @@
 
 @layer components {
   .button {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium leading-none ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2;
+    @apply inline-flex items-center justify-center text-sm font-medium leading-none ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2;
+    border-radius: 6px;
   }
   
   .button-secondary {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium leading-none ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2;
+    @apply inline-flex items-center justify-center text-sm font-medium leading-none ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2;
+    border-radius: 6px;
   }
 
   .card {
-    @apply bg-background p-6 rounded-lg border shadow-sm hover:shadow-md transition-shadow;
+    @apply bg-background p-6 rounded-lg border shadow-sm hover:shadow-md transition-shadow min-w-[280px] min-h-[320px];
   }
 
   .card-featured {
-    @apply bg-gradient-to-br from-pink-500/5 via-blue-500/15 to-background p-8 border-primary/20 shadow-sm hover:shadow-md transition-all duration-300 relative;
+    @apply bg-gradient-to-br from-pink-500/5 via-blue-500/15 to-background p-8 border-primary/20 shadow-sm hover:shadow-md transition-all duration-300 relative min-w-[280px] min-h-[320px];
   }
 
   .card-featured::before {
@@ -69,19 +71,28 @@
   
 
   .card-button {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 mt-4 px-4 py-2;
+    @apply inline-flex items-center justify-center text-sm font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 mt-4 px-4 py-2;
+    border-radius: 6px;
   }
 
   .pricing-card {
-    @apply relative bg-background p-8 rounded-xl border shadow-sm transition-all hover:shadow-xl hover:ring-2 hover:ring-primary/20 ring-offset-2 ring-offset-background;
+    @apply relative p-8 rounded-3xl shadow-lg transition-all hover:shadow-xl hover:scale-105 min-w-[320px] min-h-[480px] border-0;
+    background: linear-gradient(135deg, #e0f2fe 0%, #e1f5fe 25%, #fff3e0 75%, #ffe0b2 100%);
   }
 
   .pricing-card-popular {
-    @apply border-transparent shadow-xl bg-gradient-to-br from-pink-50 via-blue-50 to-green-50;
+    @apply shadow-2xl scale-105;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 25%, #fff8e1 50%, #ffecb3 75%, #ffe0b2 100%);
   }
 
   .price-value {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-500 to-green-500;
+    @apply text-gray-900 font-bold;
+  }
+
+  .pricing-card .button,
+  .pricing-card .button-secondary {
+    @apply bg-gray-900 text-white hover:bg-gray-800 border-0 py-3 px-6 w-full text-base font-semibold;
+    border-radius: 6px;
   }
 
   .gradient-brand {
@@ -184,7 +195,11 @@
   }
 
   .icon {
-    @apply w-12 h-12 rounded-lg flex items-center justify-center text-2xl;
+    @apply w-12 h-12 rounded-lg flex items-center justify-center text-2xl text-center;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .icon-purple {
@@ -213,11 +228,13 @@
 
   /* Buttons */
   .button-ghost {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium leading-none text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-10 px-4 py-2;
+    @apply inline-flex items-center justify-center text-sm font-medium leading-none text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-10 px-4 py-2;
+    border-radius: 6px;
   }
 
   .button-outline {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium leading-none border border-border bg-transparent hover:bg-accent/10 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-10 px-4 py-2;
+    @apply inline-flex items-center justify-center text-sm font-medium leading-none border border-border bg-transparent hover:bg-accent/10 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 h-10 px-4 py-2;
+    border-radius: 6px;
   }
 
   /* Badges/Chips */

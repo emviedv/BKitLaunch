@@ -929,17 +929,17 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
     }
 
     const sections = {
-      settings: 'Visibility Settings',
-      llm: 'LLM Optimization',
+      header: 'Header Section',
       hero: 'Hero Section',
       features: 'Features Section',
       pricing: 'Pricing Section',
       cta: 'CTA Section',
       waitlist: 'Waitlist Section',
-      header: 'Header Section',
       footer: 'Footer Section',
       contact: 'Contact Info',
-      pages: 'Pages'
+      pages: 'Pages',
+      llm: 'LLM Optimization',
+      settings: 'Visibility Settings'
     };
 
     return (
@@ -1290,7 +1290,7 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ onContentUpdate, initialO
 
           {/* Section Types */}
           <div className="space-y-2">
-            {['hero', 'features', 'pricing', 'cta', 'waitlist', 'header', 'footer', 'contact'].map((sectionType) => (
+            {['header', 'hero', 'features', 'pricing', 'cta', 'waitlist', 'footer', 'contact'].map((sectionType) => (
               <button
                 key={sectionType}
                 onClick={() => setActiveSection(sectionType)}

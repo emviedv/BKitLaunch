@@ -1,0 +1,266 @@
+{
+  "cta": {
+    "title": "Ready to Transform Your Workflow?",
+    "description": "Join thousands of designers and developers who rely on BiblioKit's Figma plugins and SaaS tools for faster, smarter, and more efficient product design.",
+    "primaryButton": "Start Free Trial",
+    "secondaryButton": "Schedule Demo",
+    "primaryButtonLink": "https://blocks.bibliokit.com/signup",
+    "secondaryButtonLink": "https://blocks.bibliokit.com/demo"
+  },
+  "hero": {
+    "visible": true,
+    "title": "Work x1000 Faster",
+    "subtitle": "Your AI Design ToolKit, Reinvented.",
+    "badgeLabel": "Designer built",
+    "description": "Professional SaaS software and Figma plugins with secure API management and world-class support for designers and developers.",
+    "primaryButton": "Get Started Free",
+    "secondaryButton": "View Products",
+    "primaryButtonLink": "https://blocks.bibliokit.com/signup",
+    "secondaryButtonLink": "#features",
+    "gradientColors": ["#ecfeff00", "#ecfeff10", "#c7d2fe40", "#a7f3d040", "#a5b4fc50", "#93c5fd40", "#ffffff00"]
+  },
+  "footer": {
+    "sections": [
+      {
+        "title": "Product",
+        "links": [
+          { "href": "#features", "label": "Features" },
+          { "href": "#pricing", "label": "Pricing" },
+          { "href": "/docs", "label": "Documentation" },
+          { "href": "#contact", "label": "Get Started" }
+        ]
+      },
+      {
+        "title": "Support",
+        "links": [
+          { "href": "#help", "label": "Help Center" },
+          { "href": "#contact", "label": "Contact" },
+          { "href": "#status", "label": "System Status" }
+        ]
+      },
+      {
+        "title": "Connect",
+        "links": [
+          { "href": "mailto:hello@bibliokit.com", "label": "Email Us" },
+          { "href": "https://twitter.com/bibliokit", "label": "Twitter" },
+          { "href": "https://github.com/bibliokit", "label": "GitHub" }
+        ]
+      }
+    ],
+    "description": "BiblioKit provides enterprise-ready SaaS tools and Figma plugins for API management, design system analytics, and team collaboration."
+  },
+  "header": {
+    "logoText": "BiblioKit",
+    "navigation": [
+      { "href": "/bibliokit-blocks", "label": "BiblioKit Blocks" },
+      { "href": "/ai-rename-variants", "label": "AI Rename Variants" },
+      { "href": "/docs", "label": "Docs" }
+    ],
+    "signInText": "Sign In",
+    "getStartedText": "Get Started",
+    "signInLink": "https://blocks.bibliokit.com/login",
+    "getStartedLink": "https://blocks.bibliokit.com/signup"
+  },
+  "contact": {
+    "email": "hello@bibliokit.com",
+    "github": "bibliokit",
+    "twitter": "@bibliokit"
+  },
+  "pricing": [
+    {
+      "name": "Free",
+      "price": "$0",
+      "period": "/month",
+      "popular": false,
+      "features": [
+        "1,000 API requests/month",
+        "Essential Figma plugin support",
+        "Community-driven help",
+        "Basic documentation and guides",
+        "1 API key",
+        "Standard rate limiting"
+      ],
+      "buttonText": "Start Free",
+      "buttonLink": "https://blocks.bibliokit.com/signup",
+      "description": "Ideal for individuals testing BiblioKit tools and Figma plugin integrations."
+    },
+    {
+      "name": "Pro",
+      "price": "$29",
+      "period": "/month",
+      "popular": true,
+      "features": [
+        "50,000 API requests/month",
+        "Advanced Figma plugin features",
+        "Priority email support",
+        "Extended support library",
+        "Unlimited API keys",
+        "Custom rate limiting",
+        "Usage and adoption analytics",
+        "Team collaboration features"
+      ],
+      "buttonText": "Start Pro Trial",
+      "buttonLink": "https://blocks.bibliokit.com/signup?plan=pro",
+      "description": "Perfect for professional developers, product designers, and agile product teams."
+    },
+    {
+      "name": "Enterprise",
+      "price": "Custom",
+      "period": "",
+      "popular": false,
+      "features": [
+        "Unlimited API requests",
+        "Custom Figma integrations",
+        "Dedicated customer success manager",
+        "Personalized onboarding",
+        "Advanced compliance and security",
+        "SLA guarantees",
+        "Custom analytics and reporting",
+        "On-premise or hybrid deployment",
+        "Custom enterprise integrations"
+      ],
+      "buttonText": "Contact Sales",
+      "buttonLink": "mailto:hello@bibliokit.com?subject=Enterprise%20Inquiry",
+      "description": "Tailored solutions for enterprises with large-scale design system and API needs."
+    }
+  ],
+  "products": {
+    "bibliokit-blocks": {
+      "title": "BiblioKit Blocks – Design System Analytics",
+      "description": "BiblioKit Blocks is a professional analytics platform for Figma design systems. Track component usage, measure ROI, and make smarter decisions to optimize design libraries with AI-powered insights.",
+      "primaryButton": "Start Free Trial",
+      "secondaryButton": "View Demo",
+      "primaryButtonLink": "https://blocks.bibliokit.com/signup",
+      "secondaryButtonLink": "https://blocks.bibliokit.com/demo",
+      "visibility": { "waitlist": true },
+      "details": [
+        {
+          "title": "Automated Figma Integration",
+          "description": "Secure OAuth integration tracks Figma component usage across libraries and files in real-time."
+        },
+        {
+          "title": "Visual Analytics Dashboard",
+          "description": "View adoption trends, usage patterns, and performance metrics with export-ready insights."
+        },
+        {
+          "title": "Component Insights",
+          "description": "Detect overused, underused, and unused components with actionable recommendations."
+        },
+        {
+          "title": "ROI Reporting",
+          "description": "Show stakeholders quantifiable efficiency gains and cost savings from design system adoption."
+        },
+        {
+          "title": "Collaboration Metrics",
+          "description": "Enable multi-user dashboards with role-based access and team-wide visibility."
+        }
+      ],
+      "benefits": [
+        "Boost design system adoption by 25%+ with real usage data",
+        "Cut component maintenance by 30% with actionable insights",
+        "Prove ROI with measurable productivity gains and savings",
+        "Accelerate product delivery by 20–40% through streamlined workflows",
+        "Achieve 85%+ component reuse across design projects",
+        "Support evidence-based component deprecation and optimization"
+      ],
+      "specifications": [
+        {
+          "icon": "🔗",
+          "name": "Figma OAuth Integration",
+          "value": "Secure API connection with read-only access to design files and component libraries"
+        },
+        {
+          "icon": "📊",
+          "name": "Real-time Analytics",
+          "value": "Live tracking of component usage, adoption rates, and team collaboration metrics"
+        },
+        {
+          "icon": "💾",
+          "name": "Data Export",
+          "value": "CSV, PDF, and API export options for custom reporting and stakeholder presentations"
+        }
+      ],
+      "pricing": {
+        "price": "$49",
+        "period": "/month",
+        "buttonText": "Start Free Trial",
+        "description": "Advanced design system analytics for growing teams. Includes a 14-day free trial."
+      },
+      "llm": {
+        "answerBox": "BiblioKit Blocks provides comprehensive design system analytics that automatically tracks Figma component usage, measures ROI, and delivers actionable insights to optimize component libraries. Increase adoption rates by 25%+ and reduce maintenance overhead through data-driven decision making for product teams."
+      }
+    },
+    "ai-rename-variants": {
+      "title": "AI Rename Variants",
+      "description": "Automatically rename Figma variants and layers with AI-driven naming conventions to eliminate design debt and improve team collaboration.",
+      "primaryButton": "Install Plugin",
+      "secondaryButton": "View Demo",
+      "primaryButtonLink": "https://figma.com/community/plugin/ai-rename-variants",
+      "secondaryButtonLink": "https://blocks.bibliokit.com/demo",
+      "visibility": { "waitlist": false }
+    }
+  },
+  "features": {
+    "0": {
+      "icon": "🔒",
+      "title": "Secure API Management",
+      "description": "Enterprise-grade API key management with advanced security, usage tracking, and rate limiting."
+    },
+    "1": {
+      "icon": "⚡",
+      "badge": "Popular",
+      "title": "Figma Plugin Proxy",
+      "badgeColor": "#10b981",
+      "description": "CORS-protected OpenAI API proxy for Figma plugins with automatic validation and rate limiting."
+    },
+    "6": {
+      "icon": "🏷️",
+      "badge": "Launched",
+      "title": "AI Rename Variants",
+      "badgeColor": "#10b981",
+      "description": "Automatically rename Figma variants and layers with AI-driven naming conventions to eliminate design debt."
+    },
+    "8": {
+      "icon": "📊",
+      "badge": "Launched",
+      "title": "BiblioKit Blocks",
+      "badgeColor": "#10b981",
+      "description": "Analytics platform that tracks Figma component usage, measures design system ROI, and helps teams scale efficiently."
+    },
+    "9": {
+      "icon": "🛒",
+      "badge": "Coming Soon",
+      "title": "UXBiblio – UX Pattern Library",
+      "badgeColor": "#8b5cf6",
+      "description": "Centralized library of UI/UX patterns, templates, and best practices with AI-powered tagging and semantic search."
+    }
+  },
+  "waitlist": {
+    "title": "Get Early Access",
+    "buttonText": "Join the Waitlist",
+    "description": "Sign up now for early access to new BiblioKit features, exclusive updates, and launch announcements.",
+    "successMessage": "Thank you for joining our waitlist! You'll receive exclusive updates soon."
+  },
+  "settings": {
+    "visibility": {
+      "hero": true,
+      "features": true,
+      "pricing": true,
+      "bibliokit-blocks": true,
+      "ai-rename-variants": true,
+      "product": true,
+      "contact": true,
+      "cta": true,
+      "waitlist": true,
+      "header": true,
+      "footer": true
+    },
+    "labels": {
+      "featuresBadges": true,
+      "pricingBadges": true,
+      "heroBadges": true,
+      "productBadges": true,
+      "ctaBadges": true
+    }
+  }
+}

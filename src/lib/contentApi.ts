@@ -228,6 +228,89 @@ class ContentAPI {
         syncResults.push(result);
       }
 
+      // Sync features section - handle multiple formats
+      let featuresArray = [];
+      let featuresSection = {};
+      
+      if (jsonContent.features) {
+        if (Array.isArray(jsonContent.features)) {
+          // Direct array format: features: [...]
+          featuresArray = jsonContent.features;
+          featuresSection = {
+            title: jsonContent.featuresSection?.title || 'Features',
+            description: jsonContent.featuresSection?.description || ''
+          };
+        } else if (jsonContent.features.items && Array.isArray(jsonContent.features.items)) {
+          // New structure format: features: { section: {...}, items: [...] }
+          featuresArray = jsonContent.features.items;
+          featuresSection = {
+            title: jsonContent.features.section?.title || 'Features',
+            description: jsonContent.features.section?.description || '',
+            visible: jsonContent.features.visible !== false
+          };
+        } else if (typeof jsonContent.features === 'object') {
+          // Legacy object format: features: {"0": {...}, "1": {...}}
+          featuresArray = Object.values(jsonContent.features).filter(Boolean);
+          featuresSection = {
+            title: jsonContent.featuresSection?.title || 'Features',
+            description: jsonContent.featuresSection?.description || ''
+          };
+        }
+      }
+      
+      if (featuresArray.length > 0) {
+        try {
+          // Create or get the features section
+          const result = await upsertSection('features', featuresSection, jsonContent.settings?.visibility?.features !== false);
+          
+          if (result.success) {
+            // Get the section ID to add individual features
+            const featuresResponse = await this.getSection('features');
+            if (featuresResponse.success && featuresResponse.data) {
+              const sectionId = (featuresResponse.data as any).id;
+              
+              // Get existing features
+              const existingFeaturesResponse = await this.getFeatures(sectionId);
+              const existingFeatures = existingFeaturesResponse.success ? (existingFeaturesResponse.data as any[] || []) : [];
+              
+              // Delete all existing features first (clean slate)
+              for (const existingFeature of existingFeatures) {
+                if (existingFeature.id) {
+                  await this.deleteFeature(existingFeature.id);
+                }
+              }
+              
+              // Add new features from JSON
+              for (let i = 0; i < featuresArray.length; i++) {
+                const feature = featuresArray[i];
+                const featureData = {
+                  icon: feature.icon || '',
+                  title: feature.title || '',
+                  description: feature.description || '',
+                  badge: feature.badge || '',
+                  badge_color: feature.badgeColor || feature.badge_color || null,
+                  sort_order: i,
+                  is_featured: feature.isFeatured || feature.featured || false,
+                  button_text: feature.buttonText || feature.button_text || null,
+                  button_link: feature.buttonLink || feature.button_link || null
+                };
+                
+                await this.createFeature(sectionId, featureData);
+              }
+              
+              syncResults.push({ operation: 'synced', sectionType: 'features', success: true });
+            } else {
+              syncResults.push({ operation: 'failed', sectionType: 'features', success: false });
+            }
+          } else {
+            syncResults.push({ operation: 'failed', sectionType: 'features', success: false });
+          }
+        } catch (error) {
+          debugService.saveError('Failed to sync features', error);
+          syncResults.push({ operation: 'failed', sectionType: 'features', success: false });
+        }
+      }
+
       // Sync header and navigation items
       if (jsonContent.header) {
         const headerData = {
@@ -519,6 +602,12 @@ class ContentAPI {
   }
 
   // Feature Items CRUD
+
+  // Get features for a section
+  async getFeatures(sectionId: number): Promise<ApiResponse<FeatureItem[]>> {
+    const token = this.getAuthToken() || undefined;
+    return apiRequest<FeatureItem[]>(`features?section_id=${sectionId}`, 'GET', undefined, token);
+  }
 
   // Create a new feature
   async createFeature(sectionId: number, feature: Omit<FeatureItem, 'id'>): Promise<ApiResponse<FeatureItem>> {

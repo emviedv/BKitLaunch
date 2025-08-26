@@ -18,28 +18,81 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
 }) => {
   const [jsonEdit, setJsonEdit] = useState(false);
   const [localJson, setLocalJson] = useState(JSON.stringify(productData || {}, null, 2));
+  
+  // Keep local copy of product data to ensure form inputs stay in sync
+  const [localProductData, setLocalProductData] = useState(() => productData || {});
+  
+  // Track if user is actively editing to prevent prop sync resets
+  const isActivelyEditing = React.useRef(false);
+  const lastPropUpdate = React.useRef(Date.now());
 
   useEffect(() => {
     if (productData) {
       setLocalJson(JSON.stringify(productData, null, 2));
     }
   }, [productData]);
+  
+  // Update local product data only on initial mount or explicit prop changes (not re-renders)
+  React.useEffect(() => {
+    const now = Date.now();
+    const timeSinceLastUpdate = now - lastPropUpdate.current;
+    
+    // Only sync from props if:
+    // 1. Initial mount (no local data)
+    // 2. Substantial time has passed (not a re-render)
+    // 3. Not actively editing
+    if (Object.keys(localProductData).length === 0 || (timeSinceLastUpdate > 1000 && !isActivelyEditing.current)) {
+      setLocalProductData(productData || {});
+      lastPropUpdate.current = now;
+    }
+  }, [productData, localProductData]);
 
   const updateProductField = (field: string, value: any) => {
+    // Mark as actively editing
+    isActivelyEditing.current = true;
+    
+    // Update local state immediately for responsive UI
+    setLocalProductData(prev => ({ ...prev, [field]: value }));
+    
+    // Update parent state
     updateNestedField(`products.${productKey}`, null, field, value);
+    
+    // Clear editing flag after a delay
+    setTimeout(() => {
+      isActivelyEditing.current = false;
+    }, 2000);
   };
 
   const updateProductNestedField = (field: string, index: number | null, subField: string, value: any) => {
+    // Mark as actively editing
+    isActivelyEditing.current = true;
+    
     if (index !== null) {
-      const currentArray = productData[field] || [];
+      const currentArray = localProductData[field] || [];
       const updated = currentArray.map((item: any, i: number) => 
         i === index ? { ...item, [subField]: value } : item
       );
-      updateProductField(field, updated);
+      
+      // Update local state immediately
+      setLocalProductData(prev => ({ ...prev, [field]: updated }));
+      
+      // Update parent state
+      updateNestedField(`products.${productKey}`, null, field, updated);
     } else {
-      const currentObj = productData[field] || {};
-      updateProductField(field, { ...currentObj, [subField]: value });
+      const currentObj = localProductData[field] || {};
+      const updatedObj = { ...currentObj, [subField]: value };
+      
+      // Update local state immediately
+      setLocalProductData(prev => ({ ...prev, [field]: updatedObj }));
+      
+      // Update parent state
+      updateNestedField(`products.${productKey}`, null, field, updatedObj);
     }
+    
+    // Clear editing flag after a delay
+    setTimeout(() => {
+      isActivelyEditing.current = false;
+    }, 2000);
   };
 
   if (!productData) {
@@ -72,10 +125,29 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
           <Button
             onClick={() => {
               try {
+                // Temporarily disable editing protection for JSON application
+                const wasEditing = isActivelyEditing.current;
+                isActivelyEditing.current = false;
+                
                 const parsed = JSON.parse(localJson);
+                
+                // Update parent state
                 updateSection(`products.${productKey}`, parsed);
+                
+                // Force immediate local state update for JSON application
+                setLocalProductData(parsed);
+                
                 setJsonEdit(false);
-              } catch {
+                
+                // Force a re-render to ensure all inputs reflect the new state
+                setTimeout(() => {
+                  // Force local state update one more time to ensure form inputs sync
+                  setLocalProductData({ ...parsed });
+                  
+                  // Restore previous editing state
+                  isActivelyEditing.current = wasEditing;
+                }, 50);
+              } catch (error) {
                 alert('Invalid JSON. Please correct and try again.');
               }
             }}
@@ -93,7 +165,7 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-lg">{productData.title}</h3>
+        <h3 className="font-semibold text-lg">{localProductData.title || productData.title}</h3>
         <Button variant="secondary" onClick={() => setJsonEdit(true)}>
           Edit JSON
         </Button>
@@ -104,13 +176,13 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
         <h4 className="font-medium text-base">Basic Information</h4>
         <TextInput
           label="Emoji"
-          value={productData.emoji || ''}
+          value={localProductData.emoji || ''}
           onChange={(value) => updateProductField('emoji', value)}
           placeholder="e.g. ✨"
         />
         <TextInput
           label="Hero Badge Label"
-          value={productData.badgeLabel || ''}
+          value={localProductData.badgeLabel || ''}
           onChange={(value) => updateProductField('badgeLabel', value)}
           placeholder="SaaS Analytics Platform"
         />
@@ -118,7 +190,7 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
           <label className="block text-sm font-medium">Hero Gradient Colors (comma-separated hex)</label>
           <input
             type="text"
-            value={((productData as any).gradientColors || []).join(', ')}
+            value={((localProductData as any).gradientColors || []).join(', ')}
             onChange={(e) => updateProductField('gradientColors', e.target.value.split(',').map(v => v.trim()).filter(Boolean))}
             className="w-full p-2 border border-border rounded"
             placeholder="#ecfeff00, #ecfeff10, #c7d2fe40, #a7f3d040, #a5b4fc50, #93c5fd40, #ffffff00"
@@ -127,12 +199,12 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
         </div>
         <TextInput
           label="Title"
-          value={productData.title || ''}
+          value={localProductData.title || ''}
           onChange={(value) => updateProductField('title', value)}
         />
         <TextArea
           label="Description"
-          value={productData.description || ''}
+          value={localProductData.description || ''}
           onChange={(value) => updateProductField('description', value)}
           rows={3}
         />
@@ -144,15 +216,15 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <ButtonField
             label="Primary Button"
-            buttonText={productData.primaryButton || ''}
-            buttonLink={productData.primaryButtonLink || ''}
+            buttonText={localProductData.primaryButton || ''}
+            buttonLink={localProductData.primaryButtonLink || ''}
             onTextChange={(value) => updateProductField('primaryButton', value)}
             onLinkChange={(value) => updateProductField('primaryButtonLink', value)}
           />
           <ButtonField
             label="Secondary Button"
-            buttonText={productData.secondaryButton || ''}
-            buttonLink={productData.secondaryButtonLink || ''}
+            buttonText={localProductData.secondaryButton || ''}
+            buttonLink={localProductData.secondaryButtonLink || ''}
             onTextChange={(value) => updateProductField('secondaryButton', value)}
             onLinkChange={(value) => updateProductField('secondaryButtonLink', value)}
           />
@@ -184,8 +256,10 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
       {/* Key Features */}
       <div className="space-y-4">
         <h4 className="font-medium text-base">Key Features</h4>
-        {(productData.details || []).map((detail: any, index: number) => (
-          <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+        {(localProductData.details || []).map((detail: any, index: number) => {
+          const stableKey = `detail-${index}-${detail.title?.length || 0}-${detail.description?.length || 0}`;
+          return (
+          <div key={stableKey} className="border border-border rounded-lg p-4 space-y-2">
             <TextInput
               label="Title"
               value={detail.title}
@@ -207,7 +281,8 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
               Remove Feature
             </button>
           </div>
-        ))}
+          )
+        })}
         <button
           onClick={() => {
             const newFeature = { title: '', description: '' };
@@ -245,8 +320,10 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
       {/* Use Cases */}
       <div className="space-y-4">
         <h4 className="font-medium text-base">Use Cases</h4>
-        {(productData.benefits || []).map((benefit: string, index: number) => (
-          <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+        {(localProductData.benefits || []).map((benefit: string, index: number) => {
+          const stableKey = `benefit-${index}-${benefit?.length || 0}`;
+          return (
+          <div key={stableKey} className="border border-border rounded-lg p-4 space-y-2">
             <TextArea
               label={`Use Case ${index + 1}`}
               value={benefit}
@@ -267,7 +344,8 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
               Remove Use Case
             </button>
           </div>
-        ))}
+          )
+        })}
         <button
           onClick={() => {
             const updated = [...(productData.benefits || []), ''];
@@ -304,8 +382,10 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
       {/* Technical Capabilities */}
       <div className="space-y-4">
         <h4 className="font-medium text-base">Technical Capabilities</h4>
-        {(productData.specifications || []).map((spec: any, index: number) => (
-          <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+        {(localProductData.specifications || []).map((spec: any, index: number) => {
+          const stableKey = `spec-${index}-${spec.name?.length || 0}-${spec.icon?.length || 0}`;
+          return (
+          <div key={stableKey} className="border border-border rounded-lg p-4 space-y-2">
             <div className="grid grid-cols-3 gap-3">
               <TextInput
                 label="Icon"
@@ -338,7 +418,8 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
               Remove Specification
             </button>
           </div>
-        ))}
+          )
+        })}
         <button
           onClick={() => {
             const newSpec = { icon: '', name: '', value: '' };
@@ -357,29 +438,26 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <TextInput
             label="Price"
-            value={productData.pricing?.price || ''}
-            onChange={(value) => {
-              const current = productData.pricing || {};
-              updateProductNestedField('pricing', null, 'price', value);
-            }}
+            value={localProductData.pricing?.price || ''}
+            onChange={(value) => updateProductNestedField('pricing', null, 'price', value)}
             placeholder="$49"
           />
           <TextInput
             label="Period"
-            value={productData.pricing?.period || ''}
+            value={localProductData.pricing?.period || ''}
             onChange={(value) => updateProductNestedField('pricing', null, 'period', value)}
             placeholder="/month"
           />
         </div>
         <TextArea
           label="Pricing Description"
-          value={productData.pricing?.description || ''}
+          value={localProductData.pricing?.description || ''}
           onChange={(value) => updateProductNestedField('pricing', null, 'description', value)}
           rows={2}
         />
         <TextInput
           label="Pricing Button Text"
-          value={productData.pricing?.buttonText || ''}
+          value={localProductData.pricing?.buttonText || ''}
           onChange={(value) => updateProductNestedField('pricing', null, 'buttonText', value)}
           placeholder="Start Free Trial"
         />
@@ -402,8 +480,10 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
       {/* FAQs */}
       <div className="space-y-4">
         <h4 className="font-medium text-base">FAQs</h4>
-        {(productData.faqs || []).map((faq: any, index: number) => (
-          <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+        {(localProductData.faqs || []).map((faq: any, index: number) => {
+          const stableKey = `faq-${index}-${faq.question?.length || 0}-${faq.answer?.length || 0}`;
+          return (
+          <div key={stableKey} className="border border-border rounded-lg p-4 space-y-2">
             <TextInput
               label={`Question ${index + 1}`}
               value={faq.question || ''}
@@ -433,7 +513,8 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
               Remove FAQ
             </button>
           </div>
-        ))}
+          )
+        })}
         <button
           onClick={() => {
             const updated = [...(productData.faqs || []), { question: '', answer: '' }];
@@ -454,7 +535,7 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
           <div className="border border-border rounded-lg p-4">
             <TextArea
               label="Answer Box (40-70 words)"
-              value={productData.llm.answerBox || ''}
+              value={localProductData.llm?.answerBox || ''}
               onChange={(value) => updateProductNestedField('llm', null, 'answerBox', value)}
               rows={3}
             />
@@ -465,9 +546,9 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
             <h5 className="font-medium">Expert Quote</h5>
             <TextArea
               label="Quote"
-              value={productData.llm.expertQuote?.quote || ''}
+              value={localProductData.llm?.expertQuote?.quote || ''}
               onChange={(value) => {
-                const current = productData.llm.expertQuote || {};
+                const current = localProductData.llm?.expertQuote || {};
                 updateProductNestedField('llm', null, 'expertQuote', { ...current, quote: value });
               }}
               rows={2}
@@ -475,26 +556,26 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
             <div className="grid grid-cols-2 gap-3">
               <TextInput
                 label="Expert Name"
-                value={productData.llm.expertQuote?.expertName || ''}
+                value={localProductData.llm?.expertQuote?.expertName || ''}
                 onChange={(value) => {
-                  const current = productData.llm.expertQuote || {};
+                  const current = localProductData.llm?.expertQuote || {};
                   updateProductNestedField('llm', null, 'expertQuote', { ...current, expertName: value });
                 }}
               />
               <TextInput
                 label="Expert Title"
-                value={productData.llm.expertQuote?.expertTitle || ''}
+                value={localProductData.llm?.expertQuote?.expertTitle || ''}
                 onChange={(value) => {
-                  const current = productData.llm.expertQuote || {};
+                  const current = localProductData.llm?.expertQuote || {};
                   updateProductNestedField('llm', null, 'expertQuote', { ...current, expertTitle: value });
                 }}
               />
             </div>
             <TextInput
               label="Institution"
-              value={productData.llm.expertQuote?.institution || ''}
+              value={localProductData.llm?.expertQuote?.institution || ''}
               onChange={(value) => {
-                const current = productData.llm.expertQuote || {};
+                const current = localProductData.llm?.expertQuote || {};
                 updateProductNestedField('llm', null, 'expertQuote', { ...current, institution: value });
               }}
             />
@@ -506,35 +587,35 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
             <div className="grid grid-cols-2 gap-3">
               <TextInput
                 label="Statistic"
-                value={productData.llm.statistic?.statistic || ''}
+                value={localProductData.llm?.statistic?.statistic || ''}
                 onChange={(value) => {
-                  const current = productData.llm.statistic || {};
+                  const current = localProductData.llm?.statistic || {};
                   updateProductNestedField('llm', null, 'statistic', { ...current, statistic: value });
                 }}
               />
               <TextInput
                 label="Date"
-                value={productData.llm.statistic?.date || ''}
+                value={localProductData.llm?.statistic?.date || ''}
                 onChange={(value) => {
-                  const current = productData.llm.statistic || {};
+                  const current = localProductData.llm?.statistic || {};
                   updateProductNestedField('llm', null, 'statistic', { ...current, date: value });
                 }}
               />
             </div>
             <TextArea
               label="Description"
-              value={productData.llm.statistic?.description || ''}
+              value={localProductData.llm?.statistic?.description || ''}
               onChange={(value) => {
-                const current = productData.llm.statistic || {};
+                const current = localProductData.llm?.statistic || {};
                 updateProductNestedField('llm', null, 'statistic', { ...current, description: value });
               }}
               rows={2}
             />
             <TextInput
               label="Source"
-              value={productData.llm.statistic?.source || ''}
+              value={localProductData.llm?.statistic?.source || ''}
               onChange={(value) => {
-                const current = productData.llm.statistic || {};
+                const current = localProductData.llm?.statistic || {};
                 updateProductNestedField('llm', null, 'statistic', { ...current, source: value });
               }}
             />
@@ -543,13 +624,15 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
           {/* FAQs (LLM) */}
           <div className="space-y-4">
             <h5 className="font-medium">FAQs</h5>
-            {(productData.llm?.faqs || []).map((faq: any, index: number) => (
-              <div key={index} className="border border-border rounded-lg p-4 space-y-2">
+            {(localProductData.llm?.faqs || []).map((faq: any, index: number) => {
+              const stableKey = `llm-faq-${index}-${faq.question?.length || 0}-${faq.answer?.length || 0}`;
+              return (
+              <div key={stableKey} className="border border-border rounded-lg p-4 space-y-2">
                 <TextInput
                   label={`Question ${index + 1}`}
                   value={faq.question || ''}
                   onChange={(value) => {
-                    const updated = [...(productData.llm?.faqs || [])];
+                    const updated = [...(localProductData.llm?.faqs || [])];
                     updated[index] = { ...updated[index], question: value };
                     updateProductNestedField('llm', null, 'faqs', updated);
                   }}
@@ -559,14 +642,14 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
                   value={faq.answer || ''}
                   rows={3}
                   onChange={(value) => {
-                    const updated = [...(productData.llm?.faqs || [])];
+                    const updated = [...(localProductData.llm?.faqs || [])];
                     updated[index] = { ...updated[index], answer: value };
                     updateProductNestedField('llm', null, 'faqs', updated);
                   }}
                 />
                 <button
                   onClick={() => {
-                    const updated = (productData.llm?.faqs || []).filter((_: any, i: number) => i !== index);
+                    const updated = (localProductData.llm?.faqs || []).filter((_: any, i: number) => i !== index);
                     updateProductNestedField('llm', null, 'faqs', updated);
                   }}
                   className="text-red-600 hover:text-red-800 text-sm"
@@ -574,10 +657,11 @@ export const IndividualProductEditor: React.FC<IndividualProductEditorProps> = (
                   Remove FAQ
                 </button>
               </div>
-            ))}
+              )
+            })}
             <button
               onClick={() => {
-                const updated = [...(productData.llm?.faqs || []), { question: '', answer: '' }];
+                const updated = [...(localProductData.llm?.faqs || []), { question: '', answer: '' }];
                 updateProductNestedField('llm', null, 'faqs', updated);
               }}
               className="w-full p-2 border-2 border-dashed border-gray-300 rounded text-sm text-gray-600 hover:border-gray-400 hover:text-gray-800"
