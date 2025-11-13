@@ -1,59 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import React from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { useLocation } from 'wouter';
-import { MagnetizeButton } from '@/components/ui/magnetize-button';
 import { Button } from '@/components/ui/button';
-import logoBundledUrl from '@/assets/bkit_logo_f.png';
+import { resolveLucideIcon } from '@/lib/iconUtils';
+
+const XLogo = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" {...props}>
+    <path
+      fill="currentColor"
+      d="M17.21 3H21L13.5 11.57 21.5 21h-4.33l-5.18-6.69L6.53 21H3l7.62-8.83L2.5 3h4.33l4.7 6.07L17.21 3Z"
+    />
+  </svg>
+);
 
 const Header = () => {
-  const { isAuthenticated, isAdmin } = useAuth();
   const { content } = usePublishedContent();
   const [location] = useLocation();
-  const [hasMounted, setHasMounted] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isLogoBroken, setIsLogoBroken] = useState(false);
-  const [logoSrc, setLogoSrc] = useState<string>(logoBundledUrl);
-
-  const handleLogoError = () => {
-    if (logoSrc === logoBundledUrl) {
-      setLogoSrc('/bkit_logo_f.png');
-      return;
-    }
-    if (logoSrc === '/bkit_logo_f.png') {
-      setLogoSrc('/bkit_logo_1.png');
-      return;
-    }
-    if (logoSrc === '/bkit_logo_1.png') {
-      setLogoSrc('/bkit_logo.png');
-      return;
-    }
-    if (logoSrc === '/bkit_logo.png') {
-      setLogoSrc('/logo.svg');
-      return;
-    }
-    setIsLogoBroken(true);
-  };
-  useEffect(() => {
-    setHasMounted(true);
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 4);
-    };
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  const isHomeRoute = location === '/';
   const slug = (location || '/').replace(/^\/+/, '').split('/')[0] || '';
-  const isAdminEditor = location.startsWith('/admin') || location.startsWith('/editor');
-  const isProductFromContent = !!(content?.products && slug && (content.products as any)[slug]);
-  const isProductPathFallback = !!(slug && !['', 'admin', 'editor', 'design-system', 'test', 'database'].includes(slug));
-  const isProductLike = isProductFromContent || isProductPathFallback;
-  const topClass = hasMounted && isAuthenticated && isAdmin
-    ? (isScrolled ? 'top-10' : 'top-14')
-    : (((isHomeRoute || (isProductLike && !isAdminEditor)) && !isScrolled) ? 'top-0' : (isScrolled ? 'top-0' : 'top-4'));
-  const isTopTransparent = (isHomeRoute || (isProductLike && !isAdminEditor)) && !isScrolled;
-  const positionClass = !hasMounted ? 'absolute' : (isTopTransparent ? 'absolute' : 'fixed');
+  const comingSoonEnabled = Boolean((content?.settings as any)?.comingSoonEnabled);
 
   // Check if header should be visible
   const shouldShowHeader = content.settings?.visibility?.header !== false;
@@ -66,6 +30,9 @@ const Header = () => {
   type NavChild = {
     label: string;
     href: string;
+    description?: string;
+    icon?: string;
+    badge?: string;
     isExternal?: boolean;
     nofollow?: boolean;
   };
@@ -87,21 +54,36 @@ const Header = () => {
 
   type NavItem = DropdownNavItem | LinkNavItem;
 
-  const navItems: NavItem[] = Array.isArray(content.header?.navigation)
+  const hideNavLinks = content.settings?.visibility?.headerNavLinks === false;
+
+  let navItems: NavItem[] = Array.isArray(content.header?.navigation)
     ? (content.header?.navigation as NavItem[])
     : [];
 
-  // Ensure Docs link exists even if not present in published content
-  const hasDocsLink = navItems.some((item) => {
-    const asLink = item as LinkNavItem;
-    return (
-      (asLink.label && asLink.label.toLowerCase() === 'docs') ||
-      (asLink.href && asLink.href.toLowerCase() === '/docs')
-    );
-  });
-  const navItemsWithDocs: NavItem[] = hasDocsLink
-    ? navItems
-    : [...navItems, { label: 'Docs', href: '/docs', type: 'link' } as LinkNavItem];
+  if (hideNavLinks) {
+    navItems = [];
+  }
+
+  // When Coming Soon is enabled, remove product/page links from header
+  if (comingSoonEnabled) {
+    const systemRoutes = new Set<string>(['', 'admin', 'editor', 'design-system', 'design-system-demo', 'test', 'database', 'docs']);
+    const isProductOrPage = (href?: string): boolean => {
+      if (!href) return false;
+      const normalized = href.startsWith('#') ? `/${href}` : href;
+      if (!normalized.startsWith('/')) return false;
+      const first = normalized.replace(/^\/+/, '').split('/')[0] || '';
+      return first.length > 0 && !systemRoutes.has(first) && !normalized.startsWith('/#');
+    };
+    navItems = navItems.filter((item) => {
+      const asLink = item as LinkNavItem;
+      if ((item as any).type === 'dropdown') {
+        const dd = item as DropdownNavItem;
+        const keptChildren = (dd.children || []).filter((c) => !isProductOrPage(c.href));
+        return keptChildren.length > 0; // drop empty dropdowns
+      }
+      return !isProductOrPage(asLink.href);
+    });
+  }
 
   const resolveExternal = (item: { type?: string; isExternal?: boolean }): boolean => {
     if (typeof item.isExternal === 'boolean') return item.isExternal;
@@ -115,154 +97,152 @@ const Header = () => {
     return parts.length ? parts.join(' ') : undefined;
   };
 
-  const bgClass = !hasMounted ? 'bg-transparent' : (isScrolled ? 'bg-background/80 backdrop-blur border-b border-border' : 'bg-transparent');
+  const headerClassName = 'bg-transparent absolute inset-x-0 top-0 z-50 w-full transition-all duration-300';
 
   return (
-    <header className={`${bgClass} ${positionClass} w-full ${topClass} z-50 transition-all duration-300`}>
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+    <header className={headerClassName}>
+      <div className="section-content h-16 flex items-center">
         <a
-          href={hasMounted && isAuthenticated && isAdmin ? '/admin' : '/'}
-          aria-label={hasMounted && isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
-          title={hasMounted && isAuthenticated && isAdmin ? 'Go to Admin Dashboard' : 'Go to Home'}
+          href="/"
+          aria-label="Go to Home"
+          title="Go to Home"
           className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
         >
-          {!isLogoBroken && (
-            <img
-              src={logoSrc}
-              alt=""
-              aria-hidden="true"
-              width={32}
-              height={32}
-              className="w-8 h-8 mr-2 drop-shadow-sm"
-              onError={handleLogoError}
-            />
-          )}
-          <span className="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">
+          <span className="text-logo font-[Satoshi,Inter_Variable,Inter,ui-sans-serif] font-bold tracking-[-0.04em] text-xl leading-none">
             {content.header?.logoText || 'BiblioKit'}
           </span>
         </a>
-        <nav className="hidden md:flex items-center space-x-6">
-          {navItemsWithDocs.map((item, index) => {
-            if ((item as DropdownNavItem).type === 'dropdown') {
-              const dd = item as DropdownNavItem;
-              return (
-                <div key={`dd-${index}`} className="relative group">
-                  <button className="text-sm font-medium hover:text-primary transition-colors flex items-center">
-                    {dd.label}
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-gray-200 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <div className="py-2">
-                      {(dd.children || []).map((child, ci) => {
-                        const href = child.href || '#';
-                        const normalizedHref = href.startsWith('#') ? `/${href}` : href;
-                        return (
-                          <a
-                            key={`dd-item-${index}-${ci}`}
-                            href={normalizedHref}
-                            target={child.isExternal ? '_blank' : undefined}
-                            rel={linkRel(child.nofollow, !!child.isExternal)}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
-                          >
-                            {child.label}
-                          </a>
-                        );
-                      })}
+        <div className="ml-auto flex items-center space-x-6">
+          <div className="flex items-center space-x-4">
+            {/* Mobile menu button */}
+            <button className="md:hidden p-2 rounded-md hover:bg-gray-100" onClick={() => {
+              const mobileMenu = document.getElementById('mobile-menu');
+              mobileMenu?.classList.toggle('hidden');
+            }}>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            
+            {content.header?.showSignIn !== false && (
+              <Button
+                asChild
+                size="sm"
+                variant="outline"
+              >
+                <a
+                  href={(content.header?.signInHref || content.header?.signInLink || '#').startsWith('#') ? `/${content.header?.signInHref || content.header?.signInLink || '#'}` : (content.header?.signInHref || content.header?.signInLink || '#')}
+                  aria-label={content.header?.signInText || 'Sign In'}
+                >
+                  {content.header?.signInText || 'Sign In'}
+                </a>
+              </Button>
+            )}
+          </div>
+          <nav className="hidden md:flex items-center space-x-6">
+            {navItems.map((item, index) => {
+              if ((item as DropdownNavItem).type === 'dropdown') {
+                const dd = item as DropdownNavItem;
+                return (
+                  <div key={`dd-${index}`} className="relative group">
+                    <button className="text-sm font-medium hover:text-primary transition-colors flex items-center">
+                      {dd.label}
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    <div className="absolute top-full left-0 mt-2 w-[360px] bg-slate-950/90 border border-white/10 backdrop-blur-xl rounded-2xl shadow-[0_20px_60px_rgba(12,16,28,0.45)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div className="p-4 space-y-2">
+                        {(dd.children || []).map((child, ci) => {
+                          const href = child.href || '#';
+                          const normalizedHref = href.startsWith('#') ? `/${href}` : href;
+                          const ChildIcon = resolveLucideIcon(child.icon || child.label);
+                          return (
+                            <a
+                              key={`dd-item-${index}-${ci}`}
+                              href={normalizedHref}
+                              target={child.isExternal ? '_blank' : undefined}
+                              rel={linkRel(child.nofollow, !!child.isExternal)}
+                              className="flex gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-white/10"
+                            >
+                              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-white">
+                                <ChildIcon className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
+                              </span>
+                              <span className="flex-1 text-left">
+                                <span className="flex items-center gap-2">
+                                  <span className="text-sm font-semibold text-white">{child.label}</span>
+                                  {child.badge && (
+                                    <span className="text-[10px] font-semibold uppercase tracking-wide text-white bg-white/15 px-2 py-[2px] rounded-full">
+                                      {child.badge}
+                                    </span>
+                                  )}
+                                </span>
+                                {child.description && (
+                                  <span className="mt-1 block text-xs leading-5 text-white/75">
+                                    {child.description}
+                                  </span>
+                                )}
+                              </span>
+                            </a>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            }
+                );
+              }
 
-            const li = item as LinkNavItem;
-            const isExternal = resolveExternal(li);
-            const isButton = li.isButton || li.type === 'button';
-            // Normalize hash-only links to root anchored navigation (e.g., "#pricing" -> "/#pricing")
-            const href = (li.href || '#');
-            const normalizedHref = href.startsWith('#') ? `/${href}` : href;
-            if (isButton) {
+              const li = item as LinkNavItem;
+              const isExternal = resolveExternal(li);
+              const isButton = li.isButton || li.type === 'button';
+              // Normalize hash-only links to root anchored navigation (e.g., "#pricing" -> "/#pricing")
+              const href = (li.href || '#');
+              const normalizedHref = href.startsWith('#') ? `/${href}` : href;
+              if (isButton) {
+                return (
+                  <Button asChild key={`nav-${index}`} size="sm">
+                    <a
+                      href={normalizedHref}
+                      target={isExternal ? '_blank' : undefined}
+                      rel={linkRel(li.nofollow, isExternal)}
+                      aria-label={li.label}
+                    >
+                      {li.label}
+                    </a>
+                  </Button>
+                );
+              }
               return (
-                <Button asChild key={`nav-${index}`} size="sm">
-                  <a
-                    href={normalizedHref}
-                    target={isExternal ? '_blank' : undefined}
-                    rel={linkRel(li.nofollow, isExternal)}
-                    aria-label={li.label}
-                  >
-                    {li.label}
-                  </a>
-                </Button>
+                <a
+                  key={`nav-${index}`}
+                  href={normalizedHref}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={linkRel(li.nofollow, isExternal)}
+                  className="text-sm font-medium hover:text-primary transition-colors"
+                >
+                  {li.label}
+                </a>
               );
-            }
-            return (
-              <a
-                key={`nav-${index}`}
-                href={normalizedHref}
-                target={isExternal ? '_blank' : undefined}
-                rel={linkRel(li.nofollow, isExternal)}
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                {li.label}
-              </a>
-            );
-          })}
-          
-          {hasMounted && isAuthenticated && isAdmin && (
-            <a
-              href="/editor"
-              className="text-sm font-medium text-primary hover:underline"
-              aria-label="Open Content Editor"
-            >
-              Content Editor
-            </a>
-          )}
-        </nav>
-        <div className="flex items-center space-x-4">
-          {/* Mobile menu button */}
-          <button className="md:hidden p-2 rounded-md hover:bg-gray-100" onClick={() => {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu?.classList.toggle('hidden');
-          }}>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-          
-          {content.header?.showSignIn !== false && (
-            <Button
-              asChild
-              size="sm"
-              variant="outline"
-            >
-              <a
-                href={(content.header?.signInHref || content.header?.signInLink || '#').startsWith('#') ? `/${content.header?.signInHref || content.header?.signInLink || '#'}` : (content.header?.signInHref || content.header?.signInLink || '#')}
-                aria-label={content.header?.signInText || 'Sign In'}
-              >
-                {content.header?.signInText || 'Sign In'}
-              </a>
-            </Button>
-          )}
-          {content.header?.showGetStarted !== false && (
-            <MagnetizeButton
-              size="sm"
-              href={(content.header?.getStartedHref || content.header?.getStartedLink || '#').startsWith('#') ? `/${content.header?.getStartedHref || content.header?.getStartedLink || '#'}` : (content.header?.getStartedHref || content.header?.getStartedLink || '#')}
-              aria-label={content.header?.getStartedText || 'Get Started'}
-              title={content.header?.getStartedText || 'Get Started'}
-            >
-              {content.header?.getStartedText || 'Get Started'}
-            </MagnetizeButton>
-          )}
+            })}
+          </nav>
+          <a
+            href="https://twitter.com/bibliokit"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow BiblioKit on X"
+            className="hidden md:inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white shadow-[0_10px_30px_rgba(9,9,18,0.35)] backdrop-blur-md transition-colors hover:bg-white/20"
+          >
+            <XLogo className="h-4 w-4" />
+          </a>
         </div>
       </div>
 
       {/* Mobile menu */}
       <div
         id="mobile-menu"
-        className={`hidden md:hidden ${isScrolled ? 'bg-background/80 backdrop-blur border-t border-border' : 'bg-transparent'} transition-colors duration-300`}
+        className="hidden md:hidden bg-gradient-to-br from-rose-50 via-white to-blue-50 transition-colors duration-300"
       >
-        <div className="px-4 py-2 space-y-2">
+        <div className="section-content py-2 space-y-2">
           {navItems.map((item, index) => {
             if ((item as DropdownNavItem).type === 'dropdown') {
               const dd = item as DropdownNavItem;
@@ -275,9 +255,26 @@ const Header = () => {
                       href={child.href}
                       target={child.isExternal ? '_blank' : undefined}
                       rel={linkRel(child.nofollow, !!child.isExternal)}
-                      className="block py-2 pl-4 text-sm text-gray-700 hover:text-primary transition-colors"
+                      className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-700 hover:bg-white/60 hover:text-primary transition-colors"
                     >
-                      {child.label}
+                      <div className="flex items-start gap-3">
+                        {child.icon && <span className="text-lg">{child.icon}</span>}
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span>{child.label}</span>
+                            {child.badge && (
+                              <span className="text-[10px] font-semibold uppercase tracking-wide text-primary bg-primary/10 px-2 py-[2px] rounded-full">
+                                {child.badge}
+                              </span>
+                            )}
+                          </div>
+                          {child.description && (
+                            <p className="mt-1 text-xs font-normal text-slate-600">
+                              {child.description}
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </a>
                   ))}
                 </div>
@@ -316,6 +313,18 @@ const Header = () => {
             );
           })}
           
+          <a
+            href="https://twitter.com/bibliokit"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow BiblioKit on X"
+            className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-gray-700 hover:bg-white/60 hover:text-primary transition-colors"
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/10 text-slate-900 shadow-[0_10px_30px_rgba(9,9,18,0.25)] backdrop-blur-md">
+              <XLogo className="h-4 w-4" />
+            </span>
+            <span>Follow on X</span>
+          </a>
         </div>
       </div>
     </header>

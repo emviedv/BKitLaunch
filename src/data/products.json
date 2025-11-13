@@ -6,12 +6,13 @@
       "hero": true,
       "footer": true,
       "header": true,
+      "headerNavLinks": true,
       "contact": true,
       "pricing": false,
       "product": true,
       "features": true,
       "uxbiblio": true,
-      "waitlist": true,
+      "waitlist": false,
       "bibliokit-blocks": true,
       "ai-rename-variants": true
     },
@@ -25,22 +26,50 @@
   },
   "hero": {
     "visible": true,
-    "title": "Work x1000 Faster",
-    "subtitle": "Your AI Design ToolKit, Reinvented.",
-    "badgeLabel": "Built by designers for designers.",
-    "description": "Professional SaaS software and Figma plugins with secure API management and world-class support for designers and developers.",
+    "title": "Your Design Toolkit, Reinvented.",
+    "subtitle": "Work x10,000 faster.",
+    "badgeLabel": null,
+    "description": "Automate the stuff you hate, design the things you love.",
     "primaryButton": "Get Started Free",
     "secondaryButton": "View Products",
     "primaryButtonLink": "https://blocks.bibliokit.com/signup",
     "secondaryButtonLink": "#features",
-    "gradientColors": ["#ecfeff00", "#ecfeff10", "#c7d2fe40", "#a7f3d040", "#a5b4fc50", "#93c5fd40", "#ffffff00"]
+    "gradientColors": [
+      "#ecfeff00",
+      "#ecfeff10",
+      "#c7d2fe40",
+      "#a7f3d040",
+      "#a5b4fc50",
+      "#93c5fd40",
+      "#ffffff00"
+    ]
   },
   "header": {
     "logoText": "BiblioKit",
     "navigation": [
-      { "href": "/bibliokit-blocks", "label": "BiblioKit Blocks" },
-      { "href": "/ai-rename-variants", "label": "AI Rename Variants" },
-      { "href": "/uxbiblio", "label": "UXBiblio" }
+      {
+        "type": "dropdown",
+        "label": "Plugins",
+        "children": [
+          {
+            "label": "AI Rename Variants",
+            "href": "/ai-rename-variants",
+            "description": "Standardize your Figma variant names instantly with AI-powered batch renaming.",
+            "icon": "✨"
+          },
+          {
+            "label": "Component Auditor",
+            "href": "/component-auditor-figma-plugin",
+            "description": "Audit component naming, coverage, and structure across Figma files in minutes.",
+            "icon": "🧭",
+            "badge": "Coming Soon"
+          }
+        ]
+      },
+      {
+        "href": "/uxbiblio",
+        "label": "UXBiblio"
+      }
     ],
     "showSignIn": false,
     "signInText": "Sign In",
@@ -55,19 +84,13 @@
       "badge": "Launched",
       "title": "AI Rename Variants",
       "badges": [],
-      "topItems": [
-        "Batch rename sets",
-        "Detect states & sizes",
-        "Undo changes safely",
-        "Spot missing variants",
-        "Cross-platform names"
-      ],
+      "topItems": [],
       "showBadge": true,
       "badgeColor": "#10b981",
       "buttonLink": "/ai-rename-variants",
       "buttonText": "Learn More",
       "isFeatured": false,
-      "description": "Batch-rename Figma variants with AI. Context-aware analysis ensures consistent naming conventions, cleaner files, and reduced design debt.",
+      "description": "Instantly standardize your Figma variant names with one-click renaming that aligns with Material, Carbon, and Polaris design systems.",
       "buttonPreset": "custom"
     },
     {
@@ -106,7 +129,7 @@
       ],
       "showBadge": true,
       "badgeColor": "#10b981",
-      "buttonLink": "/bibliokit-blocks",
+      "buttonLink": "https://blocks.bibliokit.com/signup",
       "buttonText": "Learn More",
       "isFeatured": false,
       "description": "Analytics platform for Figma libraries. Track usage across files, measure adoption, highlight duplicates, and quantify ROI to optimize design systems.",
@@ -127,79 +150,85 @@
       ],
       "showBadge": true,
       "badgeColor": "#8b5cf6",
-      "buttonLink": "/uxbiblio",
+      "buttonLink": "https://uxbiblio.com",
       "buttonText": "Learn More",
       "isFeatured": true,
       "description": "A centralized UX/UI repository. Save screenshots, patterns, and resources with AI tagging, heuristic analysis, and visual documentation for inspiration.",
-      "buttonPreset": "custom"
+      "buttonPreset": "custom",
+      "media": {
+        "type": "uxbiblio-list",
+        "position": "left",
+        "size": "lg"
+      }
     }
   ],
   "featuresSection": {
-    "title": "Work x1000 Faster",
-    "description": "Professional SaaS software and Figma plugins with secure API management and world-class support for designers and developers."
+    "title": "Design smarter. Ship cleaner.",
+    "description": "From idea to hand-off, faster than ever. High-performers teams rely on our Figma plugins to stay consistent, connected, and miles ahead."
   },
   "pricing": [
     {
       "name": "Free",
-      "price": "$0",
-      "period": "/month",
-      "popular": false,
-      "features": [
-        "1,000 API requests/month",
-        "Essential Figma plugin support",
-        "Community-driven help",
-        "Basic documentation and guides",
-        "1 API key",
-        "Standard rate limiting"
-      ],
-      "buttonText": "Start Free",
-      "buttonLink": "https://blocks.bibliokit.com/signup",
-      "description": "Ideal for individuals testing BiblioKit tools and Figma plugin integrations."
-    },
-    {
-      "name": "Pro",
-      "price": "$29",
-      "period": "/month",
-      "popular": true,
-      "features": [
-        "50,000 API requests/month",
-        "Advanced Figma plugin features",
-        "Priority email support",
-        "Extended support library",
-        "Unlimited API keys",
-        "Custom rate limiting",
-        "Usage and adoption analytics",
-        "Team collaboration features"
-      ],
-      "buttonText": "Start Pro Trial",
-      "buttonLink": "https://blocks.bibliokit.com/signup?plan=pro",
-      "description": "Perfect for professional developers, product designers, and agile product teams."
-    },
-    {
-      "name": "Enterprise",
-      "price": "Custom",
+      "price": "Free",
       "period": "",
       "popular": false,
       "features": [
-        "Unlimited API requests",
-        "Custom Figma integrations",
-        "Dedicated customer success manager",
-        "Personalized onboarding",
-        "Advanced compliance and security",
-        "SLA guarantees",
-        "Custom analytics and reporting",
-        "On-premise or hybrid deployment",
-        "Custom enterprise integrations"
+        "Basic uploads",
+        "AI tagging up to 100/month"
+      ],
+      "buttonText": "Start Free",
+      "buttonLink": "https://uxbiblio.com/signup",
+      "description": "Onboarding hook for junior designers to experience core value before upgrading."
+    },
+    {
+      "name": "Pro",
+      "price": "$15",
+      "period": "/month",
+      "popular": true,
+      "features": [
+        "Unlimited tagging",
+        "Heuristic insights",
+        "Advanced search",
+        "Export"
+      ],
+      "buttonText": "Start 7-Day Free Trial",
+      "buttonLink": "https://uxbiblio.com/signup?plan=pro",
+      "description": "Affordably priced for serious individuals requiring productivity boosts. 7-day free trial included."
+    },
+    {
+      "name": "Team",
+      "price": "$25",
+      "period": "/user/month",
+      "popular": false,
+      "features": [
+        "Shared libraries",
+        "Collaboration",
+        "Analytics",
+        "Admin"
+      ],
+      "buttonText": "Start 7-Day Free Trial",
+      "buttonLink": "https://uxbiblio.com/signup?plan=team",
+      "description": "Targeting agencies and product teams willing to pay per seat. 7-day free trial included."
+    },
+    {
+      "name": "Enterprise",
+      "price": "$99",
+      "period": "/user/month",
+      "popular": false,
+      "features": [
+        "Enterprise security",
+        "Unlimited features",
+        "Premium support"
       ],
       "buttonText": "Contact Sales",
-      "buttonLink": "mailto:hello@bibliokit.com?subject=Enterprise%20Inquiry",
-      "description": "Tailored solutions for enterprises with large-scale design system and API needs."
+      "buttonLink": "mailto:hello@bibliokit.com?subject=UXBiblio%20Enterprise",
+      "description": "Added compliance and support for large-scale design orgs."
     }
   ],
   "cta": {
-    "title": "Ready to Transform Your Workflow?",
-    "description": "Join thousands of designers and developers who rely on BiblioKit's Figma plugins and SaaS tools for faster, smarter, and more efficient product design.",
-    "primaryButton": "Start Free Trial",
+    "title": "Join Designers shipping faster with BiblioKit",
+    "description": "Set up a shared workspace, align every stakeholder, and launch production-ready documentation 10x faster.",
+    "primaryButton": "Start 7-Day Free Trial",
     "secondaryButton": "Schedule Demo",
     "primaryButtonLink": "https://blocks.bibliokit.com/signup",
     "secondaryButtonLink": "https://blocks.bibliokit.com/demo"
@@ -209,26 +238,56 @@
       {
         "title": "Product",
         "links": [
-          { "href": "#features", "label": "Features" },
-          { "href": "#pricing", "label": "Pricing" },
-          { "href": "/docs", "label": "Documentation" },
-          { "href": "#contact", "label": "Get Started" }
+          {
+            "href": "#features",
+            "label": "Features"
+          },
+          {
+            "href": "#pricing",
+            "label": "Pricing"
+          },
+          {
+            "href": "/docs",
+            "label": "Documentation"
+          },
+          {
+            "href": "#contact",
+            "label": "Get Started"
+          }
         ]
       },
       {
         "title": "Support",
         "links": [
-          { "href": "#help", "label": "Help Center" },
-          { "href": "#contact", "label": "Contact" },
-          { "href": "#status", "label": "System Status" }
+          {
+            "href": "#help",
+            "label": "Help Center"
+          },
+          {
+            "href": "#contact",
+            "label": "Contact"
+          },
+          {
+            "href": "#status",
+            "label": "System Status"
+          }
         ]
       },
       {
         "title": "Connect",
         "links": [
-          { "href": "mailto:hello@bibliokit.com", "label": "Email Us" },
-          { "href": "https://twitter.com/bibliokit", "label": "Twitter" },
-          { "href": "https://github.com/bibliokit", "label": "GitHub" }
+          {
+            "href": "mailto:hello@bibliokit.com",
+            "label": "Email Us"
+          },
+          {
+            "href": "https://twitter.com/bibliokit",
+            "label": "Twitter"
+          },
+          {
+            "href": "https://github.com/bibliokit",
+            "label": "GitHub"
+          }
         ]
       }
     ],
@@ -239,166 +298,214 @@
     "github": "bibliokit",
     "twitter": "@bibliokit"
   },
-  "waitlist": {
-    "title": "Get Early Access",
-    "buttonText": "Join the Waitlist",
-    "description": "Sign up now for early access to new BiblioKit features, exclusive updates, and launch announcements.",
-    "successMessage": "Thank you for joining our waitlist! You'll receive exclusive updates soon."
-  },
+  "waitlist": {},
   "products": {
-    "bibliokit-blocks": {
-      "title": "BiblioKit Blocks",
-      "description": "Professional design system analytics platform that tracks Figma component usage, measures design system ROI, and optimizes component libraries with automated insights for product teams.",
-      "primaryButton": "Start Free Trial",
-      "secondaryButton": "View Demo",
-      "primaryButtonLink": "https://blocks.bibliokit.com/signup",
-      "secondaryButtonLink": "https://blocks.bibliokit.com/demo",
-      "badgeLabel": "SaaS Analytics Platform",
-      "visibility": { "waitlist": true },
-      "details": [
-        {
-          "title": "Automated Figma Integration",
-          "description": "Connect via secure OAuth to automatically track component usage across all your design libraries and files in real-time"
-        },
-        {
-          "title": "Visual Analytics Dashboard", 
-          "description": "Interactive charts showing usage trends, adoption rates, and performance metrics with exportable reports and insights"
-        },
-        {
-          "title": "Component Performance Insights",
-          "description": "Identify over-used, under-used, and unused components instantly with detailed breakdowns and recommendations"
-        },
-        {
-          "title": "ROI Reporting & Metrics",
-          "description": "Generate executive reports demonstrating design system business impact with quantifiable time savings and efficiency gains"
-        },
-        {
-          "title": "Team Collaboration Analytics",
-          "description": "Multi-user access with role-based permissions, shared dashboards, and collaborative insights for entire product teams"
-        }
-      ],
-      "benefits": [
-        "Increase design system adoption by 25%+ with usage visibility",
-        "Reduce component maintenance overhead by 30% through data-driven decisions",
-        "Demonstrate ROI with quantifiable time savings and efficiency metrics",
-        "Optimize team productivity with 20-40% faster feature development cycles",
-        "Achieve 85%+ component reuse rates across projects",
-        "Make informed decisions about component deprecation and optimization"
-      ],
-      "specifications": [
-        {
-          "icon": "📊",
-          "name": "Analytics Engine",
-          "value": "Real-time component tracking across unlimited files"
-        },
-        {
-          "icon": "🔗",
-          "name": "Figma Integration",
-          "value": "Secure OAuth connection with automatic sync"
-        },
-        {
-          "icon": "📈",
-          "name": "ROI Tracking",
-          "value": "Quantifiable business impact metrics"
-        },
-        {
-          "icon": "👥",
-          "name": "Team Support",
-          "value": "Multi-user access with role permissions"
-        },
-        {
-          "icon": "📋",
-          "name": "Export Options",
-          "value": "CSV, PDF reports, and shareable links"
-        },
-        {
-          "icon": "🛡️",
-          "name": "Enterprise Security",
-          "value": "SOC 2 compliant with 99.5% uptime"
-        }
-      ],
-      "pricing": {
-        "price": "$49",
-        "period": "/month",
-        "buttonText": "Start Free Trial",
-        "description": "Professional design system analytics for growing product teams. 14-day free trial included."
-      },
-      "llm": {
-        "answerBox": "BiblioKit Blocks provides comprehensive design system analytics that automatically tracks Figma component usage, measures ROI, and delivers actionable insights to optimize component libraries. Increase adoption rates by 25%+ and reduce maintenance overhead through data-driven decision making for product teams.",
-        "statistic": {
-          "date": "February 2024",
-          "source": "Product Team Analytics Report 2024",
-          "statistic": "85%",
-          "description": "of product teams achieve higher component reuse rates when using design system analytics platforms"
-        },
-        "expertQuote": {
-          "quote": "66.7% of organizations do not measure the ROI of their design system.",
-          "expertName": "Romina Kavcic",
-          "expertTitle": "Design System Researcher",
-          "institution": "The Design System Guide"
-        },
-        "faqs": [
-          {
-            "question": "How does BiblioKit Blocks track component usage across my design files?",
-            "answer": "BiblioKit Blocks connects to your Figma account via secure OAuth and automatically scans your design libraries and files to track component instances, usage frequency, and adoption patterns in real-time without manual setup."
-          },
-          {
-            "question": "Can I measure the ROI of my design system investment?",
-            "answer": "Yes, BiblioKit Blocks provides comprehensive ROI reporting with quantifiable metrics including time savings, efficiency gains, component reuse rates, and productivity improvements that demonstrate clear business value to stakeholders."
-          },
-          {
-            "question": "What kind of analytics insights will I get about my components?",
-            "answer": "You'll receive detailed analytics on component usage trends, adoption rates, over-used vs. under-used components, team collaboration patterns, and actionable recommendations for optimizing your design system performance."
-          },
-          {
-            "question": "Is my Figma data secure with BiblioKit Blocks?",
-            "answer": "Absolutely. We use enterprise-grade security with SOC 2 compliance, encrypted data transmission, and secure OAuth integration. Your design data is protected with the same security standards used by Fortune 500 companies."
-          },
-          {
-            "question": "How quickly can I see results after connecting my Figma account?",
-            "answer": "Initial analytics appear within 24 hours of connecting your account. The platform continuously syncs with your Figma files to provide real-time insights and updated reports as your design system evolves."
-          }
-        ]
-      }
-    },
     "ai-rename-variants": {
       "title": "AI Rename Variants",
-      "description": "Instantly relabel Figma variant and layer names with context-aware AI. Remove clutter and bring order to your files in seconds.",
+      "description": "Instantly standardize your Figma variant names with one-click renaming that aligns with Material, Carbon, and Polaris design systems.",
       "primaryButton": "Install Plugin",
       "secondaryButton": "Learn More",
-      "primaryButtonLink": "https://www.figma.com/community/plugin/ai-rename-variants",
+      "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
       "secondaryButtonLink": "#features",
       "badgeLabel": "🏷️ Figma Plugin",
-      "visibility": { "waitlist": true },
+      "visibility": {
+        "waitlist": false
+      },
       "details": [
         {
-          "title": "Context-Aware AI Naming",
-          "description": "Smart algorithm analyzes component structure, properties, and design patterns to generate meaningful, consistent names automatically"
+          "title": "Stop fixing messy names by hand",
+          "description": "AI reads your component structure, properties, and patterns to generate consistent, meaningful names automatically.",
+          "buttonText": "Try AI Rename Variants For Free",
+          "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+          "items": [
+            "Let the AI rename messy variant titles instantly, guided by your component context.",
+            "Keep every component aligned with your design system vocabulary automatically.",
+            "Flag duplicate states and legacy tags before the rename publishes to your team."
+          ],
+          "mediaComponent": "feature-blueprint",
+          "mediaBlueprint": {
+            "title": "Smart Rename Blueprint",
+            "fields": [
+              {
+                "label": "Original variant",
+                "value": "Button / FINAL_FINAL_v2 / frame copy",
+                "accent": true
+              },
+              {
+                "label": "AI signals",
+                "value": "Props • States • Tokens"
+              },
+              {
+                "label": "Clean result",
+                "value": "Button • Primary / Hover"
+              }
+            ],
+            "toggles": [
+              {
+                "label": "Collapse duplicates",
+                "active": true
+              },
+              {
+                "label": "Normalize casing",
+                "active": true
+              },
+              {
+                "label": "Flag legacy tags",
+                "active": false
+              }
+            ],
+            "footer": "Preview: Before vs After",
+            "theme": "blue"
+          }
         },
         {
-          "title": "Batch Processing",
-          "description": "Rename hundreds of variants and layers simultaneously across multiple components with a single click for maximum efficiency"
+          "title": "Bulk renaming made effortless",
+          "description": "Select multiple components, run once, and instantly update every variant and layer — fast, reliable, and consistent.",
+          "buttonText": "Try AI Rename Variants For Free",
+          "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+          "items": [
+            "Keep multi-state component sets in sync while you batch rename entire libraries.",
+            "Protect overrides and downstream instances when hundreds of layers change at once.",
+            "Apply property optimizations in the same pass so every variant stays consistent."
+          ],
+          "mediaComponent": "feature-batch"
         },
         {
-          "title": "Custom Naming Rules",
-          "description": "Configure naming patterns, prefixes, and conventions that match your team's design system standards and guidelines"
+          "title": "Make naming match your system",
+          "description": "Define custom patterns, prefixes, and conventions that align with your team's design standards and naming logic.",
+          "buttonText": "Try AI Rename Variants For Free",
+          "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+          "items": [
+            "Define rule blueprints once and auto-apply them to new variants with zero manual edits.",
+            "Map naming outputs directly to the tokens your teams already rely on.",
+            "Guarantee every generated name stays readable for Dev Mode and handoff reviews."
+          ],
+          "mediaComponent": "feature-blueprint",
+          "mediaBlueprint": {
+            "title": "Naming Rule Builder",
+            "fields": [
+              {
+                "label": "Platform",
+                "value": "Web · iOS · Android",
+                "accent": true
+              },
+              {
+                "label": "Component",
+                "value": "Button"
+              },
+              {
+                "label": "States",
+                "value": "Default • Hover • Disabled"
+              }
+            ],
+            "toggles": [
+              {
+                "label": "Enforce casing",
+                "active": true
+              },
+              {
+                "label": "Prefix theme token",
+                "active": true
+              },
+              {
+                "label": "Developer handoff notes",
+                "active": false
+              }
+            ],
+            "footer": "Preview · Web / Button / Primary / Hover",
+            "theme": "emerald"
+          }
         },
         {
-          "title": "Undo & Version Control",
-          "description": "Safe renaming with full undo support and version history tracking to prevent accidental changes to important files"
+          "title": "Built for safe iteration",
+          "description": "Keep your naming workflow flexible with full version control and instant undo for every rename operation.",
+          "buttonText": "Try AI Rename Variants For Free",
+          "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+          "items": [
+            "Roll back full rename runs instantly when experiments change direction.",
+            "Guard overrides and developer hooks automatically while you iterate on names.",
+            "Capture every adjustment in an audit-ready history for compliance checks."
+          ],
+          "mediaComponent": "feature-progress",
+          "mediaProgress": {
+            "label": "Latest rename run",
+            "metric": "287 variants processed",
+            "progress": 0.95,
+            "duration": "Undo available for 30 minutes",
+            "checkpoints": [
+              {
+                "label": "Snapshot saved"
+              },
+              {
+                "label": "Rename complete"
+              },
+              {
+                "label": "Undo ready"
+              }
+            ]
+          }
         },
         {
-          "title": "Team Collaboration",
-          "description": "Share naming conventions across teams with consistent results, improving handoff quality and reducing designer-developer friction"
+          "title": "Keep every team in sync",
+          "description": "Share and apply the same naming conventions across projects so designers and developers stay aligned and handoffs stay clean.",
+          "buttonText": "Try AI Rename Variants For Free",
+          "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+          "items": [
+            "Share governance rules across design, dev, and QA with built-in approvals.",
+            "Surface adoption gaps and coverage metrics so partner teams know what to fix next.",
+            "Track usage analytics to prove ROI and enforce best practices across the org."
+          ],
+          "mediaComponent": "feature-blueprint",
+          "mediaBlueprint": {
+            "title": "Shared Rule Sync",
+            "fields": [
+              {
+                "label": "Teams",
+                "value": "Design · Dev · QA",
+                "accent": true
+              },
+              {
+                "label": "Status",
+                "value": "In sync (3 active rules)"
+              },
+              {
+                "label": "Last sync",
+                "value": "2 minutes ago"
+              }
+            ],
+            "toggles": [
+              {
+                "label": "Notify Slack channel",
+                "active": true
+              },
+              {
+                "label": "Require approvals",
+                "active": false
+              }
+            ],
+            "footer": "Everyone ships with the same naming language",
+            "theme": "purple"
+          }
         }
       ],
       "benefits": [
-        "Reduce file cleanup time by 80% with automated intelligent renaming",
-        "Improve team collaboration through consistent naming conventions",
-        "Eliminate manual renaming errors and inconsistencies",
-        "Accelerate design handoffs with developer-friendly naming",
-        "Maintain design system quality at scale across large teams",
-        "Boost productivity with instant file organization and clarity"
+        "Standardize every variant library in minutes with full-stack rename automation.",
+        "Protect overrides and developer hooks with undo-ready, non-destructive batch runs.",
+        "Enforce your naming rules automatically so new components launch on-pattern."
+      ],
+      "testimonials": [
+        {
+          "quote": "We cleaned two years of component sprawl in one afternoon and finally shipped a consistent design system.",
+          "author": "Avery Kim",
+          "role": "Director of Design Systems",
+          "company": "Northwind UI"
+        },
+        {
+          "quote": "Our developers get predictable variant names and QA stopped flagging handoff issues overnight.",
+          "author": "Luis Romero",
+          "role": "Product Design Lead",
+          "company": "AtlasCo"
+        }
       ],
       "specifications": [
         {
@@ -434,11 +541,31 @@
       ],
       "llm": {
         "answerBox": "AI Rename Variants automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.",
+        "statistics": [
+          {
+            "date": "March 2024",
+            "source": "Design Systems Efficiency Report 2024",
+            "statistic": "73%",
+            "description": "Deliver cleaner files 73% faster once variant names stay consistent across every component."
+          },
+          {
+            "date": "May 2024",
+            "source": "Bibliokit Automation Study",
+            "statistic": "4x",
+            "description": "Ship component refreshes 4x faster by batch-renaming entire variant libraries with one click."
+          },
+          {
+            "date": "June 2024",
+            "source": "Enterprise DesignOps Benchmark",
+            "statistic": "95%",
+            "description": "Eliminate 95% of naming inconsistencies caught in design QA so teams stay focused on shipping."
+          }
+        ],
         "statistic": {
           "date": "March 2024",
           "source": "Design Systems Efficiency Report 2024",
           "statistic": "73%",
-          "description": "of design teams report faster file navigation and improved collaboration after implementing consistent naming conventions"
+          "description": "Deliver cleaner files 73% faster once variant names stay consistent across every component."
         },
         "expertQuote": {
           "quote": "The way you structure and present work can make or break your ability to map towards broader goals, stay on the same page, and even know where to find the latest version of a design.",
@@ -473,31 +600,112 @@
     "uxbiblio": {
       "title": "UXBiblio",
       "description": "Curated UI/UX patterns, templates, and best practices. Save and organize inspiration with AI-powered tagging.",
-      "primaryButton": "Open UXBiblio",
+      "primaryButton": "Start your UX Library",
+      "primaryButtonIcon": "arrow-right",
       "secondaryButton": "Learn More",
-      "primaryButtonLink": "https://uxbiblio.localhost",
-      "secondaryButtonLink": "/",
+      "primaryButtonLink": "https://uxbiblio.com",
+      "secondaryButtonLink": "https://uxbiblio.com",
       "badgeLabel": "Pattern Library",
-      "visibility": { "waitlist": true },
+      "llm": {
+        "statistics": [
+          {
+            "statistic": "3+ hours",
+            "description": "Save 3+ hours each week on organizing inspiration with automatic tagging and filing.",
+            "source": "UXBiblio Private Beta Report",
+            "date": "September 2025"
+          },
+          {
+            "statistic": "72%",
+            "description": "Reclaim 72% of the hunt time teams once lost digging through scattered screenshots thanks to semantic UX pattern search.",
+            "source": "DesignOps Inspiration Workflow Study",
+            "date": "August 2025"
+          },
+          {
+            "statistic": "3x",
+            "description": "Launch UX documentation refreshes 3x faster by reusing vetted UXBiblio pattern stacks instead of rebuilding decks from scratch.",
+            "source": "Product Enablement Benchmark",
+            "date": "July 2025"
+          }
+        ],
+        "statistic": {
+          "statistic": "3+ hours",
+          "description": "Save 3+ hours each week on organizing inspiration with automatic tagging and filing.",
+          "source": "UXBiblio Private Beta Report",
+          "date": "September 2025"
+        }
+      },
+      "visibility": {
+        "waitlist": false
+      },
       "details": [
         {
-          "title": "AI Tagging",
-          "description": "Automatic tagging and categorization for screenshots and patterns."
+          "title": "Organize scattered inspiration automatically",
+          "description": "Bring chaos into one library. UXBiblio auto-sorts every screenshot, flow, and deck the moment they arrive, so your team never digs through random folders again.",
+          "buttonText": "Try Free 7 Day Trial",
+          "mediaComponent": "uxbiblio-organize",
+          "items": [
+            "Drop files from Chrome, Figma, or uploads—smart clustering groups them by journey and product area.",
+            "AI tags label intent, platform, and use case without manual naming.",
+            "Pinned focus lists keep launch-critical references at the top for fast reuse."
+          ]
         },
         {
-          "title": "Collections",
-          "description": "Organize inspiration into collections and projects."
+          "title": "Capture flows everywhere",
+          "description": "Pipe every flow, prototype, and clip into one library the instant you spot it. Auto-capture hierarchy, states, and heuristics without touching a tagging spreadsheet. Give product squads on-demand context so reviews stay swift.",
+          "buttonText": "Try it for Free",
+          "mediaComponent": "uxbiblio-capture",
+          "items": [
+            "Import from Chrome, Figma, Loom, or uploads—UXBiblio auto-detects platform, journey stage, and interaction patterns in seconds.",
+            "Transform raw captures into searchable storyboards with AI-transcribed notes, states, and heuristic callouts.",
+            "Share decisive insights fast with instant links, embed codes, and presentation-ready exports."
+          ]
         },
         {
-          "title": "Search",
-          "description": "Find patterns fast across your entire library."
+          "title": "Surface heuristics instantly",
+          "description": "Let UXBiblio read each screen the moment it arrives. AI heuristics, tone insights, and accessibility checks trigger automatically. You get structured findings before the team even joins the review.",
+          "buttonText": "Try Free 7 Day Trial",
+          "mediaComponent": "uxbiblio-insights",
+          "items": [
+            "Heuristic scans flag navigation and clarity issues automatically.",
+            "Copy tone notes benchmark language across flows.",
+            "Accessibility flags surface contrast and compliance gaps."
+          ]
+        },
+        {
+          "title": "Organize patterns into smart collections",
+          "description": "Stop rebuilding folders every time research kicks off. UXBiblio groups captures into smart collections based on flows, behaviors, and product areas. Filters keep every pattern findable in seconds.",
+          "buttonText": "Try Free 7 Day Trial",
+          "mediaComponent": "uxbiblio-collections",
+          "items": [
+            "Smart collections align captures to journeys like onboarding or upgrade.",
+            "Behavior tags reveal patterns across platforms instantly.",
+            "Pinned favorites keep launch-critical flows at the top."
+          ]
+        },
+        {
+          "title": "Pin insights for instant reuse",
+          "description": "Curate the patterns that matter most. UXBiblio keeps your best flows primed to share with pinned favorites, instant links, and polished PDF exports.",
+          "buttonText": "Try Free 7 Day Trial",
+          "mediaComponent": "uxbiblio-pin",
+          "items": [
+            "Pin priority flows so must-share inspiration stays one click away.",
+            "Generate shareable links that preserve context and insight summaries.",
+            "Download PDF reports to drop straight into stakeholder decks or design reviews."
+          ]
+        },
+        {
+          "title": "Reuse winning patterns everywhere",
+          "description": "Find the exact pattern you need with concept search and AI tagging. Export ready-to-share collections directly into PRDs, specs, and decks. Teams ship faster because proven patterns stay reusable and up to date.",
+          "buttonText": "Try Free 7 Day Trial",
+          "mediaComponent": "uxbiblio-reuse",
+          "items": [
+            "Concept search surfaces flows by outcome, widget, or heuristic.",
+            "One-click exports drop examples into docs and slides.",
+            "API-ready structure keeps downstream systems in sync."
+          ]
         }
       ],
-      "benefits": [
-        "Centralize scattered inspiration",
-        "Discover patterns quickly",
-        "Standardize UX documentation"
-      ],
+      "benefits": [],
       "specifications": [
         {
           "icon": "🏷️",
@@ -514,7 +722,13 @@
           "name": "Search",
           "value": "Fast, semantic search across items"
         }
-      ]
+      ],
+      "sections": {
+        "features": {
+          "title": "Build your UX library",
+          "description": "Your design pattern library turbo-charged for product teams."
+        }
+      }
     }
   }
 }
