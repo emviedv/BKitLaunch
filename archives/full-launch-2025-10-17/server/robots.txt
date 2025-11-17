@@ -1,0 +1,18 @@
+# robots.txt for BiblioKit
+
+User-agent: *
+Disallow: /admin
+Disallow: /editor
+Allow: /
+
+# AI crawler allowances
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://bibliokit.com/sitemap.xml

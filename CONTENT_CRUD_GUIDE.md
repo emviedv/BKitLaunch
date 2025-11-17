@@ -1,5 +1,7 @@
 # BiblioKit Content CRUD System Guide
 
+> **Archived (2025-10-23):** The content CRUD API and editor have been removed from the live stack. This guide is historical only.
+
 ## Overview
 
 BiblioKit now features a comprehensive Content Management System with full CRUD (Create, Read, Update, Delete) operations for all website sections. This system supports both database persistence and local fallback modes.

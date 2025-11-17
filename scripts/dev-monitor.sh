@@ -10,7 +10,7 @@ echo ""
 # Defaults can be overridden via env or CLI args per command
 # DEV_PORT: external Netlify dev port; TARGET_PORT: Vite port proxied behind dev
 DEV_PORT_DEFAULT=${BIBLIOKIT_DEV_PORT:-9989}
-TARGET_PORT_DEFAULT=${BIBLIOKIT_TARGET_PORT:-9990}
+TARGET_PORT_DEFAULT=${BIBLIOKIT_TARGET_PORT:-53173}
 
 # Helper to compute session name per port to avoid conflicts
 get_session_name() {

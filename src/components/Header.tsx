@@ -3,6 +3,8 @@ import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { resolveLucideIcon } from '@/lib/iconUtils';
+import { ROUTE_PATHS } from '@/config/routes';
+import { HEADER_MOBILE_MENU_ID } from '@/config/sectionAnchors';
 
 const XLogo = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" {...props}>
@@ -60,8 +62,63 @@ const Header = () => {
     ? (content.header?.navigation as NavItem[])
     : [];
 
+  navItems = navItems.map((item) => {
+    if ((item as DropdownNavItem).type === 'dropdown') {
+      const dd = item as DropdownNavItem;
+      const children = (dd.children || []).map((child) => {
+        if (child.label?.trim().toLowerCase() === 'component auditor') {
+          const { badge, ...rest } = child;
+          return {
+            ...rest,
+            href: 'https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit',
+            isExternal: true,
+          };
+        }
+        return child;
+      });
+      return { ...dd, children };
+    }
+    if ((item as LinkNavItem).label?.trim().toLowerCase() === 'component auditor') {
+      const { badge, ...rest } = item as LinkNavItem & { badge?: string };
+      return rest;
+    }
+    return item;
+  });
+
+  const hasBlogLink = navItems.some(
+    (item) => (item as LinkNavItem).label?.trim().toLowerCase() === 'blog'
+  );
+
+  if (!hasBlogLink) {
+    navItems = [...navItems, { label: 'Blog', href: '/blog', type: 'link' }];
+  }
+
   if (hideNavLinks) {
     navItems = [];
+  }
+
+  const resourcesDropdown: DropdownNavItem = {
+    type: 'dropdown',
+    label: 'Resources',
+    children: [
+      {
+        label: 'Remove Prototype Link',
+        href: ROUTE_PATHS.REMOVE_PROTOTYPE_LINK,
+        description: 'Retire outdated prototype URLs before they derail launches.',
+        icon: 'link',
+      }
+    ],
+  };
+
+  const hasResourcesDropdown = navItems.some(
+    (item) =>
+      (item as DropdownNavItem).type === 'dropdown' &&
+      typeof (item as DropdownNavItem).label === 'string' &&
+      (item as DropdownNavItem).label.trim().toLowerCase() === 'resources'
+  );
+
+  if (!hasResourcesDropdown) {
+    navItems = [...navItems, resourcesDropdown];
   }
 
   // When Coming Soon is enabled, remove product/page links from header
@@ -97,7 +154,7 @@ const Header = () => {
     return parts.length ? parts.join(' ') : undefined;
   };
 
-  const headerClassName = 'bg-transparent absolute inset-x-0 top-0 z-50 w-full transition-all duration-300';
+  const headerClassName = 'site-header bg-transparent absolute inset-x-0 top-0 z-50 w-full transition-all duration-300';
 
   return (
     <header className={headerClassName}>
@@ -116,7 +173,7 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {/* Mobile menu button */}
             <button className="md:hidden p-2 rounded-md hover:bg-gray-100" onClick={() => {
-              const mobileMenu = document.getElementById('mobile-menu');
+              const mobileMenu = document.getElementById(HEADER_MOBILE_MENU_ID);
               mobileMenu?.classList.toggle('hidden');
             }}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -239,7 +296,7 @@ const Header = () => {
 
       {/* Mobile menu */}
       <div
-        id="mobile-menu"
+        id={HEADER_MOBILE_MENU_ID}
         className="hidden md:hidden bg-gradient-to-br from-rose-50 via-white to-blue-50 transition-colors duration-300"
       >
         <div className="section-content py-2 space-y-2">
@@ -249,34 +306,47 @@ const Header = () => {
               return (
                 <div key={`m-dd-${index}`} className="py-2">
                   <div className="text-sm font-medium text-gray-600 mb-2">{dd.label}</div>
-                  {(dd.children || []).map((child, ci) => (
-                    <a
-                      key={`m-dd-item-${index}-${ci}`}
-                      href={child.href}
-                      target={child.isExternal ? '_blank' : undefined}
-                      rel={linkRel(child.nofollow, !!child.isExternal)}
-                      className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-700 hover:bg-white/60 hover:text-primary transition-colors"
-                    >
-                      <div className="flex items-start gap-3">
-                        {child.icon && <span className="text-lg">{child.icon}</span>}
-                        <div>
-                          <div className="flex items-center gap-2">
+                  {(dd.children || []).map((child, ci) => {
+                    const href = child.href || '#';
+                    const normalizedHref = href.startsWith('#') ? `/${href}` : href;
+                    const ChildIcon = resolveLucideIcon(child.icon || child.label);
+                    const isEmojiIcon =
+                      typeof child.icon === 'string' && /[\p{Extended_Pictographic}]/u.test(child.icon);
+                    return (
+                      <a
+                        key={`m-dd-item-${index}-${ci}`}
+                        href={normalizedHref}
+                        target={child.isExternal ? '_blank' : undefined}
+                        rel={linkRel(child.nofollow, !!child.isExternal)}
+                        className="flex gap-3 rounded-xl px-3 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-white/60 hover:text-primary"
+                      >
+                        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/80 text-slate-900">
+                          {isEmojiIcon ? (
+                            <span className="text-lg" aria-hidden="true">
+                              {child.icon}
+                            </span>
+                          ) : (
+                            <ChildIcon className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
+                          )}
+                        </span>
+                        <span className="flex-1 text-left">
+                          <span className="flex items-center gap-2">
                             <span>{child.label}</span>
                             {child.badge && (
                               <span className="text-[10px] font-semibold uppercase tracking-wide text-primary bg-primary/10 px-2 py-[2px] rounded-full">
                                 {child.badge}
                               </span>
                             )}
-                          </div>
+                          </span>
                           {child.description && (
                             <p className="mt-1 text-xs font-normal text-slate-600">
                               {child.description}
                             </p>
                           )}
-                        </div>
-                      </div>
-                    </a>
-                  ))}
+                        </span>
+                      </a>
+                    );
+                  })}
                 </div>
               );
             }

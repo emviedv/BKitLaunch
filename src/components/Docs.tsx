@@ -2,13 +2,14 @@ import React from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { useSEO } from '@/hooks/useSEO';
 import { Button } from '@/components/ui/button';
+import { LANDING_FEATURES_PATH, LANDING_PRICING_PATH } from '@/config/sectionAnchors';
 
 export const Docs: React.FC = () => {
   const { content } = usePublishedContent();
   useSEO(content);
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto py-16">
       <header className="mb-10">
         <h1 className="text-4xl font-bold mb-3">Documentation</h1>
         <p className="text-muted-foreground max-w-2xl">
@@ -37,15 +38,15 @@ export const Docs: React.FC = () => {
       <section aria-labelledby="resources-heading" className="mb-12">
         <h2 id="resources-heading" className="text-2xl font-semibold mb-4">Resources</h2>
         <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-          <li><a className="underline hover:text-foreground" href="/#features">Features</a></li>
-          <li><a className="underline hover:text-foreground" href="/#pricing">Pricing</a></li>
+          <li><a className="underline hover:text-foreground" href={LANDING_FEATURES_PATH}>Features</a></li>
+          <li><a className="underline hover:text-foreground" href={LANDING_PRICING_PATH}>Pricing</a></li>
           <li><a className="underline hover:text-foreground" href="/#contact">Contact</a></li>
         </ul>
       </section>
 
       <div className="flex gap-4">
         <Button asChild size="lg">
-          <a href="/bibliokit-blocks">Explore Blocks</a>
+          <a href="/">Explore BiblioKit</a>
         </Button>
         <Button asChild variant="outline" size="lg">
           <a href="/ai-rename-variants">AI Rename Variants</a>
@@ -54,5 +55,3 @@ export const Docs: React.FC = () => {
     </div>
   );
 };
-
-

@@ -1,29 +1,17 @@
 import { Handler } from '@netlify/functions';
 import { withCors } from './utils';
+import productData from '../../src/data/products.json' with { type: 'json' };
 
 const makeUrl = (loc: string, lastmod?: string) => `  <url>\n    <loc>${loc}</loc>\n    ${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
 
 const handlerImpl: Handler = async () => {
   const base = process.env.URL || 'https://bibliokit.com';
-  const staticPaths = ['/', '/product', '/bibliokit-blocks', '/ai-rename-variants'];
-
-  // Try to fetch current published content to gather dynamic product slugs and lastmod
-  let content: any = null;
-  let lastmod: string | undefined = undefined;
-  try {
-    const res = await fetch(`${base}/.netlify/functions/content-management?action=current`, { headers: { 'Cache-Control': 'no-cache' } });
-    if (res.ok) {
-      const json = await res.json();
-      content = json?.data?.content_data || null;
-      lastmod = (json?.data?.updated_at ? new Date(json.data.updated_at).toISOString() : undefined);
-    }
-  } catch {
-    // best-effort only
-  }
-
-  const dynamicProductPaths: string[] = content && content.products
-    ? Object.keys(content.products).map((slug) => `/${slug}`)
+  const staticPaths = ['/', '/product', '/ai-rename-variants'];
+  const productEntries = (productData as any)?.products;
+  const dynamicProductPaths: string[] = productEntries
+    ? Object.keys(productEntries).map((slug) => `/${slug}`)
     : [];
+  const lastmod: string | undefined = undefined;
 
   const allPaths = Array.from(new Set([...staticPaths, ...dynamicProductPaths]));
   const urls = allPaths.map((p) => makeUrl(`${base}${p}`, lastmod)).join('\n');
@@ -41,5 +29,3 @@ const handlerImpl: Handler = async () => {
 };
 
 export const handler = withCors(handlerImpl);
-
-

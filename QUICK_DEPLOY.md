@@ -1,5 +1,7 @@
 # 🚀 Quick Deploy to Netlify
 
+> **Archived (2025-10-23):** Admin-specific deployment steps are no longer required; keep this checklist only for legacy reference.
+
 Your BiblioKit app is ready for deployment with full database integration!
 
 ## ✅ What's Ready

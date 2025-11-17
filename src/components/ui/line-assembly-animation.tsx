@@ -24,11 +24,13 @@ const useElementSize = (ref: React.RefObject<HTMLElement>) => {
   const [size, setSize] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
 
   useEffect(() => {
-    if (!ref.current) return;
+    const element = ref.current;
+    if (!element) return;
 
     const update = () => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
+      const target = ref.current;
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
       setSize({ width: rect.width, height: rect.height });
     };
 
@@ -36,13 +38,14 @@ const useElementSize = (ref: React.RefObject<HTMLElement>) => {
 
     if (typeof window !== 'undefined' && 'ResizeObserver' in window) {
       const ro = new ResizeObserver(() => update());
-      ro.observe(ref.current);
+      ro.observe(element);
       return () => ro.disconnect();
     }
 
     if (typeof window !== 'undefined') {
-      window.addEventListener('resize', update);
-      return () => window.removeEventListener('resize', update);
+      const win: Window & typeof globalThis = window;
+      win.addEventListener('resize', update);
+      return () => win.removeEventListener('resize', update);
     }
   }, [ref]);
 
@@ -171,5 +174,4 @@ export const LineAssemblyAnimation: React.FC<LineAssemblyAnimationProps> = ({
 };
 
 // no default export per project guidelines (named exports only for components)
-
 

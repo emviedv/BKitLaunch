@@ -2,14 +2,15 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { LineAssemblyAnimation } from '@/components/ui/line-assembly-animation';
 import { PanelsTopLeft, Sparkles, Grid3X3, DollarSign, MessageSquare, LayoutDashboard } from 'lucide-react';
+import { LANDING_FEATURES_ID, LANDING_PRICING_ID, LANDING_WAITLIST_ID } from '@/config/sectionAnchors';
 
 const Demo = () => {
   const items = [
     { id: 'header', label: 'Header', icon: <PanelsTopLeft className="h-3.5 w-3.5" aria-hidden="true" /> },
     { id: 'hero', label: 'Hero', icon: <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> },
-    { id: 'features', label: 'Features', icon: <Grid3X3 className="h-3.5 w-3.5" aria-hidden="true" /> },
-    { id: 'pricing', label: 'Pricing', icon: <DollarSign className="h-3.5 w-3.5" aria-hidden="true" /> },
-    { id: 'waitlist', label: 'Waitlist', icon: <MessageSquare className="h-3.5 w-3.5" aria-hidden="true" /> },
+    { id: LANDING_FEATURES_ID, label: 'Features', icon: <Grid3X3 className="h-3.5 w-3.5" aria-hidden="true" /> },
+    { id: LANDING_PRICING_ID, label: 'Pricing', icon: <DollarSign className="h-3.5 w-3.5" aria-hidden="true" /> },
+    { id: LANDING_WAITLIST_ID, label: 'Waitlist', icon: <MessageSquare className="h-3.5 w-3.5" aria-hidden="true" /> },
     { id: 'footer', label: 'Footer', icon: <LayoutDashboard className="h-3.5 w-3.5" aria-hidden="true" /> },
   ];
 
@@ -40,5 +41,4 @@ if (container) {
   const root = createRoot(container);
   root.render(<Demo />);
 }
-
 

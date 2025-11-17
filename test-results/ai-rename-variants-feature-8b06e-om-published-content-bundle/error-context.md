@@ -1,0 +1,75 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - link "Go to Home":
+    - /url: /
+    - text: BiblioKit
+  - navigation:
+    - link "AI Rename Variants":
+      - /url: /ai-rename-variants
+    - link "UXBiblio":
+      - /url: /uxbiblio
+    - link "Docs":
+      - /url: /docs
+- main:
+  - text: Built by designers for designers.
+  - heading "Work x10,000 faster. Your Design Toolkit, Reinvented." [level=1]
+  - paragraph: Automate the stuff you hate. Organize the stuff you love. One toolkit, every design shortcut.
+  - link "Get Started Free - Primary action":
+    - /url: https://blocks.bibliokit.com/signup
+    - text: Get Started Free
+  - link "View Products - Secondary action":
+    - /url: "#landing-features"
+    - text: View Products
+  - paragraph: Trusted by modern product teams
+  - text: Linear Superhuman Pitch Webflow GitHub Stripe Atlassian Zapier Linear Superhuman Pitch Webflow GitHub Stripe Atlassian Zapier
+  - heading "Design smarter. Ship cleaner." [level=2]
+  - paragraph: From idea to hand-off, faster than ever. High-performers teams rely on our Figma plugins to stay consistent, connected, and miles ahead.
+  - complementary:
+    - navigation "Design smarter. Ship cleaner. quick links":
+      - list:
+        - listitem:
+          - link "AI Rename Variants":
+            - /url: "#feature-card-ai-rename-variants-0"
+        - listitem:
+          - link "Component Auditor":
+            - /url: "#feature-card-component-auditor-1"
+        - listitem:
+          - link "UXBiblio":
+            - /url: "#feature-card-uxbiblio-2"
+  - article:
+    - img
+    - heading "AI Rename Variants" [level=3]
+    - paragraph: Instantly standardize your Figma variant names with one-click renaming that aligns with Material, Carbon, and Polaris design systems.
+    - link "Try AI Rename Variants For Free":
+      - /url: /ai-rename-variants
+    - img
+  - article:
+    - img
+    - heading "Component Auditor" [level=3]
+    - paragraph: Audit components inside a single Figma file. Check naming, structure, and variant coverage to ensure consistent, high-quality component usage.
+    - list:
+      - listitem: Scan all components
+      - listitem: Check naming consistency
+      - listitem: Validate structure
+    - link "Try Component Auditor For Free":
+      - /url: /component-auditor-figma-plugin
+    - img
+  - article:
+    - img
+    - heading "UXBiblio" [level=3]
+    - paragraph: A centralized UX/UI repository. Save screenshots, patterns, and resources with AI tagging, heuristic analysis, and visual documentation for inspiration.
+    - list:
+      - listitem: AI-powered tagging
+      - listitem: Heuristic analysis
+      - listitem: Centralized repository
+    - link "Try UXBiblio For Free":
+      - /url: https://uxbiblio.com
+    - img
+  - heading "Join Designers shipping faster with BiblioKit" [level=2]
+  - paragraph: Set up a shared workspace, align every stakeholder, and launch production-ready documentation 10x faster.
+  - link "View plans":
+    - /url: "#landing-features"
+- contentinfo: © 2025 BiblioKit. All rights reserved.
+```

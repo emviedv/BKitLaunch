@@ -56,7 +56,7 @@ function generateStaticHtml(pathname: string, origin: string): string {
   <footer style="background: #1f2937; color: white; padding: 2rem; text-align: center; margin-top: 4rem;">
     <div style="max-width: 1200px; margin: 0 auto;">
       <h3 style="margin-bottom: 1rem;">BiblioKit</h3>
-      <p style="color: #9ca3af; margin-bottom: 1rem;">Professional SaaS software and Figma plugins</p>
+      <p style="color: #9ca3af; margin-bottom: 1rem;">Automate the stuff you hate, design the things you love.</p>
       <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
         <a href="mailto:hello@bibliokit.com" style="color: #9ca3af;">hello@bibliokit.com</a>
         <a href="https://twitter.com/bibliokit" style="color: #9ca3af;">@bibliokit</a>
@@ -75,10 +75,26 @@ function getPageMetadata(pathname: string): string {
   switch (pathname) {
     case '/':
       return `
-        <title>BiblioKit - SaaS Software & Figma Plugins</title>
-        <meta name="description" content="Professional SaaS software and Figma plugins with secure API management, comprehensive documentation, and world-class support for designers and developers.">
-        <meta property="og:title" content="BiblioKit - SaaS Software & Figma Plugins">
-        <meta property="og:description" content="Professional SaaS software and Figma plugins with secure API management, comprehensive documentation, and world-class support.">
+        <title>BiblioKit: Design Toolkit for Faster Figma Workflows in 2025</title>
+        <meta name="description" content="BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.">
+        <meta property="og:title" content="BiblioKit: Design Toolkit for Faster Figma Workflows in 2025">
+        <meta property="og:description" content="BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.">
+        <meta property="og:type" content="website">
+      `;
+    case '/component-auditor-figma-plugin':
+      return `
+        <title>Component Auditor for Figma – BiblioKit</title>
+        <meta name="description" content="BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.">
+        <meta property="og:title" content="Component Auditor for Figma – BiblioKit">
+        <meta property="og:description" content="BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.">
+        <meta property="og:type" content="website">
+      `;
+    case '/uxbiblio':
+      return `
+        <title>UXBiblio by BiblioKit</title>
+        <meta name="description" content="UXBiblio by BiblioKit: Curated UI/UX patterns and templates with AI-powered tagging. Save and organize your design inspiration effortlessly.">
+        <meta property="og:title" content="UXBiblio by BiblioKit">
+        <meta property="og:description" content="UXBiblio by BiblioKit: Curated UI/UX patterns and templates with AI-powered tagging. Save and organize your design inspiration effortlessly.">
         <meta property="og:type" content="website">
       `;
     case '/product':
@@ -92,7 +108,7 @@ function getPageMetadata(pathname: string): string {
     default:
       return `
         <title>BiblioKit</title>
-        <meta name="description" content="BiblioKit - Professional SaaS software and Figma plugins">
+        <meta name="description" content="BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.">
       `;
   }
 }
@@ -104,7 +120,7 @@ function getPageSchema(pathname: string, origin: string): string {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "BiblioKit",
-      "description": "Professional SaaS software and Figma plugins with secure API management, comprehensive documentation, and world-class support for designers and developers.",
+      "description": "BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.",
       "url": "${origin}",
       "logo": "${origin}/logo.svg",
       "contactPoint": {
@@ -189,17 +205,17 @@ function getPageContent(pathname: string): string {
               </div>
               <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1.5rem;">BiblioKit</h1>
               <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9;">
-                Professional SaaS software and Figma plugins with secure API management, comprehensive documentation, and world-class support for designers and developers.
+                Automate the stuff you hate, design the things you love.
               </p>
               <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <a href="/product" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;">Get Started Free</a>
-                <a href="#features" style="border: 2px solid rgba(255,255,255,0.3); color: white; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none;">View Features</a>
+                <a href="#landing-features" style="border: 2px solid rgba(255,255,255,0.3); color: white; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none;">View Features</a>
               </div>
             </div>
           </section>
 
           <!-- Features Section -->
-          <section id="features" style="padding: 4rem 2rem; background: #f9fafb;">
+          <section id="landing-features" style="padding: 4rem 2rem; background: #f9fafb;">
             <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
               <h2 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 3rem;">Key Features</h2>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
@@ -275,7 +291,7 @@ function getPageContent(pathname: string): string {
                 Automatically rename your Figma layers with AI intelligence. Transform messy, unnamed layers into perfectly organized, contextually named elements in one click.
               </p>
               <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="https://www.figma.com/community/plugin/1523817290746945616/ai-rename-variants" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;" target="_blank">Get Plugin</a>
+                <a href="https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;" target="_blank">Get Plugin</a>
               </div>
             </div>
           </section>
@@ -342,7 +358,7 @@ function getPageContent(pathname: string): string {
               <div style="background: white; padding: 3rem; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                 <h3 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem;">Free</h3>
                 <p style="color: #6b7280; margin-bottom: 2rem;">Community plugin - completely free to use forever</p>
-                <a href="https://www.figma.com/community/plugin/1523817290746945616/ai-rename-variants" style="background: #667eea; color: white; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;" target="_blank">Install Plugin</a>
+                <a href="https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted" style="background: #667eea; color: white; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;" target="_blank">Install Plugin</a>
               </div>
             </div>
           </section>

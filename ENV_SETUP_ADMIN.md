@@ -1,5 +1,7 @@
 # 🔐 Admin Environment Variables Setup
 
+> **Archived (2025-10-23):** The CMS/admin workflow described below has been removed. Retained only for historical context.
+
 This guide explains how to configure the required environment variables for the admin dashboard to work properly on Netlify deployment.
 
 ## 🚨 Critical Issue Identified
@@ -137,3 +139,6 @@ After applying the fixes and setting environment variables:
 2. **Test the admin functionality** at `/admin`
 3. **Configure stronger authentication** (optional, for production)
 4. **Set up monitoring** for admin actions (optional)
+# Admin Environment Setup
+
+> **Archived (2025-10-23):** The CMS/admin workflow described below has been removed. Retained only for historical context.

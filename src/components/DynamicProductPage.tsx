@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { useSchema, createProductSchema, createBreadcrumbSchema } from '@/lib/useSchema';
 import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
-import AnswerBox from './AnswerBox';
-import ExpertQuote from './ExpertQuote';
-import StatBox from './StatBox';
-import ContentChunk from './ContentChunk';
-import FAQSchema from './FAQSchema';
-import Waitlist from './Waitlist';
-import { BlocksHeroBackground } from './BlocksHeroBackground';
-import AnimatedGradientBackground from '@/components/ui/animated-gradient-background';
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/AuthContext';
-import { DEFAULT_SPECIFICATIONS_TITLE, getSpecIconFallback } from '@/lib/uiDefaults';
+import ProductContentSections from './ProductContentSections';
+import ProductHero from './ProductHero';
+import productData from '@/data/products.json' with { type: 'json' };
 
 interface ProductDetail {
   title: string;
@@ -36,6 +28,7 @@ interface ProductPricing {
 interface ProductInfo {
   emoji?: string;
   title: string;
+  subtitle?: string;
   description: string;
   primaryButton?: string;
   primaryButtonLink?: string;
@@ -61,6 +54,7 @@ interface ProductInfo {
   details?: ProductDetail[];
   benefits?: string[];
   specifications?: ProductSpec[];
+  testimonials?: Array<{ quote: string; author: string; role?: string; company?: string; avatarUrl?: string }>;
   pricing?: ProductPricing;
   visibility?: { waitlist?: boolean };
 }
@@ -71,7 +65,39 @@ type DynamicProductPageProps = {
 
 const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
   const { content, loading } = usePublishedContent();
-  const { isAuthenticated, isAdmin } = useAuth();
+
+  const fallbackProduct = useMemo(() => {
+    try {
+      return (productData as any)?.products?.[slug];
+    } catch {
+      return undefined;
+    }
+  }, [slug]);
+
+  const effectiveContent = useMemo(() => {
+    if (!content) {
+      return content;
+    }
+    const hasPublishedProduct = Boolean((content as any)?.products?.[slug]);
+    if (hasPublishedProduct || !fallbackProduct) {
+      return content;
+    }
+    return {
+      ...content,
+      products: {
+        ...(content.products ?? {}),
+        [slug]: fallbackProduct
+      }
+    };
+  }, [content, fallbackProduct, slug]);
+
+  useEffect(() => {
+    if (!content) return;
+    const hasPublishedProduct = Boolean((content as any)?.products?.[slug]);
+    if (!hasPublishedProduct && fallbackProduct) {
+      debugService.warn('DynamicProductPage using static fallback product data', { slug });
+    }
+  }, [content, fallbackProduct, slug]);
 
   useEffect(() => {
     debugService.info('DynamicProductPage mounted', {
@@ -80,23 +106,34 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
     });
   }, [slug]);
 
-  const product: ProductInfo | undefined = content.products?.[slug];
+  const product: ProductInfo | undefined = (effectiveContent as any)?.products?.[slug];
 
   useEffect(() => {
     try {
-      const keys = Object.keys((content as any)?.products || {});
+      const keys = Object.keys((effectiveContent as any)?.products || {});
       console.log('DynamicProductPage content.products keys:', keys);
     } catch {}
-  }, [content]);
+  }, [effectiveContent]);
+
+  useEffect(() => {
+    // Debug: Which optional sections will render
+    try {
+      debugService.info('DynamicProductPage sections visibility', {
+        hasFaqs: Array.isArray((product as any)?.faqs) && (((product as any)?.faqs?.length) || 0) > 0,
+        hasDetails: Array.isArray(product?.details) && (product?.details?.length || 0) > 0,
+        hasSpecifications: Array.isArray(product?.specifications) && (product?.specifications?.length || 0) > 0,
+      });
+    } catch {}
+  }, [product]);
 
   useEffect(() => {
     if (product) {
       const path = `/${slug}`;
       const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://bibliokit.com';
-      const metadata = generateMetadata(path, content, baseUrl);
+      const metadata = generateMetadata(path, effectiveContent, baseUrl);
       updatePageMetadata(metadata);
     }
-  }, [product, slug, content]);
+  }, [product, slug, effectiveContent]);
 
   const productSchema = product
     ? createProductSchema(product)
@@ -119,27 +156,8 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
 
   const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
 
-  const fallbackAnswerBox =
-    'BiblioKit provides professional-grade software and plugins designed to help teams ship faster with best-in-class UX.';
-
-  const answerBoxContent = product?.llm?.answerBox || fallbackAnswerBox;
-
-  const expertQuote = {
-    quote: product?.llm?.expertQuote?.quote || 'High-quality design systems drive faster delivery and better UX outcomes.',
-    expertName: product?.llm?.expertQuote?.expertName || 'Design Ops Team',
-    expertTitle: product?.llm?.expertQuote?.expertTitle || 'Best Practices',
-    institution: product?.llm?.expertQuote?.institution || 'BiblioKit',
-  };
-
-  const statistic = {
-    statistic: product?.llm?.statistic?.statistic || '90%',
-    description: product?.llm?.statistic?.description || 'of teams ship features faster with a strong design system',
-    source: product?.llm?.statistic?.source || 'Internal study',
-    date: product?.llm?.statistic?.date || '2024',
-  };
-
   const faqs =
-    product?.llm?.faqs || [
+    (product as any)?.faqs || [
       {
         question: 'What is this product?',
         answer:
@@ -154,7 +172,7 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
   if (!product) {
     if (loading) {
       return (
-        <div className="container mx-auto px-4 py-20">
+        <div className="container mx-auto py-20">
           <div className="animate-pulse space-y-6 max-w-3xl mx-auto">
             <div className="h-6 bg-gray-200 rounded w-40" />
             <div className="h-10 bg-gray-200 rounded w-2/3" />
@@ -166,7 +184,7 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
       );
     }
     return (
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto py-16">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Product Not Found</h1>
           <p className="text-muted-foreground">We couldn’t find this product. Check the URL or pick another page.</p>
@@ -175,171 +193,29 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
     );
   }
 
+  const isUXBiblio = slug === 'uxbiblio';
+
+  const heroProps = isUXBiblio
+    ? {
+        headlineColorOverride: 'text-white',
+        mediaWrapperClassName: 'lg:max-w-[29rem]',
+        withBottomPadding: false,
+        containerPaddingOverride: 'px-0 md:px-0',
+      }
+    : {
+        withBottomPadding: false,
+        containerPaddingOverride: 'px-0 md:px-0',
+      };
+
   return (
     <>
-      <section className="section-hero relative overflow-hidden py-28 md:py-32 px-4 min-h-screen flex items-center">
-        <BlocksHeroBackground />
-        <AnimatedGradientBackground
-          Breathing
-          startingGap={118}
-          topOffset={-20}
-          gradientColors={((product as any)?.gradientColors && Array.isArray((product as any).gradientColors) && (product as any).gradientColors.length > 0) ? (product as any).gradientColors : ["#ecfeff00","#ecfeff10","#c7d2fe40","#a7f3d040","#a5b4fc50","#93c5fd40","#ffffff00"]}
-          gradientStops={[18, 44, 58, 70, 82, 90, 100]}
-          containerClassName="pointer-events-none"
-        />
-        <div className="container mx-auto text-center relative z-10">
-          <div className="max-w-4xl mx-auto">
-            {product?.badgeLabel && (
-              <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-primary/20 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/50">
-                <span className="inline-flex h-2 w-2 rounded-full bg-primary" />
-                <span className="text-sm font-medium text-gray-800">{product.badgeLabel}</span>
-              </div>
-            )}
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="text-gray-900">{product.title}</span>
-            </h1>
-            <div className="mb-8">
-              <AnswerBox content={answerBoxContent} className="bg-white/95 text-gray-800 border-gray-200 shadow-lg" />
-            </div>
-            <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">{product.description}</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {product.primaryButtonLink ? (
-                <Button asChild size="lg" className="w-full sm:w-auto min-w-[12rem]">
-                  <a
-                    href={product.primaryButtonLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {product.primaryButton || 'Get Started'}
-                  </a>
-                </Button>
-              ) : (
-                <Button size="lg" className="w-full sm:w-auto min-w-[12rem]">{product.primaryButton || 'Get Started'}</Button>
-              )}
-              {product.secondaryButtonLink ? (
-                <Button asChild size="lg" variant="outline" className="w-full sm:w-auto min-w-[12rem]">
-                  <a
-                    href={product.secondaryButtonLink}
-                    className="inline-block text-center"
-                    target={product.secondaryButtonLink.startsWith('http') ? '_blank' : '_self'}
-                    rel={product.secondaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  >
-                    {product.secondaryButton || 'Learn More'}
-                  </a>
-                </Button>
-              ) : (
-                <Button size="lg" variant="outline" className="w-full sm:w-auto min-w-[12rem]">{product.secondaryButton || 'Learn More'}</Button>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-
-      {product.details && (
-        <section className="py-20 px-4 section-background">
-          <div className="container mx-auto">
-            <ContentChunk>
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">{(product as any)?.sections?.features?.title || '⚡ Key Features'}</h2>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  {(product as any)?.sections?.features?.description || 'Comprehensive design system analytics platform with automated Figma integration and ROI tracking'}
-                </p>
-              </div>
-            </ContentChunk>
-
-            <div className="flex justify-center mb-16">
-              <StatBox {...statistic} />
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {product.details.map((detail: ProductDetail, index: number) => (
-                <ContentChunk key={index}>
-                  <div className="card relative">
-                    <div className={`icon ${colorClasses[index % colorClasses.length]} mb-6`}>
-                      {['⚡', '🧠', '↩️', '🔍', '🌐'][index] || '✨'}
-                    </div>
-                    <h3 className="text-xl font-semibold mb-3">{detail.title}</h3>
-                    <p className="text-muted-foreground">{detail.description}</p>
-                  </div>
-                </ContentChunk>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="py-20 px-4">
-        <div className="container mx-auto">
-          <ContentChunk>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">{(product as any)?.sections?.useCases?.title || '💡 Use Cases'}</h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                {(product as any)?.sections?.useCases?.description || 'Perfect for product teams seeking data-driven design system optimization and ROI measurement'}
-              </p>
-            </div>
-          </ContentChunk>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {(product.benefits || []).map((benefit: string, index: number) => (
-              <ContentChunk key={index}>
-                <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
-                    <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <span className="text-lg">{benefit}</span>
-                </div>
-              </ContentChunk>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {product.specifications && (
-        <section className="py-20 px-4 section-background">
-          <div className="container mx-auto">
-            <ContentChunk>
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">{(product as any)?.sections?.specifications?.title || DEFAULT_SPECIFICATIONS_TITLE}</h2>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  {(product as any)?.sections?.specifications?.description || 'Built with powerful features for professional design workflows'}
-                </p>
-              </div>
-            </ContentChunk>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {product.specifications.map((spec: ProductSpec, index: number) => (
-                <ContentChunk key={index}>
-                  <div className="card relative">
-                    <div className={`icon ${colorClasses[index % colorClasses.length]} mb-6`}>{spec.icon || getSpecIconFallback(index)}</div>
-                    <h3 className="text-xl font-semibold mb-3">{spec.name}</h3>
-                    <p className="text-muted-foreground">{spec.value}</p>
-                  </div>
-                </ContentChunk>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="container mx-auto">
-          <FAQSchema faqs={faqs} />
-        </div>
-      </section>
-
-      <Waitlist visibleOverride={product?.visibility?.waitlist} />
+      <ProductHero
+        product={product as any}
+        {...heroProps}
+      />
+      <ProductContentSections product={product} faqs={faqs} />
     </>
   );
 };
 
 export default DynamicProductPage;
-
-

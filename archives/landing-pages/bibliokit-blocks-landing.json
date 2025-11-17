@@ -1,0 +1,87 @@
+{
+  "archivedAt": "2025-10-26T02:55:00Z",
+  "notes": "Archived copy of the BiblioKit Blocks landing page payload after removing the public route.",
+  "product": {
+    "title": "BiblioKit Blocks",
+    "description": "Professional design system analytics platform that tracks Figma component usage, measures design system ROI, and optimizes component libraries with automated insights for product teams.",
+    "primaryButton": "Start Free Trial",
+    "secondaryButton": "View Demo",
+    "primaryButtonLink": "https://blocks.bibliokit.com/signup",
+    "secondaryButtonLink": "https://blocks.bibliokit.com/demo",
+    "badgeLabel": "SaaS Analytics Platform",
+    "visibility": {
+      "waitlist": true
+    },
+    "details": [
+      {
+        "title": "Automated Figma Integration",
+        "description": "Connect via secure OAuth to automatically track component usage across all your design libraries and files in real-time"
+      },
+      {
+        "title": "Visual Analytics Dashboard",
+        "description": "Interactive charts showing usage trends, adoption rates, and performance metrics with exportable reports and insights"
+      },
+      {
+        "title": "Component Performance Insights",
+        "description": "Identify over-used, under-used, and unused components instantly with detailed breakdowns and recommendations"
+      },
+      {
+        "title": "ROI Reporting & Metrics",
+        "description": "Generate executive reports demonstrating design system business impact with quantifiable time savings and efficiency gains"
+      },
+      {
+        "title": "Team Collaboration Analytics",
+        "description": "Multi-user access with role-based permissions, shared dashboards, and collaborative insights for entire product teams"
+      }
+    ],
+    "benefits": [
+      "Increase design system adoption by 25%+ with usage visibility",
+      "Reduce component maintenance overhead by 30% through data-driven decisions",
+      "Demonstrate ROI with quantifiable time savings and efficiency metrics",
+      "Optimize team productivity with 20-40% faster feature development cycles",
+      "Achieve 85%+ component reuse rates across projects",
+      "Make informed decisions about component deprecation and optimization"
+    ],
+    "specifications": [
+      {
+        "icon": "\\ud83d\\udcca",
+        "name": "Analytics Engine",
+        "value": "Real-time component tracking across unlimited files"
+      },
+      {
+        "icon": "\\ud83d\\udd17",
+        "name": "Figma Integration",
+        "value": "Secure OAuth connection with automatic sync"
+      },
+      {
+        "icon": "\\ud83d\\udcc8",
+        "name": "ROI Tracking",
+        "value": "Quantifiable business impact metrics"
+      },
+      {
+        "icon": "\\ud83d\\udc65",
+        "name": "Team Support",
+        "value": "Multi-user access with role permissions"
+      },
+      {
+        "icon": "\\ud83d\\udccb",
+        "name": "Reporting",
+        "value": "Automated PDF exports and data downloads"
+      }
+    ],
+    "testimonials": [
+      {
+        "quote": "Blocks surfaced the exact components dragging our adoption rates down. We lifted reuse by 38% in one quarter.",
+        "author": "Avery Chen",
+        "role": "Director of Product Design",
+        "company": "Northwind Apps"
+      },
+      {
+        "quote": "The ROI dashboard finally gave leadership the proof they needed—design system funding went up 2x overnight.",
+        "author": "Jordan Malik",
+        "role": "Design Operations Lead",
+        "company": "Brightline Commerce"
+      }
+    ]
+  }
+}

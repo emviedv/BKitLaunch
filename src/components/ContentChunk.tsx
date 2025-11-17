@@ -22,7 +22,7 @@ const ContentChunk: React.FC<ContentChunkProps> = ({
 
   return (
     <div className={`content-chunk ${className}`}>
-      <div className="prose prose-lg max-w-none">
+      <div className="prose prose-lg prose-invert max-w-none">
         {children}
       </div>
       

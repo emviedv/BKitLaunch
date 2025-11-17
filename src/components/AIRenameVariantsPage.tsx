@@ -1,14 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { useSchema, createProductSchema, createBreadcrumbSchema } from '@/lib/useSchema';
 import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
-import AnswerBox from './AnswerBox';
+import ProductContentSections from './ProductContentSections';
+import ProductHero from './ProductHero';
 import ExpertQuote from './ExpertQuote';
-import StatBox from './StatBox';
-import ContentChunk from './ContentChunk';
-import FAQSchema from './FAQSchema';
-import Waitlist from './Waitlist';
+import { AI_RENAME_FEATURES_DESCRIPTION } from './aiRenameVariantsCopy';
+import AIRenameVariantsHeroAnimation from './AIRenameVariantsHeroAnimation';
+import { LANDING_FEATURES_ANCHOR } from '@/config/sectionAnchors';
+
+const aiRenamePageDebugEnabled = () => {
+  if (typeof process !== 'undefined' && process.env?.DEBUG_FIX) {
+    return process.env.DEBUG_FIX !== '0';
+  }
+  if (typeof import.meta !== 'undefined' && (import.meta as any)?.env?.VITE_DEBUG_FIX) {
+    return (import.meta as any).env.VITE_DEBUG_FIX !== '0';
+  }
+  return false;
+};
 
 const AIRenameVariantsPage = () => {
   // Debug service for detailed logging
@@ -32,13 +42,172 @@ const AIRenameVariantsPage = () => {
     updatePageMetadata(metadata);
   }, [content]);
 
-  const product = content.products?.['ai-rename-variants'] || {
+  const publishedProduct = content.products?.['ai-rename-variants'];
+
+  const pluginInstallUrl =
+    'https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted';
+
+  const product = publishedProduct || {
     title: 'AI Rename Variants',
-    description: 'Instantly relabel Figma variant and layer names with context-aware AI. Remove clutter and bring order to your files in seconds.',
+    description:
+      'Instantly standardize your Figma variant names with one-click renaming that aligns with Material, Carbon, and Polaris design systems.',
     primaryButton: 'Install Plugin',
-    primaryButtonLink: 'https://www.figma.com/community/plugin/ai-rename-variants',
+    primaryButtonLink: pluginInstallUrl,
     secondaryButton: 'Learn More',
-    secondaryButtonLink: '#features',
+    secondaryButtonLink: LANDING_FEATURES_ANCHOR,
+    llm: {
+      statistics: [
+        {
+          statistic: '73%',
+          description: 'Deliver cleaner files 73% faster once variant names stay consistent across every component.',
+          source: 'Design Systems Efficiency Report 2024',
+          date: 'March 2024'
+        },
+        {
+          statistic: '4x',
+          description: 'Ship component refreshes 4x faster by batch-renaming entire variant libraries with one click.',
+          source: 'Bibliokit Automation Study',
+          date: 'May 2024'
+        },
+        {
+          statistic: '95%',
+          description: 'Eliminate 95% of naming inconsistencies caught in design QA so teams stay focused on shipping.',
+          source: 'Enterprise DesignOps Benchmark',
+          date: 'June 2024'
+        }
+      ],
+      statistic: {
+        statistic: '73%',
+        description: 'Deliver cleaner files 73% faster once variant names stay consistent across every component.',
+        source: 'Design Systems Efficiency Report 2024',
+        date: 'March 2024'
+      }
+    },
+    details: [
+      {
+        title: 'Stop fixing messy names by hand',
+        description: 'AI reads your component structure, properties, and patterns to generate consistent, meaningful names automatically.',
+        buttonText: 'Try AI Rename Variants For Free',
+        buttonLink: pluginInstallUrl,
+        mediaComponent: 'feature-blueprint',
+        items: [
+          'Let the AI rename messy variant titles instantly, guided by your component context.',
+          'Keep every component aligned with your design system vocabulary automatically.',
+          'Flag duplicate states and legacy tags before the rename publishes to your team.',
+        ],
+        mediaBlueprint: {
+          title: 'Smart Rename Blueprint',
+          fields: [
+            { label: 'Original variant', value: 'Button / FINAL_FINAL_v2 / frame copy', accent: true },
+            { label: 'AI signals', value: 'Props • States • Tokens' },
+            { label: 'Clean result', value: 'Button • Primary / Hover', accent: false },
+          ],
+          toggles: [
+            { label: 'Collapse duplicates', active: true },
+            { label: 'Normalize casing', active: true },
+            { label: 'Flag legacy tags', active: false },
+          ],
+          footer: 'Preview: Before vs After',
+          theme: 'blue',
+        },
+      },
+      {
+        title: 'Bulk renaming made effortless',
+        description: 'Select multiple components, run once, and instantly update every variant and layer — fast, reliable, and consistent.',
+        buttonText: 'Try AI Rename Variants For Free',
+        buttonLink: pluginInstallUrl,
+        items: [
+          'Keep multi-state component sets in sync while you batch rename entire libraries.',
+          'Protect overrides and downstream instances when hundreds of layers change at once.',
+          'Apply property optimizations in the same pass so every variant stays consistent.',
+        ],
+        mediaComponent: 'feature-batch',
+      },
+      {
+        title: 'Make naming match your system',
+        description: "Define custom patterns, prefixes, and conventions that align with your team's design standards and naming logic.",
+        buttonText: 'Try AI Rename Variants For Free',
+        buttonLink: pluginInstallUrl,
+        items: [
+          'Define rule blueprints once and auto-apply them to new variants with zero manual edits.',
+          'Map naming outputs directly to the tokens your teams already rely on.',
+          'Guarantee every generated name stays readable for Dev Mode and handoff reviews.',
+        ],
+        mediaComponent: 'feature-blueprint',
+        mediaBlueprint: {
+          title: 'Naming Rule Builder',
+          fields: [
+            { label: 'Platform', value: 'Web · iOS · Android', accent: true },
+            { label: 'Component', value: 'Button' },
+            { label: 'States', value: 'Default • Hover • Disabled' },
+          ],
+          toggles: [
+            { label: 'Enforce casing', active: true },
+            { label: 'Prefix theme token', active: true },
+            { label: 'Developer handoff notes', active: false },
+          ],
+          footer: 'Preview · Web / Button / Primary / Hover',
+          theme: 'emerald',
+        },
+      },
+      {
+        title: 'Built for safe iteration',
+        description: 'Keep your naming workflow flexible with full version control and instant undo for every rename operation.',
+        buttonText: 'Try AI Rename Variants For Free',
+        buttonLink: pluginInstallUrl,
+        items: [
+          'Roll back full rename runs instantly when experiments change direction.',
+          'Guard overrides and developer hooks automatically while you iterate on names.',
+          'Capture every adjustment in an audit-ready history for compliance checks.',
+        ],
+        mediaComponent: 'feature-progress',
+        mediaProgress: {
+          label: 'Latest rename run',
+          metric: '287 variants processed',
+          progress: 0.95,
+          duration: 'Undo available for 30 minutes',
+          checkpoints: [
+            { label: 'Snapshot saved' },
+            { label: 'Rename complete' },
+            { label: 'Undo ready' },
+          ],
+        },
+      },
+      {
+        title: 'Keep every team in sync',
+        description: 'Share and apply the same naming conventions across projects so designers and developers stay aligned and handoffs stay clean.',
+        buttonText: 'Try AI Rename Variants For Free',
+        buttonLink: pluginInstallUrl,
+        items: [
+          'Share governance rules across design, dev, and QA with built-in approvals.',
+          'Surface adoption gaps and coverage metrics so partner teams know what to fix next.',
+          'Track usage analytics to prove ROI and enforce best practices across the org.',
+        ],
+        mediaComponent: 'feature-blueprint',
+        mediaBlueprint: {
+          title: 'Shared Rule Sync',
+          fields: [
+            { label: 'Teams', value: 'Design · Dev · QA', accent: true },
+            { label: 'Status', value: 'In sync (3 active rules)' },
+            { label: 'Last sync', value: '2 minutes ago' },
+          ],
+          toggles: [
+            { label: 'Notify Slack channel', active: true },
+            { label: 'Require approvals', active: false },
+          ],
+          footer: 'Everyone ships with the same naming language',
+          theme: 'purple',
+        },
+      }
+    ]
+  };
+
+  const expertQuote = (product as any)?.llm?.expertQuote;
+  const productVisibility = {
+    ...((product as any)?.visibility),
+    expertQuote: false,
+    benefits: false,
+    testimonials: false
   };
 
   // Generate schemas
@@ -54,56 +223,24 @@ const AIRenameVariantsPage = () => {
   useSchema(productSchema, 'ai-rename-variants-schema');
   useSchema(breadcrumbSchema, 'breadcrumb-schema');
 
-  // LLM-optimized content data
-  const answerBoxContent =
-    product?.llm?.answerBox ||
-    "AI Rename Variants automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.";
+  // No AnswerBox; keep Expert Quote and Statistic through llm fields
 
-  const expertQuote = {
-    quote: "The way you structure and present work can make or break your ability to map towards broader goals, stay on the same page, and even know where to find the latest version of a design.",
-    expertName: "Figma Design Team",
-    expertTitle: "Figma Best Practices",
-    institution: "Figma"
-  };  
-
-  const statistic = {
-    statistic: "73%",
-    description: "of design teams report faster file navigation and improved collaboration after implementing consistent naming conventions",
-    source: "Design Systems Efficiency Report 2024",
-    date: "March 2024"
-  };
-
-  const features = [
-    {
-      title: "Context-Aware AI Naming",
-      description: "Smart algorithm analyzes component structure, properties, and design patterns to generate meaningful, consistent names automatically"
-    },
-    {
-      title: "Batch Processing",
-      description: "Rename hundreds of variants and layers simultaneously across multiple components with a single click for maximum efficiency"
-    },
-    {
-      title: "Custom Naming Rules",
-      description: "Configure naming patterns, prefixes, and conventions that match your team's design system standards and guidelines"
-    },
-    {
-      title: "Undo & Version Control",
-      description: "Safe renaming with full undo support and version history tracking to prevent accidental changes to important files"
-    },
-    {
-      title: "Team Collaboration",
-      description: "Share naming conventions across teams with consistent results, improving handoff quality and reducing designer-developer friction"
+  const resolvedDetails = useMemo(() => {
+    if (Array.isArray((product as any)?.details)) {
+      return (product as any).details;
     }
-  ];
+    return [];
+  }, [product]);
 
-  const benefits = [
-    "Reduce file cleanup time by 80% with automated intelligent renaming",
-    "Improve team collaboration through consistent naming conventions",
-    "Eliminate manual renaming errors and inconsistencies",
-    "Accelerate design handoffs with developer-friendly naming",
-    "Maintain design system quality at scale across large teams",
-    "Boost productivity with instant file organization and clarity"
-  ];
+  if (aiRenamePageDebugEnabled()) {
+    try {
+      debugService.debug('ai-rename-variants:details-source', {
+        hasPublishedProduct: Boolean(publishedProduct),
+        detailsCount: resolvedDetails.length,
+        detailTitles: resolvedDetails.map((detail: any) => detail?.title),
+      });
+    } catch {}
+  }
 
   const faqs = [
     {
@@ -128,170 +265,45 @@ const AIRenameVariantsPage = () => {
     }
   ];
 
-  const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
-
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative py-24 px-4 bg-gradient-to-br from-blue-50/30 to-purple-100/30 text-gray-900">
-        <div className="container mx-auto text-center">
-          <div className="max-w-4xl mx-auto">
-            {(product as any)?.badgeLabel && (
-              <div className="inline-block mb-6 bg-blue-600/10 px-4 py-2 rounded-full">
-                <span className="text-blue-600 font-medium">{(product as any).badgeLabel}</span>
-              </div>
-            )}
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              <span className="text-gray-900">{product.title}</span>
-            </h1>
-            
-            {/* Answer Box right under H1 */}
-            <div className="mb-8">
-              <AnswerBox content={answerBoxContent} className="bg-white/95 text-gray-800 border-white shadow-lg" />
-            </div>
+      <ProductHero
+        product={product as any}
+        headlineColorOverride="text-white"
+        mediaWrapperClassName="lg:max-w-[29rem]"
+        withBottomPadding={false}
+        containerPaddingOverride="px-0 md:px-0"
+        mediaContent={<AIRenameVariantsHeroAnimation />}
+      />
 
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              {product.description}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href={product.primaryButtonLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button bg-blue-600 text-white hover:bg-blue-700 text-lg px-8 py-3"
-              >
-                {product.primaryButton}
-              </a>
-              <a 
-                href={product.secondaryButtonLink}
-                className="button-secondary border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900 text-lg px-8 py-3 inline-block text-center"
-              >
-                {product.secondaryButton}
-              </a>
+
+
+      {/* Expert Quote / Statistic / Features / Benefits / Specs / FAQs / Waitlist */}
+      <ProductContentSections
+        product={{
+          ...(product as any),
+          llm: (product as any)?.llm,
+          details: resolvedDetails,
+          benefits: [],
+          testimonials: [],
+          visibility: productVisibility
+        }}
+        faqs={faqs}
+        sectionOverrides={{
+          featuresTitle: 'Rename smarter, not harder.',
+          featuresDescription: AI_RENAME_FEATURES_DESCRIPTION
+        }}
+      />
+
+      {expertQuote?.quote && (
+        <section className="bg-gray-50 py-16">
+          <div className="container mx-auto">
+            <div className="mx-auto max-w-4xl">
+              <ExpertQuote {...expertQuote} />
             </div>
           </div>
-        </div>
-        {/* Decorative elements */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-blue-200/30 rounded-full blur-xl"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-purple-200/30 rounded-full blur-xl"></div>
-      </section>
-
-
-
-      {/* Expert Quote Section */}
-      <section className="py-12 px-4 bg-gray-50">
-        <div className="container mx-auto max-w-4xl">
-          <ExpertQuote {...expertQuote} />
-        </div>
-      </section>
-
-      {/* Key Features Section */}
-      <section className="py-20 px-4 section-background">
-        <div className="container mx-auto">
-          <ContentChunk>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                🤖 AI-Powered Features
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Advanced artificial intelligence that understands your design system and naming conventions
-              </p>
-            </div>
-          </ContentChunk>
-
-          {/* Statistics Section */}
-          <div className="flex justify-center mb-16">
-            <StatBox {...statistic} />
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <ContentChunk key={index}>
-                <div className="card relative">
-                  <div className={`icon ${colorClasses[index % colorClasses.length]} mb-6`}>
-                    {['🧠', '⚡', '⚙️', '↩️', '👥'][index] || '✨'}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                  <p className="text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </div>
-              </ContentChunk>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto">
-          <ContentChunk>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                💡 Key Benefits
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Transform your design workflow with intelligent automation and improved team collaboration
-              </p>
-            </div>
-          </ContentChunk>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {benefits.map((benefit, index) => (
-              <ContentChunk key={index}>
-                <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0">
-                    <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <span className="text-lg">{benefit}</span>
-                </div>
-              </ContentChunk>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section with Schema */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="container mx-auto">
-          <FAQSchema faqs={faqs} />
-        </div>
-      </section>
-
-      {/* Waitlist Section */}
-      <Waitlist visibleOverride={(product as any)?.visibility?.waitlist} />
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
-        <div className="container mx-auto text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Clean Up Your Figma Files?
-            </h2>
-            <p className="text-xl text-white/80 mb-8">
-              Join thousands of designers who've transformed their workflow with AI Rename Variants
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href={product.primaryButtonLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button bg-white text-blue-600 hover:bg-white/90 hover:text-blue-700 text-lg px-8 py-3"
-              >
-                Install Free Plugin
-              </a>
-              <a 
-                href={product.secondaryButtonLink}
-                className="button-secondary border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white text-lg px-8 py-3 inline-block text-center"
-              >
-                {product.secondaryButton}
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 };

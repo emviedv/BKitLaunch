@@ -1,0 +1,67 @@
+export type FeaturedClient = {
+  name: string;
+  token: string;
+};
+
+export const CLIENT_LOGO_ASSET_MAP: Record<string, string> = {
+  google: '/clients/google.svg',
+  microsoft: '/clients/microsoft.svg',
+  airbnb: '/clients/airbnb.svg',
+  amazon: '/clients/amazon.svg',
+  apple: '/clients/apple.svg',
+  square: '/clients/square.svg',
+  ebay: '/clients/ebay.svg',
+  tesla: '/clients/tesla.svg',
+  netflix: '/clients/netflix.svg',
+  samsung: '/clients/samsung.svg',
+  meta: '/clients/meta.svg',
+  dropbox: '/clients/dropbox.svg',
+  mailchimp: '/clients/mailchimp.svg',
+  instacart: '/clients/instacart.svg',
+  github: '/clients/github.svg',
+  stripe: '/clients/stripe.svg',
+  atlassian: '/clients/atlassian.svg',
+  zapier: '/clients/zapier.svg',
+  googleworkspace: '/clients/google.svg',
+  ea: '/clients/ea.svg',
+  deloitte: '/clients/deloitte.svg',
+  'bang-olufsen': '/clients/bang-olufsen.svg',
+  nasa: '/clients/nasa.svg',
+  oracle: '/clients/oracle.svg',
+  yahoo: '/clients/yahoo.svg',
+  openai: '/clients/openai.svg',
+  tiktok: '/clients/tiktok.svg',
+  pinterest: '/clients/pinterest.svg',
+  lyft: '/clients/lyft.svg',
+  valve: '/clients/valve.svg',
+  webflow: '/clients/webflow.svg',
+  linear: '/clients/linear.svg'
+};
+
+export const FEATURED_CLIENTS: FeaturedClient[] = [
+  { name: 'Google', token: 'google' },
+  { name: 'Microsoft', token: 'microsoft' },
+  { name: 'Airbnb', token: 'airbnb' },
+  { name: 'Netflix', token: 'netflix' },
+  { name: 'Amazon', token: 'amazon' },
+  { name: 'Square', token: 'square' },
+  { name: 'eBay', token: 'ebay' },
+  { name: 'Tesla', token: 'tesla' },
+  { name: 'Samsung', token: 'samsung' },
+  { name: 'Meta', token: 'meta' },
+  { name: 'Dropbox', token: 'dropbox' },
+  { name: 'Mailchimp', token: 'mailchimp' },
+  { name: 'Instacart', token: 'instacart' },
+  { name: 'GitHub', token: 'github' },
+  { name: 'EA', token: 'ea' },
+  { name: 'Deloitte', token: 'deloitte' },
+  { name: 'Bang & Olufsen', token: 'bang-olufsen' },
+  { name: 'NASA', token: 'nasa' },
+  { name: 'Oracle', token: 'oracle' },
+  { name: 'Yahoo', token: 'yahoo' },
+  { name: 'OpenAI', token: 'openai' },
+  { name: 'TikTok', token: 'tiktok' },
+  { name: 'Pinterest', token: 'pinterest' },
+  { name: 'Lyft', token: 'lyft' },
+  { name: 'Valve', token: 'valve' }
+];

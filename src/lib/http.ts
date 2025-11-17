@@ -9,7 +9,13 @@ export interface ApiResponse<T> {
   message?: string;
 }
 
-export const getApiUrl = (endpoint: string): string => `/.netlify/functions/${endpoint}`;
+const FUNCTIONS_ORIGIN = (import.meta as any).env?.VITE_FUNCTIONS_ORIGIN || '';
+export const getApiUrl = (endpoint: string): string => {
+  const base = FUNCTIONS_ORIGIN as string;
+  // Ensure no duplicate slashes when joining
+  const prefix = base ? base.replace(/\/$/, '') : '';
+  return `${prefix}/.netlify/functions/${endpoint}`;
+};
 
 export const buildAuthHeaders = (token?: string, extra?: HeadersInit): HeadersInit => ({
   'Content-Type': 'application/json',
@@ -55,5 +61,4 @@ export async function apiRequest<T>(
     return { success: false, error: errMsg };
   }
 }
-
 

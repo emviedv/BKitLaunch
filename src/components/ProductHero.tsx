@@ -15,6 +15,7 @@ import {
 import { logHeroHeadlineSplit } from './heroInstrumentation';
 import LandingHero from './LandingHero';
 import { cn } from '@/lib/utils';
+import { LANDING_FEATURES_ID } from '@/config/sectionAnchors';
 
 interface ProductInfo {
   emoji?: string;
@@ -180,7 +181,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
     'landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center',
     !withBottomPadding && 'pb-0'
   );
-  const layoutClassName = 'mx-auto grid w-full max-w-6xl items-center gap-8 py-12 lg:grid-cols-12';
+  const layoutClassName = 'mx-auto grid w-full max-w-6xl items-center gap-8 pb-12 pt-0 lg:grid-cols-12';
   const contentColumnClassName = 'flex flex-col gap-2 text-center lg:col-span-5 lg:text-left product-hero__content';
   const titleWrapperClassName = 'space-y-2';
   const descriptionClassName = `${HERO_DESCRIPTION_CLASS} mx-auto mt-3 mb-6 text-center lg:mx-0 lg:text-left`;
@@ -213,6 +214,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   return (
     <section className={sectionClassName}>
       <div className="landing-hero-gradient__layer" aria-hidden="true" />
+      <div className="landing-hero-column-lines" aria-hidden="true" />
       <div className="landing-hero-noise" aria-hidden="true" />
       <div className="landing-hero-contrast" aria-hidden="true" />
       <Confetti
@@ -332,7 +334,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                     size="lg"
                     className={primaryButtonClassName}
                     onClick={() => {
-                      const featuresSection = document.getElementById('features');
+                      const featuresSection = document.getElementById(LANDING_FEATURES_ID);
                       if (featuresSection) {
                         featuresSection.scrollIntoView({ behavior: 'smooth' });
                       }

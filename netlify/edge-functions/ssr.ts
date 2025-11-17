@@ -14,6 +14,165 @@ interface SSRModule {
 // Cache for server module to avoid repeated imports
 let serverModule: SSRModule | null = null;
 
+const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
+
+const readEnv = (key: string): string | undefined => {
+  try {
+    const netlifyEnv = (globalThis as any)?.Netlify?.env;
+    if (netlifyEnv && typeof netlifyEnv.get === 'function') {
+      const value = netlifyEnv.get(key);
+      if (typeof value === 'string' && value.length > 0) {
+        return value;
+      }
+    }
+  } catch {}
+  try {
+    const denoEnv = (globalThis as any)?.Deno?.env;
+    if (denoEnv && typeof denoEnv.get === 'function') {
+      const value = denoEnv.get(key);
+      if (typeof value === 'string' && value.length > 0) {
+        return value;
+      }
+    }
+  } catch {}
+  try {
+    const processEnv = (globalThis as any)?.process?.env;
+    if (processEnv && typeof processEnv === 'object') {
+      const value = processEnv[key];
+      if (typeof value === 'string' && value.length > 0) {
+        return value;
+      }
+    }
+  } catch {}
+  return undefined;
+};
+
+const collectHosts = (raw?: string): string[] => {
+  if (!raw) return [];
+  return raw
+    .split(',')
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.length > 0)
+    .map((entry) => {
+      if (entry.startsWith('*.')) {
+        return entry.toLowerCase();
+      }
+      try {
+        const parsed = new URL(entry);
+        return parsed.hostname.toLowerCase();
+      } catch {
+        try {
+          const parsedWithScheme = new URL(`https://${entry}`);
+          return parsedWithScheme.hostname.toLowerCase();
+        } catch {
+          return entry.toLowerCase();
+        }
+      }
+    });
+};
+
+const allowedHostRules = (() => {
+  const hosts = new Set<string>();
+  const push = (value?: string) => {
+    for (const host of collectHosts(value)) {
+      hosts.add(host);
+    }
+  };
+  push(readEnv('SSR_ALLOWED_HOSTS'));
+  push(readEnv('ALLOWED_ORIGINS'));
+  push(readEnv('URL'));
+  push(readEnv('DEPLOY_URL'));
+  return Array.from(hosts);
+})();
+
+const collectPreferredOrigins = (): string[] => {
+  const origins = new Set<string>();
+  const push = (value?: string) => {
+    if (!value) return;
+    try {
+      origins.add(new URL(value).origin);
+      return;
+    } catch {}
+    try {
+      origins.add(new URL(`https://${value}`).origin);
+    } catch {}
+  };
+  push(readEnv('SSR_INTERNAL_ORIGIN'));
+  push(readEnv('SSR_CONTENT_BASE_URL'));
+  push(readEnv('PUBLIC_SITE_URL'));
+  push(readEnv('DEPLOY_URL'));
+  push(readEnv('URL'));
+  return Array.from(origins);
+};
+
+const isNetlifyManagedHost = (hostname: string): boolean => {
+  const normalized = hostname.toLowerCase();
+  return normalized.endsWith('.netlify.app') || normalized.endsWith('.netlify.com');
+};
+
+const pickStableInternalOrigin = (urlObj: URL, fallbackOrigin: string): string => {
+  const requestOrigin = fallbackOrigin || urlObj.origin;
+  const requestHost = urlObj.hostname.toLowerCase();
+  const preferredOrigins = collectPreferredOrigins();
+
+  const netlifyOrigin = preferredOrigins.find((origin) => {
+    try {
+      const parsed = new URL(origin);
+      return isNetlifyManagedHost(parsed.hostname) && parsed.hostname.toLowerCase() !== requestHost;
+    } catch {
+      return false;
+    }
+  });
+  if (netlifyOrigin) {
+    return netlifyOrigin;
+  }
+
+  const alternateOrigin = preferredOrigins.find((origin) => {
+    try {
+      const parsed = new URL(origin);
+      return parsed.hostname.toLowerCase() !== requestHost;
+    } catch {
+      return false;
+    }
+  });
+
+  return alternateOrigin || requestOrigin;
+};
+
+const isHostAllowed = (hostname: string): boolean => {
+  const normalized = hostname.toLowerCase();
+  if (DEV_HOSTS.has(normalized)) {
+    return true;
+  }
+  if (allowedHostRules.length === 0) {
+    return true;
+  }
+  return allowedHostRules.some((rule) => {
+    if (rule.startsWith('*.')) {
+      const suffix = rule.slice(1);
+      return normalized === rule.substring(2) || normalized.endsWith(suffix);
+    }
+    return normalized === rule;
+  });
+};
+
+const sanitizeRequestUrl = (incoming: URL): URL | null => {
+  if (!incoming || !incoming.hostname) {
+    return null;
+  }
+  if (incoming.protocol !== 'https:' && incoming.protocol !== 'http:') {
+    return null;
+  }
+  if (!isHostAllowed(incoming.hostname)) {
+    return null;
+  }
+  const sanitized = new URL(`${incoming.protocol}//${incoming.host}`);
+  sanitized.pathname = incoming.pathname;
+  sanitized.search = incoming.search;
+  sanitized.hash = '';
+  return sanitized;
+};
+
 async function getServerModule(): Promise<SSRModule> {
   if (!serverModule) {
     // Import the server entry point
@@ -22,9 +181,31 @@ async function getServerModule(): Promise<SSRModule> {
   return serverModule;
 }
 
+const fetchWithTimeout = async (
+  resource: RequestInfo | URL,
+  init: RequestInit & { timeoutMs?: number } = {}
+): Promise<Response> => {
+  const { timeoutMs = 2500, ...rest } = init;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(resource, {
+      ...rest,
+      signal: rest.signal ?? controller.signal,
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+};
+
 export default async (request: Request, context: Context) => {
-  const url = new URL(request.url);
-  const isProdHost = url.hostname !== 'localhost' && url.hostname !== '127.0.0.1';
+  const parsedUrl = new URL(request.url);
+  const url = sanitizeRequestUrl(parsedUrl);
+  if (!url) {
+    console.warn('⚠️ SSR: Rejected request with untrusted origin:', parsedUrl.hostname);
+    return context.next();
+  }
+  const isProdHost = !DEV_HOSTS.has(url.hostname);
   
   // In local development, skip SSR completely and let Vite SPA handle routing to avoid hydration noise
   if (!isProdHost) {
@@ -60,17 +241,17 @@ export default async (request: Request, context: Context) => {
     console.log('✅ SSR: Server module loaded successfully');
     
     // Fetch content data for SSR
-    const contentData = await fetchContentData(request.url);
+    const contentData = await fetchContentData(url.toString());
     console.log('📄 SSR: Content data fetched:', contentData ? 'SUCCESS' : 'FALLBACK');
     
     // Generate page metadata
-    const { title, description, metaTags, structuredData } = generateMetadata(request.url, contentData);
+    const { title, description, metaTags, structuredData } = generateMetadata(url.toString(), contentData);
     console.log('🏷️ SSR: Generated meta tags length:', metaTags.length);
     console.log('🏷️ SSR: Meta tags include canonical:', metaTags.includes('canonical'));
     console.log('🏷️ SSR: Meta tags include keywords:', metaTags.includes('keywords'));
     
     // Render the React app to HTML
-    const appHtml = renderToString(request.url, contentData);
+    const appHtml = renderToString(url.toString(), contentData);
     
     // Generate a per-response nonce for inline hydration script
     const nonceArray = new Uint8Array(16);
@@ -81,7 +262,7 @@ export default async (request: Request, context: Context) => {
       .join('');
 
     // Safely serialize JSON to prevent </script> and special char breakouts
-    const safeJson = JSON.stringify({ contentData, url: request.url })
+    const safeJson = JSON.stringify({ contentData, url: url.toString() })
       .replace(/</g, '\\u003c')
       .replace(/>/g, '\\u003e')
       .replace(/&/g, '\\u0026');
@@ -131,18 +312,19 @@ export default async (request: Request, context: Context) => {
       jsPath = '/src/entry-client.tsx';
     } else {
       let manifestFound = false;
-      try {
-        // Vite manifest: try /manifest.json, then /client/manifest.json (mapped via _redirects to /.vite/manifest.json)
-        let manifestUrl = new URL('/manifest.json', request.url).toString();
-        let manifestRes = await fetch(manifestUrl);
-        if (!manifestRes.ok) {
-          const alt = new URL('/client/manifest.json', request.url).toString();
-          const altRes = await fetch(alt);
-          if (altRes.ok) {
-            manifestRes = altRes;
+      const manifestOrigin = pickStableInternalOrigin(url, `${url.protocol}//${url.host}`);
+      const manifestCandidates = ['/manifest.json', '/client/manifest.json'];
+      for (const candidate of manifestCandidates) {
+        try {
+          const manifestUrl = new URL(candidate, manifestOrigin).toString();
+          const manifestRes = await fetchWithTimeout(manifestUrl, {
+            redirect: 'follow',
+            timeoutMs: 2000,
+          });
+          if (!manifestRes.ok) {
+            continue;
           }
-        }
-        if (manifestRes.ok) {
+
           manifestFound = true;
           const manifest: any = await manifestRes.json();
           const entry = manifest['src/entry-client.tsx'] || manifest['index.html'] || null;
@@ -155,8 +337,16 @@ export default async (request: Request, context: Context) => {
               .map((href) => `<link rel="stylesheet" href="/${String(href).replace(/^\//, '')}" />`)
               .join('\n     ');
           }
+          break;
+        } catch (error) {
+          const err = error as Error;
+          if (err?.name === 'AbortError') {
+            console.warn('⏱️ SSR: Manifest fetch timed out:', candidate, 'via', manifestOrigin);
+          } else {
+            console.warn('⚠️ SSR: Manifest fetch failed:', candidate, 'via', manifestOrigin, err);
+          }
         }
-      } catch {}
+      }
 
       // If manifest lookup failed, skip SSR and let the static index.html handle asset injection
       if (!manifestFound) {

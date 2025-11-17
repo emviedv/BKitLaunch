@@ -46,11 +46,11 @@
             localStorage.clear();
             
             // Show status
-            document.getElementById('status').innerHTML = '<p style="color: green;">Cache cleared! Redirecting to BiblioKit Blocks...</p>';
+            document.getElementById('status').innerHTML = '<p style="color: green;">Cache cleared! Redirecting to the homepage...</p>';
             
             // Redirect after 2 seconds
             setTimeout(() => {
-                window.location.href = '/bibliokit-blocks';
+                window.location.href = '/';
             }, 2000);
         }
         

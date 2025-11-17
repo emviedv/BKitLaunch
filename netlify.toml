@@ -108,19 +108,19 @@
 # Force HTTPS redirect - production only
 [[redirects]]
   from = "http://bibliokit.com/*"
-  to = "https://bibliokit.com/:splat"
+  to = "https://www.bibliokit.com/:splat"
   status = 301
   force = true
 
 [[redirects]]
   from = "http://www.bibliokit.com/*"
-  to = "https://bibliokit.com/:splat"
+  to = "https://www.bibliokit.com/:splat"
   status = 301
   force = true
 
 [[redirects]]
-  from = "https://www.bibliokit.com/*"
-  to = "https://bibliokit.com/:splat"
+  from = "https://bibliokit.com/*"
+  to = "https://www.bibliokit.com/:splat"
   status = 301
   force = true
 
@@ -212,9 +212,9 @@
   status = 200
 
 [dev]
-  command = "npm run dev"
+  # Vite is started by scripts/dev-full.sh; Dev only proxies.
   port = 9989
-  targetPort = 9990
+  targetPort = 53173
 
 # Edge Functions configuration - temporarily disabled; restore after manifest path finalization
 # [[edge_functions]]

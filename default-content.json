@@ -1,7 +1,7 @@
 {
   "cta": {
-    "title": "Ready to Transform Your Workflow?",
-    "description": "Join thousands of designers and developers who rely on BiblioKit's Figma plugins and SaaS tools for faster, smarter, and more efficient product design.",
+    "title": "Join Designers shipping faster with BiblioKit",
+    "description": "Set up a shared workspace, align every stakeholder, and launch production-ready documentation 10x faster.",
     "primaryButton": "Start Free Trial",
     "secondaryButton": "Schedule Demo",
     "primaryButtonLink": "https://blocks.bibliokit.com/signup",
@@ -9,14 +9,14 @@
   },
   "hero": {
     "visible": true,
-    "title": "Work x1000 Faster",
-    "subtitle": "Your AI Design ToolKit, Reinvented.",
+    "title": "Your Design Toolkit, Reinvented.",
+    "subtitle": "Work x10,000 faster.",
     "badgeLabel": "Built by designers for designers.",
-    "description": "Professional SaaS software and Figma plugins with secure API management and world-class support for designers and developers.",
+    "description": "Automate the stuff you hate, design the things you love.",
     "primaryButton": "Get Started Free",
     "secondaryButton": "View Products",
     "primaryButtonLink": "https://blocks.bibliokit.com/signup",
-    "secondaryButtonLink": "#features",
+    "secondaryButtonLink": "#landing-features",
     "gradientColors": ["#ecfeff00", "#ecfeff10", "#c7d2fe40", "#a7f3d040", "#a5b4fc50", "#93c5fd40", "#ffffff00"]
   },
   "footer": {
@@ -24,8 +24,8 @@
       {
         "title": "Product",
         "links": [
-          { "href": "#features", "label": "Features" },
-          { "href": "#pricing", "label": "Pricing" },
+          { "href": "#landing-features", "label": "Features" },
+          { "href": "#landing-pricing", "label": "Pricing" },
           { "href": "/docs", "label": "Documentation" },
           { "href": "#contact", "label": "Get Started" }
         ]
@@ -52,7 +52,6 @@
   "header": {
     "logoText": "BiblioKit",
     "navigation": [
-      { "href": "/bibliokit-blocks", "label": "BiblioKit Blocks" },
       { "href": "/ai-rename-variants", "label": "AI Rename Variants" },
       { "href": "/uxbiblio", "label": "UXBiblio" }
     ],
@@ -127,7 +126,7 @@
   ],
   "features": [
     {
-      "icon": "<÷",
+      "icon": "<ï¿½",
       "idea": "AI-powered variant renaming at scale.",
       "badge": "Launched",
       "title": "AI Rename Variants",
@@ -148,7 +147,7 @@
       "buttonPreset": "custom"
     },
     {
-      "icon": "=",
+      "icon": "audit",
       "idea": "File-level component audits for better design.",
       "badge": "Coming Soon",
       "title": "Component Auditor",
@@ -169,7 +168,7 @@
       "buttonPreset": "custom"
     },
     {
-      "icon": "=Ê",
+      "icon": "=ï¿½",
       "idea": "Cross-file analytics for design systems at scale.",
       "badge": "Launched",
       "title": "BiblioKit Blocks",
@@ -183,14 +182,14 @@
       ],
       "showBadge": true,
       "badgeColor": "#10b981",
-      "buttonLink": "/bibliokit-blocks",
+      "buttonLink": "https://blocks.bibliokit.com/signup",
       "buttonText": "Learn More",
       "isFeatured": false,
       "description": "Analytics platform for Figma libraries. Track usage across files, measure adoption, highlight duplicates, and quantify ROI to optimize design systems.",
       "buttonPreset": "custom"
     },
     {
-      "icon": "=Ò",
+      "icon": "=ï¿½",
       "idea": "Your personal UX library for patterns and ideas.",
       "badge": "Coming Soon",
       "title": "UXBiblio",
@@ -212,7 +211,7 @@
     }
   ],
   "featuresSection": {
-    "title": "Design Smarter, Build Faster",
+    "title": "Design smarter. Ship cleaner.",
     "description": "AI-powered tools for modern product teams."
   },
   "products": {
@@ -224,7 +223,7 @@
       "primaryButtonLink": "https://blocks.bibliokit.com/signup",
       "secondaryButtonLink": "https://blocks.bibliokit.com/demo",
       "badgeLabel": "SaaS Analytics Platform",
-      "visibility": { "waitlist": true },
+      "visibility": { "waitlist": false },
       "details": [
         {
           "title": "Automated Figma Integration",
@@ -257,7 +256,7 @@
       ],
       "specifications": [
         {
-          "icon": "=Ê",
+          "icon": "=ï¿½",
           "name": "Analytics Engine",
           "value": "Real-time component tracking across unlimited files"
         },
@@ -267,7 +266,7 @@
           "value": "Secure OAuth connection with automatic sync"
         },
         {
-          "icon": "=È",
+          "icon": "=ï¿½",
           "name": "ROI Tracking",
           "value": "Quantifiable business impact metrics"
         },
@@ -277,12 +276,12 @@
           "value": "Multi-user access with role permissions"
         },
         {
-          "icon": "=Ë",
+          "icon": "=ï¿½",
           "name": "Export Options",
           "value": "CSV, PDF reports, and shareable links"
         },
         {
-          "icon": "=á",
+          "icon": "=ï¿½",
           "name": "Enterprise Security",
           "value": "SOC 2 compliant with 99.5% uptime"
         }
@@ -334,12 +333,14 @@
     "ai-rename-variants": {
       "title": "AI Rename Variants",
       "description": "Instantly relabel Figma variant and layer names with context-aware AI. Remove clutter and bring order to your files in seconds.",
-      "primaryButton": "Install Plugin",
-      "secondaryButton": "Learn More",
-      "primaryButtonLink": "https://www.figma.com/community/plugin/ai-rename-variants",
-      "secondaryButtonLink": "#features",
-      "badgeLabel": "<÷ Figma Plugin",
-      "visibility": { "waitlist": true },
+    "primaryButton": "Install Plugin",
+    "secondaryButton": "Learn More",
+    "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+    "secondaryButtonLink": "#landing-features",
+    "heroImage": "/component-auditor-ui-420x500.png",
+    "heroImageAlt": "Component audit dashboard showing key metrics",
+      "badgeLabel": "<ï¿½ Figma Plugin",
+      "visibility": { "waitlist": false },
       "details": [
         {
           "title": "Context-Aware AI Naming",
@@ -363,31 +364,42 @@
         }
       ],
       "benefits": [
-        "Reduce file cleanup time by 80% with automated intelligent renaming",
-        "Improve team collaboration through consistent naming conventions",
-        "Eliminate manual renaming errors and inconsistencies",
-        "Accelerate design handoffs with developer-friendly naming",
-        "Maintain design system quality at scale across large teams",
-        "Boost productivity with instant file organization and clarity"
+        "Standardize every variant library in minutes with full-stack rename automation.",
+        "Protect overrides and developer hooks with undo-ready, non-destructive batch runs.",
+        "Enforce your naming rules automatically so new components launch on-pattern."
+      ],
+      "testimonials": [
+        {
+          "quote": "We cleaned two years of component sprawl in one afternoon and finally shipped a consistent design system.",
+          "author": "Avery Kim",
+          "role": "Director of Design Systems",
+          "company": "Northwind UI"
+        },
+        {
+          "quote": "Our developers get predictable variant names and QA stopped flagging handoff issues overnight.",
+          "author": "Luis Romero",
+          "role": "Product Design Lead",
+          "company": "AtlasCo"
+        }
       ],
       "specifications": [
         {
-          "icon": ">à",
+          "icon": ">ï¿½",
           "name": "AI Engine",
           "value": "Context-aware machine learning algorithm"
         },
         {
-          "icon": "¡",
+          "icon": "ï¿½",
           "name": "Batch Processing",
           "value": "Hundreds of variants renamed simultaneously"
         },
         {
-          "icon": "™",
+          "icon": "ï¿½",
           "name": "Custom Rules",
           "value": "Configurable naming patterns and conventions"
         },
         {
-          "icon": "©",
+          "icon": "ï¿½",
           "name": "Undo Support",
           "value": "Full version control and change tracking"
         },
@@ -442,13 +454,13 @@
     },
     "uxbiblio": {
       "title": "UXBiblio",
-      "description": "Curated UI/UX patterns, templates, and best practices. Save and organize inspiration with AI-powered tagging.",
+      "description": "UXBiblio by BiblioKit: Curated UI/UX patterns and templates with AI-powered tagging. Save and organize your design inspiration effortlessly.",
       "primaryButton": "Open UXBiblio",
       "secondaryButton": "Learn More",
       "primaryButtonLink": "https://uxbiblio.localhost",
       "secondaryButtonLink": "/",
       "badgeLabel": "Pattern Library",
-      "visibility": { "waitlist": true },
+      "visibility": { "waitlist": false },
       "details": [
         {
           "title": "AI Tagging",
@@ -470,12 +482,12 @@
       ],
       "specifications": [
         {
-          "icon": "<÷",
+          "icon": "<ï¿½",
           "name": "Auto Tags",
           "value": "AI-powered tagging on upload"
         },
         {
-          "icon": "=Â",
+          "icon": "=ï¿½",
           "name": "Collections",
           "value": "Flexible folders and favorites"
         },
@@ -487,12 +499,7 @@
       ]
     }
   },
-  "waitlist": {
-    "title": "Get Early Access",
-    "buttonText": "Join the Waitlist",
-    "description": "Sign up now for early access to new BiblioKit features, exclusive updates, and launch announcements.",
-    "successMessage": "Thank you for joining our waitlist! You'll receive exclusive updates soon."
-  },
+  "waitlist": {},
   "settings": {
     "labels": {
       "ctaBadges": true,
@@ -512,7 +519,7 @@
       "product": true,
       "features": true,
       "uxbiblio": true,
-      "waitlist": true,
+      "waitlist": false,
       "bibliokit-blocks": true,
       "ai-rename-variants": true
     }

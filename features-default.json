@@ -192,7 +192,7 @@
         "showBadge": true,
         "buttonPreset": "custom",
         "buttonText": "Learn More",
-        "buttonLink": "/bibliokit-blocks"
+        "buttonLink": "https://blocks.bibliokit.com/signup"
       },
       {
         "icon": "🛒",

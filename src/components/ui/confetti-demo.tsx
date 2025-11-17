@@ -4,6 +4,20 @@ import type { ConfettiRef } from "@/components/ui/confetti"
 import { Confetti, ConfettiButton } from "@/components/ui/confetti"
 import { Button } from "@/components/ui/button"
 
+type ShapeFromPathOptions = { path: string; scalar?: number }
+type ShapeFromTextOptions = { text: string; scalar?: number }
+
+const confettiExtended = confetti as typeof confetti & {
+  shapeFromPath?: (options: ShapeFromPathOptions) => string
+  shapeFromText?: (options: ShapeFromTextOptions) => string
+}
+
+const getShapeFromPath = (options: ShapeFromPathOptions, fallback: string) =>
+  confettiExtended.shapeFromPath ? confettiExtended.shapeFromPath(options) : fallback
+
+const getShapeFromText = (options: ShapeFromTextOptions, fallback: string) =>
+  confettiExtended.shapeFromText ? confettiExtended.shapeFromText(options) : fallback
+
 function ConfettiDemo() {
   const confettiRef = useRef<ConfettiRef>(null)
 
@@ -165,18 +179,18 @@ function ConfettiStars() {
 function ConfettiCustomShapes() {
   const handleClick = () => {
     const scalar = 2
-    const triangle = confetti.shapeFromPath({
+    const triangle = getShapeFromPath({
       path: "M0 10 L5 0 L10 10z",
-    })
-    const square = confetti.shapeFromPath({
+    }, "square")
+    const square = getShapeFromPath({
       path: "M0 0 L10 0 L10 10 L0 10 Z",
-    })
-    const coin = confetti.shapeFromPath({
+    }, "square")
+    const coin = getShapeFromPath({
       path: "M5 0 A5 5 0 1 0 5 10 A5 5 0 1 0 5 0 Z",
-    })
-    const tree = confetti.shapeFromPath({
+    }, "circle")
+    const tree = getShapeFromPath({
       path: "M5 0 L10 10 L0 10 Z",
-    })
+    }, "square")
 
     const defaults = {
       spread: 360,
@@ -222,7 +236,7 @@ function ConfettiCustomShapes() {
 function ConfettiEmoji() {
   const handleClick = () => {
     const scalar = 2
-    const unicorn = confetti.shapeFromText({ text: "🦄", scalar })
+    const unicorn = getShapeFromText({ text: "🦄", scalar }, "circle")
 
     const defaults = {
       spread: 360,
@@ -275,5 +289,4 @@ export {
   ConfettiCustomShapes,
   ConfettiEmoji,
 }
-
 

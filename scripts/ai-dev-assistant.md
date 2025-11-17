@@ -18,7 +18,7 @@
 
 #### 3. **Test Admin Functionality**
 ```bash
-curl -X POST http://localhost:5175/.netlify/functions/admin-auth \
+curl -X POST http://localhost:9989/.netlify/functions/admin-auth \
   -H "Content-Type: application/json" \
   -d '{"email":"test","password":"test"}'
 ```
@@ -27,9 +27,9 @@ curl -X POST http://localhost:5175/.netlify/functions/admin-auth \
 #### 4. **Check Function Responses**
 ```bash
 # Test each function
-curl http://localhost:5175/.netlify/functions/db-test
-curl http://localhost:5175/.netlify/functions/users
-curl http://localhost:5175/.netlify/functions/content-management
+curl http://localhost:9989/.netlify/functions/db-test
+curl http://localhost:9989/.netlify/functions/users
+curl http://localhost:9989/.netlify/functions/content-management
 ```
 
 ### Development Session Workflow
@@ -59,17 +59,14 @@ Could set up:
 ### Live Development Commands
 
 ```bash
-# Quick health check
-curl -s http://localhost:5175 > /dev/null && echo "✅ UP" || echo "❌ DOWN"
+# Quick health check (Netlify Dev proxy)
+curl -s http://localhost:9989 > /dev/null && echo "✅ UP" || echo "❌ DOWN"
 
-# Function health check  
-curl -s http://localhost:5175/.netlify/functions/admin-auth -X POST -d '{}' | head -1
+# Function health check
+curl -s http://localhost:9989/.netlify/functions/health | head -1
 
-# Watch logs in real-time (if using PM2)
-pm2 logs bibliokit-dev --lines 50
-
-# Screen session monitoring
-screen -r bibliokit-dev  # Ctrl+A, D to detach
+# View Vite logs when running full stack (npm start)
+tail -n 50 -f vite.log
 ```
 
 ### Best Practices for AI-Assisted Development

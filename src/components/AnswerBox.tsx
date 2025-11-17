@@ -6,7 +6,7 @@ interface AnswerBoxProps {
 }
 
 const AnswerBox: React.FC<AnswerBoxProps> = ({ content, className = '' }) => {
-  // Count words to ensure 40-70 word limit
+  // Count words to ensure 40-70 word limit for LLM SEO optimization
   const wordCount = content.trim().split(/\s+/).length;
   const isOptimalLength = wordCount >= 40 && wordCount <= 70;
 

@@ -5,8 +5,8 @@ A simplified version of the BiblioKit website designed for quick deployment to N
 ## Features
 
 - **Static Site**: Built with React and Vite for fast loading
-- **Easy Content Editing**: Click the edit button (✏️) in the bottom right to modify content
 - **JSON-Driven**: All content is stored in `src/data/products.json` for easy editing
+- **Admin-Free**: No CMS or authentication layer — the bundle ships with published content inline
 - **Responsive Design**: Works great on desktop and mobile
 - **Netlify Ready**: Configured for one-click deployment
 
@@ -22,17 +22,11 @@ A simplified version of the BiblioKit website designed for quick deployment to N
    npm run dev
    ```
 
-3. Open http://localhost:9399
+3. Open http://127.0.0.1:53173
 
 ## Editing Content
 
-### Method 1: Using the Built-in Editor
-1. Click the edit button (✏️) in the bottom right corner
-2. Modify the JSON content in the editor
-3. Click "Save" to apply changes
-4. Refresh the page to see updates
-
-### Method 2: Direct File Editing
+### Editing the JSON
 1. Open `src/data/products.json`
 2. Edit the content directly
 3. Save the file
@@ -87,34 +81,25 @@ simple/
 
 ## Development
 
-- `npm run dev` - Start development server on port 9399
+- `npm run dev` - Start Vite on port 53173 (IPv4 localhost)
+- `npm run netlify:dev` - Full stack (proxy on 9989 → Vite on 53173)
 - `npm run build` - Build for production
+  - Note: This builds the client only. SSR build is optional (`npm run build:server`) and not required because Edge SSR is disabled in `netlify.toml`.
 - `npm run preview` - Preview production build
 
 ### Netlify Dev (Functions + SSR)
 
-Use the project script:
+Run the app with Netlify’s local proxy so `/.netlify/functions/*` work:
 
-```bash
+```
 npm run netlify:dev
 ```
 
-If you see a port conflict on 9989:
+- Opens at `http://localhost:9989` (proxy) and serves Vite on `127.0.0.1:53173`
+- Stop with Ctrl+C. If a port is stuck: `pkill -f "netlify dev"`
+- To free a port: `lsof -n -i :9989` then kill the PID
 
-```bash
-lsof -n -i :9989
-kill <PID>
-```
-
-If an integrations port error appears, stop previous sessions:
-
-```bash
-pkill -f "netlify dev"
-```
-
-### Local reverse proxy
-
-Use Traefik at `https://bibliokit-launch.localhost` to proxy dev servers (frontend on 5176, functions on 9998 via path prefix). Caddy is no longer used.
+Note: No Docker or reverse proxy (Traefik/Caddy) is required for local dev.
 
 ## Support
 

@@ -33,7 +33,7 @@
     "primaryButton": "Get Started Free",
     "secondaryButton": "View Products",
     "primaryButtonLink": "https://blocks.bibliokit.com/signup",
-    "secondaryButtonLink": "#features",
+    "secondaryButtonLink": "#landing-features",
     "gradientColors": [
       "#ecfeff00",
       "#ecfeff10",
@@ -96,7 +96,7 @@
     {
       "icon": "🔍",
       "idea": "File-level component audits for better design.",
-      "badge": "Coming Soon",
+      "badge": "",
       "title": "Component Auditor",
       "badges": [],
       "topItems": [
@@ -106,10 +106,10 @@
         "Detect missing variants",
         "Generate reports"
       ],
-      "showBadge": true,
+      "showBadge": false,
       "badgeColor": "#8b5cf6",
-      "buttonLink": "/component-auditor-figma-plugin",
-      "buttonText": "Learn More",
+      "buttonLink": "https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit",
+      "buttonText": "Try Plugin for Free",
       "isFeatured": false,
       "description": "Audit components inside a single Figma file. Check naming, structure, and variant coverage to ensure consistent, high-quality component usage.",
       "buttonPreset": "custom"
@@ -239,11 +239,11 @@
         "title": "Product",
         "links": [
           {
-            "href": "#features",
+            "href": "#landing-features",
             "label": "Features"
           },
           {
-            "href": "#pricing",
+            "href": "#landing-pricing",
             "label": "Pricing"
           },
           {
@@ -306,7 +306,7 @@
       "primaryButton": "Install Plugin",
       "secondaryButton": "Learn More",
       "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
-      "secondaryButtonLink": "#features",
+      "secondaryButtonLink": "#landing-features",
       "badgeLabel": "🏷️ Figma Plugin",
       "visibility": {
         "waitlist": false
@@ -368,7 +368,9 @@
             "Protect overrides and downstream instances when hundreds of layers change at once.",
             "Apply property optimizations in the same pass so every variant stays consistent."
           ],
-          "mediaComponent": "feature-batch"
+          "mediaComponent": "video",
+          "mediaUrl": "/media/rename-variants-before-after-loop-380.webm",
+          "mediaAlt": "AI Rename Variants before/after rename loop"
         },
         {
           "title": "Make naming match your system",
@@ -599,7 +601,7 @@
     },
     "uxbiblio": {
       "title": "UXBiblio",
-      "description": "Curated UI/UX patterns, templates, and best practices. Save and organize inspiration with AI-powered tagging.",
+      "description": "UXBiblio by BiblioKit: Curated UI/UX patterns and templates with AI-powered tagging. Save and organize your design inspiration effortlessly.",
       "primaryButton": "Start your UX Library",
       "primaryButtonIcon": "arrow-right",
       "secondaryButton": "Learn More",

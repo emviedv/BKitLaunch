@@ -1,16 +1,50 @@
 // Validation utilities for content sections
-import type {
-  HeroSection,
-  FeaturesSection,
-  PricingSection,
-  CTASection,
-  WaitlistSection,
-  HeaderSection,
-  FooterSection,
-  FeatureItem,
-  PricingPlan,
-  ContactInfo
-} from './database';
+interface HeroSection {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  primary_button?: string;
+  secondary_button?: string;
+}
+
+interface FeatureItem {
+  icon?: string;
+  title?: string;
+  description?: string;
+  badge?: string;
+  badge_color?: string;
+  sort_order?: number;
+}
+
+interface PricingPlan {
+  name?: string;
+  price?: string;
+  period?: string;
+  description?: string;
+  features?: string[];
+  button_text?: string;
+  sort_order?: number;
+}
+
+interface CTASection {
+  title?: string;
+  description?: string;
+  primary_button?: string;
+  secondary_button?: string;
+}
+
+interface WaitlistSection {
+  title?: string;
+  description?: string;
+  button_text?: string;
+  success_message?: string;
+}
+
+interface ContactInfo {
+  email?: string;
+  twitter?: string;
+  github?: string;
+}
 
 export interface ValidationResult {
   isValid: boolean;

@@ -1,0 +1,8 @@
+/api/*  /.netlify/functions/:splat  200
+/*      /index.html  200
+# BiblioKit Netlify Redirects
+# Order matters - rules are processed from top to bottom
+
+# SPA fallback for all other routes (must be last). Netlify automatically
+# routes /.netlify/functions/* without using redirects in dev/prod.
+/*  /index.html  200

@@ -122,8 +122,8 @@ const ctaSection = {
   id: sectionId++,
   section_type: 'cta',
   section_data: {
-    title: 'Ready to get started?',
-    description: 'Join thousands of developers and designers who trust BiblioKit for their SaaS and plugin development needs.',
+    title: 'Join Designers shipping faster with BiblioKit',
+    description: 'Set up a shared workspace, align every stakeholder, and launch production-ready documentation 10x faster.',
     primary_button: 'Start Free Trial',
     secondary_button: 'Schedule Demo'
   },
@@ -176,7 +176,7 @@ const footerSection = {
   section_type: 'footer',
   section_data: {
     logo_text: 'BiblioKit',
-    description: 'Professional SaaS software and Figma plugins with secure API management.',
+    description: 'Automate the stuff you hate, design the things you love.',
     footer_links: [
       {
         title: 'Product',

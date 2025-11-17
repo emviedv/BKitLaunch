@@ -5,9 +5,13 @@ export interface SEOMetadata {
   description: string;
   keywords?: string;
   canonical?: string;
+  robots?: string;
+  googlebot?: string;
+  bingbot?: string;
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   ogType?: string;
   siteName?: string;
   locale?: string;
@@ -20,6 +24,7 @@ export interface SEOMetadata {
   twitterSite?: string;
   twitterCreator?: string;
   twitterImageAlt?: string;
+  webPageType?: string;
   structuredData?: any[];
 }
 
@@ -27,55 +32,59 @@ export interface RouteMetadata {
   [path: string]: SEOMetadata;
 }
 
+type StructuredDataEntry = Record<string, any>;
+
+interface StructuredDataMergeParams {
+  baseUrl: string;
+  path: string;
+  metadata: SEOMetadata;
+  contentData?: any;
+}
+
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
   title: "BiblioKit - SaaS Software & Figma Plugins",
   description: "Professional SaaS software and Figma plugins with secure API management and world-class support.",
   keywords: "SaaS software, Figma plugins, API management, secure proxy, developer tools, design tools",
+  robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  googlebot: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  bingbot: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   ogType: "website",
   siteName: "BiblioKit",
   locale: "en_US",
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  twitterCard: "summary_large_image"
+  twitterCard: "summary_large_image",
+  structuredData: []
 };
 
 // Route-specific metadata configurations
 export const routeMetadata: RouteMetadata = {
   '/': {
-    title: "BiblioKit - Professional SaaS Software & Figma Plugins",
-    description: "Streamline your development workflow with secure API management and world-class support for designers and developers.",
+    title: "BiblioKit: Design Toolkit for Faster Figma Workflows in 2025",
+    description: "BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.",
     keywords: "SaaS software, Figma plugins, API management, developer tools, secure proxy, react components",
-    ogTitle: "BiblioKit - Professional SaaS Software & Figma Plugins",
-    ogDescription: "Streamline your development workflow with secure API management and comprehensive tools.",
+    ogTitle: "BiblioKit: Design Toolkit for Faster Figma Workflows in 2025",
+    ogDescription: "BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.",
     ogImage: "/og/og-default.svg",
-    twitterTitle: "BiblioKit - Professional SaaS Software & Figma Plugins",
-    twitterDescription: "Streamline your development workflow with secure API management and comprehensive tools.",
+    twitterTitle: "BiblioKit: Design Toolkit for Faster Figma Workflows in 2025",
+    twitterDescription: "BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.",
     twitterImage: "/og/og-default.svg",
     structuredData: [
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "BiblioKit",
-        "description": "Professional SaaS software and Figma plugins with secure API management and world-class support.",
-         "url": "https://bibliokit.com",
-         "logo": "https://bibliokit.com/logo.svg",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "email": "hello@bibliokit.com",
-          "contactType": "customer service"
-        },
-        "sameAs": [
-          "https://twitter.com/bibliokit",
-          "https://github.com/bibliokit"
-        ]
-      },
-      {
-        "@context": "https://schema.org",
         "@type": "WebApplication",
+        "@id": "https://bibliokit.com/#webapplication",
         "name": "BiblioKit",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web Browser",
+        "url": "https://bibliokit.com",
+        "inLanguage": "en-US",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://bibliokit.com/#organization",
+          "name": "BiblioKit"
+        },
         "offers": [
           {
             "@type": "Offer",
@@ -92,6 +101,34 @@ export const routeMetadata: RouteMetadata = {
             "description": "50,000 API requests/month, Advanced Figma plugin features, Priority email support"
           }
         ]
+      }
+    ]
+  },
+  '/component-auditor-figma-plugin': {
+    title: "Component Auditor for Figma – BiblioKit",
+    description: "BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.",
+    keywords: "component auditor figma plugin, figma audits, component reporting, design system tooling",
+    ogTitle: "Component Auditor for Figma – BiblioKit",
+    ogDescription: "BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.",
+    ogImage: "/og/og-default.svg",
+    twitterTitle: "Component Auditor for Figma – BiblioKit",
+    twitterDescription: "BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.",
+    twitterImage: "/og/og-default.svg",
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "@id": "https://bibliokit.com/component-auditor-figma-plugin#software",
+        "name": "Component Auditor for Figma",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web Browser",
+        "url": "https://bibliokit.com/component-auditor-figma-plugin",
+        "description": "BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://bibliokit.com/#organization",
+          "name": "BiblioKit"
+        }
       }
     ]
   },
@@ -120,18 +157,26 @@ export const routeMetadata: RouteMetadata = {
       {
         "@context": "https://schema.org",
         "@type": "Product",
+        "@id": "https://bibliokit.com/product#product",
         "name": "BiblioKit",
         "description": "Professional SaaS software and Figma plugins with secure API management and world-class support.",
         "brand": {
           "@type": "Brand",
           "name": "BiblioKit"
         },
-        "category": "Software",
+        "category": "SoftwareApplication",
+        "url": "https://bibliokit.com/product",
+        "image": "https://bibliokit.com/og/og-default.svg",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Designers, developers, and product teams"
+        },
         "offers": {
           "@type": "AggregateOffer",
-          "lowPrice": "0",
-          "highPrice": "29",
+          "lowPrice": 0,
+          "highPrice": 29,
           "priceCurrency": "USD",
+          "offerCount": 2,
           "availability": "https://schema.org/InStock"
         }
       }
@@ -144,6 +189,53 @@ export const routeMetadata: RouteMetadata = {
     ogTitle: "BiblioKit Admin Dashboard",
     ogDescription: "Manage your BiblioKit content and settings.",
     ogType: "website"
+  },
+  '/resources/remove-prototype-link': {
+    title: 'Remove Prototype Link – BiblioKit Resources',
+    description: 'Retire outdated prototype URLs, revoke access in seconds, and keep every stakeholder focused on the latest build.',
+    keywords: 'remove prototype link, figma prototype cleanup, revoke share links, design ops hygiene',
+    ogTitle: 'Remove Prototype Link – BiblioKit Resources',
+    ogDescription: 'Audit every prototype share URL, replace broken handoffs, and protect launches with automated cleanup rituals.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'Remove Prototype Link | BiblioKit',
+    twitterDescription: 'Design teams remove stale prototype links, notify partners, and ship confident updates.',
+    twitterImage: '/og/og-default.svg',
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "Remove Prototype Link",
+        "description": "Step-by-step workflow for designers to revoke outdated prototype URLs and replace them with the correct build.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Collect prototype links",
+            "text": "Paste an individual Figma prototype URL or upload a list exported from analytics."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Review context",
+            "text": "Confirm the source file, owner, and recent viewers before removing the link."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Revoke & share again",
+            "text": "Deactivate the stale token, generate a new handoff, and notify collaborators."
+          }
+        ]
+      }
+    ]
+  },
+  '/blog': {
+    title: 'BiblioKit Blog – Field Notes for Designers Shipping Faster',
+    description: 'Playbooks, rituals, and checklists that help design teams remove prototype debt, align naming, and ship cleaner files.',
+    keywords: 'design ops blog, figma workflow tips, prototype cleanup, design system rituals',
+    ogTitle: 'BiblioKit Blog',
+    ogDescription: 'Actionable design ops playbooks to help your team ship cleaner files faster.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'BiblioKit Blog – Ship Faster',
+    twitterDescription: 'Actionable templates and rituals for designers, PMs, and engineers.',
+    twitterImage: '/og/og-default.svg'
   }
 };
 
@@ -153,38 +245,68 @@ export function generateMetadata(
   contentData?: any, 
   baseUrl: string = 'https://bibliokit.com'
 ): SEOMetadata {
+  const normalizedPath = path ? path.split('?')[0] : '/';
+  const isBlogArticle = normalizedPath.startsWith('/blog/') && normalizedPath !== '/blog';
+  const matchedRouteKey = routeMetadata[normalizedPath] ? normalizedPath : isBlogArticle ? '/blog' : normalizedPath;
+
   // Get route-specific metadata or use default
-  const routeData = routeMetadata[path] || {};
+  const routeData = routeMetadata[matchedRouteKey] || {};
   
   // Start with default metadata
-  let metadata: SEOMetadata = { ...defaultMetadata, ...routeData };
+  let metadata: SEOMetadata = {
+    ...defaultMetadata,
+    ...routeData,
+    structuredData: Array.isArray(routeData.structuredData)
+      ? [...routeData.structuredData]
+      : Array.isArray(defaultMetadata.structuredData)
+        ? [...defaultMetadata.structuredData!]
+        : []
+  };
   
   // Override with dynamic content data if available
   if (contentData) {
-    switch (path) {
-      case '/':
-        if (contentData.hero) {
-          metadata.title = contentData.hero.title || metadata.title;
-          metadata.description = contentData.hero.subtitle || metadata.description;
-          metadata.ogTitle = contentData.hero.title || metadata.ogTitle;
-          metadata.ogDescription = contentData.hero.subtitle || metadata.ogDescription;
-          metadata.twitterTitle = contentData.hero.title || metadata.twitterTitle;
-          metadata.twitterDescription = contentData.hero.subtitle || metadata.twitterDescription;
-        }
-        break;
-      case '/product':
-        if (contentData.features?.title) {
-          metadata.title = `${contentData.features.title} | BiblioKit`;
-        }
-        if (contentData.features?.subtitle) {
-          metadata.description = contentData.features.subtitle;
-        }
-        break;
+    if (isBlogArticle) {
+      const articleTitle = contentData.metaTitle || contentData.title;
+      const articleDescription = contentData.metaDescription || contentData.description;
+      metadata.title = articleTitle || metadata.title;
+      metadata.description = articleDescription || metadata.description;
+      metadata.ogTitle = articleTitle || metadata.ogTitle;
+      metadata.ogDescription = articleDescription || metadata.ogDescription;
+      metadata.twitterTitle = articleTitle || metadata.twitterTitle;
+      metadata.twitterDescription = articleDescription || metadata.twitterDescription;
+      metadata.ogImage = contentData.ogImage || metadata.ogImage;
+      metadata.ogImageAlt = contentData.ogImageAlt || metadata.ogImageAlt;
+      metadata.twitterImage = contentData.twitterImage || contentData.ogImage || metadata.twitterImage;
+      metadata.twitterImageAlt = contentData.twitterImageAlt || contentData.ogImageAlt || metadata.twitterImageAlt;
+      metadata.ogType = 'article';
+      metadata.webPageType = 'Article';
+    } else {
+      switch (matchedRouteKey) {
+        case '/':
+          if (contentData.hero) {
+            metadata.title = contentData.hero.title || metadata.title;
+            metadata.description = contentData.hero.subtitle || metadata.description;
+            metadata.ogTitle = contentData.hero.title || metadata.ogTitle;
+            metadata.ogDescription = contentData.hero.subtitle || metadata.ogDescription;
+            metadata.twitterTitle = contentData.hero.title || metadata.twitterTitle;
+            metadata.twitterDescription = contentData.hero.subtitle || metadata.twitterDescription;
+          }
+          break;
+        case '/product':
+          if (contentData.features?.title) {
+            metadata.title = `${contentData.features.title} | BiblioKit`;
+          }
+          if (contentData.features?.subtitle) {
+            metadata.description = contentData.features.subtitle;
+          }
+          metadata.webPageType = metadata.webPageType || 'ProductPage';
+          break;
+      }
     }
 
     // Dynamic product route handling: e.g., "/bibliokit-blocks" or other slugged pages
-    if (!routeMetadata[path] && path !== '/' && !path.startsWith('/admin')) {
-      const slug = String(path).replace(/^\/+/, '').split('/')[0];
+    if (!routeMetadata[normalizedPath] && normalizedPath !== '/' && !normalizedPath.startsWith('/admin') && !isBlogArticle) {
+      const slug = String(normalizedPath).replace(/^\/+/, '').split('/')[0];
       const product = contentData.products?.[slug];
       if (product) {
         const productTitle: string = product.title || metadata.title;
@@ -204,23 +326,51 @@ export function generateMetadata(
         // Add SSR JSON-LD
         const origin = baseUrl;
         const productUrl = `${origin}/${slug}`;
+        const productPriceRaw = product.pricing?.price;
+        const parsedPrice = typeof productPriceRaw === 'string'
+          ? parseFloat(productPriceRaw.replace(/[^0-9.]/g, ''))
+          : undefined;
+        const offer = (typeof parsedPrice === 'number' && !Number.isNaN(parsedPrice))
+          ? {
+              '@type': 'Offer',
+              price: parsedPrice.toFixed(2),
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/InStock',
+              url: productUrl,
+              priceValidUntil: buildPriceValidUntil()
+            }
+          : undefined;
         const productSchema = {
           '@context': 'https://schema.org',
           '@type': 'Product',
+          '@id': `${productUrl}#product`,
           name: productTitle,
           description: productDescription,
           brand: { '@type': 'Brand', name: 'BiblioKit' },
-          category: 'Software'
+          category: 'SoftwareApplication',
+          url: productUrl,
+          image: metadata.ogImage,
+          audience: {
+            '@type': 'Audience',
+            audienceType: 'Designers, developers, and product teams'
+          },
+          offers: offer ? [offer] : undefined
         };
         const breadcrumbSchema = {
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
+          '@id': `${productUrl}#breadcrumb`,
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Home', item: origin },
             { '@type': 'ListItem', position: 2, name: productTitle, item: productUrl }
           ]
         };
-        metadata.structuredData = [...(metadata.structuredData || []), productSchema, breadcrumbSchema];
+        metadata.structuredData = [
+          ...(metadata.structuredData || []),
+          productSchema,
+          breadcrumbSchema
+        ];
+        metadata.webPageType = 'ProductPage';
       }
     }
 
@@ -230,9 +380,6 @@ export function generateMetadata(
       const normalized = twitterHandle.startsWith('@') ? twitterHandle : `@${twitterHandle}`;
       metadata.twitterSite = normalized;
       metadata.twitterCreator = normalized;
-    }
-    if (!metadata.twitterImageAlt) {
-      metadata.twitterImageAlt = metadata.title;
     }
   }
   
@@ -250,11 +397,55 @@ export function generateMetadata(
   if (!metadata.twitterImage) {
     metadata.twitterImage = `${baseUrl}/og/og-default.svg`;
   }
+
+  // Set descriptive fallbacks for alt text/meta
+  if (!metadata.ogImageAlt) {
+    metadata.ogImageAlt = metadata.ogTitle || metadata.title;
+  }
+  if (!metadata.twitterImageAlt) {
+    metadata.twitterImageAlt = metadata.ogImageAlt || metadata.title;
+  }
   
   // Set canonical URL and clamp lengths
-  metadata.canonical = `${baseUrl}${path}`;
+  const canonicalPath = normalizedPath === '' ? '/' : normalizedPath;
+  metadata.canonical = `${baseUrl}${canonicalPath}`;
   metadata.title = clampText(metadata.title, 60);
   metadata.description = clampText(metadata.description, 160);
+
+  // Add Article structured data for blog posts after canonical is set
+  if (isBlogArticle && metadata.canonical) {
+    const language = toLanguageTag(metadata.locale) || 'en-US';
+    const articleEntry = cleanStructuredDataEntry({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      '@id': `${metadata.canonical}#article`,
+      mainEntityOfPage: { '@id': `${metadata.canonical}#webpage` },
+      headline: metadata.title,
+      description: metadata.description,
+      inLanguage: language,
+      author: { '@id': `${baseUrl}#organization` },
+      publisher: { '@id': `${baseUrl}#organization` },
+      image: metadata.ogImage,
+      keywords: resolveKeywords(metadata.keywords)
+    });
+
+    metadata.structuredData = [
+      ...(metadata.structuredData || []),
+      ...(articleEntry ? [articleEntry] : [])
+    ];
+  }
+
+  // Ensure page type defaults based on context
+  if (!metadata.webPageType) {
+    metadata.webPageType = normalizedPath === '/' ? 'CollectionPage' : 'WebPage';
+  }
+
+  metadata.structuredData = mergeStructuredDataEntries({
+    baseUrl,
+    path: normalizedPath,
+    metadata,
+    contentData
+  });
   
   return metadata;
 }
@@ -262,10 +453,23 @@ export function generateMetadata(
 // Generate HTML meta tags from metadata
 export function generateMetaTags(metadata: SEOMetadata): string {
   const tags: string[] = [];
+  const secureOgImage = metadata.ogImage && metadata.ogImage.startsWith('https://')
+    ? metadata.ogImage
+    : undefined;
   
   // Basic meta tags
   tags.push(`<title>${escapeHtml(metadata.title)}</title>`);
   tags.push(`<meta name="description" content="${escapeHtml(metadata.description)}" />`);
+  
+  if (metadata.robots) {
+    tags.push(`<meta name="robots" content="${escapeHtml(metadata.robots)}" />`);
+  }
+  if (metadata.googlebot) {
+    tags.push(`<meta name="googlebot" content="${escapeHtml(metadata.googlebot)}" />`);
+  }
+  if (metadata.bingbot) {
+    tags.push(`<meta name="bingbot" content="${escapeHtml(metadata.bingbot)}" />`);
+  }
   
   if (metadata.keywords) {
     tags.push(`<meta name="keywords" content="${escapeHtml(metadata.keywords)}" />`);
@@ -289,11 +493,17 @@ export function generateMetaTags(metadata: SEOMetadata): string {
   
   if (metadata.ogImage) {
     tags.push(`<meta property="og:image" content="${escapeHtml(metadata.ogImage)}" />`);
+    if (secureOgImage) {
+      tags.push(`<meta property="og:image:secure_url" content="${escapeHtml(secureOgImage)}" />`);
+    }
     if (metadata.ogImageWidth) {
       tags.push(`<meta property="og:image:width" content="${escapeHtml(String(metadata.ogImageWidth))}" />`);
     }
     if (metadata.ogImageHeight) {
       tags.push(`<meta property="og:image:height" content="${escapeHtml(String(metadata.ogImageHeight))}" />`);
+    }
+    if (metadata.ogImageAlt) {
+      tags.push(`<meta property="og:image:alt" content="${escapeHtml(metadata.ogImageAlt)}" />`);
     }
   }
   
@@ -320,13 +530,310 @@ export function generateMetaTags(metadata: SEOMetadata): string {
 
 // Generate structured data JSON-LD scripts
 export function generateStructuredData(metadata: SEOMetadata): string {
-  if (!metadata.structuredData || metadata.structuredData.length === 0) {
+  const entries = Array.isArray(metadata.structuredData)
+    ? dedupeStructuredData(metadata.structuredData)
+    : [];
+  if (entries.length === 0) {
     return '';
   }
-  
-  return metadata.structuredData
-    .map(data => `<script type="application/ld+json">\n${JSON.stringify(data, null, 2)}\n</script>`)
+
+  const prepared = entries.map((entry) => {
+    const context = entry['@context'] || 'https://schema.org';
+    const clone = { ...entry };
+    delete clone['@context'];
+    return { context, data: clone };
+  });
+
+  const uniqueContexts = new Set(prepared.map((item) => item.context));
+  if (uniqueContexts.size === 1) {
+    const [context] = Array.from(uniqueContexts);
+    const payload = {
+      '@context': context,
+      '@graph': prepared.map((item) => item.data)
+    };
+    return `<script type="application/ld+json">\n${JSON.stringify(payload, null, 2)}\n</script>`;
+  }
+
+  // Fallback: emit one script per differing context to remain standards-compliant
+  return prepared
+    .map(({ context, data }) => {
+      const payload = { '@context': context, ...data };
+      return `<script type="application/ld+json">\n${JSON.stringify(payload, null, 2)}\n</script>`;
+    })
     .join('\n    ');
+}
+
+function mergeStructuredDataEntries(params: StructuredDataMergeParams): StructuredDataEntry[] {
+  const { baseUrl, path, metadata, contentData } = params;
+  const existing = Array.isArray(metadata.structuredData) ? metadata.structuredData : [];
+  const globalEntries = createGlobalStructuredData({ baseUrl, path, metadata, contentData });
+  return dedupeStructuredData([...globalEntries, ...existing]);
+}
+
+function createGlobalStructuredData(params: StructuredDataMergeParams): StructuredDataEntry[] {
+  const { baseUrl, path, metadata, contentData } = params;
+  if (!metadata.canonical) {
+    return [];
+  }
+
+  const language = toLanguageTag(metadata.locale) || 'en-US';
+  const siteName = metadata.siteName || metadata.title;
+  const keywords = resolveKeywords(metadata.keywords);
+  const socialProfiles = collectSocialProfiles(contentData);
+  const contactEmail = typeof contentData?.contact?.email === 'string'
+    ? contentData.contact.email.trim()
+    : '';
+
+  const contactPoint = contactEmail
+    ? [{
+        '@type': 'ContactPoint',
+        email: contactEmail,
+        contactType: 'customer service',
+        availableLanguage: language
+      }]
+    : undefined;
+
+  const organization = cleanStructuredDataEntry({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${baseUrl}#organization`,
+    name: siteName,
+    url: baseUrl,
+    description: metadata.description,
+    logo: `${baseUrl}/logo.svg`,
+    sameAs: socialProfiles.length ? socialProfiles : undefined,
+    contactPoint,
+    knowsAbout: keywords.length ? keywords : undefined,
+    areaServed: 'Global'
+  });
+
+  const website = cleanStructuredDataEntry({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${baseUrl}#website`,
+    url: baseUrl,
+    name: siteName,
+    description: metadata.description,
+    inLanguage: language,
+    publisher: { '@id': `${baseUrl}#organization` },
+    potentialAction: [{
+      '@type': 'ContactAction',
+      name: 'Contact Sales',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${baseUrl}#contact`,
+        inLanguage: language
+      }
+    }]
+  });
+
+  const primaryImage = createPrimaryImageObject(metadata);
+
+  const webPage = cleanStructuredDataEntry({
+    '@context': 'https://schema.org',
+    '@type': metadata.webPageType || 'WebPage',
+    '@id': `${metadata.canonical}#webpage`,
+    url: metadata.canonical,
+    name: metadata.title,
+    description: metadata.description,
+    inLanguage: language,
+    isPartOf: { '@id': `${baseUrl}#website` },
+    about: keywords.length ? keywords : undefined,
+    publisher: { '@id': `${baseUrl}#organization` },
+    primaryImageOfPage: primaryImage ? { '@id': primaryImage['@id'] } : undefined,
+    image: primaryImage ? primaryImage.url : undefined,
+    breadcrumb: path !== '/' ? { '@id': `${metadata.canonical}#breadcrumb` } : undefined
+  });
+
+  const entries: StructuredDataEntry[] = [
+    organization,
+    website,
+    primaryImage,
+    webPage
+  ].filter(Boolean) as StructuredDataEntry[];
+
+  const hasBreadcrumb = Array.isArray(metadata.structuredData)
+    ? metadata.structuredData.some((entry: StructuredDataEntry) => entry?.['@type'] === 'BreadcrumbList')
+    : false;
+  if (!hasBreadcrumb) {
+    const fallbackBreadcrumb = createFallbackBreadcrumb(baseUrl, path, metadata);
+    if (fallbackBreadcrumb) {
+      entries.push(fallbackBreadcrumb);
+    }
+  }
+
+  return entries;
+}
+
+function createPrimaryImageObject(metadata: SEOMetadata): StructuredDataEntry | undefined {
+  if (!metadata.canonical || !metadata.ogImage) {
+    return undefined;
+  }
+
+  return cleanStructuredDataEntry({
+    '@context': 'https://schema.org',
+    '@type': 'ImageObject',
+    '@id': `${metadata.canonical}#primaryimage`,
+    url: metadata.ogImage,
+    caption: metadata.ogImageAlt || metadata.title,
+    width: metadata.ogImageWidth,
+    height: metadata.ogImageHeight
+  });
+}
+
+function resolveKeywords(keywords?: string): string[] {
+  if (!keywords) return [];
+  const parts = keywords
+    .split(',')
+    .map((keyword) => keyword.trim())
+    .filter((keyword) => keyword.length > 0);
+  return Array.from(new Set(parts));
+}
+
+function collectSocialProfiles(contentData?: any): string[] {
+  const urls = new Set<string>([
+    'https://twitter.com/bibliokit',
+    'https://github.com/bibliokit'
+  ]);
+
+  const contact = contentData?.contact || {};
+  const add = (value: string | null) => {
+    if (value) urls.add(value);
+  };
+
+  add(normalizeSocialUrl(contact.twitter, 'twitter'));
+  add(normalizeSocialUrl(contact.github, 'github'));
+  add(normalizeSocialUrl(contact.linkedin, 'linkedin'));
+  add(normalizeSocialUrl(contact.youtube, 'youtube'));
+
+  return Array.from(urls);
+}
+
+function normalizeSocialUrl(value: unknown, platform: 'twitter' | 'github' | 'linkedin' | 'youtube'): string | null {
+  if (typeof value !== 'string') return null;
+  let handle = value.trim();
+  if (!handle) return null;
+
+  if (/^https?:\/\//i.test(handle)) {
+    return handle;
+  }
+
+  handle = handle.replace(/^@/, '');
+
+  switch (platform) {
+    case 'twitter':
+      return `https://twitter.com/${handle}`;
+    case 'github':
+      return `https://github.com/${handle}`;
+    case 'linkedin':
+      return handle.startsWith('company/') || handle.startsWith('in/')
+        ? `https://www.linkedin.com/${handle.replace(/^\//, '')}`
+        : `https://www.linkedin.com/company/${handle}`;
+    case 'youtube':
+      return `https://www.youtube.com/${handle}`;
+    default:
+      return null;
+  }
+}
+
+function createFallbackBreadcrumb(baseUrl: string, path: string, metadata: SEOMetadata): StructuredDataEntry | undefined {
+  if (!metadata.canonical) return undefined;
+  const normalizedPath = path.replace(/\/+$/g, '');
+  if (!normalizedPath || normalizedPath === '/') return undefined;
+
+  const segments = normalizedPath.replace(/^\//, '').split('/').filter(Boolean);
+  if (segments.length === 0) return undefined;
+
+  const items: StructuredDataEntry[] = [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl }
+  ];
+
+  let accumulator = '';
+  segments.forEach((segment, index) => {
+    accumulator += `/${segment}`;
+    items.push({
+      '@type': 'ListItem',
+      position: index + 2,
+      name: titleCaseFromSlug(segment),
+      item: `${baseUrl}${accumulator}`
+    });
+  });
+
+  return cleanStructuredDataEntry({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': `${metadata.canonical}#breadcrumb`,
+    itemListElement: items
+  });
+}
+
+function titleCaseFromSlug(value: string): string {
+  return value
+    .split(/[-_]/g)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function cleanStructuredDataEntry<T = StructuredDataEntry>(value: T): T | undefined {
+  if (value === null || value === undefined) return undefined;
+
+  if (Array.isArray(value)) {
+    const cleanedArray = value
+      .map((item) => cleanStructuredDataEntry(item))
+      .filter((item) => item !== undefined);
+    return (cleanedArray.length > 0 ? cleanedArray : undefined) as T | undefined;
+  }
+
+  if (typeof value === 'object') {
+    const result: Record<string, any> = {};
+    for (const [key, rawVal] of Object.entries(value as Record<string, any>)) {
+      if (rawVal === undefined || rawVal === null) continue;
+      if (typeof rawVal === 'string' && rawVal.trim() === '') continue;
+
+      const cleaned = cleanStructuredDataEntry(rawVal);
+      if (cleaned !== undefined) {
+        result[key] = cleaned;
+      }
+    }
+    return Object.keys(result).length > 0 ? (result as T) : undefined;
+  }
+
+  return value;
+}
+
+function dedupeStructuredData(entries: StructuredDataEntry[]): StructuredDataEntry[] {
+  const seen = new Set<string>();
+  const result: StructuredDataEntry[] = [];
+
+  for (const entry of entries) {
+    if (!entry || typeof entry !== 'object') {
+      continue;
+    }
+    const cleaned = cleanStructuredDataEntry(entry);
+    if (!cleaned) continue;
+
+    const key = typeof cleaned['@id'] === 'string'
+      ? cleaned['@id']
+      : `${cleaned['@type'] || 'unknown'}::${cleaned['name'] || cleaned['url'] || ''}`;
+
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push(cleaned);
+  }
+
+  return result;
+}
+
+function toLanguageTag(locale?: string): string | undefined {
+  if (!locale) return undefined;
+  return locale.replace('_', '-');
+}
+
+function buildPriceValidUntil(): string {
+  const now = new Date();
+  const future = new Date(Date.UTC(now.getUTCFullYear() + 1, 0, 1));
+  return future.toISOString().split('T')[0];
 }
 
 // Utility function to escape HTML
@@ -362,14 +869,24 @@ export function updatePageMetadata(metadata: SEOMetadata): void {
   
   // Update title
   document.title = metadata.title;
+
+  const secureOgImage = metadata.ogImage && metadata.ogImage.startsWith('https://')
+    ? metadata.ogImage
+    : undefined;
   
   // Update or create meta tags
   const metaSelectors = [
     { selector: 'meta[name="description"]', content: metadata.description },
+    { selector: 'meta[name="robots"]', content: metadata.robots },
+    { selector: 'meta[name="googlebot"]', content: metadata.googlebot },
+    { selector: 'meta[name="bingbot"]', content: metadata.bingbot },
     { selector: 'meta[name="keywords"]', content: metadata.keywords },
     { selector: 'meta[property="og:title"]', content: metadata.ogTitle || metadata.title },
     { selector: 'meta[property="og:description"]', content: metadata.ogDescription || metadata.description },
+    { selector: 'meta[property="og:url"]', content: metadata.canonical },
     { selector: 'meta[property="og:image"]', content: metadata.ogImage },
+    { selector: 'meta[property="og:image:secure_url"]', content: secureOgImage },
+    { selector: 'meta[property="og:image:alt"]', content: metadata.ogImageAlt },
     { selector: 'meta[property="og:site_name"]', content: metadata.siteName },
     { selector: 'meta[property="og:locale"]', content: metadata.locale },
     { selector: 'meta[property="og:image:width"]', content: metadata.ogImageWidth ? String(metadata.ogImageWidth) : undefined },

@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { motion, type AnimationProps } from "framer-motion";
+import { motion, type MotionProps, type HTMLMotionProps } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
-const animationProps: AnimationProps = {
+const animationProps: MotionProps = {
   initial: { "--x": "100%", scale: 0.8 } as any,
   animate: { "--x": "-100%", scale: 1 } as any,
   whileTap: { scale: 0.95 },
@@ -26,16 +26,11 @@ const animationProps: AnimationProps = {
   },
 };
 
-export interface ShinyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-  className?: string;
+export interface ShinyButtonProps extends Omit<HTMLMotionProps<"button">, "children"> {
+  children?: React.ReactNode;
 }
 
-export const ShinyButton: React.FC<ShinyButtonProps> = ({
-  children,
-  className,
-  ...props
-}) => {
+export function ShinyButton({ children, className, ...props }: ShinyButtonProps) {
   return (
     <motion.button
       {...animationProps}
@@ -63,6 +58,4 @@ export const ShinyButton: React.FC<ShinyButtonProps> = ({
       ></span>
     </motion.button>
   );
-};
-
-
+}

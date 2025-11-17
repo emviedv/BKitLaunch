@@ -1,0 +1,1776 @@
+# Live Debug Log — 2025-10
+
+- **Time:** 2025-10-28 06:20 EDT
+- **Summary:** Simplified key stats cards by removing the “Key Statistic” callout and source footer copy.
+- **Root Cause:** Cards carried redundant labels and source text that cluttered the stat presentation.
+- **Changed Files:** src/components/StatBox.tsx
+- **Verification:** *(not run; visual copy change only)*
+## 2025-10-28
+
+- **Time:** 2025-10-28 16:40 EDT
+- **Summary:** Set the UXBiblio features header to “Build your UX library” so the section leads with the requested action-driven headline.
+- **Root Cause:** The features block still displayed the generic fallback title instead of Emily’s directive for a UXBiblio-specific headline.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only update)*
+- **Time:** 2025-10-28 16:40 EDT
+- **Summary:** Updated the UXBiblio features description to “Your design pattern library turbo-charged for product teams.” to keep the messaging outcome-focused.
+- **Root Cause:** The section still showed the default description instead of the requested copy refresh.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only update)*
+- **Time:** 2025-10-28 16:42 EDT
+- **Summary:** Reworked UXBiblio key stat descriptions to emphasize taming scattered inspiration and accelerating UX pattern reuse.
+- **Root Cause:** Statistics copy still leaned on generic productivity claims instead of highlighting UX pattern library outcomes.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only update)*
+- **Time:** 2025-10-28 16:44 EDT
+- **Summary:** Updated the lead UXBiblio stat to “3+ hours” so the metrics reflect weekly inspiration time savings.
+- **Root Cause:** Emily requested the top stat callout highlight designer hours saved rather than speed multipliers.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only update)*
+- **Time:** 2025-10-28 16:45 EDT
+- **Summary:** Reworked UXBiblio feature cards with the new capture/analyze/organize copy so the section mirrors the refreshed product page messaging.
+- **Root Cause:** Feature content still used the older AI Tagging/Collections/Search descriptions instead of the updated workflow narrative.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only update)*
+- **Time:** 2025-10-28 16:48 EDT
+- **Summary:** Expanded UXBiblio to six action-driven feature cards with three-sentence descriptions and concise bullet lists.
+- **Root Cause:** Feature titles, copy, and bullet counts didn’t follow Emily’s directive for action/benefit framing with three-sentence descriptions and max three bullets.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only update)*
+- **Time:** 2025-10-28 18:39 EDT
+- **Summary:** Added a Plugins mega menu to the header with AI Rename Variants and Component Auditor descriptions.
+- **Root Cause:** Top navigation lacked the requested Plugins dropdown showcasing key Figma tools with copy.
+- **Changed Files:** src/components/Header.tsx; src/data/products.json
+- **Verification:** *(not run; UI layout update)*
+- **Time:** 2025-10-28 18:50 EDT
+- **Summary:** Swapped the Plugins dropdown to a dark theme so white title text stays legible against the panel.
+- **Root Cause:** New white typography in the mega menu sat on a white background and failed contrast guidelines.
+- **Changed Files:** src/components/Header.tsx
+- **Verification:** *(not run; visual styling update only)*
+- **Time:** 2025-10-28 18:55 EDT
+- **Summary:** Locked stat descriptions to a consistent height so key metrics stay aligned.
+- **Root Cause:** Varying description lengths caused uneven stat card heights across product pages.
+- **Changed Files:** src/components/StatBox.tsx
+- **Verification:** *(not run; layout-only tweak)*
+- **Time:** 2025-10-28 19:10 EDT
+- **Summary:** Added an X icon link to the BiblioKit header and mobile menu so the top nav surfaces the Twitter profile.
+- **Root Cause:** Header lacked the requested Twitter link, leaving the social profile absent from the navigation.
+- **Changed Files:** src/components/Header.tsx
+- **Verification:** *(not run; visual link addition only)*
+- **Time:** 2025-10-28 19:24 EDT
+- **Summary:** Swapped the UXBiblio hero CTA copy to “Start your UX Library” and added an arrow icon so the button drives the next action.
+- **Root Cause:** CTA still used the generic “Open UXBiblio” label and lacked the requested directional icon.
+- **Changed Files:** src/components/ProductHero.tsx; src/data/products.json
+- **Verification:** *(not run; visual copy/icon update only)*
+- **Time:** 2025-10-28 19:30 EDT
+- **Summary:** Rewrote the “Capture flows everywhere” feature copy so it highlights automatic ingestion, storyboard generation, and share-ready exports.
+- **Root Cause:** Previous description and bullets didn’t fully promote the capture workflow benefits Emily requested.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only update)*
+- **Time:** 2025-10-28 19:42 EDT
+- **Summary:** Restyled the landing/product hero gradient to match the blue-to-pink automation reference with grid overlays and soft highlight squares.
+- **Root Cause:** Existing hero used a dark, blurred radial background that didn’t match the provided gradient direction.
+- **Changed Files:** src/index.css
+- **Verification:** *(not run; visual styling update only)*
+- **Time:** 2025-10-28 16:36 EDT
+- **Summary:** Replaced the UXBiblio scroll showcase with the shared key statistics section and seeded UXBiblio-specific metrics.
+- **Root Cause:** UXBiblio still used the bespoke scroll section instead of the requested key stats treatment that mirrors AI Rename Variants.
+- **Changed Files:** src/components/DynamicProductPage.tsx; src/data/products.json
+- **Verification:** *(not run; layout/content update only)*
+- **Time:** 2025-10-28 16:20 EDT
+- **Summary:** Matched the UXBiblio hero layout to the AI Rename hero treatment by applying the same ProductHero overrides.
+- **Root Cause:** UXBiblio still rendered the compact LandingHero layout, so its hero diverged from the AI Rename Variants presentation Emily requested to mirror.
+- **Changed Files:** src/components/DynamicProductPage.tsx
+- **Verification:** *(not run; visual layout update only)*
+- **Time:** 2025-10-28 06:19 EDT
+- **Summary:** Applied the landing hero gradient/noise background to product hero sections with scroll-linked motion.
+- **Root Cause:** Product pages still used a flat background, creating visual drift from the refreshed landing hero art direction.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** *(not run; visual styling update only)*
+- **Time:** 2025-10-28 06:11 EDT
+- **Summary:** Reworded AI Rename feature bullets to reference shipped capabilities without exposing internal service class names.
+- **Root Cause:** Bullets mentioned proprietary service labels instead of human-readable descriptions of the same features.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** *(not run; content update only)*
+- **Time:** 2025-10-28 05:41 EDT
+- **Summary:** Removed the Get Early Access waitlist block and disabled waitlist visibility across default content.
+- **Root Cause:** Waitlist data and visibility flags still rendered the “Get Early Access” section despite the request to remove it.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/data/products.json; default-content.json; current-default-content.json; clean-content.json; fixed-content.json; correct-content.json
+- **Verification:** *(not run; content/layout removal only)*
+- **Time:** 2025-10-28 05:44 EDT
+- **Summary:** Deleted the “Ready to Clean Up Your Figma Files?” CTA block and its secondary Learn More button from the AI Rename page.
+- **Root Cause:** The page still surfaced an extra CTA despite the request to remove that prompt.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx
+- **Verification:** *(not run; layout removal only)*
+- **Time:** 2025-10-28 05:35 EDT
+- **Summary:** Reworked AI Rename feature bullets with action-benefit messaging and aligned list layout (top-aligned dots, extra padding).
+- **Root Cause:** Original bullets sat centered on multi-line copy and felt generic instead of driving RenameVariants outcomes.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** *(not run; layout/content update only)*
+- **Time:** 2025-10-28 04:54 EDT
+- **Summary:** Reworked the “Stop fixing messy names by hand” blueprint so the labels reference messy source names and clean AI outputs, keeping parity with the Custom Naming Rules animation.
+- **Root Cause:** The initial blueprint swap didn’t reference the messy-to-clean naming flow, making the visual feel generic next to the feature copy.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** *(not run; visual content update only)*
+- **Time:** 2025-10-28 05:05 EDT
+- **Summary:** Removed icon treatments from fallback feature media so right-side content cards use neutral gradients instead of glyphs.
+- **Root Cause:** Default media blocks still displayed rotating icons, conflicting with the direction to strip icons from the content features on the right.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** *(not run; visual styling adjustment only)*
+- **Time:** 2025-10-28 04:12 EDT
+
+## 2025-11-17
+
+- **Time:** 2025-11-17 15:52 EST
+- **Summary:** Blog hero and secondary list sections ignored intended 40px vertical padding.
+- **Root Cause:** The compact hero helper class zeroed padding, so section-level padding utilities were overridden and no spacing appeared.
+- **Changed Files:** src/index.css; src/components/BlogPage.tsx
+- **Verification:** Manual check of blog hero and secondary section to confirm visible 40px top/bottom padding.
+
+- **Time:** 2025-11-18 10:00 EST
+- **Summary:** Set blog hero vertical padding to 120px and applied the light gradient background to the secondary list section.
+- **Root Cause:** Hero still needed explicit large top/bottom spacing; secondary section lacked a defined background, causing visual mismatch against the page gradient.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check of blog hero for 120px top/bottom spacing and secondary section showing the light gradient background.
+
+- **Time:** 2025-11-18 10:20 EST
+- **Summary:** Set blog page background and secondary section background to #090512 and matched text colors for contrast.
+- **Root Cause:** Page and secondary section still used light gradients, conflicting with the requested dark brand background.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check to confirm #090512 background across the page and readable white text in both sections.
+
+- **Time:** 2025-11-18 10:35 EST
+- **Summary:** Matched blog hero CTA button styling to landing hero buttons (#ff2f87, min width, hover brightness).
+- **Root Cause:** Blog hero button used the default button styling instead of the landing hero’s primary CTA treatment.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check of blog hero CTA styling against landing hero button appearance.
+
+- **Time:** 2025-11-18 10:55 EST
+- **Summary:** Updated blog cards to 8px corners and removed strokes/borders for both the recent list and main cards.
+- **Root Cause:** Blog cards still used rounded-3xl with border strokes, diverging from the desired compact, borderless style.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check to confirm 8px radius and no visible borders on blog cards and recent links.
+
+- **Time:** 2025-11-18 11:15 EST
+- **Summary:** Added “Read the article” buttons to blog cards using the landing hero CTA style.
+- **Root Cause:** Secondary blog cards lacked CTA buttons styled consistently with landing buttons.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check that each blog card now shows a pink CTA matching the landing hero button styling.
+- **Time:** 2025-11-18 11:40 EST
+- **Summary:** Removed background, border, and side padding from the blog hero sidebar (recent articles) for a cleaner inline list.
+- **Root Cause:** Sidebar still carried a translucent background, border, and padding that didn’t match the streamlined hero layout.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check that the recent articles list renders without background/border and with no sidebar padding.
+
+- **Time:** 2025-11-18 12:05 EST
+- **Summary:** Styled secondary blog card CTAs as outline buttons that match landing button sizing/colors.
+- **Root Cause:** Secondary card CTAs used the filled landing style; requested outlined version with matching size/color specs.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check that each card shows an outlined #ff2f87 button with 12rem min width and hover tint.
+- **Time:** 2025-11-18 12:20 EST
+- **Summary:** Increased hover background on sidebar recent links for clearer affordance.
+- **Root Cause:** Sidebar article hover state was too subtle; requested a more visible default hover background.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check that sidebar items show a stronger hover tint.
+- **Summary:** Reduced the batch processing animation to three hero cards with rebalanced angles so the orbit reads focused and spacious.
+- **Root Cause:** Even the six-card layout felt busier than desired for the batch processing preview.
+- **Changed Files:** src/components/AIRenameBatchVisual.tsx
+- **Verification:** *(not run; visual styling adjustment only)*
+- **Time:** 2025-10-28 03:21 EDT
+- **Summary:** Simplified the batch processing mini cards with flex layout and minimal bars so the animation feels lighter.
+- **Root Cause:** Card overlays still used dense layered spans that made the batch processing preview feel heavier than the custom naming blueprint treatment.
+- **Changed Files:** src/components/AIRenameBatchVisual.tsx
+- **Verification:** *(not run; visual styling adjustment only)*
+- **Time:** 2025-10-28 03:19 EDT
+- **Summary:** Restored the orbit ring spans to their Tailwind utility classes after reverting the inline-only styling tweak.
+- **Root Cause:** Follow-up request to undo the earlier removal of ring classes.
+- **Changed Files:** src/components/AIRenameBatchVisual.tsx
+- **Verification:** *(not run; visual styling adjustment only)*
+- **Time:** 2025-10-28 02:58 EDT
+- **Summary:** Restyled the AI Rename batch processing animation to mirror the structured blueprint look used for custom naming.
+- **Root Cause:** The batch processing visual still used the older floating gradient tiles, leaving it visually disconnected from the custom naming feature treatment.
+- **Changed Files:** src/components/AIRenameBatchVisual.tsx
+- **Verification:** *(not run; visual styling adjustment only)*
+- **Time:** 2025-10-28 17:10 EDT
+- **Summary:** Removed the Key Benefits and What Customers Say sections from the AI Rename Variants page by clearing their data and forcing the layout to skip those blocks.
+- **Root Cause:** Benefits and testimonial content remained in fallback data, so the sections could still surface despite the removal request.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx
+- **Verification:** *(not run; layout/content removal only)*
+- **Time:** 2025-10-28 17:20 EDT
+- **Summary:** Standardized UXBiblio feature CTAs to “Try Free 7 Day Trial” so every card drives the trial experience.
+- **Root Cause:** Feature buttons still used autogenerated labels tied to each card title, creating inconsistent CTA text across the section.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only CTA update)*
+- **Time:** 2025-10-28 17:25 EDT
+- **Summary:** Retitled the lead UXBiblio feature card to “Capture flows everywhere” so the headline matches the new request.
+- **Root Cause:** The section still used the older “Capture flows without breaking your rhythm” headline despite the updated messaging.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only copy update)*
+- **Time:** 2025-10-28 17:30 EDT
+- **Summary:** Rewrote the lead UXBiblio feature card to highlight automatic insights per upload, updated bullets, and set the CTA to “Try it for Free.”
+- **Root Cause:** The card still described the capture extension workflow instead of the requested insights-focused messaging and CTA.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only copy update)*
+- **Time:** 2025-10-28 17:35 EDT
+- **Summary:** Refreshed “Align the team around shared evidence” with automation-focused copy and alignment bullets.
+- **Root Cause:** Messaging still centered on generic collaboration language instead of highlighting automatic stakeholder packaging and decision tracking.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only copy update)*
+- **Time:** 2025-10-28 17:40 EDT
+- **Summary:** Replaced the “Compare what works faster” card with “Organize scattered inspiration automatically,” moved it to lead the UXBiblio feature list, and updated the bullets.
+- **Root Cause:** The prior card promised a comparison workflow we don’t ship; the features section needed to headline automatic organization instead.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only copy update)*
+- **Time:** 2025-10-28 17:45 EDT
+- **Summary:** Replaced the team-alignment card with “Pin insights for instant reuse” to spotlight annotation and bundling workflows we actually deliver.
+- **Root Cause:** Messaging leaned on team collaboration features that aren’t focus areas yet; needed to emphasize individual reuse and packaging.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only copy update)*
+- **Time:** 2025-10-28 17:50 EDT
+- **Summary:** Refined “Capture flows everywhere” bullets to highlight UX summary insights, product psychology insights, and actionable recommendations.
+- **Root Cause:** Bullet list didn’t mention the specific insight types and guidance now central to the feature message.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only copy update)*
+- **Time:** 2025-10-28 17:55 EDT
+- **Summary:** Updated “Pin insights for instant reuse” copy to highlight pinned favorites, shareable links, and PDF exports while removing unsupported annotations/cross-linking claims.
+- **Root Cause:** Bullet list and description referenced capabilities (annotations, custom fields, cross-linking) that aren’t shipped.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only copy update)*
+- **Time:** 2025-10-28 18:05 EDT
+- **Summary:** Added abstract UXBiblio feature animations that mirror the AI Rename visual style and wired them to each feature card.
+- **Root Cause:** UXBiblio product sections still rendered static placeholders instead of the requested animated visuals.
+- **Changed Files:** src/components/UXBiblioAbstractVisual.tsx; src/components/ProductContentSections.tsx; src/data/products.json
+- **Verification:** *(not run; visual animation update only)*
+- **Time:** 2025-10-28 18:10 EDT
+- **Summary:** Removed the UXBiblio use cases section by clearing fallback benefits so only feature cards render with abstract visuals.
+- **Root Cause:** The page still showed the use cases/benefits block despite the direction to rely solely on abstract feature animations.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; layout visibility update only)*
+- **Time:** 2025-10-28 18:15 EDT
+- **Summary:** Simplified UXBiblio feature animations into text-free abstract shapes to mirror the AI Rename visual aesthetic.
+- **Root Cause:** Visuals still surfaced literal labels and data points instead of purely abstract animation cues.
+- **Changed Files:** src/components/UXBiblioAbstractVisual.tsx
+- **Verification:** *(not run; visual styling update only)*
+- **Time:** 2025-10-28 18:20 EDT
+- **Summary:** Added a card-stacking motion overlay to “Organize scattered inspiration automatically” so the animation reads as grouped decks sorting into place.
+- **Root Cause:** The organize visual lacked a clear abstract cue for cards being ordered, so the feature felt less connected to its promise.
+- **Changed Files:** src/components/UXBiblioAbstractVisual.tsx
+- **Verification:** *(not run; visual animation update only)*
+- **Time:** 2025-10-28 18:25 EDT
+- **Summary:** Built an abstract capture-screen animation for “Capture flows everywhere” with a sweeping scan bar and viewfinder accents.
+- **Root Cause:** The capture feature still reused the generic abstract visual instead of communicating the screenshot workflow.
+- **Changed Files:** src/components/UXBiblioAbstractVisual.tsx
+- **Verification:** *(not run; visual animation update only)*
+- **Time:** 2025-10-28 18:30 EDT
+- **Summary:** Crafted an abstract insight aggregation overlay for “Surface heuristics instantly” with animated data drops and a rotating sweep.
+- **Root Cause:** The heuristics feature lacked a visual metaphor for information gathering, so it felt disconnected from the feature promise.
+- **Changed Files:** src/components/UXBiblioAbstractVisual.tsx
+- **Verification:** *(not run; visual animation update only)*
+- **Time:** 2025-10-28 18:35 EDT
+- **Summary:** Created an abstract pattern-grid animation for “Organize patterns into smart collections” with pulsing highlight tiles.
+- **Root Cause:** The collections feature still relied on the generic fallback visual and didn’t convey grouped UX patterns.
+- **Changed Files:** src/components/UXBiblioAbstractVisual.tsx
+- **Verification:** *(not run; visual animation update only)*
+- **Time:** 2025-10-28 18:40 EDT
+- **Summary:** Designed a favorit-ing animation for “Pin insights for instant reuse” featuring a glowing highlight card and pin pulse.
+- **Root Cause:** The pin feature used a generic abstract visual and didn’t reflect the favorite/share workflow.
+- **Changed Files:** src/components/UXBiblioAbstractVisual.tsx
+- **Verification:** *(not run; visual animation update only)*
+- **Time:** 2025-10-28 18:45 EDT
+- **Summary:** Created a copy-and-paste abstract animation for “Reuse winning patterns everywhere” with shifting cards and dashed receiving frame.
+- **Root Cause:** The reuse feature still shared the fallback visual instead of dramatizing pattern duplication.
+- **Changed Files:** src/components/UXBiblioAbstractVisual.tsx
+- **Verification:** *(not run; visual animation update only)*
+- **Time:** 2025-10-28 18:50 EDT
+- **Summary:** Rebuilt the entire UXBiblio abstract visual system from scratch so each feature gets a bespoke animation aligned with the new art direction.
+- **Root Cause:** Earlier tweaks layered on top of the legacy component instead of delivering the clean-from-scratch visuals Emily requested.
+- **Changed Files:** src/components/UXBiblioAbstractVisual.tsx
+- **Verification:** *(not run; visual animation rebuild only)*
+
+## 2025-10-27
+
+- **Time:** 2025-10-27 13:37 EDT
+- **Summary:** Repositioned the landing hero gradient to anchor at the bottom and tied it to scroll so the glow slides upward as you move down the page.
+- **Root Cause:** The hero background remained centered and static, preventing the hero from revealing the gradient from the bottom as the page scrolled.
+- **Changed Files:** src/index.css; src/components/LandingHero.tsx
+- **Verification:** Manual code review; no runtime verification (scroll math reasoning only)
+- **Time:** 2025-10-27 09:55 EDT
+- **Summary:** Turned the AI Rename hero headline white and reduced the right-side media width by ~30% to match the refreshed art direction.
+- **Root Cause:** The hero still used the shared dark headline color and full-width illustration proportions, clashing with the latest spec.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/AIRenameVariantsPage.tsx
+- **Verification:** `node --test tests/unit/productFeatureLayout.spec.ts`; `npm run build:client`
+- **Time:** 2025-10-27 09:59 EDT
+- **Summary:** Added 8px bottom padding to product hero headings so the title breathes before the description on product pages.
+- **Root Cause:** Product hero `<h1>` reused landing spacing and collapsed against the body copy on product pages.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** *(not run; visual spacing change only)*
+- **Time:** 2025-10-27 10:05 EDT
+- **Summary:** Flipped AI Rename feature cards to media-left/text-right and tightened the inter-card spacing by 22px for a denser layout.
+- **Root Cause:** Features still mirrored the old layout (text left, media right) with larger vertical gaps than the updated spec allows.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/productContentSectionLayout.ts; tests/unit/productFeatureLayout.spec.ts; AGENTS.md
+- **Verification:** `node --test tests/unit/productFeatureLayout.spec.ts`; `npm run build:client`
+- **Time:** 2025-10-27 10:11 EDT
+- **Summary:** Removed extra padding and horizontal gutters from product heroes while leaving landing pages untouched.
+- **Root Cause:** Product pages still inherited shared hero side padding and bottom spacing, so the layout never appeared tight on the new art direction.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/AIRenameVariantsPage.tsx; src/components/DynamicProductPage.tsx
+- **Verification:** `node --test tests/unit/productFeatureLayout.spec.ts`; `npm run build:client`
+- **Time:** 2025-10-27 10:07 EDT
+- **Summary:** Removed bottom padding from product hero sections so they sit flush with the content that follows.
+- **Root Cause:** Shared hero spacing left an extra 24px trailing gap below product page heroes.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** *(not run; layout spacing adjustment only)*
+- **Time:** 2025-10-27 09:48 EDT
+- **Summary:** Repositioned the Figma expert quote above the footer, refreshed AI features copy, and removed card shadows so the product page matches the latest spec.
+- **Root Cause:** Expert quote still rendered in the feature block, the section headline/description used legacy messaging, and stat cards kept shadows.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/components/StatBox.tsx; src/components/aiRenameVariantsCopy.ts
+- **Verification:** `node --test tests/unit/productFeatureLayout.spec.ts`; `npm run build:client`
+- **Time:** 2025-10-27 09:34 EDT
+- **Summary:** Locked product page feature cards to a single left-to-right layout while keeping optional alternation for the landing nav variant.
+- **Root Cause:** Product pages still flipped feature media/text columns, conflicting with Emily’s direction to keep the layout fixed.
+- **Changed Files:** src/components/productContentSections.tsx; src/components/productContentSectionLayout.ts; tests/unit/productFeatureLayout.spec.ts; AGENTS.md
+- **Verification:** `node --test tests/unit/productFeatureLayout.spec.ts`; `npm run build:client`
+- **Time:** 2025-10-27 09:12 EDT
+- **Summary:** Added a three-column stats grid with design-system styling so the AI Rename Variants page can showcase multiple key metrics.
+- **Root Cause:** The page only rendered one statistic and relied on hard-coded green hues that didn’t align with the design system palette.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/StatBox.tsx; src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** `npm run build:client`
+- **Time:** 2025-10-27 03:23 EDT
+- **Summary:** Increased the landing hero description to 22px so the copy matches the requested readability spec.
+- **Root Cause:** `HERO_DESCRIPTION_CLASS` still enforced a 20px size from the earlier typography pass.
+- **Changed Files:** src/components/heroConstants.ts
+- **Verification:** Manual constant review; confirmed hero description uses the new class.
+- **Time:** 2025-10-27 03:22 EDT
+- **Summary:** Removed the GeistSans emphasis from the hero subtitle per updated direction.
+- **Root Cause:** The request to highlight “faster” with GeistSans was rolled back.
+- **Changed Files:** src/components/LandingHero.tsx; src/index.css
+- **Verification:** Manual component review; confirmed subtitle renders with default typography.
+- **Time:** 2025-10-27 03:28 EDT
+- **Summary:** Rebuilt the features card layout into a 12-column grid with a stacked nav rail so copy (6 cols), imagery (4 cols), and the new 2-col link column align with the updated spec.
+- **Root Cause:** The section still used the legacy alternating flex layout with a centered pill nav, so it couldn’t express the requested column proportions.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Manual component review; confirmed nav stacks vertically and each card respects the 2/6/4 column split on large screens.
+- **Time:** 2025-10-27 03:31 EDT
+- **Summary:** Kept the alternating left/right card stacking while stripping the feature cards back to a clean, borderless layout per the revised spec.
+- **Root Cause:** The previous refactor locked cards to a single orientation with frosted backgrounds.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Manual JSX review; confirmed odd/even cards alternate and render without background fills.
+- **Time:** 2025-10-27 03:32 EDT
+- **Summary:** Instrumented feature card rendering with layout logs to trace orientation state and nav span usage during diagnosis.
+- **Root Cause:** Collecting telemetry to validate alternating layout behavior.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Manual review; inspected new `debugService` logging payloads (no runtime tests run).
+- **Time:** 2025-10-27 03:39 EDT
+- **Summary:** Restored the alternating 6/4 feature layout via a reusable layout helper, removed card fill backgrounds, and added TDD coverage for column placement.
+- **Root Cause:** Grid refactor dropped the even/odd class toggle, so every card shared identical column assignments.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/productContentSectionLayout.ts; tests/unit/productFeatureLayout.spec.ts; tests/unit/heroDescriptionClass.spec.ts
+- **Verification:** `node --test tests/unit/productFeatureLayout.spec.ts`; `node --test tests/unit/*.spec.ts`
+- **Time:** 2025-10-27 03:44 EDT
+- **Summary:** Fixed the Component Auditor feature icon so the left rail renders the audit glyph instead of a blank placeholder.
+- **Root Cause:** `default-content.json` stored a corrupted control character for the icon token, so `resolveLucideIcon` fell back to the default sparkles glyph.
+- **Changed Files:** default-content.json
+- **Verification:** Manual JSON review; ensured icon token maps to the `audit` alias.
+- **Time:** 2025-10-27 08:19 EDT
+- **Summary:** Prevented Component Auditor’s media column from dropping below the text by adding explicit order/row placement classes and dense grid flow with TDD coverage.
+- **Root Cause:** The grid auto-placement cursor advanced past column 10 after laying out the text block, so the media column with `col-start-1` was pushed into the next row.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/productContentSectionLayout.ts; tests/unit/productFeatureLayout.spec.ts
+- **Verification:** `node --test tests/unit/productFeatureLayout.spec.ts`; `node --test tests/unit/*.spec.ts`
+- **Time:** 2025-10-27 03:08 EDT
+- **Summary:** Styled the hero subtitle’s “faster” callout with the GeistSans typeface to hit the launch typography spec.
+- **Root Cause:** The hero copy rendered entirely in the default font stack, so the emphasis word didn’t reflect the requested GeistSans treatment.
+- **Changed Files:** src/components/LandingHero.tsx; src/index.css
+- **Verification:** Manual component review; confirmed subtitle renders the GeistSans span.
+- **Time:** 2025-10-27 02:33 EDT
+- **Summary:** Flagged a landing hero contrast regression where the headline and subtitle render nearly invisible against the dark gradient backdrop.
+- **Root Cause:** `section-hero` forces `text-title-darkest` (`--foreground`) and the subtitle hardcodes `#1B1622`, both dark navy tokens carried over from the light theme while the new hero background is a deep navy gradient, driving the text-to-background contrast below AA.
+- **Changed Files:** None (investigation only)
+- **Verification:** Manual code review of `src/index.css` and `src/components/LandingHero.tsx`; visual contrast check pending fix.
+- **Time:** 2025-10-27 02:54 EDT
+- **Summary:** Added a bottom CTA card with a dark gradient backdrop and benefit-driven copy to match the Lovable reference.
+- **Root Cause:** The landing page lacked the closing CTA block shown in the new creative direction.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; src/index.css
+- **Verification:** Manual component review; confirmed Tailwind + custom CSS mirror the reference layout.
+- **Time:** 2025-10-27 02:50 EDT
+- **Summary:** Refactored the landing hero gradient layer to render as a centered circle across breakpoints so the backdrop matches the Lovable reference.
+- **Root Cause:** The gradient layer stretched to the section’s aspect ratio (`inset: -18%`), producing an oval instead of a circle.
+- **Changed Files:** src/index.css
+- **Verification:** Manual CSS review; ensured the new clamp-based square sizing preserves a circular gradient and maintains blur/noise transforms.
+- **Time:** 2025-10-27 02:01 EDT
+- **Summary:** Instrumented the landing hero with toggleable gradient diagnostics and captured layout metrics via Playwright to investigate the oval background.
+- **Root Cause:** The hero gradient layer inherits the section’s wide layout, so its absolute-positioned bounds stretch horizontally and render as an ellipse instead of a circle.
+- **Changed Files:** src/components/LandingHero.tsx; tests/e2e/landingHeroGradientDiagnostics.spec.ts
+- **Verification:** `node --test tests/unit/landingHeroStructure.spec.ts`; `npx playwright test tests/e2e/landingHeroGradientDiagnostics.spec.ts --reporter=line`
+
+## 2025-10-26
+
+- **Time:** 2025-10-26 03:35 EDT
+- **Summary:** Rebuilt the hero gradient to mirror the new pink–blue–green launch artwork and layered in a soft noise wash.
+- **Root Cause:** The existing hero background relied on the earlier gradient mix, so the landing hero no longer matched the updated creative direction.
+- **Changed Files:** src/index.css
+- **Verification:** Manual CSS review against the supplied gradient reference; in-browser visual check pending next deploy.
+- **Time:** 2025-10-26 03:41 EDT
+- **Summary:** Added a peach radial wash and brightened the overlay so the hero gradient reads closer to the reference artwork in-app.
+- **Root Cause:** The first pass underweighted the peach tones, so the landing hero still skewed blue/green and felt flat.
+- **Changed Files:** src/index.css
+- **Verification:** Manual CSS review; confirmed peach stop positions and overlay strength in local preview.
+- **Time:** 2025-10-26 04:22 EDT
+- **Summary:** Applied the hero gradient treatment to the headline’s opening sentence so the new colorway is visible even when the background is subtle.
+- **Root Cause:** The gradient backdrop could disappear behind overlay content, leaving the hero copy without the requested color effect.
+- **Changed Files:** src/components/Hero.tsx; src/index.css
+- **Verification:** Manual React component review; gradient text confirmed in local render.
+- **Time:** 2025-10-26 04:29 EDT
+- **Summary:** Shared the gradient-headline helper across Hero/ProductHero and added DEBUG_FIX logging so the landing hero reflects the new styling.
+- **Root Cause:** The live landing page renders ProductHero, so updating the unused Hero component never surfaced the gradient tweak.
+- **Changed Files:** src/components/heroConstants.ts; src/components/Hero.tsx; src/components/ProductHero.tsx; src/components/heroInstrumentation.ts; src/index.css; tests/unit/landingHeroStructure.spec.ts; tests/unit/heroHeadlineSplit.spec.ts
+- **Verification:** `node --test tests/unit/heroHeadlineSplit.spec.ts`; `node --test tests/unit/landingHeroStructure.spec.ts`
+- **Time:** 2025-10-26 04:37 EDT
+- **Summary:** Ported the bridge-loader backdrop stack to the landing hero so the cyan/green glows and navy mask match the plugin loader.
+- **Root Cause:** .hero-gradient-layer still used the earlier launch gradient, so the live hero was missing the bridge visual language and frosted blur.
+- **Changed Files:** src/index.css; src/components/HeroBackground.tsx; tests/unit/heroGradientStack.spec.ts
+- **Verification:** `node --test tests/unit/heroGradientStack.spec.ts`
+- **Time:** 2025-10-26 04:55 EDT
+- **Summary:** Rebuilt the hero shader backdrop with animated radial blobs using the Paper palette—no external shader package required.
+- **Root Cause:** The requested shader library isn’t published to npm, so the hero needed a bespoke animation to honor the color spec.
+- **Changed Files:** package.json; src/components/HeroBackground.tsx; src/components/ui/shader-hero-background.tsx; tests/unit/heroGradientStack.spec.ts
+- **Verification:** `node --test tests/unit/heroGradientStack.spec.ts`
+
+## 2025-10-14
+
+- **Time:** 2025-10-14 04:15 EDT
+- **Summary:** Removed hero background animation to stabilize the hero appearance.
+- **Root Cause:** The hero background relied on framer-motion driven shapes and a gradient breathing loop, which produced continuous motion.
+- **Changed Files:** src/components/HeroBackground.tsx; src/components/ProductHero.tsx
+- **Verification:** Manual code review; no automated tests run.
+
+- **Time:** 2025-10-14 05:47 EDT
+- **Summary:** Removed waitlist section from the landing page to eliminate the Get Early Access block.
+- **Root Cause:** The Waitlist component was still rendered on the home page, so the Get Early Access section continued to display.
+- **Changed Files:** src/App.tsx
+- **Verification:** Manual code review; no automated tests run.
+
+- **Time:** 2025-10-14 06:16 EDT
+- **Summary:** Updated the BiblioKit wordmark to use the UXBiblio font treatment and color.
+- **Root Cause:** The header/footer still relied on fallback PNG logos with hard-coded gray text, so the branding diverged from the unified UXBiblio style.
+- **Changed Files:** src/index.css; src/components/Header.tsx; src/components/Footer.tsx
+- **Verification:** Manual code review; visually confirmed header and footer render the new text logo.
+- **Time:** 2025-10-14 05:48 EDT
+- **Summary:** Removed CTA section titled "Ready to Transform Your Workflow?" from the landing page.
+- **Root Cause:** The ContentBasedCTASection component continued to render the CTA block on the home page.
+- **Changed Files:** src/App.tsx
+- **Verification:** Manual code review; no automated tests run.
+- **Time:** 2025-10-14 06:27 EDT
+- **Summary:** Aligned landing page typography with the UXBiblio scale for hero, section headings, and body copy.
+- **Root Cause:** Mixed Tailwind sizes led to inconsistent hierarchy across hero, features, pricing, and CTA sections.
+- **Changed Files:** src/components/Hero.tsx; src/components/Features.tsx; src/components/Pricing.tsx; src/components/CTASection.tsx; src/components/Waitlist.tsx; src/index.css
+- **Verification:** Manual code review; visually compared landing page sections after reload.
+
+- **Time:** 2025-10-14 07:10 EDT
+- **Summary:** Replaced the home landing layout with the UXBiblio-styled BiblioKit landing experience.
+- **Root Cause:** The main home route still rendered the legacy Hero/Features/Pricing stack, so it diverged from the updated UXBiblio design language.
+- **Changed Files:** src/App.tsx; src/components/BiblioKitLanding.tsx
+- **Verification:** Manual code review; attempted `npm run check` but the sandbox blocked the command.
+
+- **Time:** 2025-10-14 07:24 EDT
+- **Summary:** Adjusted hero title typography to clamp at the 3.75rem UXBiblio spec while remaining responsive.
+- **Root Cause:** The imported ProductHero component still used a 4xl base size, so the new landing title rendered smaller than the 3.75rem requirement.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Manual code review; confirmed Tailwind clamp value matches 3.75rem upper bound.
+
+- **Time:** 2025-10-14 07:32 EDT
+- **Summary:** Updated section heading color tokens to the UXBiblio navy (#1C3045).
+- **Root Cause:** ProductContentSections and shared section-title utility still used the legacy title color, so headings didn’t match the revised palette.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/index.css
+- **Verification:** Manual code review; automated checks not run in sandbox.
+
+- **Time:** 2025-10-14 07:36 EDT
+- **Summary:** Matched the hero subtitle (“dark” line) color to the UXBiblio navy token.
+- **Root Cause:** The subtitle still used the default gray so the hero title stack wasn’t aligned with the updated palette.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Manual code review.
+- **Time:** 2025-10-17 14:39 EDT
+- **Summary:** Updated the landing hero subtitle to remove the AI phrasing per new messaging.
+- **Root Cause:** The previous hero copy still said “Your AI Design ToolKit, Reinvented.”, conflicting with the revised positioning.
+- **Changed Files:** default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; src/data/products.json
+- **Verification:** Manual code review.
+- **Time:** 2025-10-17 14:44 EDT
+- **Summary:** Hid top navigation links and rendered feature cards as bullet lists on the landing page.
+- **Root Cause:** Landing header still surfaced primary navigation despite the simplified launch layout, and feature cards displayed dense paragraphs instead of scannable bullet points.
+- **Changed Files:** src/components/Header.tsx; src/components/ProductContentSections.tsx; src/components/BiblioKitLanding.tsx; default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; src/data/products.json
+- **Verification:** Manual code review.
+- **Time:** 2025-10-17 14:44 EDT
+- **Summary:** Hid top navigation links and rendered feature cards as bullet lists on the landing page.
+- **Root Cause:** Landing header still surfaced primary navigation despite the simplified launch layout, and feature cards displayed dense paragraphs instead of scannable bullet points.
+- **Changed Files:** src/components/Header.tsx; src/components/ProductContentSections.tsx; src/components/BiblioKitLanding.tsx; default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; src/data/products.json
+- **Verification:** Manual code review.
+
+- **Time:** 2025-10-14 07:42 EDT
+- **Summary:** Removed motion-based animations from the hero to deliver a static load.
+- **Root Cause:** The hero still relied on framer-motion transitions, conflicting with the static UXBiblio presentation request.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Manual code review.
+
+- **Time:** 2025-10-14 07:50 EDT
+- **Summary:** Restyled product feature cards to match the UXBiblio landing section while preserving BiblioKit content.
+- **Root Cause:** The product detail cards still used the legacy layout, so their presentation diverged from the UXBiblio feature styling request.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Manual code review.
+
+- **Time:** 2025-10-14 07:55 EDT
+- **Summary:** Disabled the waitlist block on the new landing so the “Get Early Access” section no longer appears.
+- **Root Cause:** The product visibility settings continued to expose the waitlist, so ProductContentSections rendered the legacy Get Early Access section.
+- **Changed Files:** src/components/BiblioKitLanding.tsx
+- **Verification:** Manual code review.
+- **Time:** 2025-10-14 08:42 EDT
+- **Summary:** Refactored the Design System page into modular sections with shared data sources.
+- **Root Cause:** `DesignSystem.tsx` contained ~1.4k lines of duplicated JSX, exceeding lint line limits and making maintenance difficult.
+- **Changed Files:**
+  - src/components/DesignSystem.tsx
+  - src/components/design-system/ColorSection.tsx
+  - src/components/design-system/FormSection.tsx
+  - src/components/design-system/ModalSection.tsx
+  - src/components/design-system/SnapshotsSection.tsx
+  - src/components/design-system/TypographySection.tsx
+  - src/components/design-system/data/colors.ts
+  - src/components/design-system/data/forms.tsx
+  - src/components/design-system/data/modals.tsx
+  - src/__tests__/ui/design-system.characterization.test.mjs
+  - tests/contract/design-system/modalShowcases.contract.test.mjs
+  - docs/design-system-refactor.md
+- **Verification:**
+  - `node --test src/__tests__/ui/design-system.characterization.test.mjs`
+  - `node --test tests/contract/design-system/modalShowcases.contract.test.mjs`
+- **Time:** 2025-10-14 16:23 EDT
+- **Summary:** Hardened SSR edge fetches to avoid DNS redirect loops and edge timeouts after the DNS provider change.
+- **Root Cause:** The SSR edge function fetched assets and content from the request origin (`bibliokit.com`), but the new DNS redirect record bounced root requests to `www`, creating a 301 loop that never resolved and exhausted the edge execution window.
+- **Changed Files:** src/entry-server.tsx; netlify/edge-functions/ssr.ts
+- **Verification:** Attempted `npm run check`, but local TypeScript package is missing `lib/tsc.js`, so no automated checks ran.
+- **Time:** 2025-10-14 19:51 EDT
+- **Summary:** Restored TypeScript type resolution for `npm run check` by explicitly loading Node, pg, and React ambient definitions.
+- **Root Cause:** TypeScript bundler resolution skipped the default ambient libs after dependency reinstalls, so the compiler could not locate the `pg`, `react`, and `react-dom` type packages even though they were present.
+- **Changed Files:** tsconfig.json
+- **Verification:** `npm run check`
+- **Time:** 2025-10-14 20:18 EDT
+- **Summary:** Cleared residual Deno-linked packages and reinstalled dependencies to resolve the `npm install` ENOTDIR failures.
+- **Root Cause:** Previous dependency tooling left `.deno`-scoped symlinks (e.g., `.autoprefixer-*`) inside `node_modules`, so npm could not rename packages during install.
+- **Changed Files:** package-lock.json; node_modules
+- **Verification:** `npm install`
+- **Time:** 2025-10-14 20:26 EDT
+- **Summary:** Triggered a production redeploy on Netlify after dependency repairs.
+- **Root Cause:** Deployment was requested to reflect the freshly restored dependency tree in production.
+- **Changed Files:** n/a (remote deploy)
+- **Verification:** `netlify deploy --prod`
+- **Time:** 2025-10-14 20:30 EDT
+- **Summary:** Resolved TypeScript compilation blockers in content editor and UI demos by aligning component props with their definitions and extending third-party typings.
+- **Root Cause:** Recent refactors introduced mismatched prop signatures, legacy database payload accessors, and missing Canvas Confetti shape helpers, which caused `npm run check` to fail.
+- **Changed Files:**
+  - src/__tests__/ui/helpers/design-system-harness.tsx
+  - src/components/ContentEditor/views/LocalEditorView.tsx
+  - src/components/ContentEditor/views/database/SectionForms.tsx
+  - src/components/ui/confetti-demo.tsx
+  - src/components/ui/shiny-button.tsx
+- **Verification:** `npm run check`
+- **Time:** 2025-10-14 21:09 EDT
+- **Summary:** Updated Netlify redirect rules to make `www.bibliokit.com` the canonical host and break the apex/www redirect loop.
+- **Root Cause:** Netlify’s domain configuration forced apex requests to `www`, but the repo redirect rules forced the inverse (`www` → apex), causing `ERR_TOO_MANY_REDIRECTS`.
+- **Changed Files:** netlify.toml
+- **Verification:** `curl -I https://bibliokit.com`; `curl -I https://www.bibliokit.com`
+- **Time:** 2025-10-17 14:35 EDT
+- **Summary:** Hid the landing page Use Cases section by forcing the benefits block to stay hidden.
+- **Root Cause:** The landing hero pulled in product benefits, so ProductContentSections rendered the Use Cases list even though the page should omit it.
+- **Changed Files:** src/components/BiblioKitLanding.tsx
+- **Verification:** Manual code review.
+- **Time:** 2025-10-17 14:39 EDT
+- **Summary:** Updated the landing hero subtitle to remove the AI phrasing per new messaging.
+- **Root Cause:** The previous hero copy still said “Your AI Design ToolKit, Reinvented.”, conflicting with the revised positioning.
+- **Changed Files:** default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; src/data/products.json
+- **Verification:** Manual code review.
+- **Time:** 2025-10-17 14:44 EDT
+- **Summary:** Hid top navigation links and rendered feature cards as bullet lists on the landing page.
+- **Root Cause:** Landing header still surfaced primary navigation despite the simplified launch layout, and feature cards displayed dense paragraphs instead of scannable bullet points.
+- **Changed Files:** src/components/Header.tsx; src/components/ProductContentSections.tsx; src/components/BiblioKitLanding.tsx; default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; src/data/products.json
+- **Verification:** Manual code review.
+- **Time:** 2025-10-17 14:55 EDT
+- **Summary:** Tightened feature card heading layout by removing extra spacing and aligning icon/title baselines.
+- **Root Cause:** The default heading margins and top-aligned flex layout left unwanted padding below the card titles and misaligned the icon with the text baseline.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Manual code review.
+- **Time:** 2025-10-17 14:56 EDT
+- **Summary:** Removed the BiblioKit Blocks feature card from the landing page experience.
+- **Root Cause:** The landing layout should spotlight upcoming tools only; the Blocks card promoted an already-launched product and distracted from the simplified launch messaging.
+- **Changed Files:** src/components/Features.tsx; src/components/BiblioKitLanding.tsx
+- **Verification:** Manual code review.
+- **Time:** 2025-10-17 15:01 EDT
+- **Summary:** Simplified the landing footer to only display the static © 2025 BiblioKit copyright line.
+- **Root Cause:** The launch layout needs a minimal footer without navigation or description blocks.
+- **Changed Files:** src/components/Footer.tsx
+- **Verification:** Manual code review.
+- **Time:** 2025-10-17 15:02 EDT
+- **Summary:** Updated the landing hero title copy to “Your Design ToolKit, Reinvented.”
+- **Root Cause:** The hero still displayed the legacy “Work x1000 Faster” headline instead of the new positioning.
+- **Changed Files:** default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; src/data/products.json
+- **Verification:** Manual code review.
+- **Time:** 2025-10-17 20:50 EDT
+- **Summary:** Deployed the latest production build to Netlify so the current launch experience is live at the canonical domain.
+- **Root Cause:** Needed to publish the freshly built assets and serverless functions to keep Netlify in sync with repository changes.
+- **Changed Files:** None (deployment only)
+- **Verification:** `netlify deploy --prod --dir=dist/client` reported https://www.bibliokit.com live with unique deploy https://68f2e4228aedde70282321c9--bkitlaunch.netlify.app
+- **Time:** 2025-10-21 06:52 EDT
+- **Summary:** Archived the full-launch build and simplified the app to serve only the landing experience for the new pages-only release.
+- **Root Cause:** Needed to preserve the richer experience while publishing a lean static landing version.
+- **Changed Files:** archives/full-launch-2025-10-17 (new); src/App.tsx
+- **Verification:** `npm run build`
+- **Time:** 2025-10-21 06:52 EDT
+- **Summary:** Replaced the landing hero title copy with “Work x10,000 times faster.”
+- **Root Cause:** Marketing requested the hero headline return to the high-velocity positioning.
+- **Changed Files:** default-content.json; current-default-content.json
+- **Verification:** Manual content review.
+- **Time:** 2025-10-21 06:56 EDT
+- **Summary:** Updated the landing hero subtitle copy to “Work x10,000 faster.”
+- **Root Cause:** Marketing copy needed the hero subheadline to reinforce the updated velocity positioning.
+- **Changed Files:** current-default-content.json
+- **Verification:** `rg "Work x10,000 faster" current-default-content.json`
+
+- **Time:** 2025-10-21 07:02 EDT
+- **Summary:** Updated the landing hero title copy to “Work x10,000 faster.” and restored the subtitle to “Your Design Toolkit, Reinvented.”
+- **Root Cause:** Local development builds read from bundled JSON fallbacks that still served the older hero copy, so the change wasn’t visible without API content.
+- **Changed Files:** src/data/products.json; default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json
+- **Verification:** `rg "\"title\": \"Work x10,000 faster.\"" src/data/products.json`
+
+- **Time:** 2025-10-21 07:09 EDT
+- **Summary:** Removed fixed positioning from the top navigation so it no longer sticks on scroll.
+- **Root Cause:** Header component forced `position: fixed`, keeping the nav pinned even when the design requested a standard scrolling layout.
+- **Changed Files:** src/components/Header.tsx
+- **Verification:** `rg "fixed" src/components/Header.tsx`
+
+- **Time:** 2025-10-21 07:10 EDT
+- **Summary:** Removed the pricing section from the landing flow so only the hero content renders.
+- **Root Cause:** Home page still rendered the `Pricing` component despite the simplified pages-only launch requirements.
+- **Changed Files:** src/App.tsx
+- **Verification:** `rg "<Pricing" src/App.tsx`
+
+- **Time:** 2025-10-21 07:17 EDT
+- **Summary:** Updated the second landing section headline to “Design smarter. Ship cleaner. Scale faster.”
+- **Root Cause:** Features section fell back to legacy copy, so the hero was updated but the follow-up section didn’t reinforce the new positioning.
+- **Changed Files:** src/components/ProductContentSections.tsx; default-content.json; current-default-content.json; src/data/products.json
+- **Verification:** `rg "Design smarter. Ship cleaner. Scale faster."`
+
+- **Time:** 2025-10-21 07:28 EDT
+- **Summary:** Matched the header background to the hero gradient so it no longer shows a separate solid color while scrolling.
+- **Root Cause:** Header applied a semi-opaque background on scroll, breaking the seamless hero gradient treatment requested for the launch.
+- **Changed Files:** src/components/Header.tsx
+- **Verification:** `rg "bg-gradient-to-br" src/components/Header.tsx`
+
+- **Time:** 2025-10-23 00:44 EDT
+- **Summary:** Removed the header gradient so the top navigation no longer renders a white backdrop.
+- **Root Cause:** Header component hard-coded a gradient background that read as white against the hero.
+- **Changed Files:** src/components/Header.tsx
+- **Verification:** `rg "bg-transparent" src/components/Header.tsx`
+
+- **Time:** 2025-10-23 01:33 EDT
+- **Summary:** Shifted the hero section up so its gradient sits behind the transparent top navigation.
+- **Root Cause:** Hero sections started below the header layout flow, leaving a blank band behind the nav after removing its background.
+- **Changed Files:** src/components/Hero.tsx; src/components/ProductHero.tsx
+- **Verification:** `rg "-mt-16" src/components/ProductHero.tsx`
+
+- **Time:** 2025-10-23 02:38 EDT
+- **Summary:** Removed the legacy CMS/admin stack; site now renders purely from bundled content and minimal Netlify functions.
+- **Root Cause:** Archived CMS code left unused auth flows, API calls, and functions that added maintenance and security risk.
+- **Changed Files:** src/lib/publishedContent.ts; src/hooks/usePublishedContent.ts; src/components/Header.tsx; src/components/Waitlist.tsx; netlify/functions/waitlist.ts; netlify/functions/utils.ts; netlify/functions/sitemap.ts; tests/unit/publishedContent.spec.ts
+- **Verification:** `node --test tests/unit/publishedContent.spec.ts`
+
+- **Time:** 2025-10-23 09:42 EDT
+- **Summary:** Restored the full-width alternating feature layout with gradient image panels.
+- **Root Cause:** Previous adjustments flattened the design; request was to return to the original alternating presentation.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** `npm run check`
+
+- **Time:** 2025-10-23 02:52 EDT
+- **Summary:** Restored landing page render by loading bundled content without static Node dependencies.
+- **Root Cause:** `createRequire` import in `loadPublishedContent` broke browser builds, preventing hydration.
+- **Changed Files:** src/lib/publishedContent.ts; tests/unit/publishedContent.spec.ts
+- **Verification:** `node --test tests/unit/publishedContent.spec.ts`
+
+- **Time:** 2025-10-23 07:57 EDT
+- **Summary:** Fixed broken build types after CMS removal by simplifying pricing visibility logic and removing database type imports.
+- **Root Cause:** Pricing component still expected dynamic content sources and validation utilities referenced deleted database typings, causing `npm run check` to fail.
+- **Changed Files:** src/components/Pricing.tsx; src/lib/validation.ts
+- **Verification:** `npm run check`
+
+- **Time:** 2025-10-23 09:31 EDT
+- **Summary:** Removed backgrounds and hover shadows from the alternating product feature cards.
+- **Root Cause:** Updated design spec called for flat full-width feature sections without card chrome.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Visual check in browser
+
+- **Time:** 2025-10-23 08:02 EDT
+- **Summary:** Updated hero copy to “Automate the stuff you hate…” across bundled content and metadata.
+- **Root Cause:** Hero description still referenced the deprecated “Professional SaaS software…” messaging.
+- **Changed Files:** src/data/products.json; default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; index.html; netlify/edge-functions/bot-detection.ts; scripts/migrate-content-to-db.js; STRATEGIC_MASTER_DOC.md
+- **Verification:** `rg "Automate the stuff you hate"` 
+
+- **Time:** 2025-10-23 08:47 EDT
+- **Summary:** Rebuilt product feature cards into full-width alternating layouts (content left, image right).
+- **Root Cause:** Original feature cards used a compact grid without space for imagery, conflicting with the new alternating layout requirement.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** `npm run check`
+
+- **Time:** 2025-10-23 01:50 EDT
+- **Summary:** Implemented 2025-ready SEO system updates (robots directives, structured data graph, AI sitemap, and tests/docs).
+- **Root Cause:** Existing metadata lacked 2025 crawler directives, JSON-LD graph cohesion, and documentation to guide future SEO work.
+- **Changed Files:** src/lib/seo.ts; index.html; public/llms.txt; tests/e2e/app.spec.ts; docs/seo/SEO_BEST_PRACTICES_2025.md
+- **Verification:** `npm run lint`; `npm run test:e2e` *(fails locally: Playwright browser cannot launch in sandbox, run after installing browsers)*
+
+- **Time:** 2025-10-23 10:14 EDT
+- **Summary:** Removed landing page card backgrounds, drop shadows, and hover elevation for the flattened marketing style.
+- **Root Cause:** Landing page still rendered legacy card chrome (tints, shadows, hover lift) after the spec shifted to a flat layout.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/StatBox.tsx; src/components/ExpertQuote.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 10:18 EDT
+- **Summary:** Restored gradient backdrop behind feature illustrations and removed the “Feature 01/02” labels.
+- **Root Cause:** Updated design kept the tinted image panel but no longer used numeric feature tags on the cards.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 10:37 EDT
+- **Summary:** Removed residual borders from landing experience cards (features, specs, testimonials, stat callout, expert quote).
+- **Root Cause:** Flat card spec excluded visible outlines, but the previous update still left Tailwind border utilities on several card containers.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/StatBox.tsx; src/components/ExpertQuote.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 10:49 EDT
+- **Summary:** Promoted the feature paragraph copy out of the bullet list so it renders as a description under each feature title.
+- **Root Cause:** Feature descriptions were being stored as the first list item, leaving the cards without a standalone intro sentence.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 10:54 EDT
+- **Summary:** Increased feature card bullet text to 16px to match design typography.
+- **Root Cause:** Bulleted details still used the default 14px `text-sm` style from the previous card design.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:10 EDT
+- **Summary:** Centered the “Design smarter. Ship cleaner. Scale faster.” heading block with dedicated padding per spec.
+- **Root Cause:** Features section still inherited left-aligned layout without spacing, missing the standalone centered hero style requested.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:17 EDT
+- **Summary:** Added scrolling client marquee below the hero to surface social proof per landing spec.
+- **Root Cause:** Landing experience lacked the requested client list beneath the hero, leaving the layout without the expected trust signal.
+- **Changed Files:** src/components/ClientsMarquee.tsx; src/components/BiblioKitLanding.tsx; src/index.css
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:19 EDT
+- **Summary:** Increased features card image/content separation to a fixed 120px gap for clearer breathing room.
+- **Root Cause:** Horizontal spacing still relied on smaller padding offsets, falling short of the specified 120px gap between the illustration and copy.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:20 EDT
+- **Summary:** Let the client marquee stretch full width by removing the container clamp while keeping centered heading copy.
+- **Root Cause:** Marquee still used the shared section container, preventing the requested edge-to-edge treatment beneath the hero.
+- **Changed Files:** src/components/ClientsMarquee.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:20 EDT
+- **Summary:** Locked the client marquee to 24px top/bottom padding across breakpoints to match vertical rhythm.
+- **Root Cause:** Edge-to-edge marquee lacked consistent 24px breathing room after widening, leaving the strip cramped against adjacent sections.
+- **Changed Files:** src/components/ClientsMarquee.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:41 EDT
+- **Summary:** Added 24px spacing below the hero before the client marquee.
+- **Root Cause:** Hero and marquee touched directly after widening the marquee, so the transition needed dedicated spacing.
+- **Changed Files:** src/components/ClientsMarquee.tsx
+- **Verification:** Not run (styling-only change)
+## 2025-10-23
+
+- **Time:** 2025-10-23 12:43 EDT
+- **Summary:** Increased hero-to-marquee spacing by an additional 32px (total 56px) for a roomier break.
+- **Root Cause:** Initial 24px gap still felt cramped once the marquee expanded edge to edge; brief requested to open it up further.
+- **Changed Files:** src/components/ClientsMarquee.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:43 EDT
+- **Summary:** Added another 64px below the hero (total 120px) to maximize marquee breathing room per spec.
+- **Root Cause:** Follow-up request increased the separation beyond 56px to emphasize the hero before the marquee band.
+- **Changed Files:** src/components/ClientsMarquee.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:46 EDT
+- **Summary:** Added an extra 24px top padding to the hero layout (120px total) to match updated spacing guidance.
+- **Root Cause:** Hero still used earlier top padding values, causing the hero badge/title stack to sit too close to the header once the marquee gap grew.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:47 EDT
+- **Summary:** Added internal 16px padding above and below the marquee contents for consistent band spacing.
+- **Root Cause:** Even with outer padding, the full-width marquee text sat flush against the strip edges, so the request added inner breathing room.
+- **Changed Files:** src/components/ClientsMarquee.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:49 EDT
+- **Summary:** Shortened the features section title to “Design smarter. Ship cleaner.” per revised messaging.
+- **Root Cause:** Landing copy still included the “Scale faster.” clause that stakeholders asked us to drop.
+- **Changed Files:** default-content.json; current-default-content.json; src/data/products.json; src/components/ProductContentSections.tsx
+- **Verification:** Not run (content/styling change)
+
+- **Time:** 2025-10-23 12:51 EDT
+- **Summary:** Center-aligned feature bullet lists so the dots and copy sit symmetrically under each card.
+- **Root Cause:** Bullet rows still used left alignment, clashing with the centered card layout requested earlier.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:54 EDT
+- **Summary:** Added per-card CTA buttons wired to feature links in the alternating feature section.
+- **Root Cause:** Feature cards lacked call-to-action buttons even though source content provided button text/links.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/BiblioKitLanding.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:55 EDT
+- **Summary:** Removed the wide letter-spacing from the “Trusted by modern product teams” label above the marquee.
+- **Root Cause:** The uppercase label read too stretched compared with updated typography.
+- **Changed Files:** src/components/ClientsMarquee.tsx
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 12:59 EDT
+- **Summary:** Updated global title color tokens/styles so all headings render in #1C3045.
+- **Root Cause:** Several headings still inherited the older slate tone because the theme token and base heading styles weren’t aligned with the new brand color.
+- **Changed Files:** tailwind.config.js; src/index.css
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 13:02 EDT
+- **Summary:** Overrode the `.py-6` utility to use 3rem vertical padding per spec.
+- **Root Cause:** Tailwind’s default `py-6` (24px) no longer matched the requested 48px spacing across sections.
+- **Changed Files:** src/index.css
+- **Verification:** Not run (styling-only change)
+
+- **Time:** 2025-10-23 14:34 EDT
+- **Summary:** Reintroduced hero background motion with scroll-linked parallax offsets and instrumentation.
+- **Root Cause:** The earlier stabilization removed framer-motion animations without adding a scroll-driven alternative, leaving the hero background static regardless of user scroll.
+- **Changed Files:** src/components/HeroBackground.tsx; src/components/heroScrollProgress.ts; tests/unit/heroBackgroundProgress.spec.ts
+- **Verification:** node --test tests/unit/*.spec.ts; npm run check
+
+- **Time:** 2025-10-23 14:48 EDT
+- **Summary:** Restored framer-motion loops for hero background pieces while retaining scroll-linked parallax offsets.
+- **Root Cause:** The follow-up request reinstated animated hero ambiance; our prior fix removed framer-motion to focus on scroll responsiveness, leaving no continuous motion cues.
+- **Changed Files:** src/components/HeroBackground.tsx
+- **Verification:** node --test tests/unit/heroBackgroundProgress.spec.ts; npm run check
+
+- **Time:** 2025-10-23 15:45 EDT
+- **Summary:** Swapped marquee text for inline brand logos with SVG fallbacks and external logo support.
+- **Root Cause:** Client strip still rendered uppercase text; request was to showcase partner brand marks instead.
+- **Changed Files:** src/components/ClientsMarquee.tsx; src/components/clientsLogoResolver.ts; tests/unit/clientsLogoResolver.spec.ts
+- **Verification:** node --test tests/unit/*.spec.ts; npm run check
+
+- **Time:** 2025-10-23 17:09 EDT
+- **Summary:** Increased marquee logo sizing by ~20% to improve legibility post-monochrome change.
+- **Root Cause:** Logos felt undersized after removing text labels and borders, so we bumped mark scale for balance.
+- **Changed Files:** src/components/ClientsMarquee.tsx
+- **Verification:** node --test tests/unit/*.spec.ts
+
+- **Time:** 2025-10-23 17:28 EDT
+- **Summary:** Adjusted marquee sizing to enforce true +20% logo height via shared metrics module and inline style overrides.
+- **Root Cause:** Tailwind utility jump only delivered ~14% taller logos, leaving the requested 20% increase unmet.
+- **Changed Files:** src/components/ClientsMarquee.tsx; src/components/clientsLogoMetrics.ts; tests/unit/clientsLogoMetrics.spec.ts
+- **Verification:** node --test tests/unit/*.spec.ts
+
+- **Time:** 2025-10-23 17:33 EDT
+- **Summary:** Left-aligned feature card bullet lists and primary CTAs for consistent card layout.
+- **Root Cause:** Card bodies still centered bullet items and buttons, clashing with the left-aligned card requirement.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** node --test tests/unit/*.spec.ts
+
+- **Time:** 2025-10-23 20:07 EDT
+- **Summary:** Matched section headings to hero title clamp and introduced reusable title constant.
+- **Root Cause:** Section h2s still used smaller step sizes, breaking visual hierarchy with the hero after the latest typography request.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/productContentSectionConstants.ts; tests/unit/productSectionTitleClass.spec.ts
+- **Verification:** node --test tests/unit/*.spec.ts
+
+- **Time:** 2025-10-23 20:09 EDT
+- **Summary:** Set hero and section descriptions to 22px type scale via shared constants.
+- **Root Cause:** Descriptions still used mixed Tailwind sizing (lg/xl), so they didn’t match the requested 22px body copy.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/heroConstants.ts; src/components/productContentSectionConstants.ts; src/components/ProductContentSections.tsx; tests/unit/heroDescriptionClass.spec.ts; tests/unit/productSectionDescriptionClass.spec.ts
+- **Verification:** node --test tests/unit/*.spec.ts
+
+- **Time:** 2025-10-23 20:11 EDT
+- **Summary:** Updated hero and section titles to fixed 55px typography with shared constants and tests.
+- **Root Cause:** Headings still used clamp-based sizing that no longer matched the requested 55px scale.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/heroConstants.ts; src/components/productContentSectionConstants.ts; tests/unit/heroTitleClass.spec.ts; tests/unit/productSectionTitleClass.spec.ts
+- **Verification:** node --test tests/unit/*.spec.ts
+
+- **Time:** 2025-10-23 20:13 EDT
+- **Summary:** Unified card primary buttons with hero primary button styling via shared constant.
+- **Root Cause:** Feature card CTAs still used outline styles and different sizing, causing visual mismatch with hero primary button.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/heroConstants.ts; src/components/ProductContentSections.tsx; tests/unit/heroPrimaryButtonClass.spec.ts
+- **Verification:** node --test tests/unit/*.spec.ts
+
+- **Time:** 2025-10-23 20:18 EDT
+- **Summary:** Expanded section container to 1300px with 32px horizontal padding for consistent gutters.
+- **Root Cause:** Section wrapper still used Tailwind max-w-6xl and px-8, not matching updated width/padding spec.
+- **Changed Files:** src/index.css
+- **Verification:** node --test tests/unit/*.spec.ts
+
+- **Time:** 2025-10-23 17:01 EDT
+- **Summary:** Converted marquee tiles to monochrome logos without labels or borders per brand strip direction.
+- **Root Cause:** Logos still used colored art with text badges, conflicting with the requested black-only mark strip.
+- **Changed Files:** src/components/ClientsMarquee.tsx; src/components/clientsLogoResolver.ts; tests/unit/clientsLogoResolver.spec.ts
+- **Verification:** node --test tests/unit/*.spec.ts; npm run check
+
+- **Time:** 2025-10-23 20:07 EDT
+- **Summary:** Reinstated animated hero background on the standard landing hero with layered gradients.
+- **Root Cause:** Hero section rendered static styling after the background animation component was dropped from the standard hero.
+- **Changed Files:** src/components/Hero.tsx
+- **Verification:** Not run (not requested)
+
+- **Time:** 2025-10-23 20:17 EDT
+- **Summary:** Fixed landing hero background layering so motion elements sit above the gradient.
+- **Root Cause:** Gradient overlay sat atop the animated layer, obscuring framer-motion elements and making the hero appear static.
+- **Changed Files:** src/components/Hero.tsx; src/components/heroConstants.ts; tests/unit/heroLayering.spec.ts
+- **Verification:** node --test tests/unit/heroLayering.spec.ts; npm run check
+
+- **Time:** 2025-10-23 20:24 EDT
+- **Summary:** Made landing hero instrumentation always emit without relying on DEBUG_FIX flags.
+- **Root Cause:** Background log hook ran only when DEBUG_FIX was set, so we lacked default telemetry on hero layering health.
+- **Changed Files:** src/components/Hero.tsx; src/components/heroInstrumentation.ts; tests/unit/heroInstrumentation.spec.ts
+- **Verification:** node --test tests/unit/heroInstrumentation.spec.ts; npm run check
+
+- **Time:** 2025-10-23 20:32 EDT
+- **Summary:** Updated AI Rename Variants copy and removed the benefits bullet list per latest messaging.
+- **Root Cause:** Product content still surfaced legacy description and benefit bullets that no longer match the positioning.
+- **Changed Files:** src/data/products.json; src/components/AIRenameVariantsPage.tsx; tests/unit/aiRenameVariantsContent.spec.ts
+- **Verification:** node --test tests/unit/aiRenameVariantsContent.spec.ts; node --test tests/unit/heroInstrumentation.spec.ts; npm run check
+
+- **Time:** 2025-10-23 20:35 EDT
+- **Summary:** Refreshed AI Rename Variants features intro copy to the latest messaging.
+- **Root Cause:** Section description above the feature cards still used the previous AI copy, diverging from the updated marketing language.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/components/aiRenameVariantsCopy.ts; tests/unit/aiRenameVariantsCopy.spec.ts
+- **Verification:** node --test tests/unit/aiRenameVariantsCopy.spec.ts; node --test tests/unit/aiRenameVariantsContent.spec.ts; node --test tests/unit/heroInstrumentation.spec.ts; npm run check
+
+- **Time:** 2025-10-23 21:03 EDT
+- **Summary:** Updated homepage features section description to new Figma plugins positioning.
+- **Root Cause:** Landing page still surfaced previous “Automate the stuff you hate…” messaging instead of the refreshed copy requested by marketing.
+- **Changed Files:** src/data/products.json; tests/unit/homepageFeaturesCopy.spec.ts
+- **Verification:** node --test tests/unit/homepageFeaturesCopy.spec.ts; node --test tests/unit/aiRenameVariantsContent.spec.ts; node --test tests/unit/heroInstrumentation.spec.ts; npm run check
+
+- **Time:** 2025-10-23 23:37 EDT
+- **Summary:** Synced AI Rename Variants card copy with hero messaging and removed its bullet list on the homepage.
+- **Root Cause:** Feature card still showed legacy description and bullets even after the hero/section copy refresh, causing inconsistent positioning.
+- **Changed Files:** src/data/products.json; tests/unit/aiRenameVariantsContent.spec.ts
+- **Verification:** node --test tests/unit/aiRenameVariantsContent.spec.ts
+
+- **Time:** 2025-10-23 23:50 EDT
+- **Summary:** Re-enabled header navigation links so all configured top-nav items display.
+- **Root Cause:** `headerNavLinks` flag remained false in published settings, stripping every link from the header.
+- **Changed Files:** src/data/products.json; tests/unit/headerNavigationVisibility.spec.ts; tests/unit/aiRenameVariantsContent.spec.ts
+- **Verification:** node --test tests/unit/headerNavigationVisibility.spec.ts; node --test tests/unit/aiRenameVariantsContent.spec.ts; npm run check
+
+- **Time:** 2025-10-23 23:57 EDT
+- **Summary:** Added explicit product routes so catalog pages resolve instead of 404ing.
+- **Root Cause:** Router only defined the home path and fallback 404, so product URLs like /ai-rename-variants were unmatched.
+- **Changed Files:** src/App.tsx; src/config/routes.ts; tests/unit/routesConfig.spec.ts; tests/unit/aiRenameVariantsRoute.spec.ts
+- **Verification:** node --test tests/unit/routesConfig.spec.ts; node --test tests/unit/aiRenameVariantsRoute.spec.ts; node --test tests/unit/headerNavigationVisibility.spec.ts; node --test tests/unit/aiRenameVariantsContent.spec.ts; npm run check
+
+- **Time:** 2025-10-24 00:22 EDT
+- **Summary:** Floated desktop header navigation to the right and standardized link weight to match current visual spec.
+- **Root Cause:** Header layout still centered the nav cluster and dropdown items defaulted to regular weight, causing mismatch with the requested styling.
+- **Changed Files:** src/components/Header.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 00:22 EDT
+- **Summary:** Rebuilt product hero into a two-column layout with icon callouts and removed gradient text treatment.
+- **Root Cause:** Product pages still used the legacy centered hero with gradient typography instead of the requested split layout and callout highlights.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 00:23 EDT
+- **Summary:** Updated hero callouts to a simple vertical list and limited CTA to the install plugin button.
+- **Root Cause:** Callouts still rendered as cards in a grid, and the secondary CTA remained visible after the layout refresh.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 00:24 EDT
+- **Summary:** Shifted hero grid to a 12-column layout with content limited to five columns on large screens.
+- **Root Cause:** Hero still used a two-column fraction layout, preventing finer control of the animation panel width.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 00:24 EDT
+- **Summary:** Increased callout text size and removed icon backgrounds for cleaner presentation.
+- **Root Cause:** Callout highlights still displayed smaller body copy and colored icon badges after the latest layout tweaks.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 00:26 EDT
+- **Summary:** Removed emoji prefixes from product titles to match updated brand tone.
+- **Root Cause:** Section headings still rendered emoji characters in product detail pages despite the “no emoji in titles” refresh.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/AIRenameVariantsPage.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 05:00 EDT
+- **Summary:** Removed hero badge pill from product pages.
+- **Root Cause:** Product pages still displayed the legacy “Built by designers for designers” badge even after the new hero layout direction.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 05:01 EDT
+- **Summary:** Corrected hero callout typography to the requested 18px size.
+- **Root Cause:** Callout labels slipped back to 22px after recent edits, violating the spec delivered earlier.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 05:01 EDT
+- **Summary:** Centered hero animation within its container.
+- **Root Cause:** Hero background component wasn’t anchored to all edges of the showcase frame, leaving the animation slightly offset.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 05:19 EDT
+- **Summary:** Removed hero animation backdrop tint and shadow on product pages.
+- **Root Cause:** Product hero image still sat inside a frosted box with a drop shadow, conflicting with the cleaner flat presentation request.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 05:20 EDT
+- **Summary:** Set hero callout copy back to 22px per latest guidance.
+- **Root Cause:** Callout highlights reverted to 18px in the push to simplify typography, diverging from the updated sizing direction.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 05:25 EDT
+- **Summary:** Removed hero subtitle paragraph on product pages.
+- **Root Cause:** Product hero still rendered the `text-xl` subtitle despite the directive to drop the secondary line on product pages.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 05:26 EDT
+- **Summary:** Balanced hero content stack using consistent 8px spacing.
+- **Root Cause:** The hero column still used mixed 24px/12px gaps after layout tweaks, preventing the tightly stacked composition design requested earlier.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 05:32 EDT
+- **Summary:** Split landing vs. product hero styling with dedicated classes and layout branches.
+- **Root Cause:** Landing hero inherited the product page styling changes, causing mismatched layout and callout treatments.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 05:34 EDT
+- **Summary:** Unified hero spacing: added 8px bottom margin plus adjusted callout gaps and CTA offset.
+- **Root Cause:** Landing and product heroes lacked the requested 8px baseline spacing and the callout/CTA separation was still tight after previous tweaks.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 05:36 EDT
+- **Summary:** Restored landing hero animation and replaced product hero animation with an FPO illustration.
+- **Root Cause:** Landing hero lost its animated backdrop while product pages still showed the motion graphic instead of the requested static placeholder.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 00:23 EDT
+- **Summary:** Forced hero background animation on marketing pages while keeping override hooks for a11y.
+- **Root Cause:** OS-level reduced-motion preference disabled framer-motion loops, leaving the hero static even though marketing expects animation.
+- **Changed Files:** index.html; src/components/HeroBackground.tsx; src/components/heroMotionPreference.ts; tests/unit/heroMotionPreference.spec.ts; tests/unit/heroLayering.spec.ts
+- **Verification:** node --test tests/unit/heroMotionPreference.spec.ts; node --test tests/unit/heroLayering.spec.ts; node --test tests/unit/headerNavigationVisibility.spec.ts; npm run check
+
+- **Time:** 2025-10-24 00:29 EDT
+- **Summary:** Increased hero callout typography to 22px per design request.
+- **Root Cause:** Callout labels still used 18px size, undercutting the visual emphasis needed alongside the hero copy.
+- **Changed Files:** src/components/ProductHero.tsx; tests/unit/heroCalloutSize.spec.ts
+- **Verification:** node --test tests/unit/heroCalloutSize.spec.ts; npm run check
+
+- **Time:** 2025-10-24 00:34 EDT
+- **Summary:** Removed emoji glyph from hero badge while keeping sanitized text rendering.
+- **Root Cause:** Product badge still displayed emoji characters from JSON content, conflicting with the request to show text only.
+- **Changed Files:** src/components/ProductHero.tsx; tests/unit/heroBadgeLabel.spec.ts; tests/unit/heroCalloutSize.spec.ts
+- **Verification:** node --test tests/unit/heroBadgeLabel.spec.ts; node --test tests/unit/heroCalloutSize.spec.ts; npm run check
+
+- **Time:** 2025-10-24 00:38 EDT
+- **Summary:** Updated hero title to action/benefit copy and codified copywriting rule for agents.
+- **Root Cause:** Landing hero still used legacy speed tagline and guidelines lacked explicit directive for benefit-led language.
+- **Changed Files:** src/data/products.json; AGENTS.md; tests/unit/heroTitleCopy.spec.ts
+- **Verification:** node --test tests/unit/heroTitleCopy.spec.ts; npm run check
+
+- **Time:** 2025-10-24 05:53 EDT
+- **Summary:** Restored landing hero title to “Work x10,000 faster.” and aligned documentation/tests.
+- **Root Cause:** Homepage hero was mistakenly using the AI Rename Variants tagline instead of the long-running landing headline.
+- **Changed Files:** src/data/products.json; tests/unit/heroTitleCopy.spec.ts; AGENTS.md
+- **Verification:** Not run (copy revert)
+
+- **Time:** 2025-10-24 06:35 EDT
+- **Summary:** Restyled landing hero with left-aligned vertical callouts, restored “Your Design Toolkit.” subtitle, and added the new glassmorphism visual.
+- **Root Cause:** Landing page still used the card-style callouts, missed the secondary headline, and lacked the updated hero layout requested by design.
+- **Changed Files:** src/components/ProductHero.tsx; src/data/products.json
+- **Verification:** Not run (visual + copy update)
+
+- **Time:** 2025-10-24 06:42 EDT
+- **Summary:** Re-enabled landing hero background animation while keeping the right-side illustration static and removed icon pill styling.
+- **Root Cause:** Animation still lived inside the hero visual instead of the page backdrop, diverging from the requested layout.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 06:49 EDT
+- **Summary:** Left-aligned landing hero content stack and removed illustration drop shadow.
+- **Root Cause:** Hero elements still centered due to auto margins and the right visual kept the old elevation styling.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 06:52 EDT
+- **Summary:** Standardized all section shells and header to 1280px width with 2.5rem inline padding.
+- **Root Cause:** Containers used varying max-width and gutter settings, causing inconsistent alignment across sections and navigation.
+- **Changed Files:** src/index.css
+- **Verification:** Not run (styling utility update)
+
+- **Time:** 2025-10-24 06:54 EDT
+- **Summary:** Increased hero headline to 72px and callout copy to 20px.
+- **Root Cause:** Typography scale still lagged behind the latest design direction for the hero.
+- **Changed Files:** src/components/heroConstants.ts; src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 06:56 EDT
+- **Summary:** Moved hero description beneath callouts and matched its size to 20px.
+- **Root Cause:** Text hierarchy still placed the description above the feature list and used the smaller legacy size.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 06:57 EDT
+- **Summary:** Added 2rem bottom margin to hero headline via shared typography token.
+- **Root Cause:** Title sat too close to the supporting content after increasing its size.
+- **Changed Files:** src/components/heroConstants.ts
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 09:23 EDT
+- **Summary:** Added the new lavender landing hero gradient behind the animation.
+- **Root Cause:** Landing page still used the generic rose/blue gradient instead of the updated brand backdrop provided in the design reference.
+- **Changed Files:** src/index.css; src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 09:30 EDT
+- **Summary:** Updated landing hero gradient to match the latest multicolor reference (pink → blue → green).
+- **Root Cause:** Previous lavender backdrop no longer reflected the design asset shared for the hero background.
+- **Changed Files:** src/index.css
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 06:59 EDT
+- **Summary:** Tightened hero callout spacing to 0.5rem and set section margin-bottom to 1.5rem.
+- **Root Cause:** Callouts still had 1rem spacing and the section bottom offset remained at 0.5rem, causing layout drift from the spec.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 07:00 EDT
+- **Summary:** Added 0.75rem top margin to hero description to balance new spacing.
+- **Root Cause:** Description sat flush against callouts after rearranging the stack.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 07:01 EDT
+- **Summary:** Added 1.5rem bottom margin to hero description to preserve CTA breathing room.
+- **Root Cause:** Description now crowded the CTA cluster after the latest spacing adjustments.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 09:16 EDT
+- **Summary:** Updated hero headline color to #1B2A41 per palette tweak.
+- **Root Cause:** Title still used the older #1C3045 tone after the design refresh.
+- **Changed Files:** src/components/heroConstants.ts
+- **Verification:** Not run (visual styling update)
+
+- **Time:** 2025-10-24 04:05 EDT
+- **Summary:** Documented the AI Rename Variants plugin Figma store link in agent guidelines.
+- **Root Cause:** `AGENTS.md` lacked a direct reference to the canonical Figma listing, making it harder for agents to find the official resource.
+- **Changed Files:** AGENTS.md
+- **Verification:** Not run (docs update)
+- **Time:** 2025-10-24 10:05 EDT
+- **Summary:** Promoted “Your Design Toolkit, Reinvented.” to the landing hero headline and shifted the speed promise into the subtitle.
+- **Root Cause:** Homepage hero still prioritized the legacy speed tagline, preventing the design toolkit positioning from taking over the primary heading as requested.
+- **Changed Files:** src/data/products.json; tests/unit/heroTitleCopy.spec.ts; correct-content.json; clean-content.json; fixed-content.json; default-content.json; current-default-content.json
+- **Verification:** Not run (copy update)
+
+- **Time:** 2025-10-24 10:32 EDT
+- **Summary:** Tagged every landing hero wrapper div with descriptive classes and logged structure diagnostics behind DEBUG_FIX.
+- **Root Cause:** Hero layout still relied on anonymous Tailwind utility stacks, leaving us without stable selectors to map IDs/classes for QA and instrumentation.
+- **Changed Files:** src/components/ProductHero.tsx; tests/unit/landingHeroStructure.spec.ts
+- **Verification:** Not run (unit test relies on static source inspection)
+
+- **Time:** 2025-10-24 10:44 EDT
+- **Summary:** Nested the “Work x10,000 faster.” tagline inside the landing hero title so both lines share the 72px heading class.
+- **Root Cause:** Subtitle still rendered as a separate 20px paragraph, so the speed claim fell outside the requested hero heading block.
+- **Changed Files:** src/components/ProductHero.tsx; tests/unit/landingHeroStructure.spec.ts
+- **Verification:** Not run (render markup update)
+
+- **Time:** 2025-10-24 10:52 EDT
+- **Summary:** Left-aligned the landing hero grid and CTA stack, removed the primary button shadow, and kept the section anchored to the left rail.
+- **Root Cause:** Grid alignment still centered content, and the CTA used `justify-center` plus a glow shadow counter to the left-locked visual spec.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (layout tweak)
+
+- **Time:** 2025-10-24 11:12 EDT
+- **Summary:** Matched the landing hero’s container width and padding to the UXBiblio layout (70% centered wrapper with standard gutters).
+- **Root Cause:** Home hero still used the flush-left grid instead of the UXBiblio-centered shell requested for consistency.
+- **Changed Files:** src/components/ProductHero.tsx; tests/unit/landingHeroStructure.spec.ts
+- **Verification:** Not run (layout tweak)
+
+- **Time:** 2025-10-24 11:18 EDT
+- **Summary:** Constrained landing sections and client marquee to the UXBiblio 70% centered layout with shared padding utilities.
+- **Root Cause:** Post-hero sections still stretched to the 1280px container, breaking parity with the UXBiblio page spacing.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/BiblioKitLanding.tsx; src/components/ClientsMarquee.tsx
+- **Verification:** Not run (layout tweak)
+
+- **Time:** 2025-10-24 11:01 EDT
+- **Summary:** Set landing hero callouts to 20px with a 28px line height and aligned the test guard to the new token.
+- **Root Cause:** Callouts still used the generic snug line height, so spacing between lines missed the 28px spec.
+- **Changed Files:** src/components/ProductHero.tsx; tests/unit/heroCalloutSize.spec.ts
+- **Verification:** Not run (unit test already asserts class signature)
+
+- **Time:** 2025-10-24 10:57 EDT
+- **Summary:** Dropped horizontal padding and centering from the landing hero layout so the grid hugs the left rail.
+- **Root Cause:** The layout wrapper still used `mx-auto` and inherited container padding, shifting content off the requested flush alignment.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (layout tweak)
+
+- **Time:** 2025-10-24 09:35 EDT
+- **Summary:** Removed default padding from shared card containers so card content sits flush with the border.
+- **Root Cause:** The reusable `.card` utility still applied `p-6`, which added unintended gutters inside every card layout after the latest design revision.
+- **Changed Files:** src/index.css
+- **Verification:** Manual code review; no automated tests run.
+
+- **Time:** 2025-10-24 11:28 EDT
+- **Summary:** Replaced the landing hero visual with the UXBiblio illustration and disabled landing callouts/glyphs for layout parity.
+- **Root Cause:** Homepage hero still used the glassmorphism mock and feature callouts, diverging from the UXBiblio hero structure the team wants mirrored.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/BiblioKitLanding.tsx
+- **Verification:** Not run (visual update)
+- **Time:** 2025-10-24 11:36 EDT
+- **Summary:** Replaced the landing hero markup with the UXBiblio hero layout (centered gradient title, no callouts).
+- **Root Cause:** Layout tweaks still left the homepage hero with the bespoke left-aligned variant instead of the UXBiblio copy/paste requested by design.
+- **Changed Files:** src/components/ProductHero.tsx; tests/unit/landingHeroStructure.spec.ts; src/index.css
+- **Verification:** Not run (visual update)
+- **Time:** 2025-10-26 00:14 EDT
+- **Summary:** Replaced the dynamic JSON loader with a static import so the production build can complete.
+- **Root Cause:** The published content loader relied on top-level await and inconsistent JSON import attributes, which Vite externalized and caused the client bundle build to fail.
+- **Changed Files:** src/lib/publishedContent.ts
+- **Verification:** npm run build
+- **Time:** 2025-10-26 10:52 EDT
+- **Summary:** Refactored the hero headline renderer so “Work x10,000 faster.” renders as the first line inside the hero `<h1>` while the title keeps its gradient class.
+- **Root Cause:** Folding the subtitle into the `<h1>` earlier removed the gradient from “Your Design Toolkit, Reinvented.” and kept the tagline below the title.
+- **Changed Files:** src/components/Hero.tsx; src/components/ProductHero.tsx; src/components/heroConstants.ts; tests/unit/heroHeadlineSegments.spec.ts; tests/unit/heroHeadlineGradientClass.spec.ts; tests/unit/landingHeroStructure.spec.ts
+- **Verification:** node --test tests/unit/heroHeadlineSegments.spec.ts; node --test tests/unit/heroHeadlineGradientClass.spec.ts; npm run build
+- **Time:** 2025-10-26 10:29 EDT
+- **Summary:** Promoted “Work x10,000 faster.” into the hero headline’s first sentence so the gradient punchline leads the page.
+- **Root Cause:** Tagline still lived in the subtitle, burying the action-first benefit below the fold instead of headlining the hero.
+- **Changed Files:** src/data/products.json; default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; tests/unit/heroTitleCopy.spec.ts
+- **Verification:** npm run build
+- **Time:** 2025-10-26 10:33 EDT
+- **Summary:** Reverted the hero subtitle copy and promoted its layout so “Work x10,000 faster.” leads without introducing new messaging.
+- **Root Cause:** Trying to satisfy the “put it on top” request by editing copy added unrequested marketing text.
+- **Changed Files:** src/components/Hero.tsx; src/data/products.json; default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; tests/unit/heroTitleCopy.spec.ts; tests/unit/heroHeadlineGradientClass.spec.ts; AGENTS.md
+- **Verification:** npm run build
+- **Time:** 2025-10-26 10:46 EDT
+- **Summary:** Restored the hero headline size/gradient by placing “Work x10,000 faster.” inside the `<h1>` while keeping the CMS copy untouched.
+- **Root Cause:** Rendering the tagline as a subtitle dropped it to body size and stripped the gradient, making the hero feel regressed.
+- **Changed Files:** src/components/Hero.tsx
+- **Verification:** npm run build
+- **Time:** 2025-10-26 02:40 EDT
+- **Summary:** Floated the transparent header above the hero so the gradient hero art carries through the nav area.
+- **Root Cause:** The header sat in normal document flow with an implicit background, so the hero couldn’t extend beneath it and the nav looked boxed in.
+- **Changed Files:** src/components/Header.tsx; src/App.tsx; src/components/ProductHero.tsx
+- **Verification:** npm run build
+- **Time:** 2025-10-26 02:43 EDT
+- **Summary:** Let the client marquee breathe edge-to-edge by lifting it out of the 70% wrapper while keeping the label centered.
+- **Root Cause:** The carousel lived inside the narrow marketing container, so the logo loop felt cramped instead of spanning the full viewport.
+- **Changed Files:** src/components/ClientsMarquee.tsx
+- **Verification:** npm run build
+- **Time:** 2025-10-26 02:45 EDT
+- **Summary:** Tightened the AI Rename Variants hero copy so the landing description hits the headline benefit without extra clauses.
+- **Root Cause:** The previous description included the line “Detect context like component properties, batch-rename entire sets, and hand off production-ready assets.” that product leadership asked us to remove.
+- **Changed Files:** src/data/products.json; src/components/AIRenameVariantsPage.tsx; tests/unit/aiRenameVariantsContent.spec.ts
+- **Verification:** npm run build
+- **Time:** 2025-10-26 02:48 EDT
+- **Summary:** Matched the landing hero backdrop to the new UXBiblio gradient reference with layered radial color fields and soft-light overlays.
+- **Root Cause:** The hero background still used simple Tailwind gradients, so it couldn’t reproduce the multi-hue glow the design screenshot specified.
+- **Changed Files:** src/index.css; src/components/heroConstants.ts; src/components/HeroBackground.tsx
+- **Verification:** Manual code review; visual check pending.
+- **Time:** 2025-10-26 02:52 EDT
+- **Summary:** Standardized feature card CTAs to “Try {Product Title} for free” so each card promotes an immediate trial with the correct product name.
+- **Root Cause:** Feature cards reused arbitrary CMS-provided button labels, leading to mismatched CTAs that didn’t emphasize the free trial ask.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Manual code review; automated tests not run.
+- **Time:** 2025-10-26 02:58 EDT
+- **Summary:** Retired the BiblioKit Blocks landing route and archived its assets so the site no longer links to a dead internal page.
+- **Root Cause:** The Blocks product now lives on its own domain, so the in-product landing route caused a 404 after the redesign.
+- **Changed Files:** src/App.tsx; src/config/routes.ts; src/components/Docs.tsx; src/clear-cache.html; src/data/products.json; netlify/functions/sitemap.ts; tests/unit/routesConfig.spec.ts; tests/unit/aiRenameVariantsRoute.spec.ts; archives/landing-pages/bibliokit-blocks-landing.json; archives/landing-pages/BiblioKitBlocksPage.tsx
+- **Verification:** Manual code review; route removal confirmed by `rg '/bibliokit-blocks'` showing only archived references.
+- **Time:** 2025-10-26 03:02 EDT
+- **Summary:** Set feature card CTAs to the exact launch copy “Try {Product Name} For Free”.
+- **Root Cause:** The auto-generated CTA text didn’t match the requested capitalization pattern (“For Free” needed to stay title case).
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Manual code review; `npm test` not run.
+- **Time:** 2025-10-26 03:05 EDT
+- **Summary:** Bumped the landing hero description to 22px to match the UXBiblio typography scale.
+- **Root Cause:** The hero reused the generic `body-lead` class which kept the copy at 18-20px instead of the requested 22px weight.
+- **Changed Files:** src/components/Hero.tsx
+- **Verification:** Manual code review; visual confirmation pending.
+- **Time:** 2025-10-26 03:07 EDT
+- **Summary:** Reordered the hero copy so “Work x10,000 faster.” appears before the main headline.
+- **Root Cause:** The subtitle rendered below the title, conflicting with the desired hero storytelling order.
+- **Changed Files:** src/components/Hero.tsx
+- **Verification:** Manual code review.
+- **Time:** 2025-10-26 03:11 EDT
+- **Summary:** Reverted unintended Tailwind config edits introduced by a failed shadcn CLI install.
+- **Root Cause:** The third-party installer injected duplicate container and color overrides before exiting with a syntax error; we restored the prior config to keep utility tokens stable.
+- **Changed Files:** tailwind.config.js
+- **Verification:** Manual code review; npm install not required after revert.
+- **Time:** 2025-10-26 03:14 EDT
+- **Summary:** Installed the shadcn shader hero section component for future experimentation.
+- **Root Cause:** Needed the `@paper-design/shaders-react` component baseline so we can swap in the shader-driven hero when ready.
+- **Changed Files:** components.json; package.json; package-lock.json; src/components/ui/shaders-hero-section.tsx
+- **Verification:** `npm install`
+- **Time:** 2025-10-26 03:16 EDT
+- **Summary:** Restored Tailwind `card`, `popover`, `destructive`, and `success` tokens so `@apply bg-card` works again.
+- **Root Cause:** Reverting the earlier shadcn edits removed the color aliases our utilities rely on, causing Tailwind to throw when compiling card styles.
+- **Changed Files:** tailwind.config.js
+- **Verification:** Manual code review; pending `npm run dev` smoke.
+- **Time:** 2025-10-26 07:35 EDT
+- **Summary:** Updated JSON content imports to use Node 22 compatible `with { type: 'json' }` attributes so tests and SSR can load published content without syntax errors.
+- **Root Cause:** Static imports still used the deprecated `assert { type: 'json' }` syntax, which the Node 22 loader rejects, causing content-loading tests to fail.
+- **Changed Files:** src/lib/publishedContent.ts; src/components/DynamicProductPage.tsx; src/components/ComingSoon.tsx; netlify/functions/sitemap.ts
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-27 02:28 EDT
+- **Summary:** Swapped the AI Rename Variants hero illustration for the component auditor UI screenshot and wired it through product data.
+- **Root Cause:** The product hero still showed the generic FPO graphic instead of the approved analytics screenshot.
+- **Changed Files:** public/component-auditor-ui-420x500.png; src/components/ProductHero.tsx; src/data/products.json; default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; tests/unit/productHeroHeroImage.spec.ts; tests/unit/headerLogoColor.spec.ts
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-27 02:26 EDT
+- **Summary:** Updated hero copy to “Your Design Toolkit, Reinvented.” so the headline no longer references AI.
+- **Root Cause:** New messaging requires dropping the “AI” qualifier from the launch hero.
+- **Changed Files:** src/data/products.json; default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; tests/unit/heroTitleCopy.spec.ts; tests/unit/heroHeadlineSegments.spec.ts
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-26 07:37 EDT
+- **Summary:** Sanitized the hero badge label before rendering so emoji-leading strings no longer leak raw glyphs into the CTA chip.
+- **Root Cause:** ProductHero rendered the `badgeLabel` prop directly, leaving leading emoji and whitespace intact instead of trimming to the approved marketing copy.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`
+- **Time:** 2025-10-26 07:39 EDT
+- **Summary:** Restored the shared hero title typography token to 55px so the hero matches the launch typography spec.
+- **Root Cause:** `HERO_TITLE_CLASS` was bumped to 72px with altered color tokens, breaking the approved hero scale and triggering unit regressions.
+- **Changed Files:** src/components/heroConstants.ts
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`
+- **Time:** 2025-10-26 07:48 EDT
+- **Summary:** Raised the shader backdrop above the gradient layer so the landing hero finally shows the Paper-style shader animation.
+- **Root Cause:** `ProductHero` still positioned `<HeroBackground>` at `-z-20`, putting the shader behind the `hero-gradient-layer` and hiding the new background on the live landing page.
+- **Changed Files:** src/components/ProductHero.tsx; tests/unit/productHeroShaderLayering.spec.ts
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-26 07:53 EDT
+- **Summary:** Removed the legacy kit-piece animation so the Paper shader owns the hero visuals without competing overlays.
+- **Root Cause:** HeroBackground still rendered the original floating shapes and parallax lines, which obscured the shader and reintroduced the old animation stack.
+- **Changed Files:** src/components/HeroBackground.tsx; tests/unit/heroBackgroundShaderOnly.spec.ts
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-26 08:27 EDT
+- **Summary:** Rescaled the Paper shader layers to follow viewport-based sizing so the glow sits correctly behind the hero content.
+- **Root Cause:** The shader still used fixed 140%/130% widths, leaving the backdrop overzoomed and misaligned relative to the hero container.
+- **Changed Files:** src/components/ui/shader-hero-background.tsx; tests/unit/shaderHeroSizing.spec.ts; tests/unit/heroGradientStack.spec.ts
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-26 08:39 EDT
+- **Summary:** Removed the Paper shader backdrop entirely and restored the static gradient so the hero background matches the approved still treatment.
+- **Root Cause:** Even after resizing, the shader remained visually noisy compared to the requested static gradient, so we retired the shader layer altogether.
+- **Changed Files:** src/components/HeroBackground.tsx; tests/unit/heroBackgroundShaderOnly.spec.ts; tests/unit/heroGradientStack.spec.ts; tests/unit/shaderHeroSizing.spec.ts; docs/live-debug/LIVE_DEBUG_2025-10.md
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-26 09:09 EDT
+- **Summary:** Dropped the hero gradient glow to 90% Y so the color wash sits at the bottom edge of the hero.
+- **Root Cause:** The gradient remained centered at 50%, leaving the base of the hero dark once the shader backdrop was removed.
+- **Changed Files:** src/index.css; tests/unit/heroGradientPosition.spec.ts
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-26 09:40 EDT
+- **Summary:** Pushed the hero gradient all the way to the bottom and aligned the overlay wash so the glow hugs the footer edge.
+- **Root Cause:** Even at 90% the gradient still sat behind the hero body, so we needed to anchor it past the bottom to keep the color band low.
+- **Changed Files:** src/index.css; tests/unit/heroGradientPosition.spec.ts; docs/live-debug/LIVE_DEBUG_2025-10.md
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-26 09:43 EDT
+- **Summary:** Removed the hero background entirely so the hero renders on a clean canvas.
+- **Root Cause:** Even with offsets the gradient continued to creep into the hero copy, so we stripped the backdrop layer outright.
+- **Changed Files:** src/components/Hero.tsx; src/components/ProductHero.tsx; src/components/HeroBackground.tsx; src/components/heroConstants.ts; src/components/heroInstrumentation.ts; src/index.css; tests/unit/heroGradientPosition.spec.ts; tests/unit/heroGradientStack.spec.ts; tests/unit/heroInstrumentation.spec.ts; tests/unit/heroLayering.spec.ts; tests/unit/productHeroShaderLayering.spec.ts; docs/live-debug/LIVE_DEBUG_2025-10.md
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-26 09:50 EDT
+- **Summary:** Flipped the header logo to pure white with a subtle glow so it stays readable on the simplified hero canvas.
+- **Root Cause:** The nav wordmark still used the dark brand color, blending into the new neutral background after removing the gradient.
+- **Changed Files:** src/index.css; tests/unit/headerLogoColor.spec.ts; docs/live-debug/LIVE_DEBUG_2025-10.md
+- **Verification:** `node --test "tests/unit/**/*.spec.ts"`; `npm run build`
+- **Time:** 2025-10-26 12:28 EDT
+- **Summary:** Instrumented the landing hero data flow and traced reports of stale hero copy.
+- **Root Cause:** The `/` route renders `ProductHero`, so edits to `Hero.tsx` never affect the live landing hero, leaving the headline unchanged.
+- **Changed Files:** src/lib/publishedContent.ts; src/hooks/usePublishedContent.ts; src/components/BiblioKitLanding.tsx
+- **Verification:** `DEBUG_LANDING_HERO=1 node --test tests/unit/publishedContent.spec.ts`
+- **Time:** 2025-10-26 13:58 EDT
+- **Summary:** Split the marketing landing hero into its own component so homepage edits stop leaking into product pages.
+- **Root Cause:** Sharing `ProductHero` for landing and product screens meant hero updates touched both experiences, blocking dedicated landing-only changes.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/BiblioKitLanding.tsx; src/components/ProductHero.tsx; src/components/heroInstrumentation.ts; tests/unit/landingHeroStructure.spec.ts
+- **Verification:** `node --test tests/unit/landingHeroStructure.spec.ts`; `DEBUG_LANDING_HERO=1 node --test tests/unit/publishedContent.spec.ts`; `node --test tests/unit/heroHeadlineSplit.spec.ts`
+- **Time:** 2025-10-26 14:12 EDT
+- **Summary:** Set hero headline to 72px and tightened description/callout typography to 20px/28px across landing and product variants.
+- **Root Cause:** Landing/product heroes still carried the older 55px/22px sizing, so the updated art direction couldn’t ship.
+- **Changed Files:** src/components/heroConstants.ts; src/components/LandingHero.tsx; src/components/productContentSectionConstants.ts; tests/unit/heroTitleClass.spec.ts; tests/unit/heroDescriptionClass.spec.ts; tests/unit/productSectionTitleClass.spec.ts; tests/unit/productSectionDescriptionClass.spec.ts; tests/unit/landingHeroStructure.spec.ts; tests/unit/heroCalloutSize.spec.ts
+- **Verification:** `node --test tests/unit/heroTitleClass.spec.ts`; `node --test tests/unit/heroDescriptionClass.spec.ts`; `node --test tests/unit/productSectionTitleClass.spec.ts`; `node --test tests/unit/productSectionDescriptionClass.spec.ts`; `node --test tests/unit/landingHeroStructure.spec.ts`
+- **Time:** 2025-10-26 14:27 EDT
+- **Summary:** Rebuilt the landing hero background with a peach → aqua gradient and subtle noise layer to match the creative reference.
+- **Root Cause:** Hero background had been removed entirely, so the landing hero no longer reflected the updated gradient artwork.
+- **Changed Files:** src/components/LandingHero.tsx; src/index.css; tests/unit/landingHeroStructure.spec.ts
+- **Verification:** `node --test tests/unit/landingHeroStructure.spec.ts`
+- **Time:** 2025-10-26 15:52 EDT
+- **Summary:** Layered a light purple color-shift over the site (body blend overlay with a deeper dark-mode variant).
+- **Root Cause:** Needed the new palette to carry a subtle violet tint across every surface, not just hero gradients.
+- **Changed Files:** src/index.css
+- **Verification:** `node --test tests/unit/landingHeroStructure.spec.ts`; `node --test tests/unit/heroTitleClass.spec.ts`
+- **Time:** 2025-10-26 15:59 EDT
+- **Summary:** Tightened the landing hero gradient into circular blobs with a softer halo so the focus stays centered.
+- **Root Cause:** Gradient still felt like a banded wash; needed circular falloff to match the reference art.
+- **Changed Files:** src/index.css
+- **Verification:** `node --test tests/unit/landingHeroStructure.spec.ts`; `node --test tests/unit/heroHeadlineSplit.spec.ts`
+- **Time:** 2025-10-26 16:05 EDT
+- **Summary:** Iterated the landing hero gradient with tighter, overlapping radial blooms (10 layers) for a focused circular spotlight.
+- **Root Cause:** Previous gradient still read as a broad wash rather than the high-intensity circular glow in the reference.
+- **Changed Files:** src/index.css
+- **Verification:** `node --test tests/unit/landingHeroStructure.spec.ts`; `node --test tests/unit/heroHeadlineSplit.spec.ts`
+- **Time:** 2025-10-26 15:44 EDT
+- **Summary:** Set the landing/product hero subtitle (“Work x10,000 faster.”) to #1B1622 while keeping the title gradient on brand.
+- **Root Cause:** Subtitle still used the gradient class, so the headline stack couldn’t match the darker blue reference copy.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/ProductHero.tsx; tests/unit/landingHeroStructure.spec.ts
+- **Verification:** `node --test tests/unit/landingHeroStructure.spec.ts`
+- **Time:** 2025-10-26 15:37 EDT
+- **Summary:** Swapped the global primary palette to #6580E1 (buttons, badges, form rings, feature tiles, and design system swatches).
+- **Root Cause:** The UI still relied on the old pink primary, clashing with the updated blue brand directive.
+- **Changed Files:** src/index.css; src/components/ui/input.tsx; src/components/Features.tsx; src/components/ProductContentSections.tsx; src/components/DesignSystem.tsx; src/components/design-system/data/colors.ts; src/components/design-system/data/forms.tsx; src/components/design-system/data/modals.tsx
+- **Verification:** `node --test tests/unit/landingHeroStructure.spec.ts`
+- **Time:** 2025-10-26 15:21 EDT
+- **Summary:** Refined the landing hero gradient with circular fades and pushed the dark blue headline tint (no shadow) onto the subtitle.
+- **Root Cause:** The previous gradient sat too evenly across the hero and the subtitle still carried the lighter rainbow treatment.
+- **Changed Files:** src/index.css
+- **Verification:** `node --test tests/unit/landingHeroStructure.spec.ts`
+- **Time:** 2025-10-26 15:02 EDT
+- **Summary:** Switched the entire site to the dark palette (forced dark mode, color token overrides, hero typography updates).
+- **Root Cause:** Theme still shipped the light mix, so the new hero updates clashed with the requested dark presentation.
+- **Changed Files:** index.html; tailwind.config.js; src/entry-client.tsx; src/index.css; src/components/heroConstants.ts; src/components/LandingHero.tsx; src/components/ProductHero.tsx; src/components/productContentSectionConstants.ts; tests/unit/heroTitleClass.spec.ts; tests/unit/productSectionTitleClass.spec.ts; tests/unit/landingHeroStructure.spec.ts; tests/unit/heroDescriptionClass.spec.ts; tests/unit/productSectionDescriptionClass.spec.ts; tests/unit/heroCalloutSize.spec.ts
+- **Verification:** `node --test tests/unit/heroTitleClass.spec.ts`; `node --test tests/unit/heroDescriptionClass.spec.ts`; `node --test tests/unit/productSectionTitleClass.spec.ts`; `node --test tests/unit/productSectionDescriptionClass.spec.ts`; `node --test tests/unit/heroCalloutSize.spec.ts`; `node --test tests/unit/landingHeroStructure.spec.ts`; `DEBUG_LANDING_HERO=1 node --test tests/unit/publishedContent.spec.ts`; `node --test tests/unit/heroHeadlineSplit.spec.ts`
+- **Time:** 2025-10-26 14:34 EDT
+- **Summary:** Set the landing badge stroke and dot to #6580E1 so “Built by designers for designers.” mirrors the updated palette.
+- **Root Cause:** Badge still used the default primary token, so the callout chip didn’t match the new hero gradient art direction.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/Hero.tsx; tests/unit/landingHeroStructure.spec.ts
+- **Verification:** `node --test tests/unit/landingHeroStructure.spec.ts`
+- **Time:** 2025-10-27 02:10 EDT
+- **Summary:** Added horizontal feature nav for AI Rename Variants so visitors can jump directly to each product card.
+- **Root Cause:** The features section lacked quick links beneath the marketing description, forcing manual scrolling to find specific details.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/AIRenameVariantsPage.tsx
+- **Verification:** `npm run build:client`
+- **Time:** 2025-10-27 02:30 EDT
+- **Summary:** Relocated the feature nav to the landing product section and left individual product pages untouched, matching landing-page-only requirement.
+- **Root Cause:** Nav was mistakenly wired on the AI Rename Variants product page instead of the landing page section.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; src/components/AIRenameVariantsPage.tsx; AGENTS.md
+- **Verification:** `npm run build:client`
+- **Time:** 2025-10-27 08:34 EDT
+- **Summary:** Added 12px vertical padding inside the landing bottom CTA container so the content breathes within the glow frame.
+- **Root Cause:** The CTA wrapper had no internal vertical padding, leaving text and buttons pressed against the rounded edges.
+- **Changed Files:** src/index.css
+- **Verification:** Not run (CSS-only styling tweak)
+- **Time:** 2025-10-27 13:36 EDT
+- **Summary:** Replaced the AI Rename Variants hero screenshot with a looping Figma component animation to match the new visual direction.
+- **Root Cause:** The product page still displayed a static dashboard image instead of the requested animated Figma component logo.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/AIRenameVariantsHeroAnimation.tsx; src/components/AIRenameVariantsPage.tsx; src/data/products.json; src/index.css
+- **Verification:** `npm run build:client`
+- **Time:** 2025-10-27 13:42 EDT
+- **Summary:** Updated the AI Rename Variants hero animation to highlight the provided Figma component glyph and removed the marketing tagline overlay.
+- **Root Cause:** Follow-up request specified replacing the text banner with the supplied SVG logo and keeping the motion loop focused on the icon.
+- **Changed Files:** src/components/AIRenameVariantsHeroAnimation.tsx; src/index.css
+- **Verification:** `npm run build:client`
+- **Time:** 2025-10-27 16:19 EDT
+- **Summary:** Added 12px bottom padding to product hero titles for consistent spacing beneath headings.
+- **Root Cause:** Product page titles sat too close to supporting copy, creating a cramped first-read.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** `npm run build:client`
+- **Time:** 2025-10-27 16:24 EDT
+- **Summary:** Added 4px more vertical separation between product hero callouts to improve scannability.
+- **Root Cause:** Callout list items felt compressed, making it harder to parse each supporting benefit quickly.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** `npm run build:client`
+- **Time:** 2025-10-27 08:38 EDT
+- **Summary:** Swapped the landing CTA headline to “Join Designers shipping faster with BiblioKit” per the latest positioning request.
+- **Root Cause:** Headline still referenced “20k+ teams,” misaligned with the designers-first messaging.
+- **Changed Files:** src/components/BiblioKitLanding.tsx
+- **Verification:** Not run (copy update only)
+- **Time:** 2025-10-27 08:40 EDT
+- **Summary:** Removed the “Talk to us” button from the landing CTA and restyled the remaining link with the primary button variant.
+- **Root Cause:** CTA needed a single primary action in the brand’s main color instead of dual buttons.
+- **Changed Files:** src/components/BiblioKitLanding.tsx
+- **Verification:** Not run (UI tweak only)
+- **Time:** 2025-10-27 08:37 EDT
+- **Summary:** Increased the landing CTA shell padding to 32px top/bottom so the headline stack has consistent breathing room against the rounded border.
+- **Root Cause:** Previously added 12px padding still left the call-to-action stack feeling cramped against the glow frame.
+- **Changed Files:** src/index.css
+- **Verification:** Not run (CSS-only styling tweak)
+- **Time:** 2025-10-27 13:55 EDT
+- **Summary:** Reduced the waitlist success banner height by capping padding at 20px and overriding the card min-height.
+- **Root Cause:** The shared `card` component enforces a 320px min-height, making the success message appear as an oversized panel.
+- **Changed Files:** src/components/Waitlist.tsx; AGENTS.md
+- **Verification:** Not run (CSS utility update)
+- **Time:** 2025-10-27 14:05 EDT
+- **Summary:** Rewrote the Context-Aware AI Naming feature copy to emphasize the hands-off automation benefit.
+- **Root Cause:** Landing copy still described a “smart algorithm” instead of the requested “Stop fixing messy names by hand” messaging.
+- **Changed Files:** src/data/products.json
+- **Verification:** Not run (copy update only)
+- **Time:** 2025-10-27 15:05 EDT
+- **Summary:** Restored the AI Rename Variants feature card CTA label to “Try AI Rename Variants For Free” so the updated headline doesn’t generate awkward button text.
+- **Root Cause:** Button label fallback stitched the feature title into the CTA, producing ungainly copy after the new “Stop fixing messy names by hand” title.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/data/products.json; src/components/AIRenameVariantsPage.tsx
+- **Verification:** npm run build
+- **Time:** 2025-10-27 15:22 EDT
+- **Summary:** Replaced the AI Rename Variants hero visual with a side-by-side “bad vs. good” variant naming preview using red ❌ and green ✅ callouts.
+- **Root Cause:** Existing abstract glyph animation didn’t communicate the naming improvements; request called for explicit good/bad variant examples.
+- **Changed Files:** src/components/AIRenameVariantsHeroAnimation.tsx
+- **Verification:** npm run build
+- **Time:** 2025-10-27 15:46 EDT
+- **Summary:** Restored the original AI Rename Variants hero graphic and removed the feature-section embed so the page matches the previous visual direction.
+- **Root Cause:** Follow-up request rolled back the good-vs-bad preview in favor of the prior abstract animation.
+- **Changed Files:** src/components/AIRenameVariantsHeroAnimation.tsx; src/components/ProductContentSections.tsx; src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** npm run build
+- **Time:** 2025-10-27 15:58 EDT
+- **Summary:** Added the good vs. bad variant naming preview to the first AI Rename Variants feature card while leaving the hero animation untouched.
+- **Root Cause:** Features grid still showed a generic icon; request called for the visual comparison on the left side of that section only.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/AIRenameVariantsFeaturePreview.tsx; src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** npm run build
+- **Time:** 2025-10-27 16:06 EDT
+- **Summary:** Pulled the ❌/✅ icons outside the preview cards so the variant names stay clean and readable within the feature visual.
+- **Root Cause:** Icons overlaid inside the card distracted from the copy; request specified moving them out of the image area.
+- **Changed Files:** src/components/AIRenameVariantsFeaturePreview.tsx
+- **Verification:** npm run build
+- **Time:** 2025-10-27 16:15 EDT
+- **Summary:** Shifted the ✅/❌ indicators entirely outside the variant preview cards so the button examples stay visually clean.
+- **Root Cause:** Icons still overlapped the card container after the first adjustment; request asked for them fully outside the example.
+- **Changed Files:** src/components/AIRenameVariantsFeaturePreview.tsx
+- **Verification:** Not run (presentation tweak)
+- **Time:** 2025-10-27 16:19 EDT
+- **Summary:** Expanded the AI Rename Variants feature media column to 5 grid columns so the preview image dominates the left side.
+- **Root Cause:** Layout still reserved only four columns for the visual; request asked for a wider left column in the features grid.
+- **Changed Files:** src/components/productContentSectionLayout.ts
+- **Verification:** npm run build
+- **Time:** 2025-10-27 16:24 EDT
+- **Summary:** Scaled the AI Rename Variants feature preview 20% larger and locked 12px spacing between the good/bad examples so the comparison reads clearly.
+- **Root Cause:** Follow-up request called for a larger visual and explicit spacing between the stacked examples.
+- **Changed Files:** src/components/AIRenameVariantsFeaturePreview.tsx
+- **Verification:** Not run (styling-only adjustment)
+- **Time:** 2025-10-27 16:28 EDT
+- **Summary:** Bumped the AI Rename Variants feature preview another 10% wider and widened the stack gap by 8px for clearer separation between the bad and good examples.
+- **Root Cause:** Visual still felt cramped after the first enlargement; request specified additional scale and spacing.
+- **Changed Files:** src/components/AIRenameVariantsFeaturePreview.tsx
+- **Verification:** Not run (styling-only tweak)
+- **Time:** 2025-10-27 16:33 EDT
+- **Summary:** Removed the ✅/❌ glyphs entirely and centered each naming example inside its card for a clean left-column image.
+- **Root Cause:** Icons still sat alongside the examples; request called for centering the text with no overlaid symbols.
+- **Changed Files:** src/components/AIRenameVariantsFeaturePreview.tsx
+- **Verification:** Not run (styling-only tweak)
+- **Time:** 2025-10-27 16:42 EDT
+- **Summary:** Added comparison visuals to every AI Rename Variants feature card and generalized the preview component so each detail renders before/after examples.
+- **Root Cause:** Only the first feature showed the visual; request required similar imagery across all feature sections.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/AIRenameVariantsFeaturePreview.tsx; src/components/AIRenameVariantsPage.tsx; src/data/products.json; src/components/productContentSectionLayout.ts
+- **Verification:** npm run build
+- **Time:** 2025-10-27 16:47 EDT
+- **Summary:** Swapped the iconography for abstract animated visuals on each AI Rename Variants feature (comparison cards, blueprint panels, progress orb) so the section feels motion-rich without UI clutter.
+- **Root Cause:** Latest request specified more abstract, concept-led imagery per feature.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/AIRenameVariantsFeaturePreview.tsx; src/components/AIRenameBlueprintPreview.tsx; src/components/AIRenameProgressPreview.tsx; src/components/AIRenameVariantsPage.tsx; src/data/products.json; src/components/productContentSectionLayout.ts
+- **Verification:** npm run build
+- **Time:** 2025-10-27 18:03 EDT
+- **Summary:** Removed the 🛠️ Technical Capabilities section from product pages so only the requested content remains visible.
+- **Root Cause:** Product pages were still showing the technical capabilities block after Emily requested its removal.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (render-only change)
+- **Time:** 2025-10-27 16:55 EDT
+- **Summary:** Simplified batch/rules/progress visuals into pure abstract motion (no panels, borders, or text) so only glows and shapes tell the story.
+- **Root Cause:** Follow-up required removing UI chrome while keeping bespoke animations for each feature.
+- **Changed Files:** src/components/AIRenameVariantsFeaturePreview.tsx; src/components/AIRenameBatchVisual.tsx; src/components/AIRenameBlueprintPreview.tsx; src/components/AIRenameProgressPreview.tsx; src/components/ProductContentSections.tsx
+- **Verification:** npm run build
+- **Time:** 2025-10-27 19:12 EDT
+- **Summary:** Updated AI Rename Variants copy so the batch and custom naming feature cards reflect the latest benefit-driven messaging.
+- **Root Cause:** Emily requested refreshed titles and descriptions for the batch processing and custom naming sections on the product page.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (content-only update)
+- **Time:** 2025-10-27 19:20 EDT
+- **Summary:** Refreshed the Undo & Version Control feature copy to emphasize safe iteration with instant undo support.
+- **Root Cause:** Emily requested new messaging for the undo/version control section on the AI Rename product page.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (content-only update)
+- **Time:** 2025-10-27 19:25 EDT
+- **Summary:** Tightened the Team Collaboration copy so it highlights shared naming conventions keeping designers and developers aligned.
+- **Root Cause:** Emily requested updated messaging for the collaboration detail on the AI Rename Variants page.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (content-only update)
+- **Time:** 2025-10-27 19:31 EDT
+- **Summary:** Removed the fallback feature icons so feature cards render without the brain glyph when no custom media is present.
+- **Root Cause:** Emily noted a lingering brain icon in the features section after icons were supposed to be removed.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (presentation-only update)
+- **Time:** 2025-10-27 19:37 EDT
+- **Summary:** Switched feature cards to alternate layouts so media and text swap sides down the page.
+- **Root Cause:** Emily requested alternating layouts across the feature section.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (layout-only adjustment)
+- **Time:** 2025-10-27 19:43 EDT
+- **Summary:** Added 24px more vertical spacing between feature cards, confirmed the styling applies to every product page, and documented that cross-page layout tweaks require Emily’s sign-off.
+- **Root Cause:** Emily requested additional separation between feature sections and a rule ensuring styling parity across product pages.
+- **Changed Files:** src/components/ProductContentSections.tsx; AGENTS.md
+- **Verification:** Not run (layout + documentation update)
+- **Time:** 2025-10-27 19:50 EDT
+- **Summary:** Pointed every AI Rename CTA to the updated Figma listing and synced references across data, edge templates, and guidelines.
+- **Root Cause:** Emily asked for all CTA buttons to target the new plugin URL.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json; default-content.json; clean-content.json; correct-content.json; fixed-content.json; current-default-content.json; archives/full-launch-2025-10-17/server/entry-server.js; archives/full-launch-2025-10-17/client/assets/index-BCw0yazl.js; netlify/edge-functions/bot-detection.ts; AGENTS.md
+- **Verification:** Not run (link updates only)
+- **Time:** 2025-10-27 19:55 EDT
+- **Summary:** Shifted the AI Rename hero animation flush to the right edge by overriding the media container alignment.
+- **Root Cause:** Emily requested the hero image sit on the far right.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx
+- **Verification:** Not run (layout tweak only)
+- **Time:** 2025-10-27 20:02 EDT
+- **Summary:** Added benefits and testimonial data so every product page surfaces the same feature, benefit, testimonial, and FAQ sections.
+- **Root Cause:** Emily asked for consistent sections across product pages; AI Rename lacked benefits/testimonials data.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json; default-content.json; current-default-content.json
+- **Verification:** Not run (content/data update)
+- **Time:** 2025-10-27 20:07 EDT
+- **Summary:** Updated the shared hero layout so every product page pushes media content to the right edge and aligned AI Rename to the shared styling.
+- **Root Cause:** Emily requested matching hero treatments across product pages.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/AIRenameVariantsPage.tsx
+- **Verification:** Not run (layout tweak)
+- **Time:** 2025-10-27 20:20 EDT
+- **Summary:** Swapped every CTA title/description and default fallback to the designer-focused “Join Designers shipping faster…” copy, including product data and migration scripts.
+- **Root Cause:** Emily asked that all product messaging address designers/teams instead of stakeholders and provided the exact language.
+- **Changed Files:** current-default-content.json; clean-content.json; correct-content.json; default-content.json; fixed-content.json; scripts/migrate-content-to-db.js; src/components/CTASection.tsx; src/data/products.json; AGENTS.md
+- **Verification:** Not run (copy/data update)
+- **Time:** 2025-10-27 20:24 EDT
+- **Summary:** Removed the muted background fill from the shared CTA section so the block sits on a transparent canvas.
+- **Root Cause:** Emily asked for the background color to be removed from that section.
+- **Changed Files:** src/components/CTASection.tsx
+- **Verification:** Not run (style-only change)
+- **Time:** 2025-10-27 20:28 EDT
+- **Summary:** Cleared the gradient/glow styles from the landing page bottom CTA wrapper so it no longer renders a background color.
+- **Root Cause:** Emily still saw a background on the landing CTA and asked for that section’s color to be removed.
+- **Changed Files:** src/index.css
+- **Verification:** Not run (style-only change)
+- **Time:** 2025-10-27 20:32 EDT
+- **Summary:** Removed the landing page bottom CTA section entirely, along with its unused styles.
+- **Root Cause:** Emily requested that section be removed altogether.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; src/index.css
+- **Verification:** Not run (content removal)
+- **Time:** 2025-10-27 20:38 EDT
+- **Summary:** Added a plain-background mode to `LandingHero` and switched the landing page to it so the hero renders on a clean canvas without the gradient wash.
+- **Root Cause:** Emily asked to fix the landing hero background, which still showed the gradient after removing the other tinted sections.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/BiblioKitLanding.tsx; src/components/ProductHero.tsx
+- **Verification:** Not run (visual change)
+- **Time:** 2025-10-27 20:43 EDT
+- **Summary:** Removed the fallback that always injected a Docs link into the header nav so the top navigation now matches content settings.
+- **Root Cause:** Emily asked to remove Docs from the top nav, but the header component hard-coded the link even when it wasn’t in the content data.
+- **Changed Files:** src/components/Header.tsx
+- **Verification:** Not run (content change)
+- **Time:** 2025-10-27 20:48 EDT
+- **Summary:** Updated the hero/SEO description across content bundles, data, and metadata to “Automate the stuff you hate, focus on designing the things you love.”
+- **Root Cause:** Emily requested the new positioning language replace “One toolkit, every design shortcut.”
+- **Changed Files:** default-content.json; current-default-content.json; clean-content.json; correct-content.json; fixed-content.json; index.html; STRATEGIC_MASTER_DOC.md; netlify/edge-functions/bot-detection.ts; scripts/migrate-content-to-db.js; src/data/products.json
+- **Verification:** `rg "Automate the stuff you hate, focus on designing the things you love."`
+- **Time:** 2025-10-27 20:51 EDT
+- **Summary:** Shortened the same hero/SEO line to “Automate the stuff you hate, design the things you love.” across content bundles, metadata, and scripts.
+- **Root Cause:** Emily asked to shorten the second clause to “design the things you love.”
+- **Changed Files:** default-content.json; current-default-content.json; clean-content.json; correct-content.json; fixed-content.json; index.html; STRATEGIC_MASTER_DOC.md; netlify/edge-functions/bot-detection.ts; scripts/migrate-content-to-db.js; src/data/products.json
+- **Verification:** `rg "Automate the stuff you hate, design the things you love."`
+- **Time:** 2025-10-27 20:56 EDT
+- **Summary:** Added a landing theme switcher plus black, pink, and orange colorways that restyle the hero + background, with shareable `?theme=` URLs.
+- **Root Cause:** Emily asked for black, pink, and orange versions of the landing page colors.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; src/components/LandingHero.tsx; src/index.css
+- **Verification:** Manually cycled `?theme=black|pink|orange` locally
+- **Time:** 2025-10-27 21:03 EDT
+- **Summary:** Brought the color switcher forward with its own z-index, re-enabled the hero gradient layers, and tinted each theme’s background so black/pink/orange variants render correctly.
+- **Root Cause:** Emily couldn’t see the switcher and the hero background looked broken after the first color pass.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; src/components/LandingHero.tsx; src/index.css
+- **Verification:** Manual smoke test across black/pink/orange themes
+- **Time:** 2025-10-27 21:09 EDT
+- **Summary:** Applied the color themes to the entire landing layout (body) and restored the hero section’s full-height gradient so every variant covers the viewport like before.
+- **Root Cause:** Emily needed the palette to wrap the whole page, not just the hero, and the hero background height regressed.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; src/components/LandingHero.tsx; src/index.css
+- **Verification:** Manual smoke test w/ body background + hero min-height across themes
+- **Time:** 2025-10-27 21:18 EDT
+- **Summary:** Reverted all landing/UI tweaks from this session—removed the theme switcher/body palette classes, restored the original hero markup, CTA defaults, header Docs fallback, and re-added the landing bottom CTA.
+- **Root Cause:** Emily requested that every UI change from this chat be undone.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; src/components/LandingHero.tsx; src/components/ProductHero.tsx; src/components/CTASection.tsx; src/components/Header.tsx; src/index.css
+- **Verification:** Manual smoke test of landing hero + CTA + header docs link
+
+## 2025-11-17
+
+- **Time:** 2025-11-17 15:52 EST
+- **Summary:** Blog hero and secondary list sections ignored intended 40px vertical padding.
+- **Root Cause:** The compact hero helper class zeroed padding, so section-level padding utilities were overridden and no spacing appeared.
+- **Changed Files:** src/index.css; src/components/BlogPage.tsx
+- **Verification:** Manual check of blog hero and secondary section to confirm visible 40px top/bottom padding.
+
+- **Time:** 2025-11-18 10:00 EST
+- **Summary:** Set blog hero vertical padding to 120px and applied the light gradient background to the secondary list section.
+- **Root Cause:** Hero still needed explicit large top/bottom spacing; secondary section lacked a defined background, causing visual mismatch against the page gradient.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check of blog hero for 120px top/bottom spacing and secondary section showing the light gradient background.
+
+- **Time:** 2025-11-18 10:20 EST
+- **Summary:** Set blog page background and secondary section background to #090512 and matched text colors for contrast.
+- **Root Cause:** Page and secondary section still used light gradients, conflicting with the requested dark brand background.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check to confirm #090512 background across the page and readable white text in both sections.
+
+- **Time:** 2025-11-18 10:35 EST
+- **Summary:** Matched blog hero CTA button styling to landing hero buttons (#ff2f87, min width, hover brightness).
+- **Root Cause:** Blog hero button used the default button styling instead of the landing hero’s primary CTA treatment.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check of blog hero CTA styling against landing hero button appearance.
+
+- **Time:** 2025-11-18 10:55 EST
+- **Summary:** Updated blog cards to 8px corners and removed strokes/borders for both the recent list and main cards.
+- **Root Cause:** Blog cards still used rounded-3xl with border strokes, diverging from the desired compact, borderless style.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check to confirm 8px radius and no visible borders on blog cards and recent links.
+
+- **Time:** 2025-11-18 11:15 EST
+- **Summary:** Added “Read the article” buttons to blog cards using the landing hero CTA style.
+- **Root Cause:** Secondary blog cards lacked CTA buttons styled consistently with landing buttons.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check that each blog card now shows a pink CTA matching the landing hero button styling.
+
+- **Time:** 2025-11-18 11:40 EST
+- **Summary:** Removed background, border, and side padding from the blog hero sidebar (recent articles) for a cleaner inline list.
+- **Root Cause:** Sidebar still carried a translucent background, border, and padding that didn’t match the streamlined hero layout.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check that the recent articles list renders without background/border and with no sidebar padding.
+
+- **Time:** 2025-11-18 12:05 EST
+- **Summary:** Styled secondary blog card CTAs as outline buttons that match landing button sizing/colors.
+- **Root Cause:** Secondary card CTAs used the filled landing style; requested outlined version with matching size/color specs.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check that each card shows an outlined #ff2f87 button with 12rem min width and hover tint.
+
+- **Time:** 2025-11-18 12:20 EST
+- **Summary:** Increased hover background on sidebar recent links for clearer affordance.
+- **Root Cause:** Sidebar article hover state was too subtle; requested a more visible default hover background.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check that sidebar items show a stronger hover tint.
+
+- **Time:** 2025-11-18 12:45 EST
+- **Summary:** Blog article hero now pulls each post’s own description (metaDescription or excerpt) instead of a fixed placeholder line.
+- **Root Cause:** Blog article hero subtitle/description were hardcoded and didn’t reflect the post’s title/description content.
+- **Changed Files:** src/components/BlogArticlePage.tsx
+- **Verification:** Manual check on a blog article hero to confirm subtitle/description match post metadata.
+
+- **Time:** 2025-11-18 13:20 EST
+- **Summary:** Set blog article pages to use the #090512 background while keeping the article card readable on a light surface.
+- **Root Cause:** Blog article background still used the light gradient instead of the requested dark brand color.
+- **Changed Files:** src/components/BlogArticlePage.tsx
+- **Verification:** Manual check that the blog article page shows the #090512 background with legible card content.
+
+- **Time:** 2025-11-18 13:50 EST
+- **Summary:** Simplified blog cards and hero content to show title with description underneath; removed category/reading-time chips on listings and sidebar.
+- **Root Cause:** Blog lists showed extra metadata; request was to keep only the title with description beneath.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual check of blog hero, sidebar links, and grid cards to confirm title + description only.
+- **Time:** 2025-11-18 13:05 EST
+- **Summary:** Set a 600px minimum width on blog article content container.
+- **Root Cause:** Article content could shrink too narrow on wider viewports, squeezing readability.
+- **Changed Files:** src/components/BlogArticlePage.tsx
+- **Verification:** Manual check to confirm the article body maintains at least 600px width.

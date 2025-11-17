@@ -30,32 +30,32 @@ const FAQSchema: React.FC<FAQSchemaProps> = ({ faqs, className = '' }) => {
   useSchema(faqSchema, 'faq-schema');
 
   return (
-    <div className={`faq-schema ${className}`}>
+    <div className={`faq-schema text-white ${className}`}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-white/70">
             Quick answers to common questions about our AI-powered tools
           </p>
         </div>
 
         <div className="space-y-6">
           {faqs.map((faq, index) => (
-            <div key={index} className="faq-item bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-start">
-                <span className="w-6 h-6 bg-primary/10 text-primary rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">
+            <div key={index} className="faq-item bg-[#070213]/80 border border-white/10 rounded-2xl p-6 shadow-[0_30px_80px_rgba(3,0,12,0.45)]">
+              <h3 className="text-lg font-semibold text-white mb-3 flex items-start">
+                <span className="w-6 h-6 bg-gradient-to-br from-[#f871a0] via-[#b970ff] to-[#5bceff] text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0">
                   Q
                 </span>
                 {faq.question}
               </h3>
               <div className="ml-9">
                 <div className="flex items-start mb-2">
-                  <span className="w-6 h-6 bg-green-100 text-green-700 rounded-full flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0">
+                  <span className="w-6 h-6 bg-white/10 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0">
                     A
                   </span>
-                  <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                  <p className="text-white/75 leading-relaxed">{faq.answer}</p>
                 </div>
               </div>
             </div>

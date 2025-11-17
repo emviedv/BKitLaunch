@@ -63,13 +63,13 @@ export const CTASection: React.FC<CTASectionProps> = ({
   }
 
   return (
-    <section className={`py-20 px-4 bg-muted/30 ${className}`}>
-      <div className="container mx-auto text-center">
+    <section className={`py-20 bg-muted/30 ${className}`}>
+      <div className="section-content text-center">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="section-title mb-4">
             {title}
           </h2>
-          <p className="text-xl text-muted-foreground mb-8">
+          <p className="section-description mb-8 text-center">
             {description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

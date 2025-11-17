@@ -20,7 +20,7 @@ interface UIComponentOutline {
   delay: number;
 }
 
-type IconComponent = React.ComponentType<{ size?: number; className?: string }>; 
+type IconComponent = React.ComponentType<{ size?: number | string; className?: string }>;
 
 interface FloatingIconDef {
   Icon: IconComponent;
@@ -74,7 +74,7 @@ const renderComponent = (component: UIComponentOutline, colorIndex: number = 0) 
   const slowTransition = {
     delay: component.delay,
     duration: 6,
-    repeat: Infinity as const,
+    repeat: Infinity,
     ease: 'easeInOut' as const,
   };
 
@@ -363,5 +363,4 @@ export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ clas
 };
 
 export default BlocksHeroBackground;
-
 

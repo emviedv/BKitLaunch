@@ -4,6 +4,10 @@ import App from './App';
 import { Router } from 'wouter';
 import './index.css';
 
+try {
+  document.documentElement.classList.add('dark');
+} catch {}
+
 // Disable native scroll restoration so refresh starts at the top unless a hash is present
 try {
   if ('scrollRestoration' in history) {

@@ -1,5 +1,7 @@
 # 🔐 Environment Variables Setup for Admin Authentication
 
+> **Archived (2025-10-23):** Admin authentication is no longer part of the launch build. This guide is left for historical reference only.
+
 ## ⚠️ CRITICAL: Admin Authentication Required
 
 **The admin dashboard will appear blank if these environment variables are not configured!**

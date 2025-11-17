@@ -3,39 +3,113 @@ import ReactDOMServer from 'react-dom/server';
 import App from './App';
 import { Router } from 'wouter';
 import { generateMetadata as generateSEOMetadata, generateMetaTags, generateStructuredData } from './lib/seo';
-import { createEmptyContent } from './lib/defaultContent';
+import { loadPublishedContent } from './lib/publishedContent';
+
+const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
+
+const normalizeOrigin = (raw?: string): string | null => {
+  if (!raw) return null;
+  try {
+    return new URL(raw).origin;
+  } catch {
+    try {
+      return new URL(`https://${raw}`).origin;
+    } catch {
+      return null;
+    }
+  }
+};
+
+const collectHostRules = (raw?: string): string[] => {
+  if (!raw) return [];
+  return raw
+    .split(',')
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.length > 0)
+    .map((entry) => {
+      if (entry.startsWith('*.')) {
+        return entry.toLowerCase();
+      }
+      const origin = normalizeOrigin(entry);
+      if (origin) {
+        return new URL(origin).hostname.toLowerCase();
+      }
+      return entry.toLowerCase();
+    });
+};
+
+const preferredOrigins = (() => {
+  const origins = new Set<string>();
+  const push = (value?: string) => {
+    const origin = normalizeOrigin(value);
+    if (origin) {
+      origins.add(origin);
+    }
+  };
+  push(process.env.SSR_CONTENT_BASE_URL);
+  push(process.env.PUBLIC_SITE_URL);
+  push(process.env.URL);
+  push(process.env.DEPLOY_URL);
+  return Array.from(origins);
+})();
+
+const allowedHostRules = (() => {
+  const rules = new Set<string>();
+  const addHosts = (value?: string) => {
+    for (const host of collectHostRules(value)) {
+      rules.add(host);
+    }
+  };
+  addHosts(process.env.SSR_ALLOWED_HOSTS);
+  addHosts(process.env.ALLOWED_ORIGINS);
+  for (const origin of preferredOrigins) {
+    try {
+      rules.add(new URL(origin).hostname.toLowerCase());
+    } catch {}
+  }
+  return Array.from(rules);
+})();
+
+const isHostAllowed = (hostname: string): boolean => {
+  const normalized = hostname.toLowerCase();
+  if (DEV_HOSTS.has(normalized)) {
+    return true;
+  }
+  if (allowedHostRules.length === 0) {
+    return true;
+  }
+  return allowedHostRules.some((rule) => {
+    if (rule.startsWith('*.')) {
+      const suffix = rule.slice(1);
+      return normalized === rule.substring(2) || normalized.endsWith(suffix);
+    }
+    return normalized === rule;
+  });
+};
+
+const resolveTrustedOrigin = (urlObj: URL): string => {
+  const hostname = urlObj.hostname.toLowerCase();
+  if (DEV_HOSTS.has(hostname)) {
+    return urlObj.origin;
+  }
+  if (isHostAllowed(hostname)) {
+    return `${urlObj.protocol}//${urlObj.host}`;
+  }
+  for (const origin of preferredOrigins) {
+    try {
+      const parsed = new URL(origin);
+      const parsedHost = parsed.hostname.toLowerCase();
+      if (isHostAllowed(parsedHost)) {
+        return parsed.origin;
+      }
+    } catch {}
+  }
+  throw new Error(`Untrusted request host for SSR content: ${hostname}`);
+};
 
 // Server-side data fetching function
-export async function fetchContentData(url: string): Promise<any> {
-  try {
-    // Extract path from URL
-    const urlObj = new URL(url);
-    const path = urlObj.pathname;
-    
-    // For server-side rendering, we'll fetch content from the API
-    // This will be called during edge function execution
-    const apiUrl = `${urlObj.origin}/.netlify/functions/content-management?action=current`;
-
-    // Force fresh data on SSR to avoid serving stale HTML
-    const response = await fetch(apiUrl, {
-      cache: 'no-store',
-      headers: {
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-      },
-    });
-    if (response.ok) {
-      const result = await response.json();
-      if (result.success && result.data && result.data.content_data) {
-        return result.data.content_data;
-      }
-    }
-  } catch (error) {
-    console.error('SSR: Failed to fetch content data:', error);
-  }
-  
-  // Fallback to empty content structure (no placeholder copy)
-  return createEmptyContent();
+export async function fetchContentData(_url: string): Promise<any> {
+  return loadPublishedContent();
 }
 
 // Server-side render function
@@ -75,7 +149,7 @@ export function generateMetadata(url: string, contentData: any): {
 } {
   const urlObj = new URL(url);
   const path = urlObj.pathname;
-  const baseUrl = `${urlObj.protocol}//${urlObj.host}`;
+  const baseUrl = resolveTrustedOrigin(urlObj);
   
   // Use the comprehensive SEO system
   const metadata = generateSEOMetadata(path, contentData, baseUrl);

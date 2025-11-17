@@ -4,24 +4,20 @@ import { Route, Switch } from 'wouter';
 // UI Components
 import { Button } from '@/components/ui/button';
 
-// Page Components  
-import Hero from './components/Hero';
-import Features from './components/Features';
-import Pricing from './components/Pricing';
-import Waitlist from './components/Waitlist';
-import { Docs } from './components/Docs';
-import DynamicProductPage from './components/DynamicProductPage';
-import AdminDashboard from './components/AdminDashboard';
-import DesignSystem from './components/DesignSystem';
-import DatabaseTest from './components/DatabaseTest';
+// Page Components
+import BiblioKitLanding from './components/BiblioKitLanding';
 
 // Layout & Auth Components
-import AppLayout from './components/AppLayout';
-import { AdminGuard, ContentEditorPage } from './components/AdminGuard';
-import { ContentBasedCTASection } from './components/CTASection';
+import ComingSoon from './components/ComingSoon';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import AIRenameVariantsPage from './components/AIRenameVariantsPage';
+import DynamicProductPage from './components/DynamicProductPage';
+import RemovePrototypeLinkPage from './components/RemovePrototypeLinkPage';
+import BlogPage from './components/BlogPage';
+import BlogArticlePage from './components/BlogArticlePage';
 
 // Context & Hooks
-import { AuthProvider } from './contexts/AuthContext';
 import { usePublishedContent } from './hooks/usePublishedContent';
 import { useSEO } from './hooks/useSEO';
 import { useHashScroll } from './hooks/useHashScroll';
@@ -50,23 +46,10 @@ interface PublishedContent {
 }
 
 /**
- * TestPage - Simple test component for development routes only
- */
-const TestPage: React.FC = () => (
-  <div className="container mx-auto px-4 py-16">
-    <h1 className="text-4xl font-bold">Welcome</h1>
-    <p>Routing is configured.</p>
-  </div>
-);
-
-/**
  * HomePage - Main landing page component
- * 
- * Renders the home page with Hero, Features, Pricing, CTA, and Waitlist sections.
- * Handles content loading, error states, and SEO metadata updates.
  */
 const HomePage: React.FC = () => {
-  const { content, loading, error, source } = usePublishedContent();
+  const { content, error } = usePublishedContent();
   
   // Update SEO metadata for client-side navigation
   useSEO(content);
@@ -85,61 +68,59 @@ const HomePage: React.FC = () => {
   }
 
   return (
-    <>
-      <Hero />
-      <Features />
-      <Pricing />
-      <ContentBasedCTASection content={content} />
-      <Waitlist />
-    </>
+    <BiblioKitLanding />
   );
 };
 
 /**
+ * LandingLayout - Minimal shell for the public landing experience
+ */
+const LandingLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="relative min-h-screen flex flex-col">
+    <Header />
+    <main className="flex-1 pt-16">
+      {children}
+    </main>
+    <Footer />
+  </div>
+);
+
+/**
  * AppContent - Main application content wrapper
  * 
- * Handles routing logic and provides layout wrapper with scroll behavior hooks.
- * Must be inside Router context to access useLocation.
+ * Handles routing logic for the landing-only experience while preserving
+ * scroll behavior hooks.
  */
 const AppContent: React.FC = () => {
   // Ensure #hash links scroll to sections correctly
   useScrollTopOnHome();
   useHashScroll();
 
+  const { content } = usePublishedContent();
+  const comingSoonEnabled = Boolean((content.settings as any)?.comingSoonEnabled);
+
+  // Gate: show ComingSoon for all routes if enabled
+  if (comingSoonEnabled) {
+    return (
+      <LandingLayout>
+        <ComingSoon />
+      </LandingLayout>
+    );
+  }
+
   return (
-    <AppLayout>
+    <LandingLayout>
         <Switch>
           <Route path={ROUTE_PATHS.HOME} component={HomePage} />
-          {import.meta.env.DEV && <Route path={ROUTE_PATHS.TEST} component={TestPage} />}
-          {import.meta.env.DEV && <Route path={ROUTE_PATHS.DESIGN_SYSTEM} component={DesignSystem} />}
-          {/* Docs page */}
-          <Route path={ROUTE_PATHS.DOCS} component={Docs} />
-          {/* All product pages are handled by the dynamic slug route below */}
-          <Route path={ROUTE_PATHS.ADMIN} component={AdminDashboard} />
-          <Route path={ROUTE_PATHS.EDITOR}>
-            <AdminGuard>
-              <ContentEditorPage />
-            </AdminGuard>
+          <Route path={ROUTE_PATHS.AI_RENAME_VARIANTS} component={AIRenameVariantsPage} />
+          <Route path={ROUTE_PATHS.UXBIBLIO}>
+            {() => <DynamicProductPage slug="uxbiblio" />}
           </Route>
-          <Route path={ROUTE_PATHS.EDITOR_SLASH}>
-            <AdminGuard>
-              <ContentEditorPage />
-            </AdminGuard>
+          <Route path={ROUTE_PATHS.BLOG_ARTICLE}>
+            {(params) => <BlogArticlePage slug={params?.slug ?? ''} />}
           </Route>
-          {import.meta.env.DEV && (
-            <Route path={ROUTE_PATHS.DATABASE}>
-              <div className="container mx-auto px-4 py-16">
-                <DatabaseTest />
-              </div>
-            </Route>
-          )}
-          <Route path={ROUTE_PATHS.PRODUCT_SLUG}>
-            {(params: { productSlug?: string }) => (
-              params?.productSlug ? (
-                <DynamicProductPage slug={params.productSlug} />
-              ) : null
-            )}
-          </Route>
+          <Route path={ROUTE_PATHS.BLOG} component={BlogPage} />
+          <Route path={ROUTE_PATHS.REMOVE_PROTOTYPE_LINK} component={RemovePrototypeLinkPage} />
           <Route>
             <div className="container mx-auto px-4 py-16 text-center">
               <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
@@ -152,7 +133,7 @@ const AppContent: React.FC = () => {
             </div>
           </Route>
         </Switch>
-    </AppLayout>
+    </LandingLayout>
   );
 };
 
@@ -163,11 +144,7 @@ const AppContent: React.FC = () => {
  * Entry point for the entire application.
  */
 const App: React.FC = () => {
-  return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
-  );
+  return <AppContent />;
 }
 
 export default App; 

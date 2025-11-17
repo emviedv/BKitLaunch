@@ -1,5 +1,7 @@
 # Netlify Deployment Fix - Full Stack vs Static UI Issue
 
+> **Archived (2025-10-23):** Backend CMS functions referenced here were removed. Use static deployment steps instead.
+
 ## Problem Analysis
 
 **Root Cause**: Netlify's SPA fallback redirect was intercepting all `/.netlify/functions/*` requests and serving `index.html` instead of executing the serverless functions. This caused the frontend to always receive HTML responses instead of JSON, triggering fallback to the static `products.json` data.

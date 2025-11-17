@@ -23,7 +23,7 @@ Last updated: 2025-08-13
 
 Observations
 - Top nav shows “Sign In” and “Get Started” linking to `#` (non-functional anchors).
-- Homepage includes “Pricing Coming Soon,” email input (currently disabled), footer line: “Professional SaaS software and Figma plugins with secure API management.”
+- Homepage includes “Pricing Coming Soon,” email input (currently disabled), footer line: “Automate the stuff you hate, design the things you love.”
 - No visible docs/blog or deep product/plugin subpages yet.
 
 ### 2) Messaging teardown

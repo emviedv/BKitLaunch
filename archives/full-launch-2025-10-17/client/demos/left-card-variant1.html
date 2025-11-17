@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Variant 1 – Left Card Animation (Standalone)</title>
+    <!-- Tailwind CDN for fast standalone preview -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      /* Tailwind config for this standalone demo */
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                pink: '#f472b6',
+                pinkSoft: '#fdf2f8',
+                grayBg: '#f7f7fb'
+              }
+            },
+            boxShadow: {
+              lift: '0 8px 30px rgba(24, 24, 27, 0.08)'
+            }
+          }
+        }
+      };
+    </script>
+    <style>
+      /* Respect reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .motion-safe\:transition-none { transition: none !important; }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-white text-zinc-800 antialiased">
+    <main class="min-h-screen flex items-center justify-center p-6">
+      <!-- Card container (no URL/address bar background) -->
+      <section aria-label="Feature list animation" class="w-full max-w-2xl">
+        <div class="relative rounded-2xl border border-zinc-200 bg-white shadow-lift">
+          <div class="p-6 sm:p-8">
+            <!-- List -->
+            <div role="list" aria-label="Features" class="space-y-3 sm:space-y-4">
+              <!-- Item 1 -->
+              <div
+                role="listitem"
+                data-variant1-item
+                class="group flex items-center justify-between rounded-xl border border-zinc-200/70 bg-white/90 px-4 py-3 sm:px-5 sm:py-4 shadow-sm backdrop-blur [transition:transform_.5s,box-shadow_.5s,opacity_.4s,filter_.4s] motion-safe:transition-none opacity-0 translate-y-3">
+                <div class="flex items-center gap-3 sm:gap-4">
+                  <!-- Folder icon (inline SVG) -->
+                  <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-rose-50 text-rose-500 ring-1 ring-rose-100">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-5 w-5">
+                      <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h4.086c.464 0 .908.185 1.236.514l1.171 1.172c.328.328.772.514 1.236.514H19.25A1.75 1.75 0 0 1 21 9.95v6.3A2.75 2.75 0 0 1 18.25 19H5.75A2.75 2.75 0 0 1 3 16.25V6.75Z"/>
+                    </svg>
+                  </span>
+                  <div class="flex flex-col">
+                    <span class="text-sm sm:text-base font-medium leading-tight">Automated Insights Generation</span>
+                    <span class="text-xs text-zinc-500">AI-driven insights surfaced in real time</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 sm:gap-3">
+                  <!-- Count badge with soft pink halo -->
+                  <span class="relative inline-flex h-7 w-7 items-center justify-center text-[13px] font-semibold text-rose-500">
+                    <span class="absolute inset-0 rounded-full bg-rose-50"></span>
+                    <span class="relative">0</span>
+                  </span>
+                  <!-- Star icon -->
+                  <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 text-amber-400 fill-amber-400">
+                    <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div
+                role="listitem"
+                data-variant1-item
+                class="group flex items-center justify-between rounded-xl border border-zinc-200/70 bg-white/90 px-4 py-3 sm:px-5 sm:py-4 shadow-sm backdrop-blur [transition:transform_.5s,box-shadow_.5s,opacity_.4s,filter_.4s] motion-safe:transition-none opacity-0 translate-y-3">
+                <div class="flex items-center gap-3 sm:gap-4">
+                  <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-rose-50 text-rose-500 ring-1 ring-rose-100">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-5 w-5">
+                      <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h4.086c.464 0 .908.185 1.236.514l1.171 1.172c.328.328.772.514 1.236.514H19.25A1.75 1.75 0 0 1 21 9.95v6.3A2.75 2.75 0 0 1 18.25 19H5.75A2.75 2.75 0 0 1 3 16.25V6.75Z"/>
+                    </svg>
+                  </span>
+                  <div class="flex flex-col">
+                    <span class="text-sm sm:text-base font-medium leading-tight">Real-Time Data Access</span>
+                    <span class="text-xs text-zinc-500">Instant access for immediate decisions</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 sm:gap-3">
+                  <span class="relative inline-flex h-7 w-7 items-center justify-center text-[13px] font-semibold text-rose-500">
+                    <span class="absolute inset-0 rounded-full bg-rose-50"></span>
+                    <span class="relative">0</span>
+                  </span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 text-amber-400 fill-amber-400">
+                    <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div
+                role="listitem"
+                data-variant1-item
+                class="group flex items-center justify-between rounded-xl border border-zinc-200/70 bg-white/90 px-4 py-3 sm:px-5 sm:py-4 shadow-sm backdrop-blur [transition:transform_.5s,box-shadow_.5s,opacity_.4s,filter_.4s] motion-safe:transition-none opacity-0 translate-y-3">
+                <div class="flex items-center gap-3 sm:gap-4">
+                  <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-rose-50 text-rose-500 ring-1 ring-rose-100">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-5 w-5">
+                      <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h4.086c.464 0 .908.185 1.236.514l1.171 1.172c.328.328.772.514 1.236.514H19.25A1.75 1.75 0 0 1 21 9.95v6.3A2.75 2.75 0 0 1 18.25 19H5.75A2.75 2.75 0 0 1 3 16.25V6.75Z"/>
+                    </svg>
+                  </span>
+                  <div class="flex flex-col">
+                    <span class="text-sm sm:text-base font-medium leading-tight">Centralized Governance Controls</span>
+                    <span class="text-xs text-zinc-500">Unified interface for data privacy</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 sm:gap-3">
+                  <span class="relative inline-flex h-7 w-7 items-center justify-center text-[13px] font-semibold text-rose-500">
+                    <span class="absolute inset-0 rounded-full bg-rose-50"></span>
+                    <span class="relative">0</span>
+                  </span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5 text-amber-400 fill-amber-400">
+                    <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const items = Array.from(document.querySelectorAll('[data-variant1-item]'));
+        if (!items.length) return;
+
+        // Helper to activate a specific item
+        const activate = (idx) => {
+          items.forEach((el, i) => {
+            const isActive = i === idx;
+            el.classList.toggle('ring-2', isActive);
+            el.classList.toggle('ring-rose-400/50', isActive);
+            el.classList.toggle('shadow-lift', isActive);
+            el.classList.toggle('scale-[1.03]', isActive);
+            el.classList.toggle('opacity-100', isActive);
+            el.classList.toggle('blur-0', isActive);
+            if (!isActive) {
+              el.classList.remove('scale-[1.03]');
+            }
+          });
+        };
+
+        // Initial staggered entrance
+        const runEntrance = () => {
+          items.forEach((el, i) => {
+            setTimeout(() => {
+              el.classList.remove('opacity-0', 'translate-y-3');
+              el.classList.add('opacity-100', 'translate-y-0');
+            }, i * 140);
+          });
+        };
+
+        // Autoplay highlight loop
+        let idx = 0;
+        const startLoop = () => {
+          activate(idx);
+          return setInterval(() => {
+            idx = (idx + 1) % items.length;
+            activate(idx);
+          }, 2000);
+        };
+
+        if (!reduce) {
+          runEntrance();
+        } else {
+          // If reduced motion, ensure items are visible
+          items.forEach((el) => el.classList.remove('opacity-0', 'translate-y-3'));
+        }
+
+        let timer = startLoop();
+
+        // Pause on visibility hidden to save resources
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            clearInterval(timer);
+          } else {
+            timer = startLoop();
+          }
+        });
+      })();
+    </script>
+  </body>
+  </html>
+
+

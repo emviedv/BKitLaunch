@@ -1,0 +1,11 @@
+{
+  "src/entry-server.tsx": {
+    "file": "entry-server.js",
+    "name": "entry-server",
+    "src": "src/entry-server.tsx",
+    "isEntry": true,
+    "assets": [
+      "assets/bkit_logo_f-LZ03yWIr.png"
+    ]
+  }
+}

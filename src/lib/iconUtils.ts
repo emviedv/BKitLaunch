@@ -6,6 +6,7 @@ import {
   Folder,
   Globe2,
   Laptop,
+  Link2,
   Lock,
   LucideIcon,
   Search,
@@ -95,6 +96,11 @@ const iconMap: Record<string, LucideIcon> = {
   navigator: Compass,
   direction: Compass,
   "🧭": Compass,
+
+  link: Link2,
+  link2: Link2,
+  unlink: Link2,
+  "🔗": Link2,
 };
 
 const normalizeToken = (token: string) =>

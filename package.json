@@ -13,16 +13,18 @@
     "netlify:dev": "netlify dev",
     "netlify:build": "npm run build",
     "test:env": "bash tests/shell/dev-env.spec.sh",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "size": "node -e \"const fs=require('fs');const path=require('path');let d=process.cwd();let f=null;while(true){const p=path.join(d,'tools','loc-top20.js');if(fs.existsSync(p)){f=p;break;}const up=path.dirname(d);if(up===d)break;d=up;}if(!f){console.error('tools/loc-top20.js not found');process.exit(1);}require(f);\""
   },
   "dependencies": {
-    "canvas-confetti": "^1.9.3",
     "@hotjar/browser": "^1.0.9",
+    "@paper-design/shaders-react": "^0.0.60",
     "@radix-ui/react-slot": "^1.2.3",
     "@remixicon/react": "^4.6.0",
+    "bcryptjs": "^2.4.3",
+    "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.0.0",
-    "bcryptjs": "^2.4.3",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.303.0",
     "pg": "^8.11.3",

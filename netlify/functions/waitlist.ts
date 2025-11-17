@@ -1,5 +1,5 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
-import { withCors, createDbClient, sendJSON, handleError, isAuthorized } from './utils';
+import { withCors, createDbClient, sendJSON, handleError } from './utils';
 import crypto from 'crypto';
 
 /**
@@ -30,24 +30,6 @@ const waitlistHandler: Handler = async (event: HandlerEvent, _context: HandlerCo
 
     if (event.httpMethod === 'OPTIONS') {
       return sendJSON(200, '');
-    }
-
-    if (event.httpMethod === 'GET') {
-      // Admin-only: list waitlist signups (supports ?limit=&offset=)
-      if (!isAuthorized(event)) return sendJSON(401, { error: 'Unauthorized' });
-
-      const qp = event.queryStringParameters || {};
-      const limit = Math.min(parseInt(qp.limit || '50', 10) || 50, 200);
-      const offset = Math.max(parseInt(qp.offset || '0', 10) || 0, 0);
-
-      const result = await client.query(
-        `SELECT id, email, name, source, created_at FROM waitlist_signups
-         ORDER BY created_at DESC
-         LIMIT $1 OFFSET $2`,
-        [limit, offset]
-      );
-
-      return sendJSON(200, { success: true, data: result.rows });
     }
 
     if (event.httpMethod !== 'POST') {
@@ -112,5 +94,4 @@ const waitlistHandler: Handler = async (event: HandlerEvent, _context: HandlerCo
 };
 
 export const handler = withCors(waitlistHandler);
-
 

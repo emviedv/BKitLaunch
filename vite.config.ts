@@ -1,22 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
- 
+
+const envPort = Number(process.env.PORT || process.env.VITE_PORT)
+const port = Number.isFinite(envPort) && envPort > 0 ? envPort : 53173
 
 export default defineConfig({
-  plugins: [
-    react(),
-    
-    {
-      name: 'html-cache-bust',
-      transformIndexHtml(html) {
-        return html.replace(
-          '/src/main.tsx',
-          `/src/main.tsx?bust=${Date.now()}`
-        );
-      },
-    },
-  ],
+  plugins: [react()],
   resolve: {
     dedupe: ["react", "react-dom"],
     alias: {
@@ -32,13 +22,18 @@ export default defineConfig({
     include: ["react", "react-dom"],
   },
   server: {
-    host: '0.0.0.0',
-    port: 9990,
+    host: '127.0.0.1',
+    port,
     strictPort: true,
+    hmr: {
+      host: '127.0.0.1',
+      port,
+      protocol: 'ws'
+    }
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    sourcemap: process.env.SOURCEMAPS === '1',
     // Emit manifest at top-level so Netlify publishes it (avoid hidden .vite directory)
     manifest: 'manifest.json',
     rollupOptions: {
