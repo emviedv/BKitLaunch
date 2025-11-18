@@ -384,24 +384,21 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     </nav>
   );
 
-  const avatarImages = [
-    {
-      alt: 'Design lead avatar',
-      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0NCcgaGVpZ2h0PSc0NCcgdmlld0JveD0nMCAwIDQ0IDQ0Jz4KICA8cmVjdCB3aWR0aD0nNDQnIGhlaWdodD0nNDQnIHJ4PScxMicgZmlsbD0nI0ZFRTJFMicvPgogIDxjaXJjbGUgY3g9JzIyJyBjeT0nMTUuNScgcj0nOCcgZmlsbD0nI0Y5NzMxNicvPgogIDxwYXRoIGQ9J00xMSAzNC41YzMtNiAxOS02IDIyIDBWMzhIMTF6JyBmaWxsPScjRkRCQTc0Jy8+Cjwvc3ZnPg=='
-    },
-    {
-      alt: 'Product manager avatar',
-      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0NCcgaGVpZ2h0PSc0NCcgdmlld0JveD0nMCAwIDQ0IDQ0Jz4KICA8cmVjdCB3aWR0aD0nNDQnIGhlaWdodD0nNDQnIHJ4PScxMicgZmlsbD0nI0RCRUFGRScvPgogIDxjaXJjbGUgY3g9JzIyJyBjeT0nMTUuNScgcj0nOCcgZmlsbD0nIzI1NjNFQicvPgogIDxwYXRoIGQ9J00xMSAzNC41YzMtNiAxOS02IDIyIDBWMzhIMTF6JyBmaWxsPScjOTNDNUZEJy8+Cjwvc3ZnPg=='
-    },
-    {
-      alt: 'Engineer avatar',
-      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0NCcgaGVpZ2h0PSc0NCcgdmlld0JveD0nMCAwIDQ0IDQ0Jz4KICA8cmVjdCB3aWR0aD0nNDQnIGhlaWdodD0nNDQnIHJ4PScxMicgZmlsbD0nI0QxRkFFNScvPgogIDxjaXJjbGUgY3g9JzIyJyBjeT0nMTUuNScgcj0nOCcgZmlsbD0nIzA1OTY2OScvPgogIDxwYXRoIGQ9J00xMSAzNC41YzMtNiAxOS02IDIyIDBWMzhIMTF6JyBmaWxsPScjNkVFN0I3Jy8+Cjwvc3ZnPg=='
-    },
-    {
-      alt: 'Researcher avatar',
-      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0NCcgaGVpZ2h0PSc0NCcgdmlld0JveD0nMCAwIDQ0IDQ0Jz4KICA8cmVjdCB3aWR0aD0nNDQnIGhlaWdodD0nNDQnIHJ4PScxMicgZmlsbD0nI0VERTlGRScvPgogIDxjaXJjbGUgY3g9JzIyJyBjeT0nMTUuNScgcj0nOCcgZmlsbD0nIzdDM0FFRCcvPgogIDxwYXRoIGQ9J00xMSAzNC41YzMtNiAxOS02IDIyIDBWMzhIMTF6JyBmaWxsPScjQzRCNUZEJy8+Cjwvc3ZnPg=='
-    },
+  const avatarPrimary = [
+    { alt: 'Portrait of a designer', src: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
+    { alt: 'Portrait of a product manager', src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
+    { alt: 'Portrait of an engineer', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
+    { alt: 'Portrait of a researcher', src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' }
   ];
+
+  const avatarFallbacks = [
+    { alt: 'Fallback portrait', src: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
+    { alt: 'Fallback portrait', src: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
+    { alt: 'Fallback portrait', src: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
+    { alt: 'Fallback portrait', src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' }
+  ];
+
+  const avatarImages = avatarPrimary;
 
   const resolveCardSocialProof = (detail: ProductDetail): string => {
     const source = `${detail.title || ''} ${product?.title || ''}`.toLowerCase();
@@ -420,21 +417,27 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
   const renderSocialProofRow = (detail: ProductDetail) => (
     <div className="flex flex-col gap-4 text-left sm:flex-row sm:items-center sm:justify-start">
       <div className="flex -space-x-3">
-        {avatarImages.map(({ src, alt }) => (
+        {avatarImages.map(({ src, alt }, idx) => (
           <span
             key={src}
             aria-hidden="true"
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-white/30 shadow-sm overflow-hidden"
           >
-            <img src={src} alt={alt} className="h-11 w-11 object-cover" />
+            <img
+              src={src}
+              alt={alt}
+              className="h-11 w-11 object-cover"
+              onError={(event) => {
+                const target = event.currentTarget;
+                if (target.dataset.fallbackApplied === 'true') return;
+                const fallback = avatarFallbacks[idx] || avatarFallbacks[0];
+                target.dataset.fallbackApplied = 'true';
+                target.src = fallback.src;
+                target.alt = fallback.alt;
+              }}
+            />
           </span>
         ))}
-        <span
-          aria-hidden="true"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-white/30 bg-[#1f1231]/80 text-sm font-semibold text-white shadow-sm"
-        >
-          +
-        </span>
       </div>
       <div className="flex flex-col gap-1 text-white">
         <span aria-hidden="true" className="text-[#FFCE8B] text-base font-semibold leading-none">★★★★★</span>
@@ -484,7 +487,10 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                   const promotedFirstItem = !detail.description && rawItems.length > 0;
                   const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
                   const highlightItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
-                  const buttonLabel = 'Try Product For Free';
+                  const buttonLabel = (() => {
+                    const name = detail.title?.trim() || product?.title?.trim() || 'Product';
+                    return `Try ${name} For Free`;
+                  })();
                 const buttonHrefRaw = detail.buttonLink?.trim();
                 const buttonHref = normalizeHref(buttonHrefRaw);
                 const isExternalButton = Boolean(buttonHrefRaw && buttonHrefRaw.startsWith('http'));
@@ -508,7 +514,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                     className="relative rounded-[40px] px-8 sm:px-12"
                   >
                     <div className={cn(
-                      'grid gap-10 lg:items-center',
+                      'grid gap-10 lg:gap-[64px] lg:items-center',
                       isReversed
                         ? 'lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]'
                           : 'lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]'
@@ -601,7 +607,10 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                 const promotedFirstItem = !detail.description && rawItems.length > 0;
                 const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
                 const bulletItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
-                const buttonLabel = 'Try Product For Free';
+                const buttonLabel = (() => {
+                  const name = detail.title?.trim() || product?.title?.trim() || 'Product';
+                  return `Try ${name} For Free`;
+                })();
                 const buttonHrefRaw = detail.buttonLink?.trim();
                 const buttonHref = normalizeHref(buttonHrefRaw);
                 const isExternalButton = Boolean(buttonHrefRaw && buttonHrefRaw.startsWith('http'));

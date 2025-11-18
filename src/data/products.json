@@ -30,10 +30,10 @@
     "subtitle": "Work x10,000 faster.",
     "badgeLabel": null,
     "description": "Automate the stuff you hate, design the things you love.",
-    "primaryButton": "Get Started Free",
-    "secondaryButton": "View Products",
-    "primaryButtonLink": "https://blocks.bibliokit.com/signup",
-    "secondaryButtonLink": "#landing-features",
+    "primaryButton": "View Products",
+    "secondaryButton": null,
+    "primaryButtonLink": "#landing-features",
+    "secondaryButtonLink": null,
     "gradientColors": [
       "#ecfeff00",
       "#ecfeff10",
@@ -53,7 +53,8 @@
         "children": [
           {
             "label": "AI Rename Variants",
-            "href": "/ai-rename-variants",
+            "href": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+            "isExternal": true,
             "description": "Standardize your Figma variant names instantly with AI-powered batch renaming.",
             "icon": "✨"
           },
@@ -112,6 +113,25 @@
       "buttonText": "Try Plugin for Free",
       "isFeatured": false,
       "description": "Audit components inside a single Figma file. Check naming, structure, and variant coverage to ensure consistent, high-quality component usage.",
+      "buttonPreset": "custom"
+    },
+    {
+      "icon": "🧹",
+      "idea": "Revoke stale prototype links before they leak context.",
+      "badge": "New",
+      "title": "Remove Plugin Links",
+      "badges": [],
+      "topItems": [
+        "Scan every share URL and map owners before you revoke access.",
+        "Replace dead prototype links with updated builds automatically.",
+        "Notify research and engineering with ready-to-send updates."
+      ],
+      "showBadge": true,
+      "badgeColor": "#0ea5e9",
+      "buttonLink": "https://www.figma.com/community/plugin/remove-prototype-links",
+      "buttonText": "Try Plugin For Free",
+      "isFeatured": false,
+      "description": "Figma plugin that cleans up prototype links fast—audit every share URL, shut down risky tokens, and swap in the right file without slowing launch teams.",
       "buttonPreset": "custom"
     },
     {
@@ -315,7 +335,7 @@
         {
           "title": "Stop fixing messy names by hand",
           "description": "AI reads your component structure, properties, and patterns to generate consistent, meaningful names automatically.",
-          "buttonText": "Try Product For Free",
+          "buttonText": "Try Plugin For Free",
           "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
           "items": [
             "Let the AI rename messy variant titles instantly, guided by your component context.",
@@ -361,7 +381,7 @@
         {
           "title": "Bulk renaming made effortless",
           "description": "Select multiple components, run once, and instantly update every variant and layer — fast, reliable, and consistent.",
-          "buttonText": "Try Product For Free",
+          "buttonText": "Try Plugin For Free",
           "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
           "items": [
             "Keep multi-state component sets in sync while you batch rename entire libraries.",
@@ -375,7 +395,7 @@
         {
           "title": "Make naming match your system",
           "description": "Define custom patterns, prefixes, and conventions that align with your team's design standards and naming logic.",
-          "buttonText": "Try Product For Free",
+          "buttonText": "Try Plugin For Free",
           "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
           "items": [
             "Define rule blueprints once and auto-apply them to new variants with zero manual edits.",
@@ -421,7 +441,7 @@
         {
           "title": "Built for safe iteration",
           "description": "Keep your naming workflow flexible with full version control and instant undo for every rename operation.",
-          "buttonText": "Try Product For Free",
+          "buttonText": "Try Plugin For Free",
           "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
           "items": [
             "Roll back full rename runs instantly when experiments change direction.",
@@ -450,7 +470,7 @@
         {
           "title": "Keep every team in sync",
           "description": "Share and apply the same naming conventions across projects so designers and developers stay aligned and handoffs stay clean.",
-          "buttonText": "Try Product For Free",
+          "buttonText": "Try Plugin For Free",
           "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
           "items": [
             "Share governance rules across design, dev, and QA with built-in approvals.",

@@ -86,7 +86,7 @@ const AIRenameVariantsPage = () => {
       {
         title: 'Stop fixing messy names by hand',
         description: 'AI reads your component structure, properties, and patterns to generate consistent, meaningful names automatically.',
-        buttonText: 'Try Product For Free',
+        buttonText: 'Try Plugin For Free',
         buttonLink: pluginInstallUrl,
         mediaComponent: 'feature-blueprint',
         items: [
@@ -113,7 +113,7 @@ const AIRenameVariantsPage = () => {
       {
         title: 'Bulk renaming made effortless',
         description: 'Select multiple components, run once, and instantly update every variant and layer — fast, reliable, and consistent.',
-        buttonText: 'Try Product For Free',
+        buttonText: 'Try Plugin For Free',
         buttonLink: pluginInstallUrl,
         items: [
           'Keep multi-state component sets in sync while you batch rename entire libraries.',
@@ -125,7 +125,7 @@ const AIRenameVariantsPage = () => {
       {
         title: 'Make naming match your system',
         description: "Define custom patterns, prefixes, and conventions that align with your team's design standards and naming logic.",
-        buttonText: 'Try Product For Free',
+        buttonText: 'Try Plugin For Free',
         buttonLink: pluginInstallUrl,
         items: [
           'Define rule blueprints once and auto-apply them to new variants with zero manual edits.',
@@ -152,7 +152,7 @@ const AIRenameVariantsPage = () => {
       {
         title: 'Built for safe iteration',
         description: 'Keep your naming workflow flexible with full version control and instant undo for every rename operation.',
-        buttonText: 'Try Product For Free',
+        buttonText: 'Try Plugin For Free',
         buttonLink: pluginInstallUrl,
         items: [
           'Roll back full rename runs instantly when experiments change direction.',
@@ -175,7 +175,7 @@ const AIRenameVariantsPage = () => {
       {
         title: 'Keep every team in sync',
         description: 'Share and apply the same naming conventions across projects so designers and developers stay aligned and handoffs stay clean.',
-        buttonText: 'Try Product For Free',
+        buttonText: 'Try Plugin For Free',
         buttonLink: pluginInstallUrl,
         items: [
           'Share governance rules across design, dev, and QA with built-in approvals.',

@@ -102,10 +102,11 @@ const Header = () => {
     label: 'Resources',
     children: [
       {
-        label: 'Remove Prototype Link',
-        href: ROUTE_PATHS.REMOVE_PROTOTYPE_LINK,
-        description: 'Retire outdated prototype URLs before they derail launches.',
-        icon: 'link',
+        label: 'Remove Prototype Links (Figma Plugin)',
+        href: 'https://www.figma.com/community/plugin/remove-prototype-links',
+        description: 'Install the plugin to strip stale prototype links directly inside Figma.',
+        icon: 'plug',
+        isExternal: true,
       }
     ],
   };

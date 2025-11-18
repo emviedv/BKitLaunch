@@ -4,11 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Confetti, type ConfettiRef } from '@/components/ui/confetti';
 import {
   HERO_DESCRIPTION_CLASS,
-  HERO_HEADLINE_GRADIENT_CLASS,
   HERO_PRIMARY_BUTTON_CLASS,
   buildHeroHeadlineSegments,
   splitHeroHeadline,
 } from './heroConstants';
+import { LANDING_TITLE_GRADIENT_CLASS } from './heroTitleGradient';
 import { logHeroHeadlineSplit } from './heroInstrumentation';
 import { debugService } from '@/lib/debugService';
 import {
@@ -235,11 +235,8 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
               <h1 className={LANDING_TITLE_CLASS}>
                 {headlineSegments.map((segment) => {
                   const isSubtitle = segment.key === 'subtitle';
-                  const baseClass = isSubtitle
-                    ? 'text-[#F7D6FF]'
-                    : segment.gradient
-                      ? HERO_HEADLINE_GRADIENT_CLASS
-                      : 'text-white';
+                  const baseClass =
+                    segment.gradient || isSubtitle ? LANDING_TITLE_GRADIENT_CLASS : 'text-white';
                   return (
                     <span
                       key={segment.key}

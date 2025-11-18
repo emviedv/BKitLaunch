@@ -622,7 +622,7 @@
     border-radius: inherit;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.22;
+    opacity: 0.32;
   }
 
   .landing-hero-column-lines::before,

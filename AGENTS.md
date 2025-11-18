@@ -5,6 +5,7 @@
 
 ## Rule Codification & Conversation Clarity
 - When Emily notes that something “should have been done” a certain way, capture that guidance here as a concise rule (add a brief example when useful).
+- Products are built for designers, developers, and marketers—keep language inclusive of all three.
 - Success feedback surfaces must cap padding at 20px (e.g., waitlist success message stays tight with `p-5`).
 - When applying a specific rule from this file, explicitly mention it in the conversation for clarity (e.g., “Applying Debug Log Policy” or “Following Commit Guidelines”).
 - Use action/benefit-driven marketing copy (e.g., “Work x10,000 faster.”) whenever writing or updating customer-facing text.
@@ -15,6 +16,13 @@
 - Product pages alternate feature cards so media and copy swap sides down the page (e.g., AI Rename Variants features grid now alternates by default).
 - When padding, gaps, or similar layout styling is applied to one product page’s features section, mirror those adjustments across all product pages—but confirm the approach with Emily before rolling it out globally.
 - HTML classes and IDs must be specific to the surface they belong to—no generic names like `button` or `section`. Prefer `ai-rename-hero-cta` over `cta` so styles stay scoped and readable.
+- Bridge is an internal tool; avoid referencing it in customer-facing copy unless explicitly approved.
+
+## Product Roster
+- AI Rename Variants
+- Component Auditor
+- BiblioKit Blocks
+- UXBiblio
 
 ## Long-Term Viability Check
 - Highlight proposals that trade sustainable architecture, maintainability, or strategic fit for short-term gains. Document the risk and propose a durable alternative before implementation.

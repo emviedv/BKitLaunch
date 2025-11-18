@@ -6,6 +6,8 @@ export type BlogContentBlock =
   | { type: 'caption'; text: string }
   | { type: 'image'; src: string; alt?: string; caption?: string };
 
+export type BlogFAQ = { question: string; answer: string };
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -17,12 +19,13 @@ export type BlogPost = {
   metaTitle?: string;
   metaDescription?: string;
   content?: BlogContentBlock[];
+  faqs?: BlogFAQ[];
 };
 
 const buildHeroImagePath = (fileName: string) => `/blog/${fileName}`;
 
 const removePrototypeLinksContent: BlogContentBlock[] = [
-  { type: 'heading', text: 'How to Remove Prototype Links in Figma' },
+  { type: 'heading', text: 'Remove Figma Prototype Links: A Guide by BiblioKit (2025)' },
   {
     type: 'paragraph',
     text: `In the world of design, Figma stands out as a powerful tool for creating stunning interfaces and seamless prototypes. However, as projects evolve, you might find yourself needing to remove prototype links to refine your designs or start afresh. This guide will walk you through the process of removing prototype links in Figma, ensuring that your design workflow remains smooth and efficient.`
@@ -155,6 +158,29 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   {
     type: 'paragraph',
     text: 'By mastering the art of prototype link management in Figma, you can elevate your design projects and deliver exceptional user experiences. Happy designing!'
+  }
+];
+
+const removePrototypeLinksFaqs: BlogFAQ[] = [
+  {
+    question: 'What’s the fastest way to delete a single prototype link in Figma?',
+    answer:
+      'Select the frame, click the connection line in the Prototype tab, and press Delete. It keeps the design intact while instantly removing that interaction so you can rewire the flow.'
+  },
+  {
+    question: 'Can I clear every prototype link in a file at once?',
+    answer:
+      'Yes. Plugins like Prototype Cleaner or Link Manager remove all prototype connections in seconds while leaving frames and components untouched—perfect for restarting a flow without redrawing screens.'
+  },
+  {
+    question: 'Will removing links delete frames, comments, or design assets?',
+    answer:
+      'No—deleting prototype links only removes the interaction lines. Your frames, layers, comments, and design tokens stay put, and the preview simply reflects the updated interaction map.'
+  },
+  {
+    question: 'How do I avoid breaking handoff when I strip prototype links?',
+    answer:
+      'Duplicate the page or create a version checkpoint, then remove links and re-publish. Share the new clickable paths with engineering so everyone tests against the same, cleaned-up flow.'
   }
 ];
 
@@ -441,6 +467,29 @@ const designSystemGuidelinesContent: BlogContentBlock[] = [
   }
 ];
 
+const designSystemGuidelinesFaqs: BlogFAQ[] = [
+  {
+    question: 'What should a design system guideline include?',
+    answer:
+      'Ship a concise source of truth that covers design tokens, component specs, usage dos and don’ts, accessibility rules, and a contribution model so designers and engineers can ship UI consistently.'
+  },
+  {
+    question: 'How do I keep guidelines current as the product evolves?',
+    answer:
+      'Treat the system like a product: set owners, publish changelogs, run regular audits, and retire or update patterns as you learn. That cadence keeps teams moving fast without drifting off-brand.'
+  },
+  {
+    question: 'How can I drive adoption across designers and developers?',
+    answer:
+      'Pair rollout with onboarding sessions, live examples, and code-ready components. Show the time saved on new features, keep documentation searchable, and host office hours so teams get quick answers.'
+  },
+  {
+    question: 'Should I build the entire design system before teams use it?',
+    answer:
+      'Start with the highest-traffic components and core tokens, then iterate. Early, narrowly scoped releases let teams feel the speed gains quickly while you expand coverage with real feedback.'
+  }
+];
+
 const atlassianDesignSystemContent: BlogContentBlock[] = [
   { type: 'heading', text: 'Enhancing User Experience with Atlassian Design System' },
   {
@@ -546,20 +595,44 @@ const atlassianDesignSystemContent: BlogContentBlock[] = [
   }
 ];
 
+const atlassianDesignSystemFaqs: BlogFAQ[] = [
+  {
+    question: 'Why use the Atlassian Design System for UX work?',
+    answer:
+      'It gives you production-ready tokens, components, and patterns so teams can roll out Jira-, Confluence-, or Trello-quality experiences faster, without reinventing foundations every sprint.'
+  },
+  {
+    question: 'How do I start adopting it in an existing product?',
+    answer:
+      'Begin by swapping in design tokens for color, type, and spacing, then replace high-visibility components like buttons and forms. Align flows with the documented patterns to tighten consistency quickly.'
+  },
+  {
+    question: 'Does the Atlassian Design System cover accessibility and responsive behavior?',
+    answer:
+      'Yes. Components ship with keyboard navigation, contrast-friendly palettes, and responsive layouts baked in, so you can meet accessibility targets while keeping multi-device experiences smooth.'
+  },
+  {
+    question: 'How do teams stay consistent across Jira, Confluence, and Trello while iterating fast?',
+    answer:
+      'Rely on the shared components and interaction patterns, review changes against the guidelines, and ship updates through the same token set. That keeps new features aligned even when squads move quickly.'
+  }
+];
+
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'remove-prototype-links-in-figma',
-    title: 'How to Remove Prototype Links in Figma',
+    title: 'Remove Figma Prototype Links: A Guide by BiblioKit (2025)',
     category: 'Figma Plugins',
     readingTime: '6 min read',
     excerpt:
       'Figma makes it easy to build polished interfaces and prototypes. As files evolve, you may need to strip prototype links to refresh interactions or start clean while keeping your workflow smooth.',
-    heroImage: 'https://i.sstatic.net/LzAOP.png',
-    heroImageAlt: 'Figma design interface',
-    metaTitle: 'How to Remove Prototype Links in Figma',
+    heroImage: buildHeroImagePath('remove-prototype-links/hero-abstract.svg'),
+    heroImageAlt: 'Abstract interface blocks illustration',
+    metaTitle: 'Remove Figma Prototype Links: A Guide by BiblioKit (2025)',
     metaDescription:
       'Figma makes it easy to build polished interfaces and prototypes. As files evolve, you may need to strip prototype links to refresh interactions or start clean while keeping your workflow smooth.',
-    content: removePrototypeLinksContent
+    content: removePrototypeLinksContent,
+    faqs: removePrototypeLinksFaqs
   },
   {
     slug: 'mastering-design-system-guidelines',
@@ -573,7 +646,8 @@ export const BLOG_POSTS: BlogPost[] = [
     metaTitle: 'Mastering Design System Guidelines: Best Practices',
     metaDescription:
       'Master design system guidelines to enhance brand consistency, streamline processes, and boost collaboration. Learn best practices for creating and implementing an effective design system.',
-    content: designSystemGuidelinesContent
+    content: designSystemGuidelinesContent,
+    faqs: designSystemGuidelinesFaqs
   },
   {
     slug: 'boost-ux-with-atlassian-design-system',
@@ -587,7 +661,8 @@ export const BLOG_POSTS: BlogPost[] = [
     metaTitle: 'Enhancing User Experience with Atlassian Design System',
     metaDescription:
       "In today's fast-paced digital world, user experience (UX) is more important than ever. Companies need to create products that not only meet the functional needs of their users but also provide an intuitive and enjoyable experience.",
-    content: atlassianDesignSystemContent
+    content: atlassianDesignSystemContent,
+    faqs: atlassianDesignSystemFaqs
   }
 ];
 

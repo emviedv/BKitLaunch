@@ -4,12 +4,14 @@ import {
   buildBlogPostHref,
   findBlogPostBySlug,
   type BlogContentBlock,
+  type BlogFAQ,
   type BlogPost
 } from '@/data/blogPosts';
 import { LANDING_WAITLIST_PATH } from '@/config/sectionAnchors';
 import LandingHero, { type LandingHeroContent } from './LandingHero';
 import { Button } from '@/components/ui/button';
 import { useDynamicSEO } from '@/hooks/useSEO';
+import { createFAQSchema, useSchema } from '@/lib/useSchema';
 
 interface BlogArticlePageProps {
   slug: string;
@@ -198,6 +200,39 @@ const summarizePost = (post: BlogPost | null | undefined, maxSentences = 3): str
   return summary || source.trim();
 };
 
+const BlogFAQSection: React.FC<{ faqs: BlogFAQ[] }> = ({ faqs }) => {
+  useSchema(createFAQSchema(faqs), 'blog-faq-schema');
+
+  return (
+    <section className="blog-faq-section mt-12">
+      <div className="mx-auto w-full max-w-[680px] space-y-4">
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">FAQs</p>
+          <h2 className="text-2xl font-semibold text-white sm:text-3xl">Frequently Asked Questions</h2>
+          <p className="text-base text-white/70">
+            Quick, action-focused answers pulled from this playbook so you can apply it faster.
+          </p>
+        </div>
+        <div className="blog-faq-list divide-y divide-white/10">
+          {faqs.map((faq, index) => (
+            <div key={`faq-${index}`} className="blog-faq-item py-4 first:pt-0 last:pb-0">
+              <div className="flex items-start gap-3">
+                <span className="mt-0.5 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f871a0] via-[#b970ff] to-[#5bceff] text-sm font-bold text-white">
+                  {(index + 1).toString().padStart(2, '0')}
+                </span>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-semibold text-white">{faq.question}</h3>
+                  <p className="text-base leading-relaxed text-white/75">{faq.answer}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
   const post = findBlogPostBySlug(slug);
   const pagePath = `/blog/${slug}`;
@@ -283,6 +318,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
             </p>
           )}
         </div>
+        {post.faqs?.length ? <BlogFAQSection faqs={post.faqs} /> : null}
         {(previousPost || nextPost) && (
           <section className="blog-article-nav mt-12 space-y-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">

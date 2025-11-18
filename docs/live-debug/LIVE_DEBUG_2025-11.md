@@ -38,6 +38,123 @@
 - **Changed Files:** src/components/LandingHero.tsx; src/index.css
 - **Verification:** *(not run; manually verify hero height + contrast in browser with accessibility tools)*
 
+## 2025-11-18
+
+- **Time:** 2025-11-18 03:21 UTC
+- **Summary:** Matched the featured blog hero layout to the latest request by tightening the image corner radius to 2px and increasing the hero column gap to 48px between the featured content and sidebar.
+- **Root Cause:** The hero still used larger rounding and a 40px grid gap, which didn't align with the updated spec for the featured blog layout.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; visually confirm 2px rounding and 48px column gap in the blog hero)*
+- **Time:** 2025-11-18 03:22 UTC
+- **Summary:** Added an extra 120px of horizontal gap between the featured blog content and sidebar to meet the wider hero spacing request.
+- **Root Cause:** The prior 48px gap was still tighter than the newly requested spacing for the featured hero layout.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; visually confirm the ~168px column gap on large screens in the blog hero)*
+- **Time:** 2025-11-18 03:23 UTC
+- **Summary:** Added a “Latest Post” badge above the featured blog hero so the top article is labeled clearly.
+- **Root Cause:** The hero lacked the requested badge, so the featured article wasn’t explicitly marked as the latest post.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; check the featured blog hero renders the “Latest Post” pill above the image/title)*
+- **Time:** 2025-11-18 03:24 UTC
+- **Summary:** Unified all blog page CTAs to the same label, font size, sizing, and rounding by reusing one CTA style for the hero and grid cards.
+- **Root Cause:** CTA text/size were inconsistent because the hero used a different button component and styling than the article cards.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; verify all “Read the article” buttons share identical sizing, rounding, and typography on the blog page)*
+- **Time:** 2025-11-18 03:25 UTC
+- **Summary:** Ensured CTA typography matches everywhere by removing the mismatched button wrapper in the hero and using the shared “Read the article” class directly.
+- **Root Cause:** The Button wrapper applied different font sizing than the shared CTA class, so the hero CTA looked inconsistent.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; confirm hero and card CTAs now share the same font size/weight and sizing)*
+- **Time:** 2025-11-18 03:26 UTC
+- **Summary:** Moved category and reading time text to the top of all blog cards (featured hero, grid cards, and sidebar list) for consistent metadata placement.
+- **Root Cause:** Category/read-time labels were buried near the CTAs, making metadata less scannable and inconsistently placed across surfaces.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; open the blog page and confirm category • read-time appears above titles in hero, grid, and sidebar cards)*
+- **Time:** 2025-11-18 03:27 UTC
+- **Summary:** Scaled down all blog CTA buttons (hero, grid, sidebar) to a smaller font and tighter vertical padding while keeping uniform sizing.
+- **Root Cause:** CTA font size looked oversized relative to surrounding text, breaking visual hierarchy even after unifying styles.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; visually confirm all “Read the article” buttons share the reduced text size and consistent padding)*
+- **Time:** 2025-11-18 03:26 UTC
+- **Summary:** Added 4px bottom padding to category/read-time metadata across featured hero, grid cards, and sidebar list for consistent spacing above titles.
+- **Root Cause:** Metadata sat too close to adjacent content, reducing readability and consistency between surfaces.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; check that category • read-time labels have a small gap before titles across the blog page)*
+- **Time:** 2025-11-18 03:27 UTC
+- **Summary:** Added an extra 4px bottom padding to all category/read-time labels to further separate metadata from titles across hero, sidebar, and grid cards.
+- **Root Cause:** The previous 4px gap was still tighter than desired for metadata readability.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; confirm metadata-to-title spacing shows the increased gap on all blog cards)*
+- **Time:** 2025-11-18 03:28 UTC
+- **Summary:** Scaled the “Browse BiblioKit Articles” heading down one type size to soften hierarchy under the featured hero.
+- **Root Cause:** Heading size overwhelmed the layout after other hero adjustments; dropping one scale restores hierarchy.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; check heading renders at the reduced size in the articles section)*
+- **Time:** 2025-11-18 03:29 UTC
+- **Summary:** Dropped the supporting subheading text in the articles section down one type scale to keep hierarchy consistent after shrinking the heading.
+- **Root Cause:** The body copy sat too close in size to the prior heading scale, so lowering both maintains a clear hierarchy.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; confirm the subheading renders at the reduced size under the section heading)*
+- **Time:** 2025-11-18 03:29 UTC
+- **Summary:** Set blog grid cards to a slightly lighter shade of the page background for a subtler, uniform backdrop.
+- **Root Cause:** Cards were using a light translucent white fill that clashed with the dark page background instead of feeling like a lighter step of the same palette.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; visually confirm cards use the darker backdrop shade and still maintain readable contrast)*
+- **Time:** 2025-11-18 03:30 UTC
+- **Summary:** Matched the footer background to the dark page palette (one shade lighter) and updated footer text/link colors for contrast.
+- **Root Cause:** The footer used a muted light background that clashed with the new dark blog palette; needed to align with the shared background color.
+- **Changed Files:** src/components/Footer.tsx
+- **Verification:** *(not run; visually confirm footer uses the darker background with readable white text and accent hover state)*
+- **Time:** 2025-11-18 03:31 UTC
+- **Summary:** Added 24px more bottom padding to the secondary blog section to give the grid extra breathing room below.
+- **Root Cause:** The section bottom spacing was tight after other layout tweaks; increasing padding keeps content from feeling cramped.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; check the secondary section bottom padding reflects the increased space)*
+- **Time:** 2025-11-18 03:32 UTC
+- **Summary:** Reduced the top margin before the blog grid to 2rem to tighten the gap beneath the section header.
+- **Root Cause:** The 3rem top margin left the grid sitting too far below the heading after other spacing changes.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; confirm the grid starts 2rem below the section heading)*
+- **Time:** 2025-11-18 03:33 UTC
+- **Summary:** Simplified sidebar recent-article cards by removing descriptions and adding a stronger hover fill so metadata + title remain scannable.
+- **Root Cause:** Sidebar excerpts cluttered the compact list and hover feedback was too subtle.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; check sidebar list omits excerpts and hover darkens the card background)*
+- **Time:** 2025-11-18 03:34 UTC
+- **Summary:** Redrew the featured hero line abstraction at a taller 484px canvas and raised the hero image cap by 64px for more breathing room.
+- **Root Cause:** The previous 420px height constrained the illustration and hero image height below the requested taller spec.
+- **Changed Files:** public/blog/remove-prototype-links/hero-abstract.svg; src/components/BlogPage.tsx
+- **Verification:** *(not run; visually confirm the taller hero image renders with the updated line art at the new height)*
+- **Time:** 2025-11-18 03:35 UTC
+- **Summary:** Moved the featured post metadata directly under the hero image to sit closer to the artwork while keeping a small gap above the title.
+- **Root Cause:** Category/read-time sat above the image, creating an unwanted gap from the hero art.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; check metadata appears beneath the hero image with a small buffer before the title)*
+- **Time:** 2025-11-18 03:36 UTC
+- **Summary:** Matched the blog index hero badge and title styling to the article page hero: pill with accent dot/outline and a large, tight headline.
+- **Root Cause:** The featured card badge/title used smaller, mismatched styles compared to the blog post hero presentation.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** *(not run; confirm the badge mirrors the article hero style and the title uses the large headline scale)*
+- **Time:** 2025-11-18 03:37 UTC
+- **Summary:** Applied the blog title gradient to the landing hero subtitle (“Work x10,000 faster.”) so it matches the blog post title treatment.
+- **Root Cause:** The landing subtitle used a flat color while the blog titles used the pink-purple gradient, creating inconsistency.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** *(not run; check the landing hero subtitle renders with the pink-purple gradient)*
+- **Time:** 2025-11-18 03:35 UTC
+- **Summary:** Removed the landing hero secondary CTA, retitled the primary CTA to “View Products,” and pointed it to the products section anchor.
+- **Root Cause:** Requested to drop “View Products” secondary and reuse that label on the primary button to jump to the products section.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; verify the landing hero shows a single “View Products” button linking to #landing-features)*
+- **Time:** 2025-11-18 03:35 UTC
+- **Summary:** Replaced remote avatar URLs with product-specific local avatars (rename/audit/library/default sets) to avoid broken photos and vary social proof per product.
+- **Root Cause:** Unsplash avatars could break and didn’t adapt visuals per product; needed reliable local assets and per-product differentiation.
+- **Changed Files:** src/components/ProductContentSections.tsx; public/avatars/*
+- **Verification:** *(not run; check social-proof avatar stacks render unique local avatars per product without broken images)*
+- **Time:** 2025-11-18 03:36 UTC
+- **Summary:** Boosted hero grid line opacity by +10% so grid overlays read more clearly across pages.
+- **Root Cause:** Grid visuals were still too faint; increasing opacity improves legibility.
+- **Changed Files:** src/index.css
+- **Verification:** *(not run; visually confirm hero grid lines are slightly stronger across pages)*
 - **Time:** 2025-11-12 22:45 EST
 - **Summary:** Trimmed 100px from the landing hero by tightening padding, min-height, and gradient layer sizing so the fold breathes without losing the extended grid visuals.
 - **Root Cause:** The prior +220px adjustment overshot the desired hero height, leaving too much vertical space above the fold.
@@ -800,6 +917,11 @@
 - **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
 - **Verification:** *(not run; open any blog article to confirm paragraphs and lists use the taller line height)*
 
+- **Time:** 2025-11-17 23:31 EST
+- **Summary:** Renamed the Figma prototype links blog post to “Remove Figma Prototype Links: A Guide by BiblioKit (2025)” across title, slug content, and metaTitle.
+- **Root Cause:** Requested title update to the new naming.
+- **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open /blog/remove-prototype-links-in-figma to confirm the new title/meta render)* 
 - **Time:** 2025-11-17 17:50 EST
 - **Summary:** Removed the landing page product card callouts so the compact feature grid no longer displays the extra highlight rows.
 - **Root Cause:** The landing product cards still rendered the callout grid (`mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4`) even though the page should keep the cards minimal.
@@ -853,3 +975,129 @@
 - **Root Cause:** Bots were served the SPA shell without route-specific metadata because the SSR edge function was disabled; the sitemap/AI sitemap pointed at dead URLs and missed live pages; OG/logo assets referenced in meta tags were missing; client navigations dropped structured data.
 - **Changed Files:** netlify.toml; netlify/functions/sitemap.ts; public/llms.txt; public/robots.txt; public/og/og-default.svg; public/logo.svg; index.html; src/lib/seo.ts; src/components/AIRenameVariantsPage.tsx; src/components/DynamicProductPage.tsx; tests/unit/sitemap.spec.ts; tests/unit/updatePageMetadataStructuredData.spec.ts; docs/live-debug/LIVE_DEBUG_2025-11.md
 - **Verification:** `node --test tests/unit/sitemap.spec.ts tests/unit/updatePageMetadataStructuredData.spec.ts` (pass); *(post-deploy: curl key routes like `/ai-rename-variants` and `/blog/remove-prototype-links-in-figma` to confirm SSR HTML carries canonical + JSON-LD and OG assets resolve at 200)*
+
+- **Time:** 2025-11-17 20:26 EST
+- **Summary:** Swapped the landing product card avatar stack to real people photos instead of the abstract SVG circles.
+- **Root Cause:** Social proof rows on product cards still showed vector placeholders; requirement is to show real human photos on product pages.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open any landing product card and confirm four distinct photo avatars appear before the “+” badge)*
+
+- **Time:** 2025-11-17 20:34 EST
+- **Summary:** Renamed all product CTA buttons to “Try Plugin For Free” so plugin terminology is consistent across landing and product pages.
+- **Root Cause:** Buttons still used the older “Try Product For Free” label after the latest copy direction to call out plugins explicitly.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/AIRenameVariantsPage.tsx; src/data/products.json; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; load landing product cards and AI Rename Variants page to confirm all CTA buttons read “Try Plugin For Free” and still link correctly)*
+
+- **Time:** 2025-11-17 20:42 EST
+- **Summary:** Added 24px extra gap between content and media columns in landing product cards to give the image breathing room.
+- **Root Cause:** The landing product feature grid spacing was too tight, leaving content and media crowded together.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; on landing product cards, confirm increased horizontal spacing between the text stack and the media block on large screens)*
+
+- **Time:** 2025-11-17 20:48 EST
+- **Summary:** Pointed the Plugins dropdown “AI Rename Variants” link directly to the Figma plugin listing.
+- **Root Cause:** The dropdown linked to the internal product page instead of the requested Figma Community plugin URL.
+- **Changed Files:** src/data/products.json; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the header Plugins dropdown and confirm “AI Rename Variants” navigates to the Figma plugin link in a new tab/window)*
+
+- **Time:** 2025-11-18 04:47 EST
+- **Summary:** Updated landing product card CTAs to read “Try \"<Product Name>\" For Free,” inserting each product name automatically.
+- **Root Cause:** Landing product cards still used the generic “Try Plugin For Free” label instead of product-specific CTA copy.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; on the landing page, confirm each product card CTA shows its product name inside quotes and links as before)*
+
+- **Time:** 2025-11-18 04:50 EST
+- **Summary:** Applied product-specific CTA labels to all product feature cards so buttons read “Try \"<Product Name>\" For Free.”
+- **Root Cause:** Default product cards still used the generic plugin label instead of inserting the product name.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; check any product feature card on non-landing layouts to confirm the CTA includes the product name and links correctly)*
+
+- **Time:** 2025-11-18 04:52 EST
+- **Summary:** Fixed product card CTAs to pull each card title (e.g., "Component Auditor") so button text matches the visible card.
+- **Root Cause:** CTA copy referenced the parent product title ("Your Design Toolkit, Reinvented."), causing mismatched labels on cards.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; on landing and product feature cards, confirm buttons read `Try "<Card Title>" For Free` and still link correctly)*
+
+- **Time:** 2025-11-18 04:54 EST
+- **Summary:** Removed quotation marks from product card CTAs so buttons read `Try Product Name For Free` without quotes.
+- **Root Cause:** CTA labels included quotes around product names, which didn’t match the requested styling.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; reload product cards to confirm buttons show the product name without surrounding quotes and still link correctly)*
+
+- **Time:** 2025-11-18 04:55 EST
+- **Summary:** Replaced landing product card social-proof avatars with real person photos (Unsplash) instead of SVG placeholders.
+- **Root Cause:** Landing page product cards still showed vector avatar placeholders; requirement is to use real people photos.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; reload landing product cards and confirm all stacked avatars show real portraits)*
+
+- **Time:** 2025-11-18 04:57 EST
+- **Summary:** Swapped all landing product card avatars to a single reliable set of Unsplash portraits to avoid broken images.
+- **Root Cause:** Some remote avatar URLs failed to load, leaving blank placeholders on landing product cards.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; reload landing product cards and confirm all avatar rings show four photo portraits without broken images)*
+
+- **Time:** 2025-11-18 05:00 EST
+- **Summary:** Standardized landing product avatars to four face-cropped Unsplash portraits and added a fallback image handler to prevent broken avatar slots.
+- **Root Cause:** Some remote avatar URLs failed to load, leaving missing images in the social proof stack.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; reload landing product cards and confirm all four avatar slots render faces, with no broken images even if a request fails)*
+
+- **Time:** 2025-11-18 05:05 EST
+- **Summary:** Replaced duplicate avatars with four unique Unsplash portraits per stack to ensure every landing product card shows distinct faces.
+- **Root Cause:** Avatar sets reused images, leading to duplicates and occasional broken slots in the social proof row.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; reload landing product cards and confirm four distinct portraits appear with no broken images)*
+
+- **Time:** 2025-11-18 05:12 EST
+- **Summary:** Locked avatar stacks to four unique primary portraits with per-slot fallbacks to guarantee distinct faces and prevent duplicates/broken images on landing product cards.
+- **Root Cause:** Remote avatar set reused images across slots and occasional load failures caused repeated fallback portraits.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; reload landing product cards and confirm four distinct faces render per stack, with no duplicates or broken images)*
+
+- **Time:** 2025-11-18 05:19 EST
+- **Summary:** Swapped avatar stack to four casual, unique portraits with distinct fallbacks per slot to eliminate duplicates and missing rightmost avatar.
+- **Root Cause:** Prior portrait set reused professional shots and some failed to load, leaving duplicate or empty avatar slots.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; reload landing product cards and confirm four casual, distinct faces render; rightmost avatar no longer missing)*
+
+- **Time:** 2025-11-18 05:25 EST
+- **Summary:** Removed the trailing “+” badge and now render four photo avatars so the far-right slot always shows an image in landing product social proof.
+- **Root Cause:** The avatar stack ended with a plus badge instead of a real photo, leaving the rightmost position without an image.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; reload landing product cards and confirm all four avatar slots show photos with no trailing “+” badge)*
+
+- **Time:** 2025-11-18 05:31 EST
+- **Summary:** Added a Resources dropdown link to the “Remove Prototype Links” Figma plugin alongside the existing guide link.
+- **Root Cause:** Resources menu lacked a direct install link for the Remove Prototype Links plugin.
+- **Changed Files:** src/components/Header.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the header Resources dropdown and confirm a new external item points to the plugin link)*
+
+- **Time:** 2025-11-18 05:34 EST
+- **Summary:** Simplified Resources dropdown to only include the external “Remove Prototype Links” Figma plugin entry.
+- **Root Cause:** The dropdown listed both the internal guide and the plugin; request was to keep only the plugin link.
+- **Changed Files:** src/components/Header.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the Resources dropdown and confirm only the plugin link remains)*
+
+- **Time:** 2025-11-18 05:41 EST
+- **Summary:** Restyled blog FAQs to match the article width and removed the card background/border so the FAQ block sits flush with the content column.
+- **Root Cause:** FAQ section used a bordered card with narrower width, breaking visual alignment with article content.
+- **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open any blog post with FAQs and confirm the FAQ block aligns to the content width with no card background or border)*
+
+- **Time:** 2025-11-18 08:03 EST
+- **Summary:** Added the Remove Plugin Links Figma plugin to the landing product lineup with focused bullets and CTA to the install link.
+- **Root Cause:** The landing page product grid was missing the requested Remove Plugin Links plugin promotion.
+- **Changed Files:** src/data/products.json; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the landing product section and confirm the Remove Plugin Links card appears with a CTA pointing to the Figma plugin link)*
+
+- **Time:** 2025-11-18 12:34 EST
+- **Summary:** Numbered each FAQ question badge so visitors can scan and reference items by their order in the list.
+- **Root Cause:** FAQs previously used a generic “Q” marker without numbering, making it harder to cite specific questions.
+- **Changed Files:** src/components/FAQSchema.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open any FAQs section and confirm each question shows a numbered badge on the left)* 
+
+- **Time:** 2025-11-18 14:19 EST
+- **Summary:** Added numbered badges to blog FAQs so each question shows its index on the left.
+- **Root Cause:** Blog FAQ items used plain text without numbered markers, so numbers were not visible in that context.
+- **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open any blog article with FAQs and confirm each question displays a numbered badge on the left)* 
