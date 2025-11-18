@@ -800,8 +800,50 @@
 - **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
 - **Verification:** *(not run; open any blog article to confirm paragraphs and lists use the taller line height)*
 
+- **Time:** 2025-11-17 17:50 EST
+- **Summary:** Removed the landing page product card callouts so the compact feature grid no longer displays the extra highlight rows.
+- **Root Cause:** The landing product cards still rendered the callout grid (`mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4`) even though the page should keep the cards minimal.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the landing page features section and confirm product cards no longer show the callout grid beneath the showcases)*
+
 - **Time:** 2025-11-17 17:52 EST
 - **Summary:** Documented override guidance in AGENTS so Emily can explicitly request alternate images (e.g., Google search) for a post despite the default “use Google Doc images” rule.
 - **Root Cause:** Needed to clarify that explicit requests from Emily can override the default doc-image requirement.
 - **Changed Files:** AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-11.md
 - **Verification:** *(not run; policy update only—no runtime impact)*
+
+- **Time:** 2025-11-17 17:56 EST
+- **Summary:** Standardized all product feature CTAs to read “Try Product For Free,” covering landing and AI Rename Variants sources.
+- **Root Cause:** CTA labels mixed product-specific phrasing, and requirement is a single consistent “Try Product For Free” label across product buttons.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/data/products.json; src/components/AIRenameVariantsPage.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; verify landing and product feature CTAs all display “Try Product For Free” regardless of product title)*
+
+- **Time:** 2025-11-17 18:05 EST
+- **Summary:** Swapped the abstract gradient avatars in product social proof rows with person image avatars.
+- **Root Cause:** Social proof used gradient circles; request was to show people instead of abstract shapes.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open any product feature section and confirm four distinct person avatars appear before the “+” badge)*
+
+- **Time:** 2025-11-17 18:09 EST
+- **Summary:** Removed horizontal padding from the media column in landing product sections so showcase media sits flush left/right.
+- **Root Cause:** The landing feature media column had side padding from `p-4 sm:p-6`; requirement was to drop left/right padding on the `w-full lg:order-1` container.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; on the landing page, confirm product section media touches the column edges with only vertical padding remaining)*
+
+- **Time:** 2025-11-17 17:55 EST
+- **Summary:** Wired the rename variants product card media to play the before/after WebM video in the showcase slot.
+- **Root Cause:** The rename variants feature used the video media type but lacked video rendering support in the product card component.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the rename variants product card and confirm the `/media/rename-variants-before-after-loop-380.webm` video plays inline in the media area)*
+
+- **Time:** 2025-11-17 18:12 EST
+- **Summary:** Increased landing hero grid line opacity by ~10% for better visibility.
+- **Root Cause:** The hero grid overlay was too faint at 20% opacity; requested a 10% boost.
+- **Changed Files:** src/index.css; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; refresh the landing hero and confirm the grid lines are slightly more pronounced without overpowering the background)*
+
+- **Time:** 2025-11-17 19:33 EST
+- **Summary:** Restored the sitemap.xml redirect to the Netlify function so crawlers receive XML instead of the SPA HTML shell.
+- **Root Cause:** `public/_redirects` lacked the `/sitemap.xml` rule, so Netlify fell through to the SPA catch-all and served `index.html`, triggering the “Sitemap is HTML” error.
+- **Changed Files:** public/_redirects
+- **Verification:** *(not run; after deploy, curl `https://www.bibliokit.com/sitemap.xml` and confirm a 200 response with `Content-Type: application/xml` and the URL entries instead of HTML)*

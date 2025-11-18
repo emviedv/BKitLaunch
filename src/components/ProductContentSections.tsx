@@ -23,6 +23,8 @@ type ProductDetail = {
   buttonText?: string;
   buttonLink?: string;
   mediaComponent?: string;
+  mediaUrl?: string;
+  mediaAlt?: string;
   mediaExamples?: FeatureComparisonExample[];
   mediaBlueprint?: FeatureBlueprintConfig;
   mediaProgress?: FeatureProgressConfig;
@@ -245,6 +247,31 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           return <AIRenameProgressPreview config={detail.mediaProgress} />;
         }
         break;
+      case 'video':
+        if (detail.mediaUrl) {
+          const videoWrapperClass = cn(
+            'relative overflow-hidden rounded-3xl border border-white/15 bg-black/40',
+            isShowcase ? 'w-full min-h-[280px]' : 'h-32 w-32'
+          );
+          const videoLabel =
+            detail.mediaAlt ||
+            detail.title ||
+            `${product?.title || 'Product'} preview`;
+          return (
+            <div className={videoWrapperClass}>
+              <video
+                className="h-full w-full object-cover"
+                src={detail.mediaUrl}
+                loop
+                autoPlay
+                muted
+                playsInline
+                aria-label={videoLabel}
+              />
+            </div>
+          );
+        }
+        break;
       case 'feature-batch':
         return <AIRenameBatchVisual />;
       case 'uxbiblio-organize':
@@ -357,11 +384,23 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     </nav>
   );
 
-  const avatarGradients = [
-    'linear-gradient(135deg, #FDE68A, #FCA5A5)',
-    'linear-gradient(135deg, #C4B5FD, #818CF8)',
-    'linear-gradient(135deg, #A7F3D0, #34D399)',
-    'linear-gradient(135deg, #93C5FD, #3B82F6)',
+  const avatarImages = [
+    {
+      alt: 'Design lead avatar',
+      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0NCcgaGVpZ2h0PSc0NCcgdmlld0JveD0nMCAwIDQ0IDQ0Jz4KICA8cmVjdCB3aWR0aD0nNDQnIGhlaWdodD0nNDQnIHJ4PScxMicgZmlsbD0nI0ZFRTJFMicvPgogIDxjaXJjbGUgY3g9JzIyJyBjeT0nMTUuNScgcj0nOCcgZmlsbD0nI0Y5NzMxNicvPgogIDxwYXRoIGQ9J00xMSAzNC41YzMtNiAxOS02IDIyIDBWMzhIMTF6JyBmaWxsPScjRkRCQTc0Jy8+Cjwvc3ZnPg=='
+    },
+    {
+      alt: 'Product manager avatar',
+      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0NCcgaGVpZ2h0PSc0NCcgdmlld0JveD0nMCAwIDQ0IDQ0Jz4KICA8cmVjdCB3aWR0aD0nNDQnIGhlaWdodD0nNDQnIHJ4PScxMicgZmlsbD0nI0RCRUFGRScvPgogIDxjaXJjbGUgY3g9JzIyJyBjeT0nMTUuNScgcj0nOCcgZmlsbD0nIzI1NjNFQicvPgogIDxwYXRoIGQ9J00xMSAzNC41YzMtNiAxOS02IDIyIDBWMzhIMTF6JyBmaWxsPScjOTNDNUZEJy8+Cjwvc3ZnPg=='
+    },
+    {
+      alt: 'Engineer avatar',
+      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0NCcgaGVpZ2h0PSc0NCcgdmlld0JveD0nMCAwIDQ0IDQ0Jz4KICA8cmVjdCB3aWR0aD0nNDQnIGhlaWdodD0nNDQnIHJ4PScxMicgZmlsbD0nI0QxRkFFNScvPgogIDxjaXJjbGUgY3g9JzIyJyBjeT0nMTUuNScgcj0nOCcgZmlsbD0nIzA1OTY2OScvPgogIDxwYXRoIGQ9J00xMSAzNC41YzMtNiAxOS02IDIyIDBWMzhIMTF6JyBmaWxsPScjNkVFN0I3Jy8+Cjwvc3ZnPg=='
+    },
+    {
+      alt: 'Researcher avatar',
+      src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc0NCcgaGVpZ2h0PSc0NCcgdmlld0JveD0nMCAwIDQ0IDQ0Jz4KICA8cmVjdCB3aWR0aD0nNDQnIGhlaWdodD0nNDQnIHJ4PScxMicgZmlsbD0nI0VERTlGRScvPgogIDxjaXJjbGUgY3g9JzIyJyBjeT0nMTUuNScgcj0nOCcgZmlsbD0nIzdDM0FFRCcvPgogIDxwYXRoIGQ9J00xMSAzNC41YzMtNiAxOS02IDIyIDBWMzhIMTF6JyBmaWxsPScjQzRCNUZEJy8+Cjwvc3ZnPg=='
+    },
   ];
 
   const resolveCardSocialProof = (detail: ProductDetail): string => {
@@ -381,13 +420,14 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
   const renderSocialProofRow = (detail: ProductDetail) => (
     <div className="flex flex-col gap-4 text-left sm:flex-row sm:items-center sm:justify-start">
       <div className="flex -space-x-3">
-        {avatarGradients.map((gradient, index) => (
+        {avatarImages.map(({ src, alt }) => (
           <span
-            key={gradient}
+            key={src}
             aria-hidden="true"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-white/30 shadow-sm"
-            style={{ backgroundImage: gradient }}
-          />
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-white/30 shadow-sm overflow-hidden"
+          >
+            <img src={src} alt={alt} className="h-11 w-11 object-cover" />
+          </span>
         ))}
         <span
           aria-hidden="true"
@@ -402,27 +442,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
       </div>
     </div>
   );
-
-  const renderFeatureHighlightCards = (items: string[]) => {
-    if (!items || items.length === 0) return null;
-    return (
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {items.map((item, itemIndex) => (
-              <div
-                key={`${item}-${itemIndex}`}
-                className="rounded-2xl"
-              >
-            <div className="flex items-start gap-3">
-              <span className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#F871A0]/30 via-[#B474F9]/30 to-[#5CC5FF]/30 text-lg text-white">
-                ✦
-              </span>
-              <p className="text-base font-medium text-white">{item}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
 
   const renderFeaturesSection = () => {
     if (!hasDetails || product?.visibility?.features === false) {
@@ -465,11 +484,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                   const promotedFirstItem = !detail.description && rawItems.length > 0;
                   const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
                   const highlightItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
-                  const explicitButtonLabel = (typeof detail.buttonText === 'string' && detail.buttonText.trim().length > 0)
-                  ? detail.buttonText.trim()
-                  : undefined;
-                const normalizedTitle = detail.title?.trim();
-                const buttonLabel = explicitButtonLabel || (normalizedTitle ? `Try ${normalizedTitle} For Free` : undefined);
+                  const buttonLabel = 'Try Product For Free';
                 const buttonHrefRaw = detail.buttonLink?.trim();
                 const buttonHref = normalizeHref(buttonHrefRaw);
                 const isExternalButton = Boolean(buttonHrefRaw && buttonHrefRaw.startsWith('http'));
@@ -535,14 +550,13 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                           {renderSocialProofRow(detail)}
                         </div>
                         <div className={cn('w-full', isReversed ? 'lg:order-1' : 'lg:order-2')}>
-                          <div className="relative rounded-[36px] p-4 sm:p-6">
-                            <div className="rounded-[26px] p-4 sm:p-6">
+                          <div className="relative rounded-[36px] py-4 sm:py-6">
+                            <div className="rounded-[26px] py-4 sm:py-6">
                               {renderDetailMedia(detail, 'showcase')}
                             </div>
                           </div>
                         </div>
                       </div>
-                      {renderFeatureHighlightCards(highlightItems)}
                     </article>
                   );
                 })}
@@ -587,11 +601,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                 const promotedFirstItem = !detail.description && rawItems.length > 0;
                 const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
                 const bulletItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
-                const explicitButtonLabel = (typeof detail.buttonText === 'string' && detail.buttonText.trim().length > 0)
-                  ? detail.buttonText.trim()
-                  : undefined;
-                const normalizedTitle = detail.title?.trim();
-                const buttonLabel = explicitButtonLabel || (normalizedTitle ? `Try ${normalizedTitle} For Free` : undefined);
+                const buttonLabel = 'Try Product For Free';
                 const buttonHrefRaw = detail.buttonLink?.trim();
                 const buttonHref = normalizeHref(buttonHrefRaw);
                 const isExternalButton = Boolean(buttonHrefRaw && buttonHrefRaw.startsWith('http'));
