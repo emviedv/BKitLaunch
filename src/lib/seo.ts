@@ -243,7 +243,7 @@ export const routeMetadata: RouteMetadata = {
 export function generateMetadata(
   path: string, 
   contentData?: any, 
-  baseUrl: string = 'https://bibliokit.com'
+  baseUrl: string = 'https://www.bibliokit.com'
 ): SEOMetadata {
   const normalizedPath = path ? path.split('?')[0] : '/';
   const isBlogArticle = normalizedPath.startsWith('/blog/') && normalizedPath !== '/blog';
@@ -927,5 +927,49 @@ export function updatePageMetadata(metadata: SEOMetadata): void {
       canonical.href = metadata.canonical;
       document.head.appendChild(canonical);
     }
+  }
+
+  // Inject structured data for client-side navigations to keep JSON-LD aligned
+  try {
+    const structuredMarkup = generateStructuredData(metadata);
+    const existingScripts =
+      typeof document.querySelectorAll === 'function'
+        ? Array.from(document.querySelectorAll('script[data-structured-data="true"]'))
+        : [];
+    existingScripts.forEach((node) => {
+      if (typeof (node as any).remove === 'function') {
+        (node as any).remove();
+      }
+    });
+
+    if (structuredMarkup) {
+      const regex = /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi;
+      let match: RegExpExecArray | null;
+      let added = false;
+      while ((match = regex.exec(structuredMarkup)) !== null) {
+        const scriptEl = document.createElement('script');
+        scriptEl.type = 'application/ld+json';
+        if (typeof scriptEl.setAttribute === 'function') {
+          scriptEl.setAttribute('type', 'application/ld+json');
+        }
+        scriptEl.setAttribute('data-structured-data', 'true');
+        scriptEl.textContent = match[1];
+        document.head.appendChild(scriptEl);
+        added = true;
+      }
+
+      if (!added) {
+        const scriptEl = document.createElement('script');
+        scriptEl.type = 'application/ld+json';
+        if (typeof scriptEl.setAttribute === 'function') {
+          scriptEl.setAttribute('type', 'application/ld+json');
+        }
+        scriptEl.setAttribute('data-structured-data', 'true');
+        scriptEl.textContent = structuredMarkup;
+        document.head.appendChild(scriptEl);
+      }
+    }
+  } catch {
+    // Best-effort; avoid breaking navigation if JSON-LD serialization fails
   }
 }

@@ -1,10 +1,11 @@
 # BiblioKit AI Sitemap - Priority URLs for AI Crawlers
 # Updated: 2025-10-23
 
-https://bibliokit.com/ - BiblioKit SaaS Software & Figma Plugins with secure API management, comprehensive documentation, and world-class support for designers and developers
-https://bibliokit.com/product - Product overview with feature breakdowns, plan comparisons, and AI-enhanced workflows
-https://bibliokit.com/bibliokit-blocks - Design system analytics platform with AI insights for Figma component adoption
-https://bibliokit.com/ai-rename-variants - AI Rename Variants plugin page detailing automated layer naming for Figma teams
+https://www.bibliokit.com/ - Ship design work 10x faster with AI-ready Figma plugins, secure infra, and designer-first workflows
+https://www.bibliokit.com/ai-rename-variants - Batch-rename Figma variants in minutes, keep naming consistent, and unblock handoff instantly
+https://www.bibliokit.com/uxbiblio - Stand up a shared UX workspace 10x faster with reusable libraries and governance baked in
+https://www.bibliokit.com/blog/remove-prototype-links-in-figma - Retire stale prototype links and keep every stakeholder on the right build
+https://www.bibliokit.com/resources/remove-prototype-link - Audit, revoke, and replace broken prototype URLs in seconds
 
 # Key Features and Services
 # Secure API Management - Generate, manage, and secure API keys with enterprise-grade security
@@ -17,7 +18,7 @@ https://bibliokit.com/ai-rename-variants - AI Rename Variants plugin page detail
 # 2025 SEO & AI Readiness Notes
 # - Robots directives: index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1
 # - Structured data graph: Organization, WebSite, WebApplication, Product, CollectionPage
-# - Sitemap: https://bibliokit.com/sitemap.xml (updates hourly via Netlify function + IndexNow ping)
+# - Sitemap: https://www.bibliokit.com/sitemap.xml (updates hourly via Netlify function + IndexNow ping)
 # - AI access: robots.txt allows GPTBot, Google-Extended, CCBot for knowledge ingestion
 
 # Contact

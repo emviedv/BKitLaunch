@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
-import { useSchema, createProductSchema, createBreadcrumbSchema } from '@/lib/useSchema';
 import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import ProductContentSections from './ProductContentSections';
@@ -129,30 +128,11 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
   useEffect(() => {
     if (product) {
       const path = `/${slug}`;
-      const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://bibliokit.com';
+      const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
       const metadata = generateMetadata(path, effectiveContent, baseUrl);
       updatePageMetadata(metadata);
     }
   }, [product, slug, effectiveContent]);
-
-  const productSchema = product
-    ? createProductSchema(product)
-    : {
-        '@context': 'https://schema.org',
-        '@type': 'WebPage',
-        name: 'Product',
-        description: 'BiblioKit Product Page',
-      };
-
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://bibliokit.com';
-  const href = typeof window !== 'undefined' ? window.location.href : `${origin}/${slug}`;
-  const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: origin },
-    { name: 'Product', url: href },
-  ]);
-
-  useSchema(productSchema, `product-schema-${slug}`);
-  useSchema(breadcrumbSchema, `breadcrumb-schema-${slug}`);
 
   const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
 

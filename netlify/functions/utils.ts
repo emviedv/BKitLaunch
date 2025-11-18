@@ -1,4 +1,4 @@
-import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
+import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import { Client } from 'pg';
 
 const BASE_HEADERS: Record<string, string> = {
@@ -89,4 +89,3 @@ export const handleError = (error: unknown, context: string) => {
   console.error(`[${context}]`, error);
   return sendJSON(500, { error: message });
 };
-

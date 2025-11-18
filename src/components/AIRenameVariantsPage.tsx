@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
-import { useSchema, createProductSchema, createBreadcrumbSchema } from '@/lib/useSchema';
 import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import ProductContentSections from './ProductContentSections';
@@ -37,7 +36,7 @@ const AIRenameVariantsPage = () => {
 
   // Add schema and meta tags for the AI Rename Variants page
   useEffect(() => {
-    const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://bibliokit.com';
+    const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
     const metadata = generateMetadata('/ai-rename-variants', content, baseUrl);
     updatePageMetadata(metadata);
   }, [content]);
@@ -209,19 +208,6 @@ const AIRenameVariantsPage = () => {
     benefits: false,
     testimonials: false
   };
-
-  // Generate schemas
-  const productSchema = createProductSchema(product);
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://bibliokit.com';
-  const href = typeof window !== 'undefined' ? window.location.href : `${origin}/ai-rename-variants`;
-  const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: origin },
-    { name: 'AI Rename Variants', url: href }
-  ]);
-
-  // Inject schemas
-  useSchema(productSchema, 'ai-rename-variants-schema');
-  useSchema(breadcrumbSchema, 'breadcrumb-schema');
 
   // No AnswerBox; keep Expert Quote and Statistic through llm fields
 

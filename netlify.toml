@@ -2,8 +2,7 @@
   command = "npm run build"
   publish = "dist/client"
   functions = "netlify/functions"
-  # Temporarily disable SSR edge function to ensure CSS/JS from static build load correctly
-  # edge_functions = "netlify/edge-functions"
+  edge_functions = "netlify/edge-functions"
 
 [build.environment]
   NODE_VERSION = "18"
@@ -216,10 +215,9 @@
   port = 9989
   targetPort = 53173
 
-# Edge Functions configuration - temporarily disabled; restore after manifest path finalization
-# [[edge_functions]]
-#   function = "ssr"
-#   path = "/*"
+[[edge_functions]]
+  function = "ssr"
+  path = "/*"
 
 # Disable bot-detection since SSR handles bots properly
 # [[edge_functions]]

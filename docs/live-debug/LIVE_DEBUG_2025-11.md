@@ -847,3 +847,9 @@
 - **Root Cause:** `public/_redirects` lacked the `/sitemap.xml` rule, so Netlify fell through to the SPA catch-all and served `index.html`, triggering the “Sitemap is HTML” error.
 - **Changed Files:** public/_redirects
 - **Verification:** *(not run; after deploy, curl `https://www.bibliokit.com/sitemap.xml` and confirm a 200 response with `Content-Type: application/xml` and the URL entries instead of HTML)*
+
+- **Time:** 2025-11-17 19:59 EST
+- **Summary:** Re-enabled SSR edge rendering, aligned canonical host/assets, expanded sitemap and AI sitemap coverage, and injected JSON-LD on client navigations to restore SEO signals.
+- **Root Cause:** Bots were served the SPA shell without route-specific metadata because the SSR edge function was disabled; the sitemap/AI sitemap pointed at dead URLs and missed live pages; OG/logo assets referenced in meta tags were missing; client navigations dropped structured data.
+- **Changed Files:** netlify.toml; netlify/functions/sitemap.ts; public/llms.txt; public/robots.txt; public/og/og-default.svg; public/logo.svg; index.html; src/lib/seo.ts; src/components/AIRenameVariantsPage.tsx; src/components/DynamicProductPage.tsx; tests/unit/sitemap.spec.ts; tests/unit/updatePageMetadataStructuredData.spec.ts; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** `node --test tests/unit/sitemap.spec.ts tests/unit/updatePageMetadataStructuredData.spec.ts` (pass); *(post-deploy: curl key routes like `/ai-rename-variants` and `/blog/remove-prototype-links-in-figma` to confirm SSR HTML carries canonical + JSON-LD and OG assets resolve at 200)*
