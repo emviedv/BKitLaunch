@@ -1101,3 +1101,15 @@
 - **Root Cause:** Blog FAQ items used plain text without numbered markers, so numbers were not visible in that context.
 - **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
 - **Verification:** *(not run; open any blog article with FAQs and confirm each question displays a numbered badge on the left)* 
+
+- **Time:** 2025-11-22 17:40 EST
+- **Summary:** Removed avatar stacks and statistic blocks from product sections so they only show feature content and testimonials without profile imagery or stat callouts.
+- **Root Cause:** Product sections were still surfacing avatars and stats that are no longer desired in the layout.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open any product page and confirm feature cards no longer show avatar rows and the stats section no longer appears above the benefits/testimonials)*
+
+- **Time:** 2025-11-22 18:20 EST
+- **Summary:** Renamed the landing product card to “BiblioClean: Remove Prototype Links & Blue Lines,” refreshed its copy and CTA, and added the new BiblioClean Figma link to the header dropdown.
+- **Root Cause:** The landing card and header still referenced the older “Remove Plugin Links” name and URL, missing the updated BiblioClean messaging and install link.
+- **Changed Files:** src/data/products.json; src/components/Header.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the landing product grid to see the BiblioClean title, bullets, and CTA pointing to the new Figma link, and check the header Resources/Plugins dropdown for the external BiblioClean plugin link)*

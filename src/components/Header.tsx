@@ -102,9 +102,9 @@ const Header = () => {
     label: 'Resources',
     children: [
       {
-        label: 'Remove Prototype Links (Figma Plugin)',
-        href: 'https://www.figma.com/community/plugin/remove-prototype-links',
-        description: 'Install the plugin to strip stale prototype links directly inside Figma.',
+        label: 'BiblioClean: Remove Prototype Links & Blue Lines',
+        href: 'https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines',
+        description: 'Install BiblioClean to wipe blue lines with one click and guardrails for shared components.',
         icon: 'plug',
         isExternal: true,
       }

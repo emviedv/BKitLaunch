@@ -59,6 +59,13 @@
             "icon": "✨"
           },
           {
+            "label": "BiblioClean: Remove Prototype Links & Blue Lines",
+            "href": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
+            "isExternal": true,
+            "description": "Strip blue lines and prototype noodles in one click with guardrails for shared components.",
+            "icon": "broom"
+          },
+          {
             "label": "Component Auditor",
             "href": "/component-auditor-figma-plugin",
             "description": "Audit component naming, coverage, and structure across Figma files in minutes.",
@@ -117,21 +124,23 @@
     },
     {
       "icon": "🧹",
-      "idea": "Revoke stale prototype links before they leak context.",
+      "idea": "Stop manually removing blue lines.",
       "badge": "New",
-      "title": "Remove Plugin Links",
+      "title": "BiblioClean: Remove Prototype Links & Blue Lines",
       "badges": [],
       "topItems": [
-        "Scan every share URL and map owners before you revoke access.",
-        "Replace dead prototype links with updated builds automatically.",
-        "Notify research and engineering with ready-to-send updates."
+        "Deep Cleaning: Remove prototype navigation links, external URLs, and hotspot interactions.",
+        "Safety Guardrails: Warn on shared components before you break a Design System master.",
+        "Smart Scope: Clean your Current Selection or wipe the Entire Page in one click.",
+        "Time Saved Tracker: See exactly how much manual clean-up you avoided.",
+        "History & Undo: Review removed links and roll back instantly."
       ],
       "showBadge": true,
       "badgeColor": "#0ea5e9",
-      "buttonLink": "https://www.figma.com/community/plugin/remove-prototype-links",
-      "buttonText": "Try Plugin For Free",
+      "buttonLink": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
+      "buttonText": "Install BiblioClean",
       "isFeatured": false,
-      "description": "Figma plugin that cleans up prototype links fast—audit every share URL, shut down risky tokens, and swap in the right file without slowing launch teams.",
+      "description": "BiblioClean is the professional, free BiblioKit utility for wiping prototype noodles in one click—perfect for client reviews, dev handoff, and system hygiene. Safety guardrails protect shared components while you clean your selection or entire page and log every removal so you can undo anytime.",
       "buttonPreset": "custom"
     },
     {

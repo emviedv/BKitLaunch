@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import ContentChunk from './ContentChunk';
 import ExpertQuote from './ExpertQuote';
-import StatBox from './StatBox';
 import FAQSchema from './FAQSchema';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -30,18 +29,6 @@ type ProductDetail = {
   mediaProgress?: FeatureProgressConfig;
 };
 type ProductSpec = { icon: string; name: string; value: string };
-type ProductStatistic = {
-  statistic?: string;
-  description?: string;
-  source?: string;
-  date?: string;
-};
-type ResolvedProductStatistic = {
-  statistic: string;
-  description: string;
-  source: string;
-  date: string;
-};
 
 type ProductLike = {
   llm?: {
@@ -51,8 +38,6 @@ type ProductLike = {
       expertTitle?: string;
       institution?: string;
     };
-    statistics?: ProductStatistic[];
-    statistic?: ProductStatistic;
   };
   details?: ProductDetail[];
   benefits?: string[];
@@ -66,7 +51,6 @@ type ProductLike = {
   }>;
   visibility?: { 
     expertQuote?: boolean;
-    statistic?: boolean;
     features?: boolean;
     benefits?: boolean;
     specifications?: boolean;
@@ -156,37 +140,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
   };
 
   const hasExpertQuote = Boolean(expertQuote.quote);
-
-  const statisticEntries: ResolvedProductStatistic[] = (() => {
-    const list = Array.isArray(product?.llm?.statistics) ? product?.llm?.statistics : [];
-    const normalized = list
-      .filter(Boolean)
-      .map((entry) => ({
-        statistic: entry?.statistic || '',
-        description: entry?.description || '',
-        source: entry?.source || '',
-        date: entry?.date || ''
-      }));
-    if (normalized.length > 0) {
-      return normalized;
-    }
-    const fallback = product?.llm?.statistic;
-    if (!fallback) {
-      return [];
-    }
-    return [
-      {
-        statistic: fallback.statistic || '',
-        description: fallback.description || '',
-        source: fallback.source || '',
-        date: fallback.date || ''
-      }
-    ];
-  })();
-
-  const hasStatistic = statisticEntries.some(
-    (entry) => Boolean(entry.statistic) || Boolean(entry.description)
-  );
 
   const details: ProductDetail[] | undefined = (detailsOverride && detailsOverride.length > 0)
     ? detailsOverride
@@ -324,10 +277,9 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
         benefitsCount: benefits?.length || 0,
         testimonialsColumns,
         testimonialsCount: Array.isArray(product?.testimonials) ? product.testimonials.length : 0,
-        statisticsCount: statisticEntries.length,
       });
     } catch {}
-  }, [details, useCasesColumns, benefits, testimonialsColumns, product?.testimonials, statisticEntries.length]);
+  }, [details, useCasesColumns, benefits, testimonialsColumns, product?.testimonials]);
 
   const getGridClassesForColumns = (cols: number): string => {
     switch (cols) {
@@ -382,68 +334,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
         ))}
       </ul>
     </nav>
-  );
-
-  const avatarPrimary = [
-    { alt: 'Portrait of a designer', src: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
-    { alt: 'Portrait of a product manager', src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
-    { alt: 'Portrait of an engineer', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
-    { alt: 'Portrait of a researcher', src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' }
-  ];
-
-  const avatarFallbacks = [
-    { alt: 'Fallback portrait', src: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
-    { alt: 'Fallback portrait', src: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
-    { alt: 'Fallback portrait', src: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' },
-    { alt: 'Fallback portrait', src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=facearea&facepad=3&w=160&h=160&q=80' }
-  ];
-
-  const avatarImages = avatarPrimary;
-
-  const resolveCardSocialProof = (detail: ProductDetail): string => {
-    const source = `${detail.title || ''} ${product?.title || ''}`.toLowerCase();
-    const rules: Array<{ match: RegExp; quote: string }> = [
-      { match: /(rename|variants?)/, quote: '1,283 components fixed' },
-      { match: /(audit|auditor|coverage)/, quote: '96% issues caught in one scan' },
-      { match: /(blocks|analytics|library)/, quote: '10+ hours saved on reporting' },
-      { match: /(uxbiblio|pattern|library)/, quote: '2,400+ patterns organized' },
-    ];
-
-    const matched = rules.find(({ match }) => match.test(source));
-    if (matched) return matched.quote;
-    return '12+ hours saved every week';
-  };
-
-  const renderSocialProofRow = (detail: ProductDetail) => (
-    <div className="flex flex-col gap-4 text-left sm:flex-row sm:items-center sm:justify-start">
-      <div className="flex -space-x-3">
-        {avatarImages.map(({ src, alt }, idx) => (
-          <span
-            key={src}
-            aria-hidden="true"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-white/30 shadow-sm overflow-hidden"
-          >
-            <img
-              src={src}
-              alt={alt}
-              className="h-11 w-11 object-cover"
-              onError={(event) => {
-                const target = event.currentTarget;
-                if (target.dataset.fallbackApplied === 'true') return;
-                const fallback = avatarFallbacks[idx] || avatarFallbacks[0];
-                target.dataset.fallbackApplied = 'true';
-                target.src = fallback.src;
-                target.alt = fallback.alt;
-              }}
-            />
-          </span>
-        ))}
-      </div>
-      <div className="flex flex-col gap-1 text-white">
-        <span aria-hidden="true" className="text-[#FFCE8B] text-base font-semibold leading-none">★★★★★</span>
-        <span className="text-base font-semibold leading-tight">{resolveCardSocialProof(detail)}</span>
-      </div>
-    </div>
   );
 
   const renderFeaturesSection = () => {
@@ -553,7 +443,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                               </Button>
                             </div>
                           )}
-                          {renderSocialProofRow(detail)}
                         </div>
                         <div className={cn('w-full', isReversed ? 'lg:order-1' : 'lg:order-2')}>
                           <div className="relative rounded-[36px] py-4 sm:py-6">
@@ -715,7 +604,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
   return (
     <>
       {(() => {
-        const defaultOrder = ['expertQuote','statistic','features','benefits','testimonials','faqs'];
+        const defaultOrder = ['expertQuote','features','benefits','testimonials','faqs'];
         const rawOrder = Array.isArray((product as any)?.sectionsOrder) ? (product as any).sectionsOrder : [];
         const valid = defaultOrder.filter((k) => rawOrder.includes(k));
         const renderOrder = valid.concat(defaultOrder.filter((k) => !valid.includes(k)));
@@ -725,23 +614,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
             <section className="py-16 landing-sections-gradient" key="expert">
               <div className={buildContainerClass('max-w-4xl')}>
                 <ExpertQuote {...expertQuote} />
-              </div>
-            </section>
-          ) : null,
-          statistic: (hasStatistic && product?.visibility?.statistic !== false) ? (
-            <section className="py-16 landing-sections-gradient" key="stat">
-              <div className={buildContainerClass()}>
-                <div className={cn(getGridClassesForCount(statisticEntries.length))}>
-                  {statisticEntries.map((entry, index) => (
-                    <StatBox
-                      key={`${entry.statistic}-${index}`}
-                      statistic={entry.statistic}
-                      description={entry.description}
-                      source={entry.source}
-                      date={entry.date}
-                    />
-                  ))}
-                </div>
               </div>
             </section>
           ) : null,
@@ -795,18 +667,9 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                       <div className="relative h-full rounded-3xl border border-white/10 bg-[#080213]/75 p-6 shadow-[0_30px_80px_rgba(3,0,12,0.6)]">
                         <div className="text-left">
                           <p className="italic text-white mb-4">“{t.quote}”</p>
-                          <div className="flex items-center gap-3">
-                            {t.avatarUrl ? (
-                              <img src={t.avatarUrl} alt={`${t.author} avatar`} className="w-10 h-10 rounded-full object-cover" />
-                            ) : (
-                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#f871a0]/40 via-[#b970ff]/40 to-[#5bceff]/40 flex items-center justify-center text-white">
-                                <span className="text-sm font-semibold">{(t.author || '?').slice(0, 1)}</span>
-                              </div>
-                            )}
-                            <div>
-                              <div className="font-semibold text-white">{t.author}</div>
-                              <div className="text-sm text-white/60">{[t.role, t.company].filter(Boolean).join(' • ')}</div>
-                            </div>
+                          <div className="space-y-1">
+                            <div className="font-semibold text-white">{t.author}</div>
+                            <div className="text-sm text-white/60">{[t.role, t.company].filter(Boolean).join(' • ')}</div>
                           </div>
                         </div>
                       </div>

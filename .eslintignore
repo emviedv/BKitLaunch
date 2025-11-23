@@ -1,0 +1,9 @@
+node_modules
+dist
+public
+archives
+logs
+test-results
+tmp
+coverage
+*.config.ts.timestamp-*
