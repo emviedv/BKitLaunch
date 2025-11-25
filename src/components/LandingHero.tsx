@@ -404,7 +404,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
                 <stop offset="100%" stopColor="#64748b" stopOpacity="0.8" />
               </linearGradient>
             </defs>
-            {/* Line from Note (Blob1) to Logic (Blob2) */}
+            {/* Line from Note (Blob1) to UX (Blob2) */}
             <path
               d={createCurve(b1, b2)}
               stroke="url(#flow-gradient)"
@@ -414,7 +414,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
               strokeLinecap="round"
               className="animate-dash-flow"
             />
-            {/* Line from Logic (Blob2) to Media (Blob3) */}
+            {/* Line from UX (Blob2) to Media (Blob3) */}
             <path
               d={createCurve(b2, b3)}
               stroke="#94a3b8"
@@ -422,7 +422,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
               strokeLinecap="round"
               fill="none"
             />
-            {/* Line from Sticky (Blob4) to Logic (Blob2) */}
+            {/* Line from Sticky (Blob4) to UX (Blob2) */}
             <path
               d={createCurve(b4, b2)}
               stroke="#94a3b8"
@@ -457,7 +457,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
             }}
           >
             <div className="transform -rotate-45 text-center pointer-events-none">
-              <div className="font-bold text-indigo-900/50 text-sm uppercase tracking-wider">Logic</div>
+              <div className="font-bold text-indigo-900/50 text-sm uppercase tracking-wider">UX</div>
             </div>
           </div>
 
@@ -486,7 +486,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
               top: `${pos.blob4.y}%`,
             }}
           >
-            <p className="font-handwriting text-purple-800 text-lg leading-tight pointer-events-none select-none">Don't forget to sync the assets!</p>
+            <p className="font-handwriting text-purple-800 text-lg leading-tight pointer-events-none select-none">Remember to create new variants!</p>
 
             <div className="absolute -bottom-8 -right-8 bg-white px-3 py-1.5 rounded-tl-xl rounded-br-xl rounded-bl-sm shadow-lg border border-slate-100 flex items-center gap-2 pointer-events-none">
               <div className="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold">P</div>
@@ -526,7 +526,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
           transform: translateZ(10px);
         }
         .font-handwriting {
-          font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+          font-family: 'Satoshi', 'Inter', 'Inter_Variable', system-ui, sans-serif;
         }
         @keyframes hover-gentle {
           0%, 100% { transform: rotateX(55deg) rotateZ(-45deg) translateY(0px); }

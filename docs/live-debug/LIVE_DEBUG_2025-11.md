@@ -2,6 +2,18 @@
 
 ## 2025-11-25
 
+- **Time:** 2025-11-25 03:10 EST
+- **Summary:** Expanded the Netlify sitemap to cover deep product/blog/resource URLs with `<lastmod>` dates and image metadata so Google can crawl the full surface area.
+- **Root Cause:** The sitemap only listed a handful of top-level paths and omitted per-page freshness and images, preventing discovery of individual blog posts and product visuals.
+- **Changed Files:** netlify/functions/sitemap.ts; src/data/blogPosts.ts; src/data/products.json
+- **Verification:** *(not run; fetch `/sitemap.xml` and confirm blog/product/resource URLs include `<lastmod>` plus `<image:image>` entries with the expected hero/cover assets.)*
+
+- **Time:** 2025-11-25 03:07 EST
+- **Summary:** Matched the landing content sections’ horizontal padding to the hero gutters by reusing the shared section-content container for the compact layout.
+- **Root Cause:** The landing content layout used a narrower custom width/padding than the hero, leaving the feature stack inset relative to the hero’s left/right gutters.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** *(not run; visually confirm the landing product sections align with the hero’s left/right padding in the shared gradient background.)*
+
 - **Time:** 2025-11-25 02:04 EST
 - **Summary:** Swapped BiblioTable’s product card art to the provided Figma cover image.
 - **Root Cause:** Product card still showed the older UI illustration instead of the latest marketing cover.
@@ -1341,3 +1353,17 @@
 - **Root Cause:** The landing sections used a different gradient, causing a jarring shift from the hero background to the content area.
 - **Changed Files:** src/index.css; docs/live-debug/LIVE_DEBUG_2025-11.md
 - **Verification:** *(not run; view the landing sections to confirm the background matches the hero gradient across content blocks)*
+
+## 2025-11-25
+
+- **Time:** 2025-11-25 02:45:58 EST
+- **Summary:** Updated the hero diamond label to display “UX” across both hero illustrations so the visual reflects the requested naming.
+- **Root Cause:** The hero diamond still read “Logic,” conflicting with the intended UX labeling.
+- **Changed Files:** src/components/OrigamiHeroVisual.tsx; src/components/LandingHero.tsx
+- **Verification:** *(not run; copy-only label update)*
+
+- **Time:** 2025-11-25 02:52:18 EST
+- **Summary:** Updated the sticky note hero text to “Remember to create new variants!” and switched the handwriting font to Satoshi across both hero illustrations.
+- **Root Cause:** Sticky note copy and handwriting styling still referenced the old “sync the assets” message and Comic Sans fallback instead of the requested text and font.
+- **Changed Files:** src/components/OrigamiHeroVisual.tsx; src/components/LandingHero.tsx
+- **Verification:** *(not run; copy-only text + font-family update)*

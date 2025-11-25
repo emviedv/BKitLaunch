@@ -93,18 +93,20 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
   compactLayout = false,
   enableFeaturesNav = false
 }) => {
+  const landingGutterClass = 'section-content';
+  const standardContainerClass = 'mx-auto w-full max-w-6xl px-6 md:px-10';
   const buildContainerClass = (...extra: Array<string | false | undefined>) =>
     cn(
       compactLayout
-        ? 'mx-auto w-11/12 sm:w-5/6 md:w-[70%] px-6 md:px-10'
-        : 'mx-auto w-full max-w-6xl px-6 md:px-10',
+        ? landingGutterClass
+        : standardContainerClass,
       ...extra
     );
   const buildSectionContentClass = (...extra: Array<string | false | undefined>) =>
     cn(
       compactLayout
-        ? 'mx-auto w-11/12 sm:w-5/6 md:w-[70%] px-6 md:px-10'
-        : 'mx-auto w-full max-w-6xl px-6 md:px-10',
+        ? landingGutterClass
+        : standardContainerClass,
       ...extra
     );
   const normalizeHref = (href?: string) => {

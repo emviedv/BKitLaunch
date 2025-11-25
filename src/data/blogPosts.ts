@@ -16,6 +16,7 @@ export type BlogPost = {
   excerpt: string;
   heroImage: string;
   heroImageAlt: string;
+  lastUpdated?: string;
   metaTitle?: string;
   metaDescription?: string;
   content?: BlogContentBlock[];
@@ -628,6 +629,7 @@ export const BLOG_POSTS: BlogPost[] = [
       'Figma makes it easy to build polished interfaces and prototypes. As files evolve, you may need to strip prototype links to refresh interactions or start clean while keeping your workflow smooth.',
     heroImage: buildHeroImagePath('remove-prototype-links/hero-abstract.svg'),
     heroImageAlt: 'Abstract interface blocks illustration',
+    lastUpdated: '2025-11-17',
     metaTitle: 'Remove Figma Prototype Links: A Guide by BiblioKit (2025)',
     metaDescription:
       'Figma makes it easy to build polished interfaces and prototypes. As files evolve, you may need to strip prototype links to refresh interactions or start clean while keeping your workflow smooth.',
@@ -643,6 +645,7 @@ export const BLOG_POSTS: BlogPost[] = [
       'Master design system guidelines to enhance brand consistency, streamline processes, and boost collaboration. Learn best practices for creating and implementing an effective design system.',
     heroImage: buildHeroImagePath('design-systems-card.svg'),
     heroImageAlt: 'Design system guidelines overview showing components and principles',
+    lastUpdated: '2025-11-24',
     metaTitle: 'Mastering Design System Guidelines: Best Practices',
     metaDescription:
       'Master design system guidelines to enhance brand consistency, streamline processes, and boost collaboration. Learn best practices for creating and implementing an effective design system.',
@@ -658,6 +661,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "In today's fast-paced digital world, user experience (UX) is more important than ever. Companies need to create products that not only meet the functional needs of their users but also provide an intuitive and enjoyable experience.",
     heroImage: buildHeroImagePath('design-systems-card.svg'),
     heroImageAlt: 'Atlassian Design System concepts displayed across interface components',
+    lastUpdated: '2025-11-24',
     metaTitle: 'Enhancing User Experience with Atlassian Design System',
     metaDescription:
       "In today's fast-paced digital world, user experience (UX) is more important than ever. Companies need to create products that not only meet the functional needs of their users but also provide an intuitive and enjoyable experience.",

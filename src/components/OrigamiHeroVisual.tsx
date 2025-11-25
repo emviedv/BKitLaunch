@@ -92,12 +92,12 @@ const OrigamiHeroVisual: React.FC = () => {
           <div className="h-2 w-14 rounded-full bg-orange-900/15" />
         </div>
 
-        {/* Logic diamond */}
+        {/* UX diamond */}
         <div
           className="origami-visual__card origami-visual__card--logic"
           style={{ left: `${nodes[1].x}%`, top: `${nodes[1].y}%`, width: nodes[1].w, height: nodes[1].h }}
         >
-          <div className="-rotate-45 text-center text-sm font-semibold tracking-[0.12em] text-indigo-900/70">Logic</div>
+          <div className="-rotate-45 text-center text-sm font-semibold tracking-[0.12em] text-indigo-900/70">UX</div>
         </div>
 
         {/* Media card */}
@@ -119,7 +119,7 @@ const OrigamiHeroVisual: React.FC = () => {
           style={{ left: `${nodes[3].x}%`, top: `${nodes[3].y}%`, width: nodes[3].w, height: nodes[3].h }}
         >
           <StickyNote className="h-12 w-12 text-purple-500" />
-          <p className="origami-visual__handwriting">Don&apos;t forget to sync the assets!</p>
+          <p className="origami-visual__handwriting">Remember to create new variants!</p>
           <div className="origami-visual__author">
             <span className="origami-visual__avatar">P</span>
             <span className="text-xs font-medium text-slate-600">Paul</span>
@@ -224,7 +224,7 @@ const OrigamiHeroVisual: React.FC = () => {
           transform: translate(-50%, -50%) rotate(-3deg);
         }
         .origami-visual__handwriting {
-          font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+          font-family: 'Satoshi', 'Inter', 'Inter_Variable', system-ui, sans-serif;
           font-size: 16px;
           color: #6b21a8;
           line-height: 1.3;
