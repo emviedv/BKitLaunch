@@ -1487,3 +1487,9 @@
 - **Root Cause:** The Netlify Emails integration generated a CommonJS function inside a `type: module` repo, triggering an esbuild warning during functions bundling.
 - **Changed Files:** netlify/plugins/fix-email-cjs/index.cjs; netlify/plugins/fix-email-cjs/manifest.yml; netlify.toml
 - **Verification:** `netlify deploy --build --prod` (production) now completes without the CommonJS exports warning; latest deploy ID 692631c4df0341dfcf7fa183.
+
+- **Time:** 2025-11-25 18:03:56 EST
+- **Summary:** Updated product status badges to reflect launches: BiblioAudit and UXBiblio marked Launched; BiblioStart and BiblioTable marked Coming Soon.
+- **Root Cause:** Product grid statuses were outdated relative to current launch states.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only—view product grid to confirm updated badge labels/colors)*

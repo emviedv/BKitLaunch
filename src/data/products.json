@@ -110,8 +110,8 @@
     {
       "icon": "🔍",
       "idea": "Stop shipping broken files.",
-      "badge": "Coming Soon",
-      "category": "Coming Soon",
+      "badge": "Launched",
+      "category": "Launched",
       "title": "BiblioAudit",
       "tagline": "Find Detached Instances & Design System Check",
       "badges": [],
@@ -122,8 +122,8 @@
         "Flag dirty overrides, heavy deviations, and deprecated components.",
         "Spot underused and rogue components with usage analytics."
       ],
-      "showBadge": false,
-      "badgeColor": "#8b5cf6",
+      "showBadge": true,
+      "badgeColor": "#0ea5e9",
       "buttonLink": "https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit",
       "buttonText": "Install BiblioAudit",
       "isFeatured": false,
@@ -163,8 +163,8 @@
     {
       "icon": "🗂️",
       "idea": "Launch projects with zero setup drag.",
-      "badge": "Beta",
-      "category": "Beta",
+      "badge": "Coming Soon",
+      "category": "Coming Soon",
       "title": "BiblioStart",
       "tagline": "Project Setup & File Scaffolding",
       "badges": [],
@@ -175,7 +175,7 @@
         "Starter checklists for designers, developers, and PMs so teams move in sync."
       ],
       "showBadge": true,
-      "badgeColor": "#f59e0b",
+      "badgeColor": "#8b5cf6",
       "buttonLink": "https://blocks.bibliokit.com/signup",
       "buttonText": "Generate Starter",
       "isFeatured": false,
@@ -189,8 +189,8 @@
     {
       "icon": "📊",
       "idea": "The Table Fixer.",
-      "badge": "Launched",
-      "category": "Launched",
+      "badge": "Coming Soon",
+      "category": "Coming Soon",
       "title": "BiblioTable",
       "badges": [],
       "topItems": [
@@ -199,7 +199,7 @@
         "Generate zebra striping for any auto-layout table."
       ],
       "showBadge": true,
-      "badgeColor": "#10b981",
+      "badgeColor": "#8b5cf6",
       "buttonLink": "https://blocks.bibliokit.com/signup",
       "buttonText": "Fix My Table",
       "isFeatured": false,
@@ -213,8 +213,8 @@
     {
       "icon": "🛒",
       "idea": "Your personal UX library for patterns and ideas.",
-      "badge": "Coming Soon",
-      "category": "Coming Soon",
+      "badge": "Launched",
+      "category": "Launched",
       "title": "UXBiblio",
       "badges": [],
       "topItems": [
@@ -225,7 +225,7 @@
         "Add notes + insights"
       ],
       "showBadge": true,
-      "badgeColor": "#8b5cf6",
+      "badgeColor": "#0ea5e9",
       "buttonLink": "https://uxbiblio.com",
       "buttonText": "Learn More",
       "isFeatured": true,
