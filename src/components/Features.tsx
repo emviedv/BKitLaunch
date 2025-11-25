@@ -10,6 +10,7 @@ type FeatureLike = {
   description?: string;
   idea?: string;
   badge?: string;
+  category?: string;
   badgeColor?: string;
   badges?: Array<{ label: string; color?: string; type?: string }>;
   topItems?: string[];
@@ -71,6 +72,34 @@ const Features: React.FC = () => {
     (feature) => Boolean(feature?.title) && !shouldHideFeature(feature)
   );
 
+  const getCategoryPill = (feature: FeatureLike) => {
+    const key = (feature?.category || feature?.badge || '').trim().toLowerCase();
+    if (!key) return null;
+
+    if (key.startsWith('launch')) {
+      return {
+        label: 'Launched',
+        classes: 'border-emerald-200/80 bg-emerald-50/80 text-emerald-700',
+        dot: 'bg-emerald-500',
+      };
+    }
+    if (key.startsWith('coming')) {
+      return {
+        label: 'Coming Soon',
+        classes: 'border-amber-200/80 bg-amber-50/80 text-amber-800',
+        dot: 'bg-amber-500',
+      };
+    }
+    if (key.startsWith('beta')) {
+      return {
+        label: 'Beta',
+        classes: 'border-indigo-200/80 bg-indigo-50/80 text-indigo-700',
+        dot: 'bg-indigo-500',
+      };
+    }
+    return null;
+  };
+
   if (
     filteredFeatures.length === 0 &&
     !(featuresSection?.title || featuresSection?.description)
@@ -114,8 +143,23 @@ const Features: React.FC = () => {
                       <FeatureIcon className="h-6 w-6" strokeWidth={1.75} />
                     </span>
                   </div>
-                <div className="landing-features-badges flex gap-2 text-xs">{renderBadges(feature)}</div>
-              </div>
+            <div className="landing-features-badges flex gap-2 text-xs">{renderBadges(feature)}</div>
+          </div>
+
+                {(() => {
+                  const category = getCategoryPill(feature);
+                  if (!category) return null;
+                  return (
+                    <div className="mb-2">
+                      <span
+                        className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold tracking-tight ${category.classes}`}
+                      >
+                        <span className={`h-1.5 w-1.5 rounded-full ${category.dot}`} />
+                        {category.label}
+                      </span>
+                    </div>
+                  );
+                })()}
 
                 <h3 className="landing-features-card-title text-xl font-semibold text-title-darkest">{feature.title}</h3>
                 {feature.tagline && (

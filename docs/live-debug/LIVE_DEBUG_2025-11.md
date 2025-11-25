@@ -2,6 +2,78 @@
 
 ## 2025-11-25
 
+- **Time:** 2025-11-25 17:06 EST
+- **Summary:** Added launch/beta pills above landing product titles so statuses are visible on every card.
+- **Root Cause:** Landing product cards were missing badge pills, leaving designers, developers, and marketers without a quick status cue for each product.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; src/components/ProductContentSections.tsx
+- **Verification:** *(not run; visually confirm each landing product card shows a status pill above the title with the correct label and tint.)*
+
+- **Time:** 2025-11-25 12:45 EST
+- **Summary:** Removed the white background on the shared landing hero illustration so it renders transparently over page gradients.
+- **Root Cause:** The Origami hero visual used a semi-opaque white backdrop, leaving a visible box behind the illustration on landing surfaces.
+- **Changed Files:** src/components/OrigamiIllustration.tsx
+- **Verification:** *(not run; visually confirm the landing hero illustration no longer shows a white background and blends with the gradient.)*
+
+- **Time:** 2025-11-25 12:55 EST
+- **Summary:** Added 24px more vertical spacing between product feature cards to reduce visual crowding across landing and product pages.
+- **Root Cause:** Product cards sat too close together, making the features section feel cramped.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** *(not run; visually confirm increased gaps between product cards in both landing and product feature sections.)*
+
+- **Time:** 2025-11-25 13:05 EST
+- **Summary:** Centered the hero illustration within its dotted container while keeping animations intact and avoiding shifts to feature cards.
+- **Root Cause:** The shared hero illustration was anchored to the container edge, making the dotted background feel off-center after removing its white backdrop.
+- **Changed Files:** src/components/OrigamiIllustration.tsx
+- **Verification:** *(not run; visually confirm the illustration sits centered within the dotted background, cursors/line animations still run, and product/feature cards remain in place.)*
+
+- **Time:** 2025-11-25 13:22 EST
+- **Summary:** Re-centered the hero illustration cluster and enlarged the green card so connectors tuck beneath it.
+- **Root Cause:** The origami cluster sat left of center and the green card was too small to cover the flow connector.
+- **Changed Files:** src/components/OrigamiIllustration.tsx
+- **Verification:** *(not run; visually confirm the illustration is centered within the dotted container and the green card overlaps its connector.)*
+
+- **Time:** 2025-11-25 13:32 EST
+- **Summary:** Reverted the hero illustration to its original layout.
+- **Root Cause:** Centering and sizing tweaks misaligned the illustration and exposed connectors; original layout requested instead.
+- **Changed Files:** src/components/OrigamiIllustration.tsx
+- **Verification:** *(not run; visually confirm the illustration matches the original layout.)*
+
+- **Time:** 2025-11-25 13:38 EST
+- **Summary:** Re-applied the centered hero illustration and larger green card after undoing the revert.
+- **Root Cause:** Centering/scale adjustments were reverted but need to stay live.
+- **Changed Files:** src/components/OrigamiIllustration.tsx
+- **Verification:** *(not run; visually confirm the illustration is centered with the dotted background and the green card overlaps its connector.)*
+
+- **Time:** 2025-11-25 13:46 EST
+- **Summary:** Restyled hero connectors to mimic Figma prototype connectors with rounded dashed lines, subtle glow, and endpoint dots.
+- **Root Cause:** Connector strokes looked generic and didn’t match Figma-style prototype links.
+- **Changed Files:** src/components/OrigamiIllustration.tsx
+- **Verification:** *(not run; visually confirm connectors show rounded dashed/solid strokes with endpoint dots and existing animations remain.)*
+
+- **Time:** 2025-11-25 13:55 EST
+- **Summary:** Slimmed connector strokes and enlarged endpoint dots to fully cap the lines.
+- **Root Cause:** Connectors were too thick and the dots didn’t cover the line ends.
+- **Changed Files:** src/components/OrigamiIllustration.tsx
+- **Verification:** *(not run; visually confirm thinner strokes with dots fully covering line ends while animations remain intact.)*
+
+- **Time:** 2025-11-25 14:03 EST
+- **Summary:** Simplified hero connectors to solid strokes without glow or dashes while keeping endpoint dots.
+- **Root Cause:** Glow and dashed styling weren’t desired for the prototype-like connectors.
+- **Changed Files:** src/components/OrigamiIllustration.tsx
+- **Verification:** *(not run; visually confirm solid connector strokes with dots capping ends; animations intact.)*
+
+- **Time:** 2025-11-25 14:10 EST
+- **Summary:** Removed the interior lines from the orange document card in the hero illustration.
+- **Root Cause:** The orange doc card had extra line accents that weren’t desired.
+- **Changed Files:** src/components/OrigamiIllustration.tsx
+- **Verification:** *(not run; visually confirm the orange doc card shows only the pill icon without extra lines.)*
+
+- **Time:** 2025-11-25 14:14 EST
+- **Summary:** Increased the orange document icon size by ~20% for better legibility.
+- **Root Cause:** The document icon was undersized after removing the supporting lines.
+- **Changed Files:** src/components/OrigamiIllustration.tsx
+- **Verification:** *(not run; visually confirm the orange icon is larger while the card remains line-free.)*
+
 - **Time:** 2025-11-25 03:10 EST
 - **Summary:** Expanded the Netlify sitemap to cover deep product/blog/resource URLs with `<lastmod>` dates and image metadata so Google can crawl the full surface area.
 - **Root Cause:** The sitemap only listed a handful of top-level paths and omitted per-page freshness and images, preventing discovery of individual blog posts and product visuals.
@@ -1367,3 +1439,45 @@
 - **Root Cause:** Sticky note copy and handwriting styling still referenced the old “sync the assets” message and Comic Sans fallback instead of the requested text and font.
 - **Changed Files:** src/components/OrigamiHeroVisual.tsx; src/components/LandingHero.tsx
 - **Verification:** *(not run; copy-only text + font-family update)*
+
+- **Time:** 2025-11-25 12:16:39 EST
+- **Summary:** Renamed floating cursor labels to Nellie, Jennifer, and Emily and added a new Jose cursor animation across both hero visuals.
+- **Root Cause:** Floating collaborator names were outdated and the Jose cursor animation was missing from the hero experiences.
+- **Changed Files:** src/components/OrigamiHeroVisual.tsx; src/components/LandingHero.tsx
+- **Verification:** *(not run; copy/animation tweaks only—view hero to confirm updated names and new Jose cursor path)*
+
+- **Time:** 2025-11-25 12:41:14 EST
+- **Summary:** Centralized hero cursor and sticky note names into a shared TSX reference so both illustrations pull from one source of truth.
+- **Root Cause:** Names were duplicated across hero components, requiring multiple updates for any collaborator label changes.
+- **Changed Files:** src/components/heroCursorActors.ts; src/components/OrigamiHeroVisual.tsx; src/components/LandingHero.tsx
+- **Verification:** *(not run; config refactor only—open either hero to confirm all labels match the shared constants)*
+
+- **Time:** 2025-11-25 12:55:02 EST
+- **Summary:** Pointed both hero illustrations to a single shared OrigamiIllustration component to remove duplicate markup and keep future updates single-source.
+- **Root Cause:** Illustration layout was duplicated across LandingHero and OrigamiHeroVisual, requiring multiple edits whenever collaborator labels or cards changed.
+- **Changed Files:** src/components/OrigamiIllustration.tsx; src/components/OrigamiHeroVisual.tsx; src/components/LandingHero.tsx
+- **Verification:** *(not run; structural refactor—load landing hero and standalone illustration to confirm they render identically from the shared component)*
+
+- **Time:** 2025-11-25 13:12:27 EST
+- **Summary:** Updated the shared sticky note author name to Miriam via the central heroCursorActors source so both hero illustrations stay in sync.
+- **Root Cause:** Sticky author label still referenced the previous name in the shared config, requiring a single-source update.
+- **Changed Files:** src/components/heroCursorActors.ts
+- **Verification:** *(not run; copy-only—load either hero to confirm the sticky note shows Miriam with initial M)*
+
+- **Time:** 2025-11-25 13:17:10 EST
+- **Summary:** Added a new BiblioStart product card (Project Setup & File Scaffolding) to the landing features via the shared products content.
+- **Root Cause:** The landing product grid was missing the new BiblioStart offering, so teams couldn’t discover the project setup/scaffolding workflow.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; content-only—refresh landing features to see the BiblioStart card with the new CTA)*
+
+- **Time:** 2025-11-25 16:03:28 EST
+- **Summary:** Wired BiblioStart’s product card to the provided marketing image and added the asset to public media.
+- **Root Cause:** BiblioStart was missing its visual, leaving the card without the provided marketing artwork.
+- **Changed Files:** src/data/products.json; public/media/BiblioStart.png
+- **Verification:** *(not run; asset + path update—refresh landing features to confirm the BiblioStart card shows the new image)* 
+
+- **Time:** 2025-11-25 16:04:47 EST
+- **Summary:** Added category pills (Launched, Coming Soon, Beta) above product names and tagged each product’s category in shared content.
+- **Root Cause:** Product cards lacked visible status cues, making it unclear which offerings were live, upcoming, or in beta.
+- **Changed Files:** src/components/Features.tsx; src/data/products.json
+- **Verification:** *(not run; UI/content change—reload landing features to see status pills atop each product card)* 

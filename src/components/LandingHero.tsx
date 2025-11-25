@@ -10,14 +10,15 @@ import {
 } from './heroConstants';
 import { LANDING_TITLE_GRADIENT_CLASS } from './heroTitleGradient';
 import { logHeroHeadlineSplit } from './heroInstrumentation';
+import { HERO_ACTORS } from './heroCursorActors';
+import OrigamiIllustration from './OrigamiIllustration';
 import { debugService } from '@/lib/debugService';
 import {
   LANDING_FEATURES_ID,
   LANDING_PRICING_ID,
   LANDING_WAITLIST_ID,
 } from '@/config/sectionAnchors';
-import { cn } from '@/lib/utils';
-import { FileText, Share2, Zap, MousePointer2, ThumbsUp, MessageSquare, Move } from 'lucide-react';
+import { Zap, MousePointer2 } from 'lucide-react';
 
 export type LandingHeroContent = {
   title?: string | null;
@@ -109,7 +110,6 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const gradientLayerRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const isoContainerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [showCursor, setShowCursor] = useState(false);
 
@@ -149,39 +149,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
     }
   };
 
-  // Calculate connector points for SVG lines
-  const getCenter = (xPercent: number, yPercent: number, widthPx: number, heightPx: number) => {
-    const containerSize = 700;
-    return {
-      x: (xPercent / 100) * containerSize + widthPx / 2,
-      y: (yPercent / 100) * containerSize + heightPx / 2
-    };
-  };
-
-  // Create curved lines between elements
-  const createCurve = (start: {x:number, y:number}, end: {x:number, y:number}) => {
-    const distX = Math.abs(end.x - start.x);
-    const distY = Math.abs(end.y - start.y);
-
-    const curvature = Math.max(distX * 0.5, 100);
-
-    const cp1 = { x: start.x + curvature, y: start.y };
-    const cp2 = { x: end.x - curvature, y: end.y };
-
-    if (distX < 50) {
-      cp1.x = start.x + 100;
-      cp2.x = end.x - 100;
-    }
-
-    return `M ${start.x} ${start.y} C ${cp1.x} ${cp1.y}, ${cp2.x} ${cp2.y}, ${end.x} ${end.y}`;
-  };
-
-  // Calculate element centers for connecting lines
   const pos = ORIGAMI_LAYOUT;
-  const b1 = getCenter(pos.blob1.x, pos.blob1.y, 160, 160); // w-40 (160px)
-  const b2 = getCenter(pos.blob2.x, pos.blob2.y, 160, 160); // w-40 (160px)
-  const b3 = getCenter(pos.blob3.x, pos.blob3.y, 192, 128); // w-48 (192px), h-32 (128px)
-  const b4 = getCenter(pos.blob4.x, pos.blob4.y, 160, 160);
 
   useEffect(() => {
     logHeroHeadlineSplit({
@@ -285,31 +253,39 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
         >
           <MousePointer2 className="w-5 h-5 text-blue-600 fill-blue-600 stroke-white stroke-[2px]" />
           <div className="ml-3 mt-1 px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded-full shadow-sm inline-block">
-            You
+            {HERO_ACTORS.user}
           </div>
         </div>
 
-        {/* Bot 1: Gabrielle */}
+        {/* Bot 1 */}
         <div className="absolute top-0 left-0 animate-cursor-float-1">
           <MousePointer2 className="w-5 h-5 text-orange-500 fill-orange-500 stroke-white stroke-[2px]" />
           <div className="ml-3 mt-1 px-2 py-0.5 bg-orange-500 text-white text-[10px] font-bold rounded-full shadow-sm inline-block">
-            Gabrielle
+            {HERO_ACTORS.bot1}
           </div>
         </div>
 
-        {/* Bot 2: Kristine */}
+        {/* Bot 2 */}
         <div className="absolute top-0 left-0 animate-cursor-float-2">
           <MousePointer2 className="w-5 h-5 text-emerald-500 fill-emerald-500 stroke-white stroke-[2px]" />
           <div className="ml-3 mt-1 px-2 py-0.5 bg-emerald-500 text-white text-[10px] font-bold rounded-full shadow-sm inline-block">
-            Kristine
+            {HERO_ACTORS.bot2}
           </div>
         </div>
 
-        {/* Bot 3: Paul */}
+        {/* Bot 3 */}
         <div className="absolute top-0 left-0 animate-cursor-float-3">
           <MousePointer2 className="w-5 h-5 text-purple-600 fill-purple-600 stroke-white stroke-[2px]" />
           <div className="ml-3 mt-1 px-2 py-0.5 bg-purple-600 text-white text-[10px] font-bold rounded-full shadow-sm inline-block">
-            Paul
+            {HERO_ACTORS.bot3}
+          </div>
+        </div>
+
+        {/* Bot 4 */}
+        <div className="absolute top-0 left-0 animate-cursor-float-4">
+          <MousePointer2 className="w-5 h-5 text-rose-500 fill-rose-500 stroke-white stroke-[2px]" />
+          <div className="ml-3 mt-1 px-2 py-0.5 bg-rose-500 text-white text-[10px] font-bold rounded-full shadow-sm inline-block">
+            {HERO_ACTORS.bot4}
           </div>
         </div>
       </div>
@@ -387,113 +363,10 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
           </div>
         </div>
       </div>
-      {/* Right Side: Isometric Illustration Container */}
+      {/* Right Side: Illustration Container */}
       <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-end pr-0 lg:pr-10 xl:pr-16">
-
-        {/* The Isometric Plane Container */}
-        <div
-          ref={isoContainerRef}
-          className="relative z-40 w-[700px] h-[700px] transform-style-3d rotate-isometric animate-hover-gentle"
-        >
-
-          {/* Dynamic Connecting Lines */}
-          <svg className="absolute inset-0 w-full h-full overflow-visible opacity-70 pointer-events-none" style={{ transform: 'translateZ(-10px)' }}>
-            <defs>
-              <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#94a3b8" stopOpacity="0.5" />
-                <stop offset="100%" stopColor="#64748b" stopOpacity="0.8" />
-              </linearGradient>
-            </defs>
-            {/* Line from Note (Blob1) to UX (Blob2) */}
-            <path
-              d={createCurve(b1, b2)}
-              stroke="url(#flow-gradient)"
-              strokeWidth="4"
-              fill="none"
-              strokeDasharray="12 8"
-              strokeLinecap="round"
-              className="animate-dash-flow"
-            />
-            {/* Line from UX (Blob2) to Media (Blob3) */}
-            <path
-              d={createCurve(b2, b3)}
-              stroke="#94a3b8"
-              strokeWidth="4"
-              strokeLinecap="round"
-              fill="none"
-            />
-            {/* Line from Sticky (Blob4) to UX (Blob2) */}
-            <path
-              d={createCurve(b4, b2)}
-              stroke="#94a3b8"
-              strokeWidth="4"
-              strokeLinecap="round"
-              fill="none"
-              opacity="0.6"
-            />
-          </svg>
-
-          {/* Element 1: Note Card */}
-          <div
-            className="absolute w-40 h-40 bg-[#FEF3C7] rounded-3xl shadow-xl border-4 border-white transform transition-transform hover:translate-z-10 flex flex-col p-6 items-center justify-center text-center gap-3 duration-300 ease-out"
-            style={{
-              left: `${pos.blob1.x}%`,
-              top: `${pos.blob1.y}%`,
-            }}
-          >
-            <div className="w-12 h-12 bg-orange-400/20 rounded-full flex items-center justify-center text-orange-600 pointer-events-none">
-              <FileText className="w-6 h-6" />
-            </div>
-            <div className="h-2 w-20 bg-orange-900/10 rounded-full pointer-events-none"></div>
-            <div className="h-2 w-12 bg-orange-900/10 rounded-full pointer-events-none"></div>
-          </div>
-
-          {/* Element 2: Diamond Shape */}
-          <div
-            className="absolute w-40 h-40 bg-[#E0E7FF] rounded-[2rem] shadow-xl border-4 border-white transform rotate-45 flex items-center justify-center z-10 transition-transform duration-300 ease-out"
-            style={{
-              left: `${pos.blob2.x}%`,
-              top: `${pos.blob2.y}%`,
-            }}
-          >
-            <div className="transform -rotate-45 text-center pointer-events-none">
-              <div className="font-bold text-indigo-900/50 text-sm uppercase tracking-wider">UX</div>
-            </div>
-          </div>
-
-          {/* Element 3: Media Card */}
-          <div
-            className="absolute w-48 h-32 bg-[#D1FAE5] rounded-2xl shadow-xl border-4 border-white transform translate-z-5 flex items-center justify-center group transition-transform duration-300 ease-out"
-            style={{
-              left: `${pos.blob3.x}%`,
-              top: `${pos.blob3.y}%`,
-            }}
-          >
-            <div className="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center pointer-events-none">
-              <Share2 className="w-8 h-8 text-emerald-500" />
-            </div>
-            {/* Floating Reaction */}
-            <div className="absolute -top-8 -right-4 bg-white p-2 rounded-full shadow-lg transform rotate-12 scale-0 group-hover:scale-100 transition-transform duration-300 pointer-events-none">
-              <ThumbsUp className="w-5 h-5 text-emerald-600 fill-emerald-100" />
-            </div>
-          </div>
-
-          {/* Element 4: Sticky Note */}
-          <div
-            className="absolute w-40 h-40 bg-[#F3E8FF] rounded-none shadow-lg transform -rotate-3 border-t-[12px] border-purple-300/50 p-4 transition-transform duration-300 ease-out"
-            style={{
-              left: `${pos.blob4.x}%`,
-              top: `${pos.blob4.y}%`,
-            }}
-          >
-            <p className="font-handwriting text-purple-800 text-lg leading-tight pointer-events-none select-none">Remember to create new variants!</p>
-
-            <div className="absolute -bottom-8 -right-8 bg-white px-3 py-1.5 rounded-tl-xl rounded-br-xl rounded-bl-sm shadow-lg border border-slate-100 flex items-center gap-2 pointer-events-none">
-              <div className="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold">P</div>
-              <span className="text-xs font-medium text-slate-600">Paul</span>
-            </div>
-          </div>
-
+        <div className="relative z-40 w-[700px] h-[700px] max-w-full transform-style-3d rotate-isometric animate-hover-gentle">
+          <OrigamiIllustration showCursors={false} className="pointer-events-none w-full h-full" />
         </div>
       </div>
 
@@ -509,9 +382,6 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
       />
 
       <style jsx>{`
-        .perspective-loose {
-          perspective: 1200px;
-        }
         .transform-style-3d {
           transform-style: preserve-3d;
         }
@@ -519,27 +389,12 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
         .rotate-isometric {
           transform: rotateX(55deg) rotateZ(-45deg);
         }
-        .translate-z-10 {
-          transform: translateZ(20px);
-        }
-        .translate-z-5 {
-          transform: translateZ(10px);
-        }
-        .font-handwriting {
-          font-family: 'Satoshi', 'Inter', 'Inter_Variable', system-ui, sans-serif;
-        }
         @keyframes hover-gentle {
           0%, 100% { transform: rotateX(55deg) rotateZ(-45deg) translateY(0px); }
           50% { transform: rotateX(55deg) rotateZ(-45deg) translateY(-20px); }
         }
         .animate-hover-gentle {
           animation: hover-gentle 6s ease-in-out infinite;
-        }
-        @keyframes dash-flow {
-          to { stroke-dashoffset: -40; }
-        }
-        .animate-dash-flow {
-          animation: dash-flow 2s linear infinite;
         }
 
         /* Cursor Animations */
@@ -562,9 +417,17 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
           70% { transform: translate(25vw, 65vh); }
           100% { transform: translate(30vw, 60vh); }
         }
+        @keyframes cursor-float-4 {
+          0% { transform: translate(50vw, 18vh); }
+          30% { transform: translate(60vw, 30vh); }
+          60% { transform: translate(48vw, 38vh); }
+          90% { transform: translate(56vw, 22vh); }
+          100% { transform: translate(50vw, 18vh); }
+        }
         .animate-cursor-float-1 { animation: cursor-float-1 15s ease-in-out infinite; }
         .animate-cursor-float-2 { animation: cursor-float-2 18s ease-in-out infinite; }
         .animate-cursor-float-3 { animation: cursor-float-3 20s ease-in-out infinite; }
+        .animate-cursor-float-4 { animation: cursor-float-4 22s ease-in-out infinite; }
       `}</style>
     </section>
   );

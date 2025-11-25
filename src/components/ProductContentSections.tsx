@@ -15,6 +15,12 @@ import AIRenameProgressPreview, { FeatureProgressConfig } from './AIRenameProgre
 import AIRenameBatchVisual from './AIRenameBatchVisual';
 import UXBiblioAbstractVisual from './UXBiblioAbstractVisual';
 
+type FeaturePill = {
+  label: string;
+  classes: string;
+  dotClass: string;
+};
+
 type ProductDetail = {
   title: string;
   description?: string;
@@ -27,6 +33,7 @@ type ProductDetail = {
   mediaExamples?: FeatureComparisonExample[];
   mediaBlueprint?: FeatureBlueprintConfig;
   mediaProgress?: FeatureProgressConfig;
+  pill?: FeaturePill | null;
 };
 type ProductSpec = { icon: string; name: string; value: string };
 
@@ -406,12 +413,13 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           <div className={buildSectionContentClass('relative overflow-visible')}>
             {introContent}
             <div className="mt-12 relative flex flex-col gap-10 lg:gap-12">
-              <div className="space-y-14">
+              <div className="space-y-[80px]">
                 {detailEntries.map(({ detail, anchorId }, index) => {
                   const rawItems = Array.isArray(detail.items) ? detail.items : [];
                   const promotedFirstItem = !detail.description && rawItems.length > 0;
                   const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
                   const highlightItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
+                  const featurePill = detail.pill;
                   const buttonLabel =
                     detail.buttonText ||
                     product?.primaryButton ||
@@ -445,9 +453,22 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                       isReversed
                         ? 'lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]'
                           : 'lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]'
-                      )}>
+                  )}>
                         <div className={cn('space-y-6', isReversed ? 'lg:order-2' : 'lg:order-1')}>
                           <div className="space-y-4">
+                            {featurePill && (
+                              <div className="landing-feature-pill-wrapper">
+                                <span
+                                  className={cn(
+                                    'landing-feature-pill inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold tracking-tight text-white/90',
+                                    featurePill.classes
+                                  )}
+                                >
+                                  <span className={cn('h-1.5 w-1.5 rounded-full', featurePill.dotClass || 'bg-white/80')} />
+                                  {featurePill.label}
+                                </span>
+                              </div>
+                            )}
                             <h3 className="text-3xl font-semibold text-white leading-tight">
                               {detail.title}
                             </h3>
@@ -506,7 +527,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           {introContent}
 
           <div className="mt-12 flex flex-col gap-12">
-            <div className="flex flex-col gap-[50px]">
+            <div className="flex flex-col gap-[74px]">
               {detailEntries.map(({ detail, anchorId }, index) => {
                 const layout = hideFeatureIllustrations
                   ? {

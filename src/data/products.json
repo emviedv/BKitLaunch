@@ -91,6 +91,7 @@
       "idea": "The AI Organizer.",
       "badge": "Launched",
       "title": "BiblioRename",
+      "category": "Launched",
       "tagline": "AI Layer Renamer & Naming Conventions",
       "badges": [],
       "topItems": [],
@@ -109,7 +110,8 @@
     {
       "icon": "🔍",
       "idea": "Stop shipping broken files.",
-      "badge": "New",
+      "badge": "Coming Soon",
+      "category": "Coming Soon",
       "title": "BiblioAudit",
       "tagline": "Find Detached Instances & Design System Check",
       "badges": [],
@@ -135,7 +137,8 @@
     {
       "icon": "🧹",
       "idea": "The Blue Line Wiper.",
-      "badge": "New",
+      "badge": "Launched",
+      "category": "Launched",
       "title": "BiblioClean",
       "badges": [],
       "topItems": [
@@ -158,9 +161,36 @@
       "buttonPreset": "custom"
     },
     {
+      "icon": "🗂️",
+      "idea": "Launch projects with zero setup drag.",
+      "badge": "Beta",
+      "category": "Beta",
+      "title": "BiblioStart",
+      "tagline": "Project Setup & File Scaffolding",
+      "badges": [],
+      "topItems": [
+        "One-click project shell with cover page, flows, and handoff templates.",
+        "Prewired text, color, and spacing tokens aligned to your design system.",
+        "Auto-build component folders, audit frames, and documentation anchors.",
+        "Starter checklists for designers, developers, and PMs so teams move in sync."
+      ],
+      "showBadge": true,
+      "badgeColor": "#f59e0b",
+      "buttonLink": "https://blocks.bibliokit.com/signup",
+      "buttonText": "Generate Starter",
+      "isFeatured": false,
+      "description": "Spin up production-ready Figma projects with standardized pages, tokens, and folder scaffolding so teams start building in minutes.",
+      "buttonPreset": "custom",
+      "media": {
+        "src": "/media/BiblioStart.png",
+        "alt": "BiblioStart project setup and file scaffolding preview"
+      }
+    },
+    {
       "icon": "📊",
       "idea": "The Table Fixer.",
       "badge": "Launched",
+      "category": "Launched",
       "title": "BiblioTable",
       "badges": [],
       "topItems": [
@@ -184,6 +214,7 @@
       "icon": "🛒",
       "idea": "Your personal UX library for patterns and ideas.",
       "badge": "Coming Soon",
+      "category": "Coming Soon",
       "title": "UXBiblio",
       "badges": [],
       "topItems": [

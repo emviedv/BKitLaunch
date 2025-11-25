@@ -1,10 +1,16 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import LandingHero from './LandingHero';
 import ProductContentSections from './ProductContentSections';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
+
+type FeaturePill = {
+  label: string;
+  classes: string;
+  dotClass: string;
+};
 
 type FeatureLike = {
   title?: string;
@@ -15,6 +21,10 @@ type FeatureLike = {
   buttonLink?: string;
   buttonLabel?: string;
   buttonUrl?: string;
+  badge?: string;
+  badgeColor?: string;
+  category?: string;
+  badges?: Array<{ label?: string; color?: string; type?: string }>;
   media?: {
     src?: string;
     alt?: string;
@@ -70,7 +80,53 @@ const BiblioKitLanding: React.FC = () => {
     return title.startsWith('bibliokit blocks');
   };
 
-  const featureDetails = useMemo(() => {
+  const resolveFeaturePill = useCallback((feature: FeatureLike): FeaturePill | null => {
+    const rawLabel = (feature.category || feature.badge || feature.badges?.[0]?.label || '').trim();
+    if (!rawLabel) return null;
+
+    const normalized = rawLabel.toLowerCase();
+    if (normalized.startsWith('launch')) {
+      return {
+        label: 'Launched',
+        classes: 'bg-emerald-500/15 border-emerald-300/60 text-white shadow-[0_12px_40px_rgba(16,185,129,0.15)]',
+        dotClass: 'bg-emerald-300',
+      };
+    }
+    if (normalized.startsWith('coming')) {
+      return {
+        label: 'Coming Soon',
+        classes: 'bg-amber-400/15 border-amber-200/60 text-white shadow-[0_12px_40px_rgba(251,191,36,0.18)]',
+        dotClass: 'bg-amber-200',
+      };
+    }
+    if (normalized.startsWith('beta')) {
+      return {
+        label: 'Beta',
+        classes: 'bg-indigo-500/15 border-indigo-300/60 text-white shadow-[0_12px_40px_rgba(99,102,241,0.16)]',
+        dotClass: 'bg-indigo-200',
+      };
+    }
+
+    return {
+      label: rawLabel,
+      classes: 'bg-white/10 border-white/25 text-white/90',
+      dotClass: 'bg-white/80',
+    };
+  }, []);
+
+  type LandingFeatureDetail = {
+    title: string;
+    description?: string;
+    items?: string[];
+    buttonText?: string;
+    buttonLink?: string;
+    mediaComponent?: string;
+    mediaUrl?: string;
+    mediaAlt?: string;
+    pill?: FeaturePill | null;
+  };
+
+  const featureDetails = useMemo<LandingFeatureDetail[]>(() => {
     return rawFeatures
       .map((item) => {
         const title = item.title || item.idea;
@@ -83,6 +139,7 @@ const BiblioKitLanding: React.FC = () => {
         const buttonLink = typeof rawButtonLink === 'string' ? rawButtonLink.trim() : '';
         const mediaSrc = typeof item.media?.src === 'string' ? item.media.src.trim() : '';
         const mediaAlt = typeof item.media?.alt === 'string' ? item.media.alt : undefined;
+        const pill = resolveFeaturePill(item);
 
         const detail = {
           title,
@@ -92,6 +149,7 @@ const BiblioKitLanding: React.FC = () => {
             : undefined,
           buttonText: buttonText || undefined,
           buttonLink: buttonLink || undefined,
+          pill,
         };
 
         if (mediaSrc) {
@@ -104,17 +162,8 @@ const BiblioKitLanding: React.FC = () => {
 
         return detail;
       })
-      .filter(Boolean) as Array<{
-        title: string;
-        description?: string;
-        items?: string[];
-        buttonText?: string;
-        buttonLink?: string;
-        mediaComponent?: string;
-        mediaUrl?: string;
-        mediaAlt?: string;
-      }>;
-  }, [rawFeatures, shouldHideFeature]);
+      .filter(Boolean) as LandingFeatureDetail[];
+  }, [rawFeatures, shouldHideFeature, resolveFeaturePill]);
 
   const faqs = useMemo(() => {
     if (Array.isArray((baseProduct as any)?.faqs)) {
