@@ -23,7 +23,7 @@ Last updated: 2025-08-13
 
 Observations
 - Top nav shows “Sign In” and “Get Started” linking to `#` (non-functional anchors).
-- Homepage includes “Pricing Coming Soon,” email input (currently disabled), footer line: “Automate the stuff you hate, design the things you love.”
+- Homepage includes “Pricing Coming Soon,” email input (currently disabled), footer line: “Automate the things you hate, focus on design you love.”
 - No visible docs/blog or deep product/plugin subpages yet.
 
 ### 2) Messaging teardown
@@ -223,6 +223,5 @@ Top 10 changes with expected impact and sample variants
   - B: Interactive sample or shared demo file link
 
 — End of document —
-
 
 

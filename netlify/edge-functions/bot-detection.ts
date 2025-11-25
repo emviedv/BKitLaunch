@@ -1,6 +1,16 @@
 export default async (request: Request, context: any) => {
   const userAgent = request.headers.get('user-agent') || '';
   const url = new URL(request.url);
+  const pathname = url.pathname.replace(/\/+$/, '') || '/';
+  const retiredPaths = new Set([
+    '/product',
+    '/roadmap',
+    '/sign-up',
+    '/test',
+    '/component-auditor-figma-plugin',
+    '/month',
+    '/learn-more'
+  ]);
   
   // List of AI crawler user agents
   const aiCrawlers = [
@@ -25,9 +35,20 @@ export default async (request: Request, context: any) => {
   if (!isBot) {
     return context.next();
   }
+
+  if (retiredPaths.has(pathname)) {
+    return new Response('This page has been retired.', {
+      status: 410,
+      headers: {
+        'content-type': 'text/plain; charset=utf-8',
+        'cache-control': 'public, max-age=3600',
+        'x-served-by': 'bot-detection-edge-function'
+      }
+    });
+  }
   
   // Generate static HTML for bots based on the path
-  const staticHtml = generateStaticHtml(url.pathname, url.origin);
+  const staticHtml = generateStaticHtml(pathname, url.origin);
   
   return new Response(staticHtml, {
     headers: {
@@ -56,7 +77,7 @@ function generateStaticHtml(pathname: string, origin: string): string {
   <footer style="background: #1f2937; color: white; padding: 2rem; text-align: center; margin-top: 4rem;">
     <div style="max-width: 1200px; margin: 0 auto;">
       <h3 style="margin-bottom: 1rem;">BiblioKit</h3>
-      <p style="color: #9ca3af; margin-bottom: 1rem;">Automate the stuff you hate, design the things you love.</p>
+      <p style="color: #9ca3af; margin-bottom: 1rem;">Automate the things you hate, focus on design you love.</p>
       <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
         <a href="mailto:hello@bibliokit.com" style="color: #9ca3af;">hello@bibliokit.com</a>
         <a href="https://twitter.com/bibliokit" style="color: #9ca3af;">@bibliokit</a>
@@ -81,14 +102,6 @@ function getPageMetadata(pathname: string): string {
         <meta property="og:description" content="BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.">
         <meta property="og:type" content="website">
       `;
-    case '/component-auditor-figma-plugin':
-      return `
-        <title>Component Auditor for Figma – BiblioKit</title>
-        <meta name="description" content="BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.">
-        <meta property="og:title" content="Component Auditor for Figma – BiblioKit">
-        <meta property="og:description" content="BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.">
-        <meta property="og:type" content="website">
-      `;
     case '/uxbiblio':
       return `
         <title>UXBiblio by BiblioKit</title>
@@ -97,7 +110,7 @@ function getPageMetadata(pathname: string): string {
         <meta property="og:description" content="UXBiblio by BiblioKit: Curated UI/UX patterns and templates with AI-powered tagging. Save and organize your design inspiration effortlessly.">
         <meta property="og:type" content="website">
       `;
-    case '/product':
+    case '/ai-rename-variants':
       return `
         <title>AI Rename Layers - BiblioKit</title>
         <meta name="description" content="Automatically rename your Figma layers with AI intelligence. Transform messy, unnamed layers into perfectly organized, contextually named elements in one click.">
@@ -138,7 +151,7 @@ function getPageSchema(pathname: string, origin: string): string {
     </script>
   `;
 
-  if (pathname === '/product') {
+  if (pathname === '/ai-rename-variants') {
     return organizationSchema + `
       <script type="application/ld+json">
       {
@@ -191,7 +204,7 @@ function getPageContent(pathname: string): string {
             <h1 style="font-size: 1.5rem; font-weight: bold;">BiblioKit</h1>
             <div style="display: flex; gap: 1rem;">
               <a href="/" style="color: white; text-decoration: none;">Home</a>
-              <a href="/product" style="color: white; text-decoration: none;">Product</a>
+              <a href="/ai-rename-variants" style="color: white; text-decoration: none;">AI Rename Variants</a>
             </div>
           </nav>
         </header>
@@ -205,10 +218,10 @@ function getPageContent(pathname: string): string {
               </div>
               <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1.5rem;">BiblioKit</h1>
               <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9;">
-                Automate the stuff you hate, design the things you love.
+                Automate the things you hate, focus on design you love.
               </p>
               <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="/product" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;">Get Started Free</a>
+                <a href="/ai-rename-variants" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;">Get Started Free</a>
                 <a href="#landing-features" style="border: 2px solid rgba(255,255,255,0.3); color: white; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none;">View Features</a>
               </div>
             </div>
@@ -267,14 +280,14 @@ function getPageContent(pathname: string): string {
         </main>
       `;
     
-    case '/product':
+    case '/ai-rename-variants':
       return `
         <header style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem;">
           <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
             <h1 style="font-size: 1.5rem; font-weight: bold;">BiblioKit</h1>
             <div style="display: flex; gap: 1rem;">
               <a href="/" style="color: white; text-decoration: none;">Home</a>
-              <a href="/product" style="color: white; text-decoration: none;">Product</a>
+              <a href="/ai-rename-variants" style="color: white; text-decoration: none;">AI Rename Variants</a>
             </div>
           </nav>
         </header>
@@ -372,7 +385,7 @@ function getPageContent(pathname: string): string {
             <h1 style="font-size: 1.5rem; font-weight: bold;">BiblioKit</h1>
             <div style="display: flex; gap: 1rem;">
               <a href="/" style="color: white; text-decoration: none;">Home</a>
-              <a href="/product" style="color: white; text-decoration: none;">Product</a>
+              <a href="/ai-rename-variants" style="color: white; text-decoration: none;">AI Rename Variants</a>
             </div>
           </nav>
         </header>

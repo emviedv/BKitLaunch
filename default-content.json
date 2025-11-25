@@ -12,7 +12,7 @@
     "title": "Your Design Toolkit, Reinvented.",
     "subtitle": "Work x10,000 faster.",
     "badgeLabel": "Built by designers for designers.",
-    "description": "Automate the stuff you hate, design the things you love.",
+    "description": "Automate the things you hate, focus on design you love.",
     "primaryButton": "Get Started Free",
     "secondaryButton": "View Products",
     "primaryButtonLink": "https://blocks.bibliokit.com/signup",
@@ -52,7 +52,7 @@
   "header": {
     "logoText": "BiblioKit",
     "navigation": [
-      { "href": "/ai-rename-variants", "label": "AI Rename Variants" },
+      { "href": "/ai-rename-variants", "label": "BiblioRename" },
       { "href": "/uxbiblio", "label": "UXBiblio" }
     ],
     "showSignIn": false,
@@ -126,10 +126,10 @@
   ],
   "features": [
     {
-      "icon": "<�",
-      "idea": "AI-powered variant renaming at scale.",
+      "icon": "🏷️",
+      "idea": "The AI Organizer.",
       "badge": "Launched",
-      "title": "AI Rename Variants",
+      "title": "BiblioRename",
       "badges": [],
       "topItems": [
         "Batch rename sets",
@@ -141,16 +141,16 @@
       "showBadge": true,
       "badgeColor": "#10b981",
       "buttonLink": "/ai-rename-variants",
-      "buttonText": "Learn More",
+      "buttonText": "Rename Layers",
       "isFeatured": false,
-      "description": "Batch-rename Figma variants with AI. Context-aware analysis ensures consistent naming conventions, cleaner files, and reduced design debt.",
+      "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
       "buttonPreset": "custom"
     },
     {
-      "icon": "audit",
-      "idea": "File-level component audits for better design.",
+      "icon": "🔍",
+      "idea": "The Design System Fixer.",
       "badge": "Coming Soon",
-      "title": "Component Auditor",
+      "title": "BiblioAudit",
       "badges": [],
       "topItems": [
         "Scan all components",
@@ -161,31 +161,33 @@
       ],
       "showBadge": true,
       "badgeColor": "#8b5cf6",
-      "buttonLink": "/component-auditor-figma-plugin",
-      "buttonText": "Learn More",
+      "buttonLink": "https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit",
+      "buttonText": "Run Health Check",
       "isFeatured": false,
-      "description": "Audit components inside a single Figma file. Check naming, structure, and variant coverage to ensure consistent, high-quality component usage.",
+      "description": "Instantly find detached instances, missing styles, and broken tokens. Get a full health check before you hand off to developers.",
       "buttonPreset": "custom"
     },
     {
-      "icon": "=�",
-      "idea": "Cross-file analytics for design systems at scale.",
+      "icon": "📊",
+      "idea": "The Table Fixer.",
       "badge": "Launched",
-      "title": "BiblioKit Blocks",
+      "title": "BiblioTable",
       "badges": [],
       "topItems": [
-        "Connect via MCP or oAuth",
-        "Track usage across files",
-        "Spot duplicates fast",
-        "Quantify ROI impact",
-        "Weekly digests + dashboards"
+        "Normalize column widths in one click.",
+        "Fix sub-pixel rotation bugs instantly.",
+        "Generate zebra striping for any auto-layout table."
       ],
       "showBadge": true,
       "badgeColor": "#10b981",
       "buttonLink": "https://blocks.bibliokit.com/signup",
-      "buttonText": "Learn More",
+      "buttonText": "Fix My Table",
       "isFeatured": false,
-      "description": "Analytics platform for Figma libraries. Track usage across files, measure adoption, highlight duplicates, and quantify ROI to optimize design systems.",
+      "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
+      "media": {
+        "src": "/media/table-fixer-ui.svg",
+        "alt": "BiblioTable table fixer UI preview"
+      },
       "buttonPreset": "custom"
     },
     {
@@ -216,12 +218,14 @@
   },
   "products": {
     "bibliokit-blocks": {
-      "title": "BiblioKit Blocks",
+      "title": "BiblioTable",
       "description": "Professional design system analytics platform that tracks Figma component usage, measures design system ROI, and optimizes component libraries with automated insights for product teams.",
       "primaryButton": "Start Free Trial",
       "secondaryButton": "View Demo",
       "primaryButtonLink": "https://blocks.bibliokit.com/signup",
       "secondaryButtonLink": "https://blocks.bibliokit.com/demo",
+      "heroImage": "/media/table-fixer-ui.svg",
+      "heroImageAlt": "BiblioTable table fixer UI preview",
       "badgeLabel": "SaaS Analytics Platform",
       "visibility": { "waitlist": false },
       "details": [
@@ -293,7 +297,7 @@
         "description": "Professional design system analytics for growing product teams. 14-day free trial included."
       },
       "llm": {
-        "answerBox": "BiblioKit Blocks provides comprehensive design system analytics that automatically tracks Figma component usage, measures ROI, and delivers actionable insights to optimize component libraries. Increase adoption rates by 25%+ and reduce maintenance overhead through data-driven decision making for product teams.",
+        "answerBox": "BiblioTable provides comprehensive design system analytics that automatically tracks Figma component usage, measures ROI, and delivers actionable insights to optimize component libraries. Increase adoption rates by 25%+ and reduce maintenance overhead through data-driven decision making for product teams.",
         "statistic": {
           "date": "February 2024",
           "source": "Product Team Analytics Report 2024",
@@ -308,19 +312,19 @@
         },
         "faqs": [
           {
-            "question": "How does BiblioKit Blocks track component usage across my design files?",
-            "answer": "BiblioKit Blocks connects to your Figma account via secure OAuth and automatically scans your design libraries and files to track component instances, usage frequency, and adoption patterns in real-time without manual setup."
+            "question": "How does BiblioTable track component usage across my design files?",
+            "answer": "BiblioTable connects to your Figma account via secure OAuth and automatically scans your design libraries and files to track component instances, usage frequency, and adoption patterns in real-time without manual setup."
           },
           {
             "question": "Can I measure the ROI of my design system investment?",
-            "answer": "Yes, BiblioKit Blocks provides comprehensive ROI reporting with quantifiable metrics including time savings, efficiency gains, component reuse rates, and productivity improvements that demonstrate clear business value to stakeholders."
+            "answer": "Yes, BiblioTable provides comprehensive ROI reporting with quantifiable metrics including time savings, efficiency gains, component reuse rates, and productivity improvements that demonstrate clear business value to stakeholders."
           },
           {
             "question": "What kind of analytics insights will I get about my components?",
             "answer": "You'll receive detailed analytics on component usage trends, adoption rates, over-used vs. under-used components, team collaboration patterns, and actionable recommendations for optimizing your design system performance."
           },
           {
-            "question": "Is my Figma data secure with BiblioKit Blocks?",
+            "question": "Is my Figma data secure with BiblioTable?",
             "answer": "Absolutely. We use enterprise-grade security with SOC 2 compliance, encrypted data transmission, and secure OAuth integration. Your design data is protected with the same security standards used by Fortune 500 companies."
           },
           {
@@ -331,14 +335,14 @@
       }
     },
     "ai-rename-variants": {
-      "title": "AI Rename Variants",
-      "description": "Instantly relabel Figma variant and layer names with context-aware AI. Remove clutter and bring order to your files in seconds.",
-    "primaryButton": "Install Plugin",
-    "secondaryButton": "Learn More",
-    "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
-    "secondaryButtonLink": "#landing-features",
-    "heroImage": "/component-auditor-ui-420x500.png",
-    "heroImageAlt": "Component audit dashboard showing key metrics",
+      "title": "BiblioRename",
+      "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
+      "primaryButton": "Rename Layers",
+      "secondaryButton": null,
+      "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+      "secondaryButtonLink": null,
+      "heroImage": "/component-auditor-ui-420x500.png",
+      "heroImageAlt": "Component audit dashboard showing key metrics",
       "badgeLabel": "<� Figma Plugin",
       "visibility": { "waitlist": false },
       "details": [
@@ -415,7 +419,7 @@
         }
       ],
       "llm": {
-        "answerBox": "AI Rename Variants automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.",
+        "answerBox": "BiblioRename automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.",
         "statistic": {
           "date": "March 2024",
           "source": "Design Systems Efficiency Report 2024",
@@ -430,7 +434,7 @@
         },
         "faqs": [
           {
-            "question": "How does AI Rename Variants understand my component structure?",
+            "question": "How does BiblioRename understand my component structure?",
             "answer": "The plugin analyzes your component's properties, layer hierarchy, design patterns, and existing naming conventions to generate contextually appropriate names that match your design system standards."
           },
           {
@@ -443,7 +447,7 @@
           },
           {
             "question": "Does it work with existing design systems and component libraries?",
-            "answer": "Yes, AI Rename Variants is designed to work with any Figma file structure and can learn from your existing naming patterns to maintain consistency with your current design system."
+            "answer": "Yes, BiblioRename is designed to work with any Figma file structure and can learn from your existing naming patterns to maintain consistency with your current design system."
           },
           {
             "question": "How many variants can it rename at once?",

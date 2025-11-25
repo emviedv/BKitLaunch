@@ -8,7 +8,7 @@ export const HERO_DESCRIPTION_CLASS =
   'text-[22px] leading-[1.55] text-muted-foreground';
 
 export const HERO_PRIMARY_BUTTON_CLASS =
-  'w-full sm:w-auto min-w-[12rem] rounded-lg bg-[#ff2f87] text-white shadow-none hover:brightness-110 transition-colors duration-200';
+  'w-full sm:w-auto min-w-[12rem] rounded-lg bg-[#ff2f87] text-white shadow-none transition-colors duration-200 hover:bg-[#e02074]';
 
 export const HERO_HEADLINE_GRADIENT_CLASS = 'hero-gradient-text';
 

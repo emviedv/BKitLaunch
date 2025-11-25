@@ -14,6 +14,7 @@ type FeatureLike = {
   badges?: Array<{ label: string; color?: string; type?: string }>;
   topItems?: string[];
   showBadge?: boolean;
+  tagline?: string;
 };
 
 const renderBadges = (feature: FeatureLike) => {
@@ -21,7 +22,7 @@ const renderBadges = (feature: FeatureLike) => {
     return feature.badges.slice(0, 2).map((badge, index) => (
       <span
         key={`${feature.title}-badge-${index}`}
-        className="inline-flex items-center rounded-full border border-[#6580E1]/50 bg-[#6580E1]/10 px-2.5 py-0.5 text-xs font-medium text-[#6580E1]"
+        className="badge badge-primary"
       >
         {badge.label}
       </span>
@@ -30,7 +31,7 @@ const renderBadges = (feature: FeatureLike) => {
 
   if (feature.showBadge && feature.badge) {
     return (
-      <span className="inline-flex items-center rounded-full border border-[#6580E1]/50 bg-[#6580E1]/10 px-2.5 py-0.5 text-xs font-medium text-[#6580E1]">
+      <span className="badge badge-primary">
         {feature.badge}
       </span>
     );
@@ -113,12 +114,26 @@ const Features: React.FC = () => {
                       <FeatureIcon className="h-6 w-6" strokeWidth={1.75} />
                     </span>
                   </div>
-                  <div className="landing-features-badges flex gap-2 text-xs">{renderBadges(feature)}</div>
-                </div>
+                <div className="landing-features-badges flex gap-2 text-xs">{renderBadges(feature)}</div>
+              </div>
 
                 <h3 className="landing-features-card-title text-xl font-semibold text-title-darkest">{feature.title}</h3>
+                {feature.tagline && (
+                  <p className="mt-1 text-sm font-medium text-muted-foreground/90">{feature.tagline}</p>
+                )}
                 {feature.description && (
                   <p className="landing-features-card-description mt-3 text-sm text-muted-foreground">{feature.description}</p>
+                )}
+
+                {feature.media?.src && (
+                  <div className="mt-4 rounded-2xl border border-slate-200/80 bg-white/70 p-3 shadow-sm">
+                    <img
+                      src={feature.media.src}
+                      alt={feature.media.alt || `${feature.title} preview`}
+                      className="w-full rounded-xl border border-slate-100 object-cover"
+                      loading="lazy"
+                    />
+                  </div>
                 )}
 
                 {Array.isArray(feature.topItems) && feature.topItems.length > 0 && (

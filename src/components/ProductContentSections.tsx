@@ -95,12 +95,16 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
 }) => {
   const buildContainerClass = (...extra: Array<string | false | undefined>) =>
     cn(
-      compactLayout ? 'mx-auto w-11/12 sm:w-5/6 md:w-[70%] px-6 md:px-10' : 'container mx-auto',
+      compactLayout
+        ? 'mx-auto w-11/12 sm:w-5/6 md:w-[70%] px-6 md:px-10'
+        : 'mx-auto w-full max-w-6xl px-6 md:px-10',
       ...extra
     );
   const buildSectionContentClass = (...extra: Array<string | false | undefined>) =>
     cn(
-      compactLayout ? 'mx-auto w-11/12 sm:w-5/6 md:w-[70%] px-6 md:px-10' : 'section-content',
+      compactLayout
+        ? 'mx-auto w-11/12 sm:w-5/6 md:w-[70%] px-6 md:px-10'
+        : 'mx-auto w-full max-w-6xl px-6 md:px-10',
       ...extra
     );
   const normalizeHref = (href?: string) => {
@@ -174,6 +178,10 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
       'relative flex items-center justify-center rounded-3xl border border-white/15 bg-gradient-to-br from-[#221036]/80 via-[#0c0418]/90 to-[#05000e]/95',
       isShowcase ? 'w-full min-h-[280px] rounded-[28px]' : 'h-32 w-32'
     );
+    const imageWrapperClass = cn(
+      'relative overflow-hidden rounded-lg',
+      isShowcase ? 'w-full min-h-[280px]' : 'h-32 w-32'
+    );
 
     const fallbackInnerOneClass = cn(
       'absolute rounded-2xl bg-white/10 shadow-[0_20px_60px_rgba(6,0,18,0.35)] backdrop-blur',
@@ -234,8 +242,43 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
       case 'uxbiblio-pin':
       case 'uxbiblio-reuse':
         return <UXBiblioAbstractVisual variant={detail.mediaComponent} />;
+      case 'image':
+        if (detail.mediaUrl) {
+          const imageLabel =
+            detail.mediaAlt ||
+            detail.title ||
+            `${product?.title || 'Product'} preview`;
+          return (
+            <div className={imageWrapperClass}>
+              <img
+                src={detail.mediaUrl}
+                alt={imageLabel}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          );
+        }
+        break;
       default:
         break;
+    }
+
+    if (detail.mediaUrl) {
+      const imageLabel =
+        detail.mediaAlt ||
+        detail.title ||
+        `${product?.title || 'Product'} preview`;
+      return (
+        <div className={imageWrapperClass}>
+          <img
+            src={detail.mediaUrl}
+            alt={imageLabel}
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      );
     }
 
     return (
@@ -361,26 +404,18 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           <div className={buildSectionContentClass('relative overflow-visible')}>
             {introContent}
             <div className="mt-12 relative flex flex-col gap-10 lg:gap-12">
-              {featureNavItems.length > 0 && (
-                <div className="order-1 lg:order-none lg:absolute lg:-left-[196px] lg:top-0 lg:w-[220px] lg:pr-6">
-                  <FeatureNavList />
-                </div>
-              )}
-              <div
-                className={cn(
-                  'space-y-14',
-                  featureNavItems.length > 0 ? 'order-2 lg:order-none' : undefined
-                )}
-              >
+              <div className="space-y-14">
                 {detailEntries.map(({ detail, anchorId }, index) => {
                   const rawItems = Array.isArray(detail.items) ? detail.items : [];
                   const promotedFirstItem = !detail.description && rawItems.length > 0;
                   const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
                   const highlightItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
-                  const buttonLabel = (() => {
-                    const name = detail.title?.trim() || product?.title?.trim() || 'Product';
-                    return `Try ${name} For Free`;
-                  })();
+                  const buttonLabel =
+                    detail.buttonText ||
+                    product?.primaryButton ||
+                    detail.title ||
+                    product?.title ||
+                    'View Product';
                 const buttonHrefRaw = detail.buttonLink?.trim();
                 const buttonHref = normalizeHref(buttonHrefRaw);
                 const isExternalButton = Boolean(buttonHrefRaw && buttonHrefRaw.startsWith('http'));
@@ -445,10 +480,8 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                           )}
                         </div>
                         <div className={cn('w-full', isReversed ? 'lg:order-1' : 'lg:order-2')}>
-                          <div className="relative rounded-[36px] py-4 sm:py-6">
-                            <div className="rounded-[26px] py-4 sm:py-6">
-                              {renderDetailMedia(detail, 'showcase')}
-                            </div>
+                          <div className="relative py-4 sm:py-6">
+                            {renderDetailMedia(detail, 'showcase')}
                           </div>
                         </div>
                       </div>
@@ -470,14 +503,8 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
         <div className={buildSectionContentClass()}>
           {introContent}
 
-          <div className="mt-12 flex flex-col gap-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-10">
-            {featureNavItems.length > 0 && (
-              <aside className="lg:col-span-2">
-                <FeatureNavList />
-              </aside>
-            )}
-
-            <div className={cn('flex flex-col gap-[50px]', featureNavItems.length > 0 ? 'lg:col-span-10' : 'lg:col-span-12')}>
+          <div className="mt-12 flex flex-col gap-12">
+            <div className="flex flex-col gap-[50px]">
               {detailEntries.map(({ detail, anchorId }, index) => {
                 const layout = hideFeatureIllustrations
                   ? {
@@ -496,10 +523,12 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                 const promotedFirstItem = !detail.description && rawItems.length > 0;
                 const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
                 const bulletItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
-                const buttonLabel = (() => {
-                  const name = detail.title?.trim() || product?.title?.trim() || 'Product';
-                  return `Try ${name} For Free`;
-                })();
+                const buttonLabel =
+                  detail.buttonText ||
+                  product?.primaryButton ||
+                  detail.title ||
+                  product?.title ||
+                  'View Product';
                 const buttonHrefRaw = detail.buttonLink?.trim();
                 const buttonHref = normalizeHref(buttonHrefRaw);
                 const isExternalButton = Boolean(buttonHrefRaw && buttonHrefRaw.startsWith('http'));

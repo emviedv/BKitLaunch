@@ -24,7 +24,6 @@ const indexnowHandler: Handler = async (event: HandlerEvent, context: HandlerCon
     // URLs to submit for re-indexing
     const urlsToIndex = [
       siteUrl,
-      `${siteUrl}/product`,
       `${siteUrl}/llms.txt`,
       `${siteUrl}/robots.txt`
     ];

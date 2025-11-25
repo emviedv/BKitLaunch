@@ -29,7 +29,7 @@
     "title": "Your Design Toolkit, Reinvented.",
     "subtitle": "Work x10,000 faster.",
     "badgeLabel": null,
-    "description": "Automate the stuff you hate, design the things you love.",
+    "description": "Automate the things you hate, focus on design you love.",
     "primaryButton": "View Products",
     "secondaryButton": null,
     "primaryButtonLink": "#landing-features",
@@ -52,25 +52,25 @@
         "label": "Plugins",
         "children": [
           {
-            "label": "AI Rename Variants",
+            "label": "BiblioRename",
             "href": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
             "isExternal": true,
-            "description": "Standardize your Figma variant names instantly with AI-powered batch renaming.",
+            "description": "The AI Organizer. Standardize layer names and variant properties with context-aware AI.",
             "icon": "✨"
           },
           {
-            "label": "BiblioClean: Remove Prototype Links & Blue Lines",
+            "label": "BiblioClean — The Blue Line Wiper",
             "href": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
             "isExternal": true,
-            "description": "Strip blue lines and prototype noodles in one click with guardrails for shared components.",
+            "description": "Remove prototype links safely without breaking main components.",
             "icon": "broom"
           },
           {
-            "label": "Component Auditor",
-            "href": "/component-auditor-figma-plugin",
-            "description": "Audit component naming, coverage, and structure across Figma files in minutes.",
+            "label": "BiblioAudit — Find Detached Instances & Design System Check",
+            "href": "https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit",
+            "description": "Scan Figma files for detached instances, token drift, and dirty overrides with automated QA.",
             "icon": "🧭",
-            "badge": "Coming Soon"
+            "isExternal": true
           }
         ]
       },
@@ -88,45 +88,55 @@
   "features": [
     {
       "icon": "🏷️",
-      "idea": "AI-powered variant renaming at scale.",
+      "idea": "The AI Organizer.",
       "badge": "Launched",
-      "title": "AI Rename Variants",
+      "title": "BiblioRename",
+      "tagline": "AI Layer Renamer & Naming Conventions",
       "badges": [],
       "topItems": [],
       "showBadge": true,
       "badgeColor": "#10b981",
       "buttonLink": "/ai-rename-variants",
-      "buttonText": "Learn More",
+      "buttonText": "Rename Layers",
       "isFeatured": false,
-      "description": "Instantly standardize your Figma variant names with one-click renaming that aligns with Material, Carbon, and Polaris design systems.",
+      "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
+      "media": {
+        "src": "https://www.figma.com/community/thumbnail?resource_id=1523817290746945616&resource_type=plugin",
+        "alt": "BiblioRename plugin cover"
+      },
       "buttonPreset": "custom"
     },
     {
       "icon": "🔍",
-      "idea": "File-level component audits for better design.",
-      "badge": "",
-      "title": "Component Auditor",
+      "idea": "Stop shipping broken files.",
+      "badge": "New",
+      "title": "BiblioAudit",
+      "tagline": "Find Detached Instances & Design System Check",
       "badges": [],
       "topItems": [
-        "Scan all components",
-        "Check naming consistency",
-        "Validate structure",
-        "Detect missing variants",
-        "Generate reports"
+        "Audit a selection, single page, or the entire file in seconds.",
+        "Locate every detached instance and reset/overridden component.",
+        "Validate color, type, spacing, radii, and shadows against tokens.",
+        "Flag dirty overrides, heavy deviations, and deprecated components.",
+        "Spot underused and rogue components with usage analytics."
       ],
       "showBadge": false,
       "badgeColor": "#8b5cf6",
       "buttonLink": "https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit",
-      "buttonText": "Try Plugin for Free",
+      "buttonText": "Install BiblioAudit",
       "isFeatured": false,
-      "description": "Audit components inside a single Figma file. Check naming, structure, and variant coverage to ensure consistent, high-quality component usage.",
+      "description": "BiblioAudit is the automated QA tool for Figma. Find detached instances, validate tokens, flag dirty overrides, and reveal deprecated or rogue components—whether you scan a selection, a single page, or the full file.",
+      "media": {
+        "src": "https://www.figma.com/community/thumbnail?resource_id=1564328602359376130&resource_type=plugin",
+        "alt": "BiblioAudit plugin cover"
+      },
       "buttonPreset": "custom"
     },
     {
       "icon": "🧹",
-      "idea": "Stop manually removing blue lines.",
+      "idea": "The Blue Line Wiper.",
       "badge": "New",
-      "title": "BiblioClean: Remove Prototype Links & Blue Lines",
+      "title": "BiblioClean",
       "badges": [],
       "topItems": [
         "Deep Cleaning: Remove prototype navigation links, external URLs, and hotspot interactions.",
@@ -138,30 +148,36 @@
       "showBadge": true,
       "badgeColor": "#0ea5e9",
       "buttonLink": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
-      "buttonText": "Install BiblioClean",
+      "buttonText": "Remove Links - Free",
       "isFeatured": false,
-      "description": "BiblioClean is the professional, free BiblioKit utility for wiping prototype noodles in one click—perfect for client reviews, dev handoff, and system hygiene. Safety guardrails protect shared components while you clean your selection or entire page and log every removal so you can undo anytime.",
+      "description": "The Blue Line Wiper. The safest way to remove prototype links and external connections. Cleans visual clutter without breaking your main components.",
+      "media": {
+        "src": "https://www.figma.com/community/thumbnail?resource_id=1573014835821113198&resource_type=plugin",
+        "alt": "BiblioClean plugin cover"
+      },
       "buttonPreset": "custom"
     },
     {
       "icon": "📊",
-      "idea": "Cross-file analytics for design systems at scale.",
+      "idea": "The Table Fixer.",
       "badge": "Launched",
-      "title": "BiblioKit Blocks",
+      "title": "BiblioTable",
       "badges": [],
       "topItems": [
-        "Connect via MCP or oAuth",
-        "Track usage across files",
-        "Spot duplicates fast",
-        "Quantify ROI impact",
-        "Weekly digests + dashboards"
+        "Normalize column widths in one click.",
+        "Fix sub-pixel rotation bugs instantly.",
+        "Generate zebra striping for any auto-layout table."
       ],
       "showBadge": true,
       "badgeColor": "#10b981",
       "buttonLink": "https://blocks.bibliokit.com/signup",
-      "buttonText": "Learn More",
+      "buttonText": "Fix My Table",
       "isFeatured": false,
-      "description": "Analytics platform for Figma libraries. Track usage across files, measure adoption, highlight duplicates, and quantify ROI to optimize design systems.",
+      "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
+      "media": {
+        "src": "/media/table-fixer-figma.png",
+        "alt": "BiblioTable plugin cover"
+      },
       "buttonPreset": "custom"
     },
     {
@@ -185,15 +201,14 @@
       "description": "A centralized UX/UI repository. Save screenshots, patterns, and resources with AI tagging, heuristic analysis, and visual documentation for inspiration.",
       "buttonPreset": "custom",
       "media": {
-        "type": "uxbiblio-list",
-        "position": "left",
-        "size": "lg"
+        "src": "/media/uxbiblio-cover.png",
+        "alt": "UXBiblio library cover"
       }
     }
   ],
   "featuresSection": {
     "title": "Design smarter. Ship cleaner.",
-    "description": "From idea to hand-off, faster than ever. High-performers teams rely on our Figma plugins to stay consistent, connected, and miles ahead."
+    "description": "From idea to hand-off, faster than ever. Stay consistent, connected, and miles ahead with the BiblioKit plugin suite."
   },
   "pricing": [
     {
@@ -330,12 +345,12 @@
   "waitlist": {},
   "products": {
     "ai-rename-variants": {
-      "title": "AI Rename Variants",
-      "description": "Instantly standardize your Figma variant names with one-click renaming that aligns with Material, Carbon, and Polaris design systems.",
-      "primaryButton": "Install Plugin",
-      "secondaryButton": "Learn More",
+      "title": "BiblioRename",
+      "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
+      "primaryButton": "Rename Layers",
+      "secondaryButton": null,
       "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
-      "secondaryButtonLink": "#landing-features",
+      "secondaryButtonLink": null,
       "badgeLabel": "🏷️ Figma Plugin",
       "visibility": {
         "waitlist": false
@@ -344,7 +359,7 @@
         {
           "title": "Stop fixing messy names by hand",
           "description": "AI reads your component structure, properties, and patterns to generate consistent, meaningful names automatically.",
-          "buttonText": "Try Plugin For Free",
+          "buttonText": "Rename Layers",
           "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
           "items": [
             "Let the AI rename messy variant titles instantly, guided by your component context.",
@@ -390,7 +405,7 @@
         {
           "title": "Bulk renaming made effortless",
           "description": "Select multiple components, run once, and instantly update every variant and layer — fast, reliable, and consistent.",
-          "buttonText": "Try Plugin For Free",
+          "buttonText": "Rename Layers",
           "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
           "items": [
             "Keep multi-state component sets in sync while you batch rename entire libraries.",
@@ -399,12 +414,12 @@
           ],
           "mediaComponent": "video",
           "mediaUrl": "/media/rename-variants-before-after-loop-380.webm",
-          "mediaAlt": "AI Rename Variants before/after rename loop"
+          "mediaAlt": "BiblioRename before/after rename loop"
         },
         {
           "title": "Make naming match your system",
           "description": "Define custom patterns, prefixes, and conventions that align with your team's design standards and naming logic.",
-          "buttonText": "Try Plugin For Free",
+          "buttonText": "Rename Layers",
           "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
           "items": [
             "Define rule blueprints once and auto-apply them to new variants with zero manual edits.",
@@ -450,7 +465,7 @@
         {
           "title": "Built for safe iteration",
           "description": "Keep your naming workflow flexible with full version control and instant undo for every rename operation.",
-          "buttonText": "Try Plugin For Free",
+          "buttonText": "Rename Layers",
           "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
           "items": [
             "Roll back full rename runs instantly when experiments change direction.",
@@ -479,7 +494,7 @@
         {
           "title": "Keep every team in sync",
           "description": "Share and apply the same naming conventions across projects so designers and developers stay aligned and handoffs stay clean.",
-          "buttonText": "Try Plugin For Free",
+          "buttonText": "Rename Layers",
           "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
           "items": [
             "Share governance rules across design, dev, and QA with built-in approvals.",
@@ -571,7 +586,7 @@
         }
       ],
       "llm": {
-        "answerBox": "AI Rename Variants automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.",
+        "answerBox": "BiblioRename automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.",
         "statistics": [
           {
             "date": "March 2024",
@@ -606,7 +621,7 @@
         },
         "faqs": [
           {
-            "question": "How does AI Rename Variants understand my component structure?",
+            "question": "How does BiblioRename understand my component structure?",
             "answer": "The plugin analyzes your component's properties, layer hierarchy, design patterns, and existing naming conventions to generate contextually appropriate names that match your design system standards."
           },
           {
@@ -619,7 +634,7 @@
           },
           {
             "question": "Does it work with existing design systems and component libraries?",
-            "answer": "Yes, AI Rename Variants is designed to work with any Figma file structure and can learn from your existing naming patterns to maintain consistency with your current design system."
+            "answer": "Yes, BiblioRename is designed to work with any Figma file structure and can learn from your existing naming patterns to maintain consistency with your current design system."
           },
           {
             "question": "How many variants can it rename at once?",

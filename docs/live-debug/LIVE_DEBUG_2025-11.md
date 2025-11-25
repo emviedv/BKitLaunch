@@ -1,5 +1,139 @@
 # Live Debug Log — 2025-11
 
+## 2025-11-25
+
+- **Time:** 2025-11-25 02:04 EST
+- **Summary:** Swapped BiblioTable’s product card art to the provided Figma cover image.
+- **Root Cause:** Product card still showed the older UI illustration instead of the latest marketing cover.
+- **Changed Files:** src/data/products.json; public/media/table-fixer-figma.png
+- **Verification:** *(not run; confirm BiblioTable card renders the new cover image in product and landing sections.)*
+
+- **Time:** 2025-11-25 02:27 EST
+- **Summary:** Updated the UXBiblio product card to use the provided cover image.
+- **Root Cause:** UXBiblio still referenced the old abstract list visual instead of the supplied marketing cover.
+- **Changed Files:** src/data/products.json; public/media/uxbiblio-cover.png
+- **Verification:** *(not run; check UXBiblio card shows the new cover art on product/landing sections.)*
+
+- **Time:** 2025-11-25 02:00 EST
+- **Summary:** Removed the left-side features nav on product sections, matched product content padding to the hero container, and added Figma community cover images to all plugin product cards.
+- **Root Cause:** Product pages showed an extra side nav and wider padding than the hero, and cards lacked cover imagery despite available community thumbnails.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/data/products.json
+- **Verification:** *(not run; verify product sections no longer show a side nav, content width aligns with the hero, and BiblioRename/BiblioAudit/BiblioClean cards render their Figma cover images.)*
+
+- **Time:** 2025-11-25 02:02 EST
+- **Summary:** Removed the image wrapper border/background so product feature images can fill the full container height without the illustration frame.
+- **Root Cause:** The image container styling constrained plugin cover art inside a framed illustration box.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** *(not run; check feature images now span the full container height with no surrounding border/background.)*
+
+- **Time:** 2025-11-25 02:02 EST
+- **Summary:** Tightened product feature image rounding to 8px so covers match the simplified container styling.
+- **Root Cause:** Image wrappers still used oversized rounding after removing the frame, conflicting with the new bare layout.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** *(not run; confirm product feature images render with ~8px rounded corners.)*
+
+- **Time:** 2025-11-25 01:38 EST
+- **Summary:** Updated hero/SEO tagline to “Automate the things you hate, focus on design you love.” across bundled content, scripts, and bot fallback.
+- **Root Cause:** Marketing requested the new phrasing; old “Automate the stuff you hate…” line was still shipping.
+- **Changed Files:** default-content.json; current-default-content.json; clean-content.json; correct-content.json; fixed-content.json; src/data/products.json; netlify/edge-functions/bot-detection.ts; scripts/migrate-content-to-db.js; STRATEGIC_MASTER_DOC.md
+- **Verification:** *(not run; check hero, SEO metadata, and bot-detection fallback text show the updated tagline)* 
+
+- **Time:** 2025-11-25 01:37 EST
+- **Summary:** Standardized plugin dropdown labels to use the em dash syntax so BiblioAudit matches the other plugin naming.
+- **Root Cause:** Mixed punctuation (colon vs. em dash) in the header dropdown produced inconsistent plugin naming.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; check the header Plugins dropdown shows “BiblioAudit — Find Detached Instances & Design System Check” with the em dash)*
+
+- **Time:** 2025-11-25 01:35 EST
+- **Summary:** Darkened the pink primary button hover state to a deeper pink across hero, blog, and shared button styles.
+- **Root Cause:** Hover styling boosted brightness, lightening the pink CTA instead of giving a darker hover affordance.
+- **Changed Files:** src/components/heroConstants.ts; src/components/BlogPage.tsx; src/components/ui/button.tsx; src/index.css
+- **Verification:** *(not run; visually confirm hero/blog CTAs and primary buttons darken to the deeper pink on hover)*
+
+- **Time:** 2025-11-25 01:30 EST
+- **Summary:** Split the BiblioRename product card title and tagline so “AI Layer Renamer & Naming Conventions” renders beneath the name.
+- **Root Cause:** The tagline text was embedded in the title, preventing the product card from showing the dedicated subtitle line.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; confirm the BiblioRename card now shows the tagline under the title on the landing page)*
+
+- **Time:** 2025-11-25 00:42 EST
+- **Summary:** Retired unused legacy URLs (/product, /roadmap, /sign-up, /test, /component-auditor-figma-plugin, /month, /learn-more) by serving 410s and stripping them from bot/SEO/index submissions.
+- **Root Cause:** Old experimental paths were still reachable via bot-specific HTML and IndexNow payloads, keeping crawlers aware of pages we no longer support.
+- **Changed Files:** _redirects; netlify/edge-functions/bot-detection.ts; netlify/functions/indexnow.ts; src/lib/seo.ts; src/data/products.json; default-content.json; current-default-content.json; features-default.json
+- **Verification:** *(not run; `npm test -- tests/unit/sitemap.spec.ts` fails because package.json has no test script; manually hit the retired URLs to confirm 410 responses and that navigation links now point to live destinations)*
+
+- **Time:** 2025-11-25 00:36 EST
+- **Summary:** Aligned the landing hero content to the shared section gutters so its left/right padding matches the content sections.
+- **Root Cause:** The hero canvas was full-bleed without the standard section padding, making the hero text and illustration start wider than the downstream content blocks.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** *(not run; visually confirm hero text/illustration align to the same horizontal gutters as the content sections)*
+
+- **Time:** 2025-11-25 00:36 EST
+- **Summary:** Pinned the landing hero illustration to the far right and raised its z-order so it sits above the gradient layer instead of under it.
+- **Root Cause:** After constraining the hero to the section gutters, the isometric illustration pulled inward and appeared partially hidden under the background gradient.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** *(not run; visually confirm the illustration hugs the right edge and is fully visible above the gradient overlay)*
+
+- **Time:** 2025-11-25 00:37 EST
+- **Summary:** Boosted the hero illustration’s stacking order to sit above all gradient overlays, eliminating the color cast difference.
+- **Root Cause:** The isometric art still inherited a tint from overlay layers because its z-index sat below some hero overlays.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** *(not run; visually confirm the illustration renders at full color without overlay tint)*
+
+- **Time:** 2025-11-25 00:38 EST
+- **Summary:** Restored the origami illustration colors to the original palette (soft yellows/indigos/emeralds with white borders) matching the reference hero.
+- **Root Cause:** The updated gradient palette shifted blob fills and strokes away from the source design, altering the Logic diamond and cards.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** *(not run; visually compare to the original OrigamiHero palette to confirm colors match)* 
+
+- **Time:** 2025-11-25 00:39 EST
+- **Summary:** Centered the hero’s left content vertically to match the original OrigamiHero positioning.
+- **Root Cause:** Text block sat higher than in the reference layout, so the hero looked top-heavy.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** *(not run; visually confirm the left column aligns vertically with the original hero reference)* 
+
+- **Time:** 2025-11-25 00:40 EST
+- **Summary:** Removed the clients marquee from the landing page hero stack per request.
+- **Root Cause:** Clients section should not render on the landing hero sequence.
+- **Changed Files:** src/components/BiblioKitLanding.tsx
+- **Verification:** *(not run; check landing page no longer shows the clients row under the hero)*
+
+- **Time:** 2025-11-25 00:41 EST
+- **Summary:** Extended the hero background overlays (gradient, grid, noise, contrast) behind the product sections to remove the hard color band between hero and section two.
+- **Root Cause:** The product content area restarted a fresh background, creating a visible band after the hero.
+- **Changed Files:** src/components/BiblioKitLanding.tsx
+- **Verification:** *(not run; reload landing and confirm the hero background flows smoothly into the next section without a band)*
+
+- **Time:** 2025-11-25 00:42 EST
+- **Summary:** Removed the unused landing-sections gradient style and relied on the hero gradient layer to flow behind the next section.
+- **Root Cause:** Stale CSS kept the old gradient definition; the new hero overlay now drives the background for subsequent sections.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; src/index.css
+- **Verification:** *(not run; ensure the background continues smoothly with no leftover band and no landing-sections gradient CSS present)*
+
+- **Time:** 2025-11-25 00:43 EST
+- **Summary:** Split BiblioAudit’s product card into title + tagline so “Find Detached Instances & Design System Check” now appears beneath the title.
+- **Root Cause:** The tagline was embedded in the title; the card needed a separate subtitle line.
+- **Changed Files:** src/components/Features.tsx; src/data/products.json
+- **Verification:** *(not run; open the landing product cards and confirm the BiblioAudit card shows the tagline under the title)* 
+
+- **Time:** 2025-11-25 00:44 EST
+- **Summary:** Removed the “High-performers teams rely…” clause from the features description and tests; aligned AI Rename copy to the updated tagline.
+- **Root Cause:** Requested to drop the “High-performers teams rely…” phrasing from the product copy.
+- **Changed Files:** src/data/products.json; tests/unit/homepageFeaturesCopy.spec.ts; tests/unit/aiRenameVariantsCopy.spec.ts; src/components/aiRenameVariantsCopy.ts
+- **Verification:** *(not run; confirm the features section and AI Rename copy show the updated wording without the removed clause)*
+
+- **Time:** 2025-11-25 00:45 EST
+- **Summary:** Swapped the landing hero primary CTA to the pink product-card button style (HERO_PRIMARY_BUTTON_CLASS).
+- **Root Cause:** Hero still used a slate button instead of the shared pink CTA styling from product cards.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** *(not run; visually confirm hero primary CTA uses the pink button style)* 
+
+- **Time:** 2025-11-25 00:46 EST
+- **Summary:** Renamed the BiblioRename product card to “BiblioRename: AI Layer Renamer & Naming Conventions.”
+- **Root Cause:** Requested updated naming for the product card.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; check the BiblioRename card title renders the new name)* 
+
 ## 2025-11-11
 
 - **Time:** 2025-11-11 18:40 EST
@@ -1113,3 +1247,97 @@
 - **Root Cause:** The landing card and header still referenced the older “Remove Plugin Links” name and URL, missing the updated BiblioClean messaging and install link.
 - **Changed Files:** src/data/products.json; src/components/Header.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
 - **Verification:** *(not run; open the landing product grid to see the BiblioClean title, bullets, and CTA pointing to the new Figma link, and check the header Resources/Plugins dropdown for the external BiblioClean plugin link)*
+
+- **Time:** 2025-11-22 18:45 EST
+- **Summary:** Renamed Component Auditor to “BiblioAudit: Find Detached Instances & Design System Check,” refreshed its product bullets and CTA, and updated the Plugins dropdown with the new QA-focused copy.
+- **Root Cause:** The product card and nav listing still used the old Component Auditor name and messaging instead of the updated BiblioAudit positioning and link text.
+- **Changed Files:** src/data/products.json; src/components/Header.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the landing product grid to see the BiblioAudit title, bullets, and “Install BiblioAudit” CTA, and check the header Plugins dropdown for the BiblioAudit link/description pointing to the Figma listing)*
+
+## 2025-11-23
+
+- **Time:** 2025-11-23 20:18:04 EST
+- **Summary:** Updated the BiblioClean product card title, tagline, CTA, and description to match the OPS lane SEO + conversion copy (“The Blue Line Wiper,” “Remove Links - Free”) while keeping the install link intact.
+- **Root Cause:** The card still used the prior “Remove Prototype Links & Blue Lines” naming and CTA, which didn’t match the requested OPS product copy and conversion-focused button label.
+- **Changed Files:** src/data/products.json
+- **Verification:** *(not run; copy-only content update)*
+
+- **Time:** 2025-11-23 20:22:12 EST
+- **Summary:** Refreshed all landing product cards and header plugin labels to the OPS SEO + conversion copy (BiblioRename, BiblioAudit, BiblioClean, BiblioTable) and CTAs (“Rename Layers,” “Run Health Check,” “Remove Links - Free,” “Fix My Table”).
+- **Root Cause:** Product cards and nav still used legacy names, descriptions, and CTAs instead of the new OPS lane copy.
+- **Changed Files:** src/data/products.json; src/components/Header.tsx
+- **Verification:** *(not run; copy-only content update)*
+
+- **Time:** 2025-11-23 20:31:27 EST
+- **Summary:** Updated product detail CTAs and SEO copy across product data and default content (including fallbacks) to match the OPS lane naming and buttons: BiblioRename (“Rename Layers”), BiblioAudit (“Run Health Check”), BiblioClean, and BiblioTable (“Fix My Table”).
+- **Root Cause:** Product detail buttons and default content files still used legacy names/CTAs, so changes weren’t reflected in all surfaces.
+- **Changed Files:** src/data/products.json; default-content.json; current-default-content.json; features-default.json; clean-content.json; correct-content.json; fixed-content.json
+- **Verification:** *(not run; copy-only content update)*
+
+- **Time:** 2025-11-23 21:16:24 EST
+- **Summary:** Fixed product feature cards overriding CTA labels by honoring provided button text (or product primary button) instead of forcing “Try ${name} For Free.”
+- **Root Cause:** ProductContentSections hard-coded a “Try … For Free” label, ignoring the new CTA copy (e.g., “Remove Links - Free,” “Rename Layers,” “Fix My Table”).
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** *(not run; copy-only UI text logic change)*
+
+- **Time:** 2025-11-23 21:58:06 EST
+- **Summary:** Replaced the BiblioTable illustration with the provided table-fixer UI SVG and wired it as the product hero image.
+- **Root Cause:** BiblioTable was still using the fallback illustration instead of the supplied table-fixer UI asset.
+- **Changed Files:** public/media/table-fixer-ui.svg; default-content.json
+- **Verification:** *(not run; copy-only asset + path update)*
+
+- **Time:** 2025-11-23 22:08:00 EST
+- **Summary:** Added the provided table-fixer UI SVG to the BiblioTable landing product card and enabled feature cards to render media so the new illustration replaces the old placeholder.
+- **Root Cause:** Landing product cards ignored provided media and BiblioTable lacked a linked image, so the illustration never appeared.
+- **Changed Files:** src/components/Features.tsx; src/data/products.json; default-content.json; current-default-content.json; features-default.json; clean-content.json; correct-content.json; fixed-content.json; public/media/table-fixer-ui.svg
+- **Verification:** *(not run; UI content + asset wiring change)*
+
+## 2025-11-24
+
+- **Time:** 2025-11-24 00:50:05 EST
+- **Summary:** Replaced the BiblioTable landing product card illustration with the newly provided table-fixer UI SVG.
+- **Root Cause:** The card was still using the previous illustration instead of the updated asset Emily provided.
+- **Changed Files:** public/media/table-fixer-ui.svg
+- **Verification:** *(not run; asset swap only)*
+
+- **Time:** 2025-11-24 00:58:44 EST
+- **Summary:** Enabled landing feature cards to render static images so the BiblioTable card now shows the provided table-fixer UI art within the grid layout.
+- **Root Cause:** Landing feature details stripped media data and the renderer only supported videos/custom components, so the BiblioTable showcase fell back to a placeholder instead of the supplied SVG.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the landing features section and confirm cards show their media, with BiblioTable displaying the table-fixer UI illustration in the grid layout)*
+
+- **Time:** 2025-11-24 02:07:22 EST
+- **Summary:** Restyled the landing hero background to a deep navy-to-indigo radial gradient inspired by the provided reference, matching the curved glow while keeping text contrast.
+- **Root Cause:** The hero still used the older purple/orange gradient and needed to align with the new gradient direction from the reference image.
+- **Changed Files:** src/index.css
+- **Verification:** *(not run; load the hero and confirm the backdrop shows the dark navy-to-indigo radial gradient with subtle line/noise overlays, preserving readability)*
+
+- **Time:** 2025-11-24 02:24:29 EST
+- **Summary:** Converted the BiblioTable illustration SVG animations to loop continuously so the checkbox confirmations replay on a cadence.
+- **Root Cause:** The SVG’s checkbox animations only ran once, leaving the graphic static after the initial playthrough.
+- **Changed Files:** public/media/table-fixer-ui.svg; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the BiblioTable card and confirm the checkboxes animate repeatedly alongside the confetti loop)*
+
+- **Time:** 2025-11-24 04:56:05 EST
+- **Summary:** Replaced the design systems blog card artwork with the new adaptive grid cells SVG.
+- **Root Cause:** The design system blog posts still pointed to the old illustration instead of the updated asset provided.
+- **Changed Files:** public/blog/design-systems-card.svg; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open any design systems blog card/hero and confirm it shows the adaptive grid cells illustration)*
+
+- **Time:** 2025-11-24 05:18:52 EST
+- **Summary:** Restored the design systems blog card to its original illustration and moved the adaptive grid cells SVG to the BiblioTable landing product card asset path.
+- **Root Cause:** The adaptive grid SVG was mistakenly placed on the design systems card instead of the BiblioTable landing card.
+- **Changed Files:** public/blog/design-systems-card.svg; public/media/table-fixer-ui.svg; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open the design systems blog card to confirm the original art is back, and view the BiblioTable landing card to see the adaptive grid animation looping)*
+
+- **Time:** 2025-11-24 05:23:35 EST
+- **Summary:** Removed the extra rounded container (and any implicit bg/border) around landing feature showcase media so the media sits flush without an added shell.
+- **Root Cause:** The showcase wrapper used nested rounded containers that introduced unwanted background/border styling around the media.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; open a landing feature showcase and confirm media displays without the extra rounded wrapper background/border)*
+
+- **Time:** 2025-11-24 05:24:56 EST
+- **Summary:** Aligned the landing content background to the hero gradient so all sections share the same deep navy/indigo backdrop.
+- **Root Cause:** The landing sections used a different gradient, causing a jarring shift from the hero background to the content area.
+- **Changed Files:** src/index.css; docs/live-debug/LIVE_DEBUG_2025-11.md
+- **Verification:** *(not run; view the landing sections to confirm the background matches the hero gradient across content blocks)*

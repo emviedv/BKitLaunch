@@ -4,7 +4,7 @@ const BLOG_LIST_SECTION_ID = 'blog-latest';
 const blogCardHoverClass =
   'transition hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
 const blogCtaButtonClass =
-  'w-full sm:w-auto inline-flex min-w-[12rem] items-center justify-center rounded-[2px] bg-[#ff2f87] px-4 py-[10px] text-sm font-semibold text-white shadow-none transition-colors duration-200 hover:brightness-110';
+  'w-full sm:w-auto inline-flex min-w-[12rem] items-center justify-center rounded-[2px] bg-[#ff2f87] px-4 py-[10px] text-sm font-semibold text-white shadow-none transition-colors duration-200 hover:bg-[#e02074]';
 
 const BlogPage: React.FC = () => {
   const featuredPost = BLOG_POSTS[0];

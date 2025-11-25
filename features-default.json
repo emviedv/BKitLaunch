@@ -133,9 +133,9 @@
       },
       {
         "icon": "🏷️",
-        "title": "AI Rename Variants",
-        "description": "Batch-rename Figma variants with AI. Context-aware analysis ensures consistent naming conventions, cleaner files, and reduced design debt.",
-        "idea": "AI-powered variant renaming at scale.",
+        "title": "BiblioRename",
+        "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
+        "idea": "The AI Organizer.",
         "topItems": [
           "Batch rename sets",
           "Detect states & sizes",
@@ -149,14 +149,14 @@
         "isFeatured": false,
         "showBadge": true,
         "buttonPreset": "custom",
-        "buttonText": "Learn More",
+        "buttonText": "Rename Layers",
         "buttonLink": "/ai-rename-variants"
       },
       {
         "icon": "🔍",
-        "title": "Component Auditor",
-        "description": "Audit components inside a single Figma file. Check naming, structure, and variant coverage to ensure consistent, high-quality component usage.",
-        "idea": "File-level component audits for better design.",
+        "title": "BiblioAudit",
+        "description": "Instantly find detached instances, missing styles, and broken tokens. Get a full health check before you hand off to developers.",
+        "idea": "The Design System Fixer.",
         "topItems": [
           "Scan all components",
           "Check naming consistency",
@@ -170,20 +170,18 @@
         "isFeatured": false,
         "showBadge": true,
         "buttonPreset": "custom",
-        "buttonText": "Learn More",
-        "buttonLink": "/component-auditor-figma-plugin"
+        "buttonText": "Run Health Check",
+        "buttonLink": "https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit"
       },
       {
         "icon": "📊",
-        "title": "BiblioKit Blocks",
-        "description": "Track design system adoption across Figma files with analytics. Measure ROI, spot duplicates, and optimize component libraries at scale.",
-        "idea": "Cross-file analytics for design systems at scale.",
+        "title": "BiblioTable",
+        "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
+        "idea": "The Table Fixer.",
         "topItems": [
-          "Track usage across files",
-          "Measure adoption trends",
-          "Spot duplicates quickly",
-          "Quantify ROI impact",
-          "Optimize libraries"
+          "Normalize column widths in one click.",
+          "Fix sub-pixel rotation bugs instantly.",
+          "Generate zebra striping for any auto-layout table."
         ],
         "badge": "Launched",
         "badgeColor": "#10b981",
@@ -191,8 +189,12 @@
         "isFeatured": true,
         "showBadge": true,
         "buttonPreset": "custom",
-        "buttonText": "Learn More",
-        "buttonLink": "https://blocks.bibliokit.com/signup"
+        "buttonText": "Fix My Table",
+        "buttonLink": "https://blocks.bibliokit.com/signup",
+        "media": {
+          "src": "/media/table-fixer-ui.svg",
+          "alt": "BiblioTable table fixer UI preview"
+        }
       },
       {
         "icon": "🛒",

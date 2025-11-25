@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 
 import LandingHero from './LandingHero';
-import ClientsMarquee from './ClientsMarquee';
 import ProductContentSections from './ProductContentSections';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { debugService } from '@/lib/debugService';
@@ -16,6 +15,10 @@ type FeatureLike = {
   buttonLink?: string;
   buttonLabel?: string;
   buttonUrl?: string;
+  media?: {
+    src?: string;
+    alt?: string;
+  };
 };
 
 type ProductVisibility = {
@@ -78,8 +81,10 @@ const BiblioKitLanding: React.FC = () => {
         const rawButtonLink = item.buttonLink ?? item.buttonUrl;
         const buttonText = typeof rawButtonText === 'string' ? rawButtonText.trim() : '';
         const buttonLink = typeof rawButtonLink === 'string' ? rawButtonLink.trim() : '';
+        const mediaSrc = typeof item.media?.src === 'string' ? item.media.src.trim() : '';
+        const mediaAlt = typeof item.media?.alt === 'string' ? item.media.alt : undefined;
 
-        return {
+        const detail = {
           title,
           description: item.description || item.idea,
           items: Array.isArray(item.topItems) && item.topItems.length > 0
@@ -88,6 +93,16 @@ const BiblioKitLanding: React.FC = () => {
           buttonText: buttonText || undefined,
           buttonLink: buttonLink || undefined,
         };
+
+        if (mediaSrc) {
+          Object.assign(detail, {
+            mediaComponent: 'image',
+            mediaUrl: mediaSrc,
+            mediaAlt: mediaAlt || `${title} preview`,
+          });
+        }
+
+        return detail;
       })
       .filter(Boolean) as Array<{
         title: string;
@@ -95,6 +110,9 @@ const BiblioKitLanding: React.FC = () => {
         items?: string[];
         buttonText?: string;
         buttonLink?: string;
+        mediaComponent?: string;
+        mediaUrl?: string;
+        mediaAlt?: string;
       }>;
   }, [rawFeatures, shouldHideFeature]);
 
@@ -199,21 +217,30 @@ const BiblioKitLanding: React.FC = () => {
       {shouldRenderHero && (
         <>
           <LandingHero hero={mergedProduct as any} />
-          <ClientsMarquee />
         </>
       )}
       {shouldRenderSections && (
-        <ProductContentSections
-          product={mergedProduct as any}
-          faqs={faqs}
-          detailsOverride={featureDetails.length > 0 ? featureDetails : undefined}
-          sectionOverrides={{
-            featuresTitle: content?.featuresSection?.title,
-            featuresDescription: content?.featuresSection?.description,
-          }}
-          compactLayout
-          enableFeaturesNav
-        />
+        <div className="relative isolate overflow-hidden">
+          <div className="landing-hero-gradient__layer" aria-hidden="true" />
+          <div className="landing-hero-column-lines" aria-hidden="true" />
+          <div className="landing-hero-noise" aria-hidden="true" />
+          <div className="landing-hero-contrast" aria-hidden="true" />
+          <div className="absolute inset-0 bg-black/10 pointer-events-none" aria-hidden="true" />
+
+          <div className="relative z-10">
+            <ProductContentSections
+              product={mergedProduct as any}
+              faqs={faqs}
+              detailsOverride={featureDetails.length > 0 ? featureDetails : undefined}
+              sectionOverrides={{
+                featuresTitle: content?.featuresSection?.title,
+                featuresDescription: content?.featuresSection?.description,
+              }}
+              compactLayout
+              enableFeaturesNav
+            />
+          </div>
+        </div>
       )}
     </>
   );

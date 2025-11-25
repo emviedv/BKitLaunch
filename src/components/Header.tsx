@@ -66,7 +66,8 @@ const Header = () => {
     if ((item as DropdownNavItem).type === 'dropdown') {
       const dd = item as DropdownNavItem;
       const children = (dd.children || []).map((child) => {
-        if (child.label?.trim().toLowerCase() === 'component auditor') {
+        const normalizedLabel = child.label?.trim().toLowerCase();
+        if (normalizedLabel === 'component auditor' || normalizedLabel?.startsWith('biblioaudit')) {
           const { badge, ...rest } = child;
           return {
             ...rest,
@@ -78,7 +79,8 @@ const Header = () => {
       });
       return { ...dd, children };
     }
-    if ((item as LinkNavItem).label?.trim().toLowerCase() === 'component auditor') {
+    const normalizedLabel = (item as LinkNavItem).label?.trim().toLowerCase();
+    if (normalizedLabel === 'component auditor' || normalizedLabel?.startsWith('biblioaudit')) {
       const { badge, ...rest } = item as LinkNavItem & { badge?: string };
       return rest;
     }
@@ -102,9 +104,9 @@ const Header = () => {
     label: 'Resources',
     children: [
       {
-        label: 'BiblioClean: Remove Prototype Links & Blue Lines',
+        label: 'BiblioClean — The Blue Line Wiper',
         href: 'https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines',
-        description: 'Install BiblioClean to wipe blue lines with one click and guardrails for shared components.',
+        description: 'Remove prototype links safely without breaking your main components.',
         icon: 'plug',
         isExternal: true,
       }

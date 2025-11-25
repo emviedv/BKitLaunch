@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 const EXPECTED_COPY =
-  'From idea to hand-off, faster than ever. High-performers teams rely on our Figma plugins to stay consistent, connected, and miles ahead.';
+  'From idea to hand-off, faster than ever. Stay consistent, connected, and miles ahead with the BiblioKit plugin suite.';
 
 test('homepage features section description matches approved messaging', async () => {
   const { loadPublishedContent } = await import('../../src/lib/publishedContent.ts');

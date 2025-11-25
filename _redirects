@@ -9,9 +9,24 @@
 /favicon.svg     /favicon.svg                    200
 /robots.txt      /robots.txt                     200
 
+# Return 410 for retired paths
+/product                        410
+/product/*                      410
+/roadmap                        410
+/roadmap/*                      410
+/sign-up                        410
+/sign-up/*                      410
+/test                           410
+/test/*                         410
+/component-auditor-figma-plugin 410
+/component-auditor-figma-plugin/* 410
+/month                          410
+/month/*                        410
+/learn-more                     410
+/learn-more/*                   410
+
 # Serve dynamic sitemap from Netlify function
 /sitemap.xml  /.netlify/functions/sitemap  200
 
 # SPA fallback for everything else
 /*      /index.html  200
-

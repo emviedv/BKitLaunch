@@ -104,34 +104,6 @@ export const routeMetadata: RouteMetadata = {
       }
     ]
   },
-  '/component-auditor-figma-plugin': {
-    title: "Component Auditor for Figma – BiblioKit",
-    description: "BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.",
-    keywords: "component auditor figma plugin, figma audits, component reporting, design system tooling",
-    ogTitle: "Component Auditor for Figma – BiblioKit",
-    ogDescription: "BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.",
-    ogImage: "/og/og-default.svg",
-    twitterTitle: "Component Auditor for Figma – BiblioKit",
-    twitterDescription: "BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.",
-    twitterImage: "/og/og-default.svg",
-    structuredData: [
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "@id": "https://bibliokit.com/component-auditor-figma-plugin#software",
-        "name": "Component Auditor for Figma",
-        "applicationCategory": "DesignApplication",
-        "operatingSystem": "Web Browser",
-        "url": "https://bibliokit.com/component-auditor-figma-plugin",
-        "description": "BiblioKit: Explore Figma plugin solutions from BiblioKit. Automate design tasks and improve your workflow.",
-        "publisher": {
-          "@type": "Organization",
-          "@id": "https://bibliokit.com/#organization",
-          "name": "BiblioKit"
-        }
-      }
-    ]
-  },
   '/docs': {
     title: 'BiblioKit Docs – Quickstart & API Reference',
     description: 'Get started with BiblioKit. Quickstart guides and API examples for integrating products and plugins.',
@@ -142,45 +114,6 @@ export const routeMetadata: RouteMetadata = {
     twitterTitle: 'BiblioKit Docs',
     twitterDescription: 'Quickstart and API reference for BiblioKit products.',
     twitterImage: '/og/og-default.svg'
-  },
-  '/product': {
-    title: "BiblioKit Product - Features & Benefits | SaaS Tools",
-    description: "Explore BiblioKit's comprehensive feature set including secure API management, Figma plugin support, developer-first tools, and premium support options.",
-    keywords: "BiblioKit features, API management tools, Figma plugin features, developer tools, SaaS features",
-    ogTitle: "BiblioKit Product Features & Benefits",
-    ogDescription: "Comprehensive SaaS tools for developers and designers with secure API management and premium support.",
-    ogImage: "/og/og-default.svg",
-    twitterTitle: "BiblioKit Product Features",
-    twitterDescription: "Comprehensive SaaS tools for developers and designers with secure API management.",
-    twitterImage: "/og/og-default.svg",
-    structuredData: [
-      {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "@id": "https://bibliokit.com/product#product",
-        "name": "BiblioKit",
-        "description": "Professional SaaS software and Figma plugins with secure API management and world-class support.",
-        "brand": {
-          "@type": "Brand",
-          "name": "BiblioKit"
-        },
-        "category": "SoftwareApplication",
-        "url": "https://bibliokit.com/product",
-        "image": "https://bibliokit.com/og/og-default.svg",
-        "audience": {
-          "@type": "Audience",
-          "audienceType": "Designers, developers, and product teams"
-        },
-        "offers": {
-          "@type": "AggregateOffer",
-          "lowPrice": 0,
-          "highPrice": 29,
-          "priceCurrency": "USD",
-          "offerCount": 2,
-          "availability": "https://schema.org/InStock"
-        }
-      }
-    ]
   },
   '/admin': {
     title: "BiblioKit Admin Dashboard - Content Management",
@@ -291,15 +224,6 @@ export function generateMetadata(
             metadata.twitterTitle = contentData.hero.title || metadata.twitterTitle;
             metadata.twitterDescription = contentData.hero.subtitle || metadata.twitterDescription;
           }
-          break;
-        case '/product':
-          if (contentData.features?.title) {
-            metadata.title = `${contentData.features.title} | BiblioKit`;
-          }
-          if (contentData.features?.subtitle) {
-            metadata.description = contentData.features.subtitle;
-          }
-          metadata.webPageType = metadata.webPageType || 'ProductPage';
           break;
       }
     }

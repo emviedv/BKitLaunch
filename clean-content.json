@@ -12,7 +12,7 @@
     "title": "Your Design Toolkit, Reinvented.",
     "subtitle": "Work x10,000 faster.",
     "badgeLabel": "Designer built",
-    "description": "Automate the stuff you hate, design the things you love.",
+    "description": "Automate the things you hate, focus on design you love.",
     "primaryButton": "Get Started Free",
     "secondaryButton": "View Products",
     "primaryButtonLink": "https://blocks.bibliokit.com/signup",
@@ -92,7 +92,7 @@
     "navigation": [
       {
         "href": "/ai-rename-variants",
-        "label": "AI Rename Variants"
+        "label": "BiblioRename"
       },
       {
         "href": "/docs",
@@ -169,14 +169,14 @@
   ],
   "products": {
     "ai-rename-variants": {
-      "title": "AI Rename Variants",
-      "description": "Automatically rename Figma variants and layers with AI-driven naming conventions to eliminate design debt and improve team collaboration.",
-    "primaryButton": "Install Plugin",
-    "secondaryButton": "View Demo",
-    "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
-    "secondaryButtonLink": "https://blocks.bibliokit.com/demo",
-    "heroImage": "/component-auditor-ui-420x500.png",
-    "heroImageAlt": "Component audit dashboard showing key metrics",
+      "title": "BiblioRename",
+      "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
+      "primaryButton": "Rename Layers",
+      "secondaryButton": null,
+      "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+      "secondaryButtonLink": null,
+      "heroImage": "/component-auditor-ui-420x500.png",
+      "heroImageAlt": "Component audit dashboard showing key metrics",
       "visibility": {
         "waitlist": false
       }
@@ -198,16 +198,20 @@
     "6": {
       "icon": "🏷️",
       "badge": "Launched",
-      "title": "AI Rename Variants",
+      "title": "BiblioRename",
       "badgeColor": "#10b981",
-      "description": "Automatically rename Figma variants and layers with AI-driven naming conventions to eliminate design debt."
+      "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions."
     },
     "8": {
       "icon": "📊",
       "badge": "Launched",
-      "title": "BiblioKit Blocks",
+      "title": "BiblioTable",
       "badgeColor": "#10b981",
-      "description": "Analytics platform that tracks Figma component usage, measures design system ROI, and helps teams scale efficiently."
+      "description": "Analytics platform that tracks Figma component usage, measures design system ROI, and helps teams scale efficiently.",
+      "media": {
+        "src": "/media/table-fixer-ui.svg",
+        "alt": "BiblioTable table fixer UI preview"
+      }
     },
     "9": {
       "icon": "🛒",

@@ -176,7 +176,7 @@ const footerSection = {
   section_type: 'footer',
   section_data: {
     logo_text: 'BiblioKit',
-    description: 'Automate the stuff you hate, design the things you love.',
+    description: 'Automate the things you hate, focus on design you love.',
     footer_links: [
       {
         title: 'Product',
