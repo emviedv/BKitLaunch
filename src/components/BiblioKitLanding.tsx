@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 
 import LandingHero from './LandingHero';
 import ProductContentSections from './ProductContentSections';
+import Waitlist from './Waitlist';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
@@ -291,6 +292,7 @@ const BiblioKitLanding: React.FC = () => {
           </div>
         </div>
       )}
+      <Waitlist />
     </>
   );
 };

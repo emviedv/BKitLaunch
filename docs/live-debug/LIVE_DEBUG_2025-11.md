@@ -1493,3 +1493,9 @@
 - **Root Cause:** Product grid statuses were outdated relative to current launch states.
 - **Changed Files:** src/data/products.json
 - **Verification:** *(not run; content-only—view product grid to confirm updated badge labels/colors)*
+
+- **Time:** 2025-11-25 18:06:39 EST
+- **Summary:** Replaced BiblioStart/BiblioTable buttons to scroll to a new beta waitlist section and enabled the onsite waitlist email capture.
+- **Root Cause:** Product cards were sending users to blocks.bibliokit.com instead of keeping beta signup onsite with an email form.
+- **Changed Files:** src/data/products.json; src/components/BiblioKitLanding.tsx
+- **Verification:** *(not run; UX flow—click BiblioStart/BiblioTable buttons to confirm smooth scroll to landing waitlist form and successful email submission state)*

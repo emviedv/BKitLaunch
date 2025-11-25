@@ -12,7 +12,7 @@
       "product": true,
       "features": true,
       "uxbiblio": true,
-      "waitlist": false,
+      "waitlist": true,
       "bibliokit-blocks": true,
       "ai-rename-variants": true
     },
@@ -176,7 +176,7 @@
       ],
       "showBadge": true,
       "badgeColor": "#8b5cf6",
-      "buttonLink": "https://blocks.bibliokit.com/signup",
+      "buttonLink": "#landing-waitlist",
       "buttonText": "Generate Starter",
       "isFeatured": false,
       "description": "Spin up production-ready Figma projects with standardized pages, tokens, and folder scaffolding so teams start building in minutes.",
@@ -200,7 +200,7 @@
       ],
       "showBadge": true,
       "badgeColor": "#8b5cf6",
-      "buttonLink": "https://blocks.bibliokit.com/signup",
+      "buttonLink": "#landing-waitlist",
       "buttonText": "Fix My Table",
       "isFeatured": false,
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
@@ -373,7 +373,12 @@
     "github": "bibliokit",
     "twitter": "@bibliokit"
   },
-  "waitlist": {},
+  "waitlist": {
+    "title": "Join Designers shipping faster with BiblioKit",
+    "description": "Set up a shared workspace and get first access to BiblioStart + BiblioTable betas 10x faster. Drop your email to jump the line.",
+    "buttonText": "Get Beta Access",
+    "successMessage": "You're on the beta list! We'll reach out with BiblioStart and BiblioTable early access details."
+  },
   "products": {
     "ai-rename-variants": {
       "title": "BiblioRename",
