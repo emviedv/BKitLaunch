@@ -12,6 +12,7 @@
     "serve": "vite preview --port 9990",
     "netlify:dev": "netlify dev",
     "netlify:build": "npm run build",
+    "email:waitlist": "bash scripts/waitlist-email.sh",
     "test:env": "bash tests/shell/dev-env.spec.sh",
     "test:e2e": "playwright test",
     "size": "node -e \"const fs=require('fs');const path=require('path');let d=process.cwd();let f=null;while(true){const p=path.join(d,'tools','loc-top20.js');if(fs.existsSync(p)){f=p;break;}const up=path.dirname(d);if(up===d)break;d=up;}if(!f){console.error('tools/loc-top20.js not found');process.exit(1);}require(f);\""
