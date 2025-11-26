@@ -1,5 +1,19 @@
 # Live Debug Log — 2025-11
 
+## 2025-11-26
+
+- **Time:** 2025-11-26 03:37 EST
+- **Summary:** Updated the landing page title/OG/Twitter defaults to “BiblioKit | AI Figma Plugins for Design Systems & Handoff” in both static HTML and bot fallback metadata.
+- **Root Cause:** Landing metadata still used the older “Design Toolkit…” title, causing mismatched titles across head tags and bot fallback responses.
+- **Changed Files:** index.html; src/lib/seo.ts; netlify/edge-functions/bot-detection.ts
+- **Verification:** *(not run; verify head/title and social preview tags show the new title on the landing page and bot fallback response.)*
+
+- **Time:** 2025-11-26 03:36 EST
+- **Summary:** Added the design-operations plugins line to the footer to clarify the suite includes BiblioAudit, BiblioScale, and BiblioClean.
+- **Root Cause:** Footer lacked the requested suite description, leaving visitors without a clear view of the included Figma plugins.
+- **Changed Files:** src/components/Footer.tsx
+- **Verification:** *(not run; visually confirm the footer shows the new sentence beneath the copyright.)*
+
 ## 2025-11-25
 
 - **Time:** 2025-11-25 17:06 EST

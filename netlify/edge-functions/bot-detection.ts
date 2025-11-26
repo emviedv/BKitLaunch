@@ -96,9 +96,9 @@ function getPageMetadata(pathname: string): string {
   switch (pathname) {
     case '/':
       return `
-        <title>BiblioKit: Design Toolkit for Faster Figma Workflows in 2025</title>
+        <title>BiblioKit | AI Figma Plugins for Design Systems &amp; Handoff</title>
         <meta name="description" content="BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.">
-        <meta property="og:title" content="BiblioKit: Design Toolkit for Faster Figma Workflows in 2025">
+        <meta property="og:title" content="BiblioKit | AI Figma Plugins for Design Systems &amp; Handoff">
         <meta property="og:description" content="BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.">
         <meta property="og:type" content="website">
       `;

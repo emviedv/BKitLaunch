@@ -20,7 +20,12 @@ const Footer = () => {
     <footer className="bg-[#0f0a1c] border-t border-[#1b142a] text-white">
       <div className="section-content py-6 text-sm text-white/70">
         <div className="flex flex-col gap-4 text-center md:flex-row md:items-center md:justify-between md:text-left">
-          <span>© 2025 BiblioKit. All rights reserved.</span>
+          <div className="flex flex-col gap-2 text-center md:text-left">
+            <span>© 2025 BiblioKit. All rights reserved.</span>
+            <p className="max-w-xl text-white/70 md:max-w-2xl">
+              BiblioKit is a suite of Figma plugins for design operations, including BiblioAudit, BiblioScale, and BiblioClean.
+            </p>
+          </div>
           <nav className="flex flex-wrap items-center justify-center gap-4 md:justify-end">
             {footerNav.map((item) => (
               <a

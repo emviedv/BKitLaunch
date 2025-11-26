@@ -43,7 +43,7 @@ interface StructuredDataMergeParams {
 
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
-  title: "BiblioKit - SaaS Software & Figma Plugins",
+  title: "BiblioKit | AI Figma Plugins for Design Systems & Handoff",
   description: "Professional SaaS software and Figma plugins with secure API management and world-class support.",
   keywords: "SaaS software, Figma plugins, API management, secure proxy, developer tools, design tools",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -61,13 +61,13 @@ const defaultMetadata: SEOMetadata = {
 // Route-specific metadata configurations
 export const routeMetadata: RouteMetadata = {
   '/': {
-    title: "BiblioKit: Design Toolkit for Faster Figma Workflows in 2025",
+    title: "BiblioKit | AI Figma Plugins for Design Systems & Handoff",
     description: "BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.",
     keywords: "SaaS software, Figma plugins, API management, developer tools, secure proxy, react components",
-    ogTitle: "BiblioKit: Design Toolkit for Faster Figma Workflows in 2025",
+    ogTitle: "BiblioKit | AI Figma Plugins for Design Systems & Handoff",
     ogDescription: "BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.",
     ogImage: "/og/og-default.svg",
-    twitterTitle: "BiblioKit: Design Toolkit for Faster Figma Workflows in 2025",
+    twitterTitle: "BiblioKit | AI Figma Plugins for Design Systems & Handoff",
     twitterDescription: "BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.",
     twitterImage: "/og/og-default.svg",
     structuredData: [
