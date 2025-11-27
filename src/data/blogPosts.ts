@@ -225,7 +225,7 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'This is why we built BiblioClean (https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines), formerly Link Remover.'
+    text: 'This is why we built [BiblioClean](https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines), formerly Link Remover.'
   },
   { type: 'heading', text: 'Why Generic Plugins Are Dangerous', level: 'h3' as any },
   {
@@ -239,13 +239,13 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   { type: 'heading', text: 'The Safe Solution: BiblioClean', level: 'h3' as any },
   {
     type: 'paragraph',
-    text: 'BiblioClean is the only utility designed with safety guardrails for design systems.'
+    text: '[BiblioClean](https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines) is the only utility designed with safety guardrails for design systems.'
   },
   {
     type: 'orderedList',
     title: 'How to use it',
     items: [
-      'Install BiblioClean (https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines). It is 100% free.',
+      'Install [BiblioClean](https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines). It is 100% free.',
       'Select Scope: Choose "Current Selection" or "Entire Page."',
       'Check Safety: Ensure "Warn on shared components" is checked. This protects your library masters from being stripped.',
       'Click Clean: Instantly remove hundreds of links.'
@@ -253,7 +253,7 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'Get BiblioClean for free on Figma (https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines). Remove blue lines, track time saved, and protect your design system.'
+    text: 'Get [BiblioClean](https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines) for free on Figma. Remove blue lines, track time saved, and protect your design system.'
   },
   { type: 'heading', text: 'Using Figma Plugins to Remove Prototype Links' },
   {

@@ -1513,3 +1513,9 @@
 - **Root Cause:** Product cards were sending users to blocks.bibliokit.com instead of keeping beta signup onsite with an email form.
 - **Changed Files:** src/data/products.json; src/components/BiblioKitLanding.tsx
 - **Verification:** *(not run; UX flow—click BiblioStart/BiblioTable buttons to confirm smooth scroll to landing waitlist form and successful email submission state)*
+
+- **Time:** 2025-11-27 00:45:00 EST
+- **Summary:** Linked every BiblioClean mention in the Remove Figma Prototype Links guide so the plugin name is clickable.
+- **Root Cause:** BiblioClean references were plain text, making the plugin harder to install directly from the article.
+- **Changed Files:** src/data/blogPosts.ts
+- **Verification:** *(not run; content-only—open the Remove Figma Prototype Links post to confirm each BiblioClean mention is rendered as a hyperlink)*
