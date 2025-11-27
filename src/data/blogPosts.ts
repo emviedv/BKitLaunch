@@ -25,6 +25,123 @@ export type BlogPost = {
 
 const buildHeroImagePath = (fileName: string) => `/blog/${fileName}`;
 
+const detachedInstancesContent: BlogContentBlock[] = [
+  { type: 'heading', text: 'How to Find and Fix Detached Instances in Figma (2025 Guide)' },
+  { type: 'paragraph', text: 'Ever felt like your Figma file is secretly plotting against you? You\'re cruising along, building designs, and then suddenly, things feel off. Components aren\'t updating, your file is sluggish, and there\'s a general sense of chaos.' },
+  {
+    type: 'paragraph',
+    text: 'Chances are, you\'ve got a case of the "detached instances" on your hands. Don\'t worry, you\'re not alone. This is a common hiccup in the world of Figma, but it\'s one we absolutely need to fix.'
+  },
+  { type: 'caption', text: 'When the connection breaks, the chaos begins.' },
+  { type: 'heading', text: 'Introduction: Understanding Detached Instances' },
+  {
+    type: 'paragraph',
+    text: 'Here\'s the thing: components are the backbone of any good design system. They promise consistency, efficiency, and a whole lot less manual work. But when those components decide to go rogue and detach, they break that promise.'
+  },
+  {
+    type: 'paragraph',
+    text: "Think of it like a remote control that's suddenly lost its connection to the TV. It looks the same, but it's useless for changing channels. That's a detached instance in a nutshell."
+  },
+  { type: 'heading', text: 'What are Figma Detached Instances?' },
+  {
+    type: 'paragraph',
+    text: 'In Figma, an instance is a copy of a master component. When you use an instance, it stays linked to its parent. Change the master component, and all its instances update automatically—pure magic!'
+  },
+  {
+    type: 'paragraph',
+    text: 'A detached instance, however, is an instance that has lost this vital connection. It\'s no longer linked to its original master component. It becomes a standalone group of layers, frozen in time at the moment it broke free.'
+  },
+  { type: 'caption', text: 'Spot the difference: The icon tells the whole story.' },
+  { type: 'heading', text: 'Why are Detached Instances a Problem?' },
+  {
+    type: 'paragraph',
+    text: "You might be thinking, \"So what? It still looks like the button I wanted.\" Detached instances are actually silent assassins, slowly eroding your design system and making everyone's life harder."
+  },
+  {
+    type: 'orderedList',
+    items: [
+      'Broken Design Systems & Inconsistency: Update your master button and detached copies stay stuck, creating a messy mix of old and new components.',
+      'Performance Issues & "Memory Leaks": Each detached instance is a unique group of layers Figma has to render and store. Hundreds of them bloat files, slow saves, and can even crash your file.',
+      'Maintenance Nightmares & Scalability Challenges: Linked instances update in seconds. Detached ones force manual hunts, re-creations, and guesses—ruining scale and wasting time.'
+    ]
+  },
+  { type: 'heading', text: 'Stop Hunting for Errors Manually' },
+  {
+    type: 'paragraph',
+    text: 'Searching for detached instances layer-by-layer is a waste of billable hours. You can automate this entire process in 5 seconds.'
+  },
+  {
+    type: 'paragraph',
+    text: 'BiblioAudit is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Install BiblioAudit for free on Figma. Find detached instances, reset overrides, and fix your design system in minutes.'
+  },
+  { type: 'caption', text: 'The silent killer of design consistency.' },
+  { type: 'heading', text: 'Understanding Why Detached Instances Happen' },
+  {
+    type: 'paragraph',
+    text: 'So, why do these little rebels decide to go off-grid? It\'s usually not malicious, but a mix of accidents, oversights, and sometimes intentional choices that go wrong.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Accidental Detachments: It can be a slip of the finger. Hitting Ctrl/Cmd + Alt/Option + B (the detach shortcut) is a common culprit.',
+      'Copy-Pasting from Unlinked Files: If you paste a component from a file that isn\'t connected to your active library, Figma can\'t find the parent and brings it in as a detached frame.',
+      'Library Deletion: If the source library gets unpublished or deleted, the instances are stranded without a home.',
+      'Missing Plugins/Fonts: When a component relies on missing assets, Figma might struggle to render the link, leading to manual detaching as a quick fix.',
+      'Lack of Guidelines: Without proper training, teams detach components because they don\'t know how to use Variants or Properties correctly.'
+    ]
+  },
+  { type: 'caption', text: 'The most dangerous button in Figma?' },
+  { type: 'heading', text: 'How to Identify Detached Instances' },
+  {
+    type: 'orderedList',
+    items: [
+      "Manual Inspection: Check your Layers panel. If you see a component on the canvas but a Frame (#) or Group icon in the layer list, that's a red flag.",
+      'The "Select All" Trick: Select a healthy instance, right-click, and choose "Select all with same instance." If identical-looking elements aren\'t selected, they\'re likely detached.',
+      'Automated Detection: The pro move. Use plugins like BiblioAudit to scan your entire file in seconds and get a list of every detached instance, missing style, and deprecated component.'
+    ]
+  },
+  {
+    type: 'image',
+    src: '/blog/detached-instances/detached-instances-audit.png',
+    alt: 'Broken chain between a design system gem and a detached Figma component icon',
+    caption: "Don't hunt manually. Let the audit tool find them for you."
+  },
+  { type: 'heading', text: 'Strategies to Fix Detached Instances' },
+  {
+    type: 'unorderedList',
+    items: [
+      'Reconnect: Select the element and use the "Change Instance" menu (diamond icon) in the right sidebar to swap it back to the correct library component.',
+      'Replace: Delete the detached element and drag a fresh, linked instance from your Assets panel.',
+      "New Master: If the detached element was changed on purpose because it's a unique design, turn it into a New Master Component to keep your system organized.",
+      'Batch Fixing: For massive cleanups, use a dedicated tool like BiblioAudit. Instead of clicking through thousands of layers, you get a prioritized list of errors you can navigate to instantly.'
+    ]
+  },
+  { type: 'heading', text: 'Prevention: Best Practices' },
+  {
+    type: 'orderedList',
+    items: [
+      'Documentation: Create clear guidelines on when (and when NOT) to detach.',
+      'Regular Audits: Schedule a "Hygiene Day" at the end of each day with BiblioAudit.',
+      'Use Variants: Teach your team to use Component Variants for different states (Hover, Active, Error) instead of detaching to change colors manually.',
+      'Version Control: Treat your design system like code. Publish changes deliberately.'
+    ]
+  },
+  { type: 'heading', text: 'Conclusion: Maintaining a Healthy Figma Workflow' },
+  { type: 'paragraph', text: "Dealing with Figma detached instances can feel like a chore, but it's a necessary one." },
+  {
+    type: 'paragraph',
+    text: "Think of your Figma files as a garden: if you don't pull the weeds (the detached instances), they'll choke out the beautiful flowers (your well-built components) and make the whole garden look messy and unhealthy."
+  },
+  {
+    type: 'paragraph',
+    text: "By understanding what they are and how to fix them, you're building a scalable, efficient workflow for your entire team. Keep those components linked, and your design life will be a whole lot smoother."
+  }
+];
+
 const removePrototypeLinksContent: BlogContentBlock[] = [
   { type: 'heading', text: 'Remove Figma Prototype Links: A Guide by BiblioKit (2025)' },
   {
@@ -164,7 +281,7 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
 
 const removePrototypeLinksFaqs: BlogFAQ[] = [
   {
-    question: 'What’s the fastest way to delete a single prototype link in Figma?',
+    question: "What's the fastest way to delete a single prototype link in Figma?",
     answer:
       'Select the frame, click the connection line in the Prototype tab, and press Delete. It keeps the design intact while instantly removing that interaction so you can rewire the flow.'
   },
@@ -472,7 +589,7 @@ const designSystemGuidelinesFaqs: BlogFAQ[] = [
   {
     question: 'What should a design system guideline include?',
     answer:
-      'Ship a concise source of truth that covers design tokens, component specs, usage dos and don’ts, accessibility rules, and a contribution model so designers and engineers can ship UI consistently.'
+      "Ship a concise source of truth that covers design tokens, component specs, usage dos and don'ts, accessibility rules, and a contribution model so designers and engineers can ship UI consistently."
   },
   {
     question: 'How do I keep guidelines current as the product evolves?',
@@ -620,6 +737,21 @@ const atlassianDesignSystemFaqs: BlogFAQ[] = [
 ];
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: 'fix-detached-instances-figma',
+    title: 'How to Find and Fix Detached Instances in Figma (2025 Guide)',
+    category: 'Figma Plugins',
+    readingTime: '7 min read',
+    excerpt:
+      'Find and fix detached Figma instances fast so your design system stays consistent and your files stay light—no manual hunts.',
+    heroImage: buildHeroImagePath('detached-instances/detached-instances-audit.png'),
+    heroImageAlt: 'Broken chain between a design system gem and a detached Figma component',
+    lastUpdated: '2025-12-07',
+    metaTitle: 'How to Find and Fix Detached Instances in Figma (2025 Guide)',
+    metaDescription:
+      'Scan for detached instances, fix them quickly, and keep your Figma design system consistent with BiblioAudit.',
+    content: detachedInstancesContent
+  },
   {
     slug: 'remove-prototype-links-in-figma',
     title: 'Remove Figma Prototype Links: A Guide by BiblioKit (2025)',
