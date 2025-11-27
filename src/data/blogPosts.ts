@@ -27,6 +27,12 @@ const buildHeroImagePath = (fileName: string) => `/blog/${fileName}`;
 
 const detachedInstancesContent: BlogContentBlock[] = [
   { type: 'heading', text: 'How to Find and Fix Detached Instances in Figma (2025 Guide)' },
+  {
+    type: 'image',
+    src: '/blog/detached-instances/image-hero-8_23-2.jpeg',
+    alt: 'Broken chain between a design system gem and a detached Figma component',
+    caption: 'When the connection breaks, the chaos begins.'
+  },
   { type: 'paragraph', text: 'Ever felt like your Figma file is secretly plotting against you? You\'re cruising along, building designs, and then suddenly, things feel off. Components aren\'t updating, your file is sluggish, and there\'s a general sense of chaos.' },
   {
     type: 'paragraph',
@@ -51,7 +57,12 @@ const detachedInstancesContent: BlogContentBlock[] = [
     type: 'paragraph',
     text: 'A detached instance, however, is an instance that has lost this vital connection. It\'s no longer linked to its original master component. It becomes a standalone group of layers, frozen in time at the moment it broke free.'
   },
-  { type: 'caption', text: 'Spot the difference: The icon tells the whole story.' },
+  {
+    type: 'image',
+    src: '/blog/detached-instances/image-side-by-side-8_23-1.jpeg',
+    alt: 'Layers panel comparison showing a linked primary button versus a detached primary button icon',
+    caption: 'Spot the difference: The icon tells the whole story.'
+  },
   { type: 'heading', text: 'Why are Detached Instances a Problem?' },
   {
     type: 'paragraph',
@@ -72,13 +83,18 @@ const detachedInstancesContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'BiblioAudit is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
+    text: 'BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
   },
   {
     type: 'paragraph',
-    text: 'Install BiblioAudit for free on Figma. Find detached instances, reset overrides, and fix your design system in minutes.'
+    text: 'Install BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) for free on Figma. Find detached instances, reset overrides, and fix your design system in minutes.'
   },
-  { type: 'caption', text: 'The silent killer of design consistency.' },
+  {
+    type: 'image',
+    src: '/blog/detached-instances/image-buttons-crossed-8_23.jpeg',
+    alt: 'Series of blue buttons crossed out to illustrate detached duplicates',
+    caption: 'The silent killer of design consistency.'
+  },
   { type: 'heading', text: 'Understanding Why Detached Instances Happen' },
   {
     type: 'paragraph',
@@ -94,20 +110,25 @@ const detachedInstancesContent: BlogContentBlock[] = [
       'Lack of Guidelines: Without proper training, teams detach components because they don\'t know how to use Variants or Properties correctly.'
     ]
   },
-  { type: 'caption', text: 'The most dangerous button in Figma?' },
+  {
+    type: 'image',
+    src: '/blog/detached-instances/image-detach-menu-5_40.jpeg',
+    alt: 'Figma context menu highlighting detach instance action on a purple component',
+    caption: 'The most dangerous button in Figma?'
+  },
   { type: 'heading', text: 'How to Identify Detached Instances' },
   {
     type: 'orderedList',
     items: [
       "Manual Inspection: Check your Layers panel. If you see a component on the canvas but a Frame (#) or Group icon in the layer list, that's a red flag.",
       'The "Select All" Trick: Select a healthy instance, right-click, and choose "Select all with same instance." If identical-looking elements aren\'t selected, they\'re likely detached.',
-      'Automated Detection: The pro move. Use plugins like BiblioAudit to scan your entire file in seconds and get a list of every detached instance, missing style, and deprecated component.'
+      'Automated Detection: The pro move. Use plugins like BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to scan your entire file in seconds and get a list of every detached instance, missing style, and deprecated component.'
     ]
   },
   {
     type: 'image',
-    src: '/blog/detached-instances/detached-instances-audit.png',
-    alt: 'Broken chain between a design system gem and a detached Figma component icon',
+    src: '/blog/detached-instances/image-audit-panel-5_52.jpeg',
+    alt: 'BiblioAudit Figma plugin showing audit results for components and detached instances',
     caption: "Don't hunt manually. Let the audit tool find them for you."
   },
   { type: 'heading', text: 'Strategies to Fix Detached Instances' },
@@ -117,7 +138,7 @@ const detachedInstancesContent: BlogContentBlock[] = [
       'Reconnect: Select the element and use the "Change Instance" menu (diamond icon) in the right sidebar to swap it back to the correct library component.',
       'Replace: Delete the detached element and drag a fresh, linked instance from your Assets panel.',
       "New Master: If the detached element was changed on purpose because it's a unique design, turn it into a New Master Component to keep your system organized.",
-      'Batch Fixing: For massive cleanups, use a dedicated tool like BiblioAudit. Instead of clicking through thousands of layers, you get a prioritized list of errors you can navigate to instantly.'
+      'Batch Fixing: For massive cleanups, use a dedicated tool like BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check). Instead of clicking through thousands of layers, you get a prioritized list of errors you can navigate to instantly.'
     ]
   },
   { type: 'heading', text: 'Prevention: Best Practices' },
@@ -125,7 +146,7 @@ const detachedInstancesContent: BlogContentBlock[] = [
     type: 'orderedList',
     items: [
       'Documentation: Create clear guidelines on when (and when NOT) to detach.',
-      'Regular Audits: Schedule a "Hygiene Day" at the end of each day with BiblioAudit.',
+      'Regular Audits: Schedule a "Hygiene Day" at the end of each day with BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check).',
       'Use Variants: Teach your team to use Component Variants for different states (Hover, Active, Error) instead of detaching to change colors manually.',
       'Version Control: Treat your design system like code. Publish changes deliberately.'
     ]
@@ -744,12 +765,12 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: '7 min read',
     excerpt:
       'Find and fix detached Figma instances fast so your design system stays consistent and your files stay light—no manual hunts.',
-    heroImage: buildHeroImagePath('detached-instances/detached-instances-audit.png'),
+    heroImage: buildHeroImagePath('detached-instances/image-hero-8_23-2.jpeg'),
     heroImageAlt: 'Broken chain between a design system gem and a detached Figma component',
     lastUpdated: '2025-12-07',
     metaTitle: 'How to Find and Fix Detached Instances in Figma (2025 Guide)',
     metaDescription:
-      'Scan for detached instances, fix them quickly, and keep your Figma design system consistent with BiblioAudit.',
+      'Scan for detached instances, fix them quickly, and keep your Figma design system consistent with BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check).',
     content: detachedInstancesContent
   },
   {
