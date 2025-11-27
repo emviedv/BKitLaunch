@@ -12,95 +12,14 @@ import LandingHero, { type LandingHeroContent } from './LandingHero';
 import { Button } from '@/components/ui/button';
 import { useDynamicSEO } from '@/hooks/useSEO';
 import { createFAQSchema, useSchema } from '@/lib/useSchema';
+import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
 
 interface BlogArticlePageProps {
   slug: string;
 }
 
-const BLOG_POST_LOOKUP = BLOG_POSTS.reduce<Record<string, BlogPost>>((acc, blogPost) => {
-  acc[blogPost.slug] = blogPost;
-  return acc;
-}, {});
-
-const highlightLinkClass =
-  'text-[#ff2f87] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
 const blogCardHoverClass =
   'group flex h-full flex-col transition hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
-
-const renderTextWithLinks = (text: string) => {
-  const segments: Array<string | React.ReactElement> = [];
-  const linkRegex =
-    /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/?blog\/[A-Za-z0-9-]+)\)|\[\[([^[\]]+)\]\]|(https?:\/\/[^\s]+)|(?<!\S)(\/?blog\/[A-Za-z0-9-]+)(?=[\s.,!?;:]|$)/gi;
-
-  let lastIndex = 0;
-
-  text.replace(
-    linkRegex,
-    (match, markdownLabel, markdownTarget, slugToken, urlMatch, relativeBlogPath, offset) => {
-      if (offset > lastIndex) {
-        segments.push(text.slice(lastIndex, offset));
-      }
-
-      const normalizedSlug =
-        slugToken?.trim() ||
-        markdownTarget?.replace(/^\/?blog\//i, '').replace(/\/$/, '') ||
-        relativeBlogPath?.replace(/^\/?blog\//i, '').replace(/\/$/, '') ||
-        '';
-      const linkedPost = normalizedSlug ? BLOG_POST_LOOKUP[normalizedSlug] : undefined;
-
-      const blogHref = normalizedSlug ? buildBlogPostHref(normalizedSlug) : undefined;
-      let href: string | undefined;
-
-      if (markdownTarget?.startsWith('http') || urlMatch?.startsWith('http')) {
-        href = markdownTarget || urlMatch;
-      } else if (linkedPost) {
-        href = buildBlogPostHref(linkedPost.slug);
-      } else if (markdownTarget) {
-        href = markdownTarget;
-      } else if (relativeBlogPath) {
-        href = relativeBlogPath.startsWith('/') ? relativeBlogPath : `/${relativeBlogPath}`;
-      } else if (blogHref) {
-        href = blogHref;
-      } else {
-        href = match;
-      }
-
-      const label =
-        markdownLabel ||
-        (slugToken
-          ? linkedPost?.title || slugToken
-          : linkedPost?.title || match.replace(/^\/?/, '/').replace(/\/$/, ''));
-
-      const isExternal = href?.startsWith('http');
-
-      segments.push(
-        <a
-          href={href}
-          className={highlightLinkClass}
-          target={isExternal ? '_blank' : undefined}
-          rel={isExternal ? 'noreferrer' : undefined}
-        >
-          {label}
-        </a>
-      );
-
-      lastIndex = offset + match.length;
-      return match;
-    }
-  );
-
-  if (lastIndex < text.length) {
-    segments.push(text.slice(lastIndex));
-  }
-
-  return segments.map((segment, index) =>
-    typeof segment === 'string' ? (
-      <React.Fragment key={`text-${index}`}>{segment}</React.Fragment>
-    ) : (
-      React.cloneElement(segment, { key: `link-${index}` })
-    )
-  );
-};
 
 const renderListItemText = (item: string) => {
   const match = item.match(/^\s*([^:]+:)\s*(.*)$/);
@@ -222,7 +141,9 @@ const BlogFAQSection: React.FC<{ faqs: BlogFAQ[] }> = ({ faqs }) => {
                 </span>
                 <div className="space-y-2">
                   <h3 className="text-lg font-semibold text-white">{faq.question}</h3>
-                  <p className="text-base leading-relaxed text-white/75">{faq.answer}</p>
+                  <p className="text-base leading-relaxed text-white/75">
+                    {renderTextWithLinks(faq.answer)}
+                  </p>
                 </div>
               </div>
             </div>
@@ -256,12 +177,14 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
       : undefined
   );
 
+  const heroDescription = summary ? renderTextWithLinks(summary) : null;
+
   const resolvedHero: LandingHeroContent = post
     ? {
         badgeLabel: `${post.category} • ${post.readingTime}`,
         title: post.title,
         subtitle: null,
-        description: post.slug === 'remove-prototype-links-in-figma' ? null : summary,
+        description: post.slug === 'remove-prototype-links-in-figma' ? null : heroDescription,
         align: 'left',
         primaryButton: null,
         primaryButtonLink: null,

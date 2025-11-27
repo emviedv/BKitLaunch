@@ -83,11 +83,11 @@ const detachedInstancesContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
+    text: '[BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
   },
   {
     type: 'paragraph',
-    text: 'Install BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) for free on Figma. Find detached instances, reset overrides, and fix your design system in minutes.'
+    text: 'Install [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) for free on Figma. Find detached instances, reset overrides, and fix your design system in minutes.'
   },
   {
     type: 'image',
@@ -122,7 +122,7 @@ const detachedInstancesContent: BlogContentBlock[] = [
     items: [
       "Manual Inspection: Check your Layers panel. If you see a component on the canvas but a Frame (#) or Group icon in the layer list, that's a red flag.",
       'The "Select All" Trick: Select a healthy instance, right-click, and choose "Select all with same instance." If identical-looking elements aren\'t selected, they\'re likely detached.',
-      'Automated Detection: The pro move. Use plugins like BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to scan your entire file in seconds and get a list of every detached instance, missing style, and deprecated component.'
+      'Automated Detection: The pro move. Use plugins like [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to scan your entire file in seconds and get a list of every detached instance, missing style, and deprecated component.'
     ]
   },
   {
@@ -138,7 +138,7 @@ const detachedInstancesContent: BlogContentBlock[] = [
       'Reconnect: Select the element and use the "Change Instance" menu (diamond icon) in the right sidebar to swap it back to the correct library component.',
       'Replace: Delete the detached element and drag a fresh, linked instance from your Assets panel.',
       "New Master: If the detached element was changed on purpose because it's a unique design, turn it into a New Master Component to keep your system organized.",
-      'Batch Fixing: For massive cleanups, use a dedicated tool like BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check). Instead of clicking through thousands of layers, you get a prioritized list of errors you can navigate to instantly.'
+      'Batch Fixing: For massive cleanups, use a dedicated tool like [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check). Instead of clicking through thousands of layers, you get a prioritized list of errors you can navigate to instantly.'
     ]
   },
   { type: 'heading', text: 'Prevention: Best Practices' },
@@ -146,7 +146,7 @@ const detachedInstancesContent: BlogContentBlock[] = [
     type: 'orderedList',
     items: [
       'Documentation: Create clear guidelines on when (and when NOT) to detach.',
-      'Regular Audits: Schedule a "Hygiene Day" at the end of each day with BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check).',
+      'Regular Audits: Schedule a "Hygiene Day" at the end of each day with [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check).',
       'Use Variants: Teach your team to use Component Variants for different states (Hover, Active, Error) instead of detaching to change colors manually.',
       'Version Control: Treat your design system like code. Publish changes deliberately.'
     ]
@@ -731,7 +731,7 @@ const atlassianDesignSystemContent: BlogContentBlock[] = [
   },
   { type: 'heading', text: 'Real-World Examples of Atlassian Design System in Action' },
   { type: 'caption', text: 'User Interface Design' },
-  { type: 'caption', text: 'by Tirza van Dijk (https://unsplash.com/@tirzavandijk)' },
+  { type: 'caption', text: 'by [Tirza van Dijk](https://unsplash.com/@tirzavandijk)' },
   {
     type: 'paragraph',
     text: 'Several companies have successfully implemented the Atlassian Design System to enhance their user experience. Here are a few examples:'

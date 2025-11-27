@@ -23,7 +23,7 @@ import { Zap, MousePointer2 } from 'lucide-react';
 export type LandingHeroContent = {
   title?: string | null;
   subtitle?: string | null;
-  description?: string | null;
+  description?: React.ReactNode | null;
   primaryButton?: string | null;
   primaryButtonLink?: string | null;
   secondaryButton?: string | null;
@@ -329,7 +329,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
             </h1>
 
             {description && (
-              <p className="text-xl text-white/75 max-w-lg leading-relaxed mb-8 pointer-events-none select-none">
+              <p className="text-xl text-white/75 max-w-lg leading-relaxed mb-8">
                 {description}
               </p>
             )}

@@ -1,5 +1,19 @@
 # Live Debug Log — 2025-11
 
+## 2025-11-27
+
+- **Time:** 2025-11-27 00:48 EST
+- **Summary:** Ensured all blog text surfaces convert raw URLs into hyperlinks, including hero summaries, excerpts, and FAQ answers, while trimming trailing punctuation.
+- **Root Cause:** Blog copy that included plain URLs (especially those inside parentheses) rendered as raw text or with punctuation inside the href on certain surfaces, leaving some links unclickable or pointed at malformed destinations.
+- **Changed Files:** src/lib/renderTextWithLinks.tsx; src/components/BlogArticlePage.tsx; src/components/BlogPage.tsx; src/components/LandingHero.tsx
+- **Verification:** Open any blog article and confirm URLs inside paragraphs/lists/FAQs render as clickable pink links without trailing punctuation; check the blog hero summary and blog listing excerpts to ensure URLs are clickable and open the correct destination in a new tab.
+
+- **Time:** 2025-11-27 02:57 EST
+- **Summary:** Converted BiblioAudit and Unsplash credit URLs in blog content to Markdown links so hyperlink styling shows on the plugin names instead of raw URLs.
+- **Root Cause:** Blog copy stored bare URLs in parentheses, so list items and paragraphs surfaced plain text instead of linked plugin names—making links look absent.
+- **Changed Files:** src/data/blogPosts.ts
+- **Verification:** Render the detached-instances article and confirm BiblioAudit mentions now show as pink hyperlinks on the plugin name (no visible raw URL); check the Atlassian design system caption links to the photographer profile. *(Not run automatically.)*
+
 ## 2025-11-26
 
 - **Time:** 2025-11-26 03:37 EST

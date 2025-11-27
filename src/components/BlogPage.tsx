@@ -1,5 +1,6 @@
 import React from 'react';
 import { BLOG_POSTS, buildBlogPostHref } from '@/data/blogPosts';
+import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
 const BLOG_LIST_SECTION_ID = 'blog-latest';
 const blogCardHoverClass =
   'transition hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
@@ -45,7 +46,9 @@ const BlogPage: React.FC = () => {
                   <h1 className="text-[48px] font-bold leading-[1.05] tracking-tight sm:text-[56px] lg:text-[64px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
                     {featuredPost.title}
                   </h1>
-                  <p className="text-base text-white/80">{featuredPost.excerpt}</p>
+                  <p className="text-base text-white/80">
+                    {renderTextWithLinks(featuredPost.excerpt)}
+                  </p>
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                     <a href={buildBlogPostHref(featuredPost.slug)} className={blogCtaButtonClass}>
                       Read the article
@@ -104,7 +107,9 @@ const BlogPage: React.FC = () => {
                           {post.category} • {post.readingTime}
                         </p>
                         <h3 className="text-xl font-semibold text-foreground">{post.title}</h3>
-                        <p className="mt-2 flex-1 text-sm text-muted-foreground">{post.excerpt}</p>
+                        <p className="mt-2 flex-1 text-sm text-muted-foreground">
+                          {renderTextWithLinks(post.excerpt)}
+                        </p>
                         <div className="mt-6">
                           <span className={blogCtaButtonClass}>Read the article</span>
                         </div>
