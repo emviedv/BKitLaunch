@@ -1,5 +1,13 @@
 # Live Debug Log — 2025-11
 
+## 2025-11-28
+
+- **Time:** 2025-11-28 13:12 EST
+- **Summary:** Added the “Mastering Figma Auto Layout Wrap” blog post with local hero art so designers, developers, and marketers get the new wrap workflow guide without broken imagery.
+- **Root Cause:** New blog content was requested and only lived in the shared doc; the site lacked the article, metadata, and image asset.
+- **Changed Files:** src/data/blogPosts.ts; public/blog/auto-layout-wrap/auto-layout-wrap-hero.png
+- **Verification:** *(not run; spot-check `/blog/mastering-figma-auto-layout-wrap` renders the new content, hero image loads from `/blog/auto-layout-wrap/auto-layout-wrap-hero.png`, and metadata/excerpt show the wrap-specific copy.)*
+
 ## 2025-11-27
 
 - **Time:** 2025-11-27 00:48 EST

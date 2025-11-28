@@ -25,6 +25,107 @@ export type BlogPost = {
 
 const buildHeroImagePath = (fileName: string) => `/blog/${fileName}`;
 
+const autoLayoutWrapContent: BlogContentBlock[] = [
+  { type: 'heading', text: 'Mastering Figma Auto Layout Wrap: The 2025 Guide to Responsive Components' },
+  {
+    type: 'image',
+    src: buildHeroImagePath('auto-layout-wrap/auto-layout-wrap-hero.png'),
+    alt: 'Abstract responsive grid illustration showing Auto Layout Wrap adapting to screen sizes',
+    caption: 'Auto Layout Wrap keeps components responsive without hacks.'
+  },
+  { type: 'paragraph', text: 'Is your responsive design breaking the moment you resize the frame?' },
+  {
+    type: 'paragraph',
+    text: 'We have all been there: you build a beautiful grid of cards or a row of tags, but when you drag the frame edge to test responsiveness, elements squish, overflow, or just disappear. Before Figma introduced Auto Layout Wrap, you had to manually create multiple rows or rely on complex "hacky" frame structures.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Now, with Wrap, you can build truly responsive components that adapt to any screen size instantly. In this guide, we cover exactly how to use Auto Layout Wrap, three common use cases, and how to fix the layout bugs that happen when wrapping gets messy.'
+  },
+  { type: 'heading', text: 'Quick Answer: How to Enable Auto Layout Wrap in Figma' },
+  { type: 'paragraph', text: 'If you just want the steps, here is how to turn it on:' },
+  {
+    type: 'orderedList',
+    items: [
+      'Select your Frame (Press Shift + A if it is not already an Auto Layout).',
+      'Go to the Auto Layout panel in the right sidebar.',
+      'Click the Wrap icon (the arrow curving downwards).',
+      'Crucial Step: Set your child layers to "Fill Container" (width) or "Fixed Width" depending on your desired behavior.'
+    ]
+  },
+  {
+    type: 'paragraph',
+    text: 'Tip: If your items are not wrapping, check that the parent frame is set to Fixed Width or Fill Container, not "Hug Contents."'
+  },
+  { type: 'heading', text: '3 Best Use Cases for Auto Layout Wrap' },
+  { type: 'heading', text: 'Responsive Tag Clouds (Chips)', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'The most common use case. If you are designing a filter system or a list of categories (e.g., "UX Design," "Product," "Engineering"), you want them to flow naturally to the next line.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Setup: Set the parent frame to Wrap. Set tags to Hug Contents.',
+      'Result: As the screen shrinks, tags drop to the next line automatically.'
+    ]
+  },
+  { type: 'heading', text: 'Ecommerce Product Grids', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Designing a product listing page? Instead of making separate "Desktop" (4 columns) and "Mobile" (1 column) frames, use Wrap.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Setup: Create a card component with a Min Width (e.g., 280px). Set parent to Wrap.',
+      'Result: The grid automatically adjusts from 4 columns to 3, 2, or 1 based on the screen width.'
+    ]
+  },
+  { type: 'heading', text: 'Navigation Bars that Turn into Menus', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Use wrap logic to hide nav items or push them into a secondary row on smaller tablet breakpoints.'
+  },
+  { type: 'heading', text: 'The "Gotcha": When Auto Layout Wrap Breaks' },
+  {
+    type: 'paragraph',
+    text: 'Wrapping is powerful, but it relies on every child layer having consistent heights and widths. If one item is 1px taller than the others, your entire grid can look jagged.'
+  },
+  { type: 'heading', text: 'The Data Table Nightmare', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Trying to make a responsive data table using Wrap is often a disaster. If one cell has more text than the others, the row height expands and the wrapping logic creates ugly gaps. Do not fight Figma manually; use a dedicated tool to normalize the structure.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Pro Tip: Use BiblioTable (part of the BiblioKit suite) to equalize column widths and fix row heights. It forces consistency so your auto-layout wrap behaves predictably every time.'
+  },
+  { type: 'heading', text: 'Managing Layout Hygiene (The Hidden Problem)' },
+  {
+    type: 'paragraph',
+    text: 'The number one reason Auto Layout Wrap stops working? Fixed Width layers hidden deep in your hierarchy.'
+  },
+  {
+    type: 'paragraph',
+    text: 'If you have a nested frame set to Fixed that is wider than your parent container, the wrap will fail or clip. Finding that specific layer in a complex component with 50+ layers is tedious.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Fast Fix: Run BiblioAudit on your file. It scans your design system and flags layout inconsistencies, detached instances, and rogue fixed-width layers that are breaking responsiveness.'
+  },
+  { type: 'heading', text: 'Summary' },
+  { type: 'paragraph', text: 'Figma\'s Auto Layout Wrap is essential for modern product design. It bridges the gap between static mockups and the reality of CSS Flexbox.' },
+  {
+    type: 'orderedList',
+    items: [
+      'Use it for grids, tags, and responsive cards.',
+      'Set min/max widths to control the flow.',
+      'Keep your structure clean - one rogue Fixed layer breaks the whole flow.'
+    ]
+  }
+];
+
 const detachedInstancesContent: BlogContentBlock[] = [
   { type: 'heading', text: 'How to Find and Fix Detached Instances in Figma (2025 Guide)' },
   {
@@ -795,6 +896,21 @@ const atlassianDesignSystemFaqs: BlogFAQ[] = [
 ];
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: 'mastering-figma-auto-layout-wrap',
+    title: 'Mastering Figma Auto Layout Wrap: The 2025 Guide to Responsive Components',
+    category: 'Figma Plugins',
+    readingTime: '4 min read',
+    excerpt:
+      'Turn on Auto Layout Wrap, keep components responsive, and audit fixed-width layers so Figma layouts do not break when screens change.',
+    heroImage: buildHeroImagePath('auto-layout-wrap/auto-layout-wrap-hero.png'),
+    heroImageAlt: 'Abstract responsive grid illustration showing Auto Layout Wrap adapting to screen sizes',
+    lastUpdated: '2025-11-28',
+    metaTitle: 'Mastering Figma Auto Layout Wrap: The 2025 Guide to Responsive Components',
+    metaDescription:
+      'Learn how to enable Figma Auto Layout Wrap, apply it to real-world components, and audit fixed-width layers with BiblioKit so your responsive designs stay clean.',
+    content: autoLayoutWrapContent
+  },
   {
     slug: 'fix-detached-instances-figma',
     title: 'How to Find and Fix Detached Instances in Figma (2025 Guide)',
