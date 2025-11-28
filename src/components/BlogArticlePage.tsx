@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { useDynamicSEO } from '@/hooks/useSEO';
 import { createFAQSchema, useSchema } from '@/lib/useSchema';
 import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
+import { debugService } from '@/lib/debugService';
 
 interface BlogArticlePageProps {
   slug: string;
@@ -20,6 +21,24 @@ interface BlogArticlePageProps {
 
 const blogCardHoverClass =
   'group flex h-full flex-col transition hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
+
+const blogImageDebugEnabled = () => {
+  if (typeof process !== 'undefined') {
+    const flag = process.env?.DEBUG_FIX ?? process.env?.VITE_DEBUG_FIX;
+    if (typeof flag !== 'undefined') {
+      return flag !== '0';
+    }
+  }
+
+  if (typeof import.meta !== 'undefined') {
+    const flag = (import.meta as any)?.env?.VITE_DEBUG_FIX;
+    if (typeof flag !== 'undefined') {
+      return flag !== '0';
+    }
+  }
+
+  return false;
+};
 
 const renderListItemText = (item: string) => {
   const match = item.match(/^\s*([^:]+:)\s*(.*)$/);
@@ -33,7 +52,7 @@ const renderListItemText = (item: string) => {
   );
 };
 
-const renderContentBlock = (block: BlogContentBlock, index: number) => {
+const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: string) => {
   const key = `${block.type}-${index}`;
 
   switch (block.type) {
@@ -80,19 +99,33 @@ const renderContentBlock = (block: BlogContentBlock, index: number) => {
         </p>
       );
     case 'image':
+      const resolvedAlt = block.alt?.trim() || block.caption || 'Blog illustration';
+      const isExternalSrc = /^https?:\/\//.test(block.src);
+
+      if (blogImageDebugEnabled()) {
+        debugService.debug('blog:image-block', {
+          slug: postSlug,
+          index,
+          src: block.src,
+          isExternalSrc,
+          hasCaption: Boolean(block.caption),
+          altLength: resolvedAlt.length
+        });
+      }
+
       return (
         <figure key={key} className="space-y-3">
           <div className="overflow-hidden">
             <img
               src={block.src}
-              alt={block.alt || ''}
+              alt={resolvedAlt}
               className="w-full object-cover"
               loading="lazy"
             />
           </div>
-          {(block.caption || block.alt) && (
+          {(block.caption || resolvedAlt) && (
             <figcaption className="text-sm text-slate-500">
-              {block.caption || block.alt}
+              {block.caption || resolvedAlt}
             </figcaption>
           )}
         </figure>
@@ -233,7 +266,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
         <div className="mx-auto w-full max-w-[680px] space-y-8 rounded-[32px] px-0 py-8 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur text-white">
           {post.content ? (
             <div className="space-y-6">
-              {post.content.map((block, index) => renderContentBlock(block, index))}
+              {post.content.map((block, index) => renderContentBlock(block, index, post.slug))}
             </div>
           ) : (
             <p className="text-lg leading-[1.8] text-white/80">

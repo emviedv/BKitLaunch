@@ -4,7 +4,7 @@ export type BlogContentBlock =
   | { type: 'orderedList'; title?: string; items: string[] }
   | { type: 'unorderedList'; title?: string; items: string[] }
   | { type: 'caption'; text: string }
-  | { type: 'image'; src: string; alt?: string; caption?: string };
+  | { type: 'image'; src: string; alt: string; caption?: string };
 
 export type BlogFAQ = { question: string; answer: string };
 
@@ -171,7 +171,7 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   },
   {
     type: 'image',
-    src: 'https://miro.medium.com/v2/resize:fit:4800/format:webp/1*0d99XVsmdGud0Xqtb-bGug.png',
+    src: buildHeroImagePath('remove-prototype-links/figma-design-interface.png'),
     alt: 'Figma design interface',
     caption: 'Figma design interface'
   },
@@ -191,7 +191,7 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   },
   {
     type: 'image',
-    src: 'https://cdn.sanity.io/images/599r6htc/regionalized/9cd9e0e6b2c322b439633e76e1b7e6fd6c340824-1920x1080.png?w=804&q=75&fit=max&auto=format&dpr=2',
+    src: buildHeroImagePath('remove-prototype-links/design-project-plan.png'),
     alt: 'Design project plan',
     caption: 'Design project plan'
   },

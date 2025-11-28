@@ -14,6 +14,12 @@
 - **Changed Files:** src/data/blogPosts.ts
 - **Verification:** Render the detached-instances article and confirm BiblioAudit mentions now show as pink hyperlinks on the plugin name (no visible raw URL); check the Atlassian design system caption links to the photographer profile. *(Not run automatically.)*
 
+- **Time:** 2025-11-27 11:29 EST
+- **Summary:** Pointed blog content images at local /public assets, enforced alt text for every blog image block, and added DEBUG_FIX logging for blog image rendering.
+- **Root Cause:** The remove-prototype-links article still hotlinked two hero images from Medium/Sanity, which 403ed in production and lacked guardrails to prevent external sources or missing alt coverage.
+- **Changed Files:** src/data/blogPosts.ts; src/components/BlogArticlePage.tsx; tests/unit/blogImages.spec.ts
+- **Verification:** node --test tests/unit/blogImages.spec.ts; confirm remove-prototype-links article images load from /blog/remove-prototype-links/* with visible alt text fallback when images are disabled.
+
 ## 2025-11-26
 
 - **Time:** 2025-11-26 03:37 EST
