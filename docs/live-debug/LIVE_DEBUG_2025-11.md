@@ -8,6 +8,12 @@
 - **Changed Files:** src/data/blogPosts.ts; public/blog/auto-layout-wrap/auto-layout-wrap-hero.png
 - **Verification:** *(not run; spot-check `/blog/mastering-figma-auto-layout-wrap` renders the new content, hero image loads from `/blog/auto-layout-wrap/auto-layout-wrap-hero.png`, and metadata/excerpt show the wrap-specific copy.)*
 
+- **Time:** 2025-11-28 15:11 EST
+- **Summary:** Restored the BiblioTable hyperlink inside the Auto Layout Wrap blog article so the CTA points to bibliokit.com as intended.
+- **Root Cause:** Converting the Google Doc stripped inline hyperlinks; the BiblioTable mention shipped as plain text.
+- **Changed Files:** src/data/blogPosts.ts
+- **Verification:** *(not run; confirm the “BiblioTable” line in `/blog/mastering-figma-auto-layout-wrap` links to https://www.bibliokit.com.)*
+
 ## 2025-11-27
 
 - **Time:** 2025-11-27 00:48 EST
