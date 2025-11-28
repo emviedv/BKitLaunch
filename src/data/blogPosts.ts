@@ -112,7 +112,7 @@ const autoLayoutWrapContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'Fast Fix: Run BiblioAudit on your file. It scans your design system and flags layout inconsistencies, detached instances, and rogue fixed-width layers that are breaking responsiveness.'
+    text: 'Fast Fix: Run BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) on your file. It scans your design system and flags layout inconsistencies, detached instances, and rogue fixed-width layers that are breaking responsiveness.'
   },
   { type: 'heading', text: 'Summary' },
   { type: 'paragraph', text: 'Figma\'s Auto Layout Wrap is essential for modern product design. It bridges the gap between static mockups and the reality of CSS Flexbox.' },

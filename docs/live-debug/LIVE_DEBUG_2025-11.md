@@ -14,6 +14,12 @@
 - **Changed Files:** src/data/blogPosts.ts
 - **Verification:** *(not run; confirm the “BiblioTable” line in `/blog/mastering-figma-auto-layout-wrap` links to https://www.bibliokit.com.)*
 
+- **Time:** 2025-11-28 15:12 EST
+- **Summary:** Linked the BiblioAudit mention in the Auto Layout Wrap post to the Figma plugin listing so readers can install directly.
+- **Root Cause:** Hyperlink removal during doc import left BiblioAudit referenced as plain text.
+- **Changed Files:** src/data/blogPosts.ts
+- **Verification:** *(not run; ensure the “BiblioAudit” line in `/blog/mastering-figma-auto-layout-wrap` links to the Figma plugin URL.)*
+
 ## 2025-11-27
 
 - **Time:** 2025-11-27 00:48 EST
