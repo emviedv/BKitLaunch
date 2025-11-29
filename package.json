@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@hotjar/browser": "^1.0.9",
-    "@paper-design/shaders-react": "^0.0.60",
+    "@paper-design/shaders-react": "^0.0.61",
     "@radix-ui/react-slot": "^1.2.3",
     "@remixicon/react": "^4.6.0",
     "bcryptjs": "^2.4.3",
