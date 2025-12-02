@@ -241,7 +241,7 @@ export default async (request: Request, context: Context) => {
     console.log('✅ SSR: Server module loaded successfully');
     
     // Fetch content data for SSR
-    const contentData = await fetchContentData(url.toString());
+    const contentData = await fetchContentData(url.pathname);
     console.log('📄 SSR: Content data fetched:', contentData ? 'SUCCESS' : 'FALLBACK');
     
     // Generate page metadata
@@ -312,7 +312,7 @@ export default async (request: Request, context: Context) => {
       jsPath = '/src/entry-client.tsx';
     } else {
       let manifestFound = false;
-      const manifestOrigin = pickStableInternalOrigin(url, `${url.protocol}//${url.host}`);
+                const manifestOrigin = context.site?.url || url.origin;
       const manifestCandidates = ['/manifest.json', '/client/manifest.json'];
       for (const candidate of manifestCandidates) {
         try {
