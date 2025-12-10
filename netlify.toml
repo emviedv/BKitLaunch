@@ -135,6 +135,11 @@ edge_functions = "netlify/edge-functions"
   status = 200
 
 [[redirects]]
+  from = "/media/*"
+  to = "/media/:splat"
+  status = 200
+
+[[redirects]]
   from = "/favicon.ico"
   to = "/favicon.ico"
   status = 200
