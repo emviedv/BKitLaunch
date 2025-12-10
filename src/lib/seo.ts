@@ -935,11 +935,13 @@ export function updatePageMetadata(metadata: SEOMetadata): void {
     const structuredMarkup = generateStructuredData(metadata);
     const existingScripts =
       typeof document.querySelectorAll === 'function'
-        ? Array.from(document.querySelectorAll('script[data-structured-data="true"]'))
+        ? Array.from(document.querySelectorAll('script[type="application/ld+json"]'))
         : [];
     existingScripts.forEach((node) => {
       if (typeof (node as any).remove === 'function') {
         (node as any).remove();
+      } else if ((node as any)?.parentNode?.removeChild) {
+        (node as any).parentNode.removeChild(node);
       }
     });
 

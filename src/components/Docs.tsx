@@ -1,13 +1,8 @@
 import React from 'react';
-import { usePublishedContent } from '@/hooks/usePublishedContent';
-import { useSEO } from '@/hooks/useSEO';
 import { Button } from '@/components/ui/button';
 import { LANDING_FEATURES_PATH, LANDING_PRICING_PATH } from '@/config/sectionAnchors';
 
 export const Docs: React.FC = () => {
-  const { content } = usePublishedContent();
-  useSEO(content);
-
   return (
     <div className="container mx-auto py-16">
       <header className="mb-10">

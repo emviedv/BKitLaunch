@@ -39,3 +39,11 @@
 - **Root Cause:** The lead/colon detector matched the `https:` in the markdown URL, splitting the string before `renderTextWithLinks` could convert it to an anchor, leaving raw `[BiblioClean](...)` text.
 - **Changed Files:** src/components/BlogArticlePage.tsx
 - **Verification:** node -e test confirming the new `^\\s*([^:]+):\\s+(.*)$` pattern matches "Select Scope: …" but not "Install [BiblioClean](https://…)", so markdown links now render.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 02:39 EST
+- **Summary:** Fixed SPA navigation SEO drift by centralizing client metadata updates, aligning baseUrl with the active host, and purging stale SSR JSON-LD before injecting new scripts.
+- **Root Cause:** Only Home/Docs mounted the SEO hook; other routes like `/blog` and `/resources/remove-prototype-link` kept the prior page’s head tags, and client updates always fell back to `https://www.bibliokit.com`, diverging from preview hosts. JSON-LD from SSR wasn’t removed on client navigations, leaving mixed graphs.
+- **Changed Files:** src/hooks/useSEO.ts; src/App.tsx; src/components/Docs.tsx; src/lib/seo.ts; tests/unit/seoClientNavigation.spec.ts
+- **Verification:** `node --loader ./tests/support/esbuild-loader.mjs --test tests/unit/seoClientNavigation.spec.ts` (passes; confirms canonical/title and JSON-LD swap on SPA nav).

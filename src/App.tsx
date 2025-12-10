@@ -50,9 +50,6 @@ interface PublishedContent {
  */
 const HomePage: React.FC = () => {
   const { content, error } = usePublishedContent();
-  
-  // Update SEO metadata for client-side navigation
-  useSEO(content);
 
   // Note: Loading state removed to prevent flash during hydration
   // Content will smoothly transition from static fallback to dynamic content
@@ -97,6 +94,16 @@ const AppContent: React.FC = () => {
   useHashScroll();
 
   const { content } = usePublishedContent();
+  const shouldSkipSEO = React.useCallback((path: string) => {
+    const normalizedPath = (path || '/').split('?')[0].replace(/\/+$/, '') || '/';
+    if (normalizedPath === ROUTE_PATHS.AI_RENAME_VARIANTS) return true;
+    if (normalizedPath === ROUTE_PATHS.UXBIBLIO) return true;
+    if (normalizedPath.startsWith('/blog/') && normalizedPath !== ROUTE_PATHS.BLOG) return true;
+    return false;
+  }, []);
+
+  useSEO(content, { shouldSkip: shouldSkipSEO });
+
   const comingSoonEnabled = Boolean((content.settings as any)?.comingSoonEnabled);
 
   // Gate: show ComingSoon for all routes if enabled
