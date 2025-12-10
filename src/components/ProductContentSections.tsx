@@ -257,15 +257,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
             detail.mediaAlt ||
             detail.title ||
             `${product?.title || 'Product'} preview`;
-
-          if (productSectionsDebugEnabled()) {
-            debugService.debug('product-sections:image-render', {
-              mediaUrl: detail.mediaUrl,
-              imageLabel: imageLabel,
-              component: 'ProductContentSections'
-            });
-          }
-
           return (
             <div className={imageWrapperClass}>
               <img

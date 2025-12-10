@@ -489,6 +489,11 @@ export const config: Config = {
     "/@vite/*",
     "/@react-refresh*",
     "/node_modules/*",
+    "/media/*",
+    "/clients/*",
+    "/avatars/*",
+    "/og/*",
+    "/demos/*",
     "/*.js",
     "/*.css",
     "/*.png",
@@ -500,6 +505,14 @@ export const config: Config = {
     "/*.woff",
     "/*.woff2",
     "/*.ttf",
-    "/*.eot"
+    "/*.eot",
+    "/blog/*.png",
+    "/blog/*.jpg",
+    "/blog/*.jpeg",
+    "/blog/*.svg",
+    "/blog/*/*.png",
+    "/blog/*/*.jpg",
+    "/blog/*/*.jpeg",
+    "/blog/*/*.svg"
   ]
 };

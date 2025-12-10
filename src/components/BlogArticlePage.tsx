@@ -103,15 +103,13 @@ const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: s
       const isExternalSrc = /^https?:\/\//.test(block.src);
 
       if (blogImageDebugEnabled()) {
-        debugService.debug('blog:image-block-render', {
+        debugService.debug('blog:image-block', {
           slug: postSlug,
           index,
           src: block.src,
           isExternalSrc,
           hasCaption: Boolean(block.caption),
-          altLength: resolvedAlt.length,
-          resolvedAlt: resolvedAlt,
-          component: 'BlogArticlePage'
+          altLength: resolvedAlt.length
         });
       }
 
