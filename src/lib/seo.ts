@@ -99,9 +99,9 @@ const mergeKeywords = (base?: string, additions: Array<string | undefined> = [])
 
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
-  title: "BiblioKit | AI Figma Plugins for Design Systems & Handoff",
-  description: "Professional SaaS software and Figma plugins with secure API management and world-class support.",
-  keywords: "SaaS software, Figma plugins, API management, secure proxy, developer tools, design tools",
+  title: "BiblioKit | AI Figma Plugins for Faster Design Systems",
+  description: "Automate variant naming, prototype cleanup, and design QA so designers ship production-ready files 10x faster with BiblioKit.",
+  keywords: "Figma plugins, AI rename variants, prototype cleanup, design system QA, design handoff, BiblioKit",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   googlebot: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   bingbot: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -117,14 +117,14 @@ const defaultMetadata: SEOMetadata = {
 // Route-specific metadata configurations
 export const routeMetadata: RouteMetadata = {
   '/': {
-    title: "BiblioKit | AI Figma Plugins for Design Systems & Handoff",
-    description: "BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.",
-    keywords: "SaaS software, Figma plugins, API management, developer tools, secure proxy, react components",
-    ogTitle: "BiblioKit | AI Figma Plugins for Design Systems & Handoff",
-    ogDescription: "BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.",
+    title: "BiblioKit | AI Figma Plugins for Faster Design Systems",
+    description: "Automate variant naming, prototype cleanup, and design QA so designers ship production-ready files 10x faster with BiblioKit's Figma plugins.",
+    keywords: "Figma plugins, AI rename variants, prototype cleanup, design system QA, design handoff, BiblioKit",
+    ogTitle: "BiblioKit | AI Figma Plugins for Faster Design Systems",
+    ogDescription: "Automate variant naming, prototype cleanup, and design QA so designers ship production-ready files 10x faster with BiblioKit's Figma plugins.",
     ogImage: "/og/og-default.svg",
-    twitterTitle: "BiblioKit | AI Figma Plugins for Design Systems & Handoff",
-    twitterDescription: "BiblioKit: Enhance your design efficiency with Figma plugins and UX resources. Streamline your workflow and work faster with our innovative tools.",
+    twitterTitle: "BiblioKit | AI Figma Plugins for Faster Design Systems",
+    twitterDescription: "Automate variant naming, prototype cleanup, and design QA so designers ship production-ready files 10x faster with BiblioKit's Figma plugins.",
     twitterImage: "/og/og-default.svg",
     structuredData: [
       {
@@ -161,14 +161,14 @@ export const routeMetadata: RouteMetadata = {
     ]
   },
   '/docs': {
-    title: 'BiblioKit Docs – Quickstart & API Reference',
-    description: 'Get started with BiblioKit. Quickstart guides and API examples for integrating products and plugins.',
-    keywords: 'BiblioKit docs, API reference, quickstart, integration guides',
-    ogTitle: 'BiblioKit Documentation',
-    ogDescription: 'Quickstart and API reference for BiblioKit products.',
+    title: 'BiblioKit Docs | Setup Guides & API Reference',
+    description: 'Set up BiblioKit plugins fast with quickstart guides, API examples, and workspace tips for design and engineering teams.',
+    keywords: 'BiblioKit docs, setup guide, API reference, plugin tutorials, design ops',
+    ogTitle: 'BiblioKit Docs | Setup Guides & API Reference',
+    ogDescription: 'Set up BiblioKit plugins fast with quickstart guides, API examples, and workspace tips for design and engineering teams.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit Docs',
-    twitterDescription: 'Quickstart and API reference for BiblioKit products.',
+    twitterTitle: 'BiblioKit Docs | Setup Guides & API Reference',
+    twitterDescription: 'Set up BiblioKit plugins fast with quickstart guides, API examples, and workspace tips for design and engineering teams.',
     twitterImage: '/og/og-default.svg'
   },
   '/admin': {
@@ -180,14 +180,14 @@ export const routeMetadata: RouteMetadata = {
     ogType: "website"
   },
   '/resources/remove-prototype-link': {
-    title: 'Remove Prototype Link – BiblioKit Resources',
-    description: 'Retire outdated prototype URLs, revoke access in seconds, and keep every stakeholder focused on the latest build.',
-    keywords: 'remove prototype link, figma prototype cleanup, revoke share links, design ops hygiene',
-    ogTitle: 'Remove Prototype Link – BiblioKit Resources',
-    ogDescription: 'Audit every prototype share URL, replace broken handoffs, and protect launches with automated cleanup rituals.',
+    title: 'Remove Figma Prototype Links Fast | BiblioKit Resource',
+    description: 'Audit every shared Figma prototype link, revoke stale tokens, and share the correct build so teams always click the latest version.',
+    keywords: 'remove prototype link, figma prototype cleanup, revoke share links, design ops hygiene, prototype handoff',
+    ogTitle: 'Remove Figma Prototype Links Fast | BiblioKit Resource',
+    ogDescription: 'Audit every shared Figma prototype link, revoke stale tokens, and share the correct build so teams always click the latest version.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'Remove Prototype Link | BiblioKit',
-    twitterDescription: 'Design teams remove stale prototype links, notify partners, and ship confident updates.',
+    twitterTitle: 'Remove Figma Prototype Links Fast | BiblioKit Resource',
+    twitterDescription: 'Audit every shared Figma prototype link, revoke stale tokens, and share the correct build so teams always click the latest version.',
     twitterImage: '/og/og-default.svg',
     structuredData: [
       {
@@ -215,15 +215,37 @@ export const routeMetadata: RouteMetadata = {
       }
     ]
   },
-  '/blog': {
-    title: 'BiblioKit Blog – Field Notes for Designers Shipping Faster',
-    description: 'Playbooks, rituals, and checklists that help design teams remove prototype debt, align naming, and ship cleaner files.',
-    keywords: 'design ops blog, figma workflow tips, prototype cleanup, design system rituals',
-    ogTitle: 'BiblioKit Blog',
-    ogDescription: 'Actionable design ops playbooks to help your team ship cleaner files faster.',
+  '/ai-rename-variants': {
+    title: 'AI Rename Variants for Figma | BiblioKit',
+    description: 'Batch rename Figma variants with AI, enforce naming conventions, and keep properties consistent for cleaner developer handoff.',
+    keywords: 'AI rename variants, Figma naming plugin, design system naming, BiblioKit, variant properties',
+    ogTitle: 'AI Rename Variants for Figma | BiblioKit',
+    ogDescription: 'Batch rename Figma variants with AI, enforce naming conventions, and keep properties consistent for cleaner developer handoff.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit Blog – Ship Faster',
-    twitterDescription: 'Actionable templates and rituals for designers, PMs, and engineers.',
+    twitterTitle: 'AI Rename Variants for Figma | BiblioKit',
+    twitterDescription: 'Batch rename Figma variants with AI, enforce naming conventions, and keep properties consistent for cleaner developer handoff.',
+    twitterImage: '/og/og-default.svg'
+  },
+  '/uxbiblio': {
+    title: 'UXBiblio by BiblioKit | AI Library for UX Patterns',
+    description: 'Save and search UX inspiration with AI-powered tagging, smart collections, and shareable libraries so product teams find the right pattern fast.',
+    keywords: 'UXBiblio, UX pattern library, design inspiration, AI tagging, UX research repository',
+    ogTitle: 'UXBiblio by BiblioKit | AI Library for UX Patterns',
+    ogDescription: 'Save and search UX inspiration with AI-powered tagging, smart collections, and shareable libraries so product teams find the right pattern fast.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'UXBiblio by BiblioKit | AI Library for UX Patterns',
+    twitterDescription: 'Save and search UX inspiration with AI-powered tagging, smart collections, and shareable libraries so product teams find the right pattern fast.',
+    twitterImage: '/og/og-default.svg'
+  },
+  '/blog': {
+    title: 'BiblioKit Blog | Design Ops Playbooks for Figma Teams',
+    description: 'Field-tested rituals, checklists, and Figma plugin tips that help design teams remove prototype debt, align naming, and ship cleaner files.',
+    keywords: 'design ops blog, figma workflow tips, prototype cleanup, design system rituals, bibliokit blog',
+    ogTitle: 'BiblioKit Blog | Design Ops Playbooks for Figma Teams',
+    ogDescription: 'Field-tested rituals, checklists, and Figma plugin tips that help design teams remove prototype debt, align naming, and ship cleaner files.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'BiblioKit Blog | Design Ops Playbooks for Figma Teams',
+    twitterDescription: 'Field-tested rituals, checklists, and Figma plugin tips that help design teams remove prototype debt, align naming, and ship cleaner files.',
     twitterImage: '/og/og-default.svg'
   }
 };

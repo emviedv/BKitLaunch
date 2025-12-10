@@ -906,9 +906,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('auto-layout-wrap/auto-layout-wrap-hero.png'),
     heroImageAlt: 'Abstract responsive grid illustration showing Auto Layout Wrap adapting to screen sizes',
     lastUpdated: '2025-11-28',
-    metaTitle: 'Mastering Figma Auto Layout Wrap: The 2025 Guide to Responsive Components',
+    metaTitle: 'Figma Auto Layout Wrap Guide 2025 | Responsive UI',
     metaDescription:
-      'Learn how to enable Figma Auto Layout Wrap, apply it to real-world components, and audit fixed-width layers with BiblioKit so your responsive designs stay clean.',
+      'Turn on Auto Layout Wrap correctly, fix fixed-width layer bugs, and ship responsive Figma components without hacks using BiblioKit checks.',
     content: autoLayoutWrapContent
   },
   {
@@ -921,9 +921,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('detached-instances/image-hero-8_23-2.jpeg'),
     heroImageAlt: 'Broken chain between a design system gem and a detached Figma component',
     lastUpdated: '2025-12-07',
-    metaTitle: 'How to Find and Fix Detached Instances in Figma (2025 Guide)',
+    metaTitle: 'Fix Detached Instances in Figma | 2025 Cleanup Playbook',
     metaDescription:
-      'Scan for detached instances, fix them quickly, and keep your Figma design system consistent with BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check).',
+      'Scan for detached Figma instances, reset overrides, and keep design system components linked using BiblioAudit so files stay fast and consistent.',
     content: detachedInstancesContent
   },
   {
@@ -936,9 +936,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('remove-prototype-links/hero-abstract.svg'),
     heroImageAlt: 'Abstract interface blocks illustration',
     lastUpdated: '2025-11-26',
-    metaTitle: 'Remove Figma Prototype Links: A Guide by BiblioKit (2025)',
+    metaTitle: 'Remove Figma Prototype Links Safely | BiblioKit Guide',
     metaDescription:
-      'Figma makes it easy to build polished interfaces and prototypes. As files evolve, you may need to strip prototype links to refresh interactions or start clean while keeping your workflow smooth.',
+      'Wipe stale prototype links, replace broken handoffs, and notify collaborators so every Figma review opens the right build.',
     content: removePrototypeLinksContent,
     faqs: removePrototypeLinksFaqs
   },
@@ -952,9 +952,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('design-systems-card.svg'),
     heroImageAlt: 'Design system guidelines overview showing components and principles',
     lastUpdated: '2025-11-24',
-    metaTitle: 'Mastering Design System Guidelines: Best Practices',
+    metaTitle: 'Design System Guidelines Checklist | Best Practices 2025',
     metaDescription:
-      'Master design system guidelines to enhance brand consistency, streamline processes, and boost collaboration. Learn best practices for creating and implementing an effective design system.',
+      'Build design system guidelines that lock in consistency, speed onboarding, and align designers and developers with reusable standards.',
     content: designSystemGuidelinesContent,
     faqs: designSystemGuidelinesFaqs
   },
@@ -968,9 +968,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('design-systems-card.svg'),
     heroImageAlt: 'Atlassian Design System concepts displayed across interface components',
     lastUpdated: '2025-11-24',
-    metaTitle: 'Enhancing User Experience with Atlassian Design System',
+    metaTitle: 'Atlassian Design System UX Guide | Patterns that Ship',
     metaDescription:
-      "In today's fast-paced digital world, user experience (UX) is more important than ever. Companies need to create products that not only meet the functional needs of their users but also provide an intuitive and enjoyable experience.",
+      'Apply the Atlassian Design System to ship cohesive, accessible experiences faster with ready-made patterns, tokens, and workflow tips.',
     content: atlassianDesignSystemContent,
     faqs: atlassianDesignSystemFaqs
   }
