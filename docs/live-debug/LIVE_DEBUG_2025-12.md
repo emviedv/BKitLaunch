@@ -31,3 +31,11 @@
 - **Root Cause:** `renderTextWithLinks` consumed the raw markdown target; whitespace inside URLs bypassed detection and rendered as literal strings.
 - **Changed Files:** src/lib/renderTextWithLinks.tsx; src/lib/linkLabel.ts; tests/unit/linkLabel.spec.ts
 - **Verification:** node --test tests/unit/linkLabel.spec.ts; deployed via Netlify (see deploy message: "Force compact link labels for bare URLs").
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 02:18 EST
+- **Summary:** Prevented blog ordered-list labels from swallowing markdown links so step 1 renders the BiblioClean hyperlink correctly.
+- **Root Cause:** The lead/colon detector matched the `https:` in the markdown URL, splitting the string before `renderTextWithLinks` could convert it to an anchor, leaving raw `[BiblioClean](...)` text.
+- **Changed Files:** src/components/BlogArticlePage.tsx
+- **Verification:** node -e test confirming the new `^\\s*([^:]+):\\s+(.*)$` pattern matches "Select Scope: …" but not "Install [BiblioClean](https://…)", so markdown links now render.

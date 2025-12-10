@@ -41,12 +41,15 @@ const blogImageDebugEnabled = () => {
 };
 
 const renderListItemText = (item: string) => {
-  const match = item.match(/^\s*([^:]+:)\s*(.*)$/);
+  const match = item.match(/^\s*([^:]+):\s+(.*)$/);
+
   if (!match) return renderTextWithLinks(item);
+
   const [, lead, rest] = match;
+
   return (
     <>
-      <strong>{lead}</strong>
+      <strong>{lead}:</strong>
       {rest ? <> {renderTextWithLinks(rest)}</> : ''}
     </>
   );
