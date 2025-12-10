@@ -22,6 +22,14 @@ const BlogPage: React.FC = () => {
         <div className="landing-hero-noise" aria-hidden="true" />
         <div className="landing-hero-contrast" aria-hidden="true" />
         <div className="relative z-10 section-content pb-0 text-white">
+          <div className="max-w-3xl pb-10">
+            <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
+              BiblioKit Blog | Design Ops Playbooks
+            </h1>
+            <p className="mt-3 text-lg text-white/80">
+              Field notes, rituals, and Figma plugin tips that help designers and developers ship cleaner files faster with BiblioKit.
+            </p>
+          </div>
           <div className="grid gap-10 lg:gap-[168px] lg:grid-cols-3 lg:items-start">
             <div className="lg:col-span-2">
               {featuredPost && (
@@ -43,9 +51,9 @@ const BlogPage: React.FC = () => {
                   <p className="mt-2 pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
                     {featuredPost.category} • {featuredPost.readingTime}
                   </p>
-                  <h1 className="text-[48px] font-bold leading-[1.05] tracking-tight sm:text-[56px] lg:text-[64px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
+                  <h2 className="text-[48px] font-bold leading-[1.05] tracking-tight sm:text-[56px] lg:text-[64px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
                     {featuredPost.title}
-                  </h1>
+                  </h2>
                   <p className="text-base text-white/80">
                     {renderTextWithLinks(featuredPost.excerpt)}
                   </p>
