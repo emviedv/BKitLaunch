@@ -1,5 +1,6 @@
 import React from 'react';
 import { BLOG_POSTS, buildBlogPostHref, type BlogPost } from '@/data/blogPosts';
+import { prettifyUrlLabel } from './linkLabel.ts';
 
 const BLOG_POST_LOOKUP = BLOG_POSTS.reduce<Record<string, BlogPost>>((acc, blogPost) => {
   acc[blogPost.slug] = blogPost;
@@ -74,6 +75,8 @@ export const renderTextWithLinks = (text: string) => {
         finalHref;
 
       const isExternal = finalHref.startsWith('http');
+      const resolvedLabel =
+        isExternal && label === finalHref ? prettifyUrlLabel(finalHref) : label;
 
       segments.push(
         <a
@@ -82,7 +85,7 @@ export const renderTextWithLinks = (text: string) => {
           target={isExternal ? '_blank' : undefined}
           rel={isExternal ? 'noreferrer' : undefined}
         >
-          {label}
+          {resolvedLabel}
         </a>
       );
 
