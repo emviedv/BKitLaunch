@@ -75,8 +75,9 @@ export const renderTextWithLinks = (text: string) => {
         finalHref;
 
       const isExternal = finalHref.startsWith('http');
-      const resolvedLabel =
-        isExternal && label === finalHref ? prettifyUrlLabel(finalHref) : label;
+      const shouldPrettify =
+        isExternal && (label === finalHref || (typeof label === 'string' && label.startsWith('http')));
+      const resolvedLabel = shouldPrettify ? prettifyUrlLabel(finalHref) : label;
 
       segments.push(
         <a
