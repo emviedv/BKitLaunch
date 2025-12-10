@@ -228,7 +228,8 @@ export default async (request: Request, context: Context) => {
     url.pathname.startsWith('/assets/') ||
     url.pathname.endsWith('/robots.txt') ||
     url.pathname.endsWith('/sitemap.xml') ||
-    url.pathname.includes('.') // Files with extensions
+    // Regex for common static asset extensions to ensure they bypass SSR even if excludedPath fails
+    url.pathname.match(/\.(png|jpg|jpeg|gif|svg|webp|webm|mp4|ico|json|xml|txt|css|js|woff|woff2|ttf|eot)$/i)
   ) {
     return context.next();
   }
@@ -483,8 +484,8 @@ export default async (request: Request, context: Context) => {
 export const config: Config = {
   path: "/*",
   excludedPath: [
-    // Directory-based exclusions (Explicit depths)
-    "/assets/*", "/assets/*/*", "/assets/*/*/*",
+    // Directory-based exclusions
+    "/assets/*", "/assets/*/*", "/assets/*/*/*", "/assets/*/*/*/*",
     "/.netlify/*", "/.netlify/*/*",
     "/admin/*", "/admin/*/*",
     "/@vite/*", "/@vite/*/*",
@@ -496,22 +497,28 @@ export const config: Config = {
     "/og/*",
     "/demos/*", "/demos/*/*",
     
-    // Extension-based exclusions (Explicit depths 0-3)
-    "/*.js", "/*/*.js", "/*/*/*.js", "/*/*/*/*.js",
-    "/*.css", "/*/*.css", "/*/*/*.css", "/*/*/*/*.css",
-    "/*.png", "/*/*.png", "/*/*/*.png", "/*/*/*/*.png",
-    "/*.jpg", "/*/*.jpg", "/*/*/*.jpg", "/*/*/*/*.jpg",
-    "/*.jpeg", "/*/*.jpeg", "/*/*/*.jpeg", "/*/*/*/*.jpeg",
-    "/*.gif", "/*/*.gif", "/*/*/*.gif", "/*/*/*/*.gif",
-    "/*.svg", "/*/*.svg", "/*/*/*.svg", "/*/*/*/*.svg",
-    "/*.ico", "/*/*.ico", "/*/*/*.ico", "/*/*/*/*.ico",
-    "/*.webp", "/*/*.webp", "/*/*/*.webp", "/*/*/*/*.webp",
-    "/*.webm", "/*/*.webm", "/*/*/*.webm", "/*/*/*/*.webm",
-    "/*.mp4", "/*/*.mp4", "/*/*/*.mp4", "/*/*/*/*.mp4",
-    "/*.woff", "/*/*.woff", "/*/*/*.woff", "/*/*/*/*.woff",
-    "/*.woff2", "/*/*.woff2", "/*/*/*.woff2", "/*/*/*/*.woff2",
-    "/*.ttf", "/*/*.ttf", "/*/*/*.ttf", "/*/*/*/*.ttf",
-    "/*.eot", "/*/*.eot", "/*/*/*.eot", "/*/*/*/*.eot",
+    // Explicit Blog Assets (Safety net)
+    "/blog/*.png", "/blog/*/*.png", "/blog/*/*/*.png",
+    "/blog/*.jpg", "/blog/*/*.jpg", "/blog/*/*/*.jpg",
+    "/blog/*.jpeg", "/blog/*/*.jpeg", "/blog/*/*/*.jpeg",
+    "/blog/*.svg", "/blog/*/*.svg", "/blog/*/*/*.svg",
+
+    // Extension-based exclusions (Explicit depths 0-5)
+    "/*.js", "/*/*.js", "/*/*/*.js", "/*/*/*/*.js", "/*/*/*/*/*.js", "/*/*/*/*/*/*.js",
+    "/*.css", "/*/*.css", "/*/*/*.css", "/*/*/*/*.css", "/*/*/*/*/*.css", "/*/*/*/*/*/*.css",
+    "/*.png", "/*/*.png", "/*/*/*.png", "/*/*/*/*.png", "/*/*/*/*/*.png", "/*/*/*/*/*/*.png",
+    "/*.jpg", "/*/*.jpg", "/*/*/*.jpg", "/*/*/*/*.jpg", "/*/*/*/*/*.jpg", "/*/*/*/*/*/*.jpg",
+    "/*.jpeg", "/*/*.jpeg", "/*/*/*.jpeg", "/*/*/*/*.jpeg", "/*/*/*/*/*.jpeg", "/*/*/*/*/*/*.jpeg",
+    "/*.gif", "/*/*.gif", "/*/*/*.gif", "/*/*/*/*.gif", "/*/*/*/*/*.gif", "/*/*/*/*/*/*.gif",
+    "/*.svg", "/*/*.svg", "/*/*/*.svg", "/*/*/*/*.svg", "/*/*/*/*/*.svg", "/*/*/*/*/*/*.svg",
+    "/*.ico", "/*/*.ico", "/*/*/*.ico", "/*/*/*/*.ico", "/*/*/*/*/*.ico", "/*/*/*/*/*/*.ico",
+    "/*.webp", "/*/*.webp", "/*/*/*.webp", "/*/*/*/*.webp", "/*/*/*/*/*.webp", "/*/*/*/*/*/*.webp",
+    "/*.webm", "/*/*.webm", "/*/*/*.webm", "/*/*/*/*.webm", "/*/*/*/*/*.webm", "/*/*/*/*/*/*.webm",
+    "/*.mp4", "/*/*.mp4", "/*/*/*.mp4", "/*/*/*/*.mp4", "/*/*/*/*/*.mp4", "/*/*/*/*/*/*.mp4",
+    "/*.woff", "/*/*.woff", "/*/*/*.woff", "/*/*/*/*.woff", "/*/*/*/*/*.woff", "/*/*/*/*/*/*.woff",
+    "/*.woff2", "/*/*.woff2", "/*/*/*.woff2", "/*/*/*/*.woff2", "/*/*/*/*/*.woff2", "/*/*/*/*/*/*.woff2",
+    "/*.ttf", "/*/*.ttf", "/*/*/*.ttf", "/*/*/*/*.ttf", "/*/*/*/*/*.ttf", "/*/*/*/*/*/*.ttf",
+    "/*.eot", "/*/*.eot", "/*/*/*.eot", "/*/*/*/*.eot", "/*/*/*/*/*.eot", "/*/*/*/*/*/*.eot",
     "/*.txt", "/*/*.txt", "/*/*/*.txt",
     "/*.xml", "/*/*.xml", "/*/*/*.xml",
     "/*.json", "/*/*.json", "/*/*/*.json"
