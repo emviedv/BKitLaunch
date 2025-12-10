@@ -221,6 +221,7 @@ edge_functions = "netlify/edge-functions"
   targetPort = 53173
 
 [[edge_functions]]
+  path = "/*"
   function = "ssr"
 
 # Disable bot-detection since SSR handles bots properly
