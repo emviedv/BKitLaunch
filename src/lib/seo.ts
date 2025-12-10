@@ -1,4 +1,5 @@
 // SEO Metadata Management System
+import { findBlogPostBySlug, type BlogPost } from '@/data/blogPosts';
 
 export interface SEOMetadata {
   title: string;
@@ -40,6 +41,61 @@ interface StructuredDataMergeParams {
   metadata: SEOMetadata;
   contentData?: any;
 }
+
+const extractBlogSlug = (path: string): string | null => {
+  const match = path.replace(/\/+$/, '').match(/^\/blog\/([^/]+)/);
+  return match?.[1] || null;
+};
+
+const isBlogPostData = (value: any): value is BlogPost =>
+  Boolean(
+    value &&
+    typeof value === 'object' &&
+    typeof value.slug === 'string' &&
+    typeof value.title === 'string'
+  );
+
+const resolveBlogContent = (path: string, contentData?: any): BlogPost | undefined => {
+  if (!path.startsWith('/blog/')) return undefined;
+
+  const inlinePost = isBlogPostData(contentData) ? contentData : undefined;
+  const slugFromPath = extractBlogSlug(path);
+  if (inlinePost && (!slugFromPath || inlinePost.slug === slugFromPath)) {
+    return inlinePost;
+  }
+
+  if (slugFromPath) {
+    return findBlogPostBySlug(slugFromPath);
+  }
+
+  return undefined;
+};
+
+const normalizeDateValue = (value?: string | number | Date | null): string | undefined => {
+  if (value === null || value === undefined) return undefined;
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return undefined;
+  return date.toISOString().split('T')[0];
+};
+
+const resolveArticleDates = (post?: BlogPost | null) => {
+  if (!post) {
+    return { published: undefined, modified: undefined };
+  }
+  const modified = normalizeDateValue((post as any)?.lastUpdated ?? (post as any)?.updatedAt);
+  const published = normalizeDateValue((post as any)?.publishedAt) || modified;
+  return { published, modified };
+};
+
+const mergeKeywords = (base?: string, additions: Array<string | undefined> = []): string | undefined => {
+  const set = new Set(resolveKeywords(base));
+  additions.forEach((value) => {
+    if (typeof value === 'string' && value.trim().length > 0) {
+      set.add(value.trim());
+    }
+  });
+  return set.size ? Array.from(set).join(', ') : undefined;
+};
 
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
@@ -179,8 +235,14 @@ export function generateMetadata(
   baseUrl: string = 'https://www.bibliokit.com'
 ): SEOMetadata {
   const normalizedPath = path ? path.split('?')[0] : '/';
-  const isBlogArticle = normalizedPath.startsWith('/blog/') && normalizedPath !== '/blog';
-  const matchedRouteKey = routeMetadata[normalizedPath] ? normalizedPath : isBlogArticle ? '/blog' : normalizedPath;
+  const normalizedPathNoTrailingSlash = (normalizedPath || '/').replace(/\/+$/, '') || '/';
+  const isBlogArticle = normalizedPathNoTrailingSlash.startsWith('/blog/') && normalizedPathNoTrailingSlash !== '/blog';
+  const matchedRouteKey = routeMetadata[normalizedPathNoTrailingSlash]
+    ? normalizedPathNoTrailingSlash
+    : isBlogArticle
+      ? '/blog'
+      : normalizedPathNoTrailingSlash;
+  const blogContent = isBlogArticle ? resolveBlogContent(normalizedPathNoTrailingSlash, contentData) : undefined;
 
   // Get route-specific metadata or use default
   const routeData = routeMetadata[matchedRouteKey] || {};
@@ -197,20 +259,31 @@ export function generateMetadata(
   };
   
   // Override with dynamic content data if available
-  if (contentData) {
+  if (contentData || blogContent) {
     if (isBlogArticle) {
-      const articleTitle = contentData.metaTitle || contentData.title;
-      const articleDescription = contentData.metaDescription || contentData.description;
+      const articleData = blogContent ?? (isBlogPostData(contentData) ? contentData : undefined);
+      const articleTitle = articleData?.metaTitle || articleData?.title;
+      const articleDescription =
+        articleData?.metaDescription ||
+        articleData?.excerpt ||
+        (articleData as any)?.description;
       metadata.title = articleTitle || metadata.title;
       metadata.description = articleDescription || metadata.description;
       metadata.ogTitle = articleTitle || metadata.ogTitle;
       metadata.ogDescription = articleDescription || metadata.ogDescription;
       metadata.twitterTitle = articleTitle || metadata.twitterTitle;
       metadata.twitterDescription = articleDescription || metadata.twitterDescription;
-      metadata.ogImage = contentData.ogImage || metadata.ogImage;
-      metadata.ogImageAlt = contentData.ogImageAlt || metadata.ogImageAlt;
-      metadata.twitterImage = contentData.twitterImage || contentData.ogImage || metadata.twitterImage;
-      metadata.twitterImageAlt = contentData.twitterImageAlt || contentData.ogImageAlt || metadata.twitterImageAlt;
+      if (articleData?.heroImage) {
+        metadata.ogImage = articleData.heroImage;
+        metadata.twitterImage = articleData.heroImage;
+      }
+      metadata.ogImageAlt = articleData?.heroImageAlt || metadata.ogImageAlt;
+      metadata.twitterImageAlt = articleData?.heroImageAlt || metadata.twitterImageAlt;
+      metadata.keywords = mergeKeywords(metadata.keywords, [
+        articleData?.category,
+        articleData?.title,
+        'BiblioKit blog'
+      ]);
       metadata.ogType = 'article';
       metadata.webPageType = 'Article';
     } else {
@@ -229,8 +302,8 @@ export function generateMetadata(
     }
 
     // Dynamic product route handling: e.g., "/bibliokit-blocks" or other slugged pages
-    if (!routeMetadata[normalizedPath] && normalizedPath !== '/' && !normalizedPath.startsWith('/admin') && !isBlogArticle) {
-      const slug = String(normalizedPath).replace(/^\/+/, '').split('/')[0];
+    if (!routeMetadata[normalizedPathNoTrailingSlash] && normalizedPathNoTrailingSlash !== '/' && !normalizedPathNoTrailingSlash.startsWith('/admin') && !isBlogArticle) {
+      const slug = String(normalizedPathNoTrailingSlash).replace(/^\/+/, '').split('/')[0];
       const product = contentData.products?.[slug];
       if (product) {
         const productTitle: string = product.title || metadata.title;
@@ -331,7 +404,7 @@ export function generateMetadata(
   }
   
   // Set canonical URL and clamp lengths
-  const canonicalPath = normalizedPath === '' ? '/' : normalizedPath;
+  const canonicalPath = normalizedPathNoTrailingSlash === '' ? '/' : normalizedPathNoTrailingSlash;
   metadata.canonical = `${baseUrl}${canonicalPath}`;
   metadata.title = clampText(metadata.title, 60);
   metadata.description = clampText(metadata.description, 160);
@@ -339,6 +412,7 @@ export function generateMetadata(
   // Add Article structured data for blog posts after canonical is set
   if (isBlogArticle && metadata.canonical) {
     const language = toLanguageTag(metadata.locale) || 'en-US';
+    const articleDates = resolveArticleDates(blogContent);
     const articleEntry = cleanStructuredDataEntry({
       '@context': 'https://schema.org',
       '@type': 'Article',
@@ -347,6 +421,9 @@ export function generateMetadata(
       headline: metadata.title,
       description: metadata.description,
       inLanguage: language,
+      datePublished: articleDates.published,
+      dateModified: articleDates.modified,
+      articleSection: blogContent?.category,
       author: { '@id': `${baseUrl}#organization` },
       publisher: { '@id': `${baseUrl}#organization` },
       image: metadata.ogImage,
@@ -361,12 +438,12 @@ export function generateMetadata(
 
   // Ensure page type defaults based on context
   if (!metadata.webPageType) {
-    metadata.webPageType = normalizedPath === '/' ? 'CollectionPage' : 'WebPage';
+    metadata.webPageType = normalizedPathNoTrailingSlash === '/' ? 'CollectionPage' : 'WebPage';
   }
 
   metadata.structuredData = mergeStructuredDataEntries({
     baseUrl,
-    path: normalizedPath,
+    path: normalizedPathNoTrailingSlash,
     metadata,
     contentData
   });
