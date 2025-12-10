@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { prettifyUrlLabel } from '../../src/lib/linkLabel.ts';
+import { prettifyUrlLabel, sanitizeUrl } from '../../src/lib/linkLabel.ts';
 
 test('prettifyUrlLabel strips protocol and trims long URLs', () => {
   const raw =
@@ -17,4 +17,10 @@ test('prettifyUrlLabel keeps host when path is empty', () => {
   const raw = 'https://www.example.com/';
   const label = prettifyUrlLabel(raw);
   assert.equal(label, 'example.com');
+});
+
+test('sanitizeUrl removes whitespace inside URLs', () => {
+  const raw = 'https: //www.example.com/path?a=1#hash';
+  const sanitized = sanitizeUrl(raw);
+  assert.equal(sanitized, 'https://www.example.com/path?a=1#hash');
 });

@@ -13,3 +13,9 @@ export const prettifyUrlLabel = (raw: string): string => {
     return stripped.length > 48 ? `${stripped.slice(0, 45)}...` : stripped;
   }
 };
+
+export const sanitizeUrl = (value?: string): string | undefined => {
+  if (typeof value !== 'string') return value;
+  // Remove whitespace that can break markdown URL parsing, e.g., "https: //example.com"
+  return value.replace(/\s+/g, '');
+};

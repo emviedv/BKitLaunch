@@ -23,3 +23,11 @@
 - **Root Cause:** Plain URLs in excerpts were rendered verbatim; `renderTextWithLinks` lacked a compact display label for non-markdown URLs.
 - **Changed Files:** src/lib/renderTextWithLinks.tsx; src/lib/linkLabel.ts; tests/unit/linkLabel.spec.ts; netlify.toml (edge function path for CLI deploy).
 - **Verification:** node --test tests/unit/linkLabel.spec.ts; visual check expected to show compact host-based link text instead of long URLs in blog related/next sections.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 02:13 EST
+- **Summary:** Sanitized markdown URLs with stray whitespace (e.g., `https: //...`) so blog copy renders clean hyperlink labels in steps and lists.
+- **Root Cause:** `renderTextWithLinks` consumed the raw markdown target; whitespace inside URLs bypassed detection and rendered as literal strings.
+- **Changed Files:** src/lib/renderTextWithLinks.tsx; src/lib/linkLabel.ts; tests/unit/linkLabel.spec.ts
+- **Verification:** node --test tests/unit/linkLabel.spec.ts; deployed via Netlify (see deploy message: "Force compact link labels for bare URLs").

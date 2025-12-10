@@ -1,6 +1,6 @@
 import React from 'react';
 import { BLOG_POSTS, buildBlogPostHref, type BlogPost } from '@/data/blogPosts';
-import { prettifyUrlLabel } from './linkLabel.ts';
+import { prettifyUrlLabel, sanitizeUrl } from './linkLabel.ts';
 
 const BLOG_POST_LOOKUP = BLOG_POSTS.reduce<Record<string, BlogPost>>((acc, blogPost) => {
   acc[blogPost.slug] = blogPost;
@@ -43,24 +43,28 @@ export const renderTextWithLinks = (text: string) => {
         segments.push(text.slice(lastIndex, offset));
       }
 
+      const cleanMarkdownTarget = sanitizeUrl(markdownTarget);
+      const cleanUrlMatch = sanitizeUrl(urlMatch);
+      const cleanRelativePath = sanitizeUrl(relativeBlogPath);
+
       const normalizedSlug =
         normalizeSlug(slugToken?.trim()) ||
-        normalizeSlug(markdownTarget) ||
-        normalizeSlug(relativeBlogPath);
+        normalizeSlug(cleanMarkdownTarget) ||
+        normalizeSlug(cleanRelativePath);
 
       const linkedPost = normalizedSlug ? BLOG_POST_LOOKUP[normalizedSlug] : undefined;
       const blogHref = normalizedSlug ? buildBlogPostHref(normalizedSlug) : undefined;
 
       let href: string | undefined;
 
-      if (markdownTarget?.startsWith('http') || urlMatch?.startsWith('http')) {
-        href = markdownTarget || urlMatch;
+      if (cleanMarkdownTarget?.startsWith('http') || cleanUrlMatch?.startsWith('http')) {
+        href = cleanMarkdownTarget || cleanUrlMatch;
       } else if (linkedPost) {
         href = buildBlogPostHref(linkedPost.slug);
-      } else if (markdownTarget) {
-        href = markdownTarget;
-      } else if (relativeBlogPath) {
-        href = relativeBlogPath.startsWith('/') ? relativeBlogPath : `/${relativeBlogPath}`;
+      } else if (cleanMarkdownTarget) {
+        href = cleanMarkdownTarget;
+      } else if (cleanRelativePath) {
+        href = cleanRelativePath.startsWith('/') ? cleanRelativePath : `/${cleanRelativePath}`;
       } else if (blogHref) {
         href = blogHref;
       } else {
