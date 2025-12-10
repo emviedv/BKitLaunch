@@ -1,0 +1,24 @@
+<svg width="420" height="120" viewBox="0 0 420 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dsGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C084FC"/>
+      <stop offset="100%" stop-color="#F472B6"/>
+    </linearGradient>
+    <radialGradient id="dsHalo" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.95)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="420" height="120" rx="24" fill="url(#dsGradient)"/>
+  <circle cx="100" cy="60" r="46" fill="url(#dsHalo)"/>
+  <rect x="70" y="40" width="60" height="40" rx="12" fill="rgba(15,23,42,0.75)"/>
+  <path d="M86 60H114" stroke="#C084FC" stroke-width="6" stroke-linecap="round"/>
+  <path d="M86 50H114" stroke="#F472B6" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+  <path d="M86 70H114" stroke="#C4B5FD" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+  <text x="150" y="58" fill="white" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="600">
+    Design Systems
+  </text>
+  <text x="150" y="82" fill="rgba(255,255,255,0.85)" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="14">
+    Name variants that scale.
+  </text>
+</svg>

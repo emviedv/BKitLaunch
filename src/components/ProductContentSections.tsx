@@ -121,6 +121,29 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     return href.startsWith('#') ? `/${href}` : href;
   };
 
+  const mediaDiagnosticsEnabled = () => {
+    if (typeof process !== 'undefined' && typeof process.env?.DEBUG_FIX !== 'undefined') {
+      return process.env.DEBUG_FIX !== '0';
+    }
+    if (typeof import.meta !== 'undefined' && (import.meta as any)?.env?.VITE_DEBUG_FIX) {
+      return (import.meta as any).env.VITE_DEBUG_FIX !== '0';
+    }
+    return false;
+  };
+
+  const logFeatureMedia = (detail: ProductDetail, variant: 'default' | 'showcase') => {
+    if (!mediaDiagnosticsEnabled() || !detail.mediaUrl) {
+      return;
+    }
+    debugService.debug('landing:feature-media', {
+      title: detail.title,
+      mediaUrl: detail.mediaUrl,
+      mediaAlt: detail.mediaAlt,
+      variant,
+      isLocal: detail.mediaUrl.startsWith('/'),
+    });
+  };
+
   const createFeatureAnchorId = (title: string | undefined, index: number) => {
     const slug = (title ?? '')
       .toLowerCase()
@@ -182,6 +205,8 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     detail: ProductDetail,
     variant: 'default' | 'showcase' = 'default'
   ) => {
+    logFeatureMedia(detail, variant);
+
     const isShowcase = variant === 'showcase';
     const fallbackWrapperClass = cn(
       'relative flex items-center justify-center rounded-3xl border border-white/15 bg-gradient-to-br from-[#221036]/80 via-[#0c0418]/90 to-[#05000e]/95',

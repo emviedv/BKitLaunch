@@ -1,0 +1,21 @@
+<svg width="420" height="120" viewBox="0 0 420 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="opsGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6EE7B7"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="opsGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.9)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.1)"/>
+    </linearGradient>
+  </defs>
+  <rect width="420" height="120" rx="24" fill="url(#opsGradient)"/>
+  <rect x="16" y="16" width="388" height="88" rx="20" fill="url(#opsGlow)" opacity="0.5"/>
+  <circle cx="70" cy="60" r="34" fill="rgba(15,23,42,0.4)"/>
+  <circle cx="70" cy="60" r="26" fill="white" opacity="0.9"/>
+  <path d="M58 60L67 69L83 51" stroke="#0EA5E9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="130" y="58" fill="#0F172A" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="600">Ops Rituals</text>
+  <text x="130" y="82" fill="rgba(15,23,42,0.75)" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="14">
+    Delete prototype debt weekly.
+  </text>
+</svg>

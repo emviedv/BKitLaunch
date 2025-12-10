@@ -1,0 +1,32 @@
+<svg width="100%" height="100%" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .cell {
+      stroke: #333;
+      stroke-width: 2px;
+      rx: 8px;
+      ry: 8px;
+    }
+  </style>
+
+  <rect x="0" y="0" width="400" height="200" fill="#f0f4f8"/>
+
+  <rect id="cell-tl" class="cell" x="0" y="0" width="250" height="100" fill="#66bb6a">
+    <animate attributeName="width" values="250;200;250" dur="4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="x" values="0;0;0" dur="4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </rect>
+
+  <rect id="cell-tr" class="cell" x="250" y="0" width="150" height="100" fill="#42a5f5">
+    <animate attributeName="width" values="150;200;150" dur="4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="x" values="250;200;250" dur="4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </rect>
+
+  <rect id="cell-bl" class="cell" x="0" y="100" width="100" height="100" fill="#ff7043">
+    <animate attributeName="width" values="100;200;100" dur="4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="x" values="0;0;0" dur="4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </rect>
+
+  <rect id="cell-br" class="cell" x="100" y="100" width="300" height="100" fill="#9575cd">
+    <animate attributeName="width" values="300;200;300" dur="4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="x" values="100;200;100" dur="4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </rect>
+</svg>
