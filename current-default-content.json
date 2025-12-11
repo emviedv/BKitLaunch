@@ -82,7 +82,7 @@
         "logoText": "BiblioKit",
         "navigation": [
           {
-            "href": "/ai-rename-variants",
+            "href": "/biblio-rename",
             "label": "BiblioRename"
           },
           {
@@ -217,7 +217,7 @@
           ],
           "showBadge": true,
           "badgeColor": "#10b981",
-          "buttonLink": "/ai-rename-variants",
+          "buttonLink": "/biblio-rename",
           "buttonText": "Rename Layers",
           "isFeatured": false,
           "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",

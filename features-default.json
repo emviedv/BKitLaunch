@@ -150,7 +150,7 @@
         "showBadge": true,
         "buttonPreset": "custom",
         "buttonText": "Rename Layers",
-        "buttonLink": "/ai-rename-variants"
+        "buttonLink": "/biblio-rename"
       },
       {
         "icon": "🔍",

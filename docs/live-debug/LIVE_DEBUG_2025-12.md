@@ -359,3 +359,151 @@
 - **Root Cause:** The blog header still used a different background than the hero, creating a visible mismatch at the top of blog pages.
 - **Changed Files:** src/components/Header.tsx; src/index.css
 - **Verification:** Not run (visual check blog header shares the hero gradient/grid).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 21:38 EST
+- **Summary:** Removed the fourth BiblioRename feature section so the product page shows only the three current blocks.
+- **Root Cause:** The Section 4 content is no longer part of the approved BiblioRename lineup but persisted in both the static content JSON and the fallback component copy.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (manual check BiblioRename page shows three feature sections and no "Keep every team in sync" block).
+
+- **Time:** 2025-12-10 21:44 EST
+- **Summary:** Trimmed the BiblioRename hero callouts to remove the developer-handoff and cross-team governance lines, leaving only the install CTA.
+- **Root Cause:** The hero still surfaced callout bullets that are no longer part of the approved messaging for the BiblioRename hero.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (manual check hero callouts show only the install link).
+
+- **Time:** 2025-12-10 21:57 EST
+- **Summary:** Restored default hero padding on BiblioRename by removing the no-padding overrides so it matches other product pages.
+- **Root Cause:** The hero had custom padding overrides (`withBottomPadding={false}`, `containerPaddingOverride="px-0 md:px-0"`) that left the layout edge-to-edge instead of the standard container gutters.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx
+- **Verification:** Not run (manual check hero horizontal gutters and bottom spacing align with other product pages).
+
+- **Time:** 2025-12-10 21:58 EST
+- **Summary:** Rebuilt the product hero layout into a 5-column grid with 24px gutters and placed the content in the leftmost two columns for consistent alignment.
+- **Root Cause:** The hero used a single-column flex layout, preventing the requested 5-column structure and left-span content placement.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (manual check hero shows 5-column grid with content spanning the first two columns and 24px horizontal gutter).
+
+- **Time:** 2025-12-10 22:00 EST
+- **Summary:** Set product hero callout links to the brand pink color so hero hyperlinks align with the pink CTA palette.
+- **Root Cause:** Hero callout links inherited white text, missing the brand pink styling requested for hyperlinks.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check hero callout links render in pink with hover to white).
+
+- **Time:** 2025-12-10 22:04 EST
+- **Summary:** Removed hero callout bullets/links on product pages by disabling callout rendering in ProductHero.
+- **Root Cause:** Product heroes still rendered callout bullets; requirement is to show no bullets/links on product page heroes.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (manual check product heroes show no callout bullets/links).
+
+- **Time:** 2025-12-10 22:05 EST
+- **Summary:** Updated the BiblioRename hero description to highlight AI-driven semantic renaming without manual rules.
+- **Root Cause:** The hero description still used the older standardization copy instead of the requested AI visual-hierarchy messaging.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (manual check BiblioRename hero shows the new description text).
+
+- **Time:** 2025-12-10 22:07 EST
+- **Summary:** Widened the product hero content span to 3 columns within the 5-column grid for better balance.
+- **Root Cause:** Content was limited to 2 columns in the 5-column layout, leaving extra whitespace to the right of the hero content.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check product hero content spans 3 of 5 columns).
+
+- **Time:** 2025-12-10 22:08 EST
+- **Summary:** Reworked the product hero grid to 12 columns with a 4-column content span for clearer alignment.
+- **Root Cause:** The 5-column grid left content sizing awkward; requirement is a 12-column layout with content across 4 columns.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check product hero content spans 4 of 12 columns).
+
+- **Time:** 2025-12-10 22:10 EST
+- **Summary:** Added newline rendering for hero descriptions and updated BiblioRename copy so “Turn Frame 422…” starts on its own line.
+- **Root Cause:** Hero descriptions collapsed newlines, preventing the requested line break before “Turn Frame 422…”.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (manual check BiblioRename hero shows the line break before “Turn Frame 422…”).
+
+- **Time:** 2025-12-10 22:14 EST
+- **Summary:** Updated BiblioRename hero CTA to “Start Renaming” with a leading arrow icon and ensured the primary button renders the icon before text.
+- **Root Cause:** Hero CTA still used the old label and placed the icon after the text, conflicting with the requested CTA copy and ordering.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (manual check BiblioRename hero button shows leading arrow icon and “Start Renaming” text).
+
+- **Time:** 2025-12-10 23:16 EST
+- **Summary:** Centered the product hero content within the 12-column grid by starting the 4-column span at column 5 for balanced whitespace.
+- **Root Cause:** Content sat at the far left of the 12-column grid, leaving heavy empty space on the right and an imbalanced hero.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check hero content centers within the 12-column grid with even side space).
+
+- **Time:** 2025-12-10 23:18 EST
+- **Summary:** Reverted hero centering and increased vertical spacing inside the hero content stack for better balance.
+- **Root Cause:** Centering the content block didn’t address the real issue—tight spacing between hero elements—so the content now stays in its original grid position with added internal gap.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check hero content is left-aligned within the grid and has looser spacing between elements).
+
+- **Time:** 2025-12-10 23:20 EST
+- **Summary:** Added 16px more spacing between the product hero badge and title by increasing the vertical gap in the title wrapper.
+- **Root Cause:** Badge and product name were too tight; needed extra separation for readability.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check badge-to-title gap increased by ~16px).
+
+- **Time:** 2025-12-10 23:21 EST
+- **Summary:** Added another ~22px of spacing between the badge and title in the product hero by further increasing the title wrapper gap.
+- **Root Cause:** Additional separation was requested to further loosen the badge-to-title spacing.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check shows larger badge-to-title gap).
+
+- **Time:** 2025-12-10 23:22 EST
+- **Summary:** Pulled the hero description 16px closer to the title for tighter hierarchy.
+- **Root Cause:** The description sat too far below the title after prior spacing changes; needed a closer relationship to the headline.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check description sits ~16px closer to the title).
+
+- **Time:** 2025-12-10 23:23 EST
+- **Summary:** Moved the hero CTA 12px closer to the description by reducing the top margin on the CTA wrapper.
+- **Root Cause:** CTA sat too far below the description after spacing tweaks; needed tighter vertical rhythm.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check CTA sits ~12px closer to the description).
+
+- **Time:** 2025-12-10 23:24 EST
+- **Summary:** Pulled the hero CTA another ~12px closer to the description by removing the remaining top margin.
+- **Root Cause:** Additional tightening requested after the initial CTA spacing reduction.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check CTA is closer to the description with no top margin).
+
+## 2025-12-11
+
+- **Time:** 2025-12-11 13:40 EST
+- **Summary:** Removed feature descriptions from product pages so feature cards show only titles and bullet lists (landing layout still keeps descriptions).
+- **Root Cause:** Product page feature cards still rendered body descriptions; request was to drop descriptions on product pages while preserving landing copy.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (manual check product page feature cards omit description text; landing feature sections unchanged).
+
+- **Time:** 2025-12-11 10:15 EST
+- **Summary:** Added a canonical `/biblio-rename` product route with redirects, sitemap/SEO updates, and bot/static handling while keeping the legacy `/ai-rename-variants` URL as an alias.
+- **Root Cause:** BiblioRename still lived on the older `/ai-rename-variants` path, which wasn’t a best-practice URL and left SEO/sitemap data pointing at the outdated slug.
+- **Changed Files:** src/config/routes.ts; src/App.tsx; src/components/AIRenameVariantsPage.tsx; src/lib/seo.ts; netlify/functions/sitemap.ts; netlify/edge-functions/bot-detection.ts; _redirects; public/llms.txt; features-default.json; default-content.json; clean-content.json; correct-content.json; current-default-content.json; fixed-content.json; src/data/products.json; src/components/Docs.tsx; src/components/Footer.tsx; tests/e2e/biblio-rename-features.spec.ts
+- **Verification:** Not run (manual routing/URL check recommended for `/biblio-rename` and legacy redirect).
+
+- **Time:** 2025-12-11 10:28 EST
+- **Summary:** Trimmed the BiblioRename FAQ to the top three questions by removing the last two entries from the page and product data.
+- **Root Cause:** FAQ included redundant Q4/Q5 that needed to be removed for clarity.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (manual check BiblioRename FAQ shows 3 questions).
+
+- **Time:** 2025-12-11 10:34 EST
+- **Summary:** Removed the “Built for safe iteration” feature block from BiblioRename so the page and static content only show the remaining feature cards.
+- **Root Cause:** The safe-iteration section was no longer needed in the BiblioRename feature lineup.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (manual check BiblioRename page features exclude the safe-iteration card).
+
+- **Time:** 2025-12-11 10:39 EST
+- **Summary:** Replaced the BiblioRename “Bulk renaming made effortless” video with an FPO blueprint illustration so the section no longer embeds a video asset.
+- **Root Cause:** The bulk renaming feature should show a static FPO illustration instead of the previous looping video.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** Not run (manual check BiblioRename bulk renaming feature shows the FPO blueprint illustration instead of the video).
+
+- **Time:** 2025-12-11 10:44 EST
+- **Summary:** Fixed the BiblioRename feature layout crash by switching the placeholder blueprint theme to a supported value (ink) after the video removal introduced an unsupported theme key.
+- **Root Cause:** The new blueprint config used a non-existent `slate` theme, causing the UI to break when rendering the feature.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
+- **Verification:** `npm run build` (pass).

@@ -7,6 +7,7 @@ import ProductHero from './ProductHero';
 import ExpertQuote from './ExpertQuote';
 import { AI_RENAME_FEATURES_DESCRIPTION } from './aiRenameVariantsCopy';
 import { LANDING_FEATURES_ANCHOR } from '@/config/sectionAnchors';
+import { ROUTE_PATHS } from '@/config/routes';
 
 const aiRenamePageDebugEnabled = () => {
   if (typeof process !== 'undefined' && process.env?.DEBUG_FIX) {
@@ -36,11 +37,13 @@ const AIRenameVariantsPage = () => {
   // Add schema and meta tags for the BiblioRename page
   useEffect(() => {
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
-    const metadata = generateMetadata('/ai-rename-variants', content, baseUrl);
+    const metadata = generateMetadata(ROUTE_PATHS.BIBLIO_RENAME, content, baseUrl);
     updatePageMetadata(metadata);
   }, [content]);
 
-  const publishedProduct = content.products?.['ai-rename-variants'];
+  const canonicalSlug = 'biblio-rename';
+  const legacySlug = 'ai-rename-variants';
+  const publishedProduct = content.products?.[canonicalSlug] || content.products?.[legacySlug];
 
   const pluginInstallUrl =
     'https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted';
@@ -48,25 +51,16 @@ const AIRenameVariantsPage = () => {
   const product = publishedProduct || {
     title: 'BiblioRename',
     description:
-      'BiblioRename standardizes your Figma variant and layer names with one-click AI so designers and developers stay perfectly aligned.',
-    primaryButton: 'Install Plugin',
+      'Our AI reads your visual hierarchy to apply consistent, semantic names instantly.\nTurn Frame 422 into Primary_Button without writing a single rule.',
+    primaryButton: 'Start Renaming',
     primaryButtonLink: pluginInstallUrl,
+    primaryButtonIcon: 'arrow-right',
     secondaryButton: 'Learn More',
     secondaryButtonLink: LANDING_FEATURES_ANCHOR,
     callouts: [
       {
         label: 'Install BiblioRename on Figma to auto-rename variants instantly.',
         icon: 'link',
-        href: pluginInstallUrl
-      },
-      {
-        label: 'BiblioRename keeps variant properties consistent for developer handoff.',
-        icon: 'check',
-        href: pluginInstallUrl
-      },
-      {
-        label: 'Share BiblioRename with design + eng to enforce naming rules together.',
-        icon: 'users',
         href: pluginInstallUrl
       }
     ],
@@ -136,7 +130,22 @@ const AIRenameVariantsPage = () => {
           'Protect overrides and downstream instances when hundreds of layers change at once.',
           'Apply property optimizations in the same pass so every variant stays consistent.',
         ],
-        mediaComponent: 'feature-batch',
+        mediaComponent: 'feature-blueprint',
+        mediaBlueprint: {
+          title: 'Batch Rename Run (FPO)',
+          fields: [
+            { label: 'Scope', value: '24 components · 186 variants', accent: true },
+            { label: 'Mode', value: 'Smart rename + token align' },
+            { label: 'Status', value: 'In progress' }
+          ],
+          toggles: [
+            { label: 'Preserve overrides', active: true },
+            { label: 'Normalize casing', active: true },
+            { label: 'Flag legacy tags', active: true }
+          ],
+          footer: 'Preview · FPO illustration',
+          theme: 'ink',
+        },
       },
       {
         title: 'Make naming match your system',
@@ -164,55 +173,6 @@ const AIRenameVariantsPage = () => {
           footer: 'Preview · Web / Button / Primary / Hover',
           theme: 'emerald',
         },
-      },
-      {
-        title: 'Built for safe iteration',
-        description: 'Keep your naming workflow flexible with full version control and instant undo for every rename operation.',
-        buttonText: 'Try Plugin For Free',
-        buttonLink: pluginInstallUrl,
-        items: [
-          'Roll back full rename runs instantly when experiments change direction.',
-          'Guard overrides and developer hooks automatically while you iterate on names.',
-          'Capture every adjustment in an audit-ready history for compliance checks.',
-        ],
-        mediaComponent: 'feature-progress',
-        mediaProgress: {
-          label: 'Latest rename run',
-          metric: '287 variants processed',
-          progress: 0.95,
-          duration: 'Undo available for 30 minutes',
-          checkpoints: [
-            { label: 'Snapshot saved' },
-            { label: 'Rename complete' },
-            { label: 'Undo ready' },
-          ],
-        },
-      },
-      {
-        title: 'Keep every team in sync',
-        description: 'Share and apply the same naming conventions across projects so designers and developers stay aligned and handoffs stay clean.',
-        buttonText: 'Try Plugin For Free',
-        buttonLink: pluginInstallUrl,
-        items: [
-          'Share governance rules across design, dev, and QA with built-in approvals.',
-          'Surface adoption gaps and coverage metrics so partner teams know what to fix next.',
-          'Track usage analytics to prove ROI and enforce best practices across the org.',
-        ],
-        mediaComponent: 'feature-blueprint',
-        mediaBlueprint: {
-          title: 'Shared Rule Sync',
-          fields: [
-            { label: 'Teams', value: 'Design · Dev · QA', accent: true },
-            { label: 'Status', value: 'In sync (3 active rules)' },
-            { label: 'Last sync', value: '2 minutes ago' },
-          ],
-          toggles: [
-            { label: 'Notify Slack channel', active: true },
-            { label: 'Require approvals', active: false },
-          ],
-          footer: 'Everyone ships with the same naming language',
-          theme: 'ink',
-        },
       }
     ]
   };
@@ -236,7 +196,7 @@ const AIRenameVariantsPage = () => {
 
   if (aiRenamePageDebugEnabled()) {
     try {
-      debugService.debug('ai-rename-variants:details-source', {
+      debugService.debug('biblio-rename:details-source', {
         hasPublishedProduct: Boolean(publishedProduct),
         detailsCount: resolvedDetails.length,
         detailTitles: resolvedDetails.map((detail: any) => detail?.title),
@@ -256,14 +216,6 @@ const AIRenameVariantsPage = () => {
     {
       question: "Is it safe to use on important design files?",
       answer: "Absolutely. The plugin includes comprehensive undo functionality and tracks all changes, allowing you to safely revert any renaming operations if needed."
-    },
-    {
-      question: "Does it work with existing design systems and component libraries?",
-      answer: "Yes, BiblioRename is designed to work with any Figma file structure and can learn from your existing naming patterns to maintain consistency with your current design system."
-    },
-    {
-      question: "How many variants can it rename at once?",
-      answer: "The plugin can process hundreds of variants and layers simultaneously, making it perfect for large component libraries and complex design systems with extensive variant structures."
     }
   ];
 
@@ -272,8 +224,6 @@ const AIRenameVariantsPage = () => {
       <ProductHero
         product={product as any}
         headlineColorOverride="text-white"
-        withBottomPadding={false}
-        containerPaddingOverride="px-0 md:px-0"
       />
 
 

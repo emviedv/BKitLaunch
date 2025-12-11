@@ -2,7 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { Router } from 'wouter';
+import LogRocket from 'logrocket';
 import './index.css';
+
+try {
+  LogRocket.init('wgazc5/bibliokit');
+} catch {}
 
 try {
   document.documentElement.classList.add('dark');

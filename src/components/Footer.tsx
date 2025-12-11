@@ -10,7 +10,7 @@ const XLogo = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const products = [
-  { name: 'BiblioRename', href: '/ai-rename-variants' },
+  { name: 'BiblioRename', href: '/biblio-rename' },
   { name: 'BiblioAudit', href: 'https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check' },
   { name: 'BiblioClean', href: 'https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines' },
 ];

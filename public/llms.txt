@@ -2,7 +2,7 @@
 # Updated: 2025-10-23
 
 https://www.bibliokit.com/ - Ship design work 10x faster with AI-ready Figma plugins, secure infra, and designer-first workflows
-https://www.bibliokit.com/ai-rename-variants - Batch-rename Figma variants in minutes, keep naming consistent, and unblock handoff instantly
+https://www.bibliokit.com/biblio-rename - Batch-rename Figma variants in minutes, keep naming consistent, and unblock handoff instantly
 https://www.bibliokit.com/uxbiblio - Stand up a shared UX workspace 10x faster with reusable libraries and governance baked in
 https://www.bibliokit.com/blog/remove-prototype-links-in-figma - Retire stale prototype links and keep every stakeholder on the right build
 https://www.bibliokit.com/resources/remove-prototype-link - Audit, revoke, and replace broken prototype URLs in seconds

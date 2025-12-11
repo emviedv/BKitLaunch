@@ -57,13 +57,6 @@ type NormalizedCallout = {
   href?: string;
 };
 
-const DEFAULT_CALLOUTS: NormalizedCallout[] = [
-  { label: 'Automated workflows your team trusts', icon: 'sparkles' },
-  { label: 'Insight-rich analytics dashboards', icon: 'analytics' },
-  { label: 'Collaboration designed for scale', icon: 'users' },
-  { label: 'Enterprise-grade security baked in', icon: 'lock' },
-];
-
 export const ProductHero: React.FC<ProductHeroProps> = ({
   product,
   compact = false,
@@ -90,59 +83,8 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   const productIconToken = product?.emoji || product?.icon;
   const ProductGlyph = productIconToken ? resolveLucideIcon(productIconToken) : null;
   const PrimaryButtonIcon = product.primaryButtonIcon ? resolveLucideIcon(product.primaryButtonIcon) : null;
-  const calloutItems = useMemo(() => {
-    const normalizedCallouts: NormalizedCallout[] = [];
-
-    if (Array.isArray(product.callouts)) {
-      for (const callout of product.callouts) {
-        if (typeof callout === 'string') {
-          const label = callout.trim();
-          if (label) {
-            normalizedCallouts.push({ label });
-          }
-          continue;
-        }
-
-        const label = callout?.label || callout?.title || callout?.description;
-        const href = typeof callout?.href === 'string' ? callout.href.trim() : undefined;
-        if (label && label.trim()) {
-          normalizedCallouts.push({
-            label: label.trim(),
-            icon: callout.icon,
-            href,
-          });
-        }
-      }
-    }
-
-    if (
-      normalizedCallouts.length === 0 &&
-      Array.isArray(product.benefits) &&
-      product.benefits.length > 0
-    ) {
-      normalizedCallouts.push(
-        ...product.benefits.slice(0, 4).map((benefit) => ({
-          label: benefit.trim(),
-        }))
-      );
-    }
-
-    const source =
-      normalizedCallouts.length > 0
-        ? normalizedCallouts.slice(0, 4)
-        : DEFAULT_CALLOUTS;
-
-    return source.map((callout, index) => {
-      const fallback = DEFAULT_CALLOUTS[index % DEFAULT_CALLOUTS.length];
-      const Icon = resolveLucideIcon(callout.icon || fallback.icon);
-
-      return {
-        label: callout.label,
-        Icon,
-        href: callout.href,
-      };
-    });
-  }, [product.callouts, product.benefits]);
+  // Product hero callouts are intentionally hidden on product pages.
+  const calloutItems: NormalizedCallout[] = [];
 
   const rawBadgeLabel = product.badgeLabel ?? '';
   const badgeLabel = useMemo(
@@ -163,16 +105,16 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
     'landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center',
     !withBottomPadding && 'pb-0'
   );
-  const layoutClassName = 'mx-auto flex w-full max-w-5xl flex-col items-center gap-10 pb-16 pt-0 text-center lg:items-start lg:text-left';
-  const contentColumnClassName = 'flex flex-col items-center gap-4 text-center lg:items-start lg:text-left product-hero__content';
-  const titleWrapperClassName = 'space-y-3 w-full';
-  const descriptionClassName = 'mx-auto mt-2 mb-6 max-w-3xl text-xl leading-relaxed text-white/80 lg:mx-0';
+  const layoutClassName = 'mx-auto grid w-full max-w-5xl grid-cols-1 gap-y-10 pb-16 pt-0 text-center justify-items-center lg:grid-cols-12 lg:gap-x-6 lg:justify-items-start lg:text-left';
+  const contentColumnClassName = 'flex flex-col items-center gap-6 text-center lg:col-span-4 lg:items-start lg:text-left product-hero__content';
+  const titleWrapperClassName = 'space-y-10 w-full';
+  const descriptionClassName = 'mx-auto mt-[-14px] mb-6 max-w-3xl text-xl leading-relaxed text-white/80 whitespace-pre-line lg:mx-0';
   const calloutContainerClassName = 'flex flex-col items-stretch gap-3 w-full text-white/80 product-hero__callouts';
   const calloutRowClassName = 'flex items-start gap-3 text-left';
   const calloutIconWrapperClassName = 'mt-[2px] flex-shrink-0 text-white';
   const calloutTextClassName = 'text-lg leading-7 font-semibold text-white';
-  const calloutLinkClassName = `${calloutTextClassName} product-hero__callout-link hover:text-white transition-colors`;
-  const ctaWrapperClassName = 'relative z-10 mt-4 flex justify-center lg:justify-start';
+  const calloutLinkClassName = `${calloutTextClassName} product-hero__callout-link text-[#F1A0FF] hover:text-white transition-colors`;
+  const ctaWrapperClassName = 'relative z-10 mt-0 flex justify-center lg:justify-start';
   const primaryButtonClassName = HERO_PRIMARY_BUTTON_CLASS;
   const glyphWrapperClassName = 'mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-white lg:mx-0';
   const containerClassName = cn(
@@ -304,7 +246,6 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                       rel={product.primaryButtonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
                       className="inline-flex items-center gap-2"
                     >
-                      <span>{product.primaryButton}</span>
                       {PrimaryButtonIcon && (
                         <PrimaryButtonIcon
                           className="h-4 w-4"
@@ -312,6 +253,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                           aria-hidden="true"
                         />
                       )}
+                      <span>{product.primaryButton}</span>
                     </a>
                   </Button>
                 ) : (
@@ -332,11 +274,10 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                     }}
                     onMouseEnter={() => {
                       confettiRef.current?.fire({});
-                    }}
-                    aria-label={`${product.primaryButton} - Primary action`}
-                  >
-                    <span className="inline-flex items-center gap-2">
-                      <span>{product.primaryButton}</span>
+                  }}
+                  aria-label={`${product.primaryButton} - Primary action`}
+                >
+                  <span className="inline-flex items-center gap-2">
                       {PrimaryButtonIcon && (
                         <PrimaryButtonIcon
                           className="h-4 w-4"
@@ -344,6 +285,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                           aria-hidden="true"
                         />
                       )}
+                      <span>{product.primaryButton}</span>
                     </span>
                   </Button>
                 )}

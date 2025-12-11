@@ -14,6 +14,7 @@
       "uxbiblio": true,
       "waitlist": true,
       "bibliokit-blocks": true,
+      "biblio-rename": true,
       "ai-rename-variants": true
     },
     "labels": {
@@ -53,8 +54,7 @@
         "children": [
           {
             "label": "BiblioRename",
-            "href": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
-            "isExternal": true,
+            "href": "/biblio-rename",
             "description": "The AI Organizer. Standardize layer names and variant properties with context-aware AI.",
             "icon": "✨"
           },
@@ -97,7 +97,7 @@
       "topItems": [],
       "showBadge": true,
       "badgeColor": "#10b981",
-      "buttonLink": "/ai-rename-variants",
+      "buttonLink": "/biblio-rename",
       "buttonText": "Rename Layers",
       "isFeatured": false,
       "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
@@ -382,8 +382,9 @@
   "products": {
     "ai-rename-variants": {
       "title": "BiblioRename",
-      "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
-      "primaryButton": "Rename Layers",
+      "description": "Our AI reads your visual hierarchy to apply consistent, semantic names instantly.\nTurn Frame 422 into Primary_Button without writing a single rule.",
+      "primaryButton": "Start Renaming",
+      "primaryButtonIcon": "arrow-right",
       "secondaryButton": null,
       "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
       "secondaryButtonLink": null,
@@ -396,16 +397,6 @@
         {
           "label": "Install BiblioRename on Figma to auto-rename variants instantly.",
           "icon": "link",
-          "href": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted"
-        },
-        {
-          "label": "BiblioRename keeps variant properties consistent for developer handoff.",
-          "icon": "check",
-          "href": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted"
-        },
-        {
-          "label": "Share BiblioRename with design + eng to enforce naming rules together.",
-          "icon": "users",
           "href": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted"
         }
       ],
@@ -466,9 +457,41 @@
             "Protect overrides and downstream instances when hundreds of layers change at once.",
             "Apply property optimizations in the same pass so every variant stays consistent."
           ],
-          "mediaComponent": "video",
-          "mediaUrl": "/media/rename-variants-before-after-loop-380.webm",
-          "mediaAlt": "BiblioRename before/after rename loop"
+          "mediaComponent": "feature-blueprint",
+          "mediaBlueprint": {
+            "title": "Batch Rename Run (FPO)",
+            "fields": [
+              {
+                "label": "Scope",
+                "value": "24 components · 186 variants",
+                "accent": true
+              },
+              {
+                "label": "Mode",
+                "value": "Smart rename + token align"
+              },
+              {
+                "label": "Status",
+                "value": "In progress"
+              }
+            ],
+            "toggles": [
+              {
+                "label": "Preserve overrides",
+                "active": true
+              },
+              {
+                "label": "Normalize casing",
+                "active": true
+              },
+              {
+                "label": "Flag legacy tags",
+                "active": true
+              }
+            ],
+            "footer": "Preview · FPO illustration",
+            "theme": "ink"
+          }
         },
         {
           "title": "Make naming match your system",
@@ -514,77 +537,6 @@
             ],
             "footer": "Preview · Web / Button / Primary / Hover",
             "theme": "emerald"
-          }
-        },
-        {
-          "title": "Built for safe iteration",
-          "description": "Keep your naming workflow flexible with full version control and instant undo for every rename operation.",
-          "buttonText": "Rename Layers",
-          "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
-          "items": [
-            "Roll back full rename runs instantly when experiments change direction.",
-            "Guard overrides and developer hooks automatically while you iterate on names.",
-            "Capture every adjustment in an audit-ready history for compliance checks."
-          ],
-          "mediaComponent": "feature-progress",
-          "mediaProgress": {
-            "label": "Latest rename run",
-            "metric": "287 variants processed",
-            "progress": 0.95,
-            "duration": "Undo available for 30 minutes",
-            "checkpoints": [
-              {
-                "label": "Snapshot saved"
-              },
-              {
-                "label": "Rename complete"
-              },
-              {
-                "label": "Undo ready"
-              }
-            ]
-          }
-        },
-        {
-          "title": "Keep every team in sync",
-          "description": "Share and apply the same naming conventions across projects so designers and developers stay aligned and handoffs stay clean.",
-          "buttonText": "Rename Layers",
-          "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
-          "items": [
-            "Share governance rules across design, dev, and QA with built-in approvals.",
-            "Surface adoption gaps and coverage metrics so partner teams know what to fix next.",
-            "Track usage analytics to prove ROI and enforce best practices across the org."
-          ],
-          "mediaComponent": "feature-blueprint",
-          "mediaBlueprint": {
-            "title": "Shared Rule Sync",
-            "fields": [
-              {
-                "label": "Teams",
-                "value": "Design · Dev · QA",
-                "accent": true
-              },
-              {
-                "label": "Status",
-                "value": "In sync (3 active rules)"
-              },
-              {
-                "label": "Last sync",
-                "value": "2 minutes ago"
-              }
-            ],
-            "toggles": [
-              {
-                "label": "Notify Slack channel",
-                "active": true
-              },
-              {
-                "label": "Require approvals",
-                "active": false
-              }
-            ],
-            "footer": "Everyone ships with the same naming language",
-            "theme": "ink"
           }
         }
       ],
@@ -685,14 +637,6 @@
           {
             "question": "Is it safe to use on important design files?",
             "answer": "Absolutely. The plugin includes comprehensive undo functionality and tracks all changes, allowing you to safely revert any renaming operations if needed."
-          },
-          {
-            "question": "Does it work with existing design systems and component libraries?",
-            "answer": "Yes, BiblioRename is designed to work with any Figma file structure and can learn from your existing naming patterns to maintain consistency with your current design system."
-          },
-          {
-            "question": "How many variants can it rename at once?",
-            "answer": "The plugin can process hundreds of variants and layers simultaneously, making it perfect for large component libraries and complex design systems with extensive variant structures."
           }
         ]
       }

@@ -91,7 +91,7 @@
     "logoText": "BiblioKit",
     "navigation": [
       {
-        "href": "/ai-rename-variants",
+        "href": "/biblio-rename",
         "label": "BiblioRename"
       },
       {

@@ -25,6 +25,9 @@
 /learn-more                     410
 /learn-more/*                   410
 
+# Route legacy AI Rename path to the canonical BiblioRename URL
+/ai-rename-variants             /biblio-rename                 301
+
 # Serve dynamic sitemap from Netlify function
 /sitemap.xml  /.netlify/functions/sitemap  200
 

@@ -148,6 +148,18 @@ const defaultMetadata: SEOMetadata = {
   structuredData: []
 };
 
+const biblioRenameMetadata: SEOMetadata = {
+  title: 'BiblioRename for Figma | BiblioKit',
+  description: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
+  keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system naming, variant properties',
+  ogTitle: 'BiblioRename for Figma | BiblioKit',
+  ogDescription: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
+  ogImage: '/og/og-default.svg',
+  twitterTitle: 'BiblioRename for Figma | BiblioKit',
+  twitterDescription: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
+  twitterImage: '/og/og-default.svg'
+};
+
 // Route-specific metadata configurations
 export const routeMetadata: RouteMetadata = {
   '/': {
@@ -249,17 +261,8 @@ export const routeMetadata: RouteMetadata = {
       }
     ]
   },
-  '/ai-rename-variants': {
-    title: 'BiblioRename for Figma | BiblioKit',
-    description: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
-    keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system naming, variant properties',
-    ogTitle: 'BiblioRename for Figma | BiblioKit',
-    ogDescription: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
-    ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioRename for Figma | BiblioKit',
-    twitterDescription: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
-    twitterImage: '/og/og-default.svg'
-  },
+  '/biblio-rename': biblioRenameMetadata,
+  '/ai-rename-variants': biblioRenameMetadata,
   '/uxbiblio': {
     title: 'UXBiblio by BiblioKit | AI Library for UX Patterns',
     description: 'Save and search UX inspiration with AI-powered tagging, smart collections, and shareable libraries so product teams find the right pattern fast.',

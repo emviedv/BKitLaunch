@@ -20,6 +20,9 @@ type SitemapEntry = {
 const DEFAULT_CHANGEFREQ = 'weekly';
 const DEFAULT_PRIORITY = '0.8';
 
+const canonicalizeSlug = (slug: string): string =>
+  slug === 'ai-rename-variants' ? 'biblio-rename' : slug;
+
 const normalizeBase = (raw?: string | null): string => {
   if (!raw) return 'https://www.bibliokit.com';
   try {
@@ -89,6 +92,7 @@ const renderUrl = (base: string, entry: SitemapEntry): string => {
 };
 
 const resolveProductImages = (base: string, slug: string, product: any): ImageEntry[] => {
+  const canonicalSlug = canonicalizeSlug(slug);
   const imageSources = new Set<string>();
 
   if (typeof product?.heroImage === 'string') {
@@ -98,7 +102,7 @@ const resolveProductImages = (base: string, slug: string, product: any): ImageEn
 
   const features = Array.isArray((productData as any)?.features) ? (productData as any).features : [];
   const matchedFeature = features.find(
-    (feature: any) => typeof feature?.buttonLink === 'string' && feature.buttonLink.includes(slug)
+    (feature: any) => typeof feature?.buttonLink === 'string' && feature.buttonLink.includes(canonicalSlug)
   );
   if (matchedFeature?.media?.src) {
     const featureUrl = toAbsoluteUrl(base, matchedFeature.media.src);
@@ -156,7 +160,7 @@ export const buildSitemapXml = (baseUrl: string): string => {
       changefreq: 'weekly',
       images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Homepage' }]
     },
-    { path: '/ai-rename-variants', lastmod: defaultLastmod },
+    { path: '/biblio-rename', lastmod: defaultLastmod },
     { path: '/uxbiblio', lastmod: defaultLastmod },
     {
       path: '/blog',
@@ -177,7 +181,7 @@ export const buildSitemapXml = (baseUrl: string): string => {
   const productEntries = (productData as any)?.products;
   const dynamicProductEntries: SitemapEntry[] = productEntries
     ? Object.keys(productEntries).map((slug) => ({
-        path: `/${slug}`,
+        path: `/${canonicalizeSlug(slug)}`,
         lastmod: toIsoDate((productEntries as any)?.[slug]?.lastUpdated, defaultLastmod),
         images: resolveProductImages(base, slug, (productEntries as any)[slug])
       }))

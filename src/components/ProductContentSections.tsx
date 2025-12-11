@@ -607,9 +607,12 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                       media: [],
                     }
                   : computeFeatureLayout({ index, alternate: shouldAlternateFeatures });
+                const useFeatureDescription = landingShowcaseLayout;
                 const rawItems = Array.isArray(detail.items) ? detail.items : [];
-                const promotedFirstItem = !detail.description && rawItems.length > 0;
-                const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
+                const promotedFirstItem = useFeatureDescription && !detail.description && rawItems.length > 0;
+                const descriptionText = useFeatureDescription
+                  ? detail.description ?? (promotedFirstItem ? rawItems[0] : undefined)
+                  : undefined;
                 const bulletItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
                 const { headline, productName } = parseFeatureTitle(detail.title);
                 const buttonLabel =

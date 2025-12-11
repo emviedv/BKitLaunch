@@ -60,6 +60,7 @@ export default async (request: Request, context: any) => {
 };
 
 function generateStaticHtml(pathname: string, origin: string): string {
+  const canonicalPath = pathname === '/ai-rename-variants' ? '/biblio-rename' : pathname;
   const baseHtml = `
 <!DOCTYPE html>
 <html lang="en">
@@ -67,11 +68,11 @@ function generateStaticHtml(pathname: string, origin: string): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50%25' x='50%25' dominant-baseline='middle' text-anchor='middle' font-size='52'%3E%F0%9F%92%AB%3C/text%3E%3C/svg%3E">
-  ${getPageMetadata(pathname)}
-  ${getPageSchema(pathname, origin)}
+  ${getPageMetadata(canonicalPath)}
+  ${getPageSchema(canonicalPath, origin)}
 </head>
 <body>
-  ${getPageContent(pathname)}
+  ${getPageContent(canonicalPath)}
   
   <!-- Footer for all pages -->
   <footer style="background: #1f2937; color: white; padding: 2rem; text-align: center; margin-top: 4rem;">
@@ -110,12 +111,13 @@ function getPageMetadata(pathname: string): string {
         <meta property="og:description" content="UXBiblio by BiblioKit: Curated UI/UX patterns and templates with AI-powered tagging. Save and organize your design inspiration effortlessly.">
         <meta property="og:type" content="website">
       `;
+    case '/biblio-rename':
     case '/ai-rename-variants':
       return `
-        <title>AI Rename Layers - BiblioKit</title>
-        <meta name="description" content="Automatically rename your Figma layers with AI intelligence. Transform messy, unnamed layers into perfectly organized, contextually named elements in one click.">
-        <meta property="og:title" content="AI Rename Layers - BiblioKit">
-        <meta property="og:description" content="Automatically rename your Figma layers with AI intelligence. Used by 48k+ designers.">
+        <title>BiblioRename for Figma | BiblioKit</title>
+        <meta name="description" content="BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.">
+        <meta property="og:title" content="BiblioRename for Figma | BiblioKit">
+        <meta property="og:description" content="BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.">
         <meta property="og:type" content="product">
       `;
     default:
@@ -151,14 +153,14 @@ function getPageSchema(pathname: string, origin: string): string {
     </script>
   `;
 
-  if (pathname === '/ai-rename-variants') {
+  if (pathname === '/biblio-rename' || pathname === '/ai-rename-variants') {
     return organizationSchema + `
       <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "AI Rename Layers",
-        "description": "Automatically rename your Figma layers with AI intelligence. Transform messy, unnamed layers into perfectly organized, contextually named elements in one click.",
+        "name": "BiblioRename",
+        "description": "BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.",
         "applicationCategory": "DesignApplication",
         "operatingSystem": "Web Browser, Figma",
         "softwareVersion": "1.0",
@@ -204,7 +206,7 @@ function getPageContent(pathname: string): string {
             <h1 style="font-size: 1.5rem; font-weight: bold;">BiblioKit</h1>
             <div style="display: flex; gap: 1rem;">
               <a href="/" style="color: white; text-decoration: none;">Home</a>
-              <a href="/ai-rename-variants" style="color: white; text-decoration: none;">AI Rename Variants</a>
+              <a href="/biblio-rename" style="color: white; text-decoration: none;">BiblioRename</a>
             </div>
           </nav>
         </header>
@@ -221,7 +223,7 @@ function getPageContent(pathname: string): string {
                 Automate the things you hate, focus on design you love.
               </p>
               <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="/ai-rename-variants" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;">Get Started Free</a>
+                <a href="/biblio-rename" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;">Batch Rename with BiblioRename</a>
                 <a href="#landing-features" style="border: 2px solid rgba(255,255,255,0.3); color: white; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none;">View Features</a>
               </div>
             </div>
@@ -280,6 +282,7 @@ function getPageContent(pathname: string): string {
         </main>
       `;
     
+    case '/biblio-rename':
     case '/ai-rename-variants':
       return `
         <header style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem;">
@@ -287,7 +290,7 @@ function getPageContent(pathname: string): string {
             <h1 style="font-size: 1.5rem; font-weight: bold;">BiblioKit</h1>
             <div style="display: flex; gap: 1rem;">
               <a href="/" style="color: white; text-decoration: none;">Home</a>
-              <a href="/ai-rename-variants" style="color: white; text-decoration: none;">AI Rename Variants</a>
+              <a href="/biblio-rename" style="color: white; text-decoration: none;">BiblioRename</a>
             </div>
           </nav>
         </header>
@@ -299,12 +302,12 @@ function getPageContent(pathname: string): string {
               <div style="display: inline-block; background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 25px; margin-bottom: 2rem;">
                 Figma Plugin
               </div>
-              <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1.5rem;">AI Rename Layers</h1>
+              <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1.5rem;">BiblioRename</h1>
               <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9;">
-                Automatically rename your Figma layers with AI intelligence. Transform messy, unnamed layers into perfectly organized, contextually named elements in one click.
+                BiblioRename batch-renames Figma variants and layers with AI so naming conventions stay consistent for cleaner developer handoff.
               </p>
               <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;" target="_blank">Get Plugin</a>
+                <a href="https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;" target="_blank">Install BiblioRename</a>
               </div>
             </div>
           </section>
@@ -385,7 +388,7 @@ function getPageContent(pathname: string): string {
             <h1 style="font-size: 1.5rem; font-weight: bold;">BiblioKit</h1>
             <div style="display: flex; gap: 1rem;">
               <a href="/" style="color: white; text-decoration: none;">Home</a>
-              <a href="/ai-rename-variants" style="color: white; text-decoration: none;">AI Rename Variants</a>
+              <a href="/biblio-rename" style="color: white; text-decoration: none;">BiblioRename</a>
             </div>
           </nav>
         </header>

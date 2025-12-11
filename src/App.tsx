@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'wouter';
+import { Route, Switch, useLocation } from 'wouter';
 
 // UI Components
 import { Button } from '@/components/ui/button';
@@ -82,6 +82,16 @@ const LandingLayout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   </div>
 );
 
+const LegacyAIRenameRedirect: React.FC = () => {
+  const [, navigate] = useLocation();
+
+  React.useEffect(() => {
+    navigate(ROUTE_PATHS.BIBLIO_RENAME, { replace: true });
+  }, [navigate]);
+
+  return <AIRenameVariantsPage />;
+};
+
 /**
  * AppContent - Main application content wrapper
  * 
@@ -96,6 +106,7 @@ const AppContent: React.FC = () => {
   const { content } = usePublishedContent();
   const shouldSkipSEO = React.useCallback((path: string) => {
     const normalizedPath = (path || '/').split('?')[0].replace(/\/+$/, '') || '/';
+    if (normalizedPath === ROUTE_PATHS.BIBLIO_RENAME) return true;
     if (normalizedPath === ROUTE_PATHS.AI_RENAME_VARIANTS) return true;
     if (normalizedPath === ROUTE_PATHS.UXBIBLIO) return true;
     if (normalizedPath.startsWith('/blog/') && normalizedPath !== ROUTE_PATHS.BLOG) return true;
@@ -119,7 +130,8 @@ const AppContent: React.FC = () => {
     <LandingLayout>
         <Switch>
           <Route path={ROUTE_PATHS.HOME} component={HomePage} />
-          <Route path={ROUTE_PATHS.AI_RENAME_VARIANTS} component={AIRenameVariantsPage} />
+          <Route path={ROUTE_PATHS.BIBLIO_RENAME} component={AIRenameVariantsPage} />
+          <Route path={ROUTE_PATHS.AI_RENAME_VARIANTS} component={LegacyAIRenameRedirect} />
           <Route path={ROUTE_PATHS.UXBIBLIO}>
             {() => <DynamicProductPage slug="uxbiblio" />}
           </Route>
