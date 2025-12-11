@@ -33,11 +33,11 @@
     --border: 214 32% 89%; /* cool-200 */
     --input: 214 32% 89%; /* cool-200 */
 
-    /* Primary now uses brand blue */
-    --primary: 227 67% 64%;
+    /* Primary now uses a warmer off-black charcoal */
+    --primary: 210 16% 12%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 227 67% 88%;
-    --primary-dark: 227 67% 48%;
+    --primary-light: 210 12% 18%;
+    --primary-dark: 210 16% 8%;
     --secondary: 0 0% 96%; /* neutral-200 */
     --secondary-foreground: 215 22% 35%;
     --accent: 0 0% 96%; /* gentle neutral */
@@ -59,7 +59,7 @@
     /* Sidebar using the same mix */
     --sidebar-background: 0 0% 98%; /* neutral-100 */
     --sidebar-foreground: 215 22% 35%; /* cool-600 */
-    --sidebar-primary: 227 67% 64%;
+    --sidebar-primary: 210 16% 12%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 96%; /* neutral-200 */
     --sidebar-accent-foreground: 215 22% 35%;
@@ -72,8 +72,8 @@
     --chart-4: 43 74% 66%;
     --chart-5: 260 83% 68%;
 
-    /* Brand accent (primary blue) */
-    --pink: 227 67% 64%;
+    /* Brand accent (primary off-black) */
+    --pink: 210 16% 12%;
     --pink-foreground: 0 0% 100%;
 
     /* Brand violet (design system) */
@@ -81,7 +81,7 @@
     --violet-700: 263 70% 50%;
     --violet-800: 263 69% 44%;
 
-    --ring: 227 67% 64%; /* brand blue */
+    --ring: 210 12% 18%; /* charcoal focus ring */
     --radius: 0.5rem;
     --logo: 211 42% 19%;
   }
@@ -116,11 +116,11 @@
     --border: 268 14% 24%; /* violet-tinted stroke */
     --input: 268 14% 24%;
 
-    /* Accent stays brand blue */
-    --primary: 227 67% 64%;
+    /* Accent stays off-black (lifted for dark contrast) */
+    --primary: 210 18% 24%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 227 67% 74%;
-    --primary-dark: 227 67% 48%;
+    --primary-light: 210 16% 30%;
+    --primary-dark: 210 18% 18%;
     --secondary: 262 15% 16%;
     --secondary-foreground: 0 0% 98%;
     --accent: 262 16% 18%;
@@ -143,7 +143,7 @@
     /* Sidebar surfaces: a touch darker with same accent */
     --sidebar-background: 262 22% 9.5%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 227 67% 64%;
+    --sidebar-primary: 210 18% 24%;
     --sidebar-primary-foreground: 211 100% 99%;
     --sidebar-accent: 262 18% 16%;
     --sidebar-accent-foreground: 0 0% 98%;
@@ -157,8 +157,8 @@
     --chart-4: 32 86% 58%;
     --chart-5: 155 52% 46%;
 
-    /* Brand accent (primary blue) */
-    --pink: 227 67% 64%;
+    /* Brand accent (primary off-black) */
+    --pink: 210 18% 24%;
     --pink-foreground: 0 0% 100%;
 
     /* Brand violet (for overlays) */
@@ -166,7 +166,7 @@
     --violet-700: 263 70% 62%;
     --violet-800: 263 69% 54%;
 
-    --ring: 227 67% 64%;
+    --ring: 210 16% 30%;
     --radius: 0.5rem;
     --logo: 211 42% 19%;
   }
@@ -201,9 +201,9 @@
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(140% 140% at 20% 20%, rgba(168, 128, 255, 0.06) 0%, rgba(168, 128, 255, 0) 55%),
-      radial-gradient(120% 120% at 80% 10%, rgba(126, 96, 210, 0.08) 0%, rgba(126, 96, 210, 0) 60%),
-      linear-gradient(135deg, rgba(164, 122, 240, 0.12) 0%, rgba(102, 76, 189, 0.08) 55%, rgba(102, 76, 189, 0) 100%);
+      radial-gradient(140% 140% at 20% 20%, rgba(15, 23, 42, 0.10) 0%, rgba(15, 23, 42, 0) 55%),
+      radial-gradient(120% 120% at 80% 10%, rgba(30, 41, 59, 0.12) 0%, rgba(30, 41, 59, 0) 60%),
+      linear-gradient(135deg, rgba(17, 24, 39, 0.14) 0%, rgba(15, 23, 42, 0.10) 55%, rgba(15, 23, 42, 0) 100%);
     mix-blend-mode: color;
     opacity: 0.18;
     z-index: 50;
@@ -518,12 +518,21 @@
   .landing-hero-gradient {
     position: relative;
     isolation: isolate;
-    background:
-      radial-gradient(140% 140% at 50% 88%, #2f3eb1 0%, #13224e 38%, #090f2d 58%, #050813 85%, #03050f 100%),
-      radial-gradient(120% 90% at 80% 12%, rgba(120, 86, 255, 0.42) 0%, rgba(7, 9, 24, 0) 55%),
-      radial-gradient(120% 90% at 22% 10%, rgba(58, 132, 255, 0.32) 0%, rgba(5, 7, 18, 0) 58%),
-      radial-gradient(120% 110% at 52% 18%, rgba(28, 64, 155, 0.18) 0%, rgba(3, 5, 12, 0) 60%),
-      linear-gradient(185deg, #06081a 0%, #040714 55%, #03050f 100%);
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      radial-gradient(140% 70% at 50% 95%, rgba(60, 64, 72, 0.14) 0%, rgba(10, 11, 14, 0) 60%),
+      linear-gradient(180deg, #0c0d10 0%, #0b0c0f 45%, #0a0b0d 70%, #0a0a0c 100%);
+    background-size:
+      140px 140px,
+      140px 140px,
+      auto,
+      auto;
+    background-position:
+      top left,
+      top left,
+      center,
+      center;
     min-height: clamp(432px, calc(100vh - 248px), 852px);
   }
 
@@ -554,42 +563,10 @@
   }
 
   .landing-hero-gradient__layer {
-    background-color: #040714;
-    background-image:
-      radial-gradient(135% 125% at 50% 84%, rgba(78, 102, 255, 0.62) 0%, rgba(9, 14, 38, 0) 56%),
-      radial-gradient(120% 120% at 78% 16%, rgba(147, 101, 255, 0.42) 0%, rgba(7, 9, 24, 0) 58%),
-      radial-gradient(120% 120% at 22% 18%, rgba(86, 158, 255, 0.28) 0%, rgba(6, 8, 20, 0) 60%),
-      radial-gradient(120% 120% at 52% 96%, rgba(73, 93, 255, 0.32) 0%, rgba(4, 5, 14, 0) 70%),
-      repeating-linear-gradient(90deg, rgba(173, 203, 255, 0.12) 0px, rgba(173, 203, 255, 0.12) 1px, transparent 1px, transparent 72px),
-      repeating-linear-gradient(0deg, rgba(135, 200, 255, 0.1) 0px, rgba(135, 200, 255, 0.1) 1px, transparent 1px, transparent 72px),
-      linear-gradient(185deg, rgba(10, 14, 36, 0.96) 0%, rgba(5, 7, 17, 0.98) 55%, rgba(3, 4, 12, 0.99) 100%);
-    background-size:
-      140% 150%,
-      150% 150%,
-      180% 180%,
-      120% 120%,
-      auto,
-      auto,
-      100% 100%;
-    background-position:
-      20% 10%,
-      82% 8%,
-      52% 86%,
-      16% 92%,
-      0 0,
-      0 0,
-      center;
-    background-repeat:
-      no-repeat,
-      no-repeat,
-      no-repeat,
-      no-repeat,
-      repeat,
-      repeat,
-      no-repeat;
+    background: none;
+    box-shadow: none;
     opacity: 1;
-    filter: contrast(1.08) brightness(1.04);
-    box-shadow: 0 55px 120px rgba(10, 0, 32, 0.6);
+    filter: none;
     transform: none;
   }
 
@@ -599,7 +576,7 @@
     border-radius: inherit;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.32;
+    opacity: 0.63;
   }
 
   .landing-hero-column-lines::before,
@@ -613,8 +590,8 @@
 
   .landing-hero-column-lines::before {
     background-image:
-      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.11) 0px, rgba(255, 255, 255, 0.11) 1px, transparent 1px, transparent 96px),
-      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.088) 0px, rgba(255, 255, 255, 0.088) 1px, transparent 1px, transparent 96px);
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0px, rgba(255, 255, 255, 0.15) 1px, transparent 1px, transparent 96px),
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.123) 0px, rgba(255, 255, 255, 0.123) 1px, transparent 1px, transparent 96px);
     background-repeat: repeat;
     background-size: 100% 100%;
   }
@@ -623,15 +600,39 @@
     background: none;
   }
 
+  /* Blog hero uses the base gradient; hide extra grid overlay to avoid double lines */
+  .blog-hero .landing-hero-column-lines {
+    display: none;
+  }
+
+  /* Blog header surface matches landing hero background without extra overlays or padding */
+  .blog-header-surface {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      radial-gradient(140% 70% at 50% 95%, rgba(60, 64, 72, 0.14) 0%, rgba(10, 11, 14, 0) 60%),
+      linear-gradient(180deg, #0c0d10 0%, #0b0c0f 45%, #0a0b0d 70%, #0a0a0c 100%);
+    background-size:
+      140px 140px,
+      140px 140px,
+      auto,
+      auto;
+    background-position:
+      top left,
+      top left,
+      center,
+      center;
+  }
+
   .landing-hero-noise {
     background-image:
-      radial-gradient(circle at 26% 24%, rgba(255, 170, 210, 0.16) 0%, transparent 48%),
-      radial-gradient(circle at 70% 28%, rgba(255, 197, 150, 0.14) 0%, transparent 55%),
-      radial-gradient(circle at 68% 78%, rgba(133, 139, 255, 0.12) 0%, transparent 58%);
+      radial-gradient(circle at 26% 24%, rgba(128, 134, 146, 0.14) 0%, transparent 48%),
+      radial-gradient(circle at 70% 28%, rgba(108, 115, 126, 0.13) 0%, transparent 55%),
+      radial-gradient(circle at 68% 78%, rgba(82, 88, 98, 0.16) 0%, transparent 58%);
     background-size: 320px 320px, 280px 280px, 260px 260px;
     background-position: 0 0, 70% 10%, 55% 65%;
     mix-blend-mode: screen;
-    opacity: 0.32;
+    opacity: 0.28;
     border-radius: inherit;
     transform: none;
   }
@@ -642,7 +643,7 @@
     right: 0;
     bottom: 0;
     top: 0;
-    background: linear-gradient(185deg, rgba(9, 2, 22, 0.35) 0%, rgba(5, 0, 11, 0.85) 60%, rgba(3, 0, 7, 0.95) 100%);
+    background: none;
     mix-blend-mode: normal;
     pointer-events: none;
     z-index: 0;
@@ -661,15 +662,32 @@
     position: absolute;
     inset: 0;
     background-image:
-      radial-gradient(140% 140% at 50% 95%, rgba(244, 63, 94, 0.78) 0%, rgba(5, 6, 12, 0) 60%),
-      radial-gradient(120% 120% at 50% 28%, rgba(59, 130, 246, 0.72) 0%, rgba(5, 6, 12, 0) 62%),
-      radial-gradient(115% 115% at 20% 40%, rgba(168, 85, 247, 0.5) 0%, rgba(5, 6, 12, 0) 55%),
+      radial-gradient(140% 140% at 50% 95%, rgba(30, 41, 59, 0.65) 0%, rgba(5, 6, 12, 0) 60%),
+      radial-gradient(120% 120% at 50% 28%, rgba(59, 130, 246, 0.42) 0%, rgba(5, 6, 12, 0) 62%),
+      radial-gradient(115% 115% at 20% 40%, rgba(15, 23, 42, 0.4) 0%, rgba(5, 6, 12, 0) 55%),
       linear-gradient(195deg, rgba(5, 6, 12, 0.92) 0%, rgba(10, 11, 19, 0.88) 100%);
     opacity: 0.95;
     pointer-events: none;
   }
 
   .landing-sections-gradient {
+    position: relative;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      radial-gradient(140% 70% at 50% 95%, rgba(60, 64, 72, 0.14) 0%, rgba(10, 11, 14, 0) 60%),
+      linear-gradient(180deg, #0c0d10 0%, #0b0c0f 45%, #0a0b0d 70%, #0a0a0c 100%);
+    background-size:
+      140px 140px,
+      140px 140px,
+      auto,
+      auto;
+    background-position:
+      top left,
+      top left,
+      center,
+      center,
+      center;
   }
 
   .gradient-moonlight-soft-radial {
@@ -706,7 +724,8 @@
   }
 
   .icon-purple {
-    @apply bg-purple-100 text-purple-600;
+    background-color: hsl(var(--primary) / 0.08);
+    color: hsl(var(--primary));
   }
 
   .icon-blue {
@@ -751,6 +770,35 @@
 
   .input {
     @apply w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  }
+
+  .landing-waitlist-surface {
+    background: linear-gradient(180deg, #0c0d10 0%, #0a0b0d 50%, #0a0a0c 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    color: #e5e7eb;
+  }
+
+  .landing-waitlist-input {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+    color: #f8fafc !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .landing-waitlist-input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .landing-waitlist-input:focus,
+  .landing-waitlist-input:focus-visible {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    outline: none;
+    box-shadow: 0 12px 38px rgba(0, 0, 0, 0.32);
+  }
+
+  .landing-footer {
+    background: linear-gradient(180deg, #0c0d10 0%, #0a0b0d 50%, #0a0a0c 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .helper-text {

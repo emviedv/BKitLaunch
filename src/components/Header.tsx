@@ -6,15 +6,6 @@ import { resolveLucideIcon } from '@/lib/iconUtils';
 import { ROUTE_PATHS } from '@/config/routes';
 import { HEADER_MOBILE_MENU_ID } from '@/config/sectionAnchors';
 
-const XLogo = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" {...props}>
-    <path
-      fill="currentColor"
-      d="M17.21 3H21L13.5 11.57 21.5 21h-4.33l-5.18-6.69L6.53 21H3l7.62-8.83L2.5 3h4.33l4.7 6.07L17.21 3Z"
-    />
-  </svg>
-);
-
 const Header = () => {
   const { content } = usePublishedContent();
   const [location] = useLocation();
@@ -157,7 +148,11 @@ const Header = () => {
     return parts.length ? parts.join(' ') : undefined;
   };
 
-  const headerClassName = 'site-header bg-transparent absolute inset-x-0 top-0 z-50 w-full transition-all duration-300';
+  const isBlogRoute = location?.startsWith('/blog');
+  const headerBackgroundClass = isBlogRoute
+    ? 'blog-header-surface backdrop-blur-xl border-b border-white/8'
+    : 'bg-transparent';
+  const headerClassName = `site-header absolute inset-x-0 top-0 z-50 w-full transition-all duration-300 ${headerBackgroundClass}`;
 
   return (
     <header className={headerClassName}>
@@ -205,13 +200,13 @@ const Header = () => {
                 const dd = item as DropdownNavItem;
                 return (
                   <div key={`dd-${index}`} className="relative group">
-                    <button className="text-sm font-medium hover:text-primary transition-colors flex items-center">
+                    <button className="text-sm font-semibold text-white hover:text-[#ff2f87] transition-colors flex items-center">
                       {dd.label}
                       <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
-                    <div className="absolute top-full left-0 mt-2 w-[360px] bg-slate-950/90 border border-white/10 backdrop-blur-xl rounded-2xl shadow-[0_20px_60px_rgba(12,16,28,0.45)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="absolute top-full left-0 mt-3 w-[380px] rounded-2xl border border-white/12 bg-gradient-to-br from-[#0c0d10]/98 via-[#0b0c0f]/98 to-[#0a0a0c]/98 shadow-[0_26px_80px_rgba(7,5,16,0.55)] backdrop-blur-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="p-4 space-y-2">
                         {(dd.children || []).map((child, ci) => {
                           const href = child.href || '#';
@@ -223,16 +218,16 @@ const Header = () => {
                               href={normalizedHref}
                               target={child.isExternal ? '_blank' : undefined}
                               rel={linkRel(child.nofollow, !!child.isExternal)}
-                              className="flex gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-white/10"
+                              className="flex gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-[#ff2f87]/12"
                             >
-                              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 text-white">
+                              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10">
                                 <ChildIcon className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
                               </span>
                               <span className="flex-1 text-left">
                                 <span className="flex items-center gap-2">
                                   <span className="text-sm font-semibold text-white">{child.label}</span>
                                   {child.badge && (
-                                    <span className="text-[10px] font-semibold uppercase tracking-wide text-white bg-white/15 px-2 py-[2px] rounded-full">
+                                    <span className="text-[10px] font-semibold uppercase tracking-wide text-white bg-[#ff2f87]/20 px-2 py-[2px] rounded-full border border-[#ff2f87]/40">
                                       {child.badge}
                                     </span>
                                   )}
@@ -278,29 +273,20 @@ const Header = () => {
                   href={normalizedHref}
                   target={isExternal ? '_blank' : undefined}
                   rel={linkRel(li.nofollow, isExternal)}
-                  className="text-sm font-medium hover:text-primary transition-colors"
+                  className="text-sm font-semibold text-white hover:text-[#ff2f87] transition-colors"
                 >
                   {li.label}
                 </a>
               );
             })}
           </nav>
-          <a
-            href="https://twitter.com/bibliokit"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Follow BiblioKit on X"
-            className="hidden md:inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white shadow-[0_10px_30px_rgba(9,9,18,0.35)] backdrop-blur-md transition-colors hover:bg-white/20"
-          >
-            <XLogo className="h-4 w-4" />
-          </a>
         </div>
       </div>
 
       {/* Mobile menu */}
       <div
         id={HEADER_MOBILE_MENU_ID}
-        className="hidden md:hidden bg-gradient-to-br from-rose-50 via-white to-blue-50 transition-colors duration-300"
+        className="hidden md:hidden bg-gradient-to-br from-[#0c0d10] via-[#0b0c0f] to-[#0a0a0c] transition-colors duration-300 text-white"
       >
         <div className="section-content py-2 space-y-2">
           {navItems.map((item, index) => {
@@ -308,7 +294,7 @@ const Header = () => {
               const dd = item as DropdownNavItem;
               return (
                 <div key={`m-dd-${index}`} className="py-2">
-                  <div className="text-sm font-medium text-gray-600 mb-2">{dd.label}</div>
+                  <div className="text-sm font-semibold text-white/70 mb-2">{dd.label}</div>
                   {(dd.children || []).map((child, ci) => {
                     const href = child.href || '#';
                     const normalizedHref = href.startsWith('#') ? `/${href}` : href;
@@ -321,9 +307,9 @@ const Header = () => {
                         href={normalizedHref}
                         target={child.isExternal ? '_blank' : undefined}
                         rel={linkRel(child.nofollow, !!child.isExternal)}
-                        className="flex gap-3 rounded-xl px-3 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-white/60 hover:text-primary"
+                        className="flex gap-3 rounded-xl px-3 py-3 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                       >
-                        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/80 text-slate-900">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10">
                           {isEmojiIcon ? (
                             <span className="text-lg" aria-hidden="true">
                               {child.icon}
@@ -333,21 +319,21 @@ const Header = () => {
                           )}
                         </span>
                         <span className="flex-1 text-left">
-                          <span className="flex items-center gap-2">
-                            <span>{child.label}</span>
-                            {child.badge && (
-                              <span className="text-[10px] font-semibold uppercase tracking-wide text-primary bg-primary/10 px-2 py-[2px] rounded-full">
-                                {child.badge}
-                              </span>
+                            <span className="flex items-center gap-2">
+                              <span>{child.label}</span>
+                              {child.badge && (
+                                <span className="text-[10px] font-semibold uppercase tracking-wide text-white bg-[#ff2f87]/20 px-2 py-[2px] rounded-full border border-[#ff2f87]/40">
+                                  {child.badge}
+                                </span>
+                              )}
+                            </span>
+                            {child.description && (
+                              <p className="mt-1 text-xs font-normal text-white/70">
+                                {child.description}
+                              </p>
                             )}
                           </span>
-                          {child.description && (
-                            <p className="mt-1 text-xs font-normal text-slate-600">
-                              {child.description}
-                            </p>
-                          )}
-                        </span>
-                      </a>
+                        </a>
                     );
                   })}
                 </div>
@@ -379,25 +365,12 @@ const Header = () => {
                 href={normalizedHref}
                 target={isExternal ? '_blank' : undefined}
                 rel={linkRel(li.nofollow, isExternal)}
-                className="block py-2 text-sm font-medium hover:text-primary transition-colors"
+                className="block py-2 text-sm font-semibold text-white/80 hover:text-white transition-colors"
               >
                 {li.label}
               </a>
             );
           })}
-          
-          <a
-            href="https://twitter.com/bibliokit"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Follow BiblioKit on X"
-            className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-gray-700 hover:bg-white/60 hover:text-primary transition-colors"
-          >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/10 text-slate-900 shadow-[0_10px_30px_rgba(9,9,18,0.25)] backdrop-blur-md">
-              <XLogo className="h-4 w-4" />
-            </span>
-            <span>Follow on X</span>
-          </a>
         </div>
       </div>
     </header>

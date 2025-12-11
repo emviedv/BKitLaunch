@@ -9,9 +9,12 @@ interface FAQItem {
 interface FAQSchemaProps {
   faqs: FAQItem[];
   className?: string;
+  productName?: string;
 }
 
-const FAQSchema: React.FC<FAQSchemaProps> = ({ faqs, className = '' }) => {
+const FAQSchema: React.FC<FAQSchemaProps> = ({ faqs, className = '', productName }) => {
+  const productLabel = (productName || 'BiblioKit').trim() || 'BiblioKit';
+
   // Generate JSON-LD schema for FAQs
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -37,7 +40,7 @@ const FAQSchema: React.FC<FAQSchemaProps> = ({ faqs, className = '' }) => {
             Frequently Asked Questions
           </h2>
           <p className="text-xl text-white/70">
-            Quick answers to common questions about our AI-powered tools
+            {`Quick answers to common questions about ${productLabel}`}
           </p>
         </div>
 
@@ -48,7 +51,7 @@ const FAQSchema: React.FC<FAQSchemaProps> = ({ faqs, className = '' }) => {
               <div key={index} className="faq-item bg-[#070213]/80 border border-white/10 rounded-2xl p-6 shadow-[0_30px_80px_rgba(3,0,12,0.45)]">
                 <h3 className="text-lg font-semibold text-white mb-3 flex items-start">
                   <span
-                    className="w-8 h-8 bg-gradient-to-br from-[#f871a0] via-[#b970ff] to-[#5bceff] text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0"
+                    className="w-8 h-8 rounded-full bg-[#ff2f87] text-white flex items-center justify-center text-sm font-bold mr-3 mt-0.5 flex-shrink-0"
                     aria-hidden="true"
                   >
                     {questionNumber}

@@ -85,8 +85,6 @@ const OrigamiIllustration: React.FC<OrigamiIllustrationProps> = ({ className, sh
 
   return (
     <div className={containerClass}>
-      <div className="absolute inset-0 origami-visual__grid" aria-hidden="true" />
-      <div className="absolute inset-0 origami-visual__wash" aria-hidden="true" />
       <div className="absolute inset-0 pointer-events-none">
         <svg className="absolute inset-0 h-full w-full" viewBox={`0 0 ${BASE_SIZE} ${BASE_SIZE}`} role="presentation">
           <defs>
@@ -170,7 +168,7 @@ const OrigamiIllustration: React.FC<OrigamiIllustrationProps> = ({ className, sh
           className="origami-visual__card origami-visual__card--sticky"
           style={{ left: `${nodes[3].x}%`, top: `${nodes[3].y}%`, width: nodes[3].w, height: nodes[3].h }}
         >
-          <StickyNote className="h-12 w-12 text-purple-500" />
+          <StickyNote className="h-12 w-12 text-[hsl(var(--primary))]" />
           <p className="origami-visual__handwriting">Remember to create new variants!</p>
           <div className="origami-visual__author">
             <span className="origami-visual__avatar">{HERO_ACTORS.stickyInitial}</span>
@@ -202,17 +200,6 @@ const OrigamiIllustration: React.FC<OrigamiIllustrationProps> = ({ className, sh
       </div>
 
       <style>{`
-        .origami-visual__grid {
-          background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px);
-          background-size: 28px 28px;
-          mask-image: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.25), transparent 75%);
-        }
-        .origami-visual__wash {
-          background: radial-gradient(circle at 20% 18%, rgba(6, 182, 212, 0.16) 0%, transparent 32%),
-                      radial-gradient(circle at 82% 26%, rgba(124, 58, 237, 0.12) 0%, transparent 34%),
-                      radial-gradient(circle at 46% 86%, rgba(37, 99, 235, 0.12) 0%, transparent 36%);
-          mix-blend-mode: screen;
-        }
         .origami-visual__card {
           position: absolute;
           transform: translate(-50%, -50%);

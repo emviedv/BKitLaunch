@@ -172,7 +172,7 @@ const BlogFAQSection: React.FC<{ faqs: BlogFAQ[] }> = ({ faqs }) => {
           {faqs.map((faq, index) => (
             <div key={`faq-${index}`} className="blog-faq-item py-4 first:pt-0 last:pb-0">
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f871a0] via-[#b970ff] to-[#5bceff] text-sm font-bold text-white">
+                <span className="mt-0.5 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff2f87] text-sm font-bold text-white">
                   {(index + 1).toString().padStart(2, '0')}
                 </span>
                 <div className="space-y-2">
@@ -263,10 +263,12 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
   }
 
   return (
-    <div className="bg-[#0b0816] text-white">
-      <LandingHero hero={resolvedHero} compact />
+    <div className="landing-sections-gradient text-white min-h-screen">
+      <div className="blog-hero">
+        <LandingHero hero={resolvedHero} compact />
+      </div>
       <article className="section-content pb-20 pt-6">
-        <div className="mx-auto w-full max-w-[680px] space-y-8 rounded-[32px] px-0 py-8 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur text-white">
+        <div className="mx-auto w-full max-w-[720px] space-y-8 rounded-[28px] border border-white/10 bg-white/5 px-6 py-10 shadow-[0_24px_60px_rgba(7,5,16,0.4)] backdrop-blur text-white">
           {post.content ? (
             <div className="space-y-6">
               {post.content.map((block, index) => renderContentBlock(block, index, post.slug))}
@@ -291,7 +293,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
               {previousPost ? (
                 <a
                   href={buildBlogPostHref(previousPost.slug)}
-                  className={blogCardHoverClass}
+                  className={`rounded-2xl border border-white/10 bg-white/5 p-4 ${blogCardHoverClass}`}
                   aria-label={`Read the previous article: ${previousPost.title}`}
                 >
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Before</p>
@@ -309,7 +311,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
               {nextPost ? (
                 <a
                   href={buildBlogPostHref(nextPost.slug)}
-                  className={blogCardHoverClass}
+                  className={`rounded-2xl border border-white/10 bg-white/5 p-4 ${blogCardHoverClass}`}
                   aria-label={`Read the next article: ${nextPost.title}`}
                 >
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Next</p>
@@ -339,7 +341,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
                 <a
                   key={`related-${relatedPost.slug}`}
                   href={buildBlogPostHref(relatedPost.slug)}
-                  className={blogCardHoverClass}
+                  className={`rounded-2xl border border-white/10 bg-white/5 p-4 ${blogCardHoverClass}`}
                   aria-label={`Read related article: ${relatedPost.title}`}
                 >
                   <p className="mt-1 text-lg font-normal text-[#ffb3d4]">

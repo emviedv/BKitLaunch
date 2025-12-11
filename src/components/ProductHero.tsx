@@ -1,18 +1,15 @@
-import React, { ReactNode, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Confetti, type ConfettiRef } from '@/components/ui/confetti';
 import { debugService } from '@/lib/debugService';
 import { resolveLucideIcon } from '@/lib/iconUtils';
 import {
-  HERO_DESCRIPTION_CLASS,
   HERO_TITLE_CLASS,
   HERO_PRIMARY_BUTTON_CLASS,
   HERO_HEADLINE_GRADIENT_CLASS,
   buildHeroHeadlineSegments,
-  splitHeroHeadline,
   type HeroHeadlineSegment,
 } from './heroConstants';
-import { logHeroHeadlineSplit } from './heroInstrumentation';
 import LandingHero from './LandingHero';
 import { cn } from '@/lib/utils';
 import { LANDING_FEATURES_ID } from '@/config/sectionAnchors';
@@ -40,10 +37,8 @@ type ProductHeroProps = {
   product: ProductInfo;
   compact?: boolean;
   headlineColorOverride?: string;
-  mediaWrapperClassName?: string;
   withBottomPadding?: boolean;
   containerPaddingOverride?: string;
-  mediaContent?: ReactNode;
 };
 
 type RawCallout =
@@ -53,11 +48,13 @@ type RawCallout =
       label?: string;
       title?: string;
       description?: string;
+      href?: string;
     };
 
 type NormalizedCallout = {
   label: string;
   icon?: string;
+  href?: string;
 };
 
 const DEFAULT_CALLOUTS: NormalizedCallout[] = [
@@ -67,30 +64,12 @@ const DEFAULT_CALLOUTS: NormalizedCallout[] = [
   { label: 'Enterprise-grade security baked in', icon: 'lock' },
 ];
 
-const ProductHeroIllustration: React.FC = () => (
-  <div className="relative aspect-square w-full max-w-xl overflow-hidden rounded-[40px] border border-slate-200/60 bg-gradient-to-br from-slate-50 via-white to-slate-100 shadow-[0_24px_60px_rgba(28,48,69,0.08)] product-hero__illustration">
-    <div className="absolute inset-6 rounded-[30px] border border-slate-200/70 bg-white/80 backdrop-blur">
-      <div className="absolute left-8 top-8 h-24 w-20 rounded-3xl border border-primary/20 bg-primary/10" />
-      <div className="absolute right-10 top-14 h-16 w-16 rounded-full border border-sky-200 bg-sky-100/80" />
-      <div className="absolute left-12 bottom-16 h-16 w-28 rounded-[28px] border border-emerald-200/70 bg-emerald-100/70" />
-      <div className="absolute inset-x-10 bottom-10 flex items-center justify-between rounded-full border border-slate-200/70 bg-white/80 px-6 py-3 text-sm font-medium text-slate-600">
-        <span>FPO Illustration</span>
-        <span className="inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
-      </div>
-    </div>
-    <div className="absolute -left-8 bottom-12 h-24 w-24 rounded-full border border-purple-200/70 bg-purple-100/60" />
-    <div className="absolute right-6 top-1/2 h-20 w-20 -translate-y-1/2 rotate-12 rounded-[28px] border border-rose-200/60 bg-rose-100/60" />
-  </div>
-);
-
 export const ProductHero: React.FC<ProductHeroProps> = ({
   product,
   compact = false,
   headlineColorOverride,
-  mediaWrapperClassName,
   withBottomPadding = true,
   containerPaddingOverride,
-  mediaContent,
 }) => {
   const confettiRef = useRef<ConfettiRef>(null);
 
@@ -125,10 +104,12 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
         }
 
         const label = callout?.label || callout?.title || callout?.description;
+        const href = typeof callout?.href === 'string' ? callout.href.trim() : undefined;
         if (label && label.trim()) {
           normalizedCallouts.push({
             label: label.trim(),
             icon: callout.icon,
+            href,
           });
         }
       }
@@ -158,6 +139,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
       return {
         label: callout.label,
         Icon,
+        href: callout.href,
       };
     });
   }, [product.callouts, product.benefits]);
@@ -181,40 +163,26 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
     'landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center',
     !withBottomPadding && 'pb-0'
   );
-  const layoutClassName = 'mx-auto grid w-full max-w-6xl items-center gap-8 pb-12 pt-0 lg:grid-cols-12';
-  const contentColumnClassName = 'flex flex-col gap-2 text-center lg:col-span-5 lg:text-left product-hero__content';
-  const titleWrapperClassName = 'space-y-2';
-  const descriptionClassName = `${HERO_DESCRIPTION_CLASS} mx-auto mt-3 mb-6 text-center lg:mx-0 lg:text-left`;
-  const calloutContainerClassName = 'flex flex-col items-stretch gap-3 product-hero__callouts';
-  const calloutRowClassName = 'flex items-start gap-2 text-left';
-  const calloutIconWrapperClassName = 'mt-[2px] flex-shrink-0 text-primary';
-  const calloutTextClassName = 'text-[20px] leading-7 font-medium text-[#1C3045]/90';
-  const ctaWrapperClassName = 'relative z-10 mt-2 flex justify-center sm:justify-start';
+  const layoutClassName = 'mx-auto flex w-full max-w-5xl flex-col items-center gap-10 pb-16 pt-0 text-center lg:items-start lg:text-left';
+  const contentColumnClassName = 'flex flex-col items-center gap-4 text-center lg:items-start lg:text-left product-hero__content';
+  const titleWrapperClassName = 'space-y-3 w-full';
+  const descriptionClassName = 'mx-auto mt-2 mb-6 max-w-3xl text-xl leading-relaxed text-white/80 lg:mx-0';
+  const calloutContainerClassName = 'flex flex-col items-stretch gap-3 w-full text-white/80 product-hero__callouts';
+  const calloutRowClassName = 'flex items-start gap-3 text-left';
+  const calloutIconWrapperClassName = 'mt-[2px] flex-shrink-0 text-white';
+  const calloutTextClassName = 'text-lg leading-7 font-semibold text-white';
+  const calloutLinkClassName = `${calloutTextClassName} product-hero__callout-link hover:text-white transition-colors`;
+  const ctaWrapperClassName = 'relative z-10 mt-4 flex justify-center lg:justify-start';
   const primaryButtonClassName = HERO_PRIMARY_BUTTON_CLASS;
-  const glyphWrapperClassName = 'mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary lg:mx-0';
+  const glyphWrapperClassName = 'mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-white lg:mx-0';
   const containerClassName = cn(
     'container mx-auto relative z-10 px-6 md:px-10',
     containerPaddingOverride
-  );
-  const heroImageSrc = product.heroImage;
-  const heroImageAlt = product.heroImageAlt || `${product.title} preview`;
-  const heroMediaElement = mediaContent ?? (
-    heroImageSrc ? (
-      <img
-        src={heroImageSrc}
-        alt={heroImageAlt}
-        className="h-auto w-full max-w-2xl rounded-[32px] border border-slate-200/70 bg-white object-cover shadow-[0_24px_60px_rgba(28,48,69,0.12)]"
-        loading="lazy"
-      />
-    ) : (
-      <ProductHeroIllustration />
-    )
   );
 
   return (
     <section className={sectionClassName}>
       <div className="landing-hero-gradient__layer" aria-hidden="true" />
-      <div className="landing-hero-column-lines" aria-hidden="true" />
       <div className="landing-hero-noise" aria-hidden="true" />
       <div className="landing-hero-contrast" aria-hidden="true" />
       <Confetti
@@ -236,8 +204,8 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
 
             <div className={titleWrapperClassName}>
               {badgeLabel && (
-                <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/70 px-4 py-2 text-sm font-medium text-[#1C3045] supports-[backdrop-filter]:bg-white/50">
-                  <span className="inline-flex h-2 w-2 rounded-full bg-primary" />
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 supports-[backdrop-filter]:bg-white/10">
+                  <span className="inline-flex h-2 w-2 rounded-full bg-[#F1A0FF]" />
                   <span>{badgeLabel}</span>
                 </span>
               )}
@@ -253,9 +221,9 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                         return `${HERO_HEADLINE_GRADIENT_CLASS} block pb-3`;
                       }
                       if (isSubtitle) {
-                        return 'text-[#1B1622] block';
+                        return 'text-white/75 block';
                       }
-                      return 'text-foreground block';
+                      return 'text-white block';
                     })();
 
                     return (
@@ -275,23 +243,40 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
 
             {calloutItems.length > 0 && (
               <div className={calloutContainerClassName}>
-                {calloutItems.map(({ label, Icon }, index) => (
-                  <div
-                    key={`${label}-${index}`}
-                    className={calloutRowClassName}
-                  >
-                    <span className={calloutIconWrapperClassName}>
-                      <Icon
-                        className="h-5 w-5"
-                        strokeWidth={1.8}
-                        aria-hidden="true"
-                      />
-                    </span>
+                {calloutItems.map(({ label, Icon, href }, index) => {
+                  const resolvedHref = href?.startsWith('#') ? `/${href}` : href;
+                  const isExternalCalloutLink = Boolean(resolvedHref && resolvedHref.startsWith('http'));
+                  const calloutContent = resolvedHref ? (
+                    <a
+                      href={resolvedHref}
+                      target={isExternalCalloutLink ? '_blank' : '_self'}
+                      rel={isExternalCalloutLink ? 'noopener noreferrer' : undefined}
+                      className={calloutLinkClassName}
+                    >
+                      {label}
+                    </a>
+                  ) : (
                     <p className={calloutTextClassName}>
                       {label}
                     </p>
-                  </div>
-                ))}
+                  );
+
+                  return (
+                    <div
+                      key={`${label}-${index}`}
+                      className={calloutRowClassName}
+                    >
+                      <span className={calloutIconWrapperClassName}>
+                        <Icon
+                          className="h-5 w-5"
+                          strokeWidth={1.8}
+                          aria-hidden="true"
+                        />
+                      </span>
+                      {calloutContent}
+                    </div>
+                  );
+                })}
               </div>
             )}
 
@@ -365,22 +350,9 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
               </div>
             )}
           </div>
-
-          <div
-            className={cn(
-              'relative mx-auto flex w-full max-w-2xl justify-center lg:justify-end lg:col-span-7',
-              mediaWrapperClassName ?? 'lg:max-w-none'
-            )}
-          >
-            {heroMediaElement}
-          </div>
         </div>
       </div>
 
-      <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-0 h-48 bg-gradient-to-b from-transparent via-background/80 to-background md:h-64"
-        aria-hidden="true"
-      />
     </section>
   );
 };

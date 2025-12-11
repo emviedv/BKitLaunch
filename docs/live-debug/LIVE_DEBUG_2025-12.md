@@ -55,3 +55,307 @@
 - **Root Cause:** The blog listing used the featured article title as the H1, leaving the page without a page-level heading and over-weighting a single post.
 - **Changed Files:** src/components/BlogPage.tsx
 - **Verification:** Manual review of rendered markup/headings; single H1 now reads “BiblioKit Blog | Design Ops Playbooks” with the featured article demoted to H2.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 09:29 EST
+- **Summary:** Restored product feature sections to include alternating media slots with placeholders that show even when assets are missing, and refreshed the placeholder stroke to sit four shades lighter than the dark frame.
+- **Root Cause:** `hideFeatureIllustrations` defaulted to true on product pages, so features rendered text-only and never surfaced the media column; the old placeholder frame was too small and used a flat stroke that blended into the background.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Manual code review confirming `computeFeatureLayout` now renders media columns with `showcase` sizing, placeholder frames carry slate-400 strokes against the dark backdrop, and feature bullet lists use readable body text; no automated tests run for this change.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 09:33 EST
+- **Summary:** Matched product media containers to their image/video height and standardized all media and placeholder corners to 12px for consistent card edges.
+- **Root Cause:** Media wrappers carried fixed min-heights and larger radii (22–30px), causing empty space around assets and uneven rounding across real images and placeholders.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Manual inspection of renderDetailMedia to confirm inline-flex wrappers use `w-full h-auto` media, max widths only, and 12px rounding across image, video, and placeholder frames; no automated tests run for this change.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 09:50 EST
+- **Summary:** Replaced product card images with the latest marketing assets (BiblioRename, BiblioAudit, BiblioClean, BiblioTable, BiblioStart) and switched feature media to local `/media` paths with descriptive alt text.
+- **Root Cause:** Landing feature cards were still pulling remote Figma thumbnails or older art instead of the updated marketing renders provided in the Internal Tools & Folders directory.
+- **Changed Files:** src/data/products.json; public/media/BiblioRename.png; public/media/BiblioAudit.png; public/media/BiblioClean.png; public/media/BiblioTable.png; public/media/BiblioStart.png
+- **Verification:** Manual check that new assets exist under `public/media` and product feature media now reference the local files with updated alt copy; no automated tests run.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 09:21 EST
+- **Summary:** Rebranded the AI rename product page to BiblioRename and made hero callouts clickable links to the BiblioRename plugin so visitors can install directly from the page.
+- **Root Cause:** Hero callouts rendered as plain text sourced from benefits and the route metadata still used the legacy “AI Rename Variants” name, leaving the page unlinked and misbranded.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/lib/seo.ts; src/components/Docs.tsx; src/components/aiRenameVariantsCopy.ts; src/components/ProductHero.tsx; src/data/products.json
+- **Verification:** Searched the codebase for “AI Rename Variants” to ensure user-facing naming now reads “BiblioRename”; verified callout data carries the Figma plugin URL and ProductHero renders callouts as anchors with external target handling.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 11:21 EST
+- **Summary:** Reframed the homepage H1/H2 hierarchy around jobs-to-be-done so Google surfaces solution-focused headings instead of product-name lists.
+- **Root Cause:** Hero and feature headings used product names (“Launched. BiblioRename…”) which Google picked up as a laundry list instead of the underlying design-ops outcomes.
+- **Changed Files:** src/data/products.json; src/components/ProductContentSections.tsx
+- **Verification:** Manual review of homepage markup confirming H1 now reads “The All-in-One Figma Plugin Suite for Design Ops” and feature headings render as H2 job statements (e.g., “Automate Design System Audits (BiblioAudit)”).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 11:25 EST
+- **Summary:** Added SoftwareApplication JSON-LD (OS “Figma (Web/Desktop)”, $29/mo offer, plugin rating) to the global head so Google can render rich snippets with price and stars.
+- **Root Cause:** Homepage lacked SoftwareApplication schema and rating/price signals, blocking rich snippet eligibility for plugin searches.
+- **Changed Files:** src/lib/seo.ts
+- **Verification:** Manual serialization check ensuring structured data includes SoftwareApplication with aggregateRating and Offer when generateStructuredData runs.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:15 EST
+- **Summary:** Increased landing hero grid line visibility by ~40% while keeping the warmed off-black backdrop.
+- **Root Cause:** Grid lines remained too faint against the softened hero background.
+- **Changed Files:** src/index.css
+- **Verification:** Not run (visual pass recommended on the landing hero to confirm line contrast).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:05 EST
+- **Summary:** Warmed the off-black theme and softened the landing hero background while making grid lines more visible.
+- **Root Cause:** The prior palette skewed cool/blue, and grid lines were too faint against the darker hero backdrop.
+- **Changed Files:** src/index.css
+- **Verification:** Not run (visual pass recommended on landing hero to confirm warmer tone and clearer grid lines).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 11:30 EST
+- **Summary:** Pivoted homepage SEO signals and hero copy to utility/action keywords (clean files, resize frames, audit systems, rename layers) to match urgent plugin intent.
+- **Root Cause:** Title/description and hero text emphasized generic speed claims, missing high-intent utility phrases like “clean Figma files” and “design system audit.”
+- **Changed Files:** src/lib/seo.ts; src/data/products.json
+- **Verification:** Manual review of generated metadata shows updated title/description/keywords; hero description now lists the action-oriented utilities.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 11:35 EST
+- **Summary:** Removed Offer pricing from SoftwareApplication JSON-LD so schema only exposes the plugin rating without pricing.
+- **Root Cause:** Pricing in structured data was no longer desired for search snippets.
+- **Changed Files:** src/lib/seo.ts
+- **Verification:** Manual serialization check confirms SoftwareApplication JSON-LD omits the Offer block while keeping aggregateRating.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 11:37 EST
+- **Summary:** Updated homepage SEO title to “BiblioKit | The All-in-One Figma Design Ops Suite (Audit, Clean, Scale)” to reinforce design ops positioning while preserving utility keywords.
+- **Root Cause:** Previous title emphasized utility phrases but missed the explicit “All-in-One … Suite” framing requested.
+- **Changed Files:** src/lib/seo.ts
+- **Verification:** Manual review of routeMetadata/defaultMetadata shows the new title applied to homepage OG/title tags.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 11:45 EST
+- **Summary:** Replaced homepage meta and hero description with “Replace your fragmented plugin stack…” messaging to highlight Predictive Heatmaps, Audits, AI Renaming, and Batch Scaling in one subscription.
+- **Root Cause:** Prior description emphasized utility tasks but didn’t speak to consolidating the plugin stack or the new value pillars.
+- **Changed Files:** src/lib/seo.ts; src/data/products.json
+- **Verification:** Manual review confirming defaultMetadata and homepage route descriptions match the new copy; hero description on landing reflects the same message.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 11:48 EST
+- **Summary:** Expanded homepage SEO keywords to include predictive eye tracking, attention heatmaps, bulk ad resizing, governance, and design ops automation queries.
+- **Root Cause:** Keyword set lacked emerging utility phrases tied to heatmaps and bulk resizing; adding them aligns metadata with user-requested terms.
+- **Changed Files:** src/lib/seo.ts
+- **Verification:** Manual metadata check confirms updated keywords string for default and homepage route entries.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 11:52 EST
+- **Summary:** Softened the landing feature section gradient so the page bottom no longer collapses to off-black; added layered radial glows and a lighter terminal color stop.
+- **Root Cause:** The product feature sections used a dark linear gradient that descended to near-black at the bottom, making the page feel heavy.
+- **Changed Files:** src/index.css
+- **Verification:** Manual style review confirming `.landing-sections-gradient` now ends at a lighter #120f24 stop with radial highlights instead of a solid off-black fade.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 11:56 EST
+- **Summary:** Standardized all buttons to 6px corner radius via the shared Button component for consistent UI rounding.
+- **Root Cause:** Button variants inherited default Tailwind rounding and larger radii in some sizes; requirement is fixed 6px corners everywhere.
+- **Changed Files:** src/components/ui/button.tsx
+- **Verification:** Manual code review of `buttonVariants` showing base/size classes now use `rounded-[6px]`.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:00 EST
+- **Summary:** Restored subtle grid lines on landing feature sections while keeping the lighter gradient base to avoid the off-black fade.
+- **Root Cause:** Previous gradient update replaced the background stack and dropped the grid-line layers, removing the visual structure.
+- **Changed Files:** src/index.css
+- **Verification:** Manual style check confirming `.landing-sections-gradient` now layers grid line linear gradients above the softened radial/linear background.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:08 EST
+- **Summary:** Split feature headings into job statements plus standalone product names (now 32px) without parentheses, positioned above descriptions on landing and product sections.
+- **Root Cause:** Titles contained product names in parentheses and lacked a dedicated product label, reducing clarity and visual hierarchy.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Manual review showing headlines exclude parentheses, with product names rendered as separate 32px lines above descriptions across both landing and default feature layouts.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:14 EST
+- **Summary:** Applied the softened gradient + grid overlay treatment to the hero background to match product sections and avoid an off-black bottom fade.
+- **Root Cause:** Hero background stayed darker and lacked the refreshed grid treatment used on feature sections.
+- **Changed Files:** src/index.css
+- **Verification:** Manual style check confirming hero now layers grid lines over the lighter gradient with a #120f24 terminal stop.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:20 EST
+- **Summary:** Neutralized hero and section gradients to a more off-black palette while keeping grid overlays, reducing purple tint in the base colors.
+- **Root Cause:** Prior gradients leaned purple; request was for a neutral off-black finish on hero and feature backgrounds.
+- **Changed Files:** src/index.css
+- **Verification:** Manual style review confirming hero and section gradients use neutral #0b0d11–#0c0c0f stops with retained grid lines.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:28 EST
+- **Summary:** Simplified hero and section backgrounds to fewer neutral layers: kept grid overlays, trimmed extra radials, and standardized to off-black stops without colored tints.
+- **Root Cause:** Backgrounds were still busy and subtly tinted; request was to keep them neutral off-black and less complex.
+- **Changed Files:** src/index.css
+- **Verification:** Manual style check shows single neutral radial plus neutral linear gradient with grid overlays for both hero and feature sections.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:34 EST
+- **Summary:** Matched footer and waitlist email styling to the neutral off-black background with subtle grid-ready gradients, dark inputs, and light text.
+- **Root Cause:** Footer was transparent and the waitlist input used a light theme, clashing with the new dark landing backgrounds.
+- **Changed Files:** src/components/Footer.tsx; src/components/Waitlist.tsx; src/index.css
+- **Verification:** Manual style review confirming footer now uses the neutral gradient and waitlist input adopts dark fill/borders with light placeholder/text.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:40 EST
+- **Summary:** Styled “Get Beta Access” hero CTA to pink and constrained waitlist email input to 320px max width for consistent sizing.
+- **Root Cause:** Beta CTA was default colored and email field stretched too wide on large screens.
+- **Changed Files:** src/components/Hero.tsx; src/components/Waitlist.tsx
+- **Verification:** Manual check confirming pink hero CTA and constrained email input width.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:48 EST
+- **Summary:** Removed the black overlay on the hero and aligned its background to the product section style (neutral off-black gradient with grid), disabling extra overlay layers.
+- **Root Cause:** Hero retained a dark overlay/contrast layer that made it heavier than product sections; request was to match section styling.
+- **Changed Files:** src/components/LandingHero.tsx; src/index.css
+- **Verification:** Manual style review confirming hero uses the same neutral gradient/grid treatment and no longer applies the black overlay/contrast layers.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:52 EST
+- **Summary:** Removed the extra column grid overlay from the hero to eliminate doubled grid lines and match the product section treatment.
+- **Root Cause:** The hero stacked both background grid lines and the column-lines overlay, creating a double-grid effect despite the neutral gradient simplification.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** Manual check confirming only the background grid remains on the hero (no column-lines overlay).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:55 EST
+- **Summary:** Removed the bottom gradient overlay from the hero so the background matches the product sections without extra dark fades.
+- **Root Cause:** A lingering bottom fade overlay kept the hero darker than the aligned section treatment.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** Manual review confirming the bottom gradient div no longer carries a background.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 13:00 EST
+- **Summary:** Simplified hero and section backgrounds further by removing grid overlay layers; now only neutral radial + linear gradients remain to eliminate stripe artifacts.
+- **Root Cause:** Residual grid overlays were still visible as stripes over the backgrounds; request was to remove them for a clean neutral base.
+- **Changed Files:** src/index.css
+- **Verification:** Manual check confirming hero/section backgrounds no longer render grid lines or overlays—only neutral gradients remain.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 13:05 EST
+- **Summary:** Restored a single subtle grid overlay on hero and product sections while keeping the neutral gradients, ensuring no double overlays or stripe artifacts.
+- **Root Cause:** Removing all grid overlays made the backgrounds feel flat; request was to undo and keep one grid layer without extra shading.
+- **Changed Files:** src/index.css
+- **Verification:** Manual style review confirms one set of 140px grid lines atop neutral gradients for hero and sections, with no additional contrast overlays.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:20 EST
+- **Summary:** Matched the landing hero background to the product sections by gating the column grid and subtle dark veil behind an explicit landing prop.
+- **Root Cause:** The hero only rendered the base gradient/noise while sections added column lines and a 10% overlay, so the transition felt like two different surfaces.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/BiblioKitLanding.tsx
+- **Verification:** Manual review confirming the homepage hero now shows the same grid and overlay treatment as the feature sections when `matchProductSectionBackground` is enabled.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 12:32 EST
+- **Summary:** Removed the extra hero grid overlay and dark veil to eliminate double lines and stray color tints while keeping the base gradient consistent with product sections.
+- **Root Cause:** Enabling the matching prop stacked an additional column grid and overlay on top of the hero’s built-in grid background, creating double lines and color shifts.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/BiblioKitLanding.tsx
+- **Verification:** Manual review to confirm the hero now renders a single grid layer (from the base gradient only) with no added overlay.
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 18:53 EST
+- **Summary:** Removed the product hero’s right-side illustration and shifted product feature sections onto the landing gradient palette so the hero and sections share the same dark surface as the main landing page.
+- **Root Cause:** Product pages still rendered a standalone media column in the hero and kept a light feature-section background, causing mismatched colors and surface treatments versus the landing experience.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/ProductContentSections.tsx; src/components/DynamicProductPage.tsx; src/components/AIRenameVariantsPage.tsx
+- **Verification:** Not run (visual pass recommended to confirm the hero is text-only and feature sections use the landing gradient on product pages).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 19:00 EST
+- **Summary:** Removed the extra hero column grid and bottom gradient fade on product pages so the hero surface matches the landing hero without double lines or added overlays.
+- **Root Cause:** ProductHero still injected an additional column grid layer and a bottom gradient fade, creating a darker, over-lined surface compared to the landing hero.
+- **Changed Files:** src/components/ProductHero.tsx
+- **Verification:** Not run (visual check that product hero shows a single grid/gradient treatment matching the landing hero).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 19:26 EST
+- **Summary:** Updated FAQ headings to use the current product name (e.g., “Quick answers to common questions about BiblioRename”) instead of the generic AI tools label.
+- **Root Cause:** The FAQ block hardcoded “our AI-powered tools,” so product pages and landing surfaces didn’t reflect the specific plugin name in FAQ intros.
+- **Changed Files:** src/components/FAQSchema.tsx; src/components/ProductContentSections.tsx
+- **Verification:** Not run (visual check FAQ header shows the active product name).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 19:26 EST
+- **Summary:** Switched FAQ question numbers to the brand pink so the numbering matches the primary CTA color instead of the prior multi-color gradient.
+- **Root Cause:** FAQ numbering chip used a mixed gradient that didn’t align with the brand pink palette requested for callouts/CTAs.
+- **Changed Files:** src/components/FAQSchema.tsx
+- **Verification:** Not run (visual check FAQ number chips render in pink).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 19:30 EST
+- **Summary:** Restyled the header dropdowns to match the new dark/pink palette and moved the X/Twitter link out of the header into the footer social block.
+- **Root Cause:** Header menus still used the old slate gradient and kept a top-bar X icon that should live in the footer; the palette no longer matched the updated landing colors.
+- **Changed Files:** src/components/Header.tsx; src/components/Footer.tsx
+- **Verification:** Not run (visual check header dropdown uses dark/pink styling and footer shows the X link while the header no longer does).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 19:33 EST
+- **Summary:** Updated blog listing and article pages to use the new dark gradient backgrounds, removed extra grid overlays from blog heroes, and aligned blog FAQ chips/nav cards to the brand pink palette.
+- **Root Cause:** Blog pages still used the old backgrounds and grid overlays, creating a mismatch with the refreshed landing/product surfaces and inconsistent FAQ/card styling.
+- **Changed Files:** src/components/BlogPage.tsx; src/components/BlogArticlePage.tsx; src/index.css
+- **Verification:** Not run (visual check blog hero shows single grid layer, sections use landing gradient, and FAQ chips/nav cards match the pink palette).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 19:36 EST
+- **Summary:** Synced the blog header bar to the hero background with the new dark gradient/blur so the top nav matches the blog hero surface.
+- **Root Cause:** The blog header stayed transparent over the updated hero, breaking the unified background treatment.
+- **Changed Files:** src/components/Header.tsx
+- **Verification:** Not run (visual check blog nav uses the same dark gradient/blur as the hero).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 19:37 EST
+- **Summary:** Added extra breathing room in landing product sections: +24px between media and copy columns and +16px vertical spacing between feature rows.
+- **Root Cause:** Landing product features felt tight after the palette changes; spacing needed to match the updated layout rhythm.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (visual check spacing between media/copy and between feature rows on the landing product section).
+
+## 2025-12-10
+
+- **Time:** 2025-12-10 19:42 EST
+- **Summary:** Synced the blog header bar to the hero background using the same landing-style gradient grid so the top nav surface matches the blog hero colors.
+- **Root Cause:** The blog header still used a different background than the hero, creating a visible mismatch at the top of blog pages.
+- **Changed Files:** src/components/Header.tsx; src/index.css
+- **Verification:** Not run (visual check blog header shares the hero gradient/grid).

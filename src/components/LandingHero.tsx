@@ -237,12 +237,8 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
       className={`landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden ${compact ? 'landing-hero-compact-tight' : ''}`}
     >
       <div ref={gradientLayerRef} className="landing-hero-gradient__layer" aria-hidden="true" />
-      <div className="landing-hero-column-lines" aria-hidden="true" />
       <div className="landing-hero-noise" aria-hidden="true" />
       <div className="landing-hero-contrast" aria-hidden="true" />
-
-      {/* Subtle overlay to tone down the gradient for visibility of origami elements */}
-      <div className="absolute inset-0 bg-black/10 pointer-events-none" aria-hidden="true" />
 
       {/* Cursor Overlay Layer */}
       <div className="absolute inset-0 pointer-events-none z-50 overflow-hidden">
@@ -275,8 +271,8 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
 
         {/* Bot 3 */}
         <div className="absolute top-0 left-0 animate-cursor-float-3">
-          <MousePointer2 className="w-5 h-5 text-purple-600 fill-purple-600 stroke-white stroke-[2px]" />
-          <div className="ml-3 mt-1 px-2 py-0.5 bg-purple-600 text-white text-[10px] font-bold rounded-full shadow-sm inline-block">
+          <MousePointer2 className="w-5 h-5 text-[hsl(var(--primary))] fill-[hsl(var(--primary))] stroke-white stroke-[2px]" />
+          <div className="ml-3 mt-1 px-2 py-0.5 bg-[hsl(var(--primary))] text-primary-foreground text-[10px] font-bold rounded-full shadow-sm inline-block">
             {HERO_ACTORS.bot3}
           </div>
         </div>
@@ -352,10 +348,10 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="px-8 py-4 bg-white border-2 border-slate-100 text-slate-700 font-bold rounded-xl hover:border-purple-200 hover:bg-purple-50 transition-all flex items-center gap-2"
+                  className="px-8 py-4 bg-white border-2 border-slate-100 text-slate-700 font-bold rounded-xl hover:border-[hsl(var(--primary)/0.25)] hover:bg-[hsl(var(--primary)/0.06)] transition-all flex items-center gap-2"
                   onClick={secondaryButtonLink ? (event) => handleAnchorNavigation(event, secondaryButtonLink) : () => scrollToSection(LANDING_PRICING_ID)}
                 >
-                  <Zap className="w-4 h-4 text-purple-500" />
+                  <Zap className="w-4 h-4 text-[hsl(var(--primary))]" />
                   {secondaryButton}
                 </Button>
               )}
@@ -377,7 +373,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
       />
 
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 md:h-64 z-0 bg-gradient-to-b from-transparent via-[#0C041C]/80 to-[#04000A]"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 md:h-64 z-0"
         aria-hidden="true"
       />
 

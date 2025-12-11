@@ -178,7 +178,6 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
   const heroProps = isUXBiblio
     ? {
         headlineColorOverride: 'text-white',
-        mediaWrapperClassName: 'lg:max-w-[29rem]',
         withBottomPadding: false,
         containerPaddingOverride: 'px-0 md:px-0',
       }

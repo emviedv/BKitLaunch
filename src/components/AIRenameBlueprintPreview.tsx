@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-export type FeatureBlueprintTheme = 'blue' | 'emerald' | 'purple' | 'amber';
+export type FeatureBlueprintTheme = 'blue' | 'emerald' | 'purple' | 'amber' | 'ink';
 
 export interface FeatureBlueprintField {
   label: string;
@@ -42,6 +42,11 @@ const THEME_MAP: Record<FeatureBlueprintTheme, { glow: string; stroke: string; p
     glow: 'rgba(245,158,11,0.28)',
     stroke: 'rgba(251,191,36,0.55)',
     particle: 'rgba(253,230,138,0.6)',
+  },
+  ink: {
+    glow: 'rgba(15,23,42,0.28)',
+    stroke: 'rgba(51,65,85,0.55)',
+    particle: 'rgba(30,41,59,0.6)',
   },
 };
 

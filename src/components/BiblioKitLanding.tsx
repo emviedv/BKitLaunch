@@ -265,9 +265,7 @@ const BiblioKitLanding: React.FC = () => {
   return (
     <>
       {shouldRenderHero && (
-        <>
-          <LandingHero hero={mergedProduct as any} />
-        </>
+        <LandingHero hero={mergedProduct as any} />
       )}
       {shouldRenderSections && (
         <div className="relative isolate overflow-hidden">

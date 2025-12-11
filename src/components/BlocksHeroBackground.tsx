@@ -57,7 +57,7 @@ const floatingIcons: FloatingIconDef[] = [
 ];
 
 // Use the same color family as the primary Hero animation
-const heroPalette: string[] = ['#98fb98', '#dda0dd', '#87ceeb']; // soft green, purple, blue
+const heroPalette: string[] = ['#98fb98', '#1f2937', '#87ceeb']; // soft green, charcoal, blue
 const cycleFrom = (start: number): string[] => [
   heroPalette[start % heroPalette.length],
   heroPalette[(start + 1) % heroPalette.length],
@@ -285,10 +285,10 @@ export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ clas
 
   return (
     <div ref={containerRef} className={`absolute inset-0 pointer-events-none ${className || ''}`} aria-hidden="true">
-      {/* Soft green → purple → blue background gradient */}
+      {/* Soft green → charcoal → blue background gradient */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/40 via-purple-100/35 to-sky-100/40" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-emerald-50/30 via-purple-50/25 to-sky-50/30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/40 via-slate-200/35 to-sky-100/40" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-emerald-50/30 via-slate-100/25 to-sky-50/30" />
       </div>
       <div
         className="absolute"
@@ -363,4 +363,3 @@ export const BlocksHeroBackground: React.FC<BlocksHeroBackgroundProps> = ({ clas
 };
 
 export default BlocksHeroBackground;
-

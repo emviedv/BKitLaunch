@@ -91,6 +91,18 @@ interface ProductContentSectionsProps {
   enableFeaturesNav?: boolean;
 }
 
+const parseFeatureTitle = (rawTitle?: string | null) => {
+  const base = (rawTitle || '').trim();
+  const match = base.match(/^(.*)\(([^)]+)\)\s*$/);
+  if (match) {
+    return {
+      headline: match[1].trim(),
+      productName: match[2].trim(),
+    };
+  }
+  return { headline: base, productName: undefined };
+};
+
 const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
   product,
   faqs,
@@ -208,23 +220,17 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     logFeatureMedia(detail, variant);
 
     const isShowcase = variant === 'showcase';
+    const placeholderStroke = 'rgba(148,163,184,0.52)'; // slate-400, ~4 shades lighter than the slate-900 base
+    const placeholderSecondaryStroke = 'rgba(148,163,184,0.28)';
     const fallbackWrapperClass = cn(
-      'relative flex items-center justify-center rounded-3xl border border-white/15 bg-gradient-to-br from-[#221036]/80 via-[#0c0418]/90 to-[#05000e]/95',
-      isShowcase ? 'w-full min-h-[280px] rounded-[28px]' : 'h-32 w-32'
+      'relative flex items-center justify-center overflow-hidden border bg-gradient-to-br from-[#0c1024] via-[#0a081a] to-[#070512] shadow-[0_32px_90px_rgba(7,0,18,0.35)] rounded-[12px]',
+      isShowcase ? 'w-full max-w-[640px] min-h-[280px] px-6 py-6' : 'w-full max-w-[520px] min-h-[220px] px-5 py-5'
     );
     const imageWrapperClass = cn(
-      'relative overflow-hidden rounded-lg',
-      isShowcase ? 'w-full min-h-[280px]' : 'h-32 w-32'
+      'relative inline-flex overflow-hidden border bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/0 rounded-[12px]',
+      isShowcase ? 'w-full max-w-[640px]' : 'w-full max-w-[520px]'
     );
-
-    const fallbackInnerOneClass = cn(
-      'absolute rounded-2xl bg-white/10 shadow-[0_20px_60px_rgba(6,0,18,0.35)] backdrop-blur',
-      isShowcase ? 'inset-[6%]' : 'inset-[18%]'
-    );
-    const fallbackInnerTwoClass = cn(
-      'absolute rounded-2xl border border-white/25',
-      isShowcase ? 'inset-[10%]' : 'inset-[10%]'
-    );
+    const mediaFrameStyle = { borderColor: placeholderStroke };
 
     switch (detail.mediaComponent) {
       case 'feature-comparison':
@@ -245,17 +251,17 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
       case 'video':
         if (detail.mediaUrl) {
           const videoWrapperClass = cn(
-            'relative overflow-hidden rounded-3xl border border-white/15 bg-black/40',
-            isShowcase ? 'w-full min-h-[280px]' : 'h-32 w-32'
+            'relative inline-flex overflow-hidden border bg-black/40 rounded-[12px]',
+            isShowcase ? 'w-full max-w-[640px]' : 'w-full max-w-[520px]'
           );
           const videoLabel =
             detail.mediaAlt ||
             detail.title ||
             `${product?.title || 'Product'} preview`;
           return (
-            <div className={videoWrapperClass}>
+            <div className={videoWrapperClass} style={mediaFrameStyle}>
               <video
-                className="h-full w-full object-cover"
+                className="w-full h-auto object-cover"
                 src={detail.mediaUrl}
                 loop
                 autoPlay
@@ -283,11 +289,11 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
             detail.title ||
             `${product?.title || 'Product'} preview`;
           return (
-            <div className={imageWrapperClass}>
+            <div className={imageWrapperClass} style={mediaFrameStyle}>
               <img
                 src={detail.mediaUrl}
                 alt={imageLabel}
-                className="h-full w-full object-cover"
+                className="w-full h-auto object-cover"
                 loading="lazy"
               />
             </div>
@@ -304,11 +310,11 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
         detail.title ||
         `${product?.title || 'Product'} preview`;
       return (
-        <div className={imageWrapperClass}>
+        <div className={imageWrapperClass} style={mediaFrameStyle}>
           <img
             src={detail.mediaUrl}
             alt={imageLabel}
-            className="h-full w-full object-cover"
+            className="w-full h-auto object-cover"
             loading="lazy"
           />
         </div>
@@ -316,9 +322,27 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     }
 
     return (
-      <div className={fallbackWrapperClass}>
-        <span className={fallbackInnerOneClass} />
-        <span className={fallbackInnerTwoClass} />
+      <div className={fallbackWrapperClass} aria-hidden="true" style={{ borderColor: placeholderStroke }}>
+        <div
+          className="absolute inset-[10%] rounded-[12px] border backdrop-blur-sm"
+          style={{ borderColor: placeholderStroke }}
+        />
+        <div
+          className="absolute inset-[16%] rounded-[10px] border border-dashed"
+          style={{ borderColor: placeholderSecondaryStroke }}
+        />
+        <div
+          className="absolute left-[18%] top-[22%] h-3 w-24 rounded-full bg-white/[0.12]"
+          style={{ boxShadow: '0 12px 36px rgba(0,0,0,0.14)' }}
+        />
+        <div
+          className="absolute right-[18%] bottom-[18%] h-20 w-28 rounded-[10px] border bg-white/[0.08] backdrop-blur"
+          style={{ borderColor: placeholderStroke }}
+        />
+        <div className="absolute inset-0 opacity-70">
+          <div className="absolute -left-12 top-6 h-24 w-24 rounded-full bg-[#a855f7]/18 blur-3xl" />
+          <div className="absolute right-4 bottom-4 h-24 w-32 rounded-full bg-[#22d3ee]/14 blur-3xl" />
+        </div>
       </div>
     );
   };
@@ -373,7 +397,9 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
   };
 
   const landingShowcaseLayout = Boolean(enableFeaturesNav && compactLayout);
-  const hideFeatureIllustrations = !compactLayout;
+  const hideFeatureIllustrations = false; // keep product feature sections paired with visuals and placeholders
+
+  const faqProductName = (product as any)?.title || (product as any)?.name;
 
   const productSectionsDebugEnabled = () => {
     if (typeof process !== 'undefined') {
@@ -438,18 +464,19 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           <div className={buildSectionContentClass('relative overflow-visible')}>
             {introContent}
             <div className="mt-12 relative flex flex-col gap-10 lg:gap-12">
-              <div className="space-y-[80px]">
+              <div className="space-y-[96px]">
                 {detailEntries.map(({ detail, anchorId }, index) => {
-                  const rawItems = Array.isArray(detail.items) ? detail.items : [];
-                  const promotedFirstItem = !detail.description && rawItems.length > 0;
-                  const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
-                  const highlightItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
-                  const featurePill = detail.pill;
-                  const buttonLabel =
-                    detail.buttonText ||
-                    product?.primaryButton ||
-                    detail.title ||
-                    product?.title ||
+                const rawItems = Array.isArray(detail.items) ? detail.items : [];
+                const promotedFirstItem = !detail.description && rawItems.length > 0;
+                const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
+                const highlightItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
+                const featurePill = detail.pill;
+                const { headline, productName } = parseFeatureTitle(detail.title);
+                const buttonLabel =
+                  detail.buttonText ||
+                  product?.primaryButton ||
+                  detail.title ||
+                  product?.title ||
                     'View Product';
                 const buttonHrefRaw = detail.buttonLink?.trim();
                 const buttonHref = normalizeHref(buttonHrefRaw);
@@ -474,7 +501,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                     className="relative rounded-[40px] px-8 sm:px-12"
                   >
                     <div className={cn(
-                      'grid gap-10 lg:gap-[64px] lg:items-center',
+                      'grid gap-[64px] lg:gap-[88px] lg:items-center',
                       isReversed
                         ? 'lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]'
                           : 'lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]'
@@ -494,9 +521,22 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                                 </span>
                               </div>
                             )}
-                            <h3 className="text-3xl font-semibold text-white leading-tight">
-                              {detail.title}
-                            </h3>
+                            {productName ? (
+                              <>
+                                <h2 className="text-3xl font-semibold text-white leading-tight">
+                                  {productName}
+                                </h2>
+                                {(headline || detail.title) && (
+                                  <p className="text-xl font-semibold text-white/75 leading-relaxed">
+                                    {headline || detail.title}
+                                  </p>
+                                )}
+                              </>
+                            ) : (
+                              <h2 className="text-3xl font-semibold text-white leading-tight">
+                                {headline || detail.title}
+                              </h2>
+                            )}
                             {descriptionText && (
                               <p className="text-lg text-white/75 leading-relaxed">
                                 {descriptionText}
@@ -545,10 +585,10 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
 
     return (
       <section
-        className="relative overflow-hidden section-background-blend-top bg-gradient-to-b from-white via-slate-50 to-slate-100/40 py-20 sm:py-24"
+        className="relative overflow-hidden landing-sections-gradient py-20 sm:py-24"
         key="features-default"
       >
-        <div className={buildSectionContentClass()}>
+        <div className={buildSectionContentClass('relative z-10')}>
           {introContent}
 
           <div className="mt-12 flex flex-col gap-12">
@@ -571,6 +611,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                 const promotedFirstItem = !detail.description && rawItems.length > 0;
                 const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
                 const bulletItems = promotedFirstItem ? rawItems.slice(1) : rawItems;
+                const { headline, productName } = parseFeatureTitle(detail.title);
                 const buttonLabel =
                   detail.buttonText ||
                   product?.primaryButton ||
@@ -606,36 +647,42 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                       return false;
                   }
                 })();
+                const mediaElement = renderDetailMedia(detail, 'showcase');
 
-                return (
-                  <article
-                    id={anchorId}
-                    key={anchorId}
-                    className={cn(
-                      'relative rounded-4xl scroll-mt-32',
-                      hideFeatureIllustrations ? 'bg-transparent' : 'lg:grid lg:grid-cols-10 lg:grid-flow-dense lg:gap-8'
-                    )}
-                  >
-                    <div className={cn(...layout.text)}>
-                      <div className="space-y-4">
-                        <h3 className="text-2xl lg:text-3xl font-semibold text-foreground leading-snug">
-                          {detail.title}
-                        </h3>
-                        {descriptionText && (
-                          <p className="text-base text-muted-foreground leading-relaxed">
-                            {descriptionText}
-                          </p>
+                    return (
+                      <article
+                        id={anchorId}
+                        key={anchorId}
+                        className={cn(
+                          'relative rounded-4xl scroll-mt-32 text-white',
+                          hideFeatureIllustrations ? 'bg-transparent' : 'lg:grid lg:grid-cols-10 lg:grid-flow-dense lg:gap-8'
                         )}
+                      >
+                        <div className={cn(...layout.text)}>
+                          <div className="space-y-4">
+                            <h2 className="text-2xl lg:text-3xl font-semibold text-white leading-snug">
+                              {headline || detail.title}
+                            </h2>
+                            {productName && (
+                              <div className="text-[32px] font-semibold text-white leading-tight">
+                                {productName}
+                              </div>
+                            )}
+                            {descriptionText && (
+                              <p className="text-base text-white/75 leading-relaxed">
+                                {descriptionText}
+                              </p>
+                            )}
                             {Array.isArray(bulletItems) && bulletItems.length > 0 && (
-                              <ul className="mt-2 space-y-2 text-base text-white/70 flex flex-col items-start text-left pb-3">
+                              <ul className="mt-2 space-y-2 text-base text-white/75 flex flex-col items-start text-left pb-3 leading-relaxed">
                                 {bulletItems.map((item, itemIndex) => (
                                   <li key={itemIndex} className="flex items-start gap-3">
                                     <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#F772B6]" />
                                     <span className="text-left">{item}</span>
                                   </li>
-                                ))}
-                              </ul>
-                            )}
+                            ))}
+                          </ul>
+                        )}
                         {buttonLabel && (
                           <div className="mt-6 flex justify-start">
                             <Button
@@ -661,9 +708,9 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                     </div>
                     {!hideFeatureIllustrations && (
                       <div className={cn(...layout.media, 'flex items-center justify-center')}>
-                        {hasCustomMedia ? renderDetailMedia(detail) : (
+                        {hasCustomMedia ? mediaElement : (
                           <div className="w-full flex items-center justify-center">
-                            {renderDetailMedia(detail)}
+                            {mediaElement}
                           </div>
                         )}
                       </div>
@@ -759,7 +806,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           faqs: (product?.visibility?.faqs !== false) ? (
             <section className="py-20 landing-sections-gradient" key="faqs">
               <div className={buildContainerClass()}>
-                <FAQSchema faqs={faqs} />
+                <FAQSchema faqs={faqs} productName={faqProductName} />
               </div>
             </section>
           ) : null,

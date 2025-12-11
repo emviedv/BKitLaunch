@@ -124,7 +124,7 @@ const Hero: React.FC = () => {
               {comingSoonEnabled ? (
                 <Button
                   size="lg"
-                  className="w-full min-w-[12rem] sm:w-auto"
+                  className="w-full min-w-[12rem] sm:w-auto bg-[#f472b6] hover:bg-[#ec4899] text-white"
                   onClick={(event) => handleAnchorClick(event, LANDING_WAITLIST_ANCHOR)}
                 >
                   Get Beta Access

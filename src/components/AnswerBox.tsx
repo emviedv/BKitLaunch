@@ -11,7 +11,7 @@ const AnswerBox: React.FC<AnswerBoxProps> = ({ content, className = '' }) => {
   const isOptimalLength = wordCount >= 40 && wordCount <= 70;
 
   return (
-    <div className={`answer-box bg-gradient-to-r from-blue-50 to-purple-50 border-l-4 border-primary p-6 rounded-lg shadow-sm mb-8 ${className}`}>
+    <div className={`answer-box bg-gradient-to-r from-slate-50 to-gray-100 border-l-4 border-primary p-6 rounded-lg shadow-sm mb-8 ${className}`}>
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <div className="flex items-center mb-3">

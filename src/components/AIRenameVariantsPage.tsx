@@ -6,7 +6,6 @@ import ProductContentSections from './ProductContentSections';
 import ProductHero from './ProductHero';
 import ExpertQuote from './ExpertQuote';
 import { AI_RENAME_FEATURES_DESCRIPTION } from './aiRenameVariantsCopy';
-import AIRenameVariantsHeroAnimation from './AIRenameVariantsHeroAnimation';
 import { LANDING_FEATURES_ANCHOR } from '@/config/sectionAnchors';
 
 const aiRenamePageDebugEnabled = () => {
@@ -31,10 +30,10 @@ const AIRenameVariantsPage = () => {
   // Clear any conflicting localStorage data
   useEffect(() => {
     // Ensure no cross-contamination from other product pages
-    debugService.info('AI Rename Variants: Page loaded with correct content');
+    debugService.info('BiblioRename: Page loaded with correct content');
   }, []);
 
-  // Add schema and meta tags for the AI Rename Variants page
+  // Add schema and meta tags for the BiblioRename page
   useEffect(() => {
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
     const metadata = generateMetadata('/ai-rename-variants', content, baseUrl);
@@ -47,13 +46,30 @@ const AIRenameVariantsPage = () => {
     'https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted';
 
   const product = publishedProduct || {
-    title: 'AI Rename Variants',
+    title: 'BiblioRename',
     description:
-      'Instantly standardize your Figma variant names with one-click renaming that aligns with Material, Carbon, and Polaris design systems.',
+      'BiblioRename standardizes your Figma variant and layer names with one-click AI so designers and developers stay perfectly aligned.',
     primaryButton: 'Install Plugin',
     primaryButtonLink: pluginInstallUrl,
     secondaryButton: 'Learn More',
     secondaryButtonLink: LANDING_FEATURES_ANCHOR,
+    callouts: [
+      {
+        label: 'Install BiblioRename on Figma to auto-rename variants instantly.',
+        icon: 'link',
+        href: pluginInstallUrl
+      },
+      {
+        label: 'BiblioRename keeps variant properties consistent for developer handoff.',
+        icon: 'check',
+        href: pluginInstallUrl
+      },
+      {
+        label: 'Share BiblioRename with design + eng to enforce naming rules together.',
+        icon: 'users',
+        href: pluginInstallUrl
+      }
+    ],
     llm: {
       statistics: [
         {
@@ -195,7 +211,7 @@ const AIRenameVariantsPage = () => {
             { label: 'Require approvals', active: false },
           ],
           footer: 'Everyone ships with the same naming language',
-          theme: 'purple',
+          theme: 'ink',
         },
       }
     ]
@@ -230,7 +246,7 @@ const AIRenameVariantsPage = () => {
 
   const faqs = [
     {
-      question: "How does AI Rename Variants understand my component structure?",
+      question: "How does BiblioRename understand my component structure?",
       answer: "The plugin analyzes your component's properties, layer hierarchy, design patterns, and existing naming conventions to generate contextually appropriate names that match your design system standards."
     },
     {
@@ -243,7 +259,7 @@ const AIRenameVariantsPage = () => {
     },
     {
       question: "Does it work with existing design systems and component libraries?",
-      answer: "Yes, AI Rename Variants is designed to work with any Figma file structure and can learn from your existing naming patterns to maintain consistency with your current design system."
+      answer: "Yes, BiblioRename is designed to work with any Figma file structure and can learn from your existing naming patterns to maintain consistency with your current design system."
     },
     {
       question: "How many variants can it rename at once?",
@@ -256,10 +272,8 @@ const AIRenameVariantsPage = () => {
       <ProductHero
         product={product as any}
         headlineColorOverride="text-white"
-        mediaWrapperClassName="lg:max-w-[29rem]"
         withBottomPadding={false}
         containerPaddingOverride="px-0 md:px-0"
-        mediaContent={<AIRenameVariantsHeroAnimation />}
       />
 
 

@@ -44,7 +44,7 @@ export const Docs: React.FC = () => {
           <a href="/">Explore BiblioKit</a>
         </Button>
         <Button asChild variant="outline" size="lg">
-          <a href="/ai-rename-variants">AI Rename Variants</a>
+          <a href="/ai-rename-variants">BiblioRename</a>
         </Button>
       </div>
     </div>

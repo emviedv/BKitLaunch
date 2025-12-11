@@ -84,7 +84,7 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride, titleOverride, des
   };
 
   return (
-    <section id={LANDING_WAITLIST_ID} className="landing-waitlist-section relative overflow-hidden py-20 scroll-mt-28 bg-background">
+    <section id={LANDING_WAITLIST_ID} className="landing-waitlist-section landing-waitlist-surface relative overflow-hidden py-20 scroll-mt-28">
       <div className="landing-waitlist-content section-content relative z-10 max-w-3xl text-center">
         <h2 className="landing-waitlist-heading section-title mb-4 text-foreground">
           {waitlistTitle}
@@ -113,7 +113,7 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride, titleOverride, des
               placeholder="Enter your email"
               required
               disabled={state.isLoading}
-              className="landing-waitlist-input input flex-1 max-w-md disabled:opacity-50 disabled:cursor-not-allowed"
+              className="landing-waitlist-input input flex-1 max-w-[320px] disabled:opacity-50 disabled:cursor-not-allowed"
               aria-describedby={state.error ? LANDING_WAITLIST_ERROR_ID : undefined}
             />
             <Button

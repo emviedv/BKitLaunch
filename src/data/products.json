@@ -26,10 +26,10 @@
   },
   "hero": {
     "visible": true,
-    "title": "Your Design Toolkit, Reinvented.",
+    "title": "The All-in-One Figma Plugin Suite for Design Ops",
     "subtitle": "Work x10,000 faster.",
     "badgeLabel": null,
-    "description": "Automate the things you hate, focus on design you love.",
+    "description": "Replace your fragmented plugin stack. The only Figma suite with Predictive Heatmaps, Design System Audits, AI Renaming, and Batch Scaling in one subscription.",
     "primaryButton": "View Products",
     "secondaryButton": null,
     "primaryButtonLink": "#landing-features",
@@ -90,7 +90,7 @@
       "icon": "🏷️",
       "idea": "The AI Organizer.",
       "badge": "Launched",
-      "title": "BiblioRename",
+      "title": "Batch Rename Layers with AI (BiblioRename)",
       "category": "Launched",
       "tagline": "AI Layer Renamer & Naming Conventions",
       "badges": [],
@@ -102,8 +102,8 @@
       "isFeatured": false,
       "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
       "media": {
-        "src": "https://www.figma.com/community/thumbnail?resource_id=1523817290746945616&resource_type=plugin",
-        "alt": "BiblioRename plugin cover"
+        "src": "/media/BiblioRename.png",
+        "alt": "BiblioRename AI layer renaming preview"
       },
       "buttonPreset": "custom"
     },
@@ -112,7 +112,7 @@
       "idea": "Stop shipping broken files.",
       "badge": "Launched",
       "category": "Launched",
-      "title": "BiblioAudit",
+      "title": "Automate Design System Audits (BiblioAudit)",
       "tagline": "Find Detached Instances & Design System Check",
       "badges": [],
       "topItems": [
@@ -129,8 +129,8 @@
       "isFeatured": false,
       "description": "BiblioAudit is the automated QA tool for Figma. Find detached instances, validate tokens, flag dirty overrides, and reveal deprecated or rogue components—whether you scan a selection, a single page, or the full file.",
       "media": {
-        "src": "https://www.figma.com/community/thumbnail?resource_id=1564328602359376130&resource_type=plugin",
-        "alt": "BiblioAudit plugin cover"
+        "src": "/media/BiblioAudit.png",
+        "alt": "BiblioAudit design system audit preview"
       },
       "buttonPreset": "custom"
     },
@@ -139,7 +139,7 @@
       "idea": "The Blue Line Wiper.",
       "badge": "Launched",
       "category": "Launched",
-      "title": "BiblioClean",
+      "title": "Remove Prototype Links Safely (BiblioClean)",
       "badges": [],
       "topItems": [
         "Deep Cleaning: Remove prototype navigation links, external URLs, and hotspot interactions.",
@@ -155,8 +155,8 @@
       "isFeatured": false,
       "description": "The Blue Line Wiper. The safest way to remove prototype links and external connections. Cleans visual clutter without breaking your main components.",
       "media": {
-        "src": "https://www.figma.com/community/thumbnail?resource_id=1573014835821113198&resource_type=plugin",
-        "alt": "BiblioClean plugin cover"
+        "src": "/media/BiblioClean.png",
+        "alt": "BiblioClean prototype link remover preview"
       },
       "buttonPreset": "custom"
     },
@@ -165,7 +165,7 @@
       "idea": "Launch projects with zero setup drag.",
       "badge": "Coming Soon",
       "category": "Coming Soon",
-      "title": "BiblioStart",
+      "title": "Spin Up Figma Project Blueprints Fast (BiblioStart)",
       "tagline": "Project Setup & File Scaffolding",
       "badges": [],
       "topItems": [
@@ -191,7 +191,7 @@
       "idea": "The Table Fixer.",
       "badge": "Coming Soon",
       "category": "Coming Soon",
-      "title": "BiblioTable",
+      "title": "Normalize Figma Tables in One Click (BiblioTable)",
       "badges": [],
       "topItems": [
         "Normalize column widths in one click.",
@@ -205,8 +205,8 @@
       "isFeatured": false,
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
       "media": {
-        "src": "/media/table-fixer-figma.png",
-        "alt": "BiblioTable plugin cover"
+        "src": "/media/BiblioTable.png",
+        "alt": "BiblioTable auto-layout fixer preview"
       },
       "buttonPreset": "custom"
     },
@@ -215,7 +215,7 @@
       "idea": "Your personal UX library for patterns and ideas.",
       "badge": "Launched",
       "category": "Launched",
-      "title": "UXBiblio",
+      "title": "Catalog UX Patterns with AI (UXBiblio)",
       "badges": [],
       "topItems": [
         "AI-powered tagging",
@@ -238,8 +238,8 @@
     }
   ],
   "featuresSection": {
-    "title": "Design smarter. Ship cleaner.",
-    "description": "From idea to hand-off, faster than ever. Stay consistent, connected, and miles ahead with the BiblioKit plugin suite."
+    "title": "Design ops jobs, solved in one suite.",
+    "description": "Automate audits, AI naming, link cleanup, and project setup with the BiblioKit Figma plugins."
   },
   "pricing": [
     {
@@ -392,6 +392,23 @@
       "visibility": {
         "waitlist": false
       },
+      "callouts": [
+        {
+          "label": "Install BiblioRename on Figma to auto-rename variants instantly.",
+          "icon": "link",
+          "href": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted"
+        },
+        {
+          "label": "BiblioRename keeps variant properties consistent for developer handoff.",
+          "icon": "check",
+          "href": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted"
+        },
+        {
+          "label": "Share BiblioRename with design + eng to enforce naming rules together.",
+          "icon": "users",
+          "href": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted"
+        }
+      ],
       "details": [
         {
           "title": "Stop fixing messy names by hand",
@@ -567,7 +584,7 @@
               }
             ],
             "footer": "Everyone ships with the same naming language",
-            "theme": "purple"
+            "theme": "ink"
           }
         }
       ],

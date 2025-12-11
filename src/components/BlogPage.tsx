@@ -11,16 +11,14 @@ const BlogPage: React.FC = () => {
   const featuredPost = BLOG_POSTS[0];
 
   return (
-    <div className="bg-[#090512] text-white">
+    <div className="bg-[#0c0d10] text-white">
       <section
         id={BLOG_LIST_SECTION_ID}
         className="landing-hero-gradient landing-hero-compact section-hero relative overflow-hidden"
         style={{ paddingTop: '120px', paddingBottom: '120px' }}
       >
         <div className="landing-hero-gradient__layer" aria-hidden="true" />
-        <div className="landing-hero-column-lines" aria-hidden="true" />
         <div className="landing-hero-noise" aria-hidden="true" />
-        <div className="landing-hero-contrast" aria-hidden="true" />
         <div className="relative z-10 section-content pb-0 text-white">
           <div className="max-w-3xl pb-10">
             <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
@@ -88,8 +86,8 @@ const BlogPage: React.FC = () => {
       </section>
 
       <section
-        className="bg-[#090512]"
-        style={{ paddingTop: '40px', paddingBottom: '64px' }}
+        className="landing-sections-gradient text-white"
+        style={{ paddingTop: '56px', paddingBottom: '72px' }}
       >
         <div className="section-content">
           <div className="space-y-4 text-left">
@@ -104,18 +102,18 @@ const BlogPage: React.FC = () => {
                   return (
                     <article
                       key={`${post.title}-card`}
-                      className="rounded-lg bg-[#0f0a1c] p-6 text-left shadow-[0_25px_60px_rgba(15,23,42,0.08)]"
+                      className="rounded-2xl border border-white/10 bg-white/5 p-6 text-left shadow-[0_25px_60px_rgba(7,5,16,0.38)] backdrop-blur"
                     >
                       <a
                         href={href}
                         className="group flex h-full flex-col rounded-lg"
                         aria-label={`Read ${post.title}`}
                       >
-                        <p className="pb-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                        <p className="pb-2 text-xs font-semibold uppercase tracking-[0.12em] text-white/60">
                           {post.category} • {post.readingTime}
                         </p>
-                        <h3 className="text-xl font-semibold text-foreground">{post.title}</h3>
-                        <p className="mt-2 flex-1 text-sm text-muted-foreground">
+                        <h3 className="text-xl font-semibold text-white">{post.title}</h3>
+                        <p className="mt-2 flex-1 text-sm text-white/75">
                           {renderTextWithLinks(post.excerpt)}
                         </p>
                         <div className="mt-6">
