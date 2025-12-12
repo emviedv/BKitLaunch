@@ -231,3 +231,6 @@ edge_functions = "netlify/edge-functions"
 
 [[plugins]]
   package = "./netlify/plugins/fix-email-cjs/index.cjs"
+
+[[plugins]]
+  package = "./netlify/plugins/indexnow-notify"

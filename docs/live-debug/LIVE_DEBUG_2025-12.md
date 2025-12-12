@@ -472,6 +472,12 @@
 
 ## 2025-12-11
 
+- **Time:** 2025-12-11 15:30 EST
+- **Summary:** Opened AI crawl gates (Perplexity/Claude in robots), refreshed llms.txt to 50+ priority URLs, added a Netlify post-deploy IndexNow ping, removed the demo key fallback, and surfaced visible “Updated YYYY-MM-DD” stamps on articles, BiblioRename, and the prototype cleanup resource.
+- **Root Cause:** AI readiness gaps: Perplexity/Claude weren’t allowed in robots.txt, llms.txt was stale with only five URLs, IndexNow required manual runs and could silently fall back to a demo key, and pages lacked visible freshness signals for LLM snippets.
+- **Changed Files:** public/robots.txt; public/llms.txt; netlify/plugins/indexnow-notify/index.js; netlify.toml; netlify/functions/indexnow.ts; src/components/BlogArticlePage.tsx; src/components/RemovePrototypeLinkPage.tsx; src/components/ProductHero.tsx; src/components/AIRenameVariantsPage.tsx
+- **Verification:** Manual review—robots.txt now lists GPTBot/PerplexityBot/ClaudeBot; llms.txt lists 50+ prioritized URLs dated 2025-12-11 with one-line summaries; IndexNow function errors without a real key and plugin added to Netlify onSuccess; blog/resource/product pages render “Updated 2025-12-11” badges in the UI.
+
 - **Time:** 2025-12-11 13:40 EST
 - **Summary:** Removed feature descriptions from product pages so feature cards show only titles and bullet lists (landing layout still keeps descriptions).
 - **Root Cause:** Product page feature cards still rendered body descriptions; request was to drop descriptions on product pages while preserving landing copy.

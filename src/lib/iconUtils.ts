@@ -2,6 +2,7 @@ import {
   BarChart3,
   Brain,
   CheckCircle2,
+  Clock3,
   Compass,
   Folder,
   Globe2,
@@ -33,6 +34,12 @@ const iconMap: Record<string, LucideIcon> = {
   bolt: Zap,
   lightning: Zap,
   "⚡": Zap,
+
+  clock: Clock3,
+  time: Clock3,
+  timer: Clock3,
+  "⏱️": Clock3,
+  "⏰": Clock3,
 
   users: Users,
   team: Users,

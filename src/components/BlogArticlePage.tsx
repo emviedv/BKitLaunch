@@ -214,6 +214,10 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
   );
 
   const heroDescription = summary ? renderTextWithLinks(summary) : null;
+  const updatedDate =
+    (post as any)?.lastUpdated ||
+    (post as any)?.updatedAt ||
+    new Date().toISOString().split('T')[0];
 
   const resolvedHero: LandingHeroContent = post
     ? {
@@ -268,6 +272,11 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
         <LandingHero hero={resolvedHero} compact />
       </div>
       <article className="section-content pb-20 pt-6">
+        <div className="mx-auto w-full max-w-[720px] mb-4 flex items-start">
+          <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/80">
+            Updated {updatedDate}
+          </span>
+        </div>
         <div className="mx-auto w-full max-w-[720px] space-y-8 rounded-[28px] border border-white/10 bg-white/5 px-6 py-10 shadow-[0_24px_60px_rgba(7,5,16,0.4)] backdrop-blur text-white">
           {post.content ? (
             <div className="space-y-6">

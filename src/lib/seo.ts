@@ -149,13 +149,13 @@ const defaultMetadata: SEOMetadata = {
 };
 
 const biblioRenameMetadata: SEOMetadata = {
-  title: 'BiblioRename for Figma | BiblioKit',
+  title: 'BiblioKit | BiblioRename for Figma',
   description: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
   keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system naming, variant properties',
-  ogTitle: 'BiblioRename for Figma | BiblioKit',
+  ogTitle: 'BiblioKit | BiblioRename for Figma',
   ogDescription: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioRename for Figma | BiblioKit',
+  twitterTitle: 'BiblioKit | BiblioRename for Figma',
   twitterDescription: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
   twitterImage: '/og/og-default.svg'
 };

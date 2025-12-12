@@ -51,8 +51,14 @@ const AIRenameVariantsPage = () => {
   const product = publishedProduct || {
     title: 'BiblioRename',
     description:
-      'Our AI reads your visual hierarchy to apply consistent, semantic names instantly.\nTurn Frame 422 into Primary_Button without writing a single rule.',
-    primaryButton: 'Start Renaming',
+      'Reads your visual hierarchy to apply consistent names.\nFrame 422 → Primary_Button with no manual rules.',
+    lastUpdated: '2025-12-11',
+    heroHighlight: {
+      label: 'For senior designers and DesignOps: reclaim up to 12 hours/week.',
+      icon: 'clock',
+      className: 'biblio-rename-hero-highlight'
+    },
+    primaryButton: 'Get 5 Free Credits',
     primaryButtonLink: pluginInstallUrl,
     primaryButtonIcon: 'arrow-right',
     secondaryButton: 'Learn More',
@@ -95,14 +101,14 @@ const AIRenameVariantsPage = () => {
     details: [
       {
         title: 'Stop fixing messy names by hand',
-        description: 'AI reads your component structure, properties, and patterns to generate consistent, meaningful names automatically.',
+        description: 'Reads component structure and properties to generate consistent names automatically.',
         buttonText: 'Try Plugin For Free',
         buttonLink: pluginInstallUrl,
         mediaComponent: 'feature-blueprint',
         items: [
-          'Let the AI rename messy variant titles instantly, guided by your component context.',
-          'Keep every component aligned with your design system vocabulary automatically.',
-          'Flag duplicate states and legacy tags before the rename publishes to your team.',
+          'Map Frame 422 → Primary_Button using component hierarchy signals.',
+          'Normalize tokens and states so variant sets ship with consistent names.',
+          'Flag duplicates and legacy tags before publishing to the library.',
         ],
         mediaBlueprint: {
           title: 'Smart Rename Blueprint',
@@ -122,13 +128,13 @@ const AIRenameVariantsPage = () => {
       },
       {
         title: 'Bulk renaming made effortless',
-        description: 'Select multiple components, run once, and instantly update every variant and layer — fast, reliable, and consistent.',
+        description: 'Select multiple components once and update every variant and layer reliably.',
         buttonText: 'Try Plugin For Free',
         buttonLink: pluginInstallUrl,
         items: [
-          'Keep multi-state component sets in sync while you batch rename entire libraries.',
-          'Protect overrides and downstream instances when hundreds of layers change at once.',
-          'Apply property optimizations in the same pass so every variant stays consistent.',
+          'Batch rename 186 variants in one run while keeping overrides intact.',
+          'Keep multi-state component sets aligned after bulk updates.',
+          'Apply property and casing rules in the same pass to stay consistent.',
         ],
         mediaComponent: 'feature-blueprint',
         mediaBlueprint: {
@@ -149,13 +155,13 @@ const AIRenameVariantsPage = () => {
       },
       {
         title: 'Make naming match your system',
-        description: "Define custom patterns, prefixes, and conventions that align with your team's design standards and naming logic.",
+        description: 'Define patterns, prefixes, and conventions that match your design standards.',
         buttonText: 'Try Plugin For Free',
         buttonLink: pluginInstallUrl,
         items: [
-          'Define rule blueprints once and auto-apply them to new variants with zero manual edits.',
-          'Map naming outputs directly to the tokens your teams already rely on.',
-          'Guarantee every generated name stays readable for Dev Mode and handoff reviews.',
+          'Set naming rules once; auto-apply to new variants without manual edits.',
+          'Map outputs to existing tokens for Dev Mode and handoff.',
+          'Enforce casing and prefixes so component names stay consistent.',
         ],
         mediaComponent: 'feature-blueprint',
         mediaBlueprint: {
@@ -206,16 +212,16 @@ const AIRenameVariantsPage = () => {
 
   const faqs = [
     {
-      question: "How does BiblioRename understand my component structure?",
-      answer: "The plugin analyzes your component's properties, layer hierarchy, design patterns, and existing naming conventions to generate contextually appropriate names that match your design system standards."
+      question: "Is BiblioRename secure for design files?",
+      answer: "Yes. Rename logic runs inside Figma; we don't export files or store customer data, and team permissions stay enforced."
     },
     {
-      question: "Can I customize the naming patterns and conventions?",
-      answer: "Yes, you can configure custom naming rules, prefixes, suffixes, and patterns to match your team's specific design system guidelines and maintain consistency across all projects."
+      question: "Can we undo a rename run?",
+      answer: "Yes. Every pass uses native Figma undo/redo and a run log so you can roll back instantly."
     },
     {
-      question: "Is it safe to use on important design files?",
-      answer: "Absolutely. The plugin includes comprehensive undo functionality and tracks all changes, allowing you to safely revert any renaming operations if needed."
+      question: "What happens to our files when we rename?",
+      answer: "Only layer and variant names change in place; components, overrides, and instances stay intact with no asset copies."
     }
   ];
 

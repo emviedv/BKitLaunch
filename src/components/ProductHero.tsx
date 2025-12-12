@@ -20,6 +20,7 @@ interface ProductInfo {
   title: string;
   subtitle?: string;
   description?: string;
+  heroHighlight?: HeroHighlight;
   primaryButton?: string;
   primaryButtonLink?: string;
   primaryButtonIcon?: string;
@@ -31,6 +32,7 @@ interface ProductInfo {
   benefits?: string[];
   heroImage?: string;
   heroImageAlt?: string;
+  lastUpdated?: string;
 }
 
 type ProductHeroProps = {
@@ -55,6 +57,12 @@ type NormalizedCallout = {
   label: string;
   icon?: string;
   href?: string;
+};
+
+type HeroHighlight = {
+  label: string;
+  icon?: string;
+  className?: string;
 };
 
 export const ProductHero: React.FC<ProductHeroProps> = ({
@@ -83,6 +91,9 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   const productIconToken = product?.emoji || product?.icon;
   const ProductGlyph = productIconToken ? resolveLucideIcon(productIconToken) : null;
   const PrimaryButtonIcon = product.primaryButtonIcon ? resolveLucideIcon(product.primaryButtonIcon) : null;
+  const highlight = product.heroHighlight;
+  const HighlightIcon = highlight?.icon ? resolveLucideIcon(highlight.icon) : null;
+  const highlightClassName = cn(highlightBaseClassName, highlight?.className);
   // Product hero callouts are intentionally hidden on product pages.
   const calloutItems: NormalizedCallout[] = [];
 
@@ -114,6 +125,9 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   const calloutIconWrapperClassName = 'mt-[2px] flex-shrink-0 text-white';
   const calloutTextClassName = 'text-lg leading-7 font-semibold text-white';
   const calloutLinkClassName = `${calloutTextClassName} product-hero__callout-link text-[#F1A0FF] hover:text-white transition-colors`;
+  const highlightBaseClassName = 'product-hero__highlight inline-flex items-center gap-3 rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-base font-semibold text-white/90 shadow-sm';
+  const highlightIconWrapperClassName = 'product-hero__highlight-icon flex h-9 w-9 items-center justify-center rounded-lg bg-white/15 text-white';
+  const highlightTextClassName = 'product-hero__highlight-text text-left';
   const ctaWrapperClassName = 'relative z-10 mt-0 flex justify-center lg:justify-start';
   const primaryButtonClassName = HERO_PRIMARY_BUTTON_CLASS;
   const glyphWrapperClassName = 'mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-white lg:mx-0';
@@ -149,6 +163,11 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 supports-[backdrop-filter]:bg-white/10">
                   <span className="inline-flex h-2 w-2 rounded-full bg-[#F1A0FF]" />
                   <span>{badgeLabel}</span>
+                </span>
+              )}
+              {product.lastUpdated && (
+                <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/80">
+                  Updated {product.lastUpdated}
                 </span>
               )}
               {headlineSegments.length > 0 ? (
@@ -219,6 +238,21 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                     </div>
                   );
                 })}
+              </div>
+            )}
+
+            {highlight?.label && (
+              <div className={highlightClassName}>
+                {HighlightIcon && (
+                  <span className={highlightIconWrapperClassName}>
+                    <HighlightIcon
+                      className="h-5 w-5"
+                      strokeWidth={1.75}
+                      aria-hidden="true"
+                    />
+                  </span>
+                )}
+                <span className={highlightTextClassName}>{highlight.label}</span>
               </div>
             )}
 

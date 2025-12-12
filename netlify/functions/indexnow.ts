@@ -1,4 +1,6 @@
 import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
+import fs from 'fs';
+import path from 'path';
 import { withCors, sendJSON, handleError } from './utils';
 
 interface IndexNowRequest {
@@ -7,6 +9,26 @@ interface IndexNowRequest {
   keyLocation: string;
   urlList: string[];
 }
+
+const readKeyFromFile = (): string | null => {
+  try {
+    const keyPath = path.join(process.cwd(), 'public', 'indexnow-key.txt');
+    const value = fs.readFileSync(keyPath, 'utf8').trim();
+    return value && /^[a-z0-9]{32}$/i.test(value) ? value : null;
+  } catch {
+    return null;
+  }
+};
+
+const resolveIndexNowKey = (): string | null => {
+  if (typeof process !== 'undefined') {
+    const envKey = process.env.INDEXNOW_KEY;
+    if (envKey && /^[a-z0-9]{32}$/i.test(envKey.trim())) {
+      return envKey.trim();
+    }
+  }
+  return readKeyFromFile();
+};
 
 const indexnowHandler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
   // Only allow POST requests and deploy-succeeded hook
@@ -17,10 +39,13 @@ const indexnowHandler: Handler = async (event: HandlerEvent, context: HandlerCon
   try {
     // Get the site URL from environment or use default
     const siteUrl = process.env.URL || 'https://bibliokit-launch.netlify.app';
-    
-    // IndexNow key (you'll need to generate this)
-    const indexNowKey = process.env.INDEXNOW_KEY || 'demo-key-12345678901234567890123456789012';
-    
+
+    // IndexNow key (env preferred, falls back to public/indexnow-key.txt)
+    const indexNowKey = resolveIndexNowKey();
+    if (!indexNowKey) {
+      return sendJSON(400, { error: 'INDEXNOW_KEY missing; set env or update public/indexnow-key.txt' });
+    }
+
     // URLs to submit for re-indexing
     const urlsToIndex = [
       siteUrl,
