@@ -206,7 +206,7 @@ const Header = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
-                    <div className="absolute top-full left-0 mt-3 w-[380px] rounded-2xl border border-white/12 bg-gradient-to-br from-[#0c0d10]/98 via-[#0b0c0f]/98 to-[#0a0a0c]/98 shadow-[0_26px_80px_rgba(7,5,16,0.55)] backdrop-blur-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="absolute top-full left-0 mt-3 w-[380px] rounded-2xl border border-white/12 bg-[#0b0c0f] shadow-[0_26px_80px_rgba(7,5,16,0.55)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                       <div className="p-4 space-y-2">
                         {(dd.children || []).map((child, ci) => {
                           const href = child.href || '#';

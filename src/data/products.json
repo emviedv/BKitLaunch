@@ -381,30 +381,20 @@
   },
   "products": {
     "ai-rename-variants": {
-      "title": "BiblioRename",
-      "description": "Reads your visual hierarchy to apply consistent names.\nFrame 422 → Primary_Button with no manual rules.",
-      "heroHighlight": {
-        "label": "For senior designers and DesignOps: reclaim up to 12 hours/week.",
-        "icon": "clock",
-        "className": "biblio-rename-hero-highlight"
-      },
-      "primaryButton": "Get 5 Free Credits",
-      "primaryButtonIcon": "arrow-right",
-      "secondaryButton": null,
-      "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
-      "secondaryButtonLink": null,
-      "badgeLabel": "🏷️ Figma Plugin",
-      "lastUpdated": "2025-11-25",
-      "visibility": {
-        "waitlist": false
-      },
-      "callouts": [
-        {
-          "label": "Install BiblioRename on Figma to auto-rename variants instantly.",
-          "icon": "link",
-          "href": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted"
-        }
-      ],
+        "title": "BiblioRename",
+        "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
+        "heroHighlight": null,
+        "primaryButton": "Rename Layers",
+        "primaryButtonIcon": null,
+        "secondaryButton": null,
+        "primaryButtonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+        "secondaryButtonLink": null,
+        "badgeLabel": "🏷️ Figma Plugin",
+        "lastUpdated": null,
+        "visibility": {
+          "waitlist": false
+        },
+        "callouts": null,
       "details": [
         {
           "title": "Stop fixing messy names by hand",

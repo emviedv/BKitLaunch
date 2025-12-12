@@ -513,3 +513,23 @@
 - **Root Cause:** The new blueprint config used a non-existent `slate` theme, causing the UI to break when rendering the feature.
 - **Changed Files:** src/components/AIRenameVariantsPage.tsx; src/data/products.json
 - **Verification:** `npm run build` (pass).
+
+## 2025-12-12
+
+- **Time:** 2025-12-12 02:05 EST
+- **Summary:** Removed the glassmorphism background on header dropdowns; now uses a solid dark surface with the existing border/shadow depth.
+- **Root Cause:** Dropdown panels kept a translucent gradient with backdrop blur, creating the glass look that needed to be removed.
+- **Changed Files:** src/components/Header.tsx
+- **Verification:** Not run (visual check header dropdown surface is opaque dark with no blur).
+
+- **Time:** 2025-12-12 02:10 EST
+- **Summary:** Reverted BiblioRename hero copy to the earlier version by removing the highlight/badge/callouts and restoring the older CTA/description so the hero matches the pre-layout-change content.
+- **Root Cause:** Hero still reflected the newer layout copy; request was to return to the previous version.
+- **Changed Files:** src/data/products.json
+- **Verification:** Not run (visual check hero shows “Stop renaming manually…” with “Rename Layers” CTA and no highlight badge).
+
+- **Time:** 2025-12-12 07:15 EST
+- **Summary:** Restored the Figma plugin badge on BiblioRename hero and removed the last-updated chip to match the requested badge-only state.
+- **Root Cause:** Latest revert dropped the badge and left an updated date; requirement is badge visible, no updated chip.
+- **Changed Files:** src/data/products.json
+- **Verification:** Not run (visual check hero shows the Figma Plugin badge and no “Updated …” chip).

@@ -91,9 +91,6 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   const productIconToken = product?.emoji || product?.icon;
   const ProductGlyph = productIconToken ? resolveLucideIcon(productIconToken) : null;
   const PrimaryButtonIcon = product.primaryButtonIcon ? resolveLucideIcon(product.primaryButtonIcon) : null;
-  const highlight = product.heroHighlight;
-  const HighlightIcon = highlight?.icon ? resolveLucideIcon(highlight.icon) : null;
-  const highlightClassName = cn(highlightBaseClassName, highlight?.className);
   // Product hero callouts are intentionally hidden on product pages.
   const calloutItems: NormalizedCallout[] = [];
 
@@ -128,6 +125,9 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   const highlightBaseClassName = 'product-hero__highlight inline-flex items-center gap-3 rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-base font-semibold text-white/90 shadow-sm';
   const highlightIconWrapperClassName = 'product-hero__highlight-icon flex h-9 w-9 items-center justify-center rounded-lg bg-white/15 text-white';
   const highlightTextClassName = 'product-hero__highlight-text text-left';
+  const highlight = product.heroHighlight;
+  const HighlightIcon = highlight?.icon ? resolveLucideIcon(highlight.icon) : null;
+  const highlightClassName = cn(highlightBaseClassName, highlight?.className);
   const ctaWrapperClassName = 'relative z-10 mt-0 flex justify-center lg:justify-start';
   const primaryButtonClassName = HERO_PRIMARY_BUTTON_CLASS;
   const glyphWrapperClassName = 'mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-white lg:mx-0';
