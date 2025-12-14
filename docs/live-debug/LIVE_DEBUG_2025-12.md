@@ -823,3 +823,9 @@
 - **Root Cause:** The FAQ section heading didn’t match the desired label.
 - **Changed Files:** src/components/AIRenameVariantsPage.tsx
 - **Verification:** Not run (copy-only change; deploy build will run).
+
+- **Time:** 2025-12-14 14:31 EST
+- **Summary:** Numbered the AI Rename FAQ items and kept the “FAQ” heading visible to improve clarity and SEO structure.
+- **Root Cause:** FAQ list was unnumbered and requested to be more explicit for SEO.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx
+- **Verification:** Not run (markup-only change; deploy build will run).
