@@ -787,3 +787,9 @@
 - **Root Cause:** The plugin still used CommonJS `require` and exported `name`, which Netlify 35 treated as an event handler under ESM, throwing “Invalid event 'name'.”
 - **Changed Files:** netlify/plugins/indexnow-notify/index.js
 - **Verification:** netlify deploy --prod --build (pass; deploy live at https://www.bibliokit.com).
+
+- **Time:** 2025-12-14 14:02 EST
+- **Summary:** Restored the `/admin` route with a guarded placeholder screen so the URL no longer 404s on production; links offer a return to the site or a mailto to request credentials.
+- **Root Cause:** The SPA routing table lacked an `/admin` entry after the CMS stack was stripped, so Netlify SSR fell through to the 404 component.
+- **Changed Files:** src/config/routes.ts; src/App.tsx; src/components/AdminPage.tsx
+- **Verification:** npm run build

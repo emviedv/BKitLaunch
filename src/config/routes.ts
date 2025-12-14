@@ -4,6 +4,7 @@ export const ROUTE_PATHS = {
   BIBLIO_RENAME: '/biblio-rename',
   AI_RENAME_VARIANTS: '/ai-rename-variants',
   UXBIBLIO: '/uxbiblio',
+  ADMIN: '/admin',
   BLOG: '/blog',
   BLOG_ARTICLE: '/blog/:slug',
   RESOURCES: '/resources',

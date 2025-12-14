@@ -17,6 +17,7 @@ import RemovePrototypeLinkPage from './components/RemovePrototypeLinkPage';
 import BlogPage from './components/BlogPage';
 import BlogArticlePage from './components/BlogArticlePage';
 import Docs from './components/Docs';
+import AdminPage from './components/AdminPage';
 
 // Context & Hooks
 import { usePublishedContent } from './hooks/usePublishedContent';
@@ -134,6 +135,7 @@ const AppContent: React.FC = () => {
           <Route path={ROUTE_PATHS.DOCS} component={Docs} />
           <Route path={ROUTE_PATHS.BIBLIO_RENAME} component={AIRenameVariantsPage} />
           <Route path={ROUTE_PATHS.AI_RENAME_VARIANTS} component={LegacyAIRenameRedirect} />
+          <Route path={ROUTE_PATHS.ADMIN} component={AdminPage} />
           <Route path={ROUTE_PATHS.UXBIBLIO}>
             {() => <DynamicProductPage slug="uxbiblio" />}
           </Route>
