@@ -260,7 +260,7 @@ const AIRenameVariantsPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Level up your design system.</h2>
-              <p className="text-xl text-purple-200 mb-8">Start with 8 free credits and clean up variant naming today.</p>
+              <p className="text-xl text-purple-200 mb-8">Start with 8 free credits and erase variant naming debt in minutes.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
                   Start fixing — 8 free credits

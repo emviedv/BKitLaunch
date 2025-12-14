@@ -805,3 +805,9 @@
 - **Root Cause:** The hero CTA still showed pricing and a Team Rollout Guide despite the request to drop pricing and guides/playbooks for products.
 - **Changed Files:** src/components/AIRenameVariantsPage.tsx
 - **Verification:** npm run build (pass).
+
+- **Time:** 2025-12-14 14:18 EST
+- **Summary:** Made the AI Rename CTA headline more action/benefit-driven while keeping the 8 free credits offer.
+- **Root Cause:** The prior CTA line was descriptive but not strongly action/benefit oriented.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx
+- **Verification:** Not run (copy-only change; deploy build will run).
