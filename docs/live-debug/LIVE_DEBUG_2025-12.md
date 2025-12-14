@@ -793,3 +793,9 @@
 - **Root Cause:** The SPA routing table lacked an `/admin` entry after the CMS stack was stripped, so Netlify SSR fell through to the 404 component.
 - **Changed Files:** src/config/routes.ts; src/App.tsx; src/components/AdminPage.tsx
 - **Verification:** npm run build
+
+- **Time:** 2025-12-14 14:10 EST
+- **Summary:** Simplified the `/admin` placeholder to remove CMS instructions and only direct visitors back to the homepage.
+- **Root Cause:** The interim admin screen had extra guidance and mailto links, but the request was to avoid details and just route users home.
+- **Changed Files:** src/components/AdminPage.tsx
+- **Verification:** Not run (UI copy-only change; build previously passing).
