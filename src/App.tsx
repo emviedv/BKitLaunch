@@ -12,6 +12,9 @@ import ComingSoon from './components/ComingSoon';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AIRenameVariantsPage from './components/AIRenameVariantsPage';
+import BiblioCleanPage from './components/BiblioCleanPage';
+import BiblioAuditPage from './components/BiblioAuditPage';
+import BiblioTablePage from './components/BiblioTablePage';
 import DynamicProductPage from './components/DynamicProductPage';
 import RemovePrototypeLinkPage from './components/RemovePrototypeLinkPage';
 import BlogPage from './components/BlogPage';
@@ -109,6 +112,9 @@ const AppContent: React.FC = () => {
   const shouldSkipSEO = React.useCallback((path: string) => {
     const normalizedPath = (path || '/').split('?')[0].replace(/\/+$/, '') || '/';
     if (normalizedPath === ROUTE_PATHS.BIBLIO_RENAME) return true;
+    if (normalizedPath === ROUTE_PATHS.BIBLIO_CLEAN) return true;
+    if (normalizedPath === ROUTE_PATHS.BIBLIO_AUDIT) return true;
+    if (normalizedPath === ROUTE_PATHS.BIBLIO_TABLE) return true;
     if (normalizedPath === ROUTE_PATHS.AI_RENAME_VARIANTS) return true;
     if (normalizedPath === ROUTE_PATHS.UXBIBLIO) return true;
     if (normalizedPath.startsWith('/blog/') && normalizedPath !== ROUTE_PATHS.BLOG) return true;
@@ -134,6 +140,9 @@ const AppContent: React.FC = () => {
           <Route path={ROUTE_PATHS.HOME} component={HomePage} />
           <Route path={ROUTE_PATHS.DOCS} component={Docs} />
           <Route path={ROUTE_PATHS.BIBLIO_RENAME} component={AIRenameVariantsPage} />
+          <Route path={ROUTE_PATHS.BIBLIO_CLEAN} component={BiblioCleanPage} />
+          <Route path={ROUTE_PATHS.BIBLIO_AUDIT} component={BiblioAuditPage} />
+          <Route path={ROUTE_PATHS.BIBLIO_TABLE} component={BiblioTablePage} />
           <Route path={ROUTE_PATHS.AI_RENAME_VARIANTS} component={LegacyAIRenameRedirect} />
           <Route path={ROUTE_PATHS.ADMIN} component={AdminPage} />
           <Route path={ROUTE_PATHS.UXBIBLIO}>

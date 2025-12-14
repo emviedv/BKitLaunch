@@ -184,3 +184,6 @@ export const FileText = createIconWrapper('solar:file-text-linear');
 export const Image = createIconWrapper('solar:gallery-linear');
 export const Video = createIconWrapper('solar:videocamera-record-linear');
 export const Music = createIconWrapper('solar:music-note-linear');
+export const Layout = createIconWrapper('solar:layers-minimalistic-linear');
+export const Columns = createIconWrapper('solar:list-linear');
+export const Table = createIconWrapper('solar:clipboard-list-linear');

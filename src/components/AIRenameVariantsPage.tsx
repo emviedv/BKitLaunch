@@ -427,17 +427,12 @@ const AIRenameVariantsPage = () => {
                   Try the plugin — 8 free credits
                 </a>
               </Button>
-              <p className="text-sm text-slate-400">Team rollout guide available after install.</p>
             </div>
             <div className="mt-12 pt-12 border-t border-slate-800/50">
                <p className="italic text-slate-400 text-lg mb-6">
                   "Built by a designer who fixed variant chaos after a broken launch."
                </p>
                <div className="flex justify-center items-center gap-2">
-                  <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-                     {/* Figma logo placeholder */}
-                     <div className="w-4 h-4 bg-black rounded-full" />
-                  </div>
                   <span className="font-semibold">5.0</span>
                   <div className="flex text-yellow-500">
                      {[1,2,3,4,5].map(i => <span key={i}>★</span>)}

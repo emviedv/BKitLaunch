@@ -161,6 +161,9 @@ export const buildSitemapXml = (baseUrl: string): string => {
       images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Homepage' }]
     },
     { path: '/biblio-rename', lastmod: defaultLastmod },
+    { path: '/biblio-clean', lastmod: defaultLastmod },
+    { path: '/biblio-audit', lastmod: defaultLastmod },
+    { path: '/biblio-table', lastmod: defaultLastmod },
     { path: '/uxbiblio', lastmod: defaultLastmod },
     {
       path: '/blog',

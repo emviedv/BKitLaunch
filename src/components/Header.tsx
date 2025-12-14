@@ -62,8 +62,7 @@ const Header = () => {
           const { badge, ...rest } = child;
           return {
             ...rest,
-            href: 'https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit',
-            isExternal: true,
+            href: '/biblio-audit',
           };
         }
         return child;
@@ -95,11 +94,15 @@ const Header = () => {
     label: 'Resources',
     children: [
       {
-        label: 'BiblioClean — The Blue Line Wiper',
-        href: 'https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines',
-        description: 'Remove prototype links safely without breaking your main components.',
+            label: 'BiblioClean — The Blue Line Wiper',
+            href: '/biblio-clean',        description: 'Remove prototype links safely without breaking your main components.',
         icon: 'plug',
-        isExternal: true,
+      },
+      {
+        label: 'BiblioTable — Normalize Figma Tables',
+        href: '/biblio-table',
+        description: 'Equalize column widths and fix row heights in auto-layout tables.',
+        icon: 'layout',
       }
     ],
   };

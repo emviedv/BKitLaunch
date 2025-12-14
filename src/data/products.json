@@ -59,17 +59,15 @@
           },
           {
             "label": "BiblioClean — The Blue Line Wiper",
-            "href": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
-            "isExternal": true,
+            "href": "/biblio-clean",
             "description": "Remove prototype links safely without breaking main components.",
             "icon": "broom"
           },
           {
             "label": "BiblioAudit — Find Detached Instances & Design System Check",
-            "href": "https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit",
+            "href": "/biblio-audit",
             "description": "Scan Figma files for detached instances, token drift, and dirty overrides with automated QA.",
-            "icon": "🧭",
-            "isExternal": true
+            "icon": "🧭"
           }
         ]
       },
@@ -123,7 +121,7 @@
       ],
       "showBadge": true,
       "badgeColor": "#0ea5e9",
-      "buttonLink": "https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit",
+      "buttonLink": "/biblio-audit",
       "buttonText": "Audit my file now",
       "isFeatured": false,
       "description": "BiblioAudit is the automated QA tool for Figma. Find detached instances, validate tokens, flag dirty overrides, and reveal deprecated or rogue components—whether you scan a selection, a single page, or the full file.",
@@ -149,7 +147,7 @@
       ],
       "showBadge": true,
       "badgeColor": "#0ea5e9",
-      "buttonLink": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
+      "buttonLink": "/biblio-clean",
       "buttonText": "Clean prototype links",
       "isFeatured": false,
       "description": "The Blue Line Wiper. The safest way to remove prototype links and external connections. Cleans visual clutter without breaking your main components.",
@@ -199,7 +197,7 @@
       ],
       "showBadge": true,
       "badgeColor": "#8b5cf6",
-      "buttonLink": "#landing-waitlist",
+      "buttonLink": "/biblio-table",
       "buttonText": "Fix this table",
       "isFeatured": false,
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",

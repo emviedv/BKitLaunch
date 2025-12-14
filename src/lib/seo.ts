@@ -160,6 +160,42 @@ const biblioRenameMetadata: SEOMetadata = {
   twitterImage: '/og/og-default.svg'
 };
 
+const biblioTableMetadata: SEOMetadata = {
+  title: 'BiblioTable | Normalize Figma Tables in One Click',
+  description: 'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.',
+  keywords: 'BiblioTable, figma table plugin, auto-layout tables, figma columns, zebra striping, design ops, figma automation',
+  ogTitle: 'BiblioTable | Normalize Figma Tables in One Click',
+  ogDescription: 'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.',
+  ogImage: '/og/og-default.svg',
+  twitterTitle: 'BiblioTable | Normalize Figma Tables in One Click',
+  twitterDescription: 'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.',
+  twitterImage: '/og/og-default.svg'
+};
+
+const biblioAuditMetadata: SEOMetadata = {
+  title: 'BiblioKit | BiblioAudit for Figma',
+  description: 'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.',
+  keywords: 'BiblioAudit, design system audit, figma qa, detached instances, token validation, figma plugin, design ops',
+  ogTitle: 'BiblioKit | BiblioAudit for Figma',
+  ogDescription: 'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.',
+  ogImage: '/og/og-default.svg',
+  twitterTitle: 'BiblioKit | BiblioAudit for Figma',
+  twitterDescription: 'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.',
+  twitterImage: '/og/og-default.svg'
+};
+
+const biblioCleanMetadata: SEOMetadata = {
+  title: 'BiblioKit | BiblioClean for Figma',
+  description: 'Instantly find and revoke public share links before they leak. The safest way to remove prototype connections in Figma without breaking components.',
+  keywords: 'BiblioClean, remove prototype link, figma prototype cleanup, revoke share links, design system safety, figma plugin, design ops',
+  ogTitle: 'BiblioKit | BiblioClean for Figma',
+  ogDescription: 'Instantly find and revoke public share links before they leak. The safest way to remove prototype connections in Figma without breaking components.',
+  ogImage: '/og/og-default.svg',
+  twitterTitle: 'BiblioKit | BiblioClean for Figma',
+  twitterDescription: 'Instantly find and revoke public share links before they leak. The safest way to remove prototype connections in Figma without breaking components.',
+  twitterImage: '/og/og-default.svg'
+};
+
 // Route-specific metadata configurations
 export const routeMetadata: RouteMetadata = {
   '/': {
@@ -262,6 +298,9 @@ export const routeMetadata: RouteMetadata = {
     ]
   },
   '/biblio-rename': biblioRenameMetadata,
+  '/biblio-clean': biblioCleanMetadata,
+  '/biblio-audit': biblioAuditMetadata,
+  '/biblio-table': biblioTableMetadata,
   '/ai-rename-variants': biblioRenameMetadata,
   '/uxbiblio': {
     title: 'UXBiblio by BiblioKit | AI Library for UX Patterns',
