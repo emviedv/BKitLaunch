@@ -127,7 +127,7 @@ const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: s
             />
           </div>
           {(block.caption || resolvedAlt) && (
-            <figcaption className="text-sm text-slate-500">
+            <figcaption className="text-sm italic text-slate-500">
               {block.caption || resolvedAlt}
             </figcaption>
           )}
@@ -272,12 +272,12 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
         <LandingHero hero={resolvedHero} compact />
       </div>
       <article className="section-content pb-20 pt-6">
-        <div className="mx-auto w-full max-w-[720px] mb-4 flex items-start">
+        <div className="mx-auto w-full max-w-[780px] mb-4 flex items-start">
           <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/80">
             Updated {updatedDate}
           </span>
         </div>
-        <div className="mx-auto w-full max-w-[720px] space-y-8 rounded-[28px] border border-white/10 bg-white/5 px-6 py-10 shadow-[0_24px_60px_rgba(7,5,16,0.4)] backdrop-blur text-white">
+        <div className="mx-auto w-full max-w-[780px] space-y-8 text-white">
           {post.content ? (
             <div className="space-y-6">
               {post.content.map((block, index) => renderContentBlock(block, index, post.slug))}

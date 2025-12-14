@@ -5,7 +5,7 @@ const BLOG_LIST_SECTION_ID = 'blog-latest';
 const blogCardHoverClass =
   'transition hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
 const blogCtaButtonClass =
-  'w-full sm:w-auto inline-flex min-w-[12rem] items-center justify-center rounded-[2px] bg-[#ff2f87] px-4 py-[10px] text-sm font-semibold text-white shadow-none transition-colors duration-200 hover:bg-[#e02074]';
+  'inline-flex items-center justify-center text-sm font-semibold text-[#ff2f87] underline underline-offset-4 transition duration-200 hover:text-[#e02074] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
 
 const BlogPage: React.FC = () => {
   const featuredPost = BLOG_POSTS[0];
@@ -15,21 +15,24 @@ const BlogPage: React.FC = () => {
       <section
         id={BLOG_LIST_SECTION_ID}
         className="landing-hero-gradient landing-hero-compact section-hero relative overflow-hidden"
-        style={{ paddingTop: '120px', paddingBottom: '120px' }}
+        style={{ paddingTop: '72px', paddingBottom: '120px' }}
       >
         <div className="landing-hero-gradient__layer" aria-hidden="true" />
         <div className="landing-hero-noise" aria-hidden="true" />
         <div className="relative z-10 section-content pb-0 text-white">
-          <div className="max-w-3xl pb-10">
-            <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
-              BiblioKit Blog | Design Ops Playbooks
-            </h1>
-            <p className="mt-3 text-lg text-white/80">
-              Field notes, rituals, and Figma plugin tips that help designers and developers ship cleaner files faster with BiblioKit.
-            </p>
-          </div>
           <div className="grid gap-10 lg:gap-[168px] lg:grid-cols-3 lg:items-start">
             <div className="lg:col-span-2">
+              <div className="max-w-3xl pb-10">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
+                  Build stuff people love
+                </p>
+                <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
+                  BiblioKit Blog
+                </h1>
+                <p className="mt-3 text-lg text-white/80">
+                  From kickoff to ship: tools and workflows that keep designers, developers, and marketers on one page.
+                </p>
+              </div>
               {featuredPost && (
                 <article className="flex flex-col gap-4 text-left text-white">
                   <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 shadow-[0_0_30px_rgba(250,174,255,0.25)] supports-[backdrop-filter]:bg-white/10">
@@ -49,10 +52,15 @@ const BlogPage: React.FC = () => {
                   <p className="mt-2 pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
                     {featuredPost.category} • {featuredPost.readingTime}
                   </p>
-                  <h2 className="text-[48px] font-bold leading-[1.05] tracking-tight sm:text-[56px] lg:text-[64px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
-                    {featuredPost.title}
+                  <h2 className="text-[48px] font-bold leading-[1.05] tracking-tight sm:text-[56px] lg:text-[64px] text-white">
+                    <a
+                      href={buildBlogPostHref(featuredPost.slug)}
+                      className="inline-block bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent transition hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]"
+                    >
+                      {featuredPost.title}
+                    </a>
                   </h2>
-                  <p className="text-base text-white/80">
+                  <p className="text-base leading-7 text-white/80">
                     {renderTextWithLinks(featuredPost.excerpt)}
                   </p>
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -91,36 +99,42 @@ const BlogPage: React.FC = () => {
       >
         <div className="section-content">
           <div className="space-y-4 text-left">
-            <h2 className="text-2xl font-semibold text-white">Browse BiblioKit Articles</h2>
-            <p className="text-base text-white/80">
-              Design-focused articles, practical ops templates, and product updates to keep your workflows current.
-            </p>
+            <h2 className="text-2xl font-semibold text-white">Browse BiblioKit articles</h2>
+            <p className="text-base leading-7 text-white/80">Workflow tips, state specs, accessibility checks, and system hygiene guides that teams can drop into real projects right now.</p>
           </div>
-          <div className="mt-8 grid gap-6 lg:grid-cols-3">
+          <div className="mt-8 columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6">
             {BLOG_POSTS.map((post) => {
               const href = buildBlogPostHref(post.slug);
-                  return (
-                    <article
-                      key={`${post.title}-card`}
-                      className="rounded-2xl border border-white/10 bg-white/5 p-6 text-left shadow-[0_25px_60px_rgba(7,5,16,0.38)] backdrop-blur"
-                    >
-                      <a
-                        href={href}
-                        className="group flex h-full flex-col rounded-lg"
-                        aria-label={`Read ${post.title}`}
-                      >
-                        <p className="pb-2 text-xs font-semibold uppercase tracking-[0.12em] text-white/60">
-                          {post.category} • {post.readingTime}
-                        </p>
-                        <h3 className="text-xl font-semibold text-white">{post.title}</h3>
-                        <p className="mt-2 flex-1 text-sm text-white/75">
-                          {renderTextWithLinks(post.excerpt)}
-                        </p>
-                        <div className="mt-6">
-                          <span className={blogCtaButtonClass}>Read the article</span>
-                        </div>
-                      </a>
-                    </article>
+              return (
+                <article
+                  key={`${post.title}-card`}
+                  className="mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left backdrop-blur"
+                >
+                  <div className="group flex h-full flex-col rounded-lg">
+                    {post.heroImage && (
+                      <div className="mb-4 overflow-hidden rounded-lg bg-white/10">
+                        <img
+                          src={post.heroImage}
+                          alt={post.heroImageAlt || `${post.title} illustration`}
+                          className="h-[160px] w-full object-cover transition duration-200 group-hover:scale-[1.01]"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    <p className="pb-2 text-xs font-semibold uppercase tracking-[0.12em] text-white/60">
+                      {post.category} • {post.readingTime}
+                    </p>
+                    <a href={href} className="text-xl font-semibold text-white hover:opacity-90">
+                      {post.title}
+                    </a>
+                    <p className="mt-2 flex-1 text-sm text-white/75">
+                      {renderTextWithLinks(post.excerpt)}
+                    </p>
+                    <div className="mt-6">
+                      <span className={blogCtaButtonClass}>Read the article</span>
+                    </div>
+                  </div>
+                </article>
               );
             })}
           </div>

@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "nodenext",
+    "jsx": "react-jsx",
+    "types": ["jest", "node"],
+    "esModuleInterop": true
+  },
+  "include": ["src", "client/src/__tests__/unit/**/*", "jest.setup.ts"]
+}

@@ -122,16 +122,16 @@ const ClientsMarquee: React.FC = () => {
   }
 
   return (
-    <section className="relative isolate py-10 mt-[16px]">
+    <section className="relative isolate h-[280px] flex flex-col justify-center mt-6">
       <div className="mx-auto w-11/12 sm:w-5/6 md:w-[70%] px-6 md:px-10">
-        <div className="pt-4 text-center">
+        <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
             Trusted by modern product teams
           </p>
         </div>
       </div>
 
-      <div className="mt-7 overflow-hidden pb-4">
+      <div className="mt-6 overflow-hidden">
         <div className="px-6 sm:px-8 md:px-10 flex justify-center">
           <div className="clients-marquee">
             <div className="clients-marquee-segment">

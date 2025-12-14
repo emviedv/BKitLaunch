@@ -25,6 +25,163 @@ export type BlogPost = {
 
 const buildHeroImagePath = (fileName: string) => `/blog/${fileName}`;
 
+const componentStatesContent: BlogContentBlock[] = [
+  { type: 'caption', text: 'UI Design' },
+  { type: 'heading', text: 'Mastering UI Component States: Your Secret Weapon for Awesome UI' },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ui-component-states/hero-watercolor.png'),
+    alt: 'Watercolor illustration with text Best Practices for Component States and labels for hover idle active disabled loading',
+    caption: 'Watercolor poster of component states: idle, hover, active, disabled, loading.'
+  },
+  {
+    type: 'paragraph',
+    text: "You know that feeling when you interact with an app or website, and everything just... works? It feels intuitive. You click something, and it reacts. You hover, and it shows you it's clickable."
+  },
+  { type: 'paragraph', text: "That's not magic, my friend. That's the power of UI component states." },
+  { type: 'heading', text: '1. Introduction: The Dynamic World of UI Component States', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Here's the thing: user interfaces aren't static pictures. They're living, breathing ecosystems that respond to human touch, clicks, and even keyboard taps. UI component states are simply how these individual elements - think buttons, input fields, or checkboxes - change their appearance and behavior based on what the user is doing, or what the system is up to."
+  },
+  {
+    type: 'paragraph',
+    text: 'They are like tiny silent conversations happening between your product and its users. Understanding these states is not just a nice-to-have; it is fundamental for crafting experiences that feel intuitive, helpful, and not frustrating.'
+  },
+  {
+    type: 'paragraph',
+    text: "In this guide, we are going to pull back the curtain on these unsung heroes of UI design. We will start with the humble button and then branch out, showing you how thoughtful state management can elevate your designs."
+  },
+  { type: 'heading', text: '2. The Importance of Component States in UI Design', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Why should you care so much about something as seemingly small as a button's hover state? It makes a huge difference."
+  },
+  { type: 'heading', text: 'Enhancing User Experience', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Imagine clicking a button and nothing happens visually. You would probably click it again or wonder if it is broken. States prevent that confusion. They provide instant feedback, letting users know their actions are registered, what is interactive, and what they can expect next. This clarity builds trust."
+  },
+  { type: 'heading', text: 'Improving Accessibility and Inclusivity', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Good design is for everyone. Component states play a massive role in accessibility, especially for users who rely on keyboard navigation. A clear focus state tells a keyboard user exactly where they are on the page. Without these visual cues, many users would find your interface incredibly difficult to use.'
+  },
+  { type: 'heading', text: 'Ensuring Consistency', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Think about your favorite apps. Do their buttons look and behave differently on different screens? Probably not. Consistent states mean users learn how to interact with one part of your product and can apply that knowledge everywhere else. It reduces cognitive load.'
+  },
+  { type: 'heading', text: 'Streamlining Development Hand-off', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'When you hand off your designs to developers, well-defined component states are a godsend. They spell out exactly how each element should look in every scenario, reducing assumptions and making the build process faster.'
+  },
+  { type: 'heading', text: '3. Deep Dive into Button States', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Buttons are the workhorses of any UI. Mastering their states is like learning the alphabet of user interaction.'
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ui-component-states/dashboard-dark.png'),
+    alt: 'Dark dashboard UI showing toggles buttons and charts',
+    caption: 'Dark dashboard UI showing toggles, buttons, and charts for state examples.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Normal/Default State: Your button at rest, waiting for interaction.',
+      'Hover State: Signals "I am interactive" with a slight color shift or elevation shadow for discoverability.',
+      'Active/Pressed State: Immediate feedback during click that confirms engagement.',
+      'Focus State: A prominent outline or halo when tabbed to via keyboard so users know exactly where they are.',
+      "Disabled State: A clear visual dead end (often reduced opacity) to prevent frustrating clicks on inactive elements.",
+      'Loading State: A spinner or dimmed state to manage expectations and prevent double-clicking during work.'
+    ]
+  },
+  { type: 'heading', text: '4. Expanding Beyond Buttons', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'The principles above are not just for buttons. Almost every UI element lives multiple lives.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Input Fields: Default, focus with a highlighted border, active or filled, error with a message, and success.',
+      'Checkboxes and Radios: Unchecked, checked, and the tricky indeterminate state for partial selections.',
+      'Dropdowns: Closed versus open.',
+      'Cards: Often have hover lifts or selected states.'
+    ]
+  },
+  { type: 'heading', text: '5. Designing and Documenting Component States Effectively', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'You get why states matter. Now, design and manage them without pulling your hair out.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Visual Cues: Use subtle shifts in color, typography, or iconography. Stay consistent - do not use red for success in one place and error in another.',
+      'Microinteractions: A gentle fade or springy bounce can turn a clunky click into a delightful moment.',
+      'Building a Design System: Establish clear rules so your system is the single source of truth for every state.'
+    ]
+  },
+  { type: 'heading', text: '6. Maintaining Design System Consistency and Health', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Design systems can get messy. As teams move fast, one-off components creep in and drift from the standard.'
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ui-component-states/desk-ui-library.jpg'),
+    alt: 'Desktop monitor showing design system library boards with plants in foreground',
+    caption: 'Design system library boards open on desktop with plants in the foreground.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Ensuring component states stay correct and up to date is a continuous challenge that takes vigilance and the right tools.'
+  },
+  { type: 'heading', text: 'The "Detached Instance" Nightmare', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'In tools like Figma, a detached instance breaks the link to the master component. Updates to the main component will not apply, and inconsistencies multiply over time.'
+  },
+  { type: 'heading', text: 'How to Fix It (Without Losing Your Mind)', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Finding and managing these rogue elements is critical for a healthy system. Use BiblioAudit: Find Detached Instances and Design System Check (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to scan files, reattach instances, and fix drift before it hits development.'
+  },
+  { type: 'heading', text: 'Automating the Documentation Gap', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Documentation is usually the first thing skipped under deadline. Instead of manually writing every hover, focus, and error state, use BiblioStates: Component State Generator and Specs (https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) to auto-generate visual states and documentation cards for engineers.'
+  },
+  { type: 'heading', text: '7. Best Practices for Implementing Component States', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Here is the actionable short list to keep your UI sharp.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      "Prioritize clarity: if a state does not make the user's life easier, rethink it.",
+      'Accessibility is mandatory: consider keyboard users and screen readers and test focus states rigorously.',
+      'Use purposeful motion: keep transitions smooth and fast enough to avoid jank.',
+      'Test on real devices: what looks fine on a 4K monitor might be invisible on a phone in sunlight.',
+      'Iterate: your design system should evolve alongside your product.'
+    ]
+  },
+  { type: 'heading', text: '8. Conclusion: Elevating User Experiences', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Well-defined, consistently applied component states are the bedrock of dynamic, user-friendly interfaces. They orchestrate seamless user journeys.'
+  },
+  {
+    type: 'paragraph',
+    text: "By mastering state management and using the right tools to maintain it, you are making experiences understandable, accessible, and enjoyable. Pay attention to the subtle shifts and clear outlines - your users and developers will thank you."
+  }
+];
+
 const autoLayoutWrapContent: BlogContentBlock[] = [
   { type: 'heading', text: 'Mastering Figma Auto Layout Wrap: The 2025 Guide to Responsive Components' },
   {
@@ -123,6 +280,143 @@ const autoLayoutWrapContent: BlogContentBlock[] = [
       'Set min/max widths to control the flow.',
       'Keep your structure clean - one rogue Fixed layer breaks the whole flow.'
     ]
+  }
+];
+
+const tableDesignContent: BlogContentBlock[] = [
+  { type: 'heading', text: 'Effortless Table Design: Solve Auto-Layout Issues & Align Data Flawlessly' },
+  {
+    type: 'image',
+    src: buildHeroImagePath('effortless-table-design/effortless-table-design-hero.png'),
+    alt: 'Table UI listing team members with roles and last activity timestamps'
+  },
+  {
+    type: 'paragraph',
+    text: 'Ever feel like tables are the unsung heroes of UI design? They might not have the flashy appeal of a hero banner, but let\'s be real: tables are the backbone of how we present complex data. Without them, deciphering information would be a nightmare.'
+  },
+  {
+    type: 'paragraph',
+    text: "Here's the thing about tables: they're everywhere. From dashboards to e-commerce orders, they're how users process crucial information. That's why designing them effectively isn't just nice-to-have; it's absolutely essential for readability, a smooth user experience, and actually helping people understand what they're looking at."
+  },
+  { type: 'heading', text: 'Core Principles of Effective Table Design', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'So, how do we make tables work for us, not against us? It all starts with a few core principles that guide great table design.'
+  },
+  { type: 'heading', text: 'Readability and Scannability', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "First up: can people actually read this thing? Typography choices, the amount of space between elements, and even subtle color cues all play a massive role. Good spacing, for instance, prevents data points from feeling jammed together and overwhelming."
+  },
+  { type: 'heading', text: 'Hierarchy and Structure', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Think about how your eye naturally moves. Clear headers, distinct rows, and well-defined columns create a visual hierarchy that tells users what's most important. Without a good structure, a table just looks like a confusing wall of text and numbers."
+  },
+  { type: 'heading', text: 'Consistency', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "This one's a biggie. Imagine different tables on your site looking completely different. Yikes! Maintaining consistent visual standards across all your designs means users don't have to relearn how to interpret data every time. It builds trust and familiarity."
+  },
+  { type: 'heading', text: 'Accessibility', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "We can't forget accessibility. Tables need to be usable by everyone. This means following WCAG guidelines, ensuring proper semantic structure, and making sure elements like headers are correctly identified for screen readers. It's not just good practice; it's the right thing to do."
+  },
+  { type: 'heading', text: 'Common Challenges in Table Layout & Data Alignment', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Even with those principles in mind, designing tables often feels like a constant battle. Especially when you're dealing with real-world data."
+  },
+  {
+    type: 'paragraph',
+    text: 'One major headache is managing large datasets. How do you present hundreds or thousands of rows without completely overwhelming your users? Scrolling forever isn\'t usually the best answer.'
+  },
+  {
+    type: 'paragraph',
+    text: "Then there's the beast of responsive design. How does a complex table magically adapt to a tiny phone screen without breaking? It's a puzzle that many designers struggle with daily."
+  },
+  { type: 'heading', text: 'The Notorious Auto-Layout Headaches', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'But perhaps the biggest, most soul-crushing problem for designers using tools like Figma? Auto-layout. Oh, auto-layout.'
+  },
+  {
+    type: 'paragraph',
+    text: "You know the drill: inconsistent spacing, data that just won't align perfectly, and scaling issues where one content change throws everything out of whack. It's like trying to herd cats. Maintaining cell integrity – ensuring that each cell holds its own and doesn't get squished or stretched unexpectedly – feels like a constant fight against the very tools meant to help us."
+  },
+  { type: 'heading', text: 'Strategies for Streamlining Table Design Workflow', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Okay, enough commiserating. Let's talk solutions. How do we make this whole table-design thing less painful?"
+  },
+  {
+    type: 'paragraph',
+    text: 'A huge step is leveraging design systems and components. Building reusable table components means you only have to solve those auto-layout puzzles once. Then, you can just drop in your pre-configured table component and swap out the data. Sweet, right?'
+  },
+  {
+    type: 'paragraph',
+    text: 'Thinking about how you structure your data before you design can save a ton of time. Grouping related information logically helps both you and your users.'
+  },
+  {
+    type: 'paragraph',
+    text: 'For responsive tables, think beyond just simple scaling. Techniques like horizontal scrolling for less critical columns, collapsing rows into expandable details, or even transforming rows into individual "card" layouts for mobile can make a world of difference.'
+  },
+  {
+    type: 'paragraph',
+    text: "And don't forget visual hierarchy and information grouping. Use subtle background colors, bolder text for headers, or alternating row colors to make the data easier to scan and understand at a glance."
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('effortless-table-design/bibliotable-auto-layout-fixer.png'),
+    alt: 'BiblioTable Figma plugin panel showing column width controls, zebra striping, and layout charts'
+  },
+  { type: 'heading', text: 'Tools and Plugins for Flawless Table Creation & Management', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Modern design tools like Figma, Sketch, and Adobe XD all offer robust auto-layout and component features. They're powerful, but let's be honest, getting them to play nice with complex table structures can still feel like rocket science sometimes."
+  },
+  {
+    type: 'paragraph',
+    text: "This is where a little help from the community comes in handy. If you've been tearing your hair out over misaligned cells and endless manual adjustments, you absolutely need to check out the Bibliotable Auto-Layout Table Fixer & Data Aligner."
+  },
+  {
+    type: 'paragraph',
+    text: "This Figma plugin is a game-changer because it's built specifically to solve those common auto-layout and data alignment problems we just talked about. Instead of fiddling with individual cell constraints for ages, Bibliotable swoops in to automate spacing, ensure perfect alignment, and even help with responsive adjustments."
+  },
+  {
+    type: 'paragraph',
+    text: 'Imagine a world where your table cells just... work. This plugin aims to give you that by letting you set up your table structure and then letting it do the heavy lifting of keeping everything tidy. It means less time debugging your auto-layout stack and more time focusing on the actual user experience. If you want to boost your design efficiency and get rid of those table headaches, this tool is definitely worth adding to your Figma arsenal. Find it here: Bibliotable Auto-Layout Table Fixer & Data Aligner.'
+  },
+  { type: 'heading', text: 'Advanced Table Features & Interactions', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Beyond the basics, tables can offer some pretty neat interactions that make them even more powerful.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Think about sorting and filtering options. Allowing users to quickly reorder data by date, name, or value, or filter out irrelevant information, makes a table incredibly useful.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Pagination versus infinite scroll is another hot topic. For massive datasets, pagination gives users a sense of control and prevents endless scrolling, while infinite scroll works great for exploratory data.'
+  },
+  {
+    type: 'paragraph',
+    text: 'You can also include inline editing, where users can directly modify data within the table itself. This is fantastic for boosting productivity in admin panels or dashboards. And simple things like hover states or selection feedback make tables feel more dynamic and responsive to user input.'
+  },
+  { type: 'heading', text: 'Conclusion: Elevate Your Data Presentation with Smart Table Design', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "So, what's the big takeaway here? Tables are more than just grids; they're critical tools for data comprehension and user experience. Getting them right means paying attention to readability, hierarchy, consistency, and accessibility."
+  },
+  {
+    type: 'paragraph',
+    text: "And let's not forget tackling those frustrating auto-layout issues head-on. By applying smart design principles, leveraging component-based workflows, and using helpful tools like the Bibliotable Auto-Layout Table Fixer & Data Aligner, you can elevate your data presentation from clunky to flawless."
+  },
+  {
+    type: 'paragraph',
+    text: "Ultimately, well-designed tables aren't just about making things look pretty. They're about empowering users, reducing friction, and making complex information digestible. So go forth and design some truly awesome tables! Your users (and your sanity) will thank you."
   }
 ];
 
@@ -463,307 +757,233 @@ const removePrototypeLinksFaqs: BlogFAQ[] = [
 
 const designSystemGuidelinesContent: BlogContentBlock[] = [
   { type: 'heading', text: 'Best Practices for Effective Design System Guidelines' },
-  { type: 'caption', text: 'Design system illustration' },
   {
-    type: 'paragraph',
-    text: 'Design system guidelines are a set of standards and principles that govern the design and development of products. These guidelines are crucial for ensuring that everyone involved in the project is on the same page, working towards a unified vision. They include everything from color palettes and typography to components and interaction patterns.'
+    type: 'image',
+    src: buildHeroImagePath('design-system-guidelines/hero-1.jpg'),
+    alt: 'Desktop monitor showing design system components alongside a notebook, pen, mug, and color swatches',
+    caption: 'Design system hub on desktop with palettes, wireframes, and color swatches ready for review.'
   },
-  { type: 'heading', text: 'Components of Design System Guidelines' },
   {
-    type: 'paragraph',
-    text: 'Design system guidelines encompass various components that work together to form a cohesive whole. These components include visual elements like color schemes and typography, as well as functional components such as buttons, forms, and navigation patterns. Each component plays a specific role in ensuring consistency across different platforms and devices.'
-  },
-  { type: 'heading', text: 'Role of Design System Guidelines in Brand Identity' },
-  {
-    type: 'paragraph',
-    text: 'Design system guidelines play a pivotal role in maintaining and reinforcing brand identity. They ensure that every digital touchpoint reflects the core values and aesthetics of the brand, creating a unified and recognizable presence. A strong brand identity built on consistent design elements enhances user trust and loyalty.'
-  },
-  { type: 'heading', text: 'Challenges in Creating Design System Guidelines' },
-  {
-    type: 'paragraph',
-    text: 'Creating design system guidelines involves overcoming several challenges. One common challenge is balancing flexibility with consistency, ensuring that the guidelines are adaptable to different contexts while maintaining a unified look and feel. Additionally, keeping the guidelines up-to-date with evolving design trends and technological advancements is crucial for their continued relevance.'
-  },
-  { type: 'heading', text: 'Why Are Design System Guidelines Important?' },
-  {
-    type: 'paragraph',
-    text: 'Design system guidelines offer numerous benefits. They enhance productivity by providing designers and developers with a clear roadmap, reducing the need for repeated decision-making. Moreover, they ensure brand consistency, which is vital for building trust and recognition among users. By adhering to these guidelines, teams can create a seamless user experience across various platforms and devices.'
-  },
-  { type: 'heading', text: 'Enhancing Team Collaboration' },
-  {
-    type: 'paragraph',
-    text: 'Design system guidelines foster a collaborative environment by providing a shared language for designers and developers. When everyone is aligned with the same standards and principles, it becomes easier to communicate ideas and feedback, leading to more efficient collaboration and quicker problem-solving.'
-  },
-  { type: 'heading', text: 'Streamlining Design and Development Processes' },
-  {
-    type: 'paragraph',
-    text: 'By offering a predefined set of components and patterns, design system guidelines streamline both design and development processes. This reduces redundancy and accelerates the creation of new products and features, allowing teams to focus on innovation and user experience.'
-  },
-  { type: 'heading', text: 'Ensuring Long-Term Scalability' },
-  {
-    type: 'paragraph',
-    text: 'A robust design system ensures scalability by providing a framework that can evolve with the brand. As organizations grow and their needs change, the design system can be expanded to accommodate new requirements without sacrificing consistency or quality.'
-  },
-  { type: 'heading', text: 'The Process for Creating a Design System' },
-  {
-    type: 'paragraph',
-    text: "Building a design system involves several critical steps. Here's a straightforward process to guide you through the creation and implementation of an effective design system."
-  },
-  { type: 'heading', text: '1. Conduct a Thorough Audit' },
-  { type: 'caption', text: 'turned on monitoring screen' },
-  {
-    type: 'paragraph',
-    text: "Before diving into the creation of a design system, start with a comprehensive audit of your existing design assets. Review all current design elements, components, and patterns in use. This audit will help you identify inconsistencies and areas for improvement. It's also an excellent opportunity to gather feedback from designers and developers on what works and what doesn't."
-  },
-  { type: 'heading', text: 'Evaluating Existing Assets' },
-  {
-    type: 'paragraph',
-    text: 'During the audit, evaluate the current design assets for consistency and effectiveness. Identify components that are frequently used and those that are redundant or outdated. Understanding the current state of your design elements is crucial for making informed decisions about what to include in the new system.'
-  },
-  { type: 'heading', text: 'Gathering Team Insights' },
-  {
-    type: 'paragraph',
-    text: 'Engage with your design and development teams to gather insights on existing workflows and challenges. This collaborative approach ensures that the design system addresses the real-world needs of its users and incorporates valuable feedback from those who will use it most.'
-  },
-  { type: 'heading', text: 'Identifying Gaps and Opportunities' },
-  {
-    type: 'paragraph',
-    text: 'The audit process also involves identifying gaps and opportunities for improvement. Look for areas where the current design system falls short and explore new design trends and technologies that can enhance the system\'s effectiveness and user experience.'
-  },
-  { type: 'heading', text: '2. Define Core Principles' },
-  { type: 'caption', text: 'Design principles brainstorming' },
-  {
-    type: 'paragraph',
-    text: 'Core principles serve as the foundation of your design system. They reflect the values and goals of your brand and guide the decision-making process. When defining these principles, consider aspects such as accessibility, scalability, and user-centricity. These principles will serve as a north star for your design and development teams.'
-  },
-  { type: 'heading', text: 'Establishing Brand Values' },
-  {
-    type: 'paragraph',
-    text: "Begin by establishing the core values that define your brand's identity. These values will inform the design principles and ensure that every component of the design system aligns with the overall brand vision and mission."
-  },
-  { type: 'heading', text: 'Balancing Flexibility and Consistency' },
-  {
-    type: 'paragraph',
-    text: 'When defining core principles, strike a balance between flexibility and consistency. Ensure that the guidelines allow for creative freedom while maintaining a cohesive look and feel across all products and platforms. This balance is essential for encouraging innovation without compromising brand integrity.'
-  },
-  { type: 'heading', text: 'Integrating User-Centric Design' },
-  {
-    type: 'paragraph',
-    text: 'Incorporate user-centric design principles into your core guidelines. Prioritize user needs and experiences in every design decision, ensuring that the system enhances usability and accessibility for all users, regardless of their abilities or preferences.'
-  },
-  { type: 'heading', text: '3. Create a Component Library' },
-  { type: 'caption', text: 'a close up of a computer monitor and a laptop' },
-  {
-    type: 'paragraph',
-    text: 'A component library is a collection of reusable design elements and patterns. It includes everything from buttons and icons to navigation bars and forms. By standardizing these components, you ensure consistency across all products and platforms. Moreover, a well-organized component library can significantly speed up the design and development process.'
-  },
-  { type: 'heading', text: 'Standardizing Design Elements' },
-  {
-    type: 'paragraph',
-    text: 'Standardize design elements by creating a unified set of components that can be reused across different projects. This standardization reduces redundancy and ensures that every product reflects the same high-quality design standards.'
-  },
-  { type: 'heading', text: 'Organizing the Library for Accessibility' },
-  {
-    type: 'paragraph',
-    text: 'Organize the component library in a way that makes it easily accessible and navigable for designers and developers. Use clear categories and labels, and provide detailed documentation for each component to facilitate quick reference and usage.'
-  },
-  { type: 'heading', text: 'Encouraging Reusability and Adaptability' },
-  {
-    type: 'paragraph',
-    text: 'Design the component library with reusability and adaptability in mind. Ensure that components are flexible enough to be adapted for different contexts without losing their core functionality or aesthetic appeal. This adaptability enhances the efficiency of the design and development processes.'
-  },
-  { type: 'heading', text: '4. Develop Detailed Documentation' },
-  { type: 'caption', text: 'a screen with a bunch of information on it' },
-  {
-    type: 'paragraph',
-    text: 'Comprehensive documentation is crucial for the successful implementation of a design system. It should include guidelines for using design elements, coding standards, and best practices for collaboration. Documentation acts as a reference point for designers and developers, ensuring that everyone is aligned with the design system\'s objectives.'
-  },
-  { type: 'heading', text: 'Creating User-Friendly Documentation' },
-  {
-    type: 'paragraph',
-    text: 'Develop documentation that is user-friendly and easy to navigate. Use clear language, visuals, and examples to explain complex concepts, making it accessible for team members of all levels of expertise.'
-  },
-  { type: 'heading', text: 'Including Coding Standards' },
-  {
-    type: 'paragraph',
-    text: 'Incorporate coding standards into the documentation to ensure consistency in development practices. Provide detailed guidelines on how to implement design components in code, ensuring that developers can easily integrate them into projects.'
-  },
-  { type: 'heading', text: 'Facilitating Ongoing Updates' },
-  {
-    type: 'paragraph',
-    text: 'Design the documentation to accommodate ongoing updates and changes. Establish a process for regularly reviewing and updating the guidelines to reflect new design trends, technologies, and feedback from users.'
-  },
-  { type: 'heading', text: 'Best Practices for Design System Implementation' },
-  {
-    type: 'paragraph',
-    text: 'Implementing a design system requires collaboration across teams, establishing clear communication channels, and encouraging continuous improvement. It\'s essential to prioritize accessibility to ensure inclusivity for all users. Adapting to feedback and evolving the design system over time ensures its long-term relevance and effectiveness.'
-  },
-  { type: 'heading', text: 'Foster Collaboration and Communication' },
-  {
-    type: 'paragraph',
-    text: "A design system is most successful when it's a collaborative effort. Encourage open communication between designers, developers, and stakeholders. Regular meetings and workshops can facilitate knowledge sharing and ensure that everyone is aware of updates and changes to the system."
-  },
-  { type: 'heading', text: 'Building Cross-Functional Teams' },
-  {
-    type: 'paragraph',
-    text: 'Create cross-functional teams that include members from design, development, and product management. This collaboration ensures that diverse perspectives are considered, leading to a more comprehensive and effective design system.'
-  },
-  { type: 'heading', text: 'Establishing Clear Communication Channels' },
-  {
-    type: 'paragraph',
-    text: 'Establish clear communication channels to facilitate ongoing dialogue between team members. Use tools and platforms that support real-time collaboration, allowing for quick feedback and resolution of issues.'
-  },
-  { type: 'heading', text: 'Encouraging Feedback and Iteration' },
-  {
-    type: 'paragraph',
-    text: 'Encourage team members to provide feedback on the design system and suggest improvements. Use this feedback to iterate on the system, ensuring that it continues to meet the evolving needs of the organization and its users.'
-  },
-  { type: 'heading', text: 'Start Small and Iterate' },
-  {
-    type: 'paragraph',
-    text: "When building a design system, it's essential to start small and iterate. Begin by focusing on a few core components and gradually expand the system as needed. This approach allows for flexibility and adaptability, enabling you to refine the system based on user feedback and evolving requirements."
-  },
-  { type: 'heading', text: 'Focusing on Core Components' },
-  {
-    type: 'paragraph',
-    text: "Identify and prioritize the core components that are most critical to your design system's success. By focusing on these foundational elements, you can build a strong base that can be expanded over time."
-  },
-  { type: 'heading', text: 'Testing and Refining the System' },
-  {
-    type: 'paragraph',
-    text: 'Test the initial version of the design system with real users and gather feedback on its effectiveness. Use this feedback to refine and improve the system, ensuring that it meets the needs of both internal teams and end-users.'
-  },
-  { type: 'heading', text: 'Scaling the System Gradually' },
-  {
-    type: 'paragraph',
-    text: 'Gradually expand the design system by adding new components and features as needed. This incremental approach allows for flexibility and adaptability, ensuring that the system can grow and evolve with the organization.'
-  },
-  { type: 'heading', text: 'Prioritize Accessibility' },
-  {
-    type: 'paragraph',
-    text: 'Accessibility should be a top priority in your design system. Ensure that all components are designed with accessibility in mind, adhering to best practices and guidelines such as WCAG (Web Content Accessibility Guidelines). This not only enhances the user experience for individuals with disabilities but also broadens your audience reach.'
-  },
-  { type: 'heading', text: 'Designing for Inclusivity' },
-  {
-    type: 'paragraph',
-    text: 'Design components that are inclusive and accessible to all users, regardless of their abilities. Consider factors such as color contrast, text size, and keyboard navigation to ensure that the system is usable by everyone.'
-  },
-  { type: 'heading', text: 'Adhering to Accessibility Standards' },
-  {
-    type: 'paragraph',
-    text: 'Follow established accessibility standards and guidelines, such as WCAG, to ensure that the design system meets the needs of users with disabilities. Regularly review and update the system to reflect changes in accessibility best practices.'
-  },
-  { type: 'heading', text: 'Educating Team Members on Accessibility' },
-  {
-    type: 'paragraph',
-    text: 'Provide training and resources to educate team members on the importance of accessibility and how to implement it in their work. Encourage a culture of inclusivity and empathy, ensuring that accessibility is a core consideration in all design and development processes.'
-  },
-  { type: 'heading', text: 'Maintain and Evolve the System' },
-  {
-    type: 'paragraph',
-    text: 'A design system is not a one-time project but an ongoing process. Regularly review and update the system to reflect changes in technology, user needs, and design trends. Encourage feedback from users and team members to identify areas for improvement and growth.'
-  },
-  { type: 'heading', text: 'Establishing a Governance Model' },
-  {
-    type: 'paragraph',
-    text: 'Create a governance model to oversee the maintenance and evolution of the design system. This model should outline roles and responsibilities, decision-making processes, and guidelines for updating the system.'
-  },
-  { type: 'heading', text: 'Encouraging Continuous Improvement' },
-  {
-    type: 'paragraph',
-    text: 'Foster a culture of continuous improvement by regularly soliciting feedback from users and team members. Use this feedback to identify areas for enhancement and ensure that the design system remains relevant and effective.'
-  },
-  { type: 'heading', text: 'Adapting to Technological Changes' },
-  {
-    type: 'paragraph',
-    text: 'Stay informed about emerging design trends and technological advancements, and adapt the design system accordingly. This proactive approach ensures that the system remains at the forefront of innovation and continues to meet the needs of its users.'
-  },
-  { type: 'heading', text: 'Provide Training and Support' },
-  {
-    type: 'paragraph',
-    text: 'To ensure successful adoption of the design system, provide training and support for all team members. This can include workshops, tutorials, and onboarding sessions. By equipping your team with the necessary knowledge and skills, you increase the likelihood of consistent and effective use of the design system.'
-  },
-  { type: 'heading', text: 'Offering Comprehensive Training Programs' },
-  {
-    type: 'paragraph',
-    text: 'Develop comprehensive training programs that cover all aspects of the design system, from core principles to technical implementation. Ensure that these programs are accessible to team members of all skill levels.'
-  },
-  { type: 'heading', text: 'Providing Ongoing Support and Resources' },
-  {
-    type: 'paragraph',
-    text: 'Offer ongoing support and resources to help team members navigate the design system. This can include access to documentation, FAQs, and dedicated support channels for answering questions and addressing concerns.'
-  },
-  { type: 'heading', text: 'Encouraging Peer Learning and Knowledge Sharing' },
-  {
-    type: 'paragraph',
-    text: 'Encourage peer learning and knowledge sharing among team members to foster a collaborative learning environment. Create opportunities for team members to share their experiences and insights, building a strong community around the design system.'
-  },
-  { type: 'heading', text: 'Real-World Examples of Successful Design Systems' },
-  {
-    type: 'paragraph',
-    text: 'Several companies have successfully implemented design systems to enhance their design processes. Here are a few examples:'
-  },
-  { type: 'heading', text: "Google's Material Design" },
-  { type: 'caption', text: 'Google sign' },
-  {
-    type: 'paragraph',
-    text: "Google's Material Design system provides a comprehensive set of guidelines and components for creating intuitive and visually appealing user interfaces. It emphasizes consistency, accessibility, and responsiveness across all Google products."
-  },
-  { type: 'heading', text: 'Principles of Material Design' },
-  {
-    type: 'paragraph',
-    text: 'Material Design is guided by core principles such as material metaphor, bold graphics, and motion. These principles ensure that the design system delivers a cohesive and immersive user experience across all platforms.'
-  },
-  { type: 'heading', text: 'Impact on User Experience' },
-  {
-    type: 'paragraph',
-    text: 'Material Design has significantly enhanced the user experience by providing a unified design language that is intuitive and easy to navigate. Its emphasis on accessibility and responsiveness ensures that all users can enjoy a seamless experience, regardless of their device or abilities.'
-  },
-  { type: 'heading', text: "Salesforce's Lightning Design System" },
-  {
-    type: 'paragraph',
-    text: "Salesforce's design system offers a robust framework for building enterprise applications. It includes a library of components, design tokens, and guidelines for creating cohesive and scalable user experiences."
-  },
-  { type: 'heading', text: 'Key Features of the Lightning Design System' },
-  {
-    type: 'paragraph',
-    text: 'The Lightning Design System includes a comprehensive set of components and design tokens that enable developers to create scalable and cohesive enterprise applications. Its focus on modularity and flexibility ensures that the system can adapt to a wide range of business needs.'
-  },
-  { type: 'heading', text: 'Benefits for Enterprise Applications' },
-  {
-    type: 'paragraph',
-    text: 'The Lightning Design System has transformed the development of enterprise applications by providing a consistent and scalable framework. This has reduced development time and enhanced collaboration between design and development teams, leading to more efficient and effective applications.'
-  },
-  { type: 'heading', text: 'Conclusion' },
-  {
-    type: 'paragraph',
-    text: 'Developing and implementing effective design system guidelines is crucial for any organization looking to maintain consistency and efficiency in their design processes. By following best practices such as fostering collaboration, prioritizing accessibility, and maintaining the system over time, you can create a design system that supports your brand\'s goals and enhances the user experience. Remember, a design system is an evolving entity that requires ongoing attention and refinement to remain relevant and effective.'
+    type: 'image',
+    src: buildHeroImagePath('design-system-guidelines/hero-2.jpg'),
+    alt: 'Tablet displaying design system guidelines beside a laptop and coffee mug labeled creative process',
+    caption: 'Tablet view of design system guidelines beside code and coffee in the creative process.'
   },
   {
     type: 'paragraph',
-    text: 'By understanding the importance of design system guidelines and following a structured process for creation and implementation, you can ensure that your design and development teams are equipped with the tools and resources they need to succeed.'
+    text: "Ever feel like your product design is a wild garden, with different teams planting whatever they like? You're not alone. The bigger a product or team gets, the messier things can become without a clear map."
+  },
+  {
+    type: 'paragraph',
+    text: "That's where a design system comes in. And here's the thing: a design system is only as good as its guidelines. Let's dive into making those guidelines truly shine."
+  },
+  { type: 'heading', text: '1. Introduction: The Foundation of Cohesive Design', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "So, what exactly is a design system? Think of it as a comprehensive toolkit and a shared language for your entire product team. It's not just a UI kit; it's a living collection of reusable components, guided by clear standards, that can be assembled together to build any number of applications."
+  },
+  {
+    type: 'paragraph',
+    text: "Why are effective guidelines so crucial, you ask? Without them, you're looking at inconsistency across your products, slower development cycles, and a whole lot of wasted time. Good guidelines mean everyone's on the same page, ensuring scalability and a consistent user experience."
+  },
+  {
+    type: 'paragraph',
+    text: "And in today's world, Figma has become the undeniable central hub for this work. Its collaborative nature and powerful component libraries make it the perfect home for building and maintaining modern design systems."
+  },
+  { type: 'heading', text: '2. Core Principles for Robust Design System Guidelines', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Creating guidelines isn't just about dumping information. It's about designing the information itself. Here are the core principles to keep in mind."
+  },
+  { type: 'heading', text: 'Clarity and Conciseness', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Nobody wants to read a novel to figure out how to use a button. Your guidelines need to be crystal clear and straight to the point. Use simple language, avoid jargon, and get to the "what" and "how" quickly.'
+  },
+  { type: 'heading', text: 'Accessibility and Discoverability', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'What good are guidelines if no one can find them? Make sure your documentation is easy to access, search, and navigate. Think about who will be using it - designers, developers, product managers - and make it work for everyone.'
+  },
+  { type: 'heading', text: 'Flexibility vs. Rigidity', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "It's a tightrope walk. You want consistency, but you don't want to stifle creativity or make the system impossible to adapt. Strike a balance between strict rules for core components and enough flexibility for unique use cases. A design system is a guide, not a prison."
+  },
+  { type: 'heading', text: 'Living Documentation', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'A design system is never truly done. Emphasize that your guidelines are living documents, always ready for updates and improvements. Static documentation is dead documentation.'
+  },
+  { type: 'heading', text: '3. Essential Components to Document in Your Design System', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Now, what exactly should you be documenting? These are the building blocks that make up your digital experience.'
+  },
+  { type: 'heading', text: 'Design Tokens', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "These are the atomic bits of your system: your color palette, typography scales, spacing units, and even shadows. Documenting their values and proper usage ensures a single source of truth for your entire product's aesthetic."
+  },
+  { type: 'heading', text: 'Components', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'This is where the magic happens for your UI elements. Think buttons, cards, input fields, modals. Document their various states (hover, active, disabled), different variations, and, critically, clear instructions on when and how to use them.'
+  },
+  { type: 'heading', text: 'Patterns', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Components are great, but how do they fit together to solve common user problems? Patterns define reusable UI flows and interaction models, like how a user logs in, completes a form, or filters a list. This guides consistent user journeys.'
+  },
+  { type: 'heading', text: 'Content Guidelines', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Often overlooked, content is king. Document your brand's tone of voice, preferred terminology, and key messaging principles. This ensures your words are as consistent as your pixels."
+  },
+  { type: 'heading', text: 'Accessibility Standards', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Inclusive design isn't a bonus; it's a must-have. Embed accessibility standards right into your guidelines from the start. This includes guidance on color contrast, keyboard navigation, screen reader compatibility, and more."
+  },
+  { type: 'heading', text: '4. Crafting Clear and Actionable Documentation', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Having the content is one thing; presenting it effectively is another. Good documentation isn't just informative; it's usable."
+  },
+  { type: 'heading', text: 'Structure and Hierarchy', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Organize your information logically, just like a well-designed website. Use clear headings, subheadings, and a consistent navigation scheme. This helps users quickly find what they need without getting lost.'
+  },
+  { type: 'heading', text: 'Visual Examples and Demos', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Show, don't just tell. Include plenty of visual examples of components in various states and contexts. Interactive demos can make a huge difference in understanding how things actually work."
+  },
+  { type: 'heading', text: 'Code Snippets and API References', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'To bridge the gap between design and development, provide readily available code snippets and API references for your components. This streamlines the handoff process and ensures developers implement designs correctly.'
+  },
+  { type: 'heading', text: "Dos and Don'ts", level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Sometimes, knowing what not to do is as important as knowing what to do. Include practical Dos and Don'ts that illustrate common pitfalls and best practices for applying your system's elements."
+  },
+  { type: 'heading', text: 'Version Control and Change Logs', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Transparency is key. Implement version control for your guidelines and maintain a clear change log. This helps everyone understand what's new, what's changed, and why, fostering trust and keeping things up to date."
+  },
+  { type: 'heading', text: '5. Tools and Workflows for Design System Management in Figma', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Figma truly shines when it comes to design systems. It's more than just a drawing tool; it's a powerful collaborative environment."
+  },
+  { type: 'heading', text: 'Figma as a Central Hub', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Leverage Figma's libraries to create a single source of truth for your components and styles. Its real-time collaboration features mean everyone is always working with the latest versions, reducing design drift and confusion."
+  },
+  { type: 'heading', text: 'Maintaining Consistency and Quality Assurance', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Keeping a design system clean and consistent requires vigilance. Regularly auditing your files and libraries is critical to prevent inconsistencies from creeping in. Think about setting up routines for checks.'
+  },
+  { type: 'heading', text: 'Leveraging Figma Plugins for Enhanced Management', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "This is where things get really efficient. There are incredible plugins to help you maintain your system's health. Use BiblioAudit - Find Detached Instances & Design System Check (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to identify and fix detached instances before they undermine your system."
+  },
+  {
+    type: 'paragraph',
+    text: 'And for streamlining the documentation of component states, tools like BiblioStates - Component State Generator & Specs (https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) are game-changers. They help you efficiently generate component states and create detailed specs, making developer handoff a breeze.'
+  },
+  { type: 'heading', text: 'Integration with Development Workflows', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Your design system doesn't live in a vacuum. Integrate it with your development workflows by connecting Figma libraries to code repositories. Tools that automate token extraction or component generation can bridge the gap, ensuring what designers build is what developers ship."
+  },
+  { type: 'heading', text: '6. Adoption, Governance, and Maintenance', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "A design system isn't just a project; it's a product in itself. And like any product, it needs nurturing."
+  },
+  { type: 'heading', text: 'Onboarding and Training', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Don't just launch your design system and expect everyone to magically use it. Invest in onboarding and training so teammates know how to navigate, understand, and contribute."
+  },
+  { type: 'heading', text: 'Establishing a Governance Model', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Who owns the design system? Who makes decisions about new components or changes? Establish a clear governance model with defined roles, responsibilities, and a decision-making process to prevent chaos and ensure accountability.'
+  },
+  { type: 'heading', text: 'Feedback Loops and Contribution Models', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Encourage your team to be active participants. Create clear feedback loops so users can report issues or suggest improvements, and set a contribution model that empowers designers and developers to propose new additions or enhancements.'
+  },
+  { type: 'heading', text: 'Regular Audits and Updates', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Remember, it's living documentation. Schedule regular audits to review the system's effectiveness and identify areas for improvement. Keep it current, relevant, and aligned with your product's evolving needs."
+  },
+  { type: 'heading', text: '7. Measuring the Success of Your Design System', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'How do you know if all this effort is actually paying off? You have to measure it.'
+  },
+  { type: 'heading', text: 'Key Performance Indicators (KPIs)', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Think about what success looks like. Are teams building features faster? Is there less design debt? Track KPIs like design consistency scores, development efficiency gains, adoption rates across teams, and time saved in design and development.'
+  },
+  { type: 'heading', text: 'Gathering User Feedback', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Don't guess; ask. Conduct surveys, interviews, and usability tests with the actual users of your design system - your designers, developers, and product managers. Their insights are invaluable for identifying pain points and opportunities for improvement."
+  },
+  { type: 'heading', text: 'Iterative Improvement', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "Armed with feedback and data, continuously iterate on your guidelines and the system itself. Design systems are not set-and-forget; they're living, breathing entities that need constant care and adaptation based on real-world insights."
+  },
+  { type: 'heading', text: '8. Conclusion: The Continuous Journey of Design System Excellence', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "We've covered a lot, from foundational principles to specific tools and ongoing maintenance. Building an effective design system with robust guidelines is a journey, not a destination."
+  },
+  {
+    type: 'paragraph',
+    text: "By prioritizing clarity, accessibility, and flexibility, documenting essentials thoroughly, and leveraging powerful tools like Figma and its ecosystem of plugins, you're setting your team up for success. A well-maintained design system isn't just about pretty pixels; it's about accelerating innovation, fostering collaboration, and delivering consistent, high-quality experiences to your users."
+  },
+  {
+    type: 'paragraph',
+    text: "So, roll up your sleeves, embrace the continuous evolution, and enjoy the ride toward design system excellence. The future of product development is cohesive, efficient, and powered by smart systems."
   }
 ];
 
 const designSystemGuidelinesFaqs: BlogFAQ[] = [
   {
-    question: 'What should a design system guideline include?',
+    question: 'How do I keep design system guidelines discoverable for every team?',
     answer:
-      "Ship a concise source of truth that covers design tokens, component specs, usage dos and don'ts, accessibility rules, and a contribution model so designers and engineers can ship UI consistently."
+      'Host docs where teams already work (Figma, Confluence, GitHub), keep navigation layered by tokens/components/patterns, and publish a change log so designers, developers, and marketers can search and trust the latest guidance.'
   },
   {
-    question: 'How do I keep guidelines current as the product evolves?',
+    question: 'What governance model should we start with?',
     answer:
-      'Treat the system like a product: set owners, publish changelogs, run regular audits, and retire or update patterns as you learn. That cadence keeps teams moving fast without drifting off-brand.'
+      'Name a small core crew (design, engineering, PMM), set an intake lane for requests, and run a weekly review with clear go/no-go criteria. Publish contribution rules so teams can propose updates without slowing delivery.'
   },
   {
-    question: 'How can I drive adoption across designers and developers?',
+    question: 'Which metrics prove the design system is working?',
     answer:
-      'Pair rollout with onboarding sessions, live examples, and code-ready components. Show the time saved on new features, keep documentation searchable, and host office hours so teams get quick answers.'
+      'Track component/library adoption, time saved on new features, defects tied to inconsistent UI, and audit results (like detached instances resolved). Pair that with sentiment surveys so you see speed plus satisfaction.'
   },
   {
-    question: 'Should I build the entire design system before teams use it?',
+    question: 'How do we prevent detached instances and drift in Figma?',
     answer:
-      'Start with the highest-traffic components and core tokens, then iterate. Early, narrowly scoped releases let teams feel the speed gains quickly while you expand coverage with real feedback.'
+      'Audit libraries weekly with BiblioAudit to catch detached instances, lock/publish libraries on a cadence, and keep contribution guidelines tight. Use BiblioStates to generate state specs so engineers ship what designers expect.'
   }
 ];
 
@@ -897,6 +1117,36 @@ const atlassianDesignSystemFaqs: BlogFAQ[] = [
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: 'effortless-table-design-auto-layout',
+    title: 'Effortless Table Design: Solve Auto-Layout Issues & Align Data Flawlessly',
+    category: 'UI Design',
+    readingTime: '6 min read',
+    excerpt:
+      "Ever feel like tables are the unsung heroes of UI design? They might not have the flashy appeal of a hero banner, but let's be real: tables are the backbone of how we present complex data.",
+    heroImage: buildHeroImagePath('effortless-table-design/effortless-table-design-hero.png'),
+    heroImageAlt: 'Table UI listing team members with roles and last activity timestamps',
+    lastUpdated: '2025-12-14',
+    metaTitle: 'Effortless Table Design: Solve Auto-Layout Issues & Align Data Flawlessly',
+    metaDescription:
+      "Ever feel like tables are the unsung heroes of UI design? They might not have the flashy appeal of a hero banner, but let's be real: tables are the backbone of how we present complex data.",
+    content: tableDesignContent
+  },
+  {
+    slug: 'ui-component-states-guide',
+    title: 'Mastering UI Component States: Your Secret Weapon for Awesome UI',
+    category: 'UI Design',
+    readingTime: '8 min read',
+    excerpt:
+      "You know that feeling when you interact with an app or website, and everything just... works? It feels intuitive. You click something, and it reacts. You hover, and it shows you it's clickable. That's not magic, my friend. That's the power of UI component states.",
+    heroImage: buildHeroImagePath('ui-component-states/dashboard-dark.png'),
+    heroImageAlt: 'Dark dashboard UI showing toggles, buttons, and charts for state examples',
+    lastUpdated: '2025-12-14',
+    metaTitle: 'Mastering UI Component States: Your Secret Weapon for Awesome UI',
+    metaDescription:
+      "You know that feeling when you interact with an app or website, and everything just... works? It feels intuitive. You click something, and it reacts. You hover, and it shows you it's clickable. That's not magic, my friend. That's the power of UI component states.",
+    content: componentStatesContent
+  },
+  {
     slug: 'mastering-figma-auto-layout-wrap',
     title: 'Mastering Figma Auto Layout Wrap: The 2025 Guide to Responsive Components',
     category: 'Figma Plugins',
@@ -946,33 +1196,17 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'mastering-design-system-guidelines',
     title: 'Best Practices for Effective Design System Guidelines',
     category: 'Design Systems',
-    readingTime: '8 min read',
+    readingTime: '9 min read',
     excerpt:
-      'Master design system guidelines to enhance brand consistency, streamline processes, and boost collaboration. Learn best practices for creating and implementing an effective design system.',
-    heroImage: buildHeroImagePath('design-systems-card.svg'),
-    heroImageAlt: 'Design system guidelines overview showing components and principles',
-    lastUpdated: '2025-11-24',
-    metaTitle: 'Design System Guidelines Checklist | Best Practices 2025',
+      'Build living design system guidelines that keep designers, developers, and marketers aligned with clear principles, Figma workflows, and governance that ship faster.',
+    heroImage: buildHeroImagePath('design-system-guidelines/hero-1.jpg'),
+    heroImageAlt: 'Desktop monitor showing design system components alongside a notebook, pen, mug, and color swatches',
+    lastUpdated: '2025-12-14',
+    metaTitle: 'Design System Guidelines Playbook | Clarity, Governance, Figma',
     metaDescription:
-      'Build design system guidelines that lock in consistency, speed onboarding, and align designers and developers with reusable standards.',
+      'Write living design system guidelines with clear principles, documentation patterns, Figma audits, and governance so teams ship consistent experiences faster.',
     content: designSystemGuidelinesContent,
     faqs: designSystemGuidelinesFaqs
-  },
-  {
-    slug: 'boost-ux-with-atlassian-design-system',
-    title: 'Enhancing User Experience with Atlassian Design System',
-    category: 'Design Systems',
-    readingTime: '6 min read',
-    excerpt:
-      "In today's fast-paced digital world, user experience (UX) is more important than ever. Companies need to create products that not only meet the functional needs of their users but also provide an intuitive and enjoyable experience.",
-    heroImage: buildHeroImagePath('design-systems-card.svg'),
-    heroImageAlt: 'Atlassian Design System concepts displayed across interface components',
-    lastUpdated: '2025-11-24',
-    metaTitle: 'Atlassian Design System UX Guide | Patterns that Ship',
-    metaDescription:
-      'Apply the Atlassian Design System to ship cohesive, accessible experiences faster with ready-made patterns, tokens, and workflow tips.',
-    content: atlassianDesignSystemContent,
-    faqs: atlassianDesignSystemFaqs
   }
 ];
 

@@ -57,10 +57,10 @@ const AIRenameVariantsPage = () => {
          
         <div className="mx-auto max-w-5xl relative z-10 text-center">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-            12 hours reclaimed/week<br className="hidden md:block" /> for a 3‑designer pilot.
+            Fix variant naming debt<br className="hidden md:block" /> in seconds, not hours.
           </h1>
           <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
-            One‑click audit and reversible renaming of component variants and layers.
+            AI-powered architectural analysis and renaming for component sets and variants.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
@@ -107,7 +107,11 @@ const AIRenameVariantsPage = () => {
             </p>
           </div>
           <div className="relative">
-             <PlaceholderImage label="Screenshot: Messy Variant List + Sticky Note 'Hotfix Required'" height="h-80" />
+             <img 
+               src="/media/biblio-rename/variant-chaos-example.png" 
+               alt="Screenshot of a chaotic variant list in Figma showing inconsistent naming" 
+               className="w-full h-auto rounded-xl border border-slate-700 shadow-2xl"
+             />
           </div>
         </div>
       </Section>
@@ -151,20 +155,20 @@ const AIRenameVariantsPage = () => {
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Select Component & Click Audit" height="h-64" />
-            <h3 className="text-xl font-bold mt-6 mb-2">Audit Selection</h3>
-            <p className="text-slate-400">Select a component set or page. Click "Audit" to inspect structure.</p>
+            <h3 className="text-xl font-bold mt-6 mb-2">Intelligent Analysis</h3>
+            <p className="text-slate-400">Select a component set. The plugin analyzes structure, Figma limits, and property optimization opportunities.</p>
           </div>
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-white z-10">2</div>
             <PlaceholderImage label="Step 2: Review Suggestions (Before/After)" height="h-64" />
-            <h3 className="text-xl font-bold mt-6 mb-2">Review Changes</h3>
-            <p className="text-slate-400">See "Before & After" diffs. Approve all or edit specific suggestions inline.</p>
+            <h3 className="text-xl font-bold mt-6 mb-2">AI Recommendations</h3>
+            <p className="text-slate-400">Receive context-aware renaming suggestions and structural improvements based on architectural best practices.</p>
           </div>
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-white z-10">3</div>
             <PlaceholderImage label="Step 3: Apply & Log" height="h-64" />
-            <h3 className="text-xl font-bold mt-6 mb-2">Apply & Verify</h3>
-            <p className="text-slate-400">Apply to file. Export audit logs. Undo instantly if needed.</p>
+            <h3 className="text-xl font-bold mt-6 mb-2">Coordinated Application</h3>
+            <p className="text-slate-400">Apply changes with atomic validation. Export audit logs and undo instantly if needed.</p>
           </div>
         </div>
       </Section>
@@ -175,8 +179,8 @@ const AIRenameVariantsPage = () => {
           {/* Feature 1 */}
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h3 className="text-2xl font-bold mb-4">One-Click Bulk Renaming</h3>
-              <p className="text-slate-300 text-lg mb-6">Batch rename hundreds of variants without freezing Figma. Saves ~4 hours on large system updates.</p>
+              <h3 className="text-2xl font-bold mb-4">AI-Powered Renaming & Optimization</h3>
+              <p className="text-slate-300 text-lg mb-6">Batch rename variants with GPT-4 architectural awareness. Automatically optimizes properties (Boolean, Instance Swap) to reduce complexity.</p>
               <ul className="text-sm text-slate-400 space-y-2">
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-400" /> Smart batching</li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-purple-400" /> Preservation of overrides</li>
@@ -188,8 +192,8 @@ const AIRenameVariantsPage = () => {
           {/* Feature 2 */}
           <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
              <div className="md:col-start-2">
-              <h3 className="text-2xl font-bold mb-4">Context‑Aware AI Analysis</h3>
-              <p className="text-slate-300 text-lg mb-6">Provide a hint like "sidebar nav — dark mode" and let AI infer the correct property structure.</p>
+              <h3 className="text-2xl font-bold mb-4">Figma Architecture Intelligence</h3>
+              <p className="text-slate-300 text-lg mb-6">Deep understanding of Figma 2025 constraints. Validates limits (4 properties, 28 values) and structural health in real-time.</p>
             </div>
             <div className="md:col-start-1">
                <PlaceholderImage label="Screenshot: Hint Input Field & AI Analysis" />
@@ -199,8 +203,8 @@ const AIRenameVariantsPage = () => {
           {/* Feature 3 */}
           <div className="grid md:grid-cols-2 gap-12 items-center">
              <div>
-              <h3 className="text-2xl font-bold mb-4">Design System Enforcement</h3>
-              <p className="text-slate-300 text-lg mb-6">Enforce CamelCase, Kebab-case, or Snake_case. Map names directly to your codebase tokens.</p>
+              <h3 className="text-2xl font-bold mb-4">Canonical Naming & Structural Validation</h3>
+              <p className="text-slate-300 text-lg mb-6">Enforce semantic naming standards (CamelCase, Kebab-case) and validate component health against design system best practices.</p>
             </div>
             <PlaceholderImage label="Screenshot: Naming Convention Dropdown" />
           </div>
@@ -208,8 +212,8 @@ const AIRenameVariantsPage = () => {
            {/* Feature 4 */}
            <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
              <div className="md:col-start-2">
-              <h3 className="text-2xl font-bold mb-4">Safety‑First Review System</h3>
-              <p className="text-slate-300 text-lg mb-6">Never apply blindly. Review every change in a diff view. Full audit logs available for export.</p>
+              <h3 className="text-2xl font-bold mb-4">Advanced Change Management</h3>
+              <p className="text-slate-300 text-lg mb-6">Atomic transactions with override protection. Preview every change impact and revert instantly with a full audit log.</p>
             </div>
             <div className="md:col-start-1">
                <PlaceholderImage label="Screenshot: Diff List & Undo Button" />
@@ -255,24 +259,24 @@ const AIRenameVariantsPage = () => {
         <div className="bg-gradient-to-br from-purple-900/40 to-slate-900/40 border border-purple-500/20 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-sm">
           <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Start your 2-week pilot.</h2>
-              <p className="text-xl text-purple-200 mb-8">Includes 8 free credits + Pilot Playbook.</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Level up your design system.</h2>
+              <p className="text-xl text-purple-200 mb-8">Includes 8 free credits + Team Rollout Guide.</p>
               <div className="space-y-4 mb-8">
                  <div className="flex items-center gap-3">
-                    <span className="text-2xl font-bold">$15/mo</span>
+                    <span className="text-2xl font-bold">$12/mo</span>
                     <span className="text-slate-400">per editor</span>
                  </div>
                  <p className="text-sm text-slate-400">Payback if you reclaim 4 hours/wk across 3 designers.</p>
               </div>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Start pilot — 8 free credits
+                  Start fixing — 8 free credits
                 </a>
               </Button>
             </div>
             <div className="flex justify-center">
                <div className="relative">
-                   <PlaceholderImage label="Pilot Playbook Cover" height="h-64" className="w-48 shadow-2xl rotate-3" />
+                   <PlaceholderImage label="Rollout Guide Cover" height="h-64" className="w-48 shadow-2xl rotate-3" />
                    <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
                         <Check className="w-4 h-4 text-green-400" />
@@ -366,7 +370,7 @@ const AIRenameVariantsPage = () => {
                 <Shield className="w-6 h-6" />
               </div>
               <h4 className="font-bold mb-2">Admin Ready</h4>
-              <p className="text-slate-400 text-sm">SSO-ready. Team pilot modes available. Strict data handling policy.</p>
+              <p className="text-slate-400 text-sm">SSO-ready. Team billing available. Strict data handling policy.</p>
            </div>
         </div>
       </Section>
@@ -389,7 +393,7 @@ const AIRenameVariantsPage = () => {
                   </li>
                    <li className="relative">
                      <span className="absolute -left-[37px] w-4 h-4 rounded-full bg-slate-700 ring-4 ring-[#0f172a]" />
-                     <h4 className="font-bold text-lg mb-1">Pilot Report</h4>
+                     <h4 className="font-bold text-lg mb-1">Health Report</h4>
                      <p className="text-slate-400 text-sm">Export the PDF before/after report for stakeholders.</p>
                   </li>
                </ol>
@@ -430,7 +434,7 @@ const AIRenameVariantsPage = () => {
                   Try the plugin — 8 free credits
                 </a>
               </Button>
-              <p className="text-sm text-slate-400">2‑week pilot playbook available after install.</p>
+              <p className="text-sm text-slate-400">Team rollout guide available after install.</p>
             </div>
             <div className="mt-12 pt-12 border-t border-slate-800/50">
                <p className="italic text-slate-400 text-lg mb-6">

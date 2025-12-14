@@ -40,7 +40,7 @@ const ORIGAMI_LAYOUT = {
   blob2: { x: 40, y: 40, scale: 1 },   // Diamond (Center)
   blob3: { x: 80, y: 20, scale: 1 },   // Media Card (Right)
   blob4: { x: 25, y: 75, scale: 1 },   // Sticky Note (Bottom Left)
-  content: { x: 32, y: 48, scale: 1 }  // Text Content (Left side, balanced)
+  content: { x: 32, y: 50, scale: 1 }  // Text Content (Left side, balanced)
 };
 
 export interface LandingHeroProps {
@@ -150,6 +150,9 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
   };
 
   const pos = ORIGAMI_LAYOUT;
+  const fireHeroConfetti = React.useCallback(() => {
+    confettiRef.current?.fire({});
+  }, []);
 
   useEffect(() => {
     logHeroHeadlineSplit({
@@ -248,40 +251,48 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
           className={`absolute top-0 left-0 transition-opacity duration-300 ${showCursor ? 'opacity-100' : 'opacity-0'}`}
           style={{ transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0)` }}
         >
-          <MousePointer2 className="w-5 h-5 text-blue-600 fill-blue-600 stroke-white stroke-[2px]" />
-          <div className="ml-3 mt-1 px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded-full shadow-sm inline-block">
+          <MousePointer2 className="w-5 h-5 text-blue-600 fill-blue-600 stroke-white stroke-[2px] drop-shadow-lg" />
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-blue-600 text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block">
             {HERO_ACTORS.user}
           </div>
         </div>
 
-        {/* Bot 1 */}
-        <div className="absolute top-0 left-0 animate-cursor-float-1">
-          <MousePointer2 className="w-5 h-5 text-orange-500 fill-orange-500 stroke-white stroke-[2px]" />
-          <div className="ml-3 mt-1 px-2 py-0.5 bg-orange-500 text-white text-[10px] font-bold rounded-full shadow-sm inline-block">
+        {/* Bot 1 - Designer, moves deliberately with pauses */}
+        <div className="absolute top-0 left-0 animate-cursor-designer">
+          <div className="animate-cursor-click-1">
+            <MousePointer2 className="w-5 h-5 text-orange-500 fill-orange-500 stroke-white stroke-[2px] drop-shadow-lg" />
+          </div>
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-orange-500 text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-1">
             {HERO_ACTORS.bot1}
           </div>
         </div>
 
-        {/* Bot 2 */}
-        <div className="absolute top-0 left-0 animate-cursor-float-2">
-          <MousePointer2 className="w-5 h-5 text-emerald-500 fill-emerald-500 stroke-white stroke-[2px]" />
-          <div className="ml-3 mt-1 px-2 py-0.5 bg-emerald-500 text-white text-[10px] font-bold rounded-full shadow-sm inline-block">
+        {/* Bot 2 - Developer, fast and precise */}
+        <div className="absolute top-0 left-0 animate-cursor-developer">
+          <div className="animate-cursor-click-2">
+            <MousePointer2 className="w-5 h-5 text-emerald-500 fill-emerald-500 stroke-white stroke-[2px] drop-shadow-lg" />
+          </div>
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-emerald-500 text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-2">
             {HERO_ACTORS.bot2}
           </div>
         </div>
 
-        {/* Bot 3 */}
-        <div className="absolute top-0 left-0 animate-cursor-float-3">
-          <MousePointer2 className="w-5 h-5 text-[hsl(var(--primary))] fill-[hsl(var(--primary))] stroke-white stroke-[2px]" />
-          <div className="ml-3 mt-1 px-2 py-0.5 bg-[hsl(var(--primary))] text-primary-foreground text-[10px] font-bold rounded-full shadow-sm inline-block">
+        {/* Bot 3 - Reviewer, methodical scanning */}
+        <div className="absolute top-0 left-0 animate-cursor-reviewer">
+          <div className="animate-cursor-click-3">
+            <MousePointer2 className="w-5 h-5 text-[hsl(var(--primary))] fill-[hsl(var(--primary))] stroke-white stroke-[2px] drop-shadow-lg" />
+          </div>
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-[hsl(var(--primary))] text-primary-foreground text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-3">
             {HERO_ACTORS.bot3}
           </div>
         </div>
 
-        {/* Bot 4 */}
-        <div className="absolute top-0 left-0 animate-cursor-float-4">
-          <MousePointer2 className="w-5 h-5 text-rose-500 fill-rose-500 stroke-white stroke-[2px]" />
-          <div className="ml-3 mt-1 px-2 py-0.5 bg-rose-500 text-white text-[10px] font-bold rounded-full shadow-sm inline-block">
+        {/* Bot 4 - Explorer, curious wandering */}
+        <div className="absolute top-0 left-0 animate-cursor-explorer">
+          <div className="animate-cursor-click-4">
+            <MousePointer2 className="w-5 h-5 text-rose-500 fill-rose-500 stroke-white stroke-[2px] drop-shadow-lg" />
+          </div>
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-rose-500 text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-4">
             {HERO_ACTORS.bot4}
           </div>
         </div>
@@ -292,12 +303,13 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
         <div className="section-content relative h-full">
           {/* Centered Text Content */}
           <div
-            className="absolute z-20 transition-all duration-75 ease-linear max-w-4xl text-center mt-8"
+            className={`absolute z-20 transition-all duration-75 ease-linear max-w-4xl mt-8 flex flex-col ${
+              alignment === 'left' ? 'items-start text-left' : 'items-center text-center'
+            }`}
             style={{
               top: `${pos.content.y}%`,
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              marginTop: '60px'
             }}
           >
             {badgeLabel && (
@@ -315,7 +327,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
                   return (
                     <span
                       key={segment.key}
-                      className={`${baseClass} block${segment.gradient && !isSubtitle ? ' pb-4' : ''}`.trim()}
+                      className={`${baseClass} block whitespace-nowrap${segment.gradient && !isSubtitle ? ' pb-4' : ''}`.trim()}
                     >
                       {segment.text}
                     </span>
@@ -344,9 +356,22 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
                 <Button
                   size="lg"
                   className={HERO_PRIMARY_BUTTON_CLASS}
-                  onClick={primaryButtonLink ? (event) => handleAnchorNavigation(event, primaryButtonLink) : () => scrollToSection(LANDING_FEATURES_ID)}
-                  onMouseEnter={() => {
-                    confettiRef.current?.fire({});
+                  onClick={(event) => {
+                    if (primaryButtonLink) {
+                      handleAnchorNavigation(event, primaryButtonLink);
+                      if (primaryButtonLink.startsWith('#')) {
+                        scrollToSection(primaryButtonLink);
+                      }
+                    }
+                    if (!primaryButtonLink) {
+                      scrollToSection(LANDING_FEATURES_ID);
+                    }
+                    fireHeroConfetti();
+                  }}
+                  onMouseEnter={fireHeroConfetti}
+                  onPointerEnter={fireHeroConfetti}
+                  onFocus={() => {
+                    fireHeroConfetti();
                   }}
                   aria-label={`${primaryButton} - Primary action`}
                 >
@@ -397,37 +422,107 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
           animation: hover-gentle 6s ease-in-out infinite;
         }
 
-        /* Cursor Animations - scaled up 20% with scale transform */
-        @keyframes cursor-float-1 {
-          0% { transform: translate(30vw, 10vh) scale(1.2); }
-          25% { transform: translate(34vw, 19vh) scale(1.2); }
-          50% { transform: translate(26vw, 22vh) scale(1.2); }
-          75% { transform: translate(28vw, 13vh) scale(1.2); }
-          100% { transform: translate(30vw, 10vh) scale(1.2); }
+        /* Designer cursor - deliberate movements with creative pauses */
+        @keyframes cursor-designer {
+          0%, 8% { transform: translate(65vw, 18vh) scale(1.2); }
+          10% { transform: translate(67vw, 16vh) scale(1.2); }
+          18%, 26% { transform: translate(72vw, 22vh) scale(1.2); }
+          30% { transform: translate(70vw, 28vh) scale(1.2); }
+          38%, 46% { transform: translate(62vw, 32vh) scale(1.2); }
+          50% { transform: translate(58vw, 26vh) scale(1.2); }
+          58%, 66% { transform: translate(55vw, 20vh) scale(1.2); }
+          70% { transform: translate(60vw, 15vh) scale(1.2); }
+          78%, 86% { transform: translate(68vw, 12vh) scale(1.2); }
+          100% { transform: translate(65vw, 18vh) scale(1.2); }
         }
-        @keyframes cursor-float-2 {
-          0% { transform: translate(37.5vw, 30vh) scale(1.2); }
-          33% { transform: translate(44vw, 27vh) scale(1.2); }
-          66% { transform: translate(33vw, 38vh) scale(1.2); }
-          100% { transform: translate(37.5vw, 30vh) scale(1.2); }
+
+        /* Developer cursor - quick precise movements */
+        @keyframes cursor-developer {
+          0%, 3% { transform: translate(25vw, 65vh) scale(1.2); }
+          5% { transform: translate(30vw, 62vh) scale(1.2); }
+          8%, 11% { transform: translate(35vw, 68vh) scale(1.2); }
+          15% { transform: translate(28vw, 72vh) scale(1.2); }
+          18%, 21% { transform: translate(22vw, 70vh) scale(1.2); }
+          25% { transform: translate(18vw, 65vh) scale(1.2); }
+          28%, 31% { transform: translate(24vw, 58vh) scale(1.2); }
+          35% { transform: translate(32vw, 55vh) scale(1.2); }
+          38%, 41% { transform: translate(38vw, 60vh) scale(1.2); }
+          45% { transform: translate(35vw, 68vh) scale(1.2); }
+          48%, 51% { transform: translate(28vw, 75vh) scale(1.2); }
+          55% { transform: translate(20vw, 72vh) scale(1.2); }
+          58%, 61% { transform: translate(15vw, 68vh) scale(1.2); }
+          65% { transform: translate(18vw, 62vh) scale(1.2); }
+          68%, 71% { transform: translate(25vw, 58vh) scale(1.2); }
+          75% { transform: translate(30vw, 62vh) scale(1.2); }
+          78%, 81% { transform: translate(26vw, 68vh) scale(1.2); }
+          85% { transform: translate(22vw, 70vh) scale(1.2); }
+          88%, 91% { transform: translate(24vw, 66vh) scale(1.2); }
+          100% { transform: translate(25vw, 65vh) scale(1.2); }
         }
-        @keyframes cursor-float-3 {
-          0% { transform: translate(15vw, 30vh) scale(1.2); }
-          40% { transform: translate(22vw, 40vh) scale(1.2); }
-          70% { transform: translate(10vw, 34vh) scale(1.2); }
-          100% { transform: translate(15vw, 30vh) scale(1.2); }
+
+        /* Reviewer cursor - methodical horizontal scanning */
+        @keyframes cursor-reviewer {
+          0%, 12% { transform: translate(12vw, 25vh) scale(1.2); }
+          15% { transform: translate(18vw, 25vh) scale(1.2); }
+          18%, 30% { transform: translate(25vw, 26vh) scale(1.2); }
+          33% { transform: translate(20vw, 32vh) scale(1.2); }
+          36%, 48% { transform: translate(14vw, 35vh) scale(1.2); }
+          51% { transform: translate(10vw, 30vh) scale(1.2); }
+          54%, 66% { transform: translate(8vw, 22vh) scale(1.2); }
+          69% { transform: translate(15vw, 18vh) scale(1.2); }
+          72%, 84% { transform: translate(22vw, 20vh) scale(1.2); }
+          87% { transform: translate(16vw, 24vh) scale(1.2); }
+          100% { transform: translate(12vw, 25vh) scale(1.2); }
         }
-        @keyframes cursor-float-4 {
-          0% { transform: translate(25vw, 9vh) scale(1.2); }
-          30% { transform: translate(32vw, 17vh) scale(1.2); }
-          60% { transform: translate(22vw, 22vh) scale(1.2); }
-          90% { transform: translate(29vw, 11vh) scale(1.2); }
-          100% { transform: translate(25vw, 9vh) scale(1.2); }
+
+        /* Explorer cursor - curious wandering with loops */
+        @keyframes cursor-explorer {
+          0%, 5% { transform: translate(78vw, 55vh) scale(1.2); }
+          8% { transform: translate(82vw, 50vh) scale(1.2); }
+          12%, 17% { transform: translate(85vw, 45vh) scale(1.2); }
+          20% { transform: translate(80vw, 42vh) scale(1.2); }
+          25%, 30% { transform: translate(75vw, 48vh) scale(1.2); }
+          33% { transform: translate(78vw, 55vh) scale(1.2); }
+          38%, 43% { transform: translate(82vw, 62vh) scale(1.2); }
+          46% { transform: translate(85vw, 58vh) scale(1.2); }
+          50%, 55% { transform: translate(88vw, 52vh) scale(1.2); }
+          58% { transform: translate(84vw, 48vh) scale(1.2); }
+          62%, 67% { transform: translate(78vw, 52vh) scale(1.2); }
+          70% { transform: translate(72vw, 58vh) scale(1.2); }
+          75%, 80% { transform: translate(70vw, 62vh) scale(1.2); }
+          83% { transform: translate(74vw, 58vh) scale(1.2); }
+          88%, 93% { transform: translate(76vw, 52vh) scale(1.2); }
+          100% { transform: translate(78vw, 55vh) scale(1.2); }
         }
-        .animate-cursor-float-1 { animation: cursor-float-1 15s ease-in-out infinite; }
-        .animate-cursor-float-2 { animation: cursor-float-2 18s ease-in-out infinite; }
-        .animate-cursor-float-3 { animation: cursor-float-3 20s ease-in-out infinite; }
-        .animate-cursor-float-4 { animation: cursor-float-4 22s ease-in-out infinite; }
+
+        /* Click animation - subtle scale bounce */
+        @keyframes cursor-click {
+          0%, 90%, 100% { transform: scale(1); }
+          93% { transform: scale(0.85); }
+          96% { transform: scale(1.05); }
+        }
+
+        /* Label pulse for activity indication */
+        @keyframes cursor-label-pulse {
+          0%, 85%, 100% { opacity: 1; transform: scale(1); }
+          90% { opacity: 0.9; transform: scale(0.95); }
+          95% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .animate-cursor-designer { animation: cursor-designer 24s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+        .animate-cursor-developer { animation: cursor-developer 16s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
+        .animate-cursor-reviewer { animation: cursor-reviewer 22s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .animate-cursor-explorer { animation: cursor-explorer 20s cubic-bezier(0.33, 0, 0.67, 1) infinite; }
+
+        .animate-cursor-click-1 { animation: cursor-click 4s ease-in-out infinite; animation-delay: 0.5s; }
+        .animate-cursor-click-2 { animation: cursor-click 3s ease-in-out infinite; animation-delay: 1.2s; }
+        .animate-cursor-click-3 { animation: cursor-click 5s ease-in-out infinite; animation-delay: 2s; }
+        .animate-cursor-click-4 { animation: cursor-click 3.5s ease-in-out infinite; animation-delay: 0.8s; }
+
+        .animate-cursor-label-pulse-1 { animation: cursor-label-pulse 4s ease-in-out infinite; animation-delay: 0.5s; }
+        .animate-cursor-label-pulse-2 { animation: cursor-label-pulse 3s ease-in-out infinite; animation-delay: 1.2s; }
+        .animate-cursor-label-pulse-3 { animation: cursor-label-pulse 5s ease-in-out infinite; animation-delay: 2s; }
+        .animate-cursor-label-pulse-4 { animation: cursor-label-pulse 3.5s ease-in-out infinite; animation-delay: 0.8s; }
       `}</style>
     </section>
   );

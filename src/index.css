@@ -319,6 +319,23 @@
     opacity: 0.92;
   }
 
+  /* Landing marquee overrides to prevent bleed and sizing drift */
+  .landing-logo-marquee {
+    background: linear-gradient(180deg, #0b0c0f 0%, #090a0d 100%);
+    border-radius: 24px;
+  }
+
+  .landing-logo-marquee-track {
+    gap: clamp(32px, 5vw, 64px);
+  }
+
+  .landing-logo-marquee-item svg {
+    height: var(--landing-logo-height, 40px);
+    max-height: 44px;
+    width: auto;
+    max-width: 200px;
+  }
+
   .modal-card-content {
     @apply space-y-3 pb-8 px-0;
     padding-top: 18px;

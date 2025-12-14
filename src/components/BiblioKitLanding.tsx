@@ -259,7 +259,12 @@ const BiblioKitLanding: React.FC = () => {
   }, [baseProduct, featureDetails, hero, heroVisible, mergedProduct, productVisible, shouldRenderHero, shouldRenderSections]);
 
   if (!shouldRenderHero && !shouldRenderSections) {
-    return null;
+    return (
+      <div className="container mx-auto px-4 py-16 text-center">
+        <h1 className="text-2xl font-bold text-red-600 mb-4">Content is missing</h1>
+        <p className="text-muted-foreground">The content for this page is not available. Please check the configuration.</p>
+      </div>
+    );
   }
 
   return (

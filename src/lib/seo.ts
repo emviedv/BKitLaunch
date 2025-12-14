@@ -133,7 +133,7 @@ const mergeKeywords = (base?: string, additions: Array<string | undefined> = [])
 
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
-  title: "BiblioKit | The All-in-One Figma Design Ops Suite (Audit, Clean, Scale)",
+  title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
   description: "Replace your fragmented plugin stack. The only Figma suite with Predictive Heatmaps, Design System Audits, AI Renaming, and Batch Scaling in one subscription.",
   keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -150,26 +150,26 @@ const defaultMetadata: SEOMetadata = {
 
 const biblioRenameMetadata: SEOMetadata = {
   title: 'BiblioKit | BiblioRename for Figma',
-  description: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
-  keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system naming, variant properties',
+  description: 'BiblioRename uses AI architectural intelligence to batch-rename Figma variants, optimize properties, and validate component health against 2025 platform constraints.',
+  keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system architecture, component health, structural validation, figma limits',
   ogTitle: 'BiblioKit | BiblioRename for Figma',
-  ogDescription: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
+  ogDescription: 'BiblioRename uses AI architectural intelligence to batch-rename Figma variants, optimize properties, and validate component health against 2025 platform constraints.',
   ogImage: '/og/og-default.svg',
   twitterTitle: 'BiblioKit | BiblioRename for Figma',
-  twitterDescription: 'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
+  twitterDescription: 'BiblioRename uses AI architectural intelligence to batch-rename Figma variants, optimize properties, and validate component health against 2025 platform constraints.',
   twitterImage: '/og/og-default.svg'
 };
 
 // Route-specific metadata configurations
 export const routeMetadata: RouteMetadata = {
   '/': {
-    title: "BiblioKit | The All-in-One Figma Design Ops Suite (Audit, Clean, Scale)",
+    title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
     description: "Replace your fragmented plugin stack. The only Figma suite with Predictive Heatmaps, Design System Audits, AI Renaming, and Batch Scaling in one subscription.",
     keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
-    ogTitle: "BiblioKit | The All-in-One Figma Design Ops Suite (Audit, Clean, Scale)",
+    ogTitle: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
     ogDescription: "Clean Figma files, resize frames, audit design systems, and batch rename layers with AI-powered plugins built for design ops teams.",
     ogImage: "/og/og-default.svg",
-    twitterTitle: "BiblioKit | AI Figma Plugins for Faster Design Systems",
+    twitterTitle: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
     twitterDescription: "Automate variant naming, prototype cleanup, and design QA so designers ship production-ready files 10x faster with BiblioKit's Figma plugins.",
     twitterImage: "/og/og-default.svg",
     structuredData: [
@@ -275,14 +275,14 @@ export const routeMetadata: RouteMetadata = {
     twitterImage: '/og/og-default.svg'
   },
   '/blog': {
-    title: 'BiblioKit Blog | Design Ops Playbooks for Figma Teams',
-    description: 'Field-tested rituals, checklists, and Figma plugin tips that help design teams remove prototype debt, align naming, and ship cleaner files.',
-    keywords: 'design ops blog, figma workflow tips, prototype cleanup, design system rituals, bibliokit blog',
-    ogTitle: 'BiblioKit Blog | Design Ops Playbooks for Figma Teams',
-    ogDescription: 'Field-tested rituals, checklists, and Figma plugin tips that help design teams remove prototype debt, align naming, and ship cleaner files.',
+    title: 'BiblioKit Blog | Build Stuff People Love',
+    description: 'From kickoff to ship: tools and workflows that keep designers, developers, and marketers on one page.',
+    keywords: 'design ops blog, figma workflow tips, prototype cleanup, design system rituals, bibliokit blog, real-world figma fixes',
+    ogTitle: 'BiblioKit Blog | Build Stuff People Love',
+    ogDescription: 'From kickoff to ship: tools and workflows that keep designers, developers, and marketers on one page.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit Blog | Design Ops Playbooks for Figma Teams',
-    twitterDescription: 'Field-tested rituals, checklists, and Figma plugin tips that help design teams remove prototype debt, align naming, and ship cleaner files.',
+    twitterTitle: 'BiblioKit Blog | Build Stuff People Love',
+    twitterDescription: 'From kickoff to ship: tools and workflows that keep designers, developers, and marketers on one page.',
     twitterImage: '/og/og-default.svg'
   }
 };
@@ -347,16 +347,24 @@ export function generateMetadata(
       metadata.webPageType = 'Article';
     } else {
       switch (matchedRouteKey) {
-        case '/':
-          if (contentData.hero) {
-            metadata.title = contentData.hero.title || metadata.title;
-            metadata.description = contentData.hero.subtitle || metadata.description;
-            metadata.ogTitle = contentData.hero.title || metadata.ogTitle;
-            metadata.ogDescription = contentData.hero.subtitle || metadata.ogDescription;
-            metadata.twitterTitle = contentData.hero.title || metadata.twitterTitle;
-            metadata.twitterDescription = contentData.hero.subtitle || metadata.twitterDescription;
+        case '/': {
+          const hero = contentData.hero;
+          const heroSeoTitle = hero?.seoTitle || hero?.metaTitle;
+          const heroSeoDescription = hero?.seoDescription || hero?.subtitle;
+
+          if (heroSeoTitle) {
+            metadata.title = heroSeoTitle;
+            metadata.ogTitle = heroSeoTitle;
+            metadata.twitterTitle = heroSeoTitle;
+          }
+
+          if (heroSeoDescription) {
+            metadata.description = heroSeoDescription;
+            metadata.ogDescription = heroSeoDescription;
+            metadata.twitterDescription = heroSeoDescription;
           }
           break;
+        }
       }
     }
 

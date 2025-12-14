@@ -1,0 +1,70 @@
+{
+  "icons": [],
+  "notFound": [
+    {
+      "icon": "notion wordmark",
+      "alternatives": [
+        "Search for SVG version on the official website",
+        "Check other icon libraries (e.g., heroicons, lucide)",
+        "Request SVG file from the user"
+      ]
+    },
+    {
+      "icon": "spotify wordmark",
+      "alternatives": [
+        "Search for SVG version on the official website",
+        "Check other icon libraries (e.g., heroicons, lucide)",
+        "Request SVG file from the user"
+      ]
+    },
+    {
+      "icon": "figma wordmark",
+      "alternatives": [
+        "Search for SVG version on the official website",
+        "Check other icon libraries (e.g., heroicons, lucide)",
+        "Request SVG file from the user"
+      ]
+    },
+    {
+      "icon": "slack wordmark",
+      "alternatives": [
+        "Search for SVG version on the official website",
+        "Check other icon libraries (e.g., heroicons, lucide)",
+        "Request SVG file from the user"
+      ]
+    },
+    {
+      "icon": "linear wordmark",
+      "alternatives": [
+        "Search for SVG version on the official website",
+        "Check other icon libraries (e.g., heroicons, lucide)",
+        "Request SVG file from the user"
+      ]
+    },
+    {
+      "icon": "github wordmark",
+      "alternatives": [
+        "Search for SVG version on the official website",
+        "Check other icon libraries (e.g., heroicons, lucide)",
+        "Request SVG file from the user"
+      ]
+    },
+    {
+      "icon": "stripe wordmark",
+      "alternatives": [
+        "Search for SVG version on the official website",
+        "Check other icon libraries (e.g., heroicons, lucide)",
+        "Request SVG file from the user"
+      ]
+    },
+    {
+      "icon": "vercel wordmark",
+      "alternatives": [
+        "Search for SVG version on the official website",
+        "Check other icon libraries (e.g., heroicons, lucide)",
+        "Request SVG file from the user"
+      ]
+    }
+  ],
+  "setup": "1. Add these icons to your project:\n\n2. Import and use like this:\n```tsx\nimport {  } from '@/icons';\n```"
+}

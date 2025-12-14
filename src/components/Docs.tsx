@@ -50,3 +50,5 @@ export const Docs: React.FC = () => {
     </div>
   );
 };
+
+export default Docs;

@@ -1,5 +1,151 @@
 # Live Debug Log — 2025-12
 
+## 2025-12-14
+
+- **Time:** 2025-12-14 09:24 EST
+- **Summary:** Adjusted the hero H1 second line to “Ship better products” while keeping the enforced line break after “Design faster in Figma.” for the two-line layout.
+- **Root Cause:** The prior H1 ending “Ship cleaner design systems” didn’t match the requested copy.
+- **Changed Files:** src/data/products.json
+- **Verification:** Not run (copy change only; confirm hero H1 shows updated second line).
+
+- **Time:** 2025-12-14 09:24 EST
+- **Summary:** Forced each hero H1 line to stay on a single line by adding `whitespace-nowrap` to the hero headline spans so the two-line layout doesn’t wrap into four lines on narrow viewports.
+- **Root Cause:** Long lines were wrapping inside each span, causing the intended two-line H1 to break into four lines.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** Not run (CSS change; preview hero to confirm two-line H1 holds without wrapping).
+
+- **Time:** 2025-12-14 09:27 EST
+- **Summary:** Added confetti firing on hover, focus, and click for the “View Products” CTA so the hero animates when selected as well as hovered.
+- **Root Cause:** Confetti only triggered on hover; selecting the CTA via click or keyboard focus didn’t show the animation.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** Not run (UI change; preview CTA hover/focus/click to confirm confetti).
+
+- **Time:** 2025-12-14 09:29 EST
+- **Summary:** Ensured the “View Products” CTA scrolls to the features section on click (even with anchor links) and made confetti fire on pointer enter as well as hover/focus to catch all input types.
+- **Root Cause:** Confetti sometimes failed on hover-only handlers, and anchor clicks weren’t consistently triggering the scroll-to-features behavior.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** Not run (UI change; preview CTA hover/focus/pointer enter and click to confirm confetti plus smooth scroll).
+
+- **Time:** 2025-12-14 09:53 EST
+- **Summary:** Added 32px top padding to the landing features section container to match spacing guidance.
+- **Root Cause:** The `section-content` wrapper had no top padding, crowding the intro block against surrounding elements.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (layout spacing change; preview features section to confirm padding).
+
+- **Time:** 2025-12-14 09:55 EST
+- **Summary:** Increased landing features container top padding to 4rem (64px) for the requested spacing.
+- **Root Cause:** The previous 32px padding still left the intro too tight against surrounding elements.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (layout spacing change; preview features section to confirm 4rem padding).
+
+- **Time:** 2025-12-14 10:00 EST
+- **Summary:** Gave landing feature text cards a white background with 16px padding and switched copy to dark text for better readability.
+- **Root Cause:** Feature cards sat on a transparent/dark background with white text, clashing with the requested white card styling.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (UI styling change; preview product cards to confirm white bg, 16px padding, and black text).
+
+- **Time:** 2025-12-14 10:01 EST
+- **Summary:** Ensured product feature cards render on a white background with dark text and 16px padding by applying bg-white/p-4 shadow styles at the article level and resetting text colors.
+- **Root Cause:** Parent article still carried dark text defaults, so the new white cards didn’t appear white or readable.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (UI styling change; preview feature cards to confirm white background and dark text).
+
+- **Time:** 2025-12-14 10:03 EST
+- **Summary:** Forced both landing and default feature cards to use a white background, dark text, 16px padding, and 4px radius by setting styles on the article wrappers (and removing extra nested card backgrounds).
+- **Root Cause:** The landing feature cards still pulled the old transparent/dark styling and rounded-4xl radius, so the white background wasn’t visible.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (UI styling change; preview feature cards to confirm white bg, 4px radius, dark text).
+
+- **Time:** 2025-12-14 13:07 EST
+- **Summary:** Hard-set feature cards to a white background (inline style) to prevent dark theme overrides while keeping 4px radius, padding, and dark text.
+- **Root Cause:** Dark mode overrides kept tinting the cards; class-only bg-white wasn’t enough.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (UI styling change; preview cards in dark mode to confirm white background).
+
+- **Time:** 2025-12-14 13:09 EST
+- **Summary:** Switched the products/features section to a 3-column grid on landing, stacking each card’s content vertically and keeping white cards with dark text.
+- **Root Cause:** Products were still laid out as single-column alternating blocks; requested a 3-column product section layout.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (layout change; preview landing products to confirm 3-column grid and white cards).
+
+- **Time:** 2025-12-14 13:09 EST
+- **Summary:** Moved feature card media to the top of each card so images lead the content stack above titles/descriptions.
+- **Root Cause:** Media appeared below text in the new 3-column layout; request was to place hero images at the top of the card.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (layout change; preview cards to confirm media at the top).
+
+- **Time:** 2025-12-14 13:11 EST
+- **Summary:** Removed explicit white backgrounds from feature cards while keeping borders, radius, shadow, and dark text to match the requested styling.
+- **Root Cause:** Cards still had forced white backgrounds after moving media; request was to drop the bg color.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (UI styling change; preview cards to confirm no solid bg color).
+
+- **Time:** 2025-12-14 13:12 EST
+- **Summary:** Switched product feature card text to white (with white/80 body and bullets) so it’s readable without a forced background.
+- **Root Cause:** After removing the white card background, text remained dark and hard to read on the dark section.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (UI styling change; preview cards to confirm white text on dark backdrop).
+
+- **Time:** 2025-12-14 13:13 EST
+- **Summary:** Converted the landing product cards to a masonry layout using CSS columns (1/2/3) with break-inside guards so cards stack fluidly.
+- **Root Cause:** Cards were in a rigid grid; requested a masonry-style layout for the products section.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (layout change; preview the products section to confirm masonry stacking).
+
+- **Time:** 2025-12-14 13:20 EST
+- **Summary:** Upgraded CTA copy to be more action-driven: hero primary button now reads “Explore Figma plugins,” and product card fallbacks use “See how it works” instead of “View Product.”
+- **Root Cause:** CTAs used generic labels that weren’t benefit-forward.
+- **Changed Files:** src/data/products.json; src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (copy change; preview hero CTA and product cards to confirm updated labels).
+
+- **Time:** 2025-12-14 13:24 EST
+- **Summary:** Refreshed product feature CTA labels to be action/benefit-driven (e.g., “Standardize names with AI,” “Audit my file now,” “Clean prototype links,” “Generate my starter kit,” “Fix this table,” “Browse UX patterns”).
+- **Root Cause:** Product section buttons still used generic labels like “Rename Layers” and “Learn More.”
+- **Changed Files:** src/data/products.json
+- **Verification:** Not run (copy change; preview product cards to confirm updated CTA text).
+
+- **Time:** 2025-12-14 09:26 EST
+- **Summary:** Centered the hero paragraph by flex-aligning the text block to the middle and applying text-center for non-left aligned layouts.
+- **Root Cause:** The hero paragraph sat left-aligned when the headline was forced into two lines.
+- **Changed Files:** src/components/LandingHero.tsx
+- **Verification:** Not run (CSS change; preview hero to confirm centered paragraph).
+
+- **Time:** 2025-12-14 09:22 EST
+- **Summary:** Forced the hero H1 to render in two lines by keeping the explicit line break between “Design faster in Figma.” and “Ship cleaner design systems”.
+- **Root Cause:** H1 needed a guaranteed two-line layout to match the requested presentation.
+- **Changed Files:** src/data/products.json
+- **Verification:** Not run (copy change only; confirm hero H1 shows as two lines).
+
+- **Time:** 2025-12-14 09:19 EST
+- **Summary:** Tweaked the hero subhead to “The Studio Figma plugin suite for designers who care about speed, structure and creativity.” to keep Figma + Design Systems context while matching the requested wording and single-line flow.
+- **Root Cause:** The prior subhead lacked the explicit “Figma” callout and used a line break that split the sentence.
+- **Changed Files:** src/data/products.json
+- **Verification:** Not run (copy change only; confirm hero renders updated subhead).
+
+- **Time:** 2025-12-14 09:18 EST
+- **Summary:** Rephrased the homepage H1 to “Design faster in Figma. Ship cleaner design systems.” so it keeps the original promise while surfacing Figma + Design Systems for SEO clarity.
+- **Root Cause:** The prior H1 used new wording (“Figma runs faster. Design Systems stay clean.”) that deviated from the core “Design faster, Ship cleaner” positioning.
+- **Changed Files:** src/data/products.json
+- **Verification:** Not run (copy change only; verify hero renders with the updated H1).
+
+- **Time:** 2025-12-14 09:11 EST
+- **Summary:** Set the homepage title tag to “BiblioKit - Suite of Figma Plugins & DesignOps Tools” and rewrote the hero H1 to explicitly call out Figma and Design Systems.
+- **Root Cause:** The title pulled the hero text and never mentioned Figma or design systems, making the site look like generic library software to crawlers.
+- **Changed Files:** src/lib/seo.ts; index.html; src/data/products.json
+- **Verification:** Not run (copy/SEO change only; verify head tags and hero heading in the browser build).
+
+- **Time:** 2025-12-14 02:36 EST
+- **Summary:** Updated the Design System Guidelines blog to match the provided Google Doc with new copy, refreshed metadata, and the supplied hero image.
+- **Root Cause:** The page content and hero art were outdated relative to the latest doc, leaving readers with stale guidance and missing media alignment.
+- **Changed Files:** src/data/blogPosts.ts; public/blog/design-system-guidelines/design-system-guidelines-hero.png
+- **Verification:** Not run (content update only; visual check /blog/mastering-design-system-guidelines recommended).
+
+- **Time:** 2025-12-14 02:29 EST
+- **Summary:** Kept the featured blog title visible on hover by shifting the gradient/text-clip styling onto the link itself and adding consistent hover/focus treatment.
+- **Root Cause:** The gradient lived on the parent heading while the anchor inherited transparent text and only an opacity hover, so the link lost its fill on hover and the title disappeared.
+- **Changed Files:** src/components/BlogPage.tsx
+- **Verification:** Manual code review; dev server could not start in the sandbox environment (EPERM binding port 9990), so visual verification is pending.
+
 ## 2025-12-09
 
 - **Time:** 2025-12-09 21:33 EST
@@ -533,3 +679,99 @@
 - **Root Cause:** Latest revert dropped the badge and left an updated date; requirement is badge visible, no updated chip.
 - **Changed Files:** src/data/products.json
 - **Verification:** Not run (visual check hero shows the Figma Plugin badge and no “Updated …” chip).
+
+## 2025-12-13
+
+- **Time:** 2025-12-13 23:45 EST
+- **Summary:** Added the missing hero image to the Design System Guidelines blog content so the page no longer renders without media.
+- **Root Cause:** The article had only text and captions; no image block referenced the existing hero asset, leaving the page image-less.
+- **Changed Files:** src/data/blogPosts.ts
+- **Verification:** Not run (visual check /blog/mastering-design-system-guidelines shows the hero image).
+
+## 2025-12-14
+
+- **Time:** 2025-12-14 02:03 EST
+- **Summary:** Added image blocks for all missing captions in the Design System Guidelines article so each referenced visual renders instead of showing empty space.
+- **Root Cause:** The post only had caption text; no image blocks referenced existing art, leaving multiple sections without visuals.
+- **Changed Files:** src/data/blogPosts.ts
+- **Verification:** Not run (visual check /blog/mastering-design-system-guidelines displays images for audit, principles, library, and documentation sections).
+
+- **Time:** 2025-12-14 02:06 EST
+- **Summary:** Added the missing image for the “Google sign” section in the Design System Guidelines article to eliminate the blank caption.
+- **Root Cause:** That section still used a caption-only block with no image source, so the page showed empty space where the visual should be.
+- **Changed Files:** src/data/blogPosts.ts
+- **Verification:** Not run (visual check /blog/mastering-design-system-guidelines shows the Google sign image).
+
+## 2025-12-14
+
+- **Time:** 2025-12-14 08:45 EST
+- **Summary:** Made all blog image captions render in italics and added explicit captions for the newly added design system and component state images pulled from the source docs.
+- **Root Cause:** Figcaptions were plain text and the imported doc images lacked explicit captions, so image notes displayed unstyled alt text instead of italicized captions.
+- **Changed Files:** src/components/BlogArticlePage.tsx; src/data/blogPosts.ts; public/blog/design-system-guidelines/hero-1.jpg; public/blog/design-system-guidelines/hero-2.jpg; public/blog/ui-component-states/hero-watercolor.png; public/blog/ui-component-states/dashboard-dark.png; public/blog/ui-component-states/desk-ui-library.jpg
+- **Verification:** Not run (visual check blog posts to confirm italicized captions and image placement).
+
+- **Time:** 2025-12-14 08:46 EST
+- **Summary:** Set blog hero images to use the first images from each source doc for the design guidelines and component states posts.
+- **Root Cause:** Hero images still pointed to older assets instead of the first doc-provided visuals, so page headers did not reflect the imported media.
+- **Changed Files:** src/data/blogPosts.ts
+- **Verification:** Not run (visual check hero images on both blog posts).
+
+- **Time:** 2025-12-14 01:11 EST
+- **Summary:** Centered the landing features section midline across the whole section and added a default export to Docs so the App route import resolves; build now succeeds.
+- **Root Cause:** The white line was positioned relative to the intro block instead of the full features section, leaving it offset; Docs only provided a named export while App imported it as a default, which caused the esbuild failure.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx; src/components/Docs.tsx
+- **Verification:** npm run build (pass).
+
+- **Time:** 2025-12-14 02:24 EST
+- **Summary:** Added Jest + Testing Library harness and ProductContentSections characterization/contract tests; aligned Jest to v29 with vm-modules flag so import.meta-based env checks parse correctly.
+- **Root Cause:** Direct `npx jest --runInBand` failed on `import.meta` inside ProductContentSections; ts-jest needed the ESM preset plus Node’s vm-modules flag to execute components compiled with bundler-style env reads.
+- **Changed Files:** package.json; jest.config.cjs; tsconfig.jest.json; jest.setup.ts; test/jest/styleMock.js; client/src/__tests__/unit/ProductContentSections.spec.tsx
+- **Verification:** npm run test:unit -- client/src/__tests__/unit/ProductContentSections.spec.tsx (passes with NODE_OPTIONS=--experimental-vm-modules)
+
+- **Time:** 2025-12-14 01:10 EST
+- **Summary:** Fixed the docs route import so builds succeed and the UI Component States blog slug ships in the bundle, restoring the /blog/ui-component-states-guide page locally.
+- **Root Cause:** `src/components/Docs.tsx` only exported a named component; App.tsx imported a default, causing Vite build failure and leaving the new blog slug out of the last build.
+- **Changed Files:** src/components/Docs.tsx
+- **Verification:** npm run build (passes; dist/client/blog now includes ui-component-states assets)
+
+- **Time:** 2025-12-14 04:18 EST
+- **Summary:** Realigned the landing features midline so the white stroke sits behind the intro title instead of halfway down the section.
+- **Root Cause:** The horizontal accent line was anchored to the full features section height, so it landed far below the intro headline.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (CSS-only positioning change; needs visual check on landing hero/features header).
+
+- **Time:** 2025-12-14 08:01 EST
+- **Summary:** Restored the Unicorn embed behind the features title block by nesting the accent line inside the intro container and layering the heading above it.
+- **Root Cause:** Moving the line into a separate wrapper put it on top of the intro container, obscuring the embedded canvas background.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/components/ProductFeaturesSection.tsx
+- **Verification:** Not run (visual check embed renders behind the title).
+
+- **Time:** 2025-12-14 08:10 EST
+- **Summary:** Made the landing features accent line full-width and placed it behind the Unicorn embed (line z-0, canvas z-10, heading z-20) so the background stays visible.
+- **Root Cause:** The line sat above the embed and within the constrained container, hiding the canvas and stopping at ~85vw.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (visual check line spans viewport behind the embed).
+
+- **Time:** 2025-12-14 09:27 EST
+- **Summary:** Added landing logo marquee diagnostics and specific class hooks to capture sizing because the client logos appear broken on the features section.
+- **Root Cause:** The marquee renders semi-transparent (`text-white/40`) inline logos on the `landing-sections-gradient` grid background, so the 1px grid bleeds through the glyphs and makes the marks look fragmented.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** npm run build:client (pass; visual check still needed with debug logs on).
+
+- **Time:** 2025-12-14 09:39 EST
+- **Summary:** Fixed landing marquee bleed by raising logo opacity, masking the grid behind the marquee, reducing duplicate loops to two, and adding sizing caps for inline logos.
+- **Root Cause:** Low-opacity logos on top of the landing grid let grid lines show through, fragmenting the marks; four duplicated logo sets also sat static when motion was reduced.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/index.css; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** npm run build:client (pass; visual check recommended).
+
+- **Time:** 2025-12-14 09:45 EST
+- **Summary:** Resolved React key warning in ProductContentSections by keying the features block, keeping the landing render clean in dev tools.
+- **Root Cause:** ProductFeaturesSection was rendered inside a mapped block without a stable key, triggering React’s list key warning.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** npm run build:client (pass).
+
+- **Time:** 2025-12-14 09:53 EST
+- **Summary:** Removed the landing logo marquee strip (kept the section title) and suppressed marquee debug logging when the strip is absent.
+- **Root Cause:** Logos still looked broken; removing the strip avoids the bleed entirely while preserving the section header.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** npm run build:client (pass; visual check to confirm strip is gone).
