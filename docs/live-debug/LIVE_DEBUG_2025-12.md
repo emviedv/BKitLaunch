@@ -811,3 +811,9 @@
 - **Root Cause:** The prior CTA line was descriptive but not strongly action/benefit oriented.
 - **Changed Files:** src/components/AIRenameVariantsPage.tsx
 - **Verification:** Not run (copy-only change; deploy build will run).
+
+- **Time:** 2025-12-14 14:20 EST
+- **Summary:** Reframed the “Admin Ready” callout to emphasize privacy-first handling (SSO, least-privilege, no exports, explicit approval before writes).
+- **Root Cause:** The previous admin blurb highlighted billing and guides instead of privacy safeguards.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx
+- **Verification:** Not run (copy-only change; deploy build will run).

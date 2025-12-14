@@ -363,7 +363,7 @@ const AIRenameVariantsPage = () => {
                 <Shield className="w-6 h-6" />
               </div>
               <h4 className="font-bold mb-2">Admin Ready</h4>
-              <p className="text-slate-400 text-sm">SSO-ready. Team billing available. Strict data handling policy.</p>
+              <p className="text-slate-400 text-sm">Privacy-first: SSO-ready, least-privilege scopes, no exports—reads selection, writes only when you approve.</p>
            </div>
         </div>
       </Section>
