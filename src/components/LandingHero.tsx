@@ -11,14 +11,14 @@ import {
 import { LANDING_TITLE_GRADIENT_CLASS } from './heroTitleGradient';
 import { logHeroHeadlineSplit } from './heroInstrumentation';
 import { HERO_ACTORS } from './heroCursorActors';
-import OrigamiIllustration from './OrigamiIllustration';
 import { debugService } from '@/lib/debugService';
 import {
   LANDING_FEATURES_ID,
   LANDING_PRICING_ID,
   LANDING_WAITLIST_ID,
 } from '@/config/sectionAnchors';
-import { Zap, MousePointer2 } from 'lucide-react';
+import { Zap, MousePointer2, ArrowRight } from '@/lib/iconUtils';
+import FluidBackground from './FluidBackground';
 
 export type LandingHeroContent = {
   title?: string | null;
@@ -32,7 +32,7 @@ export type LandingHeroContent = {
   align?: 'left' | 'center';
 };
 
-const LANDING_TITLE_CLASS = 'text-5xl md:text-7xl font-bold leading-[1.1] tracking-tight text-white';
+const LANDING_TITLE_CLASS = 'text-6xl md:text-8xl font-sans font-extrabold leading-[1.1] tracking-tight text-white';
 
 // Origami layout configuration
 const ORIGAMI_LAYOUT = {
@@ -40,7 +40,7 @@ const ORIGAMI_LAYOUT = {
   blob2: { x: 40, y: 40, scale: 1 },   // Diamond (Center)
   blob3: { x: 80, y: 20, scale: 1 },   // Media Card (Right)
   blob4: { x: 25, y: 75, scale: 1 },   // Sticky Note (Bottom Left)
-  content: { x: 25, y: 50, scale: 1 }  // Text Content (Left side)
+  content: { x: 32, y: 48, scale: 1 }  // Text Content (Left side, balanced)
 };
 
 export interface LandingHeroProps {
@@ -239,6 +239,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
       <div ref={gradientLayerRef} className="landing-hero-gradient__layer" aria-hidden="true" />
       <div className="landing-hero-noise" aria-hidden="true" />
       <div className="landing-hero-contrast" aria-hidden="true" />
+      <FluidBackground />
 
       {/* Cursor Overlay Layer */}
       <div className="absolute inset-0 pointer-events-none z-50 overflow-hidden">
@@ -289,13 +290,14 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
       {/* Main Canvas Area */}
       <div className="absolute inset-0 w-full h-full">
         <div className="section-content relative h-full">
-          {/* Left Side: Text Content */}
+          {/* Centered Text Content */}
           <div
-            className="absolute z-20 transition-all duration-75 ease-linear max-w-xl"
+            className="absolute z-20 transition-all duration-75 ease-linear max-w-4xl text-center mt-8"
             style={{
               top: `${pos.content.y}%`,
-              left: `${pos.content.x}%`,
-              transform: 'translate(-50%, -50%)'
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              marginTop: '60px'
             }}
           >
             {badgeLabel && (
@@ -305,7 +307,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
               </span>
             )}
 
-            <h1 className={LANDING_TITLE_CLASS + " font-display mb-6 pointer-events-none select-none"}>
+            <h1 className={LANDING_TITLE_CLASS + " mb-6 pointer-events-none select-none"}>
               {headlineSegments.length > 0 ? (
                 headlineSegments.map((segment) => {
                   const isSubtitle = segment.key === 'subtitle';
@@ -325,12 +327,19 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
             </h1>
 
             {description && (
-              <p className="text-xl text-white/75 max-w-lg leading-relaxed mb-8">
-                {description}
+              <p className="text-2xl text-white/75 max-w-xl leading-relaxed text-center mx-auto mb-8">
+                {typeof description === 'string'
+                  ? description.split('\n').map((line, i, arr) => (
+                      <span key={i}>
+                        {line}
+                        {i < arr.length - 1 && <br />}
+                      </span>
+                    ))
+                  : description}
               </p>
             )}
 
-            <div className="flex flex-wrap gap-4 pointer-events-auto">
+            <div className="flex flex-wrap gap-4 pointer-events-auto justify-center">
               {primaryButton && (
                 <Button
                   size="lg"
@@ -341,6 +350,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
                   }}
                   aria-label={`${primaryButton} - Primary action`}
                 >
+                  <ArrowRight className="w-5 h-5 mr-2" />
                   {primaryButton}
                 </Button>
               )}
@@ -348,7 +358,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="px-8 py-4 bg-white border-2 border-slate-100 text-slate-700 font-bold rounded-xl hover:border-[hsl(var(--primary)/0.25)] hover:bg-[hsl(var(--primary)/0.06)] transition-all flex items-center gap-2"
+                  className="px-6 rounded-md bg-white border-2 border-slate-100 text-slate-700 shadow-md hover:border-[hsl(var(--primary)/0.25)] hover:bg-[hsl(var(--primary)/0.06)] text-sm font-medium uppercase tracking-wide flex items-center gap-2"
                   onClick={secondaryButtonLink ? (event) => handleAnchorNavigation(event, secondaryButtonLink) : () => scrollToSection(LANDING_PRICING_ID)}
                 >
                   <Zap className="w-4 h-4 text-[hsl(var(--primary))]" />
@@ -357,12 +367,6 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
               )}
             </div>
           </div>
-        </div>
-      </div>
-      {/* Right Side: Illustration Container */}
-      <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-end pr-0 lg:pr-10 xl:pr-16">
-        <div className="relative z-40 w-[700px] h-[700px] max-w-full transform-style-3d rotate-isometric animate-hover-gentle">
-          <OrigamiIllustration showCursors={false} className="pointer-events-none w-full h-full" />
         </div>
       </div>
 
@@ -377,7 +381,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
         aria-hidden="true"
       />
 
-      <style jsx>{`
+      <style>{`
         .transform-style-3d {
           transform-style: preserve-3d;
         }
@@ -393,32 +397,32 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
           animation: hover-gentle 6s ease-in-out infinite;
         }
 
-        /* Cursor Animations */
+        /* Cursor Animations - scaled up 20% with scale transform */
         @keyframes cursor-float-1 {
-          0% { transform: translate(60vw, 20vh); }
-          25% { transform: translate(65vw, 35vh); }
-          50% { transform: translate(55vw, 40vh); }
-          75% { transform: translate(58vw, 25vh); }
-          100% { transform: translate(60vw, 20vh); }
+          0% { transform: translate(30vw, 10vh) scale(1.2); }
+          25% { transform: translate(34vw, 19vh) scale(1.2); }
+          50% { transform: translate(26vw, 22vh) scale(1.2); }
+          75% { transform: translate(28vw, 13vh) scale(1.2); }
+          100% { transform: translate(30vw, 10vh) scale(1.2); }
         }
         @keyframes cursor-float-2 {
-          0% { transform: translate(75vw, 60vh); }
-          33% { transform: translate(85vw, 55vh); }
-          66% { transform: translate(70vw, 70vh); }
-          100% { transform: translate(75vw, 60vh); }
+          0% { transform: translate(37.5vw, 30vh) scale(1.2); }
+          33% { transform: translate(44vw, 27vh) scale(1.2); }
+          66% { transform: translate(33vw, 38vh) scale(1.2); }
+          100% { transform: translate(37.5vw, 30vh) scale(1.2); }
         }
         @keyframes cursor-float-3 {
-          0% { transform: translate(30vw, 60vh); }
-          40% { transform: translate(40vw, 75vh); }
-          70% { transform: translate(25vw, 65vh); }
-          100% { transform: translate(30vw, 60vh); }
+          0% { transform: translate(15vw, 30vh) scale(1.2); }
+          40% { transform: translate(22vw, 40vh) scale(1.2); }
+          70% { transform: translate(10vw, 34vh) scale(1.2); }
+          100% { transform: translate(15vw, 30vh) scale(1.2); }
         }
         @keyframes cursor-float-4 {
-          0% { transform: translate(50vw, 18vh); }
-          30% { transform: translate(60vw, 30vh); }
-          60% { transform: translate(48vw, 38vh); }
-          90% { transform: translate(56vw, 22vh); }
-          100% { transform: translate(50vw, 18vh); }
+          0% { transform: translate(25vw, 9vh) scale(1.2); }
+          30% { transform: translate(32vw, 17vh) scale(1.2); }
+          60% { transform: translate(22vw, 22vh) scale(1.2); }
+          90% { transform: translate(29vw, 11vh) scale(1.2); }
+          100% { transform: translate(25vw, 9vh) scale(1.2); }
         }
         .animate-cursor-float-1 { animation: cursor-float-1 15s ease-in-out infinite; }
         .animate-cursor-float-2 { animation: cursor-float-2 18s ease-in-out infinite; }

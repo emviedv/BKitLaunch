@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Confetti, type ConfettiRef } from '@/components/ui/confetti';
 import { debugService } from '@/lib/debugService';
-import { resolveLucideIcon } from '@/lib/iconUtils';
+import { resolveLucideIcon, ArrowRight } from '@/lib/iconUtils';
 import {
   HERO_TITLE_CLASS,
   HERO_PRIMARY_BUTTON_CLASS,
@@ -13,6 +13,7 @@ import {
 import LandingHero from './LandingHero';
 import { cn } from '@/lib/utils';
 import { LANDING_FEATURES_ID } from '@/config/sectionAnchors';
+import FluidBackground from './FluidBackground';
 
 interface ProductInfo {
   emoji?: string;
@@ -90,7 +91,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
 
   const productIconToken = product?.emoji || product?.icon;
   const ProductGlyph = productIconToken ? resolveLucideIcon(productIconToken) : null;
-  const PrimaryButtonIcon = product.primaryButtonIcon ? resolveLucideIcon(product.primaryButtonIcon) : null;
+  const PrimaryButtonIcon = product.primaryButtonIcon ? resolveLucideIcon(product.primaryButtonIcon) : ArrowRight;
   // Product hero callouts are intentionally hidden on product pages.
   const calloutItems: NormalizedCallout[] = [];
 
@@ -141,6 +142,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
       <div className="landing-hero-gradient__layer" aria-hidden="true" />
       <div className="landing-hero-noise" aria-hidden="true" />
       <div className="landing-hero-contrast" aria-hidden="true" />
+      <FluidBackground />
       <Confetti
         ref={confettiRef}
         className="absolute left-0 top-0 z-[1] h-full w-full pointer-events-none"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, User, Settings, Bell, Mail, Calendar, FileText, Image, Video, Music } from 'lucide-react';
+import { Search, User, Settings, Bell, Mail, Calendar, FileText, Image, Video, Music } from '@/lib/iconUtils';
 
 // Background animation for BiblioKit Blocks hero
 // Adapted from the provided LoadingScreenAnimation:

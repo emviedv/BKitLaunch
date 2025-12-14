@@ -349,7 +349,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
 
   const featuresTitle = sectionOverrides?.featuresTitle
     || product?.sections?.features?.title
-    || 'Design smarter. Ship cleaner.';
+    || 'Trusted by designers\nshipping real products in Figma.';
   const featuresDescription = sectionOverrides?.featuresDescription
     || product?.sections?.features?.description
     || 'Comprehensive design system analytics platform with automated Figma integration and ROI tracking';
@@ -381,6 +381,34 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
       });
     } catch {}
   }, [details, useCasesColumns, benefits, testimonialsColumns, product?.testimonials]);
+
+  // Re-init Unicorn Studio when component mounts (script loaded from index.html)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const removeWatermarks = () => {
+      document.querySelectorAll('a[href*="unicorn"]').forEach(el => el.remove());
+      document.querySelectorAll('img[src*="unicorn"]').forEach(el => el.parentElement?.remove());
+    };
+
+    const timer = setTimeout(() => {
+      if ((window as any).UnicornStudio?.init) {
+        (window as any).UnicornStudio.init();
+      }
+      removeWatermarks();
+    }, 500);
+
+    // Use MutationObserver to catch dynamically added watermarks
+    const observer = new MutationObserver(() => {
+      removeWatermarks();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, []);
 
   const getGridClassesForColumns = (cols: number): string => {
     switch (cols) {
@@ -445,13 +473,29 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     }
 
     const introContent = (
-      <div className="max-w-3xl md:max-w-4xl mx-auto text-center py-[18px] text-white">
-        <h2 className={cn(SECTION_TITLE_CLASS, 'text-center text-white drop-shadow-[0_20px_60px_rgba(4,0,12,0.6)]')}>
-          {featuresTitle}
-        </h2>
-        <p className={cn(SECTION_DESCRIPTION_CLASS, 'mt-4 text-center max-w-3xl mx-auto text-white/70')}>
-          {featuresDescription}
-        </p>
+      <div className="relative mx-auto text-center text-white isolate flex flex-col items-center justify-center border border-white" style={{ width: '85vw', maxWidth: '1400px' }}>
+        <div
+          className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
+        >
+          <div
+            data-us-project="clh5ttrCGWQmiptJb8bS"
+            className="[&_canvas]:!w-full [&_canvas]:!h-full [&_canvas]:object-cover"
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
+        <div className="relative z-10 py-16 px-12">
+          <h2 className={cn(SECTION_TITLE_CLASS, 'font-display text-center text-white drop-shadow-[0_20px_60px_rgba(4,0,12,0.6)]')}>
+            {featuresTitle.split('\n').map((line, i, arr) => (
+              <span key={i}>
+                {line}
+                {i < arr.length - 1 && <br />}
+              </span>
+            ))}
+          </h2>
+          <p className={cn(SECTION_DESCRIPTION_CLASS, 'mt-4 text-center mx-auto text-white/70')}>
+            {featuresDescription}
+          </p>
+        </div>
       </div>
     );
 
@@ -461,8 +505,13 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           className="relative overflow-hidden landing-sections-gradient py-24 sm:py-28"
           key="features-landing"
         >
+          <div className="relative w-full flex flex-col items-center">
+            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 border-b border-white z-0" />
+            <div className="relative z-10">
+              {introContent}
+            </div>
+          </div>
           <div className={buildSectionContentClass('relative overflow-visible')}>
-            {introContent}
             <div className="mt-12 relative flex flex-col gap-10 lg:gap-12">
               <div className="space-y-[96px]">
                 {detailEntries.map(({ detail, anchorId }, index) => {

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@hotjar/browser": "^1.0.9",
+    "@iconify/react": "^6.0.2",
     "@paper-design/shaders-react": "^0.0.60",
     "@radix-ui/react-slot": "^1.2.3",
     "@remixicon/react": "^4.6.0",

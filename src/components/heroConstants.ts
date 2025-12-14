@@ -8,7 +8,7 @@ export const HERO_DESCRIPTION_CLASS =
   'text-[22px] leading-[1.55] text-muted-foreground';
 
 export const HERO_PRIMARY_BUTTON_CLASS =
-  'w-full sm:w-auto min-w-[12rem] rounded-lg bg-[#ff2f87] text-white shadow-none transition-colors duration-200 hover:bg-[#e02074]';
+  'w-full sm:w-auto min-w-[12rem] px-6 rounded-md bg-[#ff2f87] text-white shadow-md transition-colors duration-200 hover:bg-[#e02074] text-sm font-medium uppercase tracking-wide';
 
 export const HERO_HEADLINE_GRADIENT_CLASS = 'hero-gradient-text';
 
@@ -73,28 +73,41 @@ export const buildHeroHeadlineSegments = ({
   }
 
   if (trimmedTitle) {
-    const { firstSentence, remainder } = splitHeroHeadline(trimmedTitle);
-    if (firstSentence) {
-      segments.push({
-        text: firstSentence,
-        gradient: !trimmedSubtitle,
-        key: 'title-first',
-      });
-    }
+    // Split by explicit newlines for manual line control
+    const lines = trimmedTitle.split('\n').map((line) => line.trim()).filter(Boolean);
 
-    if (remainder) {
-      const remainderPieces = remainder
-        .split(/(?<=[.!?])\s+/)
-        .map((value) => value.trim())
-        .filter(Boolean);
-
-      remainderPieces.forEach((piece, index) => {
+    if (lines.length > 1) {
+      lines.forEach((line, index) => {
         segments.push({
-          text: piece,
+          text: line,
           gradient: false,
-          key: `title-remainder-${index}`,
+          key: `title-line-${index}`,
         });
       });
+    } else {
+      const { firstSentence, remainder } = splitHeroHeadline(trimmedTitle);
+      if (firstSentence) {
+        segments.push({
+          text: firstSentence,
+          gradient: !trimmedSubtitle,
+          key: 'title-first',
+        });
+      }
+
+      if (remainder) {
+        const remainderPieces = remainder
+          .split(/(?<=[.!?])\s+/)
+          .map((value) => value.trim())
+          .filter(Boolean);
+
+        remainderPieces.forEach((piece, index) => {
+          segments.push({
+            text: piece,
+            gradient: false,
+            key: `title-remainder-${index}`,
+          });
+        });
+      }
     }
   }
 

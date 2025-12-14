@@ -9,10 +9,10 @@
   },
   "hero": {
     "visible": true,
-    "title": "Your Design Toolkit, Reinvented.",
+    "title": "Design faster with plugins built for real Figma workflows.",
     "subtitle": "Work x10,000 faster.",
     "badgeLabel": "Built by designers for designers.",
-    "description": "Automate the things you hate, focus on design you love.",
+    "description": "The Studio plugin suite for designers who care about speed, structure, and creativity.",
     "primaryButton": "Get Started Free",
     "secondaryButton": "View Products",
     "primaryButtonLink": "https://blocks.bibliokit.com/signup",
@@ -213,7 +213,7 @@
     }
   ],
   "featuresSection": {
-    "title": "Design smarter. Ship cleaner.",
+    "title": "Trusted by designers\nshipping real products in Figma.",
     "description": "AI-powered tools for modern product teams."
   },
   "products": {

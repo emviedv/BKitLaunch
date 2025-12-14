@@ -7,6 +7,14 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Inter"', 'sans-serif'],
+        display: ['"Inter"', 'sans-serif'],
+        'work': ['"Work Sans"', 'sans-serif'],
+        'albert': ['"Albert Sans"', 'sans-serif'],
+        'barlow': ['"Barlow"', 'sans-serif'],
+        'inter': ['"Inter"', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -59,6 +67,25 @@ export default {
         'brand-via': theme('colors.blue.500'),
         'brand-to': theme('colors.green.500'),
       }),
+      animation: {
+        blob: "blob 7s infinite",
+      },
+      keyframes: {
+        blob: {
+          "0%": {
+            transform: "translate(0px, 0px) scale(1)",
+          },
+          "33%": {
+            transform: "translate(30px, -50px) scale(1.1)",
+          },
+          "66%": {
+            transform: "translate(-20px, 20px) scale(0.9)",
+          },
+          "100%": {
+            transform: "translate(0px, 0px) scale(1)",
+          },
+        },
+      },
     },
   },
   plugins: [],

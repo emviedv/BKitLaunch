@@ -78,7 +78,10 @@ edge_functions = "netlify/edge-functions"
     # Content Security Policy will be sent dynamically by SSR as Report-Only with a nonce
     # Once violations are addressed, we can enforce here. Keep a permissive baseline for static files only.
     # Note: SSR adds Content-Security-Policy-Report-Only headers with per-request nonces.
-    
+
+    # SEO - Allow indexing by default
+    X-Robots-Tag = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+
     # Additional hardening headers
     Permissions-Policy = "geolocation=(), microphone=(), camera=(), usb=(), payment=()"
     Cross-Origin-Opener-Policy = "same-origin"

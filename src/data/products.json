@@ -27,10 +27,9 @@
   },
   "hero": {
     "visible": true,
-    "title": "The All-in-One Figma Plugin Suite for Design Ops",
-    "subtitle": "Work x10,000 faster.",
+    "title": "Design faster.\nShip cleaner.",
     "badgeLabel": null,
-    "description": "Replace your fragmented plugin stack. The only Figma suite with Predictive Heatmaps, Design System Audits, AI Renaming, and Batch Scaling in one subscription.",
+    "description": "The Studio plugin suite for designers who care\nabout speed, structure, and creativity.",
     "primaryButton": "View Products",
     "secondaryButton": null,
     "primaryButtonLink": "#landing-features",
@@ -238,7 +237,7 @@
     }
   ],
   "featuresSection": {
-    "title": "Design ops jobs, solved in one suite.",
+    "title": "Trusted by designers\nshipping real products in Figma.",
     "description": "Automate audits, AI naming, link cleanup, and project setup with the BiblioKit Figma plugins."
   },
   "pricing": [

@@ -533,12 +533,12 @@
       top left,
       center,
       center;
-    min-height: clamp(432px, calc(100vh - 248px), 852px);
+    min-height: 78vh;
   }
 
   .landing-hero-expanded {
-    padding-top: clamp(80px, 20vh, 200px);
-    padding-bottom: 0;
+    padding-top: clamp(80px, 15vh, 160px);
+    padding-bottom: 120px;
   }
 
   .landing-hero-compact {
@@ -814,6 +814,14 @@
     @apply relative bg-gradient-to-br from-[#141829] via-[#0f1422] to-[#090d18] text-title-darkest;
   }
 } 
+
+/* Hide Unicorn Studio watermarks */
+[data-us-project] a[href*="unicorn.studio"],
+[data-us-project] a[href*="unicorn"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
 
 /* Pink shimmer focus effect for inputs, textareas, selects */
 @layer utilities {
