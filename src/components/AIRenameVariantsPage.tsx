@@ -260,14 +260,7 @@ const AIRenameVariantsPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Level up your design system.</h2>
-              <p className="text-xl text-purple-200 mb-8">Includes 8 free credits + Team Rollout Guide.</p>
-              <div className="space-y-4 mb-8">
-                 <div className="flex items-center gap-3">
-                    <span className="text-2xl font-bold">$12/mo</span>
-                    <span className="text-slate-400">per editor</span>
-                 </div>
-                 <p className="text-sm text-slate-400">Payback if you reclaim 4 hours/wk across 3 designers.</p>
-              </div>
+              <p className="text-xl text-purple-200 mb-8">Start with 8 free credits and clean up variant naming today.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
                   Start fixing — 8 free credits
@@ -276,7 +269,7 @@ const AIRenameVariantsPage = () => {
             </div>
             <div className="flex justify-center">
                <div className="relative">
-                   <PlaceholderImage label="Rollout Guide Cover" height="h-64" className="w-48 shadow-2xl rotate-3" />
+                   <PlaceholderImage label="Audit Snapshot Preview" height="h-64" className="w-48 shadow-2xl rotate-3" />
                    <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
                         <Check className="w-4 h-4 text-green-400" />

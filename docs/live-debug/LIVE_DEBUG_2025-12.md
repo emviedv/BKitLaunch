@@ -799,3 +799,9 @@
 - **Root Cause:** The interim admin screen had extra guidance and mailto links, but the request was to avoid details and just route users home.
 - **Changed Files:** src/components/AdminPage.tsx
 - **Verification:** Not run (UI copy-only change; build previously passing).
+
+- **Time:** 2025-12-14 14:15 EST
+- **Summary:** Removed pricing and guide/playbook references from the AI Rename CTA block, keeping the section focused on the free-credit kickoff CTA.
+- **Root Cause:** The hero CTA still showed pricing and a Team Rollout Guide despite the request to drop pricing and guides/playbooks for products.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx
+- **Verification:** npm run build (pass).
