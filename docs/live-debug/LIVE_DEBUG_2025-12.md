@@ -817,3 +817,9 @@
 - **Root Cause:** The previous admin blurb highlighted billing and guides instead of privacy safeguards.
 - **Changed Files:** src/components/AIRenameVariantsPage.tsx
 - **Verification:** Not run (copy-only change; deploy build will run).
+
+- **Time:** 2025-12-14 14:29 EST
+- **Summary:** Renamed the AI Rename FAQ header from “Common questions” to “FAQ” per the request.
+- **Root Cause:** The FAQ section heading didn’t match the desired label.
+- **Changed Files:** src/components/AIRenameVariantsPage.tsx
+- **Verification:** Not run (copy-only change; deploy build will run).

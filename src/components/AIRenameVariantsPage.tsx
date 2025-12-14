@@ -399,7 +399,7 @@ const AIRenameVariantsPage = () => {
 
       {/* Block 11: FAQ */}
       <Section dark>
-        <SectionTitle className="text-center mb-12">Common questions.</SectionTitle>
+        <SectionTitle className="text-center mb-12">FAQ.</SectionTitle>
         <div className="max-w-3xl mx-auto space-y-6">
            {[
              { q: "Will it change files without my approval?", a: "No. All changes show as suggestions; you approve edits." },
