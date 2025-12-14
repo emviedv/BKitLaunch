@@ -382,31 +382,18 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     } catch {}
   }, [details, useCasesColumns, benefits, testimonialsColumns, product?.testimonials]);
 
-  // Re-init Unicorn Studio when component mounts (script loaded from index.html)
+  // Re-init Unicorn Studio when component mounts
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
-    const removeWatermarks = () => {
-      document.querySelectorAll('a[href*="unicorn"]').forEach(el => el.remove());
-      document.querySelectorAll('img[src*="unicorn"]').forEach(el => el.parentElement?.remove());
-    };
 
     const timer = setTimeout(() => {
       if ((window as any).UnicornStudio?.init) {
         (window as any).UnicornStudio.init();
       }
-      removeWatermarks();
     }, 500);
-
-    // Use MutationObserver to catch dynamically added watermarks
-    const observer = new MutationObserver(() => {
-      removeWatermarks();
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       clearTimeout(timer);
-      observer.disconnect();
     };
   }, []);
 
@@ -472,6 +459,40 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
       return null;
     }
 
+    // Logo data for scrolling marquee (increased by 20%: h-7 -> h-8, h-6 -> h-7)
+    const logoItems = [
+      { name: 'Spotify', svg: <svg className="h-8 w-auto" viewBox="0 0 167 50" fill="currentColor"><path d="M83.996 0C37.747 0 0 11.193 0 25.002c0 13.806 37.747 25 83.996 25 46.251 0 83.004-11.194 83.004-25C167 11.193 129.247 0 83.996 0zM29.5 36.5h-6v-23h6v23zm35.5 0h-6V19.896l-8 16.604h-4l-8-16.604V36.5h-6v-23h8l8 14.604 8-14.604h8v23zm25-17.5h-10v4h9v5h-9v3.5h10v5h-16v-23h16v5.5zm17 17.5h-6v-23h6v23zm22 0h-6V19.896l-8 16.604h-4l-8-16.604V36.5h-6v-23h8l8 14.604 8-14.604h8v23z"/></svg> },
+      { name: 'Figma', svg: <svg className="h-8 w-auto" viewBox="0 0 38 57" fill="currentColor"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg> },
+      { name: 'Slack', svg: <svg className="h-8 w-auto" viewBox="0 0 54 54" fill="currentColor"><path d="M19.712.133a5.381 5.381 0 0 0-5.376 5.387 5.381 5.381 0 0 0 5.376 5.386h5.376V5.52A5.381 5.381 0 0 0 19.712.133m0 14.365H5.376A5.381 5.381 0 0 0 0 19.884a5.381 5.381 0 0 0 5.376 5.387h14.336a5.381 5.381 0 0 0 5.376-5.387 5.381 5.381 0 0 0-5.376-5.386"/><path d="M53.76 19.884a5.381 5.381 0 0 0-5.376-5.386 5.381 5.381 0 0 0-5.376 5.386v5.387h5.376a5.381 5.381 0 0 0 5.376-5.387m-14.336 0V5.52A5.381 5.381 0 0 0 34.048.133a5.381 5.381 0 0 0-5.376 5.387v14.364a5.381 5.381 0 0 0 5.376 5.387 5.381 5.381 0 0 0 5.376-5.387"/><path d="M34.048 54a5.381 5.381 0 0 0 5.376-5.387 5.381 5.381 0 0 0-5.376-5.386h-5.376v5.386A5.381 5.381 0 0 0 34.048 54m0-14.365h14.336a5.381 5.381 0 0 0 5.376-5.386 5.381 5.381 0 0 0-5.376-5.387H34.048a5.381 5.381 0 0 0-5.376 5.387 5.381 5.381 0 0 0 5.376 5.386"/><path d="M0 34.249a5.381 5.381 0 0 0 5.376 5.386 5.381 5.381 0 0 0 5.376-5.386v-5.387H5.376A5.381 5.381 0 0 0 0 34.25m14.336-.001v14.364A5.381 5.381 0 0 0 19.712 54a5.381 5.381 0 0 0 5.376-5.387V34.249a5.381 5.381 0 0 0-5.376-5.387 5.381 5.381 0 0 0-5.376 5.387"/></svg> },
+      { name: 'Notion', svg: <svg className="h-8 w-auto" viewBox="0 0 100 100" fill="currentColor"><path d="M6.017 4.313l55.333-4.087c6.797-.583 8.543-.19 12.817 2.917l17.663 12.443c2.913 2.14 3.883 2.723 3.883 5.053v68.243c0 4.277-1.553 6.807-6.99 7.193L24.467 99.967c-4.08.193-6.023-.39-8.16-3.113L3.3 79.94c-2.333-3.113-3.3-5.443-3.3-8.167V11.113c0-3.497 1.553-6.413 6.017-6.8z"/><path fill="#fff" d="M61.35 1.476l-55.333 4.087C1.553 6.2 0 9.116 0 12.613v60.66c0 2.723.967 5.053 3.3 8.167l13.007 16.913c2.137 2.723 4.08 3.307 8.16 3.113l64.257-3.89c5.437-.387 6.99-2.917 6.99-7.193V19.64c0-2.33-.97-2.913-3.883-5.053L74.167 2.143c-4.274-3.107-6.02-3.5-12.817-2.917zM25.92 19.523c-5.247.353-6.437.433-9.417-1.99L8.927 11.507c-.77-.78-.383-1.753 1.557-1.947l53.193-3.887c4.467-.39 6.793 1.167 8.54 2.527l9.123 6.61c.39.197 1.36 1.36.193 1.36l-54.933 3.307-.68.047zM19.803 88.3V30.367c0-2.53.777-3.697 3.103-3.893L86 22.78c2.14-.193 3.107 1.167 3.107 3.693v57.547c0 2.53-.39 4.67-3.883 4.863l-60.377 3.5c-3.493.193-5.043-.97-5.043-4.083zm59.6-54.827c.387 1.75 0 3.5-1.75 3.7l-2.91.577v42.773c-2.527 1.36-4.853 2.137-6.797 2.137-3.107 0-3.883-.973-6.21-3.887l-19.03-29.94v28.967l6.02 1.363s0 3.5-4.857 3.5l-13.39.777c-.39-.78 0-2.723 1.357-3.11l3.497-.97v-38.3L30.48 40.667c-.39-1.75.58-4.277 3.3-4.473l14.357-.967l19.8 30.327v-26.83l-5.047-.58c-.39-2.143 1.163-3.7 3.103-3.89l13.41-.78z"/></svg> },
+      { name: 'Linear', svg: <svg className="h-8 w-auto" viewBox="0 0 100 100" fill="currentColor"><path d="M1.22541 61.5228c-.2225-.9485.90748-1.5459 1.59638-.857L39.3342 97.1782c.6889.6889.0915 1.8189-.857 1.5765C20.0515 94.4522 5.54779 79.9485 1.22541 61.5228ZM.00189135 46.8891c-.01764375.2833.08887215.5599.28957055.7606L52.3503 99.7085c.2007.2007.4773.3072.7606.2896 2.3692-.1476 4.6938-.46 6.9624-.9259.7645-.157 1.0301-1.0963.4782-1.6481L2.57595 39.4485c-.55186-.5765-1.49117-.2863-1.648174.4782-.465915 2.2686-.77832 4.5932-.92588465 6.9624ZM4.21093 29.7054c-.16649.3738-.08169.8106.20765 1.1l64.77602 64.776c.2894.2894.7262.3742 1.1.2077 1.7861-.7946 3.5171-1.6976 5.1855-2.7039.5765-.3474.6455-1.151.1572-1.6393L9.21103 25.0197c-.48825-.4883-1.29192-.4193-1.63932.1573-1.00636 1.6683-1.90936 3.3994-2.70393 5.1854ZM12.6587 18.074c-.3088-.3474-.3307-.8645-.0536-1.2349 4.5019-6.02016 10.3914-10.98368 17.2351-14.403443.5462-.2728 1.2011-.102521 1.5583.377743L99.5765 80.991c.4803.4803.6506 1.1351.3778 1.5583-3.4198 6.8437-8.3833 12.7332-14.4035 17.2351-.3704.2771-.8875.2552-1.2349-.0536L12.6587 18.074ZM41.9291 3.00034C41.0805 2.40167 39.8681 2.89235 39.6282 3.90746c-1.2831 5.43057-1.9505 11.07746-1.9505 16.87434 0 15.2495 4.7164 29.3924 12.7729 41.0379.3898.5644 1.1564.6482 1.6557.1489L99.0854 14.9894c.4994-.4993.4156-1.266-.1489-1.6557C87.2905 5.27717 73.1475.56084 57.898.56084c-5.7969 0-11.4438.66739-16.8744 1.95053-.0786.02-.1576.04165-.2355.06448-.1313.03847-.2619.08255-.3913.1312-.0443.01669-.0883.03383-.132.0514-.1234.04957-.2464.10275-.3675.16065l-.0443.02135c-.116.05559-.2313.1145-.3449.17733l-.024.01328c-.1049.05787-.209.1187-.3115.18253l-.033.02061c-.0992.0624-.1973.12721-.2942.19481l-.02.01376c-.0835.05862-.1662.11888-.2479.18107Z"/></svg> },
+      { name: 'Vercel', svg: <svg className="h-7 w-auto" viewBox="0 0 116 100" fill="currentColor"><path d="M57.5 0L115 100H0L57.5 0z"/></svg> },
+      { name: 'GitHub', svg: <svg className="h-8 w-auto" viewBox="0 0 98 96" fill="currentColor"><path d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"/></svg> },
+      { name: 'Stripe', svg: <svg className="h-8 w-auto" viewBox="0 0 60 25" fill="currentColor"><path d="M59.64 14.28h-8.06c.19 1.93 1.6 2.55 3.2 2.55 1.64 0 2.96-.37 4.05-.95v3.32a10.9 10.9 0 0 1-4.56 1c-4.01 0-6.83-2.5-6.83-7.48 0-4.19 2.39-7.52 6.3-7.52 3.92 0 5.96 3.28 5.96 7.5 0 .4-.02 1.04-.06 1.58zm-6.2-5.8c-1.04 0-2.24.68-2.24 2.8h4.38c0-2.14-.93-2.8-2.14-2.8zM40.95 20.3c-1.44 0-2.32-.6-2.9-1.04l-.02 4.63-4.12.87V5.57h3.76l.1 1.03a4.19 4.19 0 0 1 3.18-1.4c2.82 0 5.37 2.48 5.37 7.25 0 5.06-2.66 7.85-5.37 7.85zm-.35-11.12c-1.02 0-1.77.53-2.13 1.13l.04 5.73c.35.54 1.1 1.1 2.1 1.1 1.58 0 2.68-1.76 2.68-3.97 0-2.27-1.06-3.99-2.7-3.99zM28.24 5.57h4.13v14.44h-4.13V5.57zm0-5.35L32.37 0v3.91h-4.13V.22zm-4.44 9.22l-3.31.7v-3.7h3.31v-2.2c0-3.24 1.76-5.03 5.1-5.03.92 0 1.7.12 2.1.27v3.34a8.78 8.78 0 0 0-1.47-.14c-1.12 0-1.6.5-1.6 1.65v2.1h3.31v3.71h-3.31v10.73h-4.13V9.44zM8.54 19.82a7.87 7.87 0 0 1-3.36-.74V15.1c1.04.6 2.42 1.1 3.9 1.1 1.22 0 1.88-.37 1.88-.94 0-1.68-6.17-.96-6.17-5.82 0-2.93 2.33-4.77 5.8-4.77 1.04 0 2.56.18 3.52.5v3.94c-.98-.54-2.33-.9-3.52-.9-1.18 0-1.76.38-1.76.9 0 1.48 6.13.72 6.13 5.63 0 3.19-2.58 5.08-6.42 5.08z"/></svg> },
+    ];
+
+    // Scrolling Logo Marquee component (rendered outside the title box)
+    const logoMarquee = (
+      <div className="w-full flex flex-col items-center justify-center gap-4" style={{ height: '220px' }}>
+        <p className="text-center text-white/60 text-sm font-medium tracking-wide uppercase">
+          Trusted by 500+ teams who value user experience
+        </p>
+        <div className="w-full overflow-hidden py-8">
+          <div className="flex animate-marquee whitespace-nowrap">
+            {[...logoItems, ...logoItems, ...logoItems, ...logoItems].map((logo, i) => (
+              <div
+                key={`${logo.name}-${i}`}
+                className="mx-8 flex items-center text-white/40 hover:text-white/60 transition-colors flex-shrink-0"
+                title={logo.name}
+              >
+                {logo.svg}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+
     const introContent = (
       <div className="relative mx-auto text-center text-white isolate flex flex-col items-center justify-center border border-white" style={{ width: '85vw', maxWidth: '1400px' }}>
         <div
@@ -483,7 +504,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
             style={{ width: '100%', height: '100%' }}
           />
         </div>
-        <div className="relative z-10 py-16 px-12">
+        <div className="relative z-10 py-16 px-12 w-full">
           <h2 className={cn(SECTION_TITLE_CLASS, 'font-display text-center text-white drop-shadow-[0_20px_60px_rgba(4,0,12,0.6)]')}>
             {featuresTitle.split('\n').map((line, i, arr) => (
               <span key={i}>
@@ -492,9 +513,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
               </span>
             ))}
           </h2>
-          <p className={cn(SECTION_DESCRIPTION_CLASS, 'mt-4 text-center mx-auto text-white/70')}>
-            {featuresDescription}
-          </p>
         </div>
       </div>
     );
@@ -510,6 +528,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
             <div className="relative z-10">
               {introContent}
             </div>
+            {logoMarquee}
           </div>
           <div className={buildSectionContentClass('relative overflow-visible')}>
             <div className="mt-12 relative flex flex-col gap-10 lg:gap-12">
@@ -638,7 +657,10 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
         key="features-default"
       >
         <div className={buildSectionContentClass('relative z-10')}>
-          {introContent}
+          <div className="flex flex-col items-center">
+            {introContent}
+            {logoMarquee}
+          </div>
 
           <div className="mt-12 flex flex-col gap-12">
             <div className="flex flex-col gap-[74px]">
