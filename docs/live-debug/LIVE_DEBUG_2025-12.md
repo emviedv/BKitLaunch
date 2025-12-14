@@ -775,3 +775,15 @@
 - **Root Cause:** Logos still looked broken; removing the strip avoids the bleed entirely while preserving the section header.
 - **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** npm run build:client (pass; visual check to confirm strip is gone).
+
+- **Time:** 2025-12-14 13:47 EST
+- **Summary:** Unblocked Netlify deploy by adding the missing manifest for the IndexNow notify plugin so Netlify Build recognizes the custom plugin.
+- **Root Cause:** The local `indexnow-notify` build plugin lacked a `manifest.yml`, which Netlify 35 now requires for custom plugins, causing deploy to fail at config resolution.
+- **Changed Files:** netlify/plugins/indexnow-notify/manifest.yml
+- **Verification:** netlify deploy --prod --build (pass).
+
+- **Time:** 2025-12-14 13:50 EST
+- **Summary:** Converted the IndexNow plugin to ESM and removed the stray `name` export so it loads under the repo-wide `"type": "module"` setting without triggering invalid-event errors.
+- **Root Cause:** The plugin still used CommonJS `require` and exported `name`, which Netlify 35 treated as an event handler under ESM, throwing “Invalid event 'name'.”
+- **Changed Files:** netlify/plugins/indexnow-notify/index.js
+- **Verification:** netlify deploy --prod --build (pass; deploy live at https://www.bibliokit.com).
