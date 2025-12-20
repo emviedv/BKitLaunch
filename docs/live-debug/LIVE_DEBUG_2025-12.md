@@ -1,5 +1,13 @@
 # Live Debug Log — 2025-12
 
+## 2025-12-19
+
+- **Time:** 2025-12-19 20:33 EST
+- **Summary:** Normalized sitemap URL paths by removing trailing slashes and aligned the sitemap base URL with SEO normalization; updated the sitemap test to expect canonical `/biblio-rename`.
+- **Root Cause:** Sitemap URLs could include trailing slashes or use an unnormalized base URL, causing mismatches with canonical SEO URLs and redirecting paths.
+- **Changed Files:** netlify/functions/sitemap.ts; tests/unit/sitemap.spec.ts
+- **Verification:** Not run (not requested).
+
 ## 2025-12-14
 
 - **Time:** 2025-12-14 09:24 EST

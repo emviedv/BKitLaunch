@@ -51,8 +51,11 @@ const toAbsoluteUrl = (base: string, input?: string | null): string | null => {
     const parsed = new URL(input);
     return parsed.toString();
   } catch {
-    const normalized = input.startsWith('/') ? input : `/${input}`;
-    return `${base}${normalized}`;
+    // Normalize path to match SEO canonical URL format
+    let normalized = input.startsWith('/') ? input : `/${input}`;
+    // Remove trailing slashes (except for root path) to match SEO normalization
+    const normalizedPath = normalized === '/' ? '/' : normalized.replace(/\/+$/, '');
+    return `${base}${normalizedPath}`;
   }
 };
 
@@ -223,11 +226,13 @@ export const buildSitemapXml = (baseUrl: string): string => {
 };
 
 const handlerImpl: Handler = async () => {
-  const base =
+  // Use the same base URL logic as the SEO system for consistency
+  const base = normalizeBase(
     process.env.PUBLIC_SITE_URL ||
     process.env.URL ||
     process.env.DEPLOY_URL ||
-    'https://www.bibliokit.com';
+    'https://www.bibliokit.com'
+  );
 
   const xml = buildSitemapXml(base);
 

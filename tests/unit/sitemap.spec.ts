@@ -7,7 +7,7 @@ test('sitemap includes live routes and excludes dead ones', async () => {
   const xml = buildSitemapXml('https://www.bibliokit.com');
 
   const expecteds = [
-    '/ai-rename-variants',
+    '/biblio-rename', // Canonical URL (not /ai-rename-variants which redirects)
     '/uxbiblio',
     '/blog',
     '/blog/remove-prototype-links-in-figma',
