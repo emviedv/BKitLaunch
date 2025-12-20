@@ -909,3 +909,9 @@
 - **Root Cause:** The resource detail page was orphaned, and the related-posts list always used the same first three posts, leaving newer posts under-linked.
 - **Changed Files:** src/components/Header.tsx; src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (recommend re-crawl to confirm inbound link improvements).
+
+- **Time:** 2025-12-20 02:41 EST
+- **Summary:** Shortened the meta description for the design system guidelines blog post to keep snippets under 155 characters.
+- **Root Cause:** The description exceeded 155 characters, causing truncation in crawl output.
+- **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run yet (pending deploy + re-crawl).

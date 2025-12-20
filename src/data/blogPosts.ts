@@ -1204,7 +1204,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-12-14',
     metaTitle: 'Design System Guidelines Playbook | Clarity, Governance, Figma',
     metaDescription:
-      'Write living design system guidelines with clear principles, documentation patterns, Figma audits, and governance so teams ship consistent experiences faster.',
+      'Build design system guidelines with clear principles, Figma audits, and governance so teams ship consistent experiences faster.',
     content: designSystemGuidelinesContent,
     faqs: designSystemGuidelinesFaqs
   }
