@@ -367,7 +367,9 @@
   .mb-1.border-b.pb-4 { margin-bottom: calc(0.25rem + 2px) !important; }
   .mb-0.border-b.pb-4 { margin-bottom: 2px !important; }
 
-  .border-b.border-border + :is(.space-y-4, .space-y-3, .grid),
+  .border-b + .space-y-4,
+  .border-b + .space-y-3,
+  .border-b + .grid,
   .pt-4.grid { padding-top: calc(1rem + 2px) !important; }
 
   .uxb-overlay-soft-purple {

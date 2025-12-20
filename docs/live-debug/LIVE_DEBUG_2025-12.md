@@ -2,6 +2,12 @@
 
 ## 2025-12-20
 
+- **Time:** 2025-12-20 03:29 EST
+- **Summary:** Removed the CSS minifier warning by replacing the invalid `.border-b*` selector and split the client bundle into smaller chunks with manual Rollup chunking.
+- **Root Cause:** A custom `:is(...)` selector in `src/index.css` produced an invalid `.border-b*` selector at build time, and the client bundle was shipped as a single large chunk.
+- **Changed Files:** src/index.css; vite.config.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** `npm run build` (warning gone; client chunks now split under the 500 kB threshold).
+
 - **Time:** 2025-12-20 03:11 EST
 - **Summary:** Marked BiblioTable as launched so the landing feature badge no longer shows Coming Soon.
 - **Root Cause:** BiblioTable’s feature card still had the Coming Soon badge/category after launch.
