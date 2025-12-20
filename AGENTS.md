@@ -5,6 +5,7 @@
 
 ## Rule Codification & Conversation Clarity
 - When Emily notes that something “should have been done” a certain way, capture that guidance here as a concise rule (add a brief example when useful).
+- When creating a commit, always add the update to `AGENTS.md` to keep rules current.
 - Products are built for designers, developers, and marketers—keep language inclusive of all three.
 - Success feedback surfaces must cap padding at 20px (e.g., waitlist success message stays tight with `p-5`).
 - When applying a specific rule from this file, explicitly mention it in the conversation for clarity (e.g., “Applying Debug Log Policy” or “Following Commit Guidelines”).

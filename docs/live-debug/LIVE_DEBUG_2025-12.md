@@ -837,3 +837,15 @@
 - **Root Cause:** FAQ list was unnumbered and requested to be more explicit for SEO.
 - **Changed Files:** src/components/AIRenameVariantsPage.tsx
 - **Verification:** Not run (markup-only change; deploy build will run).
+
+- **Time:** 2025-12-19 20:45 EST
+- **Summary:** Logged orphaned sitemap URLs for core product pages and two blog articles from the 2025-12-20 sitemap report.
+- **Root Cause:** Pages are present in the sitemap but not discovered via internal link crawl (likely missing crawlable links or JS-only navigation paths).
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (analysis-only; fixes pending).
+
+- **Time:** 2025-12-19 21:08 EST
+- **Summary:** Added crawlable bot HTML for product and blog routes, plus consistent internal links and metadata, to resolve orphaned sitemap URLs.
+- **Root Cause:** Bot-rendered HTML only linked to `/biblio-rename` and returned generic content for other sitemap URLs, so crawlers flagged product/blog pages as orphaned.
+- **Changed Files:** netlify/edge-functions/bot-detection.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (recommend re-crawl or fetch bot HTML for `/`, `/blog`, and product routes).
