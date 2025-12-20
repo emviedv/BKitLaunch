@@ -2,6 +2,12 @@
 
 ## 2025-12-20
 
+- **Time:** 2025-12-20 14:54 EST
+- **Summary:** Matched the internal linking anchor text to the requested phrases so the linking tool can detect all eight suggestions.
+- **Root Cause:** Links existed but used different anchor text than the suggestion list, so they were still marked as not deployed.
+- **Changed Files:** src/data/blogPosts.ts; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/components/RemovePrototypeLinkPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy update only; confirm the eight suggestions now show as deployed).
+
 - **Time:** 2025-12-20 03:29 EST
 - **Summary:** Removed the CSS minifier warning by replacing the invalid `.border-b*` selector and split the client bundle into smaller chunks with manual Rollup chunking.
 - **Root Cause:** A custom `:is(...)` selector in `src/index.css` produced an invalid `.border-b*` selector at build time, and the client bundle was shipped as a single large chunk.

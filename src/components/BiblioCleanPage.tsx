@@ -254,19 +254,19 @@ const BiblioCleanPage = () => {
                 </a>
               </Button>
               <p className="mt-4 text-sm text-blue-100">
-                Keep designers, developers, and marketers aligned with the{' '}
+                Keep designers, developers, and marketers aligned with{' '}
                 <a
                   href="/resources/remove-prototype-link"
                   className="text-blue-200 underline underline-offset-4 hover:text-white"
                 >
-                  Remove Prototype Link checklist
+                  Manage Figma Prototype Links
                 </a>{' '}
-                and the{' '}
+                and{' '}
                 <a
                   href="/blog/remove-prototype-links-in-figma"
                   className="text-blue-200 underline underline-offset-4 hover:text-white"
                 >
-                  Remove Figma Prototype Links guide
+                  Remove Prototype Links in Figma
                 </a>
                 .
               </p>

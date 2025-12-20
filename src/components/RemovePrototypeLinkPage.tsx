@@ -162,7 +162,7 @@ const RemovePrototypeLinkPage: React.FC = () => {
               href="/biblio-clean"
               className="rounded-2xl border border-slate-200/70 bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
-              <p className="text-lg font-semibold text-foreground">BiblioClean plugin</p>
+              <p className="text-lg font-semibold text-foreground">Streamline Figma Links with BiblioClean</p>
               <p className="mt-2 text-sm text-muted-foreground">
                 Wipe prototype links safely without breaking components.
               </p>
@@ -171,7 +171,7 @@ const RemovePrototypeLinkPage: React.FC = () => {
               href="/blog/remove-prototype-links-in-figma"
               className="rounded-2xl border border-slate-200/70 bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
-              <p className="text-lg font-semibold text-foreground">Remove Figma Prototype Links guide</p>
+              <p className="text-lg font-semibold text-foreground">Remove Figma Prototype Links</p>
               <p className="mt-2 text-sm text-muted-foreground">
                 Follow the step-by-step cleanup to keep handoffs crisp.
               </p>

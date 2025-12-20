@@ -254,12 +254,12 @@ const BiblioAuditPage = () => {
                 </a>
               </Button>
               <p className="mt-4 text-sm text-cyan-100">
-                Fix detached instances fast with the{' '}
+                Fix detached instances fast with{' '}
                 <a
                   href="/blog/fix-detached-instances-figma"
                   className="text-cyan-200 underline underline-offset-4 hover:text-white"
                 >
-                  detached instances playbook
+                  Fix Detached Instances in Figma
                 </a>{' '}
                 for designers, developers, and marketers.
               </p>

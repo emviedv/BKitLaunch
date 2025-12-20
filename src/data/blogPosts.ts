@@ -479,7 +479,7 @@ const detachedInstancesContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: '[BiblioAudit](/biblio-audit) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
+    text: '[Figma File Audit with BiblioAudit](/biblio-audit) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
   },
   {
     type: 'paragraph',
@@ -617,11 +617,11 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   { type: 'heading', text: 'Method 2: The "Pro" Way (Instant Automated Cleaning)' },
   {
     type: 'paragraph',
-    text: "For professional teams, manual deletion isn't an option. You need to wipe the slate clean without breaking your components. Use the [Remove Prototype Link](/resources/remove-prototype-link) checklist so designers, developers, and marketers stay aligned on the right build."
+    text: "For professional teams, manual deletion isn't an option. You need to wipe the slate clean without breaking your components. Use the [Manage Figma Prototype Links](/resources/remove-prototype-link) checklist so designers, developers, and marketers stay aligned on the right build."
   },
   {
     type: 'paragraph',
-    text: 'This is why we built [BiblioClean](/biblio-clean), formerly Link Remover.'
+    text: 'This is why we built the [BiblioClean Plugin for Figma](/biblio-clean), formerly Link Remover.'
   },
   { type: 'heading', text: 'Why Generic Plugins Are Dangerous', level: 'h3' as any },
   {
