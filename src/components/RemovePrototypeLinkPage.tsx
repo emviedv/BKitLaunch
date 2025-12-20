@@ -149,6 +149,36 @@ const RemovePrototypeLinkPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <section className="section-content pb-20">
+        <div className="rounded-[28px] border border-slate-200/70 bg-white/80 p-8 text-left shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Next steps</p>
+          <h2 className="mt-2 text-2xl font-semibold text-foreground">Keep the cleanup aligned</h2>
+          <p className="mt-2 text-base text-muted-foreground">
+            Keep designers, developers, and marketers aligned on the right build with these follow-ups.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <a
+              href="/biblio-clean"
+              className="rounded-2xl border border-slate-200/70 bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <p className="text-lg font-semibold text-foreground">BiblioClean plugin</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Wipe prototype links safely without breaking components.
+              </p>
+            </a>
+            <a
+              href="/blog/remove-prototype-links-in-figma"
+              className="rounded-2xl border border-slate-200/70 bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <p className="text-lg font-semibold text-foreground">Remove Figma Prototype Links guide</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Follow the step-by-step cleanup to keep handoffs crisp.
+              </p>
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

@@ -128,7 +128,7 @@ const BiblioCleanPage = () => {
           <div className="inline-block bg-green-500/10 text-green-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-green-500/20">
             Typical Result: Zero Visual Clutter
           </div>
-          <SectionTitle>See it in action.</SectionTitle>
+          <SectionTitle>Watch BiblioClean Instantly Remove Prototype Links</SectionTitle>
         </div>
         
         <div className="grid md:grid-cols-12 gap-8 mb-12">
@@ -253,6 +253,23 @@ const BiblioCleanPage = () => {
                   Get BiblioClean — Free
                 </a>
               </Button>
+              <p className="mt-4 text-sm text-blue-100">
+                Keep designers, developers, and marketers aligned with the{' '}
+                <a
+                  href="/resources/remove-prototype-link"
+                  className="text-blue-200 underline underline-offset-4 hover:text-white"
+                >
+                  Remove Prototype Link checklist
+                </a>{' '}
+                and the{' '}
+                <a
+                  href="/blog/remove-prototype-links-in-figma"
+                  className="text-blue-200 underline underline-offset-4 hover:text-white"
+                >
+                  Remove Figma Prototype Links guide
+                </a>
+                .
+              </p>
             </div>
             <div className="flex justify-center">
                <div className="relative">

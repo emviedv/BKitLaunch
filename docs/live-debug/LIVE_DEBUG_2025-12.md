@@ -1,5 +1,43 @@
 # Live Debug Log — 2025-12
 
+## 2025-12-20
+
+- **Time:** 2025-12-20 03:11 EST
+- **Summary:** Marked BiblioTable as launched so the landing feature badge no longer shows Coming Soon.
+- **Root Cause:** BiblioTable’s feature card still had the Coming Soon badge/category after launch.
+- **Changed Files:** src/data/products.json; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy update only; confirm the BiblioTable badge shows “Launched”).
+
+- **Time:** 2025-12-20 03:11 EST
+- **Summary:** Reverted the BiblioRename landing feature title so the product name stays as "BiblioRename" in the title string.
+- **Root Cause:** The previous update appended the Otto tagline inside the product name, which violated the expected naming format.
+- **Changed Files:** src/data/products.json; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy update only; confirm the BiblioRename feature title renders with just "BiblioRename").
+
+- **Time:** 2025-12-20 03:07 EST
+- **Summary:** Updated the specified H2 headings for BiblioRename and the BiblioAudit/BiblioClean/BiblioRename/BiblioTable “See it in action” sections.
+- **Root Cause:** Product and section H2s were still using the shorter placeholder copy instead of the approved descriptive headings.
+- **Changed Files:** src/data/products.json; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/components/AIRenameVariantsPage.tsx; src/components/BiblioTablePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy update only; review H2s on the landing features card and the four product pages).
+
+- **Time:** 2025-12-20 02:54 EST
+- **Summary:** Updated Twitter titles for BiblioAudit and three blog posts to match the approved short-form share copy.
+- **Root Cause:** Twitter title metadata still used the original page titles, so the requested social snippets were not applied.
+- **Changed Files:** src/lib/seo.ts; src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (metadata change only; confirm `twitter:title` on `/biblio-audit`, `/blog/effortless-table-design-auto-layout`, `/blog/ui-component-states-guide`, and `/blog/mastering-design-system-guidelines`).
+
+- **Time:** 2025-12-20 02:51 EST
+- **Summary:** Added the requested internal links between the BiblioAudit/BiblioClean pages, the detached/prototype blog guides, and the prototype link resource so those pages cross-reference each other.
+- **Root Cause:** The suggested internal links were never added, leaving key product, blog, and resource pages without crawlable cross-links.
+- **Changed Files:** src/lib/renderTextWithLinks.tsx; src/data/blogPosts.ts; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/components/RemovePrototypeLinkPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (content/link updates only; confirm the new links render on `/biblio-audit`, `/biblio-clean`, `/resources/remove-prototype-link`, `/blog/fix-detached-instances-figma`, and `/blog/remove-prototype-links-in-figma`).
+
+- **Time:** 2025-12-20 02:45 EST
+- **Summary:** Found `/resources` linked in the UI but missing a route, so it falls through to the 404 page.
+- **Root Cause:** `ROUTE_PATHS.RESOURCES` is defined and linked in the header/footer, but no matching `<Route>` exists in the app router.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md (log only)
+- **Verification:** Not run (code review only; `/resources` absent from `src/App.tsx` routes).
+
 ## 2025-12-19
 
 - **Time:** 2025-12-19 20:33 EST

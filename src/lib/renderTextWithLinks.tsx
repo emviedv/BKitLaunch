@@ -30,7 +30,7 @@ const splitTrailingPunctuation = (href?: string) => {
 };
 
 const linkRegex =
-  /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/?blog\/[A-Za-z0-9-]+)\)|\[\[([^[\]]+)\]\]|(https?:\/\/[^\s]+)|(?<!\S)(\/?blog\/[A-Za-z0-9-]+)(?=[\s.,!?;:]|$)/gi;
+  /\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[A-Za-z0-9-]+(?:\/[A-Za-z0-9-]+)*)\)|\[\[([^[\]]+)\]\]|(https?:\/\/[^\s]+)|(?<!\S)(\/?blog\/[A-Za-z0-9-]+)(?=[\s.,!?;:]|$)/gi;
 
 export const renderTextWithLinks = (text: string) => {
   const segments: Array<string | React.ReactElement> = [];

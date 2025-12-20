@@ -131,7 +131,7 @@ const BiblioTablePage = () => {
           <div className="inline-block bg-purple-500/10 text-purple-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-purple-500/20">
             Typical Result: Perfect Alignment in 2s
           </div>
-          <SectionTitle>See it in action.</SectionTitle>
+          <SectionTitle>Watch BiblioTable in Action: Normalize & Zebra-Stripe Figma Tables</SectionTitle>
         </div>
         
         <div className="grid md:grid-cols-12 gap-8 mb-12">

@@ -122,7 +122,7 @@ const AIRenameVariantsPage = () => {
           <div className="inline-block bg-green-500/10 text-green-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-green-500/20">
             Typical Result: 12 Hours Reclaimed / Week
           </div>
-          <SectionTitle>See it in action.</SectionTitle>
+          <SectionTitle>BiblioRename Demo: Batch-Rename Figma Variants in Seconds</SectionTitle>
         </div>
         
         <div className="grid md:grid-cols-12 gap-8 mb-12">

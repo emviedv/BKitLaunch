@@ -128,7 +128,7 @@ const BiblioAuditPage = () => {
           <div className="inline-block bg-green-500/10 text-green-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-green-500/20">
             Typical Result: 100% System Compliance
           </div>
-          <SectionTitle>See it in action.</SectionTitle>
+          <SectionTitle>See BiblioAudit in Action: Audit & Bulk-Fix Figma Design Errors</SectionTitle>
         </div>
         
         <div className="grid md:grid-cols-12 gap-8 mb-12">
@@ -253,6 +253,16 @@ const BiblioAuditPage = () => {
                   Get BiblioAudit — Free
                 </a>
               </Button>
+              <p className="mt-4 text-sm text-cyan-100">
+                Fix detached instances fast with the{' '}
+                <a
+                  href="/blog/fix-detached-instances-figma"
+                  className="text-cyan-200 underline underline-offset-4 hover:text-white"
+                >
+                  detached instances playbook
+                </a>{' '}
+                for designers, developers, and marketers.
+              </p>
             </div>
             <div className="flex justify-center">
                <div className="relative">

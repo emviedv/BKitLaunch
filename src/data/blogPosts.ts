@@ -19,6 +19,7 @@ export type BlogPost = {
   lastUpdated?: string;
   metaTitle?: string;
   metaDescription?: string;
+  twitterTitle?: string;
   content?: BlogContentBlock[];
   faqs?: BlogFAQ[];
 };
@@ -478,7 +479,7 @@ const detachedInstancesContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: '[BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
+    text: '[BiblioAudit](/biblio-audit) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
   },
   {
     type: 'paragraph',
@@ -616,11 +617,11 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   { type: 'heading', text: 'Method 2: The "Pro" Way (Instant Automated Cleaning)' },
   {
     type: 'paragraph',
-    text: "For professional teams, manual deletion isn't an option. You need to wipe the slate clean without breaking your components."
+    text: "For professional teams, manual deletion isn't an option. You need to wipe the slate clean without breaking your components. Use the [Remove Prototype Link](/resources/remove-prototype-link) checklist so designers, developers, and marketers stay aligned on the right build."
   },
   {
     type: 'paragraph',
-    text: 'This is why we built [BiblioClean](https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines), formerly Link Remover.'
+    text: 'This is why we built [BiblioClean](/biblio-clean), formerly Link Remover.'
   },
   { type: 'heading', text: 'Why Generic Plugins Are Dangerous', level: 'h3' as any },
   {
@@ -1129,6 +1130,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaTitle: 'Effortless Table Design: Solve Auto-Layout Issues & Align Data Flawlessly',
     metaDescription:
       'Fix auto-layout table pain: align data, tame row-height drift, and ship clean, scannable tables in Figma.',
+    twitterTitle: 'Solve Auto-Layout Issues with Perfect Table Design #UIDesign',
     content: tableDesignContent
   },
   {
@@ -1144,6 +1146,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaTitle: 'Mastering UI Component States: Your Secret Weapon for Awesome UI',
     metaDescription:
       'Make UI feel alive: define hover, focus, active, disabled, and error states so interactions feel crisp and accessible.',
+    twitterTitle: 'Boost UI with Mastered Component States! #UIDesign',
     content: componentStatesContent
   },
   {
@@ -1205,6 +1208,7 @@ export const BLOG_POSTS: BlogPost[] = [
     metaTitle: 'Design System Guidelines Playbook | Clarity, Governance, Figma',
     metaDescription:
       'Build design system guidelines with clear principles, Figma audits, and governance so teams ship consistent experiences faster.',
+    twitterTitle: 'Design Systems: Clarity & Governance in Figma #DesignSystems',
     content: designSystemGuidelinesContent,
     faqs: designSystemGuidelinesFaqs
   }

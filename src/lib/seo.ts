@@ -179,7 +179,7 @@ const biblioAuditMetadata: SEOMetadata = {
   ogTitle: 'BiblioKit | BiblioAudit for Figma',
   ogDescription: 'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioKit | BiblioAudit for Figma',
+  twitterTitle: 'Clean Up Figma: Detached Instances & Design Drift #Figma',
   twitterDescription: 'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.',
   twitterImage: '/og/og-default.svg'
 };
@@ -369,7 +369,7 @@ export function generateMetadata(
       metadata.description = articleDescription || metadata.description;
       metadata.ogTitle = articleTitle || metadata.ogTitle;
       metadata.ogDescription = articleDescription || metadata.ogDescription;
-      metadata.twitterTitle = articleTitle || metadata.twitterTitle;
+      metadata.twitterTitle = articleData?.twitterTitle || articleTitle || metadata.twitterTitle;
       metadata.twitterDescription = articleDescription || metadata.twitterDescription;
       if (articleData?.heroImage) {
         metadata.ogImage = articleData.heroImage;
