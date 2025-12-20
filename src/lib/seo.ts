@@ -134,7 +134,7 @@ const mergeKeywords = (base?: string, additions: Array<string | undefined> = [])
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
   title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-  description: "Join Designers shipping faster with BiblioKit. Set up a shared workspace so designers, developers, and marketers align and ship 10x faster.",
+  description: "Join Designers shipping faster with BiblioKit. Drop your email to jump the line for our next Figma plugins in beta so your team ships faster.",
   keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   googlebot: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -200,13 +200,13 @@ const biblioCleanMetadata: SEOMetadata = {
 export const routeMetadata: RouteMetadata = {
   '/': {
     title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    description: "Join Designers shipping faster with BiblioKit. Set up a shared workspace so designers, developers, and marketers align and ship 10x faster.",
+    description: "Join Designers shipping faster with BiblioKit. Drop your email to jump the line for our next Figma plugins in beta so your team ships faster.",
     keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
     ogTitle: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    ogDescription: "Join Designers shipping faster with BiblioKit. Set up a shared workspace so designers, developers, and marketers align and ship 10x faster.",
+    ogDescription: "Join Designers shipping faster with BiblioKit. Drop your email to jump the line for our next Figma plugins in beta so your team ships faster.",
     ogImage: "/og/og-default.svg",
     twitterTitle: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    twitterDescription: "Join Designers shipping faster with BiblioKit. Set up a shared workspace so designers, developers, and marketers align and ship 10x faster.",
+    twitterDescription: "Join Designers shipping faster with BiblioKit. Drop your email to jump the line for our next Figma plugins in beta so your team ships faster.",
     twitterImage: "/og/og-default.svg",
     structuredData: [
       {

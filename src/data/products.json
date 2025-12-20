@@ -299,7 +299,7 @@
   ],
   "cta": {
     "title": "Join Designers shipping faster with BiblioKit",
-    "description": "Set up a shared workspace, align every stakeholder, and launch production-ready documentation 10x faster.",
+    "description": "Align every stakeholder and launch production-ready documentation 10x faster.",
     "primaryButton": "Start 7-Day Free Trial",
     "secondaryButton": "Schedule Demo",
     "primaryButtonLink": "https://blocks.bibliokit.com/signup",
@@ -372,7 +372,7 @@
   },
   "waitlist": {
     "title": "Join Designers shipping faster with BiblioKit",
-    "description": "Set up a shared workspace and get first access to BiblioStart + BiblioTable betas 10x faster. Drop your email to jump the line.",
+    "description": "Get first access to BiblioStart + BiblioTable betas and drop your email to jump the line for our next Figma plugins in beta.",
     "buttonText": "Get Beta Access",
     "successMessage": "You're on the beta list! We'll reach out with BiblioStart and BiblioTable early access details."
   },

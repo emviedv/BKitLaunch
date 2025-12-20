@@ -2,6 +2,36 @@
 
 ## 2025-12-20
 
+- **Time:** 2025-12-20 16:41 EST
+- **Summary:** Noted the Atlassian Design System blog URL shows the draft-only fallback instead of an article because the slug isn’t registered.
+- **Root Cause:** The `boost-ux-with-atlassian-design-system` content and FAQs exist as `atlassianDesignSystemContent`/`atlassianDesignSystemFaqs`, but the slug is never added to `BLOG_POSTS`, so the router can’t find it and renders the missing-post state.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md (log only)
+- **Verification:** Loaded `/blog/boost-ux-with-atlassian-design-system` (draft-only message) and reviewed `src/data/blogPosts.ts` to confirm the slug is absent from `BLOG_POSTS`.
+
+- **Time:** 2025-12-20 16:44 EST
+- **Summary:** Removed the unpublished Atlassian Design System blog URLs from the AI sitemap list so crawlers and AI references stop sharing the draft-only page.
+- **Root Cause:** `public/llms.txt` listed `/blog/boost-ux-with-atlassian-design-system` and its anchor even though the slug isn’t registered in `BLOG_POSTS`, causing visitors to hit the missing-post fallback.
+- **Changed Files:** public/llms.txt; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Confirmed the two Atlassian URLs no longer appear in `public/llms.txt`.
+
+- **Time:** 2025-12-20 17:12 EST
+- **Summary:** Redirected the unpublished Atlassian Design System blog path to `/blog` so the draft-only fallback page is no longer reachable.
+- **Root Cause:** The slug isn’t registered in `BLOG_POSTS`, so hitting `/blog/boost-ux-with-atlassian-design-system` rendered the missing-post state instead of routing users elsewhere.
+- **Changed Files:** public/_redirects; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (redirect rule only; confirm Netlify picks up `/blog/boost-ux-with-atlassian-design-system -> /blog`).
+
+- **Time:** 2025-12-20 17:18 EST
+- **Summary:** Replaced the “shared workspace” waitlist/SEO copy with beta-line messaging (“Drop your email to jump the line for our next Figma plugins in beta”) across waitlist UI, hero meta, LLMS text, and resource CTA.
+- **Root Cause:** Shared-workspace wording felt off for the waitlist CTA; requested to swap to beta queue language.
+- **Changed Files:** src/data/products.json; src/lib/seo.ts; public/llms.txt; src/components/RemovePrototypeLinkPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy/meta update only).
+
+- **Time:** 2025-12-20 17:19 EST
+- **Summary:** Rewrote Resources page intros to focus on free prototype cleanup resources and accurate plugin workflows (not just “fixes”).
+- **Root Cause:** The “All plugins” description implied everything was a fix, and the free resources intro pitched BiblioClean instead of simply highlighting the free assets.
+- **Changed Files:** src/components/ResourcesPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy update only).
+
 - **Time:** 2025-12-20 15:14 EST
 - **Summary:** Fixed the blank/black production page by removing the React-only manual chunk that created a circular dependency and left `useState` undefined at runtime.
 - **Root Cause:** Manual chunking split React into its own chunk while vendor code still imported React, and React’s chunk imported the vendor chunk for side effects, forming a circular dependency that broke React hooks on load.

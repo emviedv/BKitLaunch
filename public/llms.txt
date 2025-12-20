@@ -5,7 +5,7 @@ https://www.bibliokit.com/ - Ship design-ops work 10x faster with AI Figma plugi
 https://www.bibliokit.com/#landing-hero - Quick answer: consolidate audits, cleanup, and renaming so teams handoff faster.
 https://www.bibliokit.com/#landing-features - Scan the feature grid for BiblioRename, BiblioAudit, BiblioClean, BiblioStart, and BiblioTable.
 https://www.bibliokit.com/#landing-pricing - Compare free vs pro plugin access to plan adoption with finance and ops.
-https://www.bibliokit.com/#landing-waitlist - Join Designers shipping faster with BiblioKit; set up a shared workspace 10x faster.
+https://www.bibliokit.com/#landing-waitlist - Join Designers shipping faster with BiblioKit; drop your email to jump the line for our next Figma plugins in beta.
 https://www.bibliokit.com/docs - Set up BiblioKit plugins with quickstart guides, API examples, and workspace tips.
 https://www.bibliokit.com/docs#getting-started - Get designers live in minutes with the day-zero setup checklist.
 https://www.bibliokit.com/docs#api - Review API auth patterns and headers for secure plugin calls.
@@ -41,8 +41,6 @@ https://www.bibliokit.com/blog/remove-prototype-links-in-figma#cleanup - Cleanup
 https://www.bibliokit.com/blog/remove-prototype-links-in-figma#handoff - Handoff language to keep researchers, PMs, and engineers aligned.
 https://www.bibliokit.com/blog/mastering-design-system-guidelines - Build design system guidelines that keep teams compliant without slowing delivery.
 https://www.bibliokit.com/blog/mastering-design-system-guidelines#governance - Governance guardrails and approvals to keep components consistent.
-https://www.bibliokit.com/blog/boost-ux-with-atlassian-design-system - Learn from Atlassian’s design system to boost UX quality and velocity.
-https://www.bibliokit.com/blog/boost-ux-with-atlassian-design-system#patterns - Pull reusable patterns and rituals to accelerate your own system.
 https://www.bibliokit.com/line-assembly-demo.html - See the line assembly demo for shader-driven hero visuals and motion cues.
 https://www.bibliokit.com/clear-cache.html - Clear cached assets to ensure visitors load the latest design updates.
 https://www.bibliokit.com/#biblioaudit - Automate design system audits (BiblioAudit) to surface detached instances instantly.

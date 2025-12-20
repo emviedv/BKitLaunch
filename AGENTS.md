@@ -11,7 +11,7 @@
 - Success feedback surfaces must cap padding at 20px (e.g., waitlist success message stays tight with `p-5`).
 - When applying a specific rule from this file, explicitly mention it in the conversation for clarity (e.g., “Applying Debug Log Policy” or “Following Commit Guidelines”).
 - Use action/benefit-driven marketing copy (e.g., “Work x10,000 faster.”) whenever writing or updating customer-facing text.
-- Keep CTA and product messaging designer/team-first—avoid stakeholder-targeted language. Default to “Join Designers shipping faster with BiblioKit” plus “Set up a shared workspace…10x faster.” when updating shared copy.
+- Keep CTA and product messaging designer/team-first—avoid stakeholder-targeted language. Default to “Join Designers shipping faster with BiblioKit” plus “Drop your email to jump the line for our next Figma plugins in beta” when updating shared copy.
 - When Emily requests a specific change, do not expand the scope or add extra copy/behavior beyond the exact ask (e.g., no bonus marketing lines unless explicitly requested).
 - BiblioRename titles must keep the product name as just "BiblioRename" (e.g., "Batch Rename Layers with AI (BiblioRename)", not "BiblioRename: ...").
 - When Emily provides blog copy (e.g., Google Doc content), import it verbatim without edits or extra lines; keep the published post text exactly as supplied.

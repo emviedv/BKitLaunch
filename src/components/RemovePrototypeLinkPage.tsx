@@ -95,7 +95,7 @@ const RemovePrototypeLinkPage: React.FC = () => {
                 </a>
               </Button>
               <p className="text-sm text-muted-foreground">
-                Set up a shared workspace, consolidate libraries, and handoff 10x faster.
+                Drop your email to jump the line for our next Figma plugins in beta.
               </p>
             </div>
           </div>
