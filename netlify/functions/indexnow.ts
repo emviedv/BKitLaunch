@@ -2,6 +2,7 @@ import { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
 import fs from 'fs';
 import path from 'path';
 import { withCors, sendJSON, handleError } from './utils';
+import { buildSitemapXml } from './sitemap';
 
 interface IndexNowRequest {
   host: string;
@@ -9,6 +10,48 @@ interface IndexNowRequest {
   keyLocation: string;
   urlList: string[];
 }
+
+const normalizeSiteUrl = (raw?: string | null): string => {
+  if (!raw) return 'https://www.bibliokit.com';
+  try {
+    return new URL(raw).origin;
+  } catch {
+    try {
+      return new URL(`https://${raw}`).origin;
+    } catch {
+      return 'https://www.bibliokit.com';
+    }
+  }
+};
+
+const unescapeXml = (value: string): string =>
+  value
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'");
+
+const extractSitemapUrls = (xml: string): string[] => {
+  const urls: string[] = [];
+  const regex = /<loc>([^<]+)<\/loc>/g;
+  let match;
+  while ((match = regex.exec(xml)) !== null) {
+    urls.push(unescapeXml(match[1]));
+  }
+  return urls;
+};
+
+const buildIndexNowUrls = (siteUrl: string): string[] => {
+  const baseUrls = [
+    siteUrl,
+    `${siteUrl}/llms.txt`,
+    `${siteUrl}/robots.txt`
+  ];
+  const sitemapXml = buildSitemapXml(siteUrl);
+  const sitemapUrls = extractSitemapUrls(sitemapXml);
+  return Array.from(new Set([...baseUrls, ...sitemapUrls]));
+};
 
 const readKeyFromFile = (): string | null => {
   try {
@@ -38,7 +81,12 @@ const indexnowHandler: Handler = async (event: HandlerEvent, context: HandlerCon
 
   try {
     // Get the site URL from environment or use default
-    const siteUrl = process.env.URL || 'https://bibliokit-launch.netlify.app';
+    const siteUrl = normalizeSiteUrl(
+      process.env.PUBLIC_SITE_URL ||
+      process.env.URL ||
+      process.env.DEPLOY_PRIME_URL ||
+      process.env.DEPLOY_URL
+    );
 
     // IndexNow key (env preferred, falls back to public/indexnow-key.txt)
     const indexNowKey = resolveIndexNowKey();
@@ -47,11 +95,7 @@ const indexnowHandler: Handler = async (event: HandlerEvent, context: HandlerCon
     }
 
     // URLs to submit for re-indexing
-    const urlsToIndex = [
-      siteUrl,
-      `${siteUrl}/llms.txt`,
-      `${siteUrl}/robots.txt`
-    ];
+    const urlsToIndex = buildIndexNowUrls(siteUrl);
 
     const requestBody: IndexNowRequest = {
       host: new URL(siteUrl).hostname,

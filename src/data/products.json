@@ -160,8 +160,8 @@
     {
       "icon": "🗂️",
       "idea": "Launch projects with zero setup drag.",
-      "badge": "Coming Soon",
-      "category": "Coming Soon",
+      "badge": "Launched",
+      "category": "Launched",
       "title": "Spin Up Figma Project Blueprints Fast (BiblioStart)",
       "tagline": "Project Setup & File Scaffolding",
       "badges": [],
@@ -196,9 +196,9 @@
         "Generate zebra striping for any auto-layout table."
       ],
       "showBadge": true,
-      "badgeColor": "#8b5cf6",
+      "badgeColor": "#0ea5e9",
       "buttonLink": "/biblio-table",
-      "buttonText": "Fix this table",
+      "buttonText": "Fix my tables",
       "isFeatured": false,
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
       "media": {

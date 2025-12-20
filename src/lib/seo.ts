@@ -134,7 +134,7 @@ const mergeKeywords = (base?: string, additions: Array<string | undefined> = [])
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
   title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-  description: "Replace your fragmented plugin stack. The only Figma suite with Predictive Heatmaps, Design System Audits, AI Renaming, and Batch Scaling in one subscription.",
+  description: "Join Designers shipping faster with BiblioKit. Set up a shared workspace so designers, developers, and marketers align and ship 10x faster.",
   keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   googlebot: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -150,13 +150,13 @@ const defaultMetadata: SEOMetadata = {
 
 const biblioRenameMetadata: SEOMetadata = {
   title: 'BiblioKit | BiblioRename for Figma',
-  description: 'BiblioRename uses AI architectural intelligence to batch-rename Figma variants, optimize properties, and validate component health against 2025 platform constraints.',
+  description: 'Rename Figma variants fast. BiblioRename uses AI to standardize properties, cut errors, and keep designers, developers, and marketers shipping faster.',
   keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system architecture, component health, structural validation, figma limits',
   ogTitle: 'BiblioKit | BiblioRename for Figma',
-  ogDescription: 'BiblioRename uses AI architectural intelligence to batch-rename Figma variants, optimize properties, and validate component health against 2025 platform constraints.',
+  ogDescription: 'Rename Figma variants fast. BiblioRename uses AI to standardize properties, cut errors, and keep designers, developers, and marketers shipping faster.',
   ogImage: '/og/og-default.svg',
   twitterTitle: 'BiblioKit | BiblioRename for Figma',
-  twitterDescription: 'BiblioRename uses AI architectural intelligence to batch-rename Figma variants, optimize properties, and validate component health against 2025 platform constraints.',
+  twitterDescription: 'Rename Figma variants fast. BiblioRename uses AI to standardize properties, cut errors, and keep designers, developers, and marketers shipping faster.',
   twitterImage: '/og/og-default.svg'
 };
 
@@ -200,13 +200,13 @@ const biblioCleanMetadata: SEOMetadata = {
 export const routeMetadata: RouteMetadata = {
   '/': {
     title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    description: "Replace your fragmented plugin stack. The only Figma suite with Predictive Heatmaps, Design System Audits, AI Renaming, and Batch Scaling in one subscription.",
+    description: "Join Designers shipping faster with BiblioKit. Set up a shared workspace so designers, developers, and marketers align and ship 10x faster.",
     keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
     ogTitle: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    ogDescription: "Clean Figma files, resize frames, audit design systems, and batch rename layers with AI-powered plugins built for design ops teams.",
+    ogDescription: "Join Designers shipping faster with BiblioKit. Set up a shared workspace so designers, developers, and marketers align and ship 10x faster.",
     ogImage: "/og/og-default.svg",
     twitterTitle: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    twitterDescription: "Automate variant naming, prototype cleanup, and design QA so designers ship production-ready files 10x faster with BiblioKit's Figma plugins.",
+    twitterDescription: "Join Designers shipping faster with BiblioKit. Set up a shared workspace so designers, developers, and marketers align and ship 10x faster.",
     twitterImage: "/og/og-default.svg",
     structuredData: [
       {

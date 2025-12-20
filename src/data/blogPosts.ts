@@ -1128,7 +1128,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-12-14',
     metaTitle: 'Effortless Table Design: Solve Auto-Layout Issues & Align Data Flawlessly',
     metaDescription:
-      "Ever feel like tables are the unsung heroes of UI design? They might not have the flashy appeal of a hero banner, but let's be real: tables are the backbone of how we present complex data.",
+      'Fix auto-layout table pain: align data, tame row-height drift, and ship clean, scannable tables in Figma.',
     content: tableDesignContent
   },
   {
@@ -1143,7 +1143,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-12-14',
     metaTitle: 'Mastering UI Component States: Your Secret Weapon for Awesome UI',
     metaDescription:
-      "You know that feeling when you interact with an app or website, and everything just... works? It feels intuitive. You click something, and it reacts. You hover, and it shows you it's clickable. That's not magic, my friend. That's the power of UI component states.",
+      'Make UI feel alive: define hover, focus, active, disabled, and error states so interactions feel crisp and accessible.',
     content: componentStatesContent
   },
   {

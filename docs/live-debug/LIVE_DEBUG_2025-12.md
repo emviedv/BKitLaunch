@@ -849,3 +849,57 @@
 - **Root Cause:** Bot-rendered HTML only linked to `/biblio-rename` and returned generic content for other sitemap URLs, so crawlers flagged product/blog pages as orphaned.
 - **Changed Files:** netlify/edge-functions/bot-detection.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (recommend re-crawl or fetch bot HTML for `/`, `/blog`, and product routes).
+
+- **Time:** 2025-12-19 22:46 EST
+- **Summary:** Shortened the fallback meta description and aligned homepage SSR metadata to the designer/developer/marketer-inclusive 10x faster copy so descriptions stay under 160 characters.
+- **Root Cause:** The SEO crawl read SPA fallback `index.html` metadata (188 characters) instead of route-specific SSR output, so every route inherited the same overlong description.
+- **Changed Files:** index.html; src/lib/seo.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (recommend re-crawl or check a production response for `X-SSR-Generated` and confirm meta description length).
+
+- **Time:** 2025-12-19 23:28 EST
+- **Summary:** Kept SSR active when the asset manifest fails by extracting JS/CSS tags from `/index.html`, and added an `X-SSR-Assets` header for quick verification.
+- **Root Cause:** The Edge SSR handler returned the SPA fallback if it could not fetch `manifest.json`, causing crawlers to see generic meta descriptions across routes.
+- **Changed Files:** netlify/edge-functions/ssr.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (recommend hitting a route in production and checking `X-SSR-Assets` plus route-specific meta tags).
+
+- **Time:** 2025-12-19 23:54 EST
+- **Summary:** Verified production HTML is still serving SPA fallback (no `__SSR_DATA__` or `X-SSR-Generated`), so routes inherit the same long meta description in live responses.
+- **Root Cause:** The SSR edge handler appears to be skipping or failing in production and returning `context.next()` instead of SSR output; edge function logs required to isolate the exact failure.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** curl GET `/`, `/biblio-rename`, and `/blog/fix-detached-instances-figma` (all missing SSR markers and sharing the generic meta description).
+
+- **Time:** 2025-12-19 23:59 EST
+- **Summary:** After deploying the SSR fallback update, production still returns the SPA shell (no SSR markers), so meta descriptions remain shared (now shorter, but still not page-specific).
+- **Root Cause:** SSR edge execution is still bypassed or failing at runtime; edge function logs are needed to pinpoint the error path.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** curl GET the latest deploy URL `/`, `/biblio-rename`, and `/blog/fix-detached-instances-figma` (no `__SSR_DATA__` or `X-SSR-Generated`; shared meta description).
+
+- **Time:** 2025-12-20 00:10 EST
+- **Summary:** Fixed SSR crashes by bundling `@iconify/react` into the SSR bundle so it shares the same React instance and avoids the invalid hook call during server render.
+- **Root Cause:** The SSR bundle inlined React (via `ssr.noExternal`) while `@iconify/react` was external, so it loaded a separate React instance and threw `Invalid hook call` during SSR, triggering the SPA fallback.
+- **Changed Files:** vite.config.ts; dist/server/entry-server.js; dist/server/manifest.json; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Local SSR harness with `npx tsx /tmp/ssr-local-test.mts` now returns `X-SSR-Generated: true` and route-specific meta descriptions for `/`, `/biblio-rename`, and `/blog/fix-detached-instances-figma`.
+
+- **Time:** 2025-12-20 00:14 EST
+- **Summary:** Production SSR is now serving on the primary domain with route-specific metadata and SSR headers after the updated edge function deployment.
+- **Root Cause:** Previous deploys still fell back to the SPA shell; the current deployment ships the SSR bundle that avoids the `@iconify/react` hook mismatch.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** curl GET `https://www.bibliokit.com/`, `/biblio-rename`, and `/blog/fix-detached-instances-figma` now return `X-SSR-Generated: true`, `X-SSR-Assets: manifest`, and unique meta descriptions.
+
+- **Time:** 2025-12-20 00:30 EST
+- **Summary:** Allowed SSR on Netlify deploy previews by adding `*.netlify.app` to `ALLOWED_ORIGINS` in production runtime settings.
+- **Root Cause:** Deploy preview hosts were rejected by the SSR allowlist, so Edge SSR returned the SPA shell instead of server-rendered HTML.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** curl GET `https://69463082e7b5a4d2072f8949--bkitlaunch.netlify.app/` and `/blog/fix-detached-instances-figma` now return `X-SSR-Generated: true`; `/biblio-rename` returns SSR when requested with a cache-busting query string.
+
+- **Time:** 2025-12-20 01:24 EST
+- **Summary:** Shortened meta descriptions for `/biblio-rename` and two blog posts to keep snippets under 155 characters.
+- **Root Cause:** The BiblioRename route metadata and two blog `metaDescription` fields exceeded 160 characters and were getting clamped in crawl output.
+- **Changed Files:** src/lib/seo.ts; src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run yet (pending re-crawl after deployment to confirm meta description lengths).
+
+- **Time:** 2025-12-20 01:28 EST
+- **Summary:** Logged the orphaned `/resources/remove-prototype-link` page and low inbound links for specific blog posts from the latest internal link audit.
+- **Root Cause:** The resource detail page is only listed in the sitemap and not linked from content or navigation; some blog posts are only referenced from the blog index and one related post.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Internal link crawl saved to `/tmp/bibliokit-seo-crawl.csv` and `/tmp/bibliokit-seo-crawl.json`.

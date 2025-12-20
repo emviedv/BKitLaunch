@@ -52,6 +52,7 @@ export default defineConfig({
       'wouter',
       'wouter/static-location',
       'clsx',
+      '@iconify/react',
       'lucide-react',
       'framer-motion',
       'tailwind-merge',

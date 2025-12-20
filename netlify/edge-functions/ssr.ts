@@ -15,6 +15,7 @@ interface SSRModule {
 let serverModule: SSRModule | null = null;
 
 const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
+const SSR_SKIP_HEADER = 'x-ssr-skip';
 
 const readEnv = (key: string): string | undefined => {
   try {
@@ -198,7 +199,47 @@ const fetchWithTimeout = async (
   }
 };
 
+const buildModuleScriptTag = (src: string) => `<script type="module" crossorigin src="${src}"></script>`;
+
+const loadIndexAssets = async (
+  origin: string
+): Promise<{ cssLinks: string; jsScriptTag: string } | null> => {
+  try {
+    const indexUrl = new URL('/index.html', origin).toString();
+    const indexRes = await fetchWithTimeout(indexUrl, {
+      redirect: 'follow',
+      timeoutMs: 2000,
+      headers: { [SSR_SKIP_HEADER]: '1' }
+    });
+    if (!indexRes.ok) {
+      return null;
+    }
+
+    const html = await indexRes.text();
+    const cssLinks = Array.from(html.matchAll(/<link[^>]*rel=["']stylesheet["'][^>]*>/gi))
+      .map((match) => match[0])
+      .join('\n     ');
+    const moduleScriptMatch = html.match(
+      /<script[^>]*type=["']module["'][^>]*src=["'][^"']+["'][^>]*><\/script>/i
+    );
+    const jsScriptTag = moduleScriptMatch?.[0] ?? '';
+
+    if (!cssLinks && !jsScriptTag) {
+      return null;
+    }
+
+    return { cssLinks, jsScriptTag };
+  } catch (error) {
+    console.warn('⚠️ SSR: Index asset extraction failed:', error);
+    return null;
+  }
+};
+
 export default async (request: Request, context: Context) => {
+  if (request.headers.get(SSR_SKIP_HEADER) === '1') {
+    return context.next();
+  }
+
   const parsedUrl = new URL(request.url);
   const url = sanitizeRequestUrl(parsedUrl);
   if (!url) {
@@ -308,12 +349,16 @@ export default async (request: Request, context: Context) => {
     // Resolve Vite-built asset paths from manifest with safe fallbacks
     let cssLinks = '';
     let jsPath = '/assets/main.js';
+    let jsScriptTag = '';
+    let manifestSource = 'fallback';
     if (!isProdHost) {
       // In dev, use Vite entry directly
       jsPath = '/src/entry-client.tsx';
+      jsScriptTag = buildModuleScriptTag(jsPath);
+      manifestSource = 'dev';
     } else {
       let manifestFound = false;
-                const manifestOrigin = context.site?.url || url.origin;
+      const manifestOrigin = context.site?.url || url.origin;
       const manifestCandidates = ['/manifest.json', '/client/manifest.json'];
       for (const candidate of manifestCandidates) {
         try {
@@ -327,6 +372,7 @@ export default async (request: Request, context: Context) => {
           }
 
           manifestFound = true;
+          manifestSource = 'manifest';
           const manifest: any = await manifestRes.json();
           const entry = manifest['src/entry-client.tsx'] || manifest['index.html'] || null;
           if (entry && entry.file) {
@@ -349,9 +395,19 @@ export default async (request: Request, context: Context) => {
         }
       }
 
-      // If manifest lookup failed, skip SSR and let the static index.html handle asset injection
       if (!manifestFound) {
-        return context.next();
+        const indexAssets = await loadIndexAssets(manifestOrigin);
+        if (indexAssets) {
+          cssLinks = indexAssets.cssLinks || cssLinks;
+          jsScriptTag = indexAssets.jsScriptTag || jsScriptTag;
+          manifestSource = 'index';
+        } else {
+          console.warn('⚠️ SSR: Manifest unavailable; using fallback asset paths.');
+        }
+      }
+
+      if (!jsScriptTag) {
+        jsScriptTag = buildModuleScriptTag(jsPath);
       }
     }
 
@@ -427,7 +483,7 @@ export default async (request: Request, context: Context) => {
       // Hydration data
       window.__SSR_DATA__ = ${safeJson};
     </script>
-    <script type="module" src="${jsPath}"></script>
+    ${jsScriptTag}
   </body>
 </html>`;
 
@@ -468,6 +524,7 @@ export default async (request: Request, context: Context) => {
         ...cacheHeaders,
         ...securityHeaders,
         'X-SSR-Generated': 'true', // Debug header to identify SSR responses
+        'X-SSR-Assets': manifestSource,
         'X-Content-Hash': contentHash, // Debug header to track content versions
       },
     });

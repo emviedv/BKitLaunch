@@ -7,6 +7,7 @@
 - When Emily notes that something “should have been done” a certain way, capture that guidance here as a concise rule (add a brief example when useful).
 - When creating a commit, always add the update to `AGENTS.md` to keep rules current.
 - Products are built for designers, developers, and marketers—keep language inclusive of all three.
+- IndexNow submissions should include the full sitemap URL list (blog + product pages), not just top-level URLs.
 - Success feedback surfaces must cap padding at 20px (e.g., waitlist success message stays tight with `p-5`).
 - When applying a specific rule from this file, explicitly mention it in the conversation for clarity (e.g., “Applying Debug Log Policy” or “Following Commit Guidelines”).
 - Use action/benefit-driven marketing copy (e.g., “Work x10,000 faster.”) whenever writing or updating customer-facing text.
@@ -22,6 +23,7 @@
 - Bridge is an internal tool; avoid referencing it in customer-facing copy unless explicitly approved.
 - Operational reminder: periodically pull waitlist signups locally with `npm run email:waitlist` (uses `DATABASE_URL` or .env/.env.local) to review beta interest.
 - Apply current SEO best practices (keep guidance refreshed for 2025): meaningful alt text on all images, clean descriptive URLs/slugs, accurate meta titles/descriptions, structured headings, and up-to-date sitemap/robots handling where relevant.
+- Meta descriptions must be unique per page and stay under 155 characters (e.g., 120–150 chars) to avoid SERP truncation.
 
 ## Product Roster
 - BiblioAudit — Figma plugin that automates component consistency checks, token validation, and remediation reports; severity scoring; deep-selection scanning for rapid fixes.
