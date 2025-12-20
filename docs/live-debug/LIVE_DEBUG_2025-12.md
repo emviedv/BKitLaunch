@@ -2,6 +2,18 @@
 
 ## 2025-12-20
 
+- **Time:** 2025-12-20 15:14 EST
+- **Summary:** Fixed the blank/black production page by removing the React-only manual chunk that created a circular dependency and left `useState` undefined at runtime.
+- **Root Cause:** Manual chunking split React into its own chunk while vendor code still imported React, and React’s chunk imported the vendor chunk for side effects, forming a circular dependency that broke React hooks on load.
+- **Changed Files:** vite.config.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** `npm run build` (bundle rebuilt without the circular React/Vendor chunk; no runtime bundling errors during build).
+
+- **Time:** 2025-12-20 15:13 EST
+- **Summary:** Added the `/resources` page with free BiblioClean resources and an all-plugins section, plus routing, SEO metadata, and sitemap entry.
+- **Root Cause:** The `/resources` route pointed to a missing page, leaving a 404 instead of a resource index.
+- **Changed Files:** src/components/ResourcesPage.tsx; src/App.tsx; src/lib/seo.ts; netlify/functions/sitemap.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (UI/SEO update).
+
 - **Time:** 2025-12-20 14:54 EST
 - **Summary:** Matched the internal linking anchor text to the requested phrases so the linking tool can detect all eight suggestions.
 - **Root Cause:** Links existed but used different anchor text than the suggestion list, so they were still marked as not deployed.

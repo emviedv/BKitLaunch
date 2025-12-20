@@ -253,6 +253,17 @@ export const routeMetadata: RouteMetadata = {
     twitterDescription: 'Set up BiblioKit plugins fast with quickstart guides, API examples, and workspace tips for design and engineering teams.',
     twitterImage: '/og/og-default.svg'
   },
+  '/resources': {
+    title: 'BiblioKit Resources | Free BiblioClean + Plugins',
+    description: 'Free BiblioClean resource plus every BiblioKit plugin so designers, developers, and marketers ship faster with clean Figma files.',
+    keywords: 'BiblioKit resources, BiblioClean, Figma cleanup, design ops resources, Figma plugins',
+    ogTitle: 'BiblioKit Resources | Free BiblioClean + Plugins',
+    ogDescription: 'Free BiblioClean resource plus every BiblioKit plugin so designers, developers, and marketers ship faster with clean Figma files.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'BiblioKit Resources | Free BiblioClean + Plugins',
+    twitterDescription: 'Free BiblioClean resource plus every BiblioKit plugin so designers, developers, and marketers ship faster with clean Figma files.',
+    twitterImage: '/og/og-default.svg'
+  },
   '/admin': {
     title: "BiblioKit Admin Dashboard - Content Management",
     description: "Manage your BiblioKit content, settings, and configurations through the admin dashboard.",

@@ -17,7 +17,6 @@ export default defineConfig(({ ssrBuild }) => {
           if (id.includes('@iconify/react')) return 'iconify';
           if (id.includes('canvas-confetti')) return 'confetti';
           if (id.includes('logrocket') || id.includes('@hotjar')) return 'analytics';
-          if (id.includes('react')) return 'react-vendor';
 
           return 'vendor';
         }

@@ -17,6 +17,7 @@ import BiblioAuditPage from './components/BiblioAuditPage';
 import BiblioTablePage from './components/BiblioTablePage';
 import DynamicProductPage from './components/DynamicProductPage';
 import RemovePrototypeLinkPage from './components/RemovePrototypeLinkPage';
+import ResourcesPage from './components/ResourcesPage';
 import BlogPage from './components/BlogPage';
 import BlogArticlePage from './components/BlogArticlePage';
 import Docs from './components/Docs';
@@ -152,6 +153,7 @@ const AppContent: React.FC = () => {
             {(params) => <BlogArticlePage slug={params?.slug ?? ''} />}
           </Route>
           <Route path={ROUTE_PATHS.BLOG} component={BlogPage} />
+          <Route path={ROUTE_PATHS.RESOURCES} component={ResourcesPage} />
           <Route path={ROUTE_PATHS.REMOVE_PROTOTYPE_LINK} component={RemovePrototypeLinkPage} />
           <Route>
             <div className="container mx-auto px-4 py-16 text-center">
