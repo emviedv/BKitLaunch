@@ -197,7 +197,24 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
   const postIndex = BLOG_POSTS.findIndex((entry) => entry.slug === slug);
   const previousPost = postIndex > 0 ? BLOG_POSTS[postIndex - 1] : null;
   const nextPost = postIndex >= 0 && postIndex < BLOG_POSTS.length - 1 ? BLOG_POSTS[postIndex + 1] : null;
-  const relatedPosts = BLOG_POSTS.filter((candidate) => candidate.slug !== slug).slice(0, 3);
+  const relatedPosts: BlogPost[] = [];
+  if (post && postIndex >= 0 && BLOG_POSTS.length > 1) {
+    const seen = new Set([slug]);
+    const addRelatedPost = (offset: number) => {
+      const candidate = BLOG_POSTS[(postIndex + offset) % BLOG_POSTS.length];
+      if (!candidate || seen.has(candidate.slug)) return;
+      seen.add(candidate.slug);
+      relatedPosts.push(candidate);
+    };
+
+    for (let offset = 2; offset <= BLOG_POSTS.length - 2 && relatedPosts.length < 3; offset += 1) {
+      addRelatedPost(offset);
+    }
+
+    for (let offset = 1; offset < BLOG_POSTS.length && relatedPosts.length < 3; offset += 1) {
+      addRelatedPost(offset);
+    }
+  }
 
   useDynamicSEO(
     pagePath,

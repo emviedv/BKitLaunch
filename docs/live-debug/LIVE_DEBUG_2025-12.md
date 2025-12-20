@@ -903,3 +903,9 @@
 - **Root Cause:** The resource detail page is only listed in the sitemap and not linked from content or navigation; some blog posts are only referenced from the blog index and one related post.
 - **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Internal link crawl saved to `/tmp/bibliokit-seo-crawl.csv` and `/tmp/bibliokit-seo-crawl.json`.
+
+- **Time:** 2025-12-20 02:07 EST
+- **Summary:** Added a resource link to `/resources/remove-prototype-link` in the header dropdown and rotated blog related posts to improve internal link coverage.
+- **Root Cause:** The resource detail page was orphaned, and the related-posts list always used the same first three posts, leaving newer posts under-linked.
+- **Changed Files:** src/components/Header.tsx; src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (recommend re-crawl to confirm inbound link improvements).
