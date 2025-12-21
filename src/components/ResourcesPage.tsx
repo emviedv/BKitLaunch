@@ -170,8 +170,8 @@ const ResourcesPage: React.FC = () => {
         logoMarquee={null}
         introContent={renderSectionIntro(
           'h1',
-          'Free resources for prototype cleanup.',
-          'Grab checklists, scripts, and templates to clean up prototype links safely and keep teams on the right build.'
+          'Free tools & playbooks for faster Figma workflows.',
+          'Grab checklists, scripts, and templates to clean up links, standardize naming, audit systems, and keep teams on the right build.'
         )}
         enableFeaturesNav={false}
         compactLayout={false}
