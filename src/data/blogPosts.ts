@@ -150,12 +150,12 @@ const componentStatesContent: BlogContentBlock[] = [
   { type: 'heading', text: 'How to Fix It (Without Losing Your Mind)', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Finding and managing these rogue elements is critical for a healthy system. Use BiblioAudit: Find Detached Instances and Design System Check (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to scan files, reattach instances, and fix drift before it hits development.'
+    text: 'Finding and managing these rogue elements is critical for a healthy system. Use [BiblioAudit: Find Detached Instances and Design System Check](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to scan files, reattach instances, and fix drift before it hits development.'
   },
   { type: 'heading', text: 'Automating the Documentation Gap', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Documentation is usually the first thing skipped under deadline. Instead of manually writing every hover, focus, and error state, use BiblioStates: Component State Generator and Specs (https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) to auto-generate visual states and documentation cards for engineers.'
+    text: 'Documentation is usually the first thing skipped under deadline. Instead of manually writing every hover, focus, and error state, use [BiblioStates: Component State Generator and Specs](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) to auto-generate visual states and documentation cards for engineers.'
   },
   { type: 'heading', text: '7. Best Practices for Implementing Component States', level: 'h2' },
   {
@@ -257,7 +257,7 @@ const autoLayoutWrapContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'Pro Tip: Use [BiblioTable](/biblio-table) to equalize column widths and fix row heights. It forces consistency so your auto-layout wrap behaves predictably every time.'
+    text: 'Pro Tip: Use [BiblioTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) to equalize column widths and fix row heights. It forces consistency so your auto-layout wrap behaves predictably every time.'
   },
   { type: 'heading', text: 'Managing Layout Hygiene (The Hidden Problem)' },
   {
@@ -270,7 +270,7 @@ const autoLayoutWrapContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'Fast Fix: Run BiblioAudit (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) on your file. It scans your design system and flags layout inconsistencies, detached instances, and rogue fixed-width layers that are breaking responsiveness.'
+    text: 'Fast Fix: Run [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) on your file. It scans your design system and flags layout inconsistencies, detached instances, and rogue fixed-width layers that are breaking responsiveness.'
   },
   { type: 'heading', text: 'Summary' },
   { type: 'paragraph', text: 'Figma\'s Auto Layout Wrap is essential for modern product design. It bridges the gap between static mockups and the reality of CSS Flexbox.' },
@@ -379,15 +379,15 @@ const tableDesignContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: "This is where a little help from the community comes in handy. If you've been tearing your hair out over misaligned cells and endless manual adjustments, you absolutely need to check out the [BiblioTable Auto-Layout Table Fixer & Data Aligner](/biblio-table)."
+    text: "This is where a little help from the community comes in handy. If you've been tearing your hair out over misaligned cells and endless manual adjustments, you absolutely need to check out the [BiblioTable Auto-Layout Table Fixer & Data Aligner](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner)."
   },
   {
     type: 'paragraph',
-    text: "This Figma plugin is a game-changer because it's built specifically to solve those common auto-layout and data alignment problems we just talked about. Instead of fiddling with individual cell constraints for ages, Bibliotable swoops in to automate spacing, ensure perfect alignment, and even help with responsive adjustments."
+    text: "This Figma plugin is a game-changer because it's built specifically to solve those common auto-layout and data alignment problems we just talked about. Instead of fiddling with individual cell constraints for ages, [BiblioTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) swoops in to automate spacing, ensure perfect alignment, and even help with responsive adjustments."
   },
   {
     type: 'paragraph',
-    text: 'Imagine a world where your table cells just... work. This plugin aims to give you that by letting you set up your table structure and then letting it do the heavy lifting of keeping everything tidy. It means less time debugging your auto-layout stack and more time focusing on the actual user experience. If you want to boost your design efficiency and get rid of those table headaches, this tool is definitely worth adding to your Figma arsenal. Find it here: [BiblioTable Auto-Layout Table Fixer & Data Aligner](/biblio-table).'
+    text: 'Imagine a world where your table cells just... work. This plugin aims to give you that by letting you set up your table structure and then letting it do the heavy lifting of keeping everything tidy. It means less time debugging your auto-layout stack and more time focusing on the actual user experience. If you want to boost your design efficiency and get rid of those table headaches, this tool is definitely worth adding to your Figma arsenal. Find it here: [BiblioTable Auto-Layout Table Fixer & Data Aligner](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner).'
   },
   { type: 'heading', text: 'Advanced Table Features & Interactions', level: 'h2' },
   {
@@ -413,11 +413,162 @@ const tableDesignContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: "And let's not forget tackling those frustrating auto-layout issues head-on. By applying smart design principles, leveraging component-based workflows, and using helpful tools like the [BiblioTable Auto-Layout Table Fixer & Data Aligner](/biblio-table), you can elevate your data presentation from clunky to flawless."
+    text: "And let's not forget tackling those frustrating auto-layout issues head-on. By applying smart design principles, leveraging component-based workflows, and using helpful tools like the [BiblioTable Auto-Layout Table Fixer & Data Aligner](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner), you can elevate your data presentation from clunky to flawless."
   },
   {
     type: 'paragraph',
     text: "Ultimately, well-designed tables aren't just about making things look pretty. They're about empowering users, reducing friction, and making complex information digestible. So go forth and design some truly awesome tables! Your users (and your sanity) will thank you."
+  }
+];
+
+const effortlessTableDesignFigmaContent: BlogContentBlock[] = [
+  {
+    type: 'image',
+    src: buildHeroImagePath('effortless-table-design-figma/table-status-hero.png'),
+    alt: 'Table UI with status badges, dates, and user names, highlighting an active row'
+  },
+  { type: 'heading', text: 'Effortless Table Design in Figma: A Comprehensive Guide' },
+  { type: 'paragraph', text: 'Introduction' },
+  {
+    type: 'paragraph',
+    text: 'Designing tables in Figma used to be a nightmare of manual resizing and broken layouts. If you’ve ever had to resize a column only to spend the next ten minutes adjusting every single row individually, you know the pain.'
+  },
+  {
+    type: 'paragraph',
+    text: 'But with the power of modern Auto Layout, creating tables can be flexible, responsive, and—dare we say it—effortless. In this guide, we’ll walk through a method to build tables that resize automatically, support easy content updates, and maintain pixel-perfect consistency using a component-first approach.'
+  },
+  { type: 'heading', text: 'The Problem with Traditional Tables', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Historically, designers built tables by grouping rectangles and text layers. This "flat" approach meant that:'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Changing column widths required moving every element in that column manually.',
+      'Adding rows meant reshuffling the entire canvas.',
+      'Responsive design was non-existent; you had to rebuild the table for different screen sizes.'
+    ]
+  },
+  {
+    type: 'paragraph',
+    text: 'The solution is to use Auto Layout to mimic the way HTML tables work (<tr> and <td>), treating the table as a nested system of frames.'
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('effortless-table-design-figma/table-cell-component-active.png'),
+    alt: 'Table cell component showing an active status with a check icon'
+  },
+  { type: 'heading', text: 'Step 1: The Atomic Cell Component', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Everything starts with a single cell. Instead of building rows immediately, we create a master Cell Component. This ensures that if you want to change the padding or text style later, you only have to update it in one place.'
+  },
+  { type: 'heading', text: 'Creating the Base Cell', level: 'h3' },
+  {
+    type: 'orderedList',
+    items: [
+      'Text Layer: Start with a text layer (e.g., "Cell Content").',
+      'Auto Layout: Press Shift + A to wrap it in an Auto Layout frame.',
+      'Padding: Set your horizontal and vertical padding (e.g., 16px horizontal, 12px vertical).',
+      'Resizing: Set the text layer to Fill Container and the frame width to Fixed (initially) or Fill Container depending on usage.',
+      'Component: Turn this frame into a Component named Table / Cell.'
+    ]
+  },
+  {
+    type: 'paragraph',
+    text: 'Pro Tip: Use Component Properties (Booleans) to toggle visibility for icons or different text alignments (Left, Center, Right).'
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('effortless-table-design-figma/table-row-component.png'),
+    alt: 'Table row component with status, date, and user cells'
+  },
+  { type: 'heading', text: 'Step 2: Building the Row', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Once you have your cell, you can build a row. A row is simply a horizontal stack of cells.'
+  },
+  {
+    type: 'orderedList',
+    items: [
+      'Instance: Drag an instance of your Table / Cell component onto the canvas.',
+      'Duplicate: Duplicate it 4-5 times for the number of columns you need.',
+      'Auto Layout: Select all instances and press Shift + A to create a Horizontal Auto Layout frame.',
+      'Naming: Name this frame Row.',
+      'Resizing: Set the spacing between items to 0px (or -1px if handling borders, see below).'
+    ]
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('effortless-table-design-figma/table-component-grid.png'),
+    alt: 'Table component with multiple rows and status, date, and user columns'
+  },
+  { type: 'heading', text: 'Step 3: Assembling the Table', level: 'h2' },
+  { type: 'paragraph', text: 'Now, stack your rows to create the full table.' },
+  {
+    type: 'orderedList',
+    items: [
+      'Duplicate Rows: Select your Row frame and duplicate it for as many data entries as you need.',
+      'Auto Layout: Select all rows and add Vertical Auto Layout.',
+      'Container: This new frame is your Table.',
+      'Styling: Add a stroke/border to the Table frame and set the corner radius if desired.'
+    ]
+  },
+  { type: 'heading', text: 'Handling Borders and Separators', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'One of the trickiest parts of table design in Figma is preventing double borders (where two cells meet and their borders combine to become 2px thick instead of 1px).'
+  },
+  { type: 'paragraph', text: 'There are two main ways to handle this:' },
+  {
+    type: 'unorderedList',
+    items: [
+      'The Negative Spacing Method: Set your Auto Layout spacing to -1px. This overlaps the borders so they sit perfectly on top of each other.',
+      'The Stroke Per Side Method: Only apply borders to the bottom and right of your cell component. Then, apply a top and left border to the main Table container to close the loop.'
+    ]
+  },
+  { type: 'heading', text: 'Responsive Behavior (The "Effortless" Part)', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'To make the table truly responsive, you must adjust the resizing constraints of your hierarchy:'
+  },
+  {
+    type: 'orderedList',
+    items: [
+      'The Table Frame: Set to Fixed Width (or Fill Container if inside a page layout).',
+      'The Row Frames: Set their width to Fill Container. This ensures that if the table gets wider, the rows stretch with it.',
+      'The Cell Instances: Select the cells inside the rows.'
+    ]
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'For fluid columns: Set them to Fill Container. They will divide the available space equally.',
+      'For fixed columns (like an ID or Checkbox): Set them to Fixed Width.'
+    ]
+  },
+  { type: 'heading', text: 'Advanced: Header Components', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'A proper table usually needs a header row that looks different from the body rows.'
+  },
+  {
+    type: 'orderedList',
+    items: [
+      'Create a Variant of your Table / Cell component called Type = Header.',
+      'Style it with a darker background or bolder text.',
+      'In your top row, swap the cell instances to the Header variant.'
+    ]
+  },
+  { type: 'heading', text: 'Conclusion', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'By investing a few minutes to set up a robust Cell component and understanding the nested Auto Layout structure (Cell → Row → Table), you save hours of future maintenance. Your tables are now drag-and-drop ready, fully responsive, and effortless to update.'
+  },
+  {
+    type: 'paragraph',
+    text: 'While building these manually gives you great control, you can supercharge your productivity by using [BiblioTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) to automate the alignment and structure of your Figma tables.'
   }
 ];
 
@@ -479,7 +630,7 @@ const detachedInstancesContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: '[Figma File Audit with BiblioAudit](/biblio-audit) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
+    text: '[Figma File Audit with BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
   },
   {
     type: 'paragraph',
@@ -621,7 +772,7 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'This is why we built the [BiblioClean Plugin for Figma](/biblio-clean), formerly Link Remover.'
+    text: 'This is why we built the [BiblioClean Plugin for Figma](https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines), formerly Link Remover.'
   },
   { type: 'heading', text: 'Why Generic Plugins Are Dangerous', level: 'h3' as any },
   {
@@ -894,11 +1045,11 @@ const designSystemGuidelinesContent: BlogContentBlock[] = [
   { type: 'heading', text: 'Leveraging Figma Plugins for Enhanced Management', level: 'h3' },
   {
     type: 'paragraph',
-    text: "This is where things get really efficient. There are incredible plugins to help you maintain your system's health. Use BiblioAudit - Find Detached Instances & Design System Check (https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to identify and fix detached instances before they undermine your system."
+    text: "This is where things get really efficient. There are incredible plugins to help you maintain your system's health. Use [BiblioAudit - Find Detached Instances & Design System Check](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to identify and fix detached instances before they undermine your system."
   },
   {
     type: 'paragraph',
-    text: 'And for streamlining the documentation of component states, tools like BiblioStates - Component State Generator & Specs (https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) are game-changers. They help you efficiently generate component states and create detailed specs, making developer handoff a breeze.'
+    text: 'And for streamlining the documentation of component states, tools like [BiblioStates - Component State Generator & Specs](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) are game-changers. They help you efficiently generate component states and create detailed specs, making developer handoff a breeze.'
   },
   { type: 'heading', text: 'Integration with Development Workflows', level: 'h3' },
   {
@@ -984,7 +1135,7 @@ const designSystemGuidelinesFaqs: BlogFAQ[] = [
   {
     question: 'How do we prevent detached instances and drift in Figma?',
     answer:
-      'Audit libraries weekly with BiblioAudit to catch detached instances, lock/publish libraries on a cadence, and keep contribution guidelines tight. Use BiblioStates to generate state specs so engineers ship what designers expect.'
+      'Audit libraries weekly with [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to catch detached instances, lock/publish libraries on a cadence, and keep contribution guidelines tight. Use [BiblioStates](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) to generate state specs so engineers ship what designers expect.'
   }
 ];
 
@@ -1117,6 +1268,21 @@ const atlassianDesignSystemFaqs: BlogFAQ[] = [
 ];
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: 'effortless-table-design-figma',
+    title: 'Effortless Table Design in Figma: A Comprehensive Guide',
+    category: 'UI Design',
+    readingTime: '4 min read',
+    excerpt:
+      'Designing tables in Figma used to be a nightmare of manual resizing and broken layouts.',
+    heroImage: buildHeroImagePath('effortless-table-design-figma/table-status-hero.png'),
+    heroImageAlt: 'Table UI with status badges, dates, and user names, highlighting an active row',
+    lastUpdated: '2025-12-21',
+    metaTitle: 'Effortless Table Design in Figma: A Comprehensive Guide',
+    metaDescription:
+      'We show designers, developers, and marketers how to build responsive Figma tables faster with Auto Layout steps for clean, scannable data grids.',
+    content: effortlessTableDesignFigmaContent
+  },
   {
     slug: 'effortless-table-design-auto-layout',
     title: 'BiblioKit\'s Table Design Guide: Fix Auto-Layout & Align Data',

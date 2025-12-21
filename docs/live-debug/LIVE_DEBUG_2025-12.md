@@ -1043,3 +1043,21 @@
 - **Root Cause:** The description exceeded 155 characters, causing truncation in crawl output.
 - **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run yet (pending deploy + re-crawl).
+
+- **Time:** 2025-12-20 23:58 EST
+- **Summary:** Linked the BiblioTable callout in the Auto Layout Wrap section to the official Figma Community plugin URL.
+- **Root Cause:** The BiblioTable callout pointed to the internal `/biblio-table` page instead of the plugin listing.
+- **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (link update only).
+
+- **Time:** 2025-12-21 00:00 EST
+- **Summary:** Hyperlinked the BiblioAudit and BiblioStates plugin names in the routines-for-checks blog section to their Figma Community listings.
+- **Root Cause:** The plugin references used plain text names with parenthetical URLs instead of hyperlinking the plugin names.
+- **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (link update only).
+
+- **Time:** 2025-12-21 00:06 EST
+- **Summary:** Swept blog posts to hyperlink plugin names to the official Figma Community listings (BiblioAudit, BiblioStates, BiblioTable, BiblioClean).
+- **Root Cause:** Several blog mentions still used plain text or internal product links instead of direct plugin listing hyperlinks.
+- **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (link updates only).
