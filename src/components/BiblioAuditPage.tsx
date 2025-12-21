@@ -21,9 +21,9 @@ const BiblioAuditPage = () => {
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
     const metadata = {
         title: 'BiblioAudit | Find Detached Instances & Design System Check',
-        description: 'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.',
+        description: 'BiblioKit: Automate Figma QA. Find detached instances, validate tokens, and ensure design system compliance instantly. Try a free check!',
         ogTitle: 'BiblioAudit | Find Detached Instances & Design System Check',
-        ogDescription: 'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.',
+        ogDescription: 'BiblioKit: Automate Figma QA. Find detached instances, validate tokens, and ensure design system compliance instantly. Try a free check!',
         url: `${baseUrl}${ROUTE_PATHS.BIBLIO_AUDIT || '/biblio-audit'}`,
     };
     updatePageMetadata(metadata);

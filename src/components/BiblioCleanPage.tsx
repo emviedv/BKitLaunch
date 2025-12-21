@@ -21,9 +21,9 @@ const BiblioCleanPage = () => {
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
     const metadata = {
         title: 'BiblioClean | Remove Prototype Links Safely',
-        description: 'Instantly remove prototype connections (blue lines) and revoke public share links before they leak. The safest way to clean Figma files.',
+        description: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
         ogTitle: 'BiblioClean | Remove Prototype Links Safely',
-        ogDescription: 'Instantly remove prototype connections (blue lines) and revoke public share links before they leak. The safest way to clean Figma files.',
+        ogDescription: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
         url: `${baseUrl}${ROUTE_PATHS.BIBLIO_CLEAN || '/biblio-clean'}`,
     };
     updatePageMetadata(metadata);

@@ -150,49 +150,49 @@ const defaultMetadata: SEOMetadata = {
 
 const biblioRenameMetadata: SEOMetadata = {
   title: 'BiblioKit | BiblioRename for Figma',
-  description: 'Rename Figma variants in bulk with AI | BiblioRename.',
+  description: 'BiblioKit: Speed up Figma design with AI. Standardize properties, reduce errors, and ship faster with BiblioRename.',
   keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system architecture, component health, structural validation, figma limits',
   ogTitle: 'BiblioKit | BiblioRename for Figma',
-  ogDescription: 'Rename Figma variants in bulk with AI | BiblioRename.',
+  ogDescription: 'BiblioKit: Speed up Figma design with AI. Standardize properties, reduce errors, and ship faster with BiblioRename.',
   ogImage: '/og/og-default.svg',
   twitterTitle: 'BiblioKit | BiblioRename for Figma',
-  twitterDescription: 'Rename Figma variants in bulk with AI | BiblioRename.',
+  twitterDescription: 'BiblioKit: Speed up Figma design with AI. Standardize properties, reduce errors, and ship faster with BiblioRename.',
   twitterImage: '/og/og-default.svg'
 };
 
 const biblioTableMetadata: SEOMetadata = {
   title: 'BiblioTable | Normalize Figma Tables in One Click',
-  description: 'Normalize Figma table columns & fix bugs instantly.',
+  description: 'BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!',
   keywords: 'BiblioTable, figma table plugin, auto-layout tables, figma columns, zebra striping, design ops, figma automation',
   ogTitle: 'BiblioTable | Normalize Figma Tables in One Click',
-  ogDescription: 'Normalize Figma table columns & fix bugs instantly.',
+  ogDescription: 'BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!',
   ogImage: '/og/og-default.svg',
   twitterTitle: 'BiblioTable | Normalize Figma Tables in One Click',
-  twitterDescription: 'Normalize Figma table columns & fix bugs instantly.',
+  twitterDescription: 'BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!',
   twitterImage: '/og/og-default.svg'
 };
 
 const biblioAuditMetadata: SEOMetadata = {
   title: 'BiblioKit | BiblioAudit for Figma',
-  description: 'Audit Figma files instantly for design consistency & drift.',
+  description: 'BiblioKit: Automate Figma QA. Find detached instances, validate tokens, and ensure design system compliance instantly. Try a free check!',
   keywords: 'BiblioAudit, design system audit, figma qa, detached instances, token validation, figma plugin, design ops',
   ogTitle: 'BiblioKit | BiblioAudit for Figma',
-  ogDescription: 'Audit Figma files instantly for design consistency & drift.',
+  ogDescription: 'BiblioKit: Automate Figma QA. Find detached instances, validate tokens, and ensure design system compliance instantly. Try a free check!',
   ogImage: '/og/og-default.svg',
   twitterTitle: 'Clean Up Figma: Detached Instances & Design Drift #Figma',
-  twitterDescription: 'Audit Figma files instantly for design consistency & drift.',
+  twitterDescription: 'BiblioKit: Automate Figma QA. Find detached instances, validate tokens, and ensure design system compliance instantly. Try a free check!',
   twitterImage: '/og/og-default.svg'
 };
 
 const biblioCleanMetadata: SEOMetadata = {
   title: 'BiblioKit | BiblioClean for Figma',
-  description: 'Clean Figma files: remove connections & share links instantly.',
+  description: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
   keywords: 'BiblioClean, remove prototype link, figma prototype cleanup, revoke share links, design system safety, figma plugin, design ops',
   ogTitle: 'BiblioKit | BiblioClean for Figma',
-  ogDescription: 'Clean Figma files: remove connections & share links instantly.',
+  ogDescription: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
   ogImage: '/og/og-default.svg',
   twitterTitle: 'BiblioKit | BiblioClean for Figma',
-  twitterDescription: 'Clean Figma files: remove connections & share links instantly.',
+  twitterDescription: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
   twitterImage: '/og/og-default.svg'
 };
 
@@ -200,13 +200,13 @@ const biblioCleanMetadata: SEOMetadata = {
 export const routeMetadata: RouteMetadata = {
   '/': {
     title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    description: "Ship 10x faster with BiblioKit.",
+    description: "BiblioKit: Get faster Figma workflows with our plugins. Join the beta and ship faster with BiblioKit's tools for your team.",
     keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
     ogTitle: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    ogDescription: "Ship 10x faster with BiblioKit.",
+    ogDescription: "BiblioKit: Get faster Figma workflows with our plugins. Join the beta and ship faster with BiblioKit's tools for your team.",
     ogImage: "/og/og-default.svg",
     twitterTitle: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    twitterDescription: "Ship 10x faster with BiblioKit.",
+    twitterDescription: "BiblioKit: Get faster Figma workflows with our plugins. Join the beta and ship faster with BiblioKit's tools for your team.",
     twitterImage: "/og/og-default.svg",
     structuredData: [
       {
@@ -255,13 +255,13 @@ export const routeMetadata: RouteMetadata = {
   },
   '/resources': {
     title: 'BiblioKit Resources | Free BiblioClean + Plugins',
-    description: 'Ship 10x faster with BiblioKit.',
+    description: "BiblioKit: Enhance your Figma workflow with BiblioKit's plugins and design tools. Explore resources for faster design and development.",
     keywords: 'BiblioKit resources, BiblioClean, Figma cleanup, design ops resources, Figma plugins',
     ogTitle: 'BiblioKit Resources | Free BiblioClean + Plugins',
-    ogDescription: 'Ship 10x faster with BiblioKit.',
+    ogDescription: "BiblioKit: Enhance your Figma workflow with BiblioKit's plugins and design tools. Explore resources for faster design and development.",
     ogImage: '/og/og-default.svg',
     twitterTitle: 'BiblioKit Resources | Free BiblioClean + Plugins',
-    twitterDescription: 'Ship 10x faster with BiblioKit.',
+    twitterDescription: "BiblioKit: Enhance your Figma workflow with BiblioKit's plugins and design tools. Explore resources for faster design and development.",
     twitterImage: '/og/og-default.svg'
   },
   '/admin': {
@@ -274,13 +274,13 @@ export const routeMetadata: RouteMetadata = {
   },
   '/resources/remove-prototype-link': {
     title: 'BiblioKit: Audit & Revoke Stale Figma Prototype Links Fast',
-    description: 'Audit every shared Figma prototype link, revoke stale tokens, and share the correct build so teams always click the latest version.',
+    description: 'Keep your Figma design fresh! BiblioKit helps you remove prototype links and share the latest versions, improving team workflow.',
     keywords: 'remove prototype link, figma prototype cleanup, revoke share links, design ops hygiene, prototype handoff',
     ogTitle: 'BiblioKit: Audit & Revoke Stale Figma Prototype Links Fast',
-    ogDescription: 'Audit every shared Figma prototype link, revoke stale tokens, and share the correct build so teams always click the latest version.',
+    ogDescription: 'Keep your Figma design fresh! BiblioKit helps you remove prototype links and share the latest versions, improving team workflow.',
     ogImage: '/og/og-default.svg',
     twitterTitle: 'BiblioKit: Audit & Revoke Stale Figma Prototype Links Fast',
-    twitterDescription: 'Audit every shared Figma prototype link, revoke stale tokens, and share the correct build so teams always click the latest version.',
+    twitterDescription: 'Keep your Figma design fresh! BiblioKit helps you remove prototype links and share the latest versions, improving team workflow.',
     twitterImage: '/og/og-default.svg',
     structuredData: [
       {
@@ -315,24 +315,24 @@ export const routeMetadata: RouteMetadata = {
   '/ai-rename-variants': biblioRenameMetadata,
   '/uxbiblio': {
     title: 'UXBiblio: AI-Powered Library of UX Design Patterns & Templates | BiblioKit',
-    description: 'Find UX inspiration fast with AI.',
+    description: 'UXBiblio by BiblioKit: Find UX design patterns quickly with AI-powered tagging and smart comments. Start your free trial today!',
     keywords: 'UXBiblio, UX pattern library, design inspiration, AI tagging, UX research repository',
     ogTitle: 'UXBiblio: AI-Powered Library of UX Design Patterns & Templates | BiblioKit',
-    ogDescription: 'Find UX inspiration fast with AI.',
+    ogDescription: 'UXBiblio by BiblioKit: Find UX design patterns quickly with AI-powered tagging and smart comments. Start your free trial today!',
     ogImage: '/og/og-default.svg',
     twitterTitle: 'UXBiblio: AI-Powered Library of UX Design Patterns & Templates | BiblioKit',
-    twitterDescription: 'Find UX inspiration fast with AI.',
+    twitterDescription: 'UXBiblio by BiblioKit: Find UX design patterns quickly with AI-powered tagging and smart comments. Start your free trial today!',
     twitterImage: '/og/og-default.svg'
   },
   '/blog': {
     title: 'BiblioKit Blog: From Kickoff to Ship with Figma Workflows & Tools',
-    description: 'Streamline design, dev & marketing with expert tools & insights.',
+    description: 'BiblioKit Blog: Find design tips and Figma workflows for 2025. Improve your design process with expert insights and practical resources.',
     keywords: 'design ops blog, figma workflow tips, prototype cleanup, design system rituals, bibliokit blog, real-world figma fixes',
     ogTitle: 'BiblioKit Blog: From Kickoff to Ship with Figma Workflows & Tools',
-    ogDescription: 'Streamline design, dev & marketing with expert tools & insights.',
+    ogDescription: 'BiblioKit Blog: Find design tips and Figma workflows for 2025. Improve your design process with expert insights and practical resources.',
     ogImage: '/og/og-default.svg',
     twitterTitle: 'BiblioKit Blog: From Kickoff to Ship with Figma Workflows & Tools',
-    twitterDescription: 'Streamline design, dev & marketing with expert tools & insights.',
+    twitterDescription: 'BiblioKit Blog: Find design tips and Figma workflows for 2025. Improve your design process with expert insights and practical resources.',
     twitterImage: '/og/og-default.svg'
   }
 };

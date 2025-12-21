@@ -1073,3 +1073,9 @@
 - **Root Cause:** FAQ sections were implemented with multiple markup styles (ordered lists, card layouts), leading to inconsistent visuals.
 - **Changed Files:** src/components/FAQList.tsx; src/components/BlogArticlePage.tsx; src/components/FAQSchema.tsx; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/components/BiblioTablePage.tsx; src/components/AIRenameVariantsPage.tsx; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (visual check pending).
+
+- **Time:** 2025-12-21 01:54 EST
+- **Summary:** Updated page and blog meta descriptions to the OTTO-recommended format for the homepage, resources, products, and key blog posts.
+- **Root Cause:** Several meta descriptions still used older short copy and did not follow the new OTTO-style format from the audit.
+- **Changed Files:** src/lib/seo.ts; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/components/BiblioTablePage.tsx; src/data/blogPosts.ts; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (meta description updates only).

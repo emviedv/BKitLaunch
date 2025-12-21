@@ -21,9 +21,9 @@ const BiblioTablePage = () => {
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
     const metadata = {
         title: 'BiblioTable | Normalize Figma Tables in One Click',
-        description: 'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.',
+        description: 'BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!',
         ogTitle: 'BiblioTable | Normalize Figma Tables in One Click',
-        ogDescription: 'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.',
+        ogDescription: 'BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!',
         url: `${baseUrl}${ROUTE_PATHS.BIBLIO_TABLE || '/biblio-table'}`,
     };
     updatePageMetadata(metadata);

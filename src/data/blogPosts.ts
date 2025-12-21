@@ -1295,7 +1295,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-12-14',
     metaTitle: 'BiblioKit\'s Table Design Guide: Fix Auto-Layout & Align Data',
     metaDescription:
-      'Unlock tables in UI design. Present complex data with clarity.',
+      'BiblioKit simplifies Figma table design. Fix auto-layout problems and create better data presentations with our smart design practices.',
     twitterTitle: 'Solve Auto-Layout Issues with Perfect Table Design #UIDesign',
     content: tableDesignContent
   },
@@ -1311,7 +1311,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-12-14',
     metaTitle: 'Mastering UI Component States: Your Secret Weapon for Awesome UI',
     metaDescription:
-      'Craft crisp UI interactions with hover, focus & error states.',
+      'Enhance your UI: BiblioKit\'s guide masters UI component states like hover and active for better user experiences.',
     twitterTitle: 'Boost UI with Mastered Component States! #UIDesign',
     content: componentStatesContent
   },
@@ -1327,7 +1327,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-11-28',
     metaTitle: 'BiblioKit 2025: Master Figma Auto Layout Wrap for Responsive Designs',
     metaDescription:
-      'Master Figma with BiblioKit: Fix bugs, create responsive designs.',
+      'Master Auto Layout Wrap in Figma with BiblioKit. Learn to enable it, fix bugs, and create responsive designs efficiently in 2025.',
     content: autoLayoutWrapContent
   },
   {
@@ -1342,7 +1342,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-12-07',
     metaTitle: 'Fix Detached Instances in Figma | 2025 Cleanup Playbook',
     metaDescription:
-      'Boost Figma with BiblioAudit: Scan, reset & link designs.',
+      'Fix Figma detached instances fast with BiblioKit\'s 2025 guide to maintain a linked design system and streamline your Figma workflow.',
     content: detachedInstancesContent
   },
   {
@@ -1357,7 +1357,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-11-26',
     metaTitle: 'Remove Figma Prototype Links Safely | BiblioKit Guide',
     metaDescription:
-      'Streamline Figma reviews with seamless links and notifications.',
+      'Remove Figma links easily with BiblioKit\'s guide. Wipe state links and streamline your design workflow in 2025.',
     content: removePrototypeLinksContent,
     faqs: removePrototypeLinksFaqs
   },
@@ -1373,7 +1373,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-12-14',
     metaTitle: 'Design System Guidelines Playbook | Clarity, Governance, Figma',
     metaDescription:
-      'Design systems for consistent experiences.',
+      'BiblioKit\'s guide to design systems: Master Figma guidelines for consistent, efficient product design.',
     twitterTitle: 'Design Systems: Clarity & Governance in Figma #DesignSystems',
     content: designSystemGuidelinesContent,
     faqs: designSystemGuidelinesFaqs
