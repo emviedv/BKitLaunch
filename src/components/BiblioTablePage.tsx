@@ -6,6 +6,7 @@ import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Columns, Layout, Table as TableIcon, Download } from '@/lib/iconUtils';
+import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 
 const BiblioTablePage = () => {
@@ -30,6 +31,12 @@ const BiblioTablePage = () => {
 
   // Figma Community plugin link
   const CTA_LINK = 'https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner';
+  const faqs = [
+    { question: "Does this work with complex nested auto-layouts?", answer: "Yes. BiblioTable is designed to parse standard row/column auto-layout structures commonly used for tables." },
+    { question: "Does it break responsive resizing?", answer: "No. It applies fixed widths where necessary to ensure alignment, but respects 'Fill container' where appropriate for the table wrapper." },
+    { question: "Can I customize the zebra striping color?", answer: "Yes. You can select the fill color for alternating rows." },
+    { question: "When will it be released?", answer: "BiblioTable is live. Install it from our Figma Community profile." },
+  ];
 
   // --- Reusable Components ---
 
@@ -269,19 +276,7 @@ const BiblioTablePage = () => {
       {/* Block 8: FAQ */}
       <Section dark>
         <SectionTitle className="text-center mb-12">Watch BiblioTable in Action: Normalize &amp; Zebra-Stripe Figma Tables</SectionTitle>
-        <ol className="max-w-3xl mx-auto space-y-6 list-decimal list-inside">
-          {[
-            { q: "Does this work with complex nested auto-layouts?", a: "Yes. BiblioTable is designed to parse standard row/column auto-layout structures commonly used for tables." },
-            { q: "Does it break responsive resizing?", a: "No. It applies fixed widths where necessary to ensure alignment, but respects 'Fill container' where appropriate for the table wrapper." },
-            { q: "Can I customize the zebra striping color?", a: "Yes. You can select the fill color for alternating rows." },
-            { q: "When will it be released?", a: "BiblioTable is live. Install it from our Figma Community profile." },
-          ].map((faq, i) => (
-            <li key={i} className="border-b border-slate-800/50 pb-6 pl-2">
-              <h4 className="font-bold text-lg mb-2 text-white">{faq.q}</h4>
-              <p className="text-slate-400">{faq.a}</p>
-            </li>
-          ))}
-        </ol>
+        <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 
       {/* Block 9: Final CTA */}

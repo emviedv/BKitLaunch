@@ -6,6 +6,7 @@ import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Shield, Search, Lock, Download } from '@/lib/iconUtils';
+import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 
 const BiblioAuditPage = () => {
@@ -29,6 +30,12 @@ const BiblioAuditPage = () => {
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check';
+  const faqs = [
+    { question: "Does it work with any design system?", answer: "Yes. BiblioAudit checks against your local styles and enabled libraries." },
+    { question: "Can I fix errors automatically?", answer: "Many errors, like simple style mismatches or reset overrides, can be fixed with one click." },
+    { question: "Is it safe to run on large files?", answer: "Yes. BiblioAudit is optimized for performance and handles large files by scanning on demand." },
+    { question: "Is BiblioAudit free?", answer: "Yes, BiblioAudit is currently free to use for all features." },
+  ];
 
   // --- Reusable Components ---
 
@@ -285,19 +292,7 @@ const BiblioAuditPage = () => {
       {/* Block 8: FAQ */}
       <Section dark>
         <SectionTitle className="text-center mb-12">See BiblioAudit in Action: Audit &amp; Bulk-Fix Figma Design Errors</SectionTitle>
-        <ol className="max-w-3xl mx-auto space-y-6 list-decimal list-inside">
-          {[
-            { q: "Does it work with any design system?", a: "Yes. BiblioAudit checks against your local styles and enabled libraries." },
-            { q: "Can I fix errors automatically?", a: "Many errors, like simple style mismatches or reset overrides, can be fixed with one click." },
-            { q: "Is it safe to run on large files?", a: "Yes. BiblioAudit is optimized for performance and handles large files by scanning on demand." },
-            { q: "Is BiblioAudit free?", a: "Yes, BiblioAudit is currently free to use for all features." },
-          ].map((faq, i) => (
-            <li key={i} className="border-b border-slate-800/50 pb-6 pl-2">
-              <h4 className="font-bold text-lg mb-2 text-white">{faq.q}</h4>
-              <p className="text-slate-400">{faq.a}</p>
-            </li>
-          ))}
-        </ol>
+        <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 
       {/* Block 9: Final CTA */}

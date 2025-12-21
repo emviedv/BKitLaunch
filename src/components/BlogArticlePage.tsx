@@ -14,6 +14,7 @@ import { useDynamicSEO } from '@/hooks/useSEO';
 import { createFAQSchema, useSchema } from '@/lib/useSchema';
 import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
 import { debugService } from '@/lib/debugService';
+import FAQList from '@/components/FAQList';
 
 interface BlogArticlePageProps {
   slug: string;
@@ -175,23 +176,7 @@ const BlogFAQSection: React.FC<{ faqs: BlogFAQ[] }> = ({ faqs }) => {
             Quick, action-focused answers pulled from this playbook so you can apply it faster.
           </p>
         </div>
-        <div className="blog-faq-list divide-y divide-white/10">
-          {faqs.map((faq, index) => (
-            <div key={`faq-${index}`} className="blog-faq-item py-4 first:pt-0 last:pb-0">
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff2f87] text-sm font-bold text-white">
-                  {(index + 1).toString().padStart(2, '0')}
-                </span>
-                <div className="space-y-2">
-                  <h3 className="text-lg font-semibold text-white">{faq.question}</h3>
-                  <p className="text-base leading-relaxed text-white/75">
-                    {renderTextWithLinks(faq.answer)}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <FAQList faqs={faqs} />
       </div>
     </section>
   );

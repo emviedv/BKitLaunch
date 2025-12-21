@@ -1067,3 +1067,9 @@
 - **Root Cause:** Blog heading rendering applied the same size class to every heading level.
 - **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (visual check pending).
+
+- **Time:** 2025-12-21 01:00 EST
+- **Summary:** Standardized FAQ styling sitewide to use the pink numbered bubble layout for blog, product, and landing FAQ sections.
+- **Root Cause:** FAQ sections were implemented with multiple markup styles (ordered lists, card layouts), leading to inconsistent visuals.
+- **Changed Files:** src/components/FAQList.tsx; src/components/BlogArticlePage.tsx; src/components/FAQSchema.tsx; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/components/BiblioTablePage.tsx; src/components/AIRenameVariantsPage.tsx; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check pending).

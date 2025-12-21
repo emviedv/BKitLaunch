@@ -6,6 +6,7 @@ import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, RefreshCw, Shield, Lock, Download } from '@/lib/iconUtils';
+import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 
 const AIRenameVariantsPage = () => {
@@ -23,6 +24,14 @@ const AIRenameVariantsPage = () => {
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted';
+  const faqs = [
+    { question: "Will it change files without my approval?", answer: "No. All changes show as suggestions; you approve edits." },
+    { question: "Can I undo changes?", answer: "Yes. Single-click revert and full audit log export." },
+    { question: "Does it access files outside my selection?", answer: "No. You choose selection or file scope before any action." },
+    { question: "How many free credits do I get?", answer: "8 free credits. Each covers an audit of up to 50 components." },
+    { question: "Will it conflict with our naming conventions?", answer: "No. You set the rules (CamelCase, etc.) and token hints." },
+    { question: "Is it safe for prototypes?", answer: "Yes. We preserve prototype links and master components." }
+  ];
 
   // --- Reusable Components ---
 
@@ -400,21 +409,7 @@ const AIRenameVariantsPage = () => {
       {/* Block 11: FAQ */}
       <Section dark>
         <SectionTitle className="text-center mb-12">BiblioRename Demo - Batch-Rename Figma Variants in Seconds</SectionTitle>
-        <ol className="max-w-3xl mx-auto space-y-6 list-decimal list-inside">
-          {[
-            { q: "Will it change files without my approval?", a: "No. All changes show as suggestions; you approve edits." },
-            { q: "Can I undo changes?", a: "Yes. Single-click revert and full audit log export." },
-            { q: "Does it access files outside my selection?", a: "No. You choose selection or file scope before any action." },
-            { q: "How many free credits do I get?", a: "8 free credits. Each covers an audit of up to 50 components." },
-            { q: "Will it conflict with our naming conventions?", a: "No. You set the rules (CamelCase, etc.) and token hints." },
-            { q: "Is it safe for prototypes?", a: "Yes. We preserve prototype links and master components." }
-          ].map((faq, i) => (
-            <li key={i} className="border-b border-slate-800/50 pb-6 pl-2">
-              <h4 className="font-bold text-lg mb-2 text-white">{faq.q}</h4>
-              <p className="text-slate-400">{faq.a}</p>
-            </li>
-          ))}
-        </ol>
+        <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 
       {/* Block 12: Final CTA */}

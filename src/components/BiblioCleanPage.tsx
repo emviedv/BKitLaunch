@@ -6,6 +6,7 @@ import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, RefreshCw, Shield, Lock, Download } from '@/lib/iconUtils';
+import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 
 const BiblioCleanPage = () => {
@@ -29,6 +30,12 @@ const BiblioCleanPage = () => {
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines';
+  const faqs = [
+    { question: "Will this break my main components?", answer: "BiblioClean includes safety warnings when you attempt to clean main components or instances that shouldn't be touched." },
+    { question: "Can I undo the cleanup?", answer: "Yes. You can use Figma's native undo (Cmd+Z) to revert any changes made by the plugin instantly." },
+    { question: "Does it remove links from the whole file?", answer: "You can choose your scope: clean only the selected items or the entire current page." },
+    { question: "Is BiblioClean free?", answer: "Yes, BiblioClean is currently free to use for all features." },
+  ];
 
   // --- Reusable Components ---
 
@@ -292,19 +299,7 @@ const BiblioCleanPage = () => {
       {/* Block 8: FAQ */}
       <Section dark>
         <SectionTitle className="text-center mb-12">Watch BiblioClean Instantly Remove Prototype Links</SectionTitle>
-        <ol className="max-w-3xl mx-auto space-y-6 list-decimal list-inside">
-          {[
-            { q: "Will this break my main components?", a: "BiblioClean includes safety warnings when you attempt to clean main components or instances that shouldn't be touched." },
-            { q: "Can I undo the cleanup?", a: "Yes. You can use Figma's native undo (Cmd+Z) to revert any changes made by the plugin instantly." },
-            { q: "Does it remove links from the whole file?", a: "You can choose your scope: clean only the selected items or the entire current page." },
-            { q: "Is BiblioClean free?", a: "Yes, BiblioClean is currently free to use for all features." },
-          ].map((faq, i) => (
-            <li key={i} className="border-b border-slate-800/50 pb-6 pl-2">
-              <h4 className="font-bold text-lg mb-2 text-white">{faq.q}</h4>
-              <p className="text-slate-400">{faq.a}</p>
-            </li>
-          ))}
-        </ol>
+        <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 
       {/* Block 9: Final CTA */}
