@@ -44,6 +44,12 @@
 - **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (content/link update only).
 
+- **Time:** 2025-12-20 20:21 EST
+- **Summary:** Added a /biblio-table link to the earlier “Pro Tip: Use BiblioTable” paragraph in the table design blog so the product mention is clickable.
+- **Root Cause:** The initial BiblioTable callout used the homepage URL in parentheses, leaving the product name as plain text without an internal link.
+- **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (content/link update only).
+
 - **Time:** 2025-12-20 15:14 EST
 - **Summary:** Fixed the blank/black production page by removing the React-only manual chunk that created a circular dependency and left `useState` undefined at runtime.
 - **Root Cause:** Manual chunking split React into its own chunk while vendor code still imported React, and React’s chunk imported the vendor chunk for side effects, forming a circular dependency that broke React hooks on load.

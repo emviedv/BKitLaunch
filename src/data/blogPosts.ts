@@ -257,7 +257,7 @@ const autoLayoutWrapContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'Pro Tip: Use BiblioTable (https://www.bibliokit.com) to equalize column widths and fix row heights. It forces consistency so your auto-layout wrap behaves predictably every time.'
+    text: 'Pro Tip: Use [BiblioTable](/biblio-table) to equalize column widths and fix row heights. It forces consistency so your auto-layout wrap behaves predictably every time.'
   },
   { type: 'heading', text: 'Managing Layout Hygiene (The Hidden Problem)' },
   {
