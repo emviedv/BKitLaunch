@@ -50,6 +50,12 @@
 - **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (content/link update only).
 
+- **Time:** 2025-12-20 20:12 EST
+- **Summary:** Updated BiblioTable page CTAs to “FIX YOUR TABLES” and linked to the Figma Community profile; removed beta phrasing and noted the live install in the FAQ. Added a reminder in AGENTS.md to pull community links from figma.com/@bibliokit.
+- **Root Cause:** CTA still pointed to the waitlist with beta copy; need to drive installs from the Figma Community listing.
+- **Changed Files:** src/components/BiblioTablePage.tsx; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy/link update only; verify CTAs now link out to Figma Community).
+
 - **Time:** 2025-12-20 15:14 EST
 - **Summary:** Fixed the blank/black production page by removing the React-only manual chunk that created a circular dependency and left `useState` undefined at runtime.
 - **Root Cause:** Manual chunking split React into its own chunk while vendor code still imported React, and React’s chunk imported the vendor chunk for side effects, forming a circular dependency that broke React hooks on load.

@@ -25,6 +25,7 @@
 - Operational reminder: periodically pull waitlist signups locally with `npm run email:waitlist` (uses `DATABASE_URL` or .env/.env.local) to review beta interest.
 - Keep React bundled with its vendor dependencies—do not isolate React (or scheduler) into a separate manual chunk, as circular imports can break hooks (`useState` undefined).
 - After any change and deployment, explicitly verify the live production site loads (no blank/black screens) before handing off.
+- When linking to live Figma Community assets, grab the official URLs from https://www.figma.com/@bibliokit (use product-specific plugin/file links, not generic waits or betas).
 - Search Console sitemap submit (BiblioKit): use service account `search-console-submitter@bibliokit.iam.gserviceaccount.com` with key at `/tmp/search-console-submitter-key.json` (create if missing), scope `https://www.googleapis.com/auth/webmasters`, and submit `https://www.bibliokit.com/sitemap.xml` to `sc-domain:bibliokit.com` via the Search Console API.
 - Apply current SEO best practices (keep guidance refreshed for 2025): meaningful alt text on all images, clean descriptive URLs/slugs, accurate meta titles/descriptions, structured headings, and up-to-date sitemap/robots handling where relevant.
 - Meta descriptions must be unique per page and stay under 155 characters (e.g., 120–150 chars) to avoid SERP truncation.

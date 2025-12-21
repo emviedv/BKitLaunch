@@ -28,10 +28,8 @@ const BiblioTablePage = () => {
     updatePageMetadata(metadata);
   }, [content]);
 
-  // Using Waitlist anchor for now since it's "Coming Soon" in products.json, or if available, use a waitlist CTA.
-  // The product description says "Normalize Figma Tables in One Click", but status might be beta/waitlist.
-  // I'll point to the waitlist for now as per products.json "buttonLink": "#landing-waitlist".
-  const CTA_LINK = '#landing-waitlist'; 
+  // Figma Community profile for live installs
+  const CTA_LINK = 'https://www.figma.com/@bibliokit';
 
   // --- Reusable Components ---
 
@@ -75,7 +73,7 @@ const BiblioTablePage = () => {
             <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
               <a href={CTA_LINK} className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
-                <span>Join the Beta</span>
+                <span>FIX YOUR TABLES</span>
               </a>
             </Button>
             <span className="flex items-center gap-2 text-sm text-slate-400">
@@ -243,10 +241,10 @@ const BiblioTablePage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Fix your tables instantly.</h2>
-              <p className="text-xl text-purple-200 mb-8">Join the beta to start using BiblioTable for your data-rich projects.</p>
+              <p className="text-xl text-purple-200 mb-8">Install the BiblioTable plugin from Figma Community and normalize every table fast.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={CTA_LINK} className="inline-flex items-center gap-2">
-                  <span>Get Beta Access</span>
+                  <span>FIX YOUR TABLES</span>
                 </a>
               </Button>
             </div>
@@ -276,7 +274,7 @@ const BiblioTablePage = () => {
             { q: "Does this work with complex nested auto-layouts?", a: "Yes. BiblioTable is designed to parse standard row/column auto-layout structures commonly used for tables." },
             { q: "Does it break responsive resizing?", a: "No. It applies fixed widths where necessary to ensure alignment, but respects 'Fill container' where appropriate for the table wrapper." },
             { q: "Can I customize the zebra striping color?", a: "Yes. You can select the fill color for alternating rows." },
-            { q: "When will it be released?", a: "BiblioTable is currently in private beta. Join the waitlist to get early access." },
+            { q: "When will it be released?", a: "BiblioTable is live. Install it from our Figma Community profile." },
           ].map((faq, i) => (
             <li key={i} className="border-b border-slate-800/50 pb-6 pl-2">
               <h4 className="font-bold text-lg mb-2 text-white">{faq.q}</h4>
@@ -293,7 +291,7 @@ const BiblioTablePage = () => {
             <div className="flex flex-col items-center gap-4">
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={CTA_LINK}>
-                  Join the Beta
+                  FIX YOUR TABLES
                 </a>
               </Button>
             </div>
