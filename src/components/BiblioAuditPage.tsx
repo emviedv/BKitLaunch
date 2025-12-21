@@ -284,7 +284,7 @@ const BiblioAuditPage = () => {
 
       {/* Block 8: FAQ */}
       <Section dark>
-        <SectionTitle className="text-center mb-12">FAQ.</SectionTitle>
+        <SectionTitle className="text-center mb-12">See BiblioAudit in Action: Audit &amp; Bulk-Fix Figma Design Errors</SectionTitle>
         <ol className="max-w-3xl mx-auto space-y-6 list-decimal list-inside">
           {[
             { q: "Does it work with any design system?", a: "Yes. BiblioAudit checks against your local styles and enabled libraries." },

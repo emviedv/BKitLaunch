@@ -87,7 +87,7 @@
       "icon": "🏷️",
       "idea": "The AI Organizer.",
       "badge": "Launched",
-      "title": "Batch Rename Layers with AI (BiblioRename)",
+      "title": "BiblioRename - Context-Aware AI for Batch Renaming Figma Layers",
       "category": "Launched",
       "tagline": "AI Layer Renamer & Naming Conventions",
       "badges": [],
@@ -634,7 +634,7 @@
       }
     },
     "uxbiblio": {
-      "title": "UXBiblio",
+      "title": "UXBiblio: AI-Powered Library of UX Design Patterns & Templates",
       "description": "UXBiblio by BiblioKit: Curated UI/UX patterns and templates with AI-powered tagging. Save and organize your design inspiration effortlessly.",
       "primaryButton": "Start your UX Library",
       "primaryButtonIcon": "arrow-right",

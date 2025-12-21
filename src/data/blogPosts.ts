@@ -184,7 +184,7 @@ const componentStatesContent: BlogContentBlock[] = [
 ];
 
 const autoLayoutWrapContent: BlogContentBlock[] = [
-  { type: 'heading', text: 'Mastering Figma Auto Layout Wrap: The 2025 Guide to Responsive Components' },
+  { type: 'heading', text: 'BiblioKit 2025: Master Figma Auto Layout Wrap for Responsive Designs' },
   {
     type: 'image',
     src: buildHeroImagePath('auto-layout-wrap/auto-layout-wrap-hero.png'),
@@ -285,7 +285,7 @@ const autoLayoutWrapContent: BlogContentBlock[] = [
 ];
 
 const tableDesignContent: BlogContentBlock[] = [
-  { type: 'heading', text: 'Effortless Table Design: Solve Auto-Layout Issues & Align Data Flawlessly' },
+  { type: 'heading', text: 'BiblioKit\'s Table Design Guide: Fix Auto-Layout & Align Data' },
   {
     type: 'image',
     src: buildHeroImagePath('effortless-table-design/effortless-table-design-hero.png'),
@@ -1119,7 +1119,7 @@ const atlassianDesignSystemFaqs: BlogFAQ[] = [
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'effortless-table-design-auto-layout',
-    title: 'Effortless Table Design: Solve Auto-Layout Issues & Align Data Flawlessly',
+    title: 'BiblioKit\'s Table Design Guide: Fix Auto-Layout & Align Data',
     category: 'UI Design',
     readingTime: '6 min read',
     excerpt:
@@ -1127,9 +1127,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('effortless-table-design/effortless-table-design-hero.png'),
     heroImageAlt: 'Table UI listing team members with roles and last activity timestamps',
     lastUpdated: '2025-12-14',
-    metaTitle: 'Effortless Table Design: Solve Auto-Layout Issues & Align Data Flawlessly',
+    metaTitle: 'BiblioKit\'s Table Design Guide: Fix Auto-Layout & Align Data',
     metaDescription:
-      'Fix auto-layout table pain: align data, tame row-height drift, and ship clean, scannable tables in Figma.',
+      'Unlock tables in UI design. Present complex data with clarity.',
     twitterTitle: 'Solve Auto-Layout Issues with Perfect Table Design #UIDesign',
     content: tableDesignContent
   },
@@ -1145,13 +1145,13 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-12-14',
     metaTitle: 'Mastering UI Component States: Your Secret Weapon for Awesome UI',
     metaDescription:
-      'Make UI feel alive: define hover, focus, active, disabled, and error states so interactions feel crisp and accessible.',
+      'Craft crisp UI interactions with hover, focus & error states.',
     twitterTitle: 'Boost UI with Mastered Component States! #UIDesign',
     content: componentStatesContent
   },
   {
     slug: 'mastering-figma-auto-layout-wrap',
-    title: 'Mastering Figma Auto Layout Wrap: The 2025 Guide to Responsive Components',
+    title: 'BiblioKit 2025: Master Figma Auto Layout Wrap for Responsive Designs',
     category: 'Figma Plugins',
     readingTime: '4 min read',
     excerpt:
@@ -1159,9 +1159,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('auto-layout-wrap/auto-layout-wrap-hero.png'),
     heroImageAlt: 'Abstract responsive grid illustration showing Auto Layout Wrap adapting to screen sizes',
     lastUpdated: '2025-11-28',
-    metaTitle: 'Figma Auto Layout Wrap Guide 2025 | Responsive UI',
+    metaTitle: 'BiblioKit 2025: Master Figma Auto Layout Wrap for Responsive Designs',
     metaDescription:
-      'Turn on Auto Layout Wrap correctly, fix fixed-width layer bugs, and ship responsive Figma components without hacks using BiblioKit checks.',
+      'Master Figma with BiblioKit: Fix bugs, create responsive designs.',
     content: autoLayoutWrapContent
   },
   {
@@ -1176,7 +1176,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-12-07',
     metaTitle: 'Fix Detached Instances in Figma | 2025 Cleanup Playbook',
     metaDescription:
-      'Scan for detached Figma instances, reset overrides, and keep design system components linked using BiblioAudit so files stay fast and consistent.',
+      'Boost Figma with BiblioAudit: Scan, reset & link designs.',
     content: detachedInstancesContent
   },
   {
@@ -1191,7 +1191,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-11-26',
     metaTitle: 'Remove Figma Prototype Links Safely | BiblioKit Guide',
     metaDescription:
-      'Wipe stale prototype links, replace broken handoffs, and notify collaborators so every Figma review opens the right build.',
+      'Streamline Figma reviews with seamless links and notifications.',
     content: removePrototypeLinksContent,
     faqs: removePrototypeLinksFaqs
   },
@@ -1207,7 +1207,7 @@ export const BLOG_POSTS: BlogPost[] = [
     lastUpdated: '2025-12-14',
     metaTitle: 'Design System Guidelines Playbook | Clarity, Governance, Figma',
     metaDescription:
-      'Build design system guidelines with clear principles, Figma audits, and governance so teams ship consistent experiences faster.',
+      'Design systems for consistent experiences.',
     twitterTitle: 'Design Systems: Clarity & Governance in Figma #DesignSystems',
     content: designSystemGuidelinesContent,
     faqs: designSystemGuidelinesFaqs

@@ -46,7 +46,7 @@ const RemovePrototypeLinkPage: React.FC = () => {
   const updatedDate = '2025-12-11';
   const hero: LandingHeroContent = {
     badgeLabel: 'Resource',
-    title: 'Remove Prototype Link',
+    title: 'BiblioKit: Effortlessly Audit and Revoke Stale Figma Prototype Links',
     subtitle: 'Shut down risky share URLs before they leak context.',
     description:
       'Purge stale prototypes and replace them with the right build in minutes using the cleanup ritual designers repeat after every sprint.',

@@ -268,7 +268,7 @@ const BiblioTablePage = () => {
 
       {/* Block 8: FAQ */}
       <Section dark>
-        <SectionTitle className="text-center mb-12">FAQ.</SectionTitle>
+        <SectionTitle className="text-center mb-12">Watch BiblioTable in Action: Normalize &amp; Zebra-Stripe Figma Tables</SectionTitle>
         <ol className="max-w-3xl mx-auto space-y-6 list-decimal list-inside">
           {[
             { q: "Does this work with complex nested auto-layouts?", a: "Yes. BiblioTable is designed to parse standard row/column auto-layout structures commonly used for tables." },

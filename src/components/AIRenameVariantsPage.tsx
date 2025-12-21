@@ -399,7 +399,7 @@ const AIRenameVariantsPage = () => {
 
       {/* Block 11: FAQ */}
       <Section dark>
-        <SectionTitle className="text-center mb-12">FAQ.</SectionTitle>
+        <SectionTitle className="text-center mb-12">BiblioRename Demo - Batch-Rename Figma Variants in Seconds</SectionTitle>
         <ol className="max-w-3xl mx-auto space-y-6 list-decimal list-inside">
           {[
             { q: "Will it change files without my approval?", a: "No. All changes show as suggestions; you approve edits." },

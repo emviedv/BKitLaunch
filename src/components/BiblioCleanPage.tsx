@@ -291,7 +291,7 @@ const BiblioCleanPage = () => {
 
       {/* Block 8: FAQ */}
       <Section dark>
-        <SectionTitle className="text-center mb-12">FAQ.</SectionTitle>
+        <SectionTitle className="text-center mb-12">Watch BiblioClean Instantly Remove Prototype Links</SectionTitle>
         <ol className="max-w-3xl mx-auto space-y-6 list-decimal list-inside">
           {[
             { q: "Will this break my main components?", a: "BiblioClean includes safety warnings when you attempt to clean main components or instances that shouldn't be touched." },
