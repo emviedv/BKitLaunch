@@ -56,6 +56,12 @@
 - **Changed Files:** src/components/BiblioTablePage.tsx; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (copy/link update only; verify CTAs now link out to Figma Community).
 
+- **Time:** 2025-12-20 20:15 EST
+- **Summary:** Pointed the BiblioAudit hero CTA to the live Figma Community plugin page instead of the older component-auditor URL.
+- **Root Cause:** CTA link used the legacy slug; needed to route directly to the current BiblioAudit plugin listing.
+- **Changed Files:** src/components/BiblioAuditPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (link update only; confirm CTA opens the BiblioAudit plugin page).
+
 - **Time:** 2025-12-20 15:14 EST
 - **Summary:** Fixed the blank/black production page by removing the React-only manual chunk that created a circular dependency and left `useState` undefined at runtime.
 - **Root Cause:** Manual chunking split React into its own chunk while vendor code still imported React, and React’s chunk imported the vendor chunk for side effects, forming a circular dependency that broke React hooks on load.

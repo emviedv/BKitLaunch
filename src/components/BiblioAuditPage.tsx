@@ -28,7 +28,7 @@ const BiblioAuditPage = () => {
     updatePageMetadata(metadata);
   }, [content]);
 
-  const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/component-auditor-toolkit';
+  const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check';
 
   // --- Reusable Components ---
 
