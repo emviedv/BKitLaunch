@@ -60,9 +60,16 @@ const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: s
 
   switch (block.type) {
     case 'heading': {
-      const HeadingTag = block.level || 'h3';
+      const headingLevel = (block.level || 'h3').toLowerCase();
+      const HeadingTag = headingLevel as keyof JSX.IntrinsicElements;
+      const headingSizeClasses =
+        headingLevel === 'h2'
+          ? 'text-3xl sm:text-4xl'
+          : headingLevel === 'h3'
+            ? 'text-2xl sm:text-3xl'
+            : 'text-xl sm:text-2xl';
       return (
-        <HeadingTag key={key} className="text-2xl font-semibold text-white">
+        <HeadingTag key={key} className={`${headingSizeClasses} font-semibold text-white`}>
           {block.text}
         </HeadingTag>
       );

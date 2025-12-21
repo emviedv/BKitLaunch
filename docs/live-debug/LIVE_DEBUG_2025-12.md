@@ -1061,3 +1061,9 @@
 - **Root Cause:** Several blog mentions still used plain text or internal product links instead of direct plugin listing hyperlinks.
 - **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (link updates only).
+
+- **Time:** 2025-12-21 00:43 EST
+- **Summary:** Differentiated blog H2 and H3 typography so heading hierarchy is visually distinct in blog articles.
+- **Root Cause:** Blog heading rendering applied the same size class to every heading level.
+- **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check pending).
