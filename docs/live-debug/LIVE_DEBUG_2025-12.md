@@ -32,6 +32,12 @@
 - **Changed Files:** src/components/ResourcesPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (copy update only).
 
+- **Time:** 2025-12-20 20:02 EST
+- **Summary:** Tightened waitlist copy to only say “Drop your email to jump the line for our next Figma plugins in beta.”
+- **Root Cause:** Waitlist description still included BiblioStart/BiblioTable wording instead of the concise beta-line CTA requested.
+- **Changed Files:** src/data/products.json; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy update only).
+
 - **Time:** 2025-12-20 15:14 EST
 - **Summary:** Fixed the blank/black production page by removing the React-only manual chunk that created a circular dependency and left `useState` undefined at runtime.
 - **Root Cause:** Manual chunking split React into its own chunk while vendor code still imported React, and React’s chunk imported the vendor chunk for side effects, forming a circular dependency that broke React hooks on load.
