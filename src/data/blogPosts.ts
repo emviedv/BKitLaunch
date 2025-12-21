@@ -379,7 +379,7 @@ const tableDesignContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: "This is where a little help from the community comes in handy. If you've been tearing your hair out over misaligned cells and endless manual adjustments, you absolutely need to check out the Bibliotable Auto-Layout Table Fixer & Data Aligner."
+    text: "This is where a little help from the community comes in handy. If you've been tearing your hair out over misaligned cells and endless manual adjustments, you absolutely need to check out the [BiblioTable Auto-Layout Table Fixer & Data Aligner](/biblio-table)."
   },
   {
     type: 'paragraph',
@@ -387,7 +387,7 @@ const tableDesignContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'Imagine a world where your table cells just... work. This plugin aims to give you that by letting you set up your table structure and then letting it do the heavy lifting of keeping everything tidy. It means less time debugging your auto-layout stack and more time focusing on the actual user experience. If you want to boost your design efficiency and get rid of those table headaches, this tool is definitely worth adding to your Figma arsenal. Find it here: Bibliotable Auto-Layout Table Fixer & Data Aligner.'
+    text: 'Imagine a world where your table cells just... work. This plugin aims to give you that by letting you set up your table structure and then letting it do the heavy lifting of keeping everything tidy. It means less time debugging your auto-layout stack and more time focusing on the actual user experience. If you want to boost your design efficiency and get rid of those table headaches, this tool is definitely worth adding to your Figma arsenal. Find it here: [BiblioTable Auto-Layout Table Fixer & Data Aligner](/biblio-table).'
   },
   { type: 'heading', text: 'Advanced Table Features & Interactions', level: 'h2' },
   {
@@ -413,7 +413,7 @@ const tableDesignContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: "And let's not forget tackling those frustrating auto-layout issues head-on. By applying smart design principles, leveraging component-based workflows, and using helpful tools like the Bibliotable Auto-Layout Table Fixer & Data Aligner, you can elevate your data presentation from clunky to flawless."
+    text: "And let's not forget tackling those frustrating auto-layout issues head-on. By applying smart design principles, leveraging component-based workflows, and using helpful tools like the [BiblioTable Auto-Layout Table Fixer & Data Aligner](/biblio-table), you can elevate your data presentation from clunky to flawless."
   },
   {
     type: 'paragraph',
