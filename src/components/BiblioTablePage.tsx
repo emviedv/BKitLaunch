@@ -28,8 +28,8 @@ const BiblioTablePage = () => {
     updatePageMetadata(metadata);
   }, [content]);
 
-  // Figma Community profile for live installs
-  const CTA_LINK = 'https://www.figma.com/@bibliokit';
+  // Figma Community plugin link
+  const CTA_LINK = 'https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner';
 
   // --- Reusable Components ---
 

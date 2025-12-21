@@ -56,6 +56,12 @@
 - **Changed Files:** src/components/BiblioTablePage.tsx; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (copy/link update only; verify CTAs now link out to Figma Community).
 
+- **Time:** 2025-12-20 20:23 EST
+- **Summary:** Wired BiblioTable hero CTAs to the exact Figma Community plugin URL instead of the profile.
+- **Root Cause:** CTA still used the profile fallback; needed to point directly to the plugin listing.
+- **Changed Files:** src/components/BiblioTablePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (link update only; verify CTAs open the BiblioTable plugin page).
+
 - **Time:** 2025-12-20 20:15 EST
 - **Summary:** Pointed the BiblioAudit hero CTA to the live Figma Community plugin page instead of the older component-auditor URL.
 - **Root Cause:** CTA link used the legacy slug; needed to route directly to the current BiblioAudit plugin listing.
