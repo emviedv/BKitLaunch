@@ -1079,3 +1079,9 @@
 - **Root Cause:** Several meta descriptions still used older short copy and did not follow the new OTTO-style format from the audit.
 - **Changed Files:** src/lib/seo.ts; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/components/BiblioTablePage.tsx; src/data/blogPosts.ts; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (meta description updates only).
+
+- **Time:** 2025-12-21 21:56 EST
+- **Summary:** Restored the Effortless Table Design in Figma blog images from the source Google Doc so inline screenshots render on the site.
+- **Root Cause:** The blog image assets were only present locally and never committed, so production lacked `/blog/effortless-table-design-figma` files.
+- **Changed Files:** public/blog/effortless-table-design-figma/table-status-hero.png; public/blog/effortless-table-design-figma/table-cell-component-active.png; public/blog/effortless-table-design-figma/table-row-component.png; public/blog/effortless-table-design-figma/table-component-grid.png; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Compared Google Doc export hashes to local assets; confirmed the files exist on disk (deploy still needed).

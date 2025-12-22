@@ -284,6 +284,152 @@ const autoLayoutWrapContent: BlogContentBlock[] = [
   }
 ];
 
+const figmaWorkflowAutomationToolsContent: BlogContentBlock[] = [
+  { type: 'heading', text: 'Streamlining Your Figma Workflow with Automation Tools' },
+  {
+    type: 'paragraph',
+    text: 'If you look at the calendar of a modern product designer, you might notice a startling reality: we often spend more time managing files than actually designing interfaces. Between renaming layers, fixing broken components, and prepping files for handoff, the "creative" part of the job often gets squeezed into small windows of time between administrative tasks.'
+  },
+  {
+    type: 'paragraph',
+    text: 'As design operations scale, this manual labor becomes unsustainable. Automation is no longer just a nice-to-have; it is the key to maintaining velocity without burning out. Fortunately, the Figma ecosystem has evolved. By leveraging the right plugins, you can bridge the gap between creativity and efficiency, turning tedious chores into one-click actions.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Here is how you can reclaim your time and streamline your workflow using specific automation tools.'
+  },
+  { type: 'paragraph', text: '________________' },
+  { type: 'heading', text: '1. Bringing Order to Chaos: AI-Powered Renaming', level: 'h2' },
+  { type: 'heading', text: 'The Pain Point', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'We have all been there. You are deep in the flow state, iterating rapidly. Suddenly, you look at your layer panel and see a graveyard of "Frame 422," "Vector 12," and "Group 86." While this doesn\'t bother you in the moment, it creates a nightmare during handoff. Developers struggle to map elements to code, and other designers waste time deciphering your structure.'
+  },
+  { type: 'heading', text: 'The Solution', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Manual renaming is a waste of human intelligence. The solution lies in automating naming conventions using AI that understands not just the object type, but the context of what you designed.'
+  },
+  { type: 'heading', text: 'Tool Spotlight: BiblioRename', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: '[BiblioRename](https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted) takes the guesswork out of file hygiene.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Features: It utilizes AI-driven context awareness to analyze what a layer visually represents and renames it accordingly. It also enforces strict adherence to your specific naming conventions (CamelCase, snake_case, etc.).',
+      'Benefit: This results in significantly improved file navigation and a much smoother developer handoff experience, all without you typing a single character.'
+    ]
+  },
+  { type: 'paragraph', text: '________________' },
+  { type: 'heading', text: '2. Maintaining Design System Integrity', level: 'h2' },
+  { type: 'heading', text: 'The Pain Point', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: '"Design Debt" is the silent killer of consistent products. In the rush to meet deadlines, designers often detach instances or create "rogue styles" that deviate slightly from the established design system. Over time, these inconsistencies compound, making the file impossible to maintain and confusing the source of truth.'
+  },
+  { type: 'heading', text: 'The Solution', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'You need a mechanism that acts like a spell-checker for your design system—an automated auditing workflow that catches inconsistencies before they ship to production.'
+  },
+  { type: 'heading', text: 'Tool Spotlight: BiblioAudit', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: '[BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) is your automated quality assurance lead.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Features: This tool instantly scans your selection or page to find detached instances and checks elements against your design system rules.',
+      'Benefit: It ensures your design file remains the single source of truth, allowing you to catch and fix drift instantly rather than waiting for a QA engineer to flag it weeks later.'
+    ]
+  },
+  { type: 'paragraph', text: '________________' },
+  { type: 'heading', text: '3. Automating Component States and Documentation', level: 'h2' },
+  { type: 'heading', text: 'The Pain Point', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Building a robust component library is essential, but the process is incredibly tedious. Manually creating every variant state (hover, pressed, disabled, focused) and then writing out the red-line specifications for developers feels like assembly-line work, not design.'
+  },
+  { type: 'heading', text: 'The Solution', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Why push pixels manually when logic can do it for you? The modern workflow involves generating standard states and specifications programmatically.'
+  },
+  { type: 'heading', text: 'Tool Spotlight: BiblioStates', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: '[BiblioStates](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) accelerates library creation dramatically.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Features: It auto-generates common component states based on your primary design and simultaneously creates visual specifications for documentation.',
+      'Benefit: This saves hours of manual pixel-pushing when building component libraries, ensuring your documentation is always up to date with the actual visual design.'
+    ]
+  },
+  { type: 'paragraph', text: '________________' },
+  { type: 'heading', text: '4. Taming the Auto Layout Table Nightmare', level: 'h2' },
+  { type: 'heading', text: 'The Pain Point', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Figma’s Auto Layout is powerful, but complex data tables remain its kryptonite. Managing a table where changing one cell width breaks the alignment of the entire column—or trying to inject real data without ruining the layout—is a specific type of frustration every product designer knows well.'
+  },
+  { type: 'heading', text: 'The Solution', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'General design tools aren\'t enough for complex data; you need specialized automation tools designed specifically for table alignment and data management.'
+  },
+  { type: 'heading', text: 'Tool Spotlight: BiblioTable', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: '[BiblioTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) turns one of the hardest UI tasks into one of the easiest.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Features: It fixes broken Auto Layout tables and aligns data content instantly, ensuring rows and columns behave responsively.',
+      'Benefit: It makes designing data-heavy dashboards significantly faster, allowing you to focus on how the data is visualized rather than fighting with the grid.'
+    ]
+  },
+  { type: 'paragraph', text: '________________' },
+  { type: 'heading', text: '5. Prepping for Handoff: The Final Cleanup', level: 'h2' },
+  { type: 'heading', text: 'The Pain Point', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'You are ready to send the file to development. However, the canvas is cluttered with "noodle soup"—those blue prototype lines connecting screens—along with unused testing artifacts, sticky notes, and half-baked concepts. Sending a messy file increases cognitive load for stakeholders and developers, leading to questions and errors.'
+  },
+  { type: 'heading', text: 'The Solution', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'You need a "one-click" janitor for your files—a capability to strip away the metadata and working artifacts to present a clean, final delivery.'
+  },
+  { type: 'heading', text: 'Tool Spotlight: BiblioClean', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: '[BiblioClean](https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines) ensures your professionalism shines through the final deliverable.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Features: It removes prototype links, blue lines, and visual clutter to prepare a pristine, developer-ready file.',
+      'Benefit: This drastically reduces visual noise, making it easier for developers to parse the file and understand exactly what needs to be built.'
+    ]
+  },
+  { type: 'paragraph', text: '________________' },
+  { type: 'heading', text: 'Conclusion', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Automation isn\'t about replacing the designer; it is about removing the administrative burden that keeps the designer from designing. By offloading tasks like renaming, auditing, and cleaning to specialized plugins, you don\'t just work faster—you work smarter.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Take a moment to audit your current workflow. If you find yourself manually typing layer names or fighting with table alignment, it’s time to implement these tools. Reclaim your creative time and let the machines handle the rest.'
+  }
+];
+
 const tableDesignContent: BlogContentBlock[] = [
   { type: 'heading', text: 'BiblioKit\'s Table Design Guide: Fix Auto-Layout & Align Data' },
   {
@@ -1268,6 +1414,21 @@ const atlassianDesignSystemFaqs: BlogFAQ[] = [
 ];
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: 'figma-workflow-automation-tools',
+    title: 'Streamlining Your Figma Workflow with Automation Tools',
+    category: 'Figma Plugins',
+    readingTime: '5 min read',
+    excerpt:
+      'Reclaim time for designers, developers, and marketers by automating renaming, audits, states, tables, and cleanup with Figma plugins.',
+    heroImage: buildHeroImagePath('figma-workflow-automation-tools/figma-workflow-automation-hero.png'),
+    heroImageAlt: 'Figma canvas showing a website mockup filled with colorful button styles',
+    lastUpdated: '2025-12-21',
+    metaTitle: 'Streamlining Your Figma Workflow with Automation Tools',
+    metaDescription:
+      'BiblioKit speeds Figma workflows for designers, developers, and marketers. Automate renaming, audits, states, tables, and cleanup to save hours.',
+    content: figmaWorkflowAutomationToolsContent
+  },
   {
     slug: 'effortless-table-design-figma',
     title: 'Effortless Table Design in Figma: A Comprehensive Guide',
