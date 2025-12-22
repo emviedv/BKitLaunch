@@ -1413,7 +1413,407 @@ const atlassianDesignSystemFaqs: BlogFAQ[] = [
   }
 ];
 
+const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
+  {
+    type: 'image',
+    src: buildHeroImagePath('ultimate-figma-plugin-stack/hero-figma-plugin-stack.png'),
+    alt: 'Figma UI showing Unsplash plugin panels and a photo grid on a desktop monitor'
+  },
+  { type: 'heading', text: 'The Ultimate Figma Plugin Stack: 8 Tools to Save You Hours Every Week' },
+  {
+    type: 'paragraph',
+    text: `Time is the one resource designers can’t pixel-push into existence. In the fast-paced world of modern UI/UX design, efficiency isn't just a "nice-to-have"—it's a survival skill. While creativity fuels the design, the workflow is often bogged down by repetitive tasks, messy layers, and the eternal struggle of developer handoff.`
+  },
+  {
+    type: 'paragraph',
+    text: "If you feel like you're spending more time managing your file than actually designing, you might be missing the right utility belt. The right plugin stack can shave hours off your work week, turning tedious chores into one-click actions."
+  },
+  {
+    type: 'paragraph',
+    text: 'In this guide, we’re breaking down the essential plugins for documentation, content management, and bulk utility that every efficient designer needs installed.'
+  },
+  { type: 'heading', text: 'Category 1: Design Systems & Documentation', level: 'h2' },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ultimate-figma-plugin-stack/bibliostates-plugin.png'),
+    alt: 'BiblioStates plugin showing component state options and button states in Figma'
+  },
+  {
+    type: 'paragraph',
+    text: 'Why it matters: Handoff and documentation are notoriously the biggest time-sinks for designers. Creating specs manually is necessary for developers, but it kills your creative momentum.'
+  },
+  { type: 'heading', text: '1. Bibliostates (Top Pick)', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: "If you manage a design system, this is the plugin you didn't know you needed but won't be able to live without. Bibliostates is a powerhouse tool designed to generate component states and specifications automatically."
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Overview: It takes your master components and automatically generates a visual library of their states.',
+      'Key Benefit: It deeply reduces the manual effort required to visualize different component variants (hover, active, disabled, error) for developers. Instead of manually dragging out every variant and arranging them in a grid, Bibliostates does the heavy lifting.',
+      'Use Case: This is perfect for design system managers who need to create comprehensive specifications (specs) quickly. It ensures your developers see every possible state of a button or input field without you having to build a manual "sticker sheet."'
+    ]
+  },
+  {
+    type: 'paragraph',
+    text: '👉 [Try BiblioStates here](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs)'
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ultimate-figma-plugin-stack/eighthshapes-specs.png'),
+    alt: 'EightShapes Specs redline annotations and spacing measurements in Figma'
+  },
+  { type: 'heading', text: '2. EightShapes Specs', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Once your states are generated, you need to explain the layout. EightShapes Specs automates the process of "redlining."'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Function: It generates specification frames around your components, detailing spacing, typography, and CSS properties.',
+      'Impact: It reduces the back-and-forth questions from developers regarding padding and margins.'
+    ]
+  },
+  { type: 'heading', text: 'Category 2: Content & Asset Management', level: 'h2' },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ultimate-figma-plugin-stack/content-reel-plugin.png'),
+    alt: 'Content Reel plugin window showing sample text and avatars in Figma'
+  },
+  {
+    type: 'paragraph',
+    text: 'Why it matters: Stop using "Lorem Ipsum" manually. Designing with fake content leads to broken layouts later. Using real(ish) data early on helps you spot edge cases immediately.'
+  },
+  { type: 'heading', text: '3. Content Reel', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Created by Microsoft, this is the gold standard for populating designs.'
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ultimate-figma-plugin-stack/unsplash-plugin.png'),
+    alt: 'Unsplash plugin UI with search and photo presets in Figma'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Feature: Drag and drop real text strings (names, addresses, phone numbers), avatars, and icons directly into your selected layers.',
+      'Workflow: Instead of typing "John Doe" 50 times, you select 50 text layers and click one button to populate unique names.'
+    ]
+  },
+  { type: 'heading', text: '4. Unsplash', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Visuals make or break a mockup. The Unsplash plugin brings the world’s largest open-source photography library directly into Figma.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Feature: Instant high-quality stock photography insertion.',
+      'Speed: Select a shape, search for a keyword (e.g., "Architecture"), and click an image to fill the shape instantly. No more downloading, cropping, and importing.'
+    ]
+  },
+  { type: 'heading', text: 'Category 3: Bulk Actions & Cleanup', level: 'h2' },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ultimate-figma-plugin-stack/similayer-plugin.png'),
+    alt: 'Similayer plugin interface for selecting similar layers by properties'
+  },
+  {
+    type: 'paragraph',
+    text: 'Why it matters: Managing messy layers kills productivity. A clean file is a fast file, but manually renaming "Rectangle 432" or finding every instance of a specific hex code is a nightmare.'
+  },
+  { type: 'heading', text: '5. Similayer', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'If Figma’s native "Select same..." feature is a bicycle, Similayer is a Ferrari.'
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ultimate-figma-plugin-stack/rename-it-plugin.png'),
+    alt: 'Rename It plugin artwork showing batch layer renaming'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Function: It offers advanced selection capabilities based on a wide range of properties.',
+      "Example: You can select all text layers that are bold, size 12, and red. This is invaluable when you need to update a specific style across a massive file that isn't using variables yet."
+    ]
+  },
+  { type: 'heading', text: '6. Rename It', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Developers hate seeing "Group 1," "Group 2," and "Vector 5." While Figma introduced its own native, AI-assisted layer renaming to handle basic cleanup, Rename It remains an essential tool for complex batch operations and advanced find-and-replace logic.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Function: Batch rename layers using sequences, alphabets, or find-and-replace logic.',
+      'Benefit: Keeps files organized and professional for handoff without the manual typing.'
+    ]
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ultimate-figma-plugin-stack/clean-document-plugin.png'),
+    alt: 'Clean Document plugin interface with cleanup toggles and style list'
+  },
+  { type: 'heading', text: '7. Clean Document', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Think of this as the janitor for your Figma file.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Function: With one click, it automatically deletes hidden layers, ungroups single-layer groups, and snaps layers to the nearest pixel.',
+      'Impact: It reduces file size and removes the "ghost layers" that confuse developers inspecting the file.'
+    ]
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('ultimate-figma-plugin-stack/stark-plugin.png'),
+    alt: 'Stark accessibility plugin showing contrast checks and audits'
+  },
+  { type: 'heading', text: 'Category 4: Accessibility & Validation', level: 'h2' },
+  { type: 'heading', text: '8. Stark', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Accessibility should not be an afterthought; it should be part of the process.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Function: Stark provides a suite of tools for checking contrast ratios, simulating color blindness, and validating focus orders.',
+      'Real-time: You can check if your grey text on a white background is legible according to WCAG standards without leaving the canvas.'
+    ]
+  },
+  { type: 'heading', text: 'Conclusion', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Productivity in Figma isn't about working faster; it's about removing the friction that slows you down. The compound effect of saving 5 minutes here on renaming layers and 10 minutes there on documentation adds up to hours of saved time every single week."
+  },
+  {
+    type: 'paragraph',
+    text: 'If you are looking for an immediate ROI on your time, start by automating your documentation. Handing off clear, state-based specs is usually the most time-consuming part of the job. Give [BiblioStates](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) a try to instantly streamline that process.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Final thought: Keep your plugin list curated. It’s easy to install hundreds of tools, but mastering a core set of 8-10 essential plugins will do more for your workflow than a cluttered list you never use. Happy designing!'
+  }
+];
+
+const designDevGap2026Content: BlogContentBlock[] = [
+  {
+    type: 'image',
+    src: buildHeroImagePath('design-dev-gap-2026/hero-component-library.png'),
+    alt: 'Design system component library floating in a modern office.'
+  },
+  { type: 'heading', text: 'The 2026 Shift: Bridging the Gap Between Design and Dev' },
+  {
+    type: 'paragraph',
+    text: 'In the early days of product design, a "component library" was often just a glorified sticker sheet—a static page of buttons and inputs that designers would copy-paste until they inevitably broke. But as we move deeper into 2025, the definition of a design system has fundamentally changed.'
+  },
+  {
+    type: 'paragraph',
+    text: 'We are no longer just drawing pictures of software; we are architecting logic.'
+  },
+  {
+    type: 'paragraph',
+    text: 'The shift for 2025 is distinct: Logic-Driven Systems. The most successful teams this year aren\'t just focusing on how a component looks, but how it behaves and connects to the codebase. It’s about closing the loop between the Figma canvas and the React (or Vue/iOS) repository, ensuring that the "source of truth" isn\'t a myth, but a technical reality.'
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('design-dev-gap-2026/variables-token-flow.png'),
+    alt: 'Diagram mapping global and semantic tokens into UI components.'
+  },
+  {
+    type: 'paragraph',
+    text: 'Here are the 5 key trends defining high-performance component libraries in 2025.'
+  },
+  { type: 'heading', text: 'Trend 1: Variables Are The New Standard', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'If you are still relying solely on "Styles" for your colors and typography, your system is officially running on legacy tech. The industry standard has shifted aggressively toward Variables (Figma’s native implementation of Design Tokens).'
+  },
+  {
+    type: 'paragraph',
+    text: 'Unlike static Styles, Variables allow for logic. They bridge the gap between design intent and code implementation by treating design decisions as data, not just visual properties.'
+  },
+  { type: 'heading', text: 'Multi-Mode Magic', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'The real power of Variables lies in Modes. In 2025, we are seeing systems that support multi-brand and multi-theme architectures instantly.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'The Old Way: Manually creating a "Dark Mode" version of every single button variant.',
+      'The 2025 Way: Toggling a single "Mode" switch on a parent frame, which instantly re-maps every child component from Brand-A-Light to Brand-B-Dark without swapping a single component instance.'
+    ]
+  },
+  { type: 'heading', text: '💡 Actionable Tip', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Adopt a structured naming convention that prioritizes semantics over description.'
+  },
+  {
+    type: 'unorderedList',
+    items: ['❌ Don\'t use: Blue-500', '✅ Do use: bg-action-primary']
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('design-dev-gap-2026/code-connect-dev-mode.png'),
+    alt: 'Figma Code Connect panel showing component code alongside UI screens.'
+  },
+  {
+    type: 'paragraph',
+    text: 'This ensures that if your brand color changes from blue to purple next year, you update one token value, and the entire system—and the code referencing it—updates automatically.'
+  },
+  { type: 'heading', text: 'Trend 2: Code Connect & Dev Mode', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'The "hand-off" process has traditionally been a source of friction, where designers toss screenshots over a wall and developers guess the CSS values. Figma’s Code Connect (significantly updated in late 2024/early 2025) has dismantled this wall.'
+  },
+  { type: 'heading', text: 'Closing the Gap', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Code Connect allows you to link your Figma components to the actual code in your repository. When a developer inspects a component in Dev Mode, they don\'t see generic CSS auto-generated by Figma. They see your actual production code snippet—imports, props, and all.'
+  },
+  { type: 'heading', text: 'A New Source of Truth', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'This shift moves the "single source of truth" closer to the code. The design file becomes a visual browser for the codebase. If the code changes, the snippet in Figma updates, ensuring that what designers are using matches exactly what developers are building.'
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('design-dev-gap-2026/system-health-audit-warnings.png'),
+    alt: 'Design system audit panel warning about overridden button styles.'
+  },
+  { type: 'heading', text: 'Trend 3: System Health & Governance', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'One of the biggest silent killers of design systems is "drift." This happens when designers detach instances, hard-code hex values, or override styles manually because "it’s just a quick fix." Over time, your sleek library becomes a messy graveyard of one-off decisions.'
+  },
+  { type: 'heading', text: 'The Maintenance Nightmare', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'You can’t fix what you can’t see. Most Design Ops teams spend hours manually opening files to check if teams are actually using the new library updates. In 2025, governance is becoming automated.'
+  },
+  { type: 'heading', text: '🛠️ Tool Recommendation: Component Auditor Toolkit', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'If you manage a library, you need visibility. I highly recommend checking out the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130).'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'What it does: It scans entire files or pages to identify every instance of a component. Crucially, it flags detached instances and overridden styles.',
+      'Why it matters: Instead of guessing which teams are ignoring the system, you get a clear report. It helps you pay down technical debt by pinpointing exactly where the "mess" is, allowing you to enforce compliance without being the "bad cop" who manually hunts for errors.'
+    ]
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('design-dev-gap-2026/headless-component-slots.png'),
+    alt: 'Headless component diagram with header, default, and footer slots.'
+  },
+  { type: 'heading', text: 'Trend 4: "Headless" Component Architecture', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Inspired by development trends (like Headless UI), design systems are moving toward separating Structure from Style.'
+  },
+  { type: 'heading', text: 'Separating Structure from Style', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'Traditionally, you might make 50 variants of a "Card" component (Image Left, Image Top, No Image, With Button, etc.). The "Headless" approach uses Slots (or "component properties" that act as containers). You build one rigid "Card Shell" that handles padding, rounded corners, and shadow. Inside, you place a "Slot" instance that can be swapped for any content—a video player, a text block, or a list.'
+  },
+  { type: 'heading', text: 'Benefits', level: 'h3' },
+  {
+    type: 'unorderedList',
+    items: [
+      'Drastic Reduction in Variants: You maintain 1 component instead of 50.',
+      'Flexibility: Designers aren\'t blocked if they need a card with a slightly different layout; they just swap the slot content without breaking the master component.'
+    ]
+  },
+  {
+    type: 'image',
+    src: buildHeroImagePath('design-dev-gap-2026/design-system-workshop.png'),
+    alt: 'Design system file open on a desktop monitor in a workshop room.'
+  },
+  { type: 'heading', text: 'Trend 5: AI-Assisted Documentation', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Let\'s be honest: nobody likes writing documentation. In 2025, AI is doing the heavy lifting.'
+  },
+  { type: 'heading', text: 'Automated Specs', level: 'h3' },
+  {
+    type: 'paragraph',
+    text: 'New plugins and workflows allow AI to scan a selected component set and auto-generate:'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Usage Guidelines: "Use this button for primary actions only."',
+      'Accessibility Tags: Automatically flagging contrast ratios and ARIA label requirements.',
+      'Change Logs: Summarizing what changed between version 1.2 and 1.3.'
+    ]
+  },
+  {
+    type: 'paragraph',
+    text: 'This frees up your Design Systems team to focus on architecture and strategy rather than typing out "padding-left: 16px" for the hundredth time.'
+  },
+  { type: 'heading', text: 'Conclusion', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'The era of the "static sticker sheet" is dead. The best design systems of 2025 are living, breathing ecosystems that are connected to code, governed by data, and automated by AI.'
+  },
+  { type: 'paragraph', text: 'If you want to future-proof your library:' },
+  {
+    type: 'orderedList',
+    items: [
+      'Migrate to Variables immediately.',
+      'Audit your files using tools like the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130) to clean up the mess left behind by old habits.',
+      'Connect to Code to ensure your design reality matches the user\'s reality.'
+    ]
+  },
+  {
+    type: 'paragraph',
+    text: 'The gap between design and development is closing. It’s time to build the bridge.'
+  }
+];
+
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: 'design-dev-gap-2026',
+    title: 'The 2026 Shift: Bridging the Gap Between Design and Dev',
+    category: 'Design Systems',
+    readingTime: '5 min read',
+    excerpt:
+      'Bridge the design-dev gap with five 2026 component library shifts that keep designers, developers, and marketers aligned with code.',
+    heroImage: buildHeroImagePath('design-dev-gap-2026/hero-component-library.png'),
+    heroImageAlt: 'Design system component library floating in a modern office.',
+    lastUpdated: '2025-12-22',
+    metaTitle: 'The 2026 Shift: Bridging the Gap Between Design and Dev',
+    metaDescription:
+      'BiblioKit helps designers, developers, and marketers close the design-dev gap in 2026. Apply five library shifts to keep tokens and code aligned.',
+    content: designDevGap2026Content
+  },
+  {
+    slug: 'ultimate-figma-plugin-stack',
+    title: 'The Ultimate Figma Plugin Stack: 8 Tools to Save You Hours Every Week',
+    category: 'Figma Plugins',
+    readingTime: '4 min read',
+    excerpt:
+      'The right plugin stack can shave hours off your work week, turning tedious chores into one-click actions.',
+    heroImage: buildHeroImagePath('ultimate-figma-plugin-stack/hero-figma-plugin-stack.png'),
+    heroImageAlt: 'Figma UI showing Unsplash plugin panels and a photo grid on a desktop monitor',
+    lastUpdated: '2025-12-22',
+    metaTitle: 'The Ultimate Figma Plugin Stack: 8 Tools to Save You Hours Every Week',
+    metaDescription:
+      "BiblioKit's Figma plugin stack helps designers, developers, and marketers save hours. Install 8 essential tools for faster docs, content, and cleanup.",
+    content: ultimateFigmaPluginStackContent
+  },
   {
     slug: 'figma-workflow-automation-tools',
     title: 'Streamlining Your Figma Workflow with Automation Tools',

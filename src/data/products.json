@@ -633,6 +633,157 @@
         ]
       }
     },
+    "biblio-clean": {
+      "title": "BiblioClean",
+      "subtitle": "Wipe prototype links before you ship.",
+      "description": "BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!",
+      "primaryButton": "Try BiblioClean — Free",
+      "primaryButtonIcon": "download",
+      "primaryButtonLink": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
+      "badgeLabel": "Figma Plugin",
+      "visibility": {
+        "waitlist": false
+      },
+      "details": [
+        {
+          "title": "Deep Cleaning & Blue Line Removal",
+          "items": [
+            "Remove prototype navigation links (the blue lines), external URLs, and hotspot interactions.",
+            "Clear visual clutter without affecting your design geometry."
+          ],
+          "buttonLink": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
+          "mediaUrl": "/media/BiblioClean.png",
+          "mediaAlt": "BiblioClean removing prototype links in Figma"
+        },
+        {
+          "title": "Safety Guardrails",
+          "items": [
+            "Don't break the system. BiblioClean warns you before you strip interactions from main components or shared library assets.",
+            "We warn you if you're about to remove links from a shared component or design system master."
+          ],
+          "buttonLink": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
+          "mediaUrl": "/media/BiblioClean.png",
+          "mediaAlt": "BiblioClean safety warnings for shared components"
+        },
+        {
+          "title": "History & Undo Support",
+          "items": [
+            "Every action is logged.",
+            "Review what was removed and roll back instantly with Figma's native undo or our history log."
+          ],
+          "buttonLink": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
+          "mediaUrl": "/media/BiblioClean.png",
+          "mediaAlt": "BiblioClean cleanup history log"
+        }
+      ],
+      "benefits": [
+        "Problem: Developers confused by old prototype flows. Result: Clean canvas, clear specs.",
+        "Problem: Accidental links in component library. Result: Pure components, no side effects."
+      ],
+      "sections": {
+        "features": {
+          "title": "Stop shipping \"blue spaghetti.\"",
+          "description": "Safely strip prototype connections and external URLs without breaking your main components."
+        },
+        "useCases": {
+          "title": "Essential for every handoff.",
+          "description": "Help designers, developers, and marketers revoke risky prototype links so everyone shares the right build."
+        }
+      },
+      "faqs": [
+        {
+          "question": "Will this break my main components?",
+          "answer": "BiblioClean includes safety warnings when you attempt to clean main components or instances that shouldn't be touched."
+        },
+        {
+          "question": "Can I undo the cleanup?",
+          "answer": "Yes. You can use Figma's native undo (Cmd+Z) to revert any changes made by the plugin instantly."
+        },
+        {
+          "question": "Does it remove links from the whole file?",
+          "answer": "You can choose your scope: clean only the selected items or the entire current page."
+        },
+        {
+          "question": "Is BiblioClean free?",
+          "answer": "Yes, BiblioClean is currently free to use for all features."
+        }
+      ]
+    },
+    "biblio-table": {
+      "title": "BiblioTable",
+      "subtitle": "Stop fighting auto-layout tables.",
+      "description": "BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!",
+      "primaryButton": "FIX YOUR TABLES",
+      "primaryButtonIcon": "download",
+      "primaryButtonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
+      "badgeLabel": "Figma Plugin",
+      "visibility": {
+        "waitlist": false
+      },
+      "details": [
+        {
+          "title": "Normalize Column Widths",
+          "items": [
+            "Scans entire table stack",
+            "Matches widest cell content",
+            "Respects padding and gaps"
+          ],
+          "buttonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
+          "mediaUrl": "/media/BiblioTable.png",
+          "mediaAlt": "BiblioTable normalizing column widths in Figma"
+        },
+        {
+          "title": "Generate Zebra Striping",
+          "items": [
+            "Add alternating background colors to your auto-layout rows without creating messy background rectangles manually."
+          ],
+          "buttonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
+          "mediaUrl": "/media/BiblioTable.png",
+          "mediaAlt": "BiblioTable zebra striping controls"
+        },
+        {
+          "title": "Fix Sub-Pixel Bugs",
+          "items": [
+            "Detect and round off sub-pixel positioning (e.g., 100.34px) that causes blurry rendering or 1px misalignments in development."
+          ],
+          "buttonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
+          "mediaUrl": "/media/BiblioTable.png",
+          "mediaAlt": "BiblioTable fixing sub-pixel alignment"
+        }
+      ],
+      "benefits": [
+        "Problem: 50-row tables that break when data changes. Result: Flexible, resilient layouts.",
+        "Problem: Misaligned features vs checkmarks. Result: Perfectly aligned comparison."
+      ],
+      "sections": {
+        "features": {
+          "title": "Tables shouldn't be this hard.",
+          "description": "Normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping in one click."
+        },
+        "useCases": {
+          "title": "Essential for data-heavy UI.",
+          "description": "Equalize column widths and fix row heights in auto-layout tables."
+        }
+      },
+      "faqs": [
+        {
+          "question": "Does this work with complex nested auto-layouts?",
+          "answer": "Yes. BiblioTable is designed to parse standard row/column auto-layout structures commonly used for tables."
+        },
+        {
+          "question": "Does it break responsive resizing?",
+          "answer": "No. It applies fixed widths where necessary to ensure alignment, but respects 'Fill container' where appropriate for the table wrapper."
+        },
+        {
+          "question": "Can I customize the zebra striping color?",
+          "answer": "Yes. You can select the fill color for alternating rows."
+        },
+        {
+          "question": "When will it be released?",
+          "answer": "BiblioTable is live. Install it from our Figma Community profile."
+        }
+      ]
+    },
     "uxbiblio": {
       "title": "UXBiblio: AI-Powered Library of UX Design Patterns & Templates",
       "description": "UXBiblio by BiblioKit: Curated UI/UX patterns and templates with AI-powered tagging. Save and organize your design inspiration effortlessly.",
