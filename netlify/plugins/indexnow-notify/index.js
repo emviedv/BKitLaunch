@@ -26,18 +26,56 @@ const readKeyFromFile = () => {
   }
 };
 
-const buildPayload = (siteUrl, key) => {
+const unescapeXml = (value) =>
+  value
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'");
+
+const extractSitemapUrls = (xml) => {
+  const urls = [];
+  const regex = /<loc>([^<]+)<\/loc>/g;
+  let match;
+  while ((match = regex.exec(xml)) !== null) {
+    urls.push(unescapeXml(match[1]));
+  }
+  return urls;
+};
+
+const fetchSitemapUrls = async (origin) => {
+  try {
+    const response = await fetch(`${origin}/sitemap.xml`, {
+      headers: {
+        'User-Agent': 'BiblioKit-IndexNow-Plugin/1.0',
+      },
+    });
+    if (!response.ok) {
+      return [];
+    }
+    const xml = await response.text();
+    return extractSitemapUrls(xml);
+  } catch {
+    return [];
+  }
+};
+
+const buildPayload = async (siteUrl, key) => {
   const origin = normalizeSiteUrl(siteUrl) || 'https://www.bibliokit.com';
+  const baseUrls = [
+    origin,
+    `${origin}/llms.txt`,
+    `${origin}/robots.txt`,
+    `${origin}/sitemap.xml`,
+  ];
+  const sitemapUrls = await fetchSitemapUrls(origin);
+  const urlList = Array.from(new Set([...baseUrls, ...sitemapUrls]));
   return {
     host: new URL(origin).hostname,
     key,
     keyLocation: `${origin}/indexnow-key.txt`,
-    urlList: [
-      origin,
-      `${origin}/llms.txt`,
-      `${origin}/robots.txt`,
-      `${origin}/sitemap.xml`,
-    ],
+    urlList,
   };
 };
 
@@ -58,7 +96,7 @@ export const onSuccess = async ({ utils, constants }) => {
     return;
   }
 
-  const payload = buildPayload(siteUrl, indexNowKey);
+  const payload = await buildPayload(siteUrl, indexNowKey);
   const endpoints = [
     'https://api.indexnow.org/indexnow',
     'https://www.bing.com/indexnow',

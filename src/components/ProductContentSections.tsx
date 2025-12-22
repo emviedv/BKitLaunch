@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { debugService } from '@/lib/debugService';
 import { SECTION_TITLE_CLASS, SECTION_DESCRIPTION_CLASS } from './productContentSectionConstants';
+import { LANDING_FEATURES_ID } from '@/config/sectionAnchors';
 import {
   createFeatureAnchorId,
   createSectionClassBuilder,
@@ -198,6 +199,30 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     ? benefitsOverride
     : product.benefits;
 
+  const FEATURES_TITLE_ACCENT_REGEX = /(\breal\s+products\b)/i;
+
+  const renderFeaturesTitleLine = (line: string, keyPrefix: string) => {
+    if (!FEATURES_TITLE_ACCENT_REGEX.test(line)) {
+      return line;
+    }
+
+    return line.split(FEATURES_TITLE_ACCENT_REGEX).map((part, index) => {
+      if (!FEATURES_TITLE_ACCENT_REGEX.test(part)) {
+        return (
+          <React.Fragment key={`${keyPrefix}-text-${index}`}>
+            {part}
+          </React.Fragment>
+        );
+      }
+
+      return (
+        <span key={`${keyPrefix}-accent-${index}`} className="product-features-title-accent">
+          {part}
+        </span>
+      );
+    });
+  };
+
   const hasDetails = Boolean(details && details.length > 0);
   const detailEntries = hasDetails
     ? details!.map((detail, index) => ({
@@ -310,7 +335,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           <h2 className={cn(SECTION_TITLE_CLASS, 'font-display text-center text-white drop-shadow-[0_20px_60px_rgba(4,0,12,0.6)]')}>
             {featuresTitle.split('\n').map((line, i, arr) => (
               <span key={i}>
-                {line}
+                {renderFeaturesTitleLine(line, `features-title-${i}`)}
                 {i < arr.length - 1 && <br />}
               </span>
             ))}
@@ -320,20 +345,21 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     );
 
     return (
-      <ProductFeaturesSection
-        details={details}
-        productTitle={(product as any)?.title}
-        primaryButton={(product as any)?.primaryButton}
-        landingShowcaseLayout={landingShowcaseLayout}
-        shouldAlternateFeatures={shouldAlternateFeatures}
-        hideFeatureIllustrations={hideFeatureIllustrations}
-        featuresTitle={featuresTitle}
-        logoMarquee={null}
-        introContent={introContent}
-        enableFeaturesNav={Boolean(enableFeaturesNav)}
-        compactLayout={compactLayout}
-        key="features"
-      />
+        <ProductFeaturesSection
+          details={details}
+          productTitle={(product as any)?.title}
+          primaryButton={(product as any)?.primaryButton}
+          landingShowcaseLayout={landingShowcaseLayout}
+          shouldAlternateFeatures={shouldAlternateFeatures}
+          hideFeatureIllustrations={hideFeatureIllustrations}
+          featuresTitle={featuresTitle}
+          logoMarquee={null}
+          introContent={introContent}
+          enableFeaturesNav={Boolean(enableFeaturesNav)}
+          compactLayout={compactLayout}
+          sectionId={landingShowcaseLayout ? LANDING_FEATURES_ID : undefined}
+          key="features"
+        />
     );
   };
 

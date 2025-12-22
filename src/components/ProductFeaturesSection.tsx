@@ -51,6 +51,7 @@ type Props = {
   introContent: React.ReactNode;
   enableFeaturesNav: boolean;
   compactLayout: boolean;
+  sectionId?: string;
 };
 
 const ProductFeaturesSection: React.FC<Props> = ({
@@ -65,6 +66,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
   introContent,
   enableFeaturesNav,
   compactLayout,
+  sectionId,
 }) => {
   const detailEntries = Array.isArray(details)
     ? details.map((detail, index) => ({
@@ -105,6 +107,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
 
   const renderLandingCard = () => (
     <section
+      id={sectionId}
       className="relative overflow-hidden landing-sections-gradient py-24 sm:py-28"
       key="features-landing"
     >
@@ -228,6 +231,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
 
   const renderDefaultGrid = () => (
     <section
+      id={sectionId}
       className="relative overflow-hidden landing-sections-gradient py-20 sm:py-24"
       key="features-default"
     >

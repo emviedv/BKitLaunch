@@ -1,5 +1,69 @@
 # Live Debug Log — 2025-12
 
+## 2025-12-22
+
+- **Time:** 2025-12-22 00:42 EST
+- **Summary:** Restored the long BiblioRename card body copy and switched landing feature H3s to the descriptive title phrase (e.g., “Remove Prototype Links Safely”).
+- **Root Cause:** The landing feature card H3s still showed product names, and the BiblioRename body text was replaced by the short description.
+- **Changed Files:** src/components/Features.tsx; src/data/products.json; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy/layout update only).
+
+- **Time:** 2025-12-22 00:41 EST
+- **Summary:** Prevented horizontal body overflow that created extra space to the right.
+- **Root Cause:** Decorative elements extended beyond the viewport width, allowing the document to scroll horizontally.
+- **Changed Files:** src/index.css; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (layout containment update only).
+
+- **Time:** 2025-12-22 00:32 EST
+- **Summary:** Set the landing product card H3s to use plugin descriptions and corrected the BiblioRename feature description/title split.
+- **Root Cause:** The product section H3s were bound to feature titles instead of descriptions, and the BiblioRename description lived in the title string.
+- **Changed Files:** src/components/Features.tsx; src/data/products.json; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy/layout update only).
+
+## 2025-12-21
+
+- **Time:** 2025-12-21 22:08 EST
+- **Summary:** Added a Miriam cursor label to the hero overlays alongside the existing named cursors.
+- **Root Cause:** The hero cursor set did not include Miriam, even though other named cursors (e.g., Jennifer) were shown.
+- **Changed Files:** src/components/heroCursorActors.ts; src/components/LandingHero.tsx; src/components/OrigamiIllustration.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (UI update only).
+
+- **Time:** 2025-12-21 22:12 EST
+- **Summary:** Lowered the hero cursor overlay layer so cursors render behind the hero text and description.
+- **Root Cause:** The cursor overlay used a higher z-index than the hero content, causing it to sit above the text.
+- **Changed Files:** src/components/LandingHero.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (UI layering update only).
+
+- **Time:** 2025-12-21 22:16 EST
+- **Summary:** Styled the word "faster" in the hero headline with Instrument Serif (400 italic).
+- **Root Cause:** The hero headline did not apply the specified font styling to the word "faster."
+- **Changed Files:** index.html; src/components/LandingHero.tsx; src/index.css; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (typography update only).
+
+- **Time:** 2025-12-21 22:21 EST
+- **Summary:** Increased the hero "faster" word size by 12px.
+- **Root Cause:** The hero "faster" word size was not 12px larger as requested.
+- **Changed Files:** src/index.css; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (typography update only).
+
+- **Time:** 2025-12-21 22:25 EST
+- **Summary:** Styled the hero "products" word with Instrument Serif and the same size as "faster."
+- **Root Cause:** The hero headline only applied the Instrument Serif styling to "faster," leaving "products" unstyled.
+- **Changed Files:** src/components/LandingHero.tsx; src/index.css; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (typography update only).
+
+- **Time:** 2025-12-21 23:44 EST
+- **Summary:** Styled "real products" in the features title with Instrument Serif and the same size as the hero accent words.
+- **Root Cause:** The features title did not apply the Instrument Serif styling to the "real products" phrase.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/index.css; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (typography update only).
+
+- **Time:** 2025-12-21 23:47 EST
+- **Summary:** Anchored the landing product features section so the "Explore Figma plugins" CTA scrolls to it.
+- **Root Cause:** The hero CTA linked to `#landing-features`, but the landing product features section lacked that anchor ID.
+- **Changed Files:** src/components/ProductFeaturesSection.tsx; src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (scroll anchor update only).
+
 ## 2025-12-20
 
 - **Time:** 2025-12-20 16:41 EST
@@ -1085,3 +1149,15 @@
 - **Root Cause:** The blog image assets were only present locally and never committed, so production lacked `/blog/effortless-table-design-figma` files.
 - **Changed Files:** public/blog/effortless-table-design-figma/table-status-hero.png; public/blog/effortless-table-design-figma/table-cell-component-active.png; public/blog/effortless-table-design-figma/table-row-component.png; public/blog/effortless-table-design-figma/table-component-grid.png; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Compared Google Doc export hashes to local assets; confirmed the files exist on disk (deploy still needed).
+
+- **Time:** 2025-12-22 01:07 EST
+- **Summary:** Noted that the Netlify IndexNow deploy plugin submits only top-level URLs instead of the full sitemap list.
+- **Root Cause:** `netlify/plugins/indexnow-notify/index.js` builds a fixed `urlList` (origin/llms/robots/sitemap) rather than pulling sitemap URLs.
+- **Changed Files:** None.
+- **Verification:** Reviewed `netlify/plugins/indexnow-notify/index.js` payload construction against the full sitemap requirement.
+
+- **Time:** 2025-12-22 01:12 EST
+- **Summary:** Updated the Netlify IndexNow deploy plugin to include the full sitemap URL list in submissions.
+- **Root Cause:** The deploy plugin never fetched sitemap URLs, so IndexNow received only top-level endpoints.
+- **Changed Files:** netlify/plugins/indexnow-notify/index.js; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (requires Netlify deploy run).

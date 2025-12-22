@@ -4,6 +4,7 @@ export const HERO_ACTORS = {
   bot2: 'Jennifer',
   bot3: 'Emily',
   bot4: 'Jose',
+  bot5: 'Miriam',
   stickyAuthor: 'Miriam',
   stickyInitial: 'M',
 } as const;

@@ -107,6 +107,23 @@ const Features: React.FC = () => {
     return null;
   }
 
+  const getFeatureHeading = (title?: string, description?: string) => {
+    const rawTitle = (title || '').trim();
+    if (rawTitle) {
+      const parenIndex = rawTitle.indexOf('(');
+      if (parenIndex > 0) {
+        return rawTitle.slice(0, parenIndex).trim();
+      }
+      const dashToken = ' - ';
+      if (rawTitle.includes(dashToken)) {
+        const split = rawTitle.split(dashToken).slice(1).join(dashToken).trim();
+        return split || rawTitle;
+      }
+      return rawTitle;
+    }
+    return (description || '').trim();
+  };
+
   return (
     <section
       id={LANDING_FEATURES_ID}
@@ -131,6 +148,8 @@ const Features: React.FC = () => {
         <div className="landing-features-grid mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {filteredFeatures.map((feature, index) => {
             const FeatureIcon = resolveLucideIcon(feature.icon);
+            const headingText = getFeatureHeading(feature.title, feature.description);
+            const descriptionText = (feature.description || '').trim();
 
             return (
               <article
@@ -161,12 +180,12 @@ const Features: React.FC = () => {
                   );
                 })()}
 
-                <h3 className="landing-features-card-title text-xl font-semibold text-title-darkest">{feature.title}</h3>
+                <h3 className="landing-features-card-title text-xl font-semibold text-title-darkest">{headingText}</h3>
                 {feature.tagline && (
                   <p className="mt-1 text-sm font-medium text-muted-foreground/90">{feature.tagline}</p>
                 )}
-                {feature.description && (
-                  <p className="landing-features-card-description mt-3 text-sm text-muted-foreground">{feature.description}</p>
+                {descriptionText && (
+                  <p className="landing-features-card-description mt-3 text-sm text-muted-foreground">{descriptionText}</p>
                 )}
 
                 {feature.media?.src && (

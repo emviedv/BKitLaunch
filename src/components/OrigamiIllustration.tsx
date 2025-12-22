@@ -195,6 +195,10 @@ const OrigamiIllustration: React.FC<OrigamiIllustrationProps> = ({ className, sh
               <MousePointer2 className="h-4 w-4 text-rose-500 fill-rose-500 stroke-white stroke-[2px]" />
               <span className="origami-visual__cursor-label bg-rose-500">{HERO_ACTORS.bot4}</span>
             </div>
+            <div className="origami-visual__cursor origami-visual__cursor--quinary">
+              <MousePointer2 className="h-4 w-4 text-cyan-500 fill-cyan-500 stroke-white stroke-[2px]" />
+              <span className="origami-visual__cursor-label bg-cyan-500">{HERO_ACTORS.bot5}</span>
+            </div>
           </>
         )}
       </div>
@@ -325,10 +329,12 @@ const OrigamiIllustration: React.FC<OrigamiIllustrationProps> = ({ className, sh
         .origami-visual__cursor--secondary { top: 62%; left: 64%; animation: origami-cursor-2 14s ease-in-out infinite; }
         .origami-visual__cursor--tertiary { top: 44%; left: 32%; animation: origami-cursor-3 16s ease-in-out infinite; }
         .origami-visual__cursor--quaternary { top: 30%; left: 76%; animation: origami-cursor-4 18s ease-in-out infinite; }
+        .origami-visual__cursor--quinary { top: 70%; left: 22%; animation: origami-cursor-5 20s ease-in-out infinite; }
         @keyframes origami-cursor-1 { 0%,100% { transform: translate3d(0,0,0);} 50% { transform: translate3d(6%, -4%, 0);} }
         @keyframes origami-cursor-2 { 0%,100% { transform: translate3d(0,0,0);} 50% { transform: translate3d(-6%, 6%, 0);} }
         @keyframes origami-cursor-3 { 0%,100% { transform: translate3d(0,0,0);} 50% { transform: translate3d(5%, 5%, 0);} }
         @keyframes origami-cursor-4 { 0%,100% { transform: translate3d(0,0,0);} 50% { transform: translate3d(-4%, -6%, 0);} }
+        @keyframes origami-cursor-5 { 0%,100% { transform: translate3d(0,0,0);} 50% { transform: translate3d(4%, -5%, 0);} }
         .origami-visual__dash {
           animation: origami-dash 2.6s linear infinite;
           stroke-dasharray: 14 10;

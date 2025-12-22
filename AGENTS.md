@@ -8,6 +8,7 @@
 - When creating a commit, always add the update to `AGENTS.md` to keep rules current.
 - Products are built for designers, developers, and marketers—keep language inclusive of all three.
 - IndexNow submissions should include the full sitemap URL list (blog + product pages), not just top-level URLs.
+- Netlify IndexNow deploy plugin should submit the full sitemap URL list (fetch `/sitemap.xml` and include every `<loc>` URL), not only the sitemap URL itself.
 - Blog posts must be added to `BLOG_POSTS` so sitemap.xml auto-includes `/blog/{slug}` entries (e.g., add the slug in `src/data/blogPosts.ts`).
 - Success feedback surfaces must cap padding at 20px (e.g., waitlist success message stays tight with `p-5`).
 - When applying a specific rule from this file, explicitly mention it in the conversation for clarity (e.g., “Applying Debug Log Policy” or “Following Commit Guidelines”).

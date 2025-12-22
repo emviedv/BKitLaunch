@@ -33,6 +33,7 @@ export type LandingHeroContent = {
 };
 
 const LANDING_TITLE_CLASS = 'text-6xl md:text-8xl font-sans font-extrabold leading-[1.1] tracking-tight text-white';
+const HERO_ACCENT_WORDS = ['faster', 'products'];
 
 // Origami layout configuration
 const ORIGAMI_LAYOUT = {
@@ -137,6 +138,35 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
   );
 
   const badgeLabel = useMemo(() => sanitizeBadgeLabel(hero?.badgeLabel), [hero?.badgeLabel]);
+
+  const renderHeroAccentWords = (text: string, keyPrefix: string) => {
+    const accentRegex = new RegExp(`\\b(${HERO_ACCENT_WORDS.join('|')})\\b`, 'gi');
+    const parts = text.split(accentRegex);
+
+    if (parts.length === 1) {
+      return text;
+    }
+
+    return parts.map((part, index) => {
+      const isAccent = HERO_ACCENT_WORDS.some(
+        (word) => word.toLowerCase() === part.toLowerCase()
+      );
+
+      if (!isAccent) {
+        return (
+          <React.Fragment key={`${keyPrefix}-text-${index}`}>
+            {part}
+          </React.Fragment>
+        );
+      }
+
+      return (
+        <span key={`${keyPrefix}-accent-${index}`} className="landing-hero-accent-word">
+          {part}
+        </span>
+      );
+    });
+  };
 
   // Mouse handling for interactive cursor
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -245,7 +275,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
       <FluidBackground />
 
       {/* Cursor Overlay Layer */}
-      <div className="absolute inset-0 pointer-events-none z-50 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
         {/* User Cursor (You) */}
         <div
           className={`absolute top-0 left-0 transition-opacity duration-300 ${showCursor ? 'opacity-100' : 'opacity-0'}`}
@@ -296,6 +326,16 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
             {HERO_ACTORS.bot4}
           </div>
         </div>
+
+        {/* Bot 5 - Miriam */}
+        <div className="absolute top-0 left-0 animate-cursor-miriam">
+          <div className="animate-cursor-click-5">
+            <MousePointer2 className="w-5 h-5 text-cyan-500 fill-cyan-500 stroke-white stroke-[2px] drop-shadow-lg" />
+          </div>
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-cyan-500 text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-5">
+            {HERO_ACTORS.bot5}
+          </div>
+        </div>
       </div>
 
       {/* Main Canvas Area */}
@@ -329,7 +369,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
                       key={segment.key}
                       className={`${baseClass} block whitespace-nowrap${segment.gradient && !isSubtitle ? ' pb-4' : ''}`.trim()}
                     >
-                      {segment.text}
+                      {renderHeroAccentWords(segment.text, segment.key)}
                     </span>
                   );
                 })
@@ -495,6 +535,20 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
           100% { transform: translate(78vw, 55vh) scale(1.2); }
         }
 
+        /* Miriam cursor - steady sweep across the center */
+        @keyframes cursor-miriam {
+          0%, 8% { transform: translate(46vw, 42vh) scale(1.2); }
+          12% { transform: translate(52vw, 38vh) scale(1.2); }
+          20%, 30% { transform: translate(58vw, 44vh) scale(1.2); }
+          34% { transform: translate(54vw, 50vh) scale(1.2); }
+          42%, 52% { transform: translate(46vw, 48vh) scale(1.2); }
+          58% { transform: translate(40vw, 44vh) scale(1.2); }
+          66%, 74% { transform: translate(38vw, 38vh) scale(1.2); }
+          80% { transform: translate(42vw, 34vh) scale(1.2); }
+          88%, 96% { transform: translate(48vw, 36vh) scale(1.2); }
+          100% { transform: translate(46vw, 42vh) scale(1.2); }
+        }
+
         /* Click animation - subtle scale bounce */
         @keyframes cursor-click {
           0%, 90%, 100% { transform: scale(1); }
@@ -513,16 +567,19 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
         .animate-cursor-developer { animation: cursor-developer 16s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
         .animate-cursor-reviewer { animation: cursor-reviewer 22s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         .animate-cursor-explorer { animation: cursor-explorer 20s cubic-bezier(0.33, 0, 0.67, 1) infinite; }
+        .animate-cursor-miriam { animation: cursor-miriam 21s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
 
         .animate-cursor-click-1 { animation: cursor-click 4s ease-in-out infinite; animation-delay: 0.5s; }
         .animate-cursor-click-2 { animation: cursor-click 3s ease-in-out infinite; animation-delay: 1.2s; }
         .animate-cursor-click-3 { animation: cursor-click 5s ease-in-out infinite; animation-delay: 2s; }
         .animate-cursor-click-4 { animation: cursor-click 3.5s ease-in-out infinite; animation-delay: 0.8s; }
+        .animate-cursor-click-5 { animation: cursor-click 4.4s ease-in-out infinite; animation-delay: 1.6s; }
 
         .animate-cursor-label-pulse-1 { animation: cursor-label-pulse 4s ease-in-out infinite; animation-delay: 0.5s; }
         .animate-cursor-label-pulse-2 { animation: cursor-label-pulse 3s ease-in-out infinite; animation-delay: 1.2s; }
         .animate-cursor-label-pulse-3 { animation: cursor-label-pulse 5s ease-in-out infinite; animation-delay: 2s; }
         .animate-cursor-label-pulse-4 { animation: cursor-label-pulse 3.5s ease-in-out infinite; animation-delay: 0.8s; }
+        .animate-cursor-label-pulse-5 { animation: cursor-label-pulse 4.4s ease-in-out infinite; animation-delay: 1.6s; }
       `}</style>
     </section>
   );
