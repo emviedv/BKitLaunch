@@ -34,6 +34,9 @@ const Footer = () => {
             <a href="/" className="flex items-center mb-4 text-xl font-semibold text-white">
               BiblioKit
             </a>
+            <p className="text-sm text-white/70">
+              BiblioKit is a suite of Figma plugins that cuts the grind for designers, developers, and marketers, so teams ship faster with clean, consistent files.
+            </p>
             <p className="text-sm text-white/60">
               &copy; {new Date().getFullYear()} BiblioKit. All rights reserved.
             </p>
