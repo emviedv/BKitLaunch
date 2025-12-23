@@ -20,11 +20,11 @@ const BiblioAuditPage = () => {
     // SEO Metadata
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
     const metadata = {
-        title: 'BiblioAudit | Find Detached Instances & Design System Check',
-        description: 'BiblioKit: Automate Figma QA. Find detached instances, validate tokens, and ensure design system compliance instantly. Try a free check!',
-        ogTitle: 'BiblioAudit | Find Detached Instances & Design System Check',
-        ogDescription: 'BiblioKit: Automate Figma QA. Find detached instances, validate tokens, and ensure design system compliance instantly. Try a free check!',
-        url: `${baseUrl}${ROUTE_PATHS.BIBLIO_AUDIT || '/biblio-audit'}`,
+      title: 'BiblioAudit | Find Detached Instances & Design System Check',
+      description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
+      ogTitle: 'BiblioAudit | Find Detached Instances & Design System Check',
+      ogDescription: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
+      url: `${baseUrl}${ROUTE_PATHS.BIBLIO_AUDIT || '/biblio-audit'}`,
     };
     updatePageMetadata(metadata);
   }, [content]);
@@ -73,7 +73,7 @@ const BiblioAuditPage = () => {
             Stop shipping<br className="hidden md:block" /> broken files.
           </h1>
           <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
-            Find detached instances, validate tokens, and fix design system drift instantly.
+            Find detached instances, validate tokens, and fix design system drift instantly. Keep designers, developers, and marketers aligned before handoff.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">

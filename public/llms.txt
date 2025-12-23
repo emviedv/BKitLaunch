@@ -1,60 +1,30 @@
-# BiblioKit AI Sitemap - Priority URLs for AI Crawlers
-# Updated: 2025-12-11
+# BiblioKit AI Sitemap
+> Priority URLs for designers, developers, and marketers using BiblioKit's Figma plugins.
 
-https://www.bibliokit.com/ - Ship design-ops work 10x faster with AI Figma plugins built for designers, developers, and marketers.
-https://www.bibliokit.com/#landing-hero - Quick answer: consolidate audits, cleanup, and renaming so teams handoff faster.
-https://www.bibliokit.com/#landing-features - Scan the feature grid for BiblioRename, BiblioAudit, BiblioClean, BiblioStart, and BiblioTable.
-https://www.bibliokit.com/#landing-pricing - Compare free vs pro plugin access to plan adoption with finance and ops.
-https://www.bibliokit.com/#landing-waitlist - Join Designers shipping faster with BiblioKit; drop your email to jump the line for our next Figma plugins in beta.
-https://www.bibliokit.com/docs - Set up BiblioKit plugins with quickstart guides, API examples, and workspace tips.
-https://www.bibliokit.com/docs#getting-started - Get designers live in minutes with the day-zero setup checklist.
-https://www.bibliokit.com/docs#api - Review API auth patterns and headers for secure plugin calls.
-https://www.bibliokit.com/docs#workspace - Stand up shared workspaces with governance baked in.
-https://www.bibliokit.com/docs#figma - Configure Figma permissions and tokens for the plugin suite.
-https://www.bibliokit.com/biblio-rename - Batch-rename Figma variants and layers with AI and enforce naming conventions.
-https://www.bibliokit.com/biblio-rename#install - Install the BiblioRename plugin and run your first rename in minutes.
-https://www.bibliokit.com/biblio-rename#workflow - See the rename blueprint that maps messy frames to clean component names.
-https://www.bibliokit.com/biblio-rename#batch - Bulk rename 186 variants at once while preserving overrides.
-https://www.bibliokit.com/biblio-rename#rules - Define naming rules that align with your design system tokens.
-https://www.bibliokit.com/biblio-rename#faq - Answer rollback, security, and undo questions for the rename workflow.
-https://www.bibliokit.com/biblio-rename#quote - Expert perspective on why consistent naming unblocks engineering.
-https://www.bibliokit.com/ai-rename-variants - Legacy slug that redirects to BiblioRename for existing bookmarks.
-https://www.bibliokit.com/uxbiblio - Catalog UX patterns with AI tagging and keep research, design, and marketing in sync.
-https://www.bibliokit.com/uxbiblio#patterns - Browse curated UI/UX patterns with AI-powered metadata.
-https://www.bibliokit.com/uxbiblio#workspace - Build a shared UX workspace 10x faster with reusable libraries.
-https://www.bibliokit.com/uxbiblio#governance - Keep pattern libraries governed with approvals and audit trails.
-https://www.bibliokit.com/uxbiblio#search - Find the right pattern instantly with AI search across your library.
-https://www.bibliokit.com/uxbiblio#faq - FAQs on rollout, access control, and integrations.
-https://www.bibliokit.com/resources/remove-prototype-link - Audit, revoke, and replace stale Figma prototype links before they mislead teams.
-https://www.bibliokit.com/resources/remove-prototype-link#prototype-cleanup - Step-by-step cleanup ritual to purge risky share URLs and redirect partners.
-https://www.bibliokit.com/resources/remove-prototype-link#workflows - Workflow cards to revoke, replace, and notify stakeholders without slowing delivery.
-https://www.bibliokit.com/resources/remove-prototype-link#templates - Ready-to-send Slack and email language to educate partners while cleaning links.
-https://www.bibliokit.com/blog - Read design-ops playbooks, audits, and cleanup guides with schema and FAQs.
-https://www.bibliokit.com/blog/mastering-figma-auto-layout-wrap - Master Auto Layout Wrap with quick setup steps and responsive use cases.
-https://www.bibliokit.com/blog/mastering-figma-auto-layout-wrap#quick-answer - 60-word answer box on enabling wrap and fixing the common gotchas.
-https://www.bibliokit.com/blog/mastering-figma-auto-layout-wrap#use-cases - Three wrap patterns designers ship: tag clouds, product grids, and nav bars.
-https://www.bibliokit.com/blog/fix-detached-instances-figma - Find and fix detached instances before they break your design system.
-https://www.bibliokit.com/blog/fix-detached-instances-figma#checklist - Step-by-step checklist to relink components and eliminate rogue layers.
-https://www.bibliokit.com/blog/fix-detached-instances-figma#design-system - Guidance on keeping libraries clean so updates propagate reliably.
-https://www.bibliokit.com/blog/remove-prototype-links-in-figma - Retire stale prototype links and route stakeholders to the right build.
-https://www.bibliokit.com/blog/remove-prototype-links-in-figma#cleanup - Cleanup flow for revoking, replacing, and communicating new links.
-https://www.bibliokit.com/blog/remove-prototype-links-in-figma#handoff - Handoff language to keep researchers, PMs, and engineers aligned.
-https://www.bibliokit.com/blog/mastering-design-system-guidelines - Build design system guidelines that keep teams compliant without slowing delivery.
-https://www.bibliokit.com/blog/mastering-design-system-guidelines#governance - Governance guardrails and approvals to keep components consistent.
-https://www.bibliokit.com/line-assembly-demo.html - See the line assembly demo for shader-driven hero visuals and motion cues.
-https://www.bibliokit.com/clear-cache.html - Clear cached assets to ensure visitors load the latest design updates.
-https://www.bibliokit.com/#biblioaudit - Automate design system audits (BiblioAudit) to surface detached instances instantly.
-https://www.bibliokit.com/#biblioclean - Remove prototype links safely (BiblioClean) and keep every stakeholder on the right build.
-https://www.bibliokit.com/#bibliostart - Spin up ready-to-use Figma project blueprints with BiblioStart.
-https://www.bibliokit.com/#bibliotable - Normalize Figma tables in one click with BiblioTable for data-heavy dashboards.
-https://www.bibliokit.com/#uxbiblio-feature - Catalog UX inspiration with AI tags and shared governance using UXBiblio.
-https://www.bibliokit.com/biblio-rename?utm=ai-sitemap - Direct install path for BiblioRename with AI naming guardrails.
-https://www.bibliokit.com/uxbiblio?utm=ai-sitemap - Direct entry to UXBiblio’s AI-tagged pattern library workspace.
-https://www.bibliokit.com/?usecase=design-system-audit - Shortcut for teams searching design system audits and detached instance repair.
-https://www.bibliokit.com/?usecase=heatmaps - Entry point for predictive heatmaps and attention modeling for design reviews.
-https://www.bibliokit.com/?usecase=governance - Governance-first overview for heads of design and engineering leads.
-https://www.bibliokit.com/?usecase=prototype-cleanup - Prototype cleanup playbook for PMs and marketers who need the latest build.
-https://www.bibliokit.com/?usecase=rename-variants - Fast path for renaming variants with AI while keeping developer handoff clean.
-https://www.bibliokit.com/?usecase=batch-resize - Bulk resize and scaling workflows for ads and campaigns without breaking layouts.
-https://www.bibliokit.com/?usecase=pattern-library - Pattern library creation and AI tagging to keep research, design, and marketing aligned.
-https://www.bibliokit.com/?usecase=waitlist - Join the designer-first waitlist to pilot the full BiblioKit suite.
+## Core
+- https://www.bibliokit.com/ - BiblioKit overview and waitlist.
+- https://www.bibliokit.com/docs - Setup guides and API notes.
+
+## Products
+- https://www.bibliokit.com/biblio-rename - AI batch renaming for variants and layers.
+- https://www.bibliokit.com/biblio-clean - Safe prototype link cleanup workflows.
+- https://www.bibliokit.com/biblio-audit - Design system audits and QA checks.
+- https://www.bibliokit.com/biblio-table - Auto Layout table fixes and normalization.
+- https://www.bibliokit.com/uxbiblio - AI-tagged UX pattern library.
+
+## Resources
+- https://www.bibliokit.com/resources - Playbooks and free tools.
+- https://www.bibliokit.com/resources/remove-prototype-link - Prototype link cleanup ritual.
+
+## Blog
+- https://www.bibliokit.com/blog - BiblioKit workflows and playbooks.
+- https://www.bibliokit.com/blog/design-dev-gap-2026 - 2026 design-dev shifts and fixes.
+- https://www.bibliokit.com/blog/ultimate-figma-plugin-stack - Essential Figma plugin stack.
+- https://www.bibliokit.com/blog/figma-workflow-automation-tools - Automation tools for faster shipping.
+- https://www.bibliokit.com/blog/effortless-table-design-figma - Fast Figma table design guide.
+- https://www.bibliokit.com/blog/effortless-table-design-auto-layout - Auto Layout table alignment playbook.
+- https://www.bibliokit.com/blog/ui-component-states-guide - UI component states guide.
+- https://www.bibliokit.com/blog/mastering-figma-auto-layout-wrap - Auto Layout Wrap setup steps.
+- https://www.bibliokit.com/blog/fix-detached-instances-figma - Fix detached instances fast.
+- https://www.bibliokit.com/blog/remove-prototype-links-in-figma - Remove stale prototype links.
+- https://www.bibliokit.com/blog/mastering-design-system-guidelines - Design system governance guide.

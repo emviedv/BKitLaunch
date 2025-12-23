@@ -69,7 +69,7 @@ const AIRenameVariantsPage = () => {
             Fix variant naming debt<br className="hidden md:block" /> in seconds, not hours.
           </h1>
           <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
-            AI-powered architectural analysis and renaming for component sets and variants.
+            AI-powered architectural analysis and renaming for component sets and variants. Keep designers, developers, and marketers aligned with clean, predictable naming.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">

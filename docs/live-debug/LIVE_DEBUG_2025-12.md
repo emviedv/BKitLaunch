@@ -1,6 +1,32 @@
 # Live Debug Log — 2025-12
 
+## 2025-12-23
+
+- **Time:** 2025-12-23 01:06 EST
+- **Summary:** Updated page title tags to match the SearchAtlas suggestions across core pages and selected blog posts.
+- **Root Cause:** Title metadata still used older naming conventions, so the SearchAtlas recommendations were not reflected in the page titles.
+- **Changed Files:** src/lib/seo.ts; src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (metadata update only).
+
+- **Time:** 2025-12-23 00:28 EST
+- **Summary:** Redirected the legacy `/ai-rename-variants` URL to `/biblio-rename` and canonicalized the legacy path to prevent duplicate content.
+- **Root Cause:** The Edge SSR path served a 200 response for `/ai-rename-variants` with a self-referencing canonical, so search engines saw two identical pages even though a Netlify redirect existed.
+- **Changed Files:** netlify/edge-functions/ssr.ts; src/lib/seo.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (redirect/canonical update only).
+
 ## 2025-12-22
+
+- **Time:** 2025-12-22 23:45 EST
+- **Summary:** Found horizontal overflow on mobile for the `/resources/remove-prototype-link` hero content.
+- **Root Cause:** The hero overlay uses fixed/absolute text with `whitespace-nowrap`, so the headline spans beyond the mobile viewport.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md (log only)
+- **Verification:** Playwright mobile sweep (iPhone 12 viewport) flagged horizontal scroll on `/resources/remove-prototype-link`.
+
+- **Time:** 2025-12-22 23:45 EST
+- **Summary:** Found horizontal overflow on mobile for the `/docs` CTAs.
+- **Root Cause:** The two large CTA buttons render in a single row (`flex` + `gap-4`) without a small-screen stack, pushing the row beyond the viewport.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md (log only)
+- **Verification:** Playwright mobile sweep (iPhone 12 viewport) flagged horizontal scroll on `/docs`.
 
 - **Time:** 2025-12-22 00:42 EST
 - **Summary:** Restored the long BiblioRename card body copy and switched landing feature H3s to the descriptive title phrase (e.g., “Remove Prototype Links Safely”).
@@ -1161,3 +1187,29 @@
 - **Root Cause:** The deploy plugin never fetched sitemap URLs, so IndexNow received only top-level endpoints.
 - **Changed Files:** netlify/plugins/indexnow-notify/index.js; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (requires Netlify deploy run).
+
+## 2025-12-23
+
+- **Time:** 2025-12-23 00:57 EST
+- **Summary:** Refined SEO metadata to prevent duplicate titles/descriptions, added noindex handling for legacy/missing blog slugs, and refreshed blog meta titles/descriptions to resolve H1/title duplication.
+- **Root Cause:** Legacy and missing-blog routes reused blog metadata, and several posts used identical H1/meta titles, triggering duplicate-title/description flags.
+- **Changed Files:** src/lib/seo.ts; src/data/blogPosts.ts
+- **Verification:** Not run (manual review recommended for /ai-rename-variants, missing blog slugs, and updated blog meta tags).
+
+- **Time:** 2025-12-23 00:57 EST
+- **Summary:** Corrected structured data defaults with numeric rating fields, canonical www IDs, and aligned fallback index.html metadata/JSON-LD with SSR defaults.
+- **Root Cause:** JSON-LD used string rating values and mixed non-www IDs in fallback markup, increasing schema validation errors.
+- **Changed Files:** src/lib/seo.ts; index.html
+- **Verification:** Not run (run Rich Results Test or schema validator on homepage and blog pages).
+
+- **Time:** 2025-12-23 00:57 EST
+- **Summary:** Rebuilt llms.txt with canonical URLs and added a public redirect for the legacy /ai-rename-variants path.
+- **Root Cause:** llms.txt included fragments/legacy URLs and the production redirects file lacked the legacy slug redirect.
+- **Changed Files:** public/llms.txt; public/_redirects
+- **Verification:** Not run (curl /llms.txt and /ai-rename-variants after deploy).
+
+- **Time:** 2025-12-23 02:11 EST
+- **Summary:** Expanded on-page copy on landing, product, resources, and blog listing pages, surfaced features section descriptions, and added semantic hero labeling to improve text-to-HTML ratio and semantic structure.
+- **Root Cause:** SEO export flagged low text/HTML ratio and low semantic HTML usage across core pages.
+- **Changed Files:** src/components/ProductContentSections.tsx; src/data/products.json; src/components/BiblioAuditPage.tsx; src/components/AIRenameVariantsPage.tsx; src/components/BlogPage.tsx; src/components/ResourcesPage.tsx; src/components/RemovePrototypeLinkPage.tsx; src/components/ProductHero.tsx; src/components/DynamicProductPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (spot-check updated copy on landing, product, resources, blog pages; re-crawl after deploy).

@@ -340,6 +340,11 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
               </span>
             ))}
           </h2>
+          {featuresDescription && (
+            <p className={cn(SECTION_DESCRIPTION_CLASS, 'mt-4 max-w-3xl text-white/70')}>
+              {featuresDescription}
+            </p>
+          )}
         </div>
       </div>
     );

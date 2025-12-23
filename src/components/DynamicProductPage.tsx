@@ -106,6 +106,10 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
   }, [slug]);
 
   const product: ProductInfo | undefined = (effectiveContent as any)?.products?.[slug];
+  const heroHeadingId = useMemo(() => {
+    const normalizedSlug = String(slug || 'product').toLowerCase().replace(/[^a-z0-9-]/g, '-');
+    return `product-hero-${normalizedSlug}-title`;
+  }, [slug]);
 
   useEffect(() => {
     try {
@@ -190,6 +194,7 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
     <>
       <ProductHero
         product={product as any}
+        headingId={heroHeadingId}
         {...heroProps}
       />
       <ProductContentSections product={product} faqs={faqs} />

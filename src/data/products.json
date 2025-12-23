@@ -29,7 +29,7 @@
     "visible": true,
     "title": "Design faster in Figma.\nShip better products",
     "badgeLabel": null,
-    "description": "The Studio Figma plugin suite for designers who care about speed, structure and creativity.",
+    "description": "The studio Figma plugin suite for designers, developers, and marketers who care about speed, structure, and creativity. Automate audits, renaming, cleanup, and project setup so teams ship in sync.",
     "primaryButton": "Explore Figma plugins",
     "secondaryButton": null,
     "primaryButtonLink": "#landing-features",
@@ -636,7 +636,7 @@
     "biblio-clean": {
       "title": "BiblioClean",
       "subtitle": "Wipe prototype links before you ship.",
-      "description": "BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!",
+      "description": "BiblioClean removes prototype links safely so designers, developers, and marketers stay aligned on the right build. Clean share URLs, protect components, and hand off with confidence.",
       "primaryButton": "Try BiblioClean — Free",
       "primaryButtonIcon": "download",
       "primaryButtonLink": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
@@ -712,7 +712,7 @@
     "biblio-table": {
       "title": "BiblioTable",
       "subtitle": "Stop fighting auto-layout tables.",
-      "description": "BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!",
+      "description": "BiblioTable helps designers, developers, and marketers fix Auto Layout tables fast. Normalize widths, remove sub-pixel bugs, and keep dashboards readable.",
       "primaryButton": "FIX YOUR TABLES",
       "primaryButtonIcon": "download",
       "primaryButtonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
@@ -786,7 +786,7 @@
     },
     "uxbiblio": {
       "title": "UXBiblio: AI-Powered Library of UX Design Patterns & Templates",
-      "description": "UXBiblio by BiblioKit: Curated UI/UX patterns and templates with AI-powered tagging. Save and organize your design inspiration effortlessly.",
+      "description": "UXBiblio organizes UX patterns for designers, developers, and marketers in one shared library. Tag flows with AI, surface insights fast, and reuse proven UI.",
       "primaryButton": "Start your UX Library",
       "primaryButtonIcon": "arrow-right",
       "secondaryButton": "Learn More",

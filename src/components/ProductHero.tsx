@@ -42,6 +42,7 @@ type ProductHeroProps = {
   headlineColorOverride?: string;
   withBottomPadding?: boolean;
   containerPaddingOverride?: string;
+  headingId?: string;
 };
 
 type RawCallout =
@@ -72,6 +73,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   headlineColorOverride,
   withBottomPadding = true,
   containerPaddingOverride,
+  headingId,
 }) => {
   const confettiRef = useRef<ConfettiRef>(null);
 
@@ -88,6 +90,10 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   if (compact) {
     return <LandingHero hero={product} />;
   }
+
+  const resolvedHeadingId = typeof headingId === 'string' && headingId.trim().length > 0
+    ? headingId.trim()
+    : undefined;
 
   const productIconToken = product?.emoji || product?.icon;
   const ProductGlyph = productIconToken ? resolveLucideIcon(productIconToken) : null;
@@ -138,7 +144,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   );
 
   return (
-    <section className={sectionClassName}>
+    <section className={sectionClassName} aria-labelledby={resolvedHeadingId}>
       <div className="landing-hero-gradient__layer" aria-hidden="true" />
       <div className="landing-hero-noise" aria-hidden="true" />
       <div className="landing-hero-contrast" aria-hidden="true" />
@@ -173,7 +179,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                 </span>
               )}
               {headlineSegments.length > 0 ? (
-                <h1 className={cn(HERO_TITLE_CLASS, 'pb-3')}>
+                <h1 className={cn(HERO_TITLE_CLASS, 'pb-3')} id={resolvedHeadingId}>
                   {headlineSegments.map((segment) => {
                     const isSubtitle = segment.key === 'subtitle';
                     const segmentClass = (() => {
@@ -200,7 +206,9 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                   })}
                 </h1>
               ) : (
-                <h1 className={cn(HERO_TITLE_CLASS, headlineColorOverride, 'pb-3')}>{product.title}</h1>
+                <h1 className={cn(HERO_TITLE_CLASS, headlineColorOverride, 'pb-3')} id={resolvedHeadingId}>
+                  {product.title}
+                </h1>
               )}
             </div>
 

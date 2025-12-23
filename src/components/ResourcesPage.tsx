@@ -171,7 +171,7 @@ const ResourcesPage: React.FC = () => {
         introContent={renderSectionIntro(
           'h1',
           'Free tools & playbooks for faster Figma workflows.',
-          'Grab checklists, scripts, and templates to clean up links, standardize naming, audit systems, and keep teams on the right build.'
+          'Grab checklists, scripts, and templates to clean up links, standardize naming, audit systems, and keep teams on the right build. Built for designers, developers, and marketers who want a fast, repeatable cleanup pass.'
         )}
         enableFeaturesNav={false}
         compactLayout={false}
@@ -189,7 +189,7 @@ const ResourcesPage: React.FC = () => {
         introContent={renderSectionIntro(
           'h2',
           'All plugins in one place.',
-          'Browse every BiblioKit plugin and pick the fastest workflow for your file.'
+          'Browse every BiblioKit plugin and pick the fastest workflow for your file. Compare shortcuts for audits, naming, cleanup, and project setup.'
         )}
         enableFeaturesNav={false}
         compactLayout={false}

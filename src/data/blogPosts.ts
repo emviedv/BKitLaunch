@@ -1445,13 +1445,13 @@ const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
   { type: 'heading', text: '1. Bibliostates (Top Pick)', level: 'h3' },
   {
     type: 'paragraph',
-    text: "If you manage a design system, this is the plugin you didn't know you needed but won't be able to live without. Bibliostates is a powerhouse tool designed to generate component states and specifications automatically."
+    text: "If you manage a design system, this is the plugin you didn't know you needed but won't be able to live without. [Bibliostates](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) is a powerhouse tool designed to generate component states and specifications automatically."
   },
   {
     type: 'unorderedList',
     items: [
       'Overview: It takes your master components and automatically generates a visual library of their states.',
-      'Key Benefit: It deeply reduces the manual effort required to visualize different component variants (hover, active, disabled, error) for developers. Instead of manually dragging out every variant and arranging them in a grid, Bibliostates does the heavy lifting.',
+      'Key Benefit: It deeply reduces the manual effort required to visualize different component variants (hover, active, disabled, error) for developers. Instead of manually dragging out every variant and arranging them in a grid, [Bibliostates](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) does the heavy lifting.',
       'Use Case: This is perfect for design system managers who need to create comprehensive specifications (specs) quickly. It ensures your developers see every possible state of a button or input field without you having to build a manual "sticker sheet."'
     ]
   },
@@ -1467,7 +1467,7 @@ const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
   { type: 'heading', text: '2. EightShapes Specs', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Once your states are generated, you need to explain the layout. EightShapes Specs automates the process of "redlining."'
+    text: 'Once your states are generated, you need to explain the layout. [EightShapes Specs](https://www.figma.com/community/plugin/1205622541257680763/specs) automates the process of "redlining."'
   },
   {
     type: 'unorderedList',
@@ -1489,7 +1489,7 @@ const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
   { type: 'heading', text: '3. Content Reel', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Created by Microsoft, this is the gold standard for populating designs.'
+    text: 'Created by Microsoft, [Content Reel](https://www.figma.com/community/plugin/731627216655469013/content-reel) is the gold standard for populating designs.'
   },
   {
     type: 'image',
@@ -1506,7 +1506,7 @@ const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
   { type: 'heading', text: '4. Unsplash', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Visuals make or break a mockup. The Unsplash plugin brings the world’s largest open-source photography library directly into Figma.'
+    text: 'Visuals make or break a mockup. The [Unsplash](https://www.figma.com/community/plugin/738454987945972471/unsplash) plugin brings the world’s largest open-source photography library directly into Figma.'
   },
   {
     type: 'unorderedList',
@@ -1528,7 +1528,7 @@ const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
   { type: 'heading', text: '5. Similayer', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'If Figma’s native "Select same..." feature is a bicycle, Similayer is a Ferrari.'
+    text: 'If Figma’s native "Select same..." feature is a bicycle, [Similayer](https://www.figma.com/community/plugin/735733267883397781/similayer) is a Ferrari.'
   },
   {
     type: 'image',
@@ -1545,7 +1545,7 @@ const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
   { type: 'heading', text: '6. Rename It', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Developers hate seeing "Group 1," "Group 2," and "Vector 5." While Figma introduced its own native, AI-assisted layer renaming to handle basic cleanup, Rename It remains an essential tool for complex batch operations and advanced find-and-replace logic.'
+    text: 'Developers hate seeing "Group 1," "Group 2," and "Vector 5." While Figma introduced its own native, AI-assisted layer renaming to handle basic cleanup, [Rename It](https://www.figma.com/community/plugin/731271836271143349/rename-it) remains an essential tool for complex batch operations and advanced find-and-replace logic.'
   },
   {
     type: 'unorderedList',
@@ -1562,7 +1562,7 @@ const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
   { type: 'heading', text: '7. Clean Document', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Think of this as the janitor for your Figma file.'
+    text: 'Think of [Clean Document](https://www.figma.com/community/plugin/767379019764649932/clean-document) as the janitor for your Figma file.'
   },
   {
     type: 'unorderedList',
@@ -1585,7 +1585,7 @@ const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
   {
     type: 'unorderedList',
     items: [
-      'Function: Stark provides a suite of tools for checking contrast ratios, simulating color blindness, and validating focus orders.',
+      'Function: [Stark](https://www.figma.com/community/plugin/732603254453395948/stark-contrast-accessibility-checker) provides a suite of tools for checking contrast ratios, simulating color blindness, and validating focus orders.',
       'Real-time: You can check if your grey text on a white background is legible according to WCAG standards without leaving the canvas.'
     ]
   },
@@ -1794,7 +1794,7 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('design-dev-gap-2026/hero-component-library.png'),
     heroImageAlt: 'Design system component library floating in a modern office.',
     lastUpdated: '2025-12-22',
-    metaTitle: 'The 2026 Shift: Bridging the Gap Between Design and Dev',
+    metaTitle: '2026 Design-Dev Gap: 5 Shifts to Close It',
     metaDescription:
       'BiblioKit helps designers, developers, and marketers close the design-dev gap in 2026. Apply five library shifts to keep tokens and code aligned.',
     content: designDevGap2026Content
@@ -1824,7 +1824,7 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('figma-workflow-automation-tools/figma-workflow-automation-hero.png'),
     heroImageAlt: 'Figma canvas showing a website mockup filled with colorful button styles',
     lastUpdated: '2025-12-21',
-    metaTitle: 'Streamlining Your Figma Workflow with Automation Tools',
+    metaTitle: 'Figma Workflow Automation: Tools to Ship Faster',
     metaDescription:
       'BiblioKit speeds Figma workflows for designers, developers, and marketers. Automate renaming, audits, states, tables, and cleanup to save hours.',
     content: figmaWorkflowAutomationToolsContent
@@ -1839,9 +1839,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('effortless-table-design-figma/table-status-hero.png'),
     heroImageAlt: 'Table UI with status badges, dates, and user names, highlighting an active row',
     lastUpdated: '2025-12-21',
-    metaTitle: 'Effortless Table Design in Figma: A Comprehensive Guide',
+    metaTitle: 'Figma Table Design: Build Clean Data Grids Fast',
     metaDescription:
-      'We show designers, developers, and marketers how to build responsive Figma tables faster with Auto Layout steps for clean, scannable data grids.',
+      'BiblioKit shows designers, developers, and marketers how to build Figma tables faster. Follow Auto Layout steps to keep data grids scannable.',
     content: effortlessTableDesignFigmaContent
   },
   {
@@ -1854,9 +1854,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('effortless-table-design/effortless-table-design-hero.png'),
     heroImageAlt: 'Table UI listing team members with roles and last activity timestamps',
     lastUpdated: '2025-12-14',
-    metaTitle: 'BiblioKit\'s Table Design Guide: Fix Auto-Layout & Align Data',
+    metaTitle: 'BiblioKit: Effortless Table Design in Figma',
     metaDescription:
-      'BiblioKit simplifies Figma table design. Fix auto-layout problems and create better data presentations with our smart design practices.',
+      'BiblioKit helps designers, developers, and marketers fix Figma table layouts fast. Use Auto Layout practices to align data and ship cleaner dashboards.',
     twitterTitle: 'Solve Auto-Layout Issues with Perfect Table Design #UIDesign',
     content: tableDesignContent
   },
@@ -1870,9 +1870,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('ui-component-states/dashboard-dark.png'),
     heroImageAlt: 'Dark dashboard UI showing toggles, buttons, and charts for state examples',
     lastUpdated: '2025-12-14',
-    metaTitle: 'Mastering UI Component States: Your Secret Weapon for Awesome UI',
+    metaTitle: 'Master UI Component States: BiblioKit\'s Design Guide',
     metaDescription:
-      'Enhance your UI: BiblioKit\'s guide masters UI component states like hover and active for better user experiences.',
+      'BiblioKit helps designers, developers, and marketers master UI component states. Use hover, focus, and error patterns to make interfaces feel reliable.',
     twitterTitle: 'Boost UI with Mastered Component States! #UIDesign',
     content: componentStatesContent
   },
@@ -1886,9 +1886,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('auto-layout-wrap/auto-layout-wrap-hero.png'),
     heroImageAlt: 'Abstract responsive grid illustration showing Auto Layout Wrap adapting to screen sizes',
     lastUpdated: '2025-11-28',
-    metaTitle: 'BiblioKit 2025: Master Figma Auto Layout Wrap for Responsive Designs',
+    metaTitle: 'Figma Auto Layout Wrap Guide 2025: Master It with BiblioKit',
     metaDescription:
-      'Master Auto Layout Wrap in Figma with BiblioKit. Learn to enable it, fix bugs, and create responsive designs efficiently in 2025.',
+      'BiblioKit helps designers, developers, and marketers master Figma Auto Layout Wrap. Turn on wrap, fix layout bugs, and ship responsive components.',
     content: autoLayoutWrapContent
   },
   {
@@ -1901,9 +1901,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('detached-instances/image-hero-8_23-2.jpeg'),
     heroImageAlt: 'Broken chain between a design system gem and a detached Figma component',
     lastUpdated: '2025-12-07',
-    metaTitle: 'Fix Detached Instances in Figma | 2025 Cleanup Playbook',
+    metaTitle: 'Fix Figma Detached Instances: BiblioKit\'s 2025 Guide',
     metaDescription:
-      'Fix Figma detached instances fast with BiblioKit\'s 2025 guide to maintain a linked design system and streamline your Figma workflow.',
+      'BiblioKit helps designers, developers, and marketers fix detached instances fast. Follow the 2025 cleanup steps to keep your design system linked.',
     content: detachedInstancesContent
   },
   {
@@ -1916,9 +1916,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('remove-prototype-links/hero-abstract.svg'),
     heroImageAlt: 'Abstract interface blocks illustration',
     lastUpdated: '2025-11-26',
-    metaTitle: 'Remove Figma Prototype Links Safely | BiblioKit Guide',
+    metaTitle: 'Remove Figma Links: BiblioKit\'s Safe Guide (2025)',
     metaDescription:
-      'Remove Figma links easily with BiblioKit\'s guide. Wipe state links and streamline your design workflow in 2025.',
+      'BiblioKit helps designers, developers, and marketers remove prototype links safely. Revoke stale URLs and share the right build in minutes.',
     content: removePrototypeLinksContent,
     faqs: removePrototypeLinksFaqs
   },
@@ -1932,9 +1932,9 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('design-system-guidelines/hero-1.jpg'),
     heroImageAlt: 'Desktop monitor showing design system components alongside a notebook, pen, mug, and color swatches',
     lastUpdated: '2025-12-14',
-    metaTitle: 'Design System Guidelines Playbook | Clarity, Governance, Figma',
+    metaTitle: 'BiblioKit\'s Design System Guidelines: A Figma Guide',
     metaDescription:
-      'BiblioKit\'s guide to design systems: Master Figma guidelines for consistent, efficient product design.',
+      'BiblioKit helps designers, developers, and marketers align on design system guidelines. Use governance steps that keep components consistent.',
     twitterTitle: 'Design Systems: Clarity & Governance in Figma #DesignSystems',
     content: designSystemGuidelinesContent,
     faqs: designSystemGuidelinesFaqs

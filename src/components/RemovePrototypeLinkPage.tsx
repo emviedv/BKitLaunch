@@ -49,7 +49,7 @@ const RemovePrototypeLinkPage: React.FC = () => {
     title: 'BiblioKit: Effortlessly Audit and Revoke Stale Figma Prototype Links',
     subtitle: 'Shut down risky share URLs before they leak context.',
     description:
-      'Purge stale prototypes and replace them with the right build in minutes using the cleanup ritual designers repeat after every sprint.',
+      'Purge stale prototypes and replace them with the right build in minutes using the cleanup ritual designers repeat after every sprint. Keep designers, developers, and marketers aligned on the right URL before reviews drift.',
     primaryButton: 'Join Designers shipping faster with BiblioKit',
     primaryButtonLink: LANDING_WAITLIST_PATH,
     secondaryButton: 'See the cleanup steps',
@@ -58,7 +58,7 @@ const RemovePrototypeLinkPage: React.FC = () => {
 
   return (
     <div className="bg-gradient-to-b from-white via-slate-50 to-slate-100/60 text-foreground">
-      <LandingHero hero={hero} />
+      <LandingHero hero={hero} titleClampLines={6} />
       <div className="section-content pb-4 pt-2">
         <span className="inline-flex items-center rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 shadow-sm">
           Updated {updatedDate}

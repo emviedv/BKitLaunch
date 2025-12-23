@@ -134,7 +134,7 @@ const mergeKeywords = (base?: string, additions: Array<string | undefined> = [])
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
   title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-  description: "Ship 10x faster with BiblioKit.",
+  description: "BiblioKit speeds Figma work for designers, developers, and marketers. Automate audits, renaming, cleanup, and setup to ship faster.",
   keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   googlebot: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -149,92 +149,106 @@ const defaultMetadata: SEOMetadata = {
 };
 
 const biblioRenameMetadata: SEOMetadata = {
-  title: 'BiblioKit | BiblioRename for Figma',
-  description: 'BiblioKit: Speed up Figma design with AI. Standardize properties, reduce errors, and ship faster with BiblioRename.',
+  title: 'Optimize Figma Designs with AI (BiblioRename) | BiblioKit',
+  description: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
   keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system architecture, component health, structural validation, figma limits',
-  ogTitle: 'BiblioKit | BiblioRename for Figma',
-  ogDescription: 'BiblioKit: Speed up Figma design with AI. Standardize properties, reduce errors, and ship faster with BiblioRename.',
+  ogTitle: 'Optimize Figma Designs with AI (BiblioRename) | BiblioKit',
+  ogDescription: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioKit | BiblioRename for Figma',
-  twitterDescription: 'BiblioKit: Speed up Figma design with AI. Standardize properties, reduce errors, and ship faster with BiblioRename.',
+  twitterTitle: 'Optimize Figma Designs with AI (BiblioRename) | BiblioKit',
+  twitterDescription: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
   twitterImage: '/og/og-default.svg'
 };
 
 const biblioTableMetadata: SEOMetadata = {
-  title: 'BiblioTable | Normalize Figma Tables in One Click',
-  description: 'BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!',
+  title: 'BiblioTable: One-Click Figma Table Normalization in 2025',
+  description: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
   keywords: 'BiblioTable, figma table plugin, auto-layout tables, figma columns, zebra striping, design ops, figma automation',
-  ogTitle: 'BiblioTable | Normalize Figma Tables in One Click',
-  ogDescription: 'BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!',
+  ogTitle: 'BiblioTable: One-Click Figma Table Normalization in 2025',
+  ogDescription: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioTable | Normalize Figma Tables in One Click',
-  twitterDescription: 'BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!',
+  twitterTitle: 'BiblioTable: One-Click Figma Table Normalization in 2025',
+  twitterDescription: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
   twitterImage: '/og/og-default.svg'
 };
 
 const biblioAuditMetadata: SEOMetadata = {
-  title: 'BiblioKit | BiblioAudit for Figma',
-  description: 'BiblioKit: Automate Figma QA. Find detached instances, validate tokens, and ensure design system compliance instantly. Try a free check!',
+  title: 'BiblioAudit: Figma Design System Check & Issue Finder',
+  description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
   keywords: 'BiblioAudit, design system audit, figma qa, detached instances, token validation, figma plugin, design ops',
-  ogTitle: 'BiblioKit | BiblioAudit for Figma',
-  ogDescription: 'BiblioKit: Automate Figma QA. Find detached instances, validate tokens, and ensure design system compliance instantly. Try a free check!',
+  ogTitle: 'BiblioAudit: Figma Design System Check & Issue Finder',
+  ogDescription: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'Clean Up Figma: Detached Instances & Design Drift #Figma',
-  twitterDescription: 'BiblioKit: Automate Figma QA. Find detached instances, validate tokens, and ensure design system compliance instantly. Try a free check!',
+  twitterTitle: 'BiblioAudit: Figma Design System Check & Issue Finder',
+  twitterDescription: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
   twitterImage: '/og/og-default.svg'
 };
 
 const biblioCleanMetadata: SEOMetadata = {
-  title: 'BiblioKit | BiblioClean for Figma',
-  description: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
+  title: 'BiblioClean: Remove Figma Prototype Links Safely (Free)',
+  description: 'BiblioClean removes Figma prototype links safely for designers, developers, and marketers. Revoke stale URLs and share the right build fast.',
   keywords: 'BiblioClean, remove prototype link, figma prototype cleanup, revoke share links, design system safety, figma plugin, design ops',
-  ogTitle: 'BiblioKit | BiblioClean for Figma',
-  ogDescription: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
+  ogTitle: 'BiblioClean: Remove Figma Prototype Links Safely (Free)',
+  ogDescription: 'BiblioClean removes Figma prototype links safely for designers, developers, and marketers. Revoke stale URLs and share the right build fast.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioKit | BiblioClean for Figma',
-  twitterDescription: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
+  twitterTitle: 'BiblioClean: Remove Figma Prototype Links Safely (Free)',
+  twitterDescription: 'BiblioClean removes Figma prototype links safely for designers, developers, and marketers. Revoke stale URLs and share the right build fast.',
+  twitterImage: '/og/og-default.svg'
+};
+
+const aiRenameVariantsMetadata: SEOMetadata = {
+  title: 'BiblioRename Legacy URL | BiblioKit',
+  description: 'BiblioRename lives at /biblio-rename for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
+  robots: 'noindex, follow',
+  googlebot: 'noindex, follow',
+  bingbot: 'noindex, follow',
+  ogTitle: 'BiblioRename Legacy URL | BiblioKit',
+  ogDescription: 'BiblioRename lives at /biblio-rename for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
+  ogImage: '/og/og-default.svg',
+  twitterTitle: 'BiblioRename Legacy URL | BiblioKit',
+  twitterDescription: 'BiblioRename lives at /biblio-rename for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
   twitterImage: '/og/og-default.svg'
 };
 
 // Route-specific metadata configurations
 export const routeMetadata: RouteMetadata = {
   '/': {
-    title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    description: "BiblioKit: Get faster Figma workflows with our plugins. Join the beta and ship faster with BiblioKit's tools for your team.",
+    title: 'BiblioKit: Figma Plugins for Streamlined Design Workflows',
+    description: "BiblioKit speeds Figma shipping for designers, developers, and marketers. Join the beta to automate audits, renaming, cleanup, and launch faster.",
     keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
-    ogTitle: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    ogDescription: "BiblioKit: Get faster Figma workflows with our plugins. Join the beta and ship faster with BiblioKit's tools for your team.",
+    ogTitle: 'BiblioKit: Figma Plugins for Streamlined Design Workflows',
+    ogDescription: "BiblioKit speeds Figma shipping for designers, developers, and marketers. Join the beta to automate audits, renaming, cleanup, and launch faster.",
     ogImage: "/og/og-default.svg",
-    twitterTitle: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-    twitterDescription: "BiblioKit: Get faster Figma workflows with our plugins. Join the beta and ship faster with BiblioKit's tools for your team.",
+    twitterTitle: 'BiblioKit: Figma Plugins for Streamlined Design Workflows',
+    twitterDescription: "BiblioKit speeds Figma shipping for designers, developers, and marketers. Join the beta to automate audits, renaming, cleanup, and launch faster.",
     twitterImage: "/og/og-default.svg",
     structuredData: [
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "@id": "https://bibliokit.com/#webapplication",
+        "@id": "https://www.bibliokit.com/#webapplication",
         "name": "BiblioKit",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web Browser",
-        "url": "https://bibliokit.com",
+        "url": "https://www.bibliokit.com",
         "inLanguage": "en-US",
         "publisher": {
           "@type": "Organization",
-          "@id": "https://bibliokit.com/#organization",
+          "@id": "https://www.bibliokit.com/#organization",
           "name": "BiblioKit"
         },
         "offers": [
           {
             "@type": "Offer",
             "name": "Free Plan",
-            "price": "0",
+            "price": 0,
             "priceCurrency": "USD",
             "description": "1,000 API requests/month, Basic Figma plugin support, Community support"
           },
           {
             "@type": "Offer",
             "name": "Pro Plan",
-            "price": "29",
+            "price": 29,
             "priceCurrency": "USD",
             "description": "50,000 API requests/month, Advanced Figma plugin features, Priority email support"
           }
@@ -244,24 +258,24 @@ export const routeMetadata: RouteMetadata = {
   },
   '/docs': {
     title: 'BiblioKit Docs | Setup Guides & API Reference',
-    description: 'Set up BiblioKit plugins fast with quickstart guides, API examples, and workspace tips for design and engineering teams.',
+    description: 'BiblioKit docs get designers, developers, and marketers live fast. Follow setup steps and API guidance to launch plugins with confidence.',
     keywords: 'BiblioKit docs, setup guide, API reference, plugin tutorials, design ops',
     ogTitle: 'BiblioKit Docs | Setup Guides & API Reference',
-    ogDescription: 'Set up BiblioKit plugins fast with quickstart guides, API examples, and workspace tips for design and engineering teams.',
+    ogDescription: 'BiblioKit docs get designers, developers, and marketers live fast. Follow setup steps and API guidance to launch plugins with confidence.',
     ogImage: '/og/og-default.svg',
     twitterTitle: 'BiblioKit Docs | Setup Guides & API Reference',
-    twitterDescription: 'Set up BiblioKit plugins fast with quickstart guides, API examples, and workspace tips for design and engineering teams.',
+    twitterDescription: 'BiblioKit docs get designers, developers, and marketers live fast. Follow setup steps and API guidance to launch plugins with confidence.',
     twitterImage: '/og/og-default.svg'
   },
   '/resources': {
-    title: 'BiblioKit Resources | Free BiblioClean + Plugins',
-    description: "BiblioKit: Enhance your Figma workflow with BiblioKit's plugins and design tools. Explore resources for faster design and development.",
+    title: 'BiblioKit Resources: Figma Plugins & Design Tools (404)',
+    description: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
     keywords: 'BiblioKit resources, BiblioClean, Figma cleanup, design ops resources, Figma plugins',
-    ogTitle: 'BiblioKit Resources | Free BiblioClean + Plugins',
-    ogDescription: "BiblioKit: Enhance your Figma workflow with BiblioKit's plugins and design tools. Explore resources for faster design and development.",
+    ogTitle: 'BiblioKit Resources: Figma Plugins & Design Tools (404)',
+    ogDescription: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit Resources | Free BiblioClean + Plugins',
-    twitterDescription: "BiblioKit: Enhance your Figma workflow with BiblioKit's plugins and design tools. Explore resources for faster design and development.",
+    twitterTitle: 'BiblioKit Resources: Figma Plugins & Design Tools (404)',
+    twitterDescription: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
     twitterImage: '/og/og-default.svg'
   },
   '/admin': {
@@ -273,14 +287,14 @@ export const routeMetadata: RouteMetadata = {
     ogType: "website"
   },
   '/resources/remove-prototype-link': {
-    title: 'BiblioKit: Audit & Revoke Stale Figma Prototype Links Fast',
-    description: 'Keep your Figma design fresh! BiblioKit helps you remove prototype links and share the latest versions, improving team workflow.',
+    title: 'BiblioKit: Remove Figma Prototype Links for Better Design',
+    description: 'BiblioKit helps designers, developers, and marketers revoke stale prototype links. Follow the cleanup steps to replace URLs and keep reviews on track.',
     keywords: 'remove prototype link, figma prototype cleanup, revoke share links, design ops hygiene, prototype handoff',
-    ogTitle: 'BiblioKit: Audit & Revoke Stale Figma Prototype Links Fast',
-    ogDescription: 'Keep your Figma design fresh! BiblioKit helps you remove prototype links and share the latest versions, improving team workflow.',
+    ogTitle: 'BiblioKit: Remove Figma Prototype Links for Better Design',
+    ogDescription: 'BiblioKit helps designers, developers, and marketers revoke stale prototype links. Follow the cleanup steps to replace URLs and keep reviews on track.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit: Audit & Revoke Stale Figma Prototype Links Fast',
-    twitterDescription: 'Keep your Figma design fresh! BiblioKit helps you remove prototype links and share the latest versions, improving team workflow.',
+    twitterTitle: 'BiblioKit: Remove Figma Prototype Links for Better Design',
+    twitterDescription: 'BiblioKit helps designers, developers, and marketers revoke stale prototype links. Follow the cleanup steps to replace URLs and keep reviews on track.',
     twitterImage: '/og/og-default.svg',
     structuredData: [
       {
@@ -312,27 +326,27 @@ export const routeMetadata: RouteMetadata = {
   '/biblio-clean': biblioCleanMetadata,
   '/biblio-audit': biblioAuditMetadata,
   '/biblio-table': biblioTableMetadata,
-  '/ai-rename-variants': biblioRenameMetadata,
+  '/ai-rename-variants': aiRenameVariantsMetadata,
   '/uxbiblio': {
-    title: 'UXBiblio: AI-Powered Library of UX Design Patterns & Templates | BiblioKit',
-    description: 'UXBiblio by BiblioKit: Find UX design patterns quickly with AI-powered tagging and smart comments. Start your free trial today!',
+    title: 'UXBiblio: AI UX Patterns by BiblioKit - Discover & Organize',
+    description: 'UXBiblio organizes UX patterns for designers, developers, and marketers. Capture flows, tag insights, and reuse proven UI faster.',
     keywords: 'UXBiblio, UX pattern library, design inspiration, AI tagging, UX research repository',
-    ogTitle: 'UXBiblio: AI-Powered Library of UX Design Patterns & Templates | BiblioKit',
-    ogDescription: 'UXBiblio by BiblioKit: Find UX design patterns quickly with AI-powered tagging and smart comments. Start your free trial today!',
+    ogTitle: 'UXBiblio: AI UX Patterns by BiblioKit - Discover & Organize',
+    ogDescription: 'UXBiblio organizes UX patterns for designers, developers, and marketers. Capture flows, tag insights, and reuse proven UI faster.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'UXBiblio: AI-Powered Library of UX Design Patterns & Templates | BiblioKit',
-    twitterDescription: 'UXBiblio by BiblioKit: Find UX design patterns quickly with AI-powered tagging and smart comments. Start your free trial today!',
+    twitterTitle: 'UXBiblio: AI UX Patterns by BiblioKit - Discover & Organize',
+    twitterDescription: 'UXBiblio organizes UX patterns for designers, developers, and marketers. Capture flows, tag insights, and reuse proven UI faster.',
     twitterImage: '/og/og-default.svg'
   },
   '/blog': {
-    title: 'BiblioKit Blog: From Kickoff to Ship with Figma Workflows & Tools',
-    description: 'BiblioKit Blog: Find design tips and Figma workflows for 2025. Improve your design process with expert insights and practical resources.',
+    title: 'BiblioKit Blog: Design Tips and Figma Workflows for 2025',
+    description: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
     keywords: 'design ops blog, figma workflow tips, prototype cleanup, design system rituals, bibliokit blog, real-world figma fixes',
-    ogTitle: 'BiblioKit Blog: From Kickoff to Ship with Figma Workflows & Tools',
-    ogDescription: 'BiblioKit Blog: Find design tips and Figma workflows for 2025. Improve your design process with expert insights and practical resources.',
+    ogTitle: 'BiblioKit Blog: Design Tips and Figma Workflows for 2025',
+    ogDescription: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit Blog: From Kickoff to Ship with Figma Workflows & Tools',
-    twitterDescription: 'BiblioKit Blog: Find design tips and Figma workflows for 2025. Improve your design process with expert insights and practical resources.',
+    twitterTitle: 'BiblioKit Blog: Design Tips and Figma Workflows for 2025',
+    twitterDescription: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
     twitterImage: '/og/og-default.svg'
   }
 };
@@ -352,6 +366,7 @@ export function generateMetadata(
       ? '/blog'
       : normalizedPathNoTrailingSlash;
   const blogContent = isBlogArticle ? resolveBlogContent(normalizedPathNoTrailingSlash, contentData) : undefined;
+  const isMissingBlog = isBlogArticle && !blogContent;
 
   // Get route-specific metadata or use default
   const routeData = routeMetadata[matchedRouteKey] || {};
@@ -366,6 +381,19 @@ export function generateMetadata(
         ? [...defaultMetadata.structuredData!]
         : []
   };
+
+  if (isMissingBlog) {
+    metadata.title = 'Article not found | BiblioKit';
+    metadata.description =
+      'BiblioKit helps designers, developers, and marketers ship faster with Figma plugins. Browse the blog for the latest workflows and fixes.';
+    metadata.robots = 'noindex, follow';
+    metadata.googlebot = 'noindex, follow';
+    metadata.bingbot = 'noindex, follow';
+    metadata.ogTitle = metadata.title;
+    metadata.ogDescription = metadata.description;
+    metadata.twitterTitle = metadata.title;
+    metadata.twitterDescription = metadata.description;
+  }
   
   // Override with dynamic content data if available
   if (contentData || blogContent) {
@@ -394,7 +422,6 @@ export function generateMetadata(
         'BiblioKit blog'
       ]);
       metadata.ogType = 'article';
-      metadata.webPageType = 'Article';
     } else {
       switch (matchedRouteKey) {
         case '/': {
@@ -521,13 +548,16 @@ export function generateMetadata(
   }
   
   // Set canonical URL and clamp lengths
-  const canonicalPath = normalizedPathNoTrailingSlash === '' ? '/' : normalizedPathNoTrailingSlash;
+  let canonicalPath = normalizedPathNoTrailingSlash === '' ? '/' : normalizedPathNoTrailingSlash;
+  if (canonicalPath === '/ai-rename-variants') {
+    canonicalPath = '/biblio-rename';
+  }
   metadata.canonical = `${baseUrl}${canonicalPath}`;
   metadata.title = clampText(metadata.title, 60);
-  metadata.description = clampText(metadata.description, 160);
+  metadata.description = clampText(metadata.description, 155);
 
   // Add Article structured data for blog posts after canonical is set
-  if (isBlogArticle && metadata.canonical) {
+  if (isBlogArticle && metadata.canonical && !isMissingBlog) {
     const language = toLanguageTag(metadata.locale) || 'en-US';
     const articleDates = resolveArticleDates(blogContent);
     const articleEntry = cleanStructuredDataEntry({
@@ -748,6 +778,12 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
   const primaryImage = createPrimaryImageObject(metadata);
 
   const pluginRating = resolvePluginRating(contentData);
+  const ratingValue = typeof pluginRating.ratingValue === 'number'
+    ? Math.round(pluginRating.ratingValue * 10) / 10
+    : undefined;
+  const reviewCount = typeof pluginRating.reviewCount === 'number'
+    ? Math.round(pluginRating.reviewCount)
+    : undefined;
   const softwareApplication = cleanStructuredDataEntry({
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -759,9 +795,9 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
     operatingSystem: 'Figma (Web/Desktop)',
     aggregateRating: {
       '@type': 'AggregateRating',
-      ratingValue: pluginRating.ratingValue ? pluginRating.ratingValue.toFixed(1) : undefined,
-      reviewCount: pluginRating.reviewCount,
-      bestRating: '5'
+      ratingValue: ratingValue,
+      reviewCount: reviewCount,
+      bestRating: 5
     }
   });
 

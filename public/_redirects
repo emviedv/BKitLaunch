@@ -9,6 +9,9 @@
 # Retire unpublished Atlassian Design System blog draft
 /blog/boost-ux-with-atlassian-design-system    /blog    301
 
+# Route legacy AI Rename path to the canonical BiblioRename URL
+/ai-rename-variants                             /biblio-rename    301
+
 # SPA fallback for all other routes (must be last). Netlify automatically
 # routes /.netlify/functions/* without using redirects in dev/prod.
 /*               /index.html                  200
