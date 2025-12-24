@@ -39,7 +39,7 @@ export const Docs: React.FC = () => {
         </ul>
       </section>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
         <Button asChild size="lg">
           <a href="/">Explore BiblioKit</a>
         </Button>

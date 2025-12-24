@@ -42,6 +42,22 @@ interface StructuredDataMergeParams {
   contentData?: any;
 }
 
+const CANONICAL_HTTPS_HOSTS = new Set(['bibliokit.com', 'www.bibliokit.com']);
+
+const normalizeCanonicalBaseUrl = (baseUrl: string): string => {
+  if (!baseUrl) return baseUrl;
+  try {
+    const parsed = new URL(baseUrl);
+    const hostname = parsed.hostname.toLowerCase();
+    if (CANONICAL_HTTPS_HOSTS.has(hostname)) {
+      return `https://${parsed.host}`;
+    }
+    return parsed.origin;
+  } catch {
+    return baseUrl;
+  }
+};
+
 const extractBlogSlug = (path: string): string | null => {
   const match = path.replace(/\/+$/, '').match(/^\/blog\/([^/]+)/);
   return match?.[1] || null;
@@ -357,6 +373,7 @@ export function generateMetadata(
   contentData?: any, 
   baseUrl: string = 'https://www.bibliokit.com'
 ): SEOMetadata {
+  baseUrl = normalizeCanonicalBaseUrl(baseUrl);
   const normalizedPath = path ? path.split('?')[0] : '/';
   const normalizedPathNoTrailingSlash = (normalizedPath || '/').replace(/\/+$/, '') || '/';
   const isBlogArticle = normalizedPathNoTrailingSlash.startsWith('/blog/') && normalizedPathNoTrailingSlash !== '/blog';
@@ -784,6 +801,14 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
   const reviewCount = typeof pluginRating.reviewCount === 'number'
     ? Math.round(pluginRating.reviewCount)
     : undefined;
+  const softwareApplicationOffer = cleanStructuredDataEntry({
+    '@type': 'Offer',
+    price: '0.00',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    url: baseUrl,
+    priceValidUntil: buildPriceValidUntil()
+  });
   const softwareApplication = cleanStructuredDataEntry({
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -798,7 +823,8 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
       ratingValue: ratingValue,
       reviewCount: reviewCount,
       bestRating: 5
-    }
+    },
+    offers: softwareApplicationOffer ? [softwareApplicationOffer] : undefined
   });
 
   const webPage = cleanStructuredDataEntry({

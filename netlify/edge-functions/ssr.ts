@@ -253,9 +253,18 @@ export default async (request: Request, context: Context) => {
     return context.next();
   }
 
-  // Only handle GET requests for HTML pages
-  if (request.method !== 'GET') {
+  const isGetLike = request.method === 'GET' || request.method === 'HEAD';
+
+  // Only handle GET/HEAD requests for HTML pages
+  if (!isGetLike) {
     return context.next();
+  }
+
+  const normalizedPath = url.pathname === '/' ? '/' : url.pathname.replace(/\/+$/, '');
+  if (normalizedPath === '/ai-rename-variants') {
+    const redirectUrl = new URL('/biblio-rename', url.origin);
+    redirectUrl.search = url.search;
+    return Response.redirect(redirectUrl.toString(), 301);
   }
   
   // Skip SSR for API routes, admin assets, dev/Vite assets, and static files

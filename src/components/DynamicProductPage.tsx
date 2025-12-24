@@ -184,13 +184,14 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
         headlineColorOverride: 'text-white',
         withBottomPadding: false,
         containerPaddingOverride: 'px-0 md:px-0',
+        as: 'header' as const,
       }
     : {
         withBottomPadding: false,
         containerPaddingOverride: 'px-0 md:px-0',
       };
 
-  return (
+  const pageBody = (
     <>
       <ProductHero
         product={product as any}
@@ -200,6 +201,16 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
       <ProductContentSections product={product} faqs={faqs} />
     </>
   );
+
+  if (isUXBiblio) {
+    return (
+      <article aria-labelledby={heroHeadingId}>
+        {pageBody}
+      </article>
+    );
+  }
+
+  return pageBody;
 };
 
 export default DynamicProductPage;

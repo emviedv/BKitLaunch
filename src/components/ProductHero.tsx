@@ -43,6 +43,7 @@ type ProductHeroProps = {
   withBottomPadding?: boolean;
   containerPaddingOverride?: string;
   headingId?: string;
+  as?: 'section' | 'header';
 };
 
 type RawCallout =
@@ -74,6 +75,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   withBottomPadding = true,
   containerPaddingOverride,
   headingId,
+  as = 'section',
 }) => {
   const confettiRef = useRef<ConfettiRef>(null);
 
@@ -143,8 +145,10 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
     containerPaddingOverride
   );
 
+  const RootTag = as;
+
   return (
-    <section className={sectionClassName} aria-labelledby={resolvedHeadingId}>
+    <RootTag className={sectionClassName} aria-labelledby={resolvedHeadingId}>
       <div className="landing-hero-gradient__layer" aria-hidden="true" />
       <div className="landing-hero-noise" aria-hidden="true" />
       <div className="landing-hero-contrast" aria-hidden="true" />
@@ -339,7 +343,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
         </div>
       </div>
 
-    </section>
+    </RootTag>
   );
 };
 

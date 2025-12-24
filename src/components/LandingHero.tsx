@@ -47,6 +47,7 @@ const ORIGAMI_LAYOUT = {
 export interface LandingHeroProps {
   hero: LandingHeroContent | null | undefined;
   compact?: boolean;
+  titleClampLines?: number;
 }
 
 const heroGradientDiagnosticsEnabled = () => {
@@ -106,7 +107,7 @@ const resolveTarget = (href?: string | null) => (href && href.startsWith('http')
 
 const resolveRel = (href?: string | null) => (href && href.startsWith('http') ? 'noopener noreferrer' : undefined);
 
-const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
+const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact, titleClampLines }) => {
   const confettiRef = useRef<ConfettiRef>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
   const gradientLayerRef = useRef<HTMLDivElement | null>(null);
@@ -126,6 +127,13 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
   const secondaryButton = hero?.secondaryButton ?? undefined;
   const secondaryButtonLink = hero?.secondaryButtonLink ?? undefined;
   const alignment: 'left' | 'center' = hero?.align === 'left' ? 'left' : 'center';
+  const resolvedClampLines = typeof titleClampLines === 'number' && titleClampLines > 0
+    ? Math.floor(titleClampLines)
+    : null;
+  const shouldClampTitle = Boolean(resolvedClampLines);
+  const heroContentWidthClass = shouldClampTitle
+    ? 'w-full max-w-[calc(100vw-5rem)] sm:max-w-4xl'
+    : 'max-w-4xl';
 
   const { firstSentence, remainder } = splitHeroHeadline(title);
   const headlineSegments = useMemo(
@@ -343,7 +351,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
         <div className="section-content relative h-full">
           {/* Centered Text Content */}
           <div
-            className={`absolute z-20 transition-all duration-75 ease-linear max-w-4xl mt-8 flex flex-col ${
+            className={`absolute z-20 transition-all duration-75 ease-linear ${heroContentWidthClass} mt-8 flex flex-col ${
               alignment === 'left' ? 'items-start text-left' : 'items-center text-center'
             }`}
             style={{
@@ -364,10 +372,17 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact }) => {
                 headlineSegments.map((segment) => {
                   const isSubtitle = segment.key === 'subtitle';
                   const baseClass = segment.gradient || isSubtitle ? LANDING_TITLE_GRADIENT_CLASS : 'text-white';
+                  const shouldClampSegment = shouldClampTitle && segment.key.startsWith('title');
                   return (
                     <span
                       key={segment.key}
-                      className={`${baseClass} block whitespace-nowrap${segment.gradient && !isSubtitle ? ' pb-4' : ''}`.trim()}
+                      className={`${baseClass} block ${shouldClampTitle ? 'whitespace-normal' : 'whitespace-nowrap'}${segment.gradient && !isSubtitle ? ' pb-4' : ''}`.trim()}
+                      style={shouldClampSegment ? {
+                        display: '-webkit-box',
+                        WebkitLineClamp: resolvedClampLines ?? undefined,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                      } : undefined}
                     >
                       {renderHeroAccentWords(segment.text, segment.key)}
                     </span>

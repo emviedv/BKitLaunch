@@ -1,3 +1,7 @@
+http://bibliokit.com/* https://www.bibliokit.com/:splat 301!
+http://www.bibliokit.com/* https://www.bibliokit.com/:splat 301!
+https://bibliokit.com/* https://www.bibliokit.com/:splat 301!
+
 /api/*           /.netlify/functions/:splat  200
 
 # Serve static assets and critical files directly (prevent SPA fallback from hijacking)
