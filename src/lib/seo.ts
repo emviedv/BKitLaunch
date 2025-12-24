@@ -794,13 +794,6 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
 
   const primaryImage = createPrimaryImageObject(metadata);
 
-  const pluginRating = resolvePluginRating(contentData);
-  const ratingValue = typeof pluginRating.ratingValue === 'number'
-    ? Math.round(pluginRating.ratingValue * 10) / 10
-    : undefined;
-  const reviewCount = typeof pluginRating.reviewCount === 'number'
-    ? Math.round(pluginRating.reviewCount)
-    : undefined;
   const softwareApplicationOffer = cleanStructuredDataEntry({
     '@type': 'Offer',
     price: '0.00',
@@ -818,12 +811,6 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
     description: metadata.description,
     applicationCategory: 'DesignApplication',
     operatingSystem: 'Figma (Web/Desktop)',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: ratingValue,
-      reviewCount: reviewCount,
-      bestRating: 5
-    },
     offers: softwareApplicationOffer ? [softwareApplicationOffer] : undefined
   });
 

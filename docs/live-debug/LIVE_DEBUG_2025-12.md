@@ -1255,3 +1255,9 @@
 - **Root Cause:** The description paragraph used a max width without centered alignment, so it rendered left-biased under the centered title.
 - **Changed Files:** src/components/ProductContentSections.tsx
 - **Verification:** Not run (visual check needed on the landing features intro).
+
+- **Time:** 2025-12-23 23:00 EST
+- **Summary:** Removed aggregateRating from SoftwareApplication structured data to clear the missing rating/review requirement warning.
+- **Root Cause:** The homepage SoftwareApplication schema included aggregateRating, which triggered a required-field warning in structured data validation.
+- **Changed Files:** src/lib/seo.ts; index.html; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (re-check Rich Results/Schema validator on the homepage after deploy).
