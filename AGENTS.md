@@ -14,6 +14,7 @@
 - When applying a specific rule from this file, explicitly mention it in the conversation for clarity (e.g., “Applying Debug Log Policy” or “Following Commit Guidelines”).
 - Use action/benefit-driven marketing copy (e.g., “Work x10,000 faster.”) whenever writing or updating customer-facing text.
 - Keep CTA and product messaging designer/team-first—avoid stakeholder-targeted language. Default to “Join Designers shipping faster with BiblioKit” plus “Drop your email to jump the line for our next Figma plugins in beta” when updating shared copy.
+- Never use em dashes in customer-facing copy; use commas or short sentences instead.
 - When Emily requests a specific change, do not expand the scope or add extra copy/behavior beyond the exact ask (e.g., no bonus marketing lines unless explicitly requested).
 - When Emily explicitly asks to commit all changes, include untracked assets as requested (e.g., `tmp/searchatlas-crops/`).
 - BiblioRename titles must keep the product name as just "BiblioRename" (e.g., "Batch Rename Layers with AI (BiblioRename)", not "BiblioRename: ...").
@@ -45,6 +46,7 @@
 - Meta descriptions should follow the OTTO-style format: brand or product name + clear benefit, then a second sentence with the action/outcome.
 - Ensure every sitemap URL has at least one crawlable internal link (e.g., resources detail pages must be linked from nav or related content).
 - When trimming meta descriptions, keep the action/benefit-driven tone and include designers, developers, and marketers when feasible.
+- Typography tracking rules: text under 40px keeps tracking at 0; text 40–70px uses -1% tracking; text over 70px uses -2% to -4% tracking (tighter spacing for larger display type).
 
 ## Business Information
 - Business Description — BiblioKit provides a suite of Figma plugins designed to accelerate the design process and improve product development workflows. The company focuses on enhancing speed, structure, and creativity for designers working within the Figma environment. BiblioKit offers tools that automate repetitive tasks, standardize design elements, and streamline project setup. These plugins address common pain points in design workflows, such as manual renaming, design system auditing, prototype link management, and table normalization. By automating these processes, BiblioKit enables designers to focus on higher-level creative and strategic tasks. The company operates as a digital service provider, offering its plugins directly to Figma users. BiblioKit targets design teams and individual designers seeking to optimize their Figma workflows and improve overall design efficiency. The company's plugins are actively used by designers shipping real products, indicating a focus on practical, production-ready solutions.

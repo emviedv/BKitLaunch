@@ -283,6 +283,36 @@ export const routeMetadata: RouteMetadata = {
     twitterDescription: 'BiblioKit docs get designers, developers, and marketers live fast. Follow setup steps and API guidance to launch plugins with confidence.',
     twitterImage: '/og/og-default.svg'
   },
+  '/about': {
+    title: 'About BiblioKit | The Future of Figma DesignOps & AI Workflows',
+    description: 'Discover BiblioKit, the ultimate suite of Figma plugins for DesignOps. Learn how our AI-powered tools eliminate manual maintenance and bridge the gap from design to dev.',
+    keywords: 'BiblioKit, Figma plugins, DesignOps tools, AI refactoring for design, UX intelligence, design-to-dev workflow, UI automation, Figma productivity',
+    ogTitle: 'About BiblioKit | The Future of Figma DesignOps & AI Workflows',
+    ogDescription: 'Discover BiblioKit, the ultimate suite of Figma plugins for DesignOps. Learn how our AI-powered tools eliminate manual maintenance and bridge the gap from design to dev.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'About BiblioKit | The Future of Figma DesignOps & AI Workflows',
+    twitterDescription: 'Discover BiblioKit, the ultimate suite of Figma plugins for DesignOps. Learn how our AI-powered tools eliminate manual maintenance and bridge the gap from design to dev.',
+    twitterImage: '/og/og-default.svg',
+    webPageType: 'AboutPage',
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About BiblioKit",
+        "description": "Discover BiblioKit, the ultimate suite of Figma plugins for DesignOps. Learn how our AI-powered tools eliminate manual maintenance and bridge the gap from design to dev.",
+        "url": "https://www.bibliokit.com/about",
+        "mainEntity": {
+          "@type": ["Organization", "Corporation"],
+          "additionalType": "https://schema.org/SoftwareCompany",
+          "name": "BiblioKit",
+          "description": "BiblioKit is a unified suite of Figma plugins designed for the modern DesignOps era. We build tools that bridge the gap between creative vision and technical execution.",
+          "url": "https://www.bibliokit.com",
+          "industry": "Software Development",
+          "slogan": "Empowering designers to spend more time creating and less time maintaining"
+        }
+      }
+    ]
+  },
   '/resources': {
     title: 'BiblioKit Resources: Figma Plugins & Design Tools (404)',
     description: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
@@ -760,15 +790,18 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
 
   const organization = cleanStructuredDataEntry({
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': ['Organization', 'Corporation'],
     '@id': `${baseUrl}#organization`,
+    additionalType: 'https://schema.org/SoftwareCompany',
     name: siteName,
     url: baseUrl,
-    description: metadata.description,
+    description: 'BiblioKit is a software company building Figma plugins and DesignOps tools. We help designers, developers, and marketers automate audits, renaming, cleanup, and ship faster.',
+    slogan: 'Figma Plugins & DesignOps Tools',
+    industry: 'Software Development',
     logo: `${baseUrl}/logo.svg`,
     sameAs: socialProfiles.length ? socialProfiles : undefined,
     contactPoint,
-    knowsAbout: keywords.length ? keywords : undefined,
+    knowsAbout: keywords.length ? ['Figma plugins', 'design software', ...keywords] : ['Figma plugins', 'design software'],
     areaServed: 'Global'
   });
 

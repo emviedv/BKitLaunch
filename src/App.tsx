@@ -20,6 +20,7 @@ import BlogPage from './components/BlogPage';
 import BlogArticlePage from './components/BlogArticlePage';
 import Docs from './components/Docs';
 import AdminPage from './components/AdminPage';
+import AboutPage from './components/AboutPage';
 
 // Context & Hooks
 import { usePublishedContent } from './hooks/usePublishedContent';
@@ -137,6 +138,7 @@ const AppContent: React.FC = () => {
     <LandingLayout>
         <Switch>
           <Route path={ROUTE_PATHS.HOME} component={HomePage} />
+          <Route path={ROUTE_PATHS.ABOUT} component={AboutPage} />
           <Route path={ROUTE_PATHS.DOCS} component={Docs} />
           <Route path={ROUTE_PATHS.BIBLIO_RENAME} component={AIRenameVariantsPage} />
           <Route path={ROUTE_PATHS.BIBLIO_AUDIT} component={BiblioAuditPage} />
