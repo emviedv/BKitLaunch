@@ -1243,3 +1243,9 @@
 - **Root Cause:** Blog/marketing images rendered without width/height attributes and the first blog image was lazy-loaded; the hero glyph animation used animated drop shadows.
 - **Changed Files:** src/lib/imageDimensions.ts; src/components/BlogPage.tsx; src/components/BlogArticlePage.tsx; src/components/Features.tsx; src/components/ProductFeatureMedia.tsx; src/components/AIRenameVariantsPage.tsx; src/components/BiblioCleanPage.tsx; src/components/BiblioAuditPage.tsx; src/components/BiblioTablePage.tsx; src/components/ClientsMarquee.tsx; src/index.css; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (re-run SEMrush Site Audit or Lighthouse after deploy).
+
+- **Time:** 2025-12-23 22:24 EST
+- **Summary:** Deployment served 404s for hashed JS assets after publishing the wrong directory; redeploying with `dist/client` restores assets.
+- **Root Cause:** Manual Netlify CLI deploy used `--dir=dist` instead of the configured `dist/client`, so `/assets/*` files were missing.
+- **Changed Files:** None (deploy configuration / publish path only).
+- **Verification:** `curl -I https://www.bibliokit.com` (HTTP 200); `curl -I https://www.bibliokit.com/assets/index-CjyO82I0.js` (HTTP 200).
