@@ -270,6 +270,9 @@ const renderClientChip = (client: ClientLike, key: string, duplicate: boolean) =
               loading="lazy"
               className="clients-logo clients-logo-image object-contain"
               style={sharedStyle}
+              width={CLIENT_LOGO_MAX_WIDTH_PX}
+              height={CLIENT_LOGO_HEIGHT_PX}
+              decoding="async"
               aria-hidden="true"
             />
             <span className="sr-only">{resolved.label}</span>

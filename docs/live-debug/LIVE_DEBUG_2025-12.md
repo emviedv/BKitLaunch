@@ -2,6 +2,24 @@
 
 ## 2025-12-23
 
+- **Time:** 2025-12-23 02:49 EST
+- **Summary:** Restored H2/H3 hierarchy in six blog posts flagged for heading order issues.
+- **Root Cause:** Several blog posts used default heading levels (H3) for top-level sections, creating an H1-to-H3 jump that audits flagged.
+- **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (content hierarchy update only).
+
+- **Time:** 2025-12-23 02:45 EST
+- **Summary:** Added semantic wrappers for the UXBiblio page hero/body to raise semantic HTML usage.
+- **Root Cause:** The UXBiblio page lacked a top-level semantic wrapper around its hero/content, which reduced the semantic element ratio in audits.
+- **Changed Files:** src/components/ProductHero.tsx; src/components/DynamicProductPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (markup update only).
+
+- **Time:** 2025-12-23 02:37 EST
+- **Summary:** Forced HTTPS canonicals for bibliokit.com and added HTTP-to-HTTPS redirects so the homepage no longer exposes a non-secure version.
+- **Root Cause:** The SEO base URL mirrored the request protocol and the deploy redirects file lacked explicit HTTP-to-HTTPS rules, so the HTTP homepage could resolve without a secure canonical.
+- **Changed Files:** src/lib/seo.ts; public/_redirects; _redirects; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (redirect/canonical update only).
+
 - **Time:** 2025-12-23 01:06 EST
 - **Summary:** Updated page title tags to match the SearchAtlas suggestions across core pages and selected blog posts.
 - **Root Cause:** Title metadata still used older naming conventions, so the SearchAtlas recommendations were not reflected in the page titles.
@@ -1213,3 +1231,15 @@
 - **Root Cause:** SEO export flagged low text/HTML ratio and low semantic HTML usage across core pages.
 - **Changed Files:** src/components/ProductContentSections.tsx; src/data/products.json; src/components/BiblioAuditPage.tsx; src/components/AIRenameVariantsPage.tsx; src/components/BlogPage.tsx; src/components/ResourcesPage.tsx; src/components/RemovePrototypeLinkPage.tsx; src/components/ProductHero.tsx; src/components/DynamicProductPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (spot-check updated copy on landing, product, resources, blog pages; re-crawl after deploy).
+
+- **Time:** 2025-12-23 02:42 EST
+- **Summary:** Added required offers data to the SoftwareApplication JSON-LD so structured data validation stops flagging missing offers.
+- **Root Cause:** The global SoftwareApplication schema omitted offers, triggering a validation error across pages that include it.
+- **Changed Files:** src/lib/seo.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (re-check in the structured data validator after deploy).
+
+- **Time:** 2025-12-23 02:49 EST
+- **Summary:** Added explicit image dimensions and eager loading for first blog images, plus updated hero glyph animation to avoid non-composited effects.
+- **Root Cause:** Blog/marketing images rendered without width/height attributes and the first blog image was lazy-loaded; the hero glyph animation used animated drop shadows.
+- **Changed Files:** src/lib/imageDimensions.ts; src/components/BlogPage.tsx; src/components/BlogArticlePage.tsx; src/components/Features.tsx; src/components/ProductFeatureMedia.tsx; src/components/AIRenameVariantsPage.tsx; src/components/BiblioCleanPage.tsx; src/components/BiblioAuditPage.tsx; src/components/BiblioTablePage.tsx; src/components/ClientsMarquee.tsx; src/index.css; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (re-run SEMrush Site Audit or Lighthouse after deploy).

@@ -8,6 +8,7 @@ import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, RefreshCw, Shield, Lock, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
+import { getImageDimensions } from '@/lib/imageDimensions';
 
 const BiblioCleanPage = () => {
   debugService.info('BiblioCleanPage mounted', { 
@@ -30,6 +31,7 @@ const BiblioCleanPage = () => {
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines';
+  const biblioCleanImageDimensions = getImageDimensions('/media/BiblioClean.png');
   const faqs = [
     { question: "Will this break my main components?", answer: "BiblioClean includes safety warnings when you attempt to clean main components or instances that shouldn't be touched." },
     { question: "Can I undo the cleanup?", answer: "Yes. You can use Figma's native undo (Cmd+Z) to revert any changes made by the plugin instantly." },
@@ -124,6 +126,10 @@ const BiblioCleanPage = () => {
                src="/media/BiblioClean.png" 
                alt="Screenshot of messy prototype lines in Figma" 
                className="w-full h-auto rounded-xl border border-slate-700 shadow-2xl"
+               width={biblioCleanImageDimensions?.width}
+               height={biblioCleanImageDimensions?.height}
+               loading="lazy"
+               decoding="async"
              />
           </div>
         </div>

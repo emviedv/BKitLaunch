@@ -8,6 +8,7 @@ import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Shield, Search, Lock, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
+import { getImageDimensions } from '@/lib/imageDimensions';
 
 const BiblioAuditPage = () => {
   debugService.info('BiblioAuditPage mounted', { 
@@ -30,6 +31,7 @@ const BiblioAuditPage = () => {
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check';
+  const biblioAuditImageDimensions = getImageDimensions('/media/BiblioAudit.png');
   const faqs = [
     { question: "Does it work with any design system?", answer: "Yes. BiblioAudit checks against your local styles and enabled libraries." },
     { question: "Can I fix errors automatically?", answer: "Many errors, like simple style mismatches or reset overrides, can be fixed with one click." },
@@ -124,6 +126,10 @@ const BiblioAuditPage = () => {
                src="/media/BiblioAudit.png" 
                alt="Screenshot of BiblioAudit finding errors in Figma" 
                className="w-full h-auto rounded-xl border border-slate-700 shadow-2xl"
+               width={biblioAuditImageDimensions?.width}
+               height={biblioAuditImageDimensions?.height}
+               loading="lazy"
+               decoding="async"
              />
           </div>
         </div>

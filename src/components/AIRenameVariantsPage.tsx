@@ -8,6 +8,7 @@ import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, RefreshCw, Shield, Lock, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
+import { getImageDimensions } from '@/lib/imageDimensions';
 
 const AIRenameVariantsPage = () => {
   debugService.info('AIRenameVariantsPage mounted', { 
@@ -24,6 +25,7 @@ const AIRenameVariantsPage = () => {
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted';
+  const variantChaosDimensions = getImageDimensions('/media/biblio-rename/variant-chaos-example.png');
   const faqs = [
     { question: "Will it change files without my approval?", answer: "No. All changes show as suggestions; you approve edits." },
     { question: "Can I undo changes?", answer: "Yes. Single-click revert and full audit log export." },
@@ -120,6 +122,10 @@ const AIRenameVariantsPage = () => {
                src="/media/biblio-rename/variant-chaos-example.png" 
                alt="Screenshot of a chaotic variant list in Figma showing inconsistent naming" 
                className="w-full h-auto rounded-xl border border-slate-700 shadow-2xl"
+               width={variantChaosDimensions?.width}
+               height={variantChaosDimensions?.height}
+               loading="lazy"
+               decoding="async"
              />
           </div>
         </div>

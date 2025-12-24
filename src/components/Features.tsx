@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 
 import { usePublishedContent } from "@/hooks/usePublishedContent";
 import { resolveLucideIcon } from "@/lib/iconUtils";
+import { getImageDimensions } from "@/lib/imageDimensions";
 import { LANDING_FEATURES_ID } from "@/config/sectionAnchors";
 
 type FeatureLike = {
@@ -16,6 +17,10 @@ type FeatureLike = {
   topItems?: string[];
   showBadge?: boolean;
   tagline?: string;
+  media?: {
+    src?: string;
+    alt?: string;
+  };
 };
 
 const renderBadges = (feature: FeatureLike) => {
@@ -150,6 +155,7 @@ const Features: React.FC = () => {
             const FeatureIcon = resolveLucideIcon(feature.icon);
             const headingText = getFeatureHeading(feature.title, feature.description);
             const descriptionText = (feature.description || '').trim();
+            const mediaDimensions = feature.media?.src ? getImageDimensions(feature.media.src) : null;
 
             return (
               <article
@@ -194,7 +200,10 @@ const Features: React.FC = () => {
                       src={feature.media.src}
                       alt={feature.media.alt || `${feature.title} preview`}
                       className="w-full rounded-xl border border-slate-100 object-cover"
+                      width={mediaDimensions?.width}
+                      height={mediaDimensions?.height}
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 )}

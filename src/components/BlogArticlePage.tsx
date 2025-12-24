@@ -15,6 +15,7 @@ import { createFAQSchema, useSchema } from '@/lib/useSchema';
 import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
 import { debugService } from '@/lib/debugService';
 import FAQList from '@/components/FAQList';
+import { getImageDimensions } from '@/lib/imageDimensions';
 
 interface BlogArticlePageProps {
   slug: string;
@@ -56,7 +57,7 @@ const renderListItemText = (item: string) => {
   );
 };
 
-const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: string) => {
+const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: string, firstImageIndex = -1) => {
   const key = `${block.type}-${index}`;
 
   switch (block.type) {
@@ -112,6 +113,8 @@ const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: s
     case 'image':
       const resolvedAlt = block.alt?.trim() || block.caption || 'Blog illustration';
       const isExternalSrc = /^https?:\/\//.test(block.src);
+      const imageDimensions = getImageDimensions(block.src);
+      const isFirstImage = index === firstImageIndex;
 
       if (blogImageDebugEnabled()) {
         debugService.debug('blog:image-block', {
@@ -131,7 +134,11 @@ const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: s
               src={block.src}
               alt={resolvedAlt}
               className="w-full object-cover"
-              loading="lazy"
+              width={imageDimensions?.width}
+              height={imageDimensions?.height}
+              loading={isFirstImage ? 'eager' : 'lazy'}
+              fetchPriority={isFirstImage ? 'high' : undefined}
+              decoding="async"
             />
           </div>
           {(block.caption || resolvedAlt) && (
@@ -189,6 +196,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
   const postIndex = BLOG_POSTS.findIndex((entry) => entry.slug === slug);
   const previousPost = postIndex > 0 ? BLOG_POSTS[postIndex - 1] : null;
   const nextPost = postIndex >= 0 && postIndex < BLOG_POSTS.length - 1 ? BLOG_POSTS[postIndex + 1] : null;
+  const firstImageIndex = post?.content ? post.content.findIndex((block) => block.type === 'image') : -1;
   const relatedPosts: BlogPost[] = [];
   if (post && postIndex >= 0 && BLOG_POSTS.length > 1) {
     const seen = new Set([slug]);
@@ -289,7 +297,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
         <div className="mx-auto w-full max-w-[780px] space-y-8 text-white">
           {post.content ? (
             <div className="space-y-6">
-              {post.content.map((block, index) => renderContentBlock(block, index, post.slug))}
+              {post.content.map((block, index) => renderContentBlock(block, index, post.slug, firstImageIndex))}
             </div>
           ) : (
             <p className="text-lg leading-[1.8] text-white/80">

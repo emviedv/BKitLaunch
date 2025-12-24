@@ -8,6 +8,7 @@ import UXBiblioAbstractVisual from './UXBiblioAbstractVisual';
 import { cn } from '@/lib/utils';
 import { debugService } from '@/lib/debugService';
 import { mediaDiagnosticsEnabled } from './productContentSectionHelpers';
+import { getImageDimensions } from '@/lib/imageDimensions';
 
 type Variant = 'default' | 'showcase';
 
@@ -54,6 +55,7 @@ const logFeatureMedia = (detail: ProductDetail, variant: Variant) => {
 const ProductFeatureMedia: React.FC<Props> = ({ detail, productTitle, variant = 'default' }) => {
   logFeatureMedia(detail, variant);
 
+  const imageDimensions = detail.mediaUrl ? getImageDimensions(detail.mediaUrl) : null;
   const isShowcase = variant === 'showcase';
   const placeholderStroke = 'rgba(148,163,184,0.52)'; // slate-400, ~4 shades lighter than the slate-900 base
   const placeholderSecondaryStroke = 'rgba(148,163,184,0.28)';
@@ -129,7 +131,10 @@ const ProductFeatureMedia: React.FC<Props> = ({ detail, productTitle, variant = 
               src={detail.mediaUrl}
               alt={imageLabel}
               className="w-full h-auto object-cover"
+              width={imageDimensions?.width}
+              height={imageDimensions?.height}
               loading="lazy"
+              decoding="async"
             />
           </div>
         );
@@ -150,7 +155,10 @@ const ProductFeatureMedia: React.FC<Props> = ({ detail, productTitle, variant = 
           src={detail.mediaUrl}
           alt={imageLabel}
           className="w-full h-auto object-cover"
+          width={imageDimensions?.width}
+          height={imageDimensions?.height}
           loading="lazy"
+          decoding="async"
         />
       </div>
     );

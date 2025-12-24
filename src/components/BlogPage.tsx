@@ -1,6 +1,7 @@
 import React from 'react';
 import { BLOG_POSTS, buildBlogPostHref } from '@/data/blogPosts';
 import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
+import { getImageDimensions } from '@/lib/imageDimensions';
 const BLOG_LIST_SECTION_ID = 'blog-latest';
 const blogCardHoverClass =
   'transition hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
@@ -9,6 +10,9 @@ const blogCtaButtonClass =
 
 const BlogPage: React.FC = () => {
   const featuredPost = BLOG_POSTS[0];
+  const featuredImageDimensions = featuredPost?.heroImage
+    ? getImageDimensions(featuredPost.heroImage)
+    : null;
 
   return (
     <div className="bg-[#0c0d10] text-white">
@@ -45,7 +49,11 @@ const BlogPage: React.FC = () => {
                         src={featuredPost.heroImage}
                         alt={featuredPost.heroImageAlt || `${featuredPost.title} illustration`}
                         className="h-auto w-full max-h-[484px] rounded-[2px] object-cover"
-                        loading="lazy"
+                        width={featuredImageDimensions?.width}
+                        height={featuredImageDimensions?.height}
+                        loading="eager"
+                        fetchPriority="high"
+                        decoding="async"
                       />
                     </div>
                   )}
@@ -103,12 +111,13 @@ const BlogPage: React.FC = () => {
             <p className="text-base leading-7 text-white/80">Workflow tips, state specs, accessibility checks, and system hygiene guides that teams can drop into real projects right now. Use them to clean files, align teams, and ship faster.</p>
           </div>
           <div className="mt-8 columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6">
-            {BLOG_POSTS.map((post) => {
-              const href = buildBlogPostHref(post.slug);
-              return (
-                <article
-                  key={`${post.title}-card`}
-                  className="mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left backdrop-blur"
+                {BLOG_POSTS.map((post) => {
+                  const href = buildBlogPostHref(post.slug);
+                  const previewDimensions = getImageDimensions(post.heroImage);
+                  return (
+                    <article
+                      key={`${post.title}-card`}
+                      className="mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left backdrop-blur"
                 >
                   <div className="group flex h-full flex-col rounded-lg">
                     {post.heroImage && (
@@ -117,7 +126,10 @@ const BlogPage: React.FC = () => {
                           src={post.heroImage}
                           alt={post.heroImageAlt || `${post.title} illustration`}
                           className="h-[160px] w-full object-cover transition duration-200 group-hover:scale-[1.01]"
+                          width={previewDimensions?.width}
+                          height={previewDimensions?.height}
                           loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     )}

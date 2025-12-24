@@ -8,6 +8,7 @@ import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Columns, Layout, Table as TableIcon, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
+import { getImageDimensions } from '@/lib/imageDimensions';
 
 const BiblioTablePage = () => {
   debugService.info('BiblioTablePage mounted', { 
@@ -31,6 +32,7 @@ const BiblioTablePage = () => {
 
   // Figma Community plugin link
   const CTA_LINK = 'https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner';
+  const biblioTableImageDimensions = getImageDimensions('/media/BiblioTable.png');
   const faqs = [
     { question: "Does this work with complex nested auto-layouts?", answer: "Yes. BiblioTable is designed to parse standard row/column auto-layout structures commonly used for tables." },
     { question: "Does it break responsive resizing?", answer: "No. It applies fixed widths where necessary to ensure alignment, but respects 'Fill container' where appropriate for the table wrapper." },
@@ -125,6 +127,10 @@ const BiblioTablePage = () => {
                src="/media/BiblioTable.png" 
                alt="Screenshot of BiblioTable fixing a Figma table" 
                className="w-full h-auto rounded-xl border border-slate-700 shadow-2xl"
+               width={biblioTableImageDimensions?.width}
+               height={biblioTableImageDimensions?.height}
+               loading="lazy"
+               decoding="async"
              />
           </div>
         </div>
