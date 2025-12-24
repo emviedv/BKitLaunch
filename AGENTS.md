@@ -39,6 +39,7 @@
 - Apply current SEO best practices (keep guidance refreshed for 2025): meaningful alt text on all images, clean descriptive URLs/slugs, accurate meta titles/descriptions, structured headings, and up-to-date sitemap/robots handling where relevant.
 - For marketing/blog images, set explicit width/height and eager-load the first in-article image to reduce CLS/LCP; lazy-load the rest.
 - Netlify CLI deploys must publish `dist/client` (not `dist`) to avoid missing `/assets/*` bundles.
+- Do not emit `SoftwareApplication` structured data unless we can supply valid `aggregateRating` or `review`; otherwise remove the `SoftwareApplication` JSON-LD (including `index.html` fallback).
 - Meta descriptions must be unique per page and stay under 155 characters (e.g., 120–150 chars) to avoid SERP truncation.
 - Meta descriptions should follow the OTTO-style format: brand or product name + clear benefit, then a second sentence with the action/outcome.
 - Ensure every sitemap URL has at least one crawlable internal link (e.g., resources detail pages must be linked from nav or related content).

@@ -794,26 +794,6 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
 
   const primaryImage = createPrimaryImageObject(metadata);
 
-  const softwareApplicationOffer = cleanStructuredDataEntry({
-    '@type': 'Offer',
-    price: '0.00',
-    priceCurrency: 'USD',
-    availability: 'https://schema.org/InStock',
-    url: baseUrl,
-    priceValidUntil: buildPriceValidUntil()
-  });
-  const softwareApplication = cleanStructuredDataEntry({
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    '@id': `${baseUrl}#software-application`,
-    name: 'BiblioKit Figma Plugin Suite',
-    url: baseUrl,
-    description: metadata.description,
-    applicationCategory: 'DesignApplication',
-    operatingSystem: 'Figma (Web/Desktop)',
-    offers: softwareApplicationOffer ? [softwareApplicationOffer] : undefined
-  });
-
   const webPage = cleanStructuredDataEntry({
     '@context': 'https://schema.org',
     '@type': metadata.webPageType || 'WebPage',
@@ -834,8 +814,7 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
     organization,
     website,
     primaryImage,
-    webPage,
-    softwareApplication
+    webPage
   ].filter(Boolean) as StructuredDataEntry[];
 
   const hasBreadcrumb = Array.isArray(metadata.structuredData)

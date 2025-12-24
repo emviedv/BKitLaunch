@@ -1261,3 +1261,11 @@
 - **Root Cause:** The homepage SoftwareApplication schema included aggregateRating, which triggered a required-field warning in structured data validation.
 - **Changed Files:** src/lib/seo.ts; index.html; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (re-check Rich Results/Schema validator on the homepage after deploy).
+
+## 2025-12-24
+
+- **Time:** 2025-12-24 00:30 EST
+- **Summary:** Removed SoftwareApplication JSON-LD to stop aggregateRating/review errors across the site.
+- **Root Cause:** SoftwareApplication structured data without aggregateRating/review triggered invalid structured data warnings in audits.
+- **Changed Files:** src/lib/seo.ts; index.html; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (re-check structured data validator after deploy).
