@@ -1249,3 +1249,9 @@
 - **Root Cause:** Manual Netlify CLI deploy used `--dir=dist` instead of the configured `dist/client`, so `/assets/*` files were missing.
 - **Changed Files:** None (deploy configuration / publish path only).
 - **Verification:** `curl -I https://www.bibliokit.com` (HTTP 200); `curl -I https://www.bibliokit.com/assets/index-CjyO82I0.js` (HTTP 200).
+
+- **Time:** 2025-12-23 22:49 EST
+- **Summary:** Center-aligned the landing features intro copy to match the centered headline.
+- **Root Cause:** The description paragraph used a max width without centered alignment, so it rendered left-biased under the centered title.
+- **Changed Files:** src/components/ProductContentSections.tsx
+- **Verification:** Not run (visual check needed on the landing features intro).

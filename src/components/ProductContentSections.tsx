@@ -331,7 +331,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
             style={{ width: '100%', height: '100%' }}
           />
         </div>
-        <div className="relative z-20 py-16 px-12 w-full">
+        <div className="relative z-20 py-16 px-12 w-full text-center">
           <h2 className={cn(SECTION_TITLE_CLASS, 'font-display text-center text-white drop-shadow-[0_20px_60px_rgba(4,0,12,0.6)]')}>
             {featuresTitle.split('\n').map((line, i, arr) => (
               <span key={i}>
@@ -341,7 +341,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
             ))}
           </h2>
           {featuresDescription && (
-            <p className={cn(SECTION_DESCRIPTION_CLASS, 'mt-4 max-w-3xl text-white/70')}>
+            <p className={cn(SECTION_DESCRIPTION_CLASS, 'mt-4 max-w-3xl text-white/70 mx-auto')}>
               {featuresDescription}
             </p>
           )}
