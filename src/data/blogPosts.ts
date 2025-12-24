@@ -1704,7 +1704,7 @@ const designDevGap2026Content: BlogContentBlock[] = [
   { type: 'heading', text: '🛠️ Tool Recommendation: Component Auditor Toolkit', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'If you manage a library, you need visibility. I highly recommend checking out the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130).'
+    text: 'If you manage a library, you need visibility. I highly recommend checking out the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check).'
   },
   {
     type: 'unorderedList',
@@ -1773,7 +1773,7 @@ const designDevGap2026Content: BlogContentBlock[] = [
     type: 'orderedList',
     items: [
       'Migrate to Variables immediately.',
-      'Audit your files using tools like the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130) to clean up the mess left behind by old habits.',
+      'Audit your files using tools like the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to clean up the mess left behind by old habits.',
       'Connect to Code to ensure your design reality matches the user\'s reality.'
     ]
   },

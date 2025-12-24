@@ -32,6 +32,7 @@
 - After any change and deployment, explicitly verify the live production site loads (no blank/black screens) before handing off.
 - When linking to live Figma Community assets, grab the official URLs from https://www.figma.com/@bibliokit (use product-specific plugin/file links, not generic waits or betas).
 - In blog posts, hyperlink plugin names to their official Figma Community listings (e.g., `[BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check)`).
+- Avoid bare Figma plugin ID URLs; always use the full listing slug (e.g., `https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check`).
 - Blog posts should render H2s larger than H3s to keep heading hierarchy visually distinct.
 - Blog posts typically do not include FAQs; do not add FAQ sections unless explicitly requested.
 - FAQs across the site should use the pink numbered bubble on the left for consistent styling.

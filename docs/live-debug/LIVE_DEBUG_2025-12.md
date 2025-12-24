@@ -5,7 +5,7 @@
 - **Time:** 2025-12-23 02:49 EST
 - **Summary:** Restored H2/H3 hierarchy in six blog posts flagged for heading order issues.
 - **Root Cause:** Several blog posts used default heading levels (H3) for top-level sections, creating an H1-to-H3 jump that audits flagged.
-- **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Changed Files:** AGENTS.md; src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (content hierarchy update only).
 
 - **Time:** 2025-12-23 02:45 EST
@@ -1269,3 +1269,9 @@
 - **Root Cause:** SoftwareApplication structured data without aggregateRating/review triggered invalid structured data warnings in audits.
 - **Changed Files:** src/lib/seo.ts; index.html; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (re-check structured data validator after deploy).
+
+- **Time:** 2025-12-24 01:08 EST
+- **Summary:** Updated Component Auditor Toolkit links to the official BiblioAudit Figma listing to replace the bare plugin ID URL flagged by the 403 crawl.
+- **Root Cause:** The design-dev-gap-2026 blog content linked to the plugin ID without the official listing slug, which triggered the 403 external-resource report.
+- **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (click the updated blog links after deploy).
