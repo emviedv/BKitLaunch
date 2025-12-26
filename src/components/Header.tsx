@@ -53,6 +53,20 @@ const Header = () => {
     ? (content.header?.navigation as NavItem[])
     : [];
 
+  const pluginIconSrcByHref: Record<string, string> = {
+    '/biblio-rename': '/media/icons/biblio-rename-icon.png',
+    '/biblio-clean': '/media/icons/biblio-clean-icon.png',
+    '/biblio-audit': '/media/icons/biblio-audit-icon.png',
+  };
+
+  const resolvePluginIconSrc = (child: NavChild): string | null => {
+    if (!child.href) return null;
+    const normalizedHref = (child.href.startsWith('#') ? `/${child.href}` : child.href)
+      .split('#')[0]
+      .replace(/\/$/, '');
+    return pluginIconSrcByHref[normalizedHref] ?? null;
+  };
+
   navItems = navItems.map((item) => {
     if ((item as DropdownNavItem).type === 'dropdown') {
       const dd = item as DropdownNavItem;
@@ -227,10 +241,14 @@ const Header = () => {
                         {(dd.children || []).map((child, ci) => {
                           const href = child.href || '#';
                           const normalizedHref = href.startsWith('#') ? `/${href}` : href;
+                          const pluginIconSrc = isPluginsDropdown ? resolvePluginIconSrc(child) : null;
                           const ChildIcon = resolveLucideIcon(child.icon || child.label);
                           const itemClassName = isPluginsDropdown
-                            ? 'group/item flex gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 transition-colors hover:bg-white/10 hover:border-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff2f87]'
-                            : 'flex gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-[#ff2f87]/12';
+                            ? 'group/item flex gap-3 rounded-2xl transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff2f87]'
+                            : 'flex gap-3 rounded-xl transition-colors hover:bg-[#ff2f87]/12';
+                          const iconWrapperClassName = isPluginsDropdown
+                            ? 'flex h-10 w-10 items-center justify-center'
+                            : 'flex h-9 w-9 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10';
                           return (
                             <a
                               key={`dd-item-${index}-${ci}`}
@@ -239,8 +257,18 @@ const Header = () => {
                               rel={linkRel(child.nofollow, !!child.isExternal)}
                               className={itemClassName}
                             >
-                              <span className={isPluginsDropdown ? 'flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ff2f87]/14 text-white border border-white/10' : 'flex h-9 w-9 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10'}>
-                                <ChildIcon className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
+                              <span className={iconWrapperClassName}>
+                                {pluginIconSrc ? (
+                                  <img
+                                    src={pluginIconSrc}
+                                    alt={`${child.label} icon`}
+                                    className="h-10 w-10 rounded-2xl object-contain"
+                                    width={40}
+                                    height={40}
+                                  />
+                                ) : (
+                                  <ChildIcon className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
+                                )}
                               </span>
                               <span className="flex-1 text-left">
                                 <span className="flex items-center gap-2">
@@ -317,19 +345,34 @@ const Header = () => {
                   {(dd.children || []).map((child, ci) => {
                     const href = child.href || '#';
                     const normalizedHref = href.startsWith('#') ? `/${href}` : href;
+                    const isPluginsDropdown = dd.label?.trim().toLowerCase() === 'plugins';
+                    const pluginIconSrc = isPluginsDropdown ? resolvePluginIconSrc(child) : null;
                     const ChildIcon = resolveLucideIcon(child.icon || child.label);
                     const isEmojiIcon =
-                      typeof child.icon === 'string' && /[\p{Extended_Pictographic}]/u.test(child.icon);
+                      !pluginIconSrc &&
+                      typeof child.icon === 'string' &&
+                      /[\p{Extended_Pictographic}]/u.test(child.icon);
+                    const iconWrapperClassName = isPluginsDropdown
+                      ? 'flex h-9 w-9 items-center justify-center'
+                      : 'flex h-9 w-9 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10';
                     return (
                       <a
                         key={`m-dd-item-${index}-${ci}`}
                         href={normalizedHref}
                         target={child.isExternal ? '_blank' : undefined}
                         rel={linkRel(child.nofollow, !!child.isExternal)}
-                        className="flex gap-3 rounded-xl px-3 py-3 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                        className="flex gap-3 rounded-xl text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                       >
-                        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10">
-                          {isEmojiIcon ? (
+                        <span className={iconWrapperClassName}>
+                          {pluginIconSrc ? (
+                            <img
+                              src={pluginIconSrc}
+                              alt={`${child.label} icon`}
+                              className="h-9 w-9 rounded-xl object-contain"
+                              width={36}
+                              height={36}
+                            />
+                          ) : isEmojiIcon ? (
                             <span className="text-lg" aria-hidden="true">
                               {child.icon}
                             </span>

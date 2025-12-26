@@ -49,13 +49,7 @@ export const createProductSchema = (productData: any) => ({
     '@type': 'Organization',
     name: 'BiblioKit'
   },
-  featureList: productData.details?.map((detail: any) => detail.title) || [],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.8',
-    reviewCount: '48000',
-    bestRating: '5'
-  }
+  featureList: productData.details?.map((detail: any) => detail.title) || []
 });
 
 export const createArticleSchema = (title: string, description: string, dateModified?: string) => ({

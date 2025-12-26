@@ -16,6 +16,7 @@
 - Keep CTA and product messaging designer/team-first—avoid stakeholder-targeted language. Default to “Join Designers shipping faster with BiblioKit” plus “Drop your email to jump the line for our next Figma plugins in beta” when updating shared copy.
 - Never use em dashes in customer-facing copy; use commas or short sentences instead.
 - When Emily requests a specific change, do not expand the scope or add extra copy/behavior beyond the exact ask (e.g., no bonus marketing lines unless explicitly requested).
+- BiblioAudit does not fix errors; describe it as surfacing issues or audits, not auto-fixing them (e.g., “deep scan, full audit” instead of “auto-fix”).
 - When Emily explicitly asks to commit all changes, include untracked assets as requested (e.g., `tmp/searchatlas-crops/`).
 - BiblioRename titles must keep the product name as just "BiblioRename" (e.g., "Batch Rename Layers with AI (BiblioRename)", not "BiblioRename: ...").
 - When Emily provides blog copy (e.g., Google Doc content), import it verbatim without edits or extra lines; keep the published post text exactly as supplied.
@@ -41,7 +42,7 @@
 - Apply current SEO best practices (keep guidance refreshed for 2025): meaningful alt text on all images, clean descriptive URLs/slugs, accurate meta titles/descriptions, structured headings, and up-to-date sitemap/robots handling where relevant.
 - For marketing/blog images, set explicit width/height and eager-load the first in-article image to reduce CLS/LCP; lazy-load the rest.
 - Netlify CLI deploys must publish `dist/client` (not `dist`) to avoid missing `/assets/*` bundles.
-- Do not emit `SoftwareApplication` structured data unless we can supply valid `aggregateRating` or `review`; otherwise remove the `SoftwareApplication` JSON-LD (including `index.html` fallback).
+- Keep `SoftwareApplication` schema for product pages, but omit `aggregateRating` and `review` unless we have verified, current rating data.
 - Meta descriptions must be unique per page and stay under 155 characters (e.g., 120–150 chars) to avoid SERP truncation.
 - Ensure every sitemap URL has at least one crawlable internal link (e.g., resources detail pages must be linked from nav or related content).
 - When trimming meta descriptions, keep the action/benefit-driven tone and include designers, developers, and marketers when feasible.

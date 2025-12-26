@@ -409,22 +409,16 @@ function getPageSchema(pathname: string, origin: string): string {
         },
         "featureList": [
           "One-Click Renaming",
-          "Smart Context Analysis", 
+          "Smart Context Analysis",
           "Batch Processing",
           "Component Intelligence",
           "Cross-Frame Sync"
-        ],
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.8",
-          "reviewCount": "48000",
-          "bestRating": "5"
-        }
+        ]
       }
       </script>
     `;
   }
-  
+
   return organizationSchema;
 }
 

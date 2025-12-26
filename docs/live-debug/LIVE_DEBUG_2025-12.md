@@ -1,5 +1,31 @@
 # Live Debug Log — 2025-12
 
+## 2025-12-26
+
+- **Time:** 2025-12-26 17:50 EST
+- **Summary:** Restored SoftwareApplication schema while removing rating fields.
+- **Root Cause:** The prior fix removed SoftwareApplication entirely, but the requirement is to keep it without aggregate rating fields.
+- **Changed Files:** AGENTS.md; netlify/edge-functions/bot-detection.ts; src/lib/useSchema.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (structured data update only).
+
+- **Time:** 2025-12-26 17:48 EST
+- **Summary:** Removed SoftwareApplication schema and aggregateRating placeholders to avoid missing rating/review warnings.
+- **Root Cause:** Bot fallback markup and the product schema helper still referenced SoftwareApplication or placeholder ratings, which triggered missing rating/review warnings.
+- **Changed Files:** AGENTS.md; netlify/edge-functions/bot-detection.ts; src/lib/useSchema.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (structured data update only).
+
+- **Time:** 2025-12-26 02:59 EST
+- **Summary:** Updated the BiblioAudit hero scan label to remove the auto-fix claim.
+- **Root Cause:** The scan label implied BiblioAudit fixes errors, but it only surfaces issues for review.
+- **Changed Files:** AGENTS.md; src/components/BiblioAuditPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (copy update only).
+
+- **Time:** 2025-12-26 03:00 EST
+- **Summary:** Removed padding/borders from header dropdown selections and swapped plugin dropdown icons to the official plugin icons.
+- **Root Cause:** The dropdown items were styled like bordered cards with extra padding and generic icon glyphs, which didn't match the desired plugin icon presentation.
+- **Changed Files:** src/components/Header.tsx; public/media/icons/biblio-rename-icon.png; public/media/icons/biblio-clean-icon.png; public/media/icons/biblio-audit-icon.png; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (UI update only).
+
 ## 2025-12-23
 
 - **Time:** 2025-12-23 02:49 EST

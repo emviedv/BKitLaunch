@@ -32,6 +32,7 @@ const BiblioAuditPage = () => {
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check';
   const biblioAuditImageDimensions = getImageDimensions('/media/BiblioAudit.png');
+  const biblioAuditHeroImageDimensions = getImageDimensions('/media/biblio-audit-hero.png');
   const faqs = [
     { question: "Does it work with any design system?", answer: "Yes. BiblioAudit checks against your local styles and enabled libraries." },
     { question: "Can I fix errors automatically?", answer: "Many errors, like simple style mismatches or reset overrides, can be fixed with one click." },
@@ -85,11 +86,20 @@ const BiblioAuditPage = () => {
               </a>
             </Button>
             <span className="flex items-center gap-2 text-sm text-slate-400">
-              <Search className="w-4 h-4" /> deep scan · auto-fix
+              <Search className="w-4 h-4" /> deep scan · full audit
             </span>
           </div>
           <div className="mx-auto max-w-4xl shadow-2xl rounded-lg overflow-hidden border border-slate-700/50">
-             <PlaceholderImage label="Looping GIF: Scan File -> List Errors -> Click to Fix" height="h-[400px]" />
+            <img
+              src="/media/biblio-audit-hero.png"
+              alt="BiblioAudit audit results dashboard in Figma showing components and issue counts."
+              className="w-full h-auto"
+              width={biblioAuditHeroImageDimensions?.width}
+              height={biblioAuditHeroImageDimensions?.height}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
           </div>
         </div>
       </section>
