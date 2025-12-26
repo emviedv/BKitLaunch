@@ -7,18 +7,18 @@ const AboutPage: React.FC = () => {
   return (
     <div className="about-page-shell relative min-h-screen bg-gradient-to-b from-[#0b0c0f] via-[#0e1014] to-[#0b0c0f] text-white">
       {/* Section 1: Hero / Vision Statement */}
-      <section className="section-content pt-28 pb-16 max-w-4xl mx-auto px-4 md:px-6">
-        <div className="text-center mb-8">
+      <section className="section-content pt-28 pb-16 w-full px-4 md:px-6">
+        <div className="text-center">
           <p className="text-sm uppercase tracking-[0.18em] text-violet-400 mb-4">
             About BiblioKit
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent">
             The Story Behind BiblioKit: Reimagining the Design Workflow
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto mb-4">
+          <p className="text-xl md:text-2xl text-white/90 leading-relaxed mx-auto mb-4 text-center">
             Empowering designers to spend more time creating and less time maintaining.
           </p>
-          <p className="text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg text-white/70 leading-relaxed mx-auto text-center">
             BiblioKit was born out of a simple observation: design systems are growing faster than our ability to manage them. We build the tools that bridge the gap between creative vision and technical execution.
           </p>
         </div>

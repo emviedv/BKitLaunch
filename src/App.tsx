@@ -13,6 +13,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import AIRenameVariantsPage from './components/AIRenameVariantsPage';
 import BiblioAuditPage from './components/BiblioAuditPage';
+import BiblioCleanPage from './components/BiblioCleanPage';
 import DynamicProductPage from './components/DynamicProductPage';
 import RemovePrototypeLinkPage from './components/RemovePrototypeLinkPage';
 import ResourcesPage from './components/ResourcesPage';
@@ -142,9 +143,7 @@ const AppContent: React.FC = () => {
           <Route path={ROUTE_PATHS.DOCS} component={Docs} />
           <Route path={ROUTE_PATHS.BIBLIO_RENAME} component={AIRenameVariantsPage} />
           <Route path={ROUTE_PATHS.BIBLIO_AUDIT} component={BiblioAuditPage} />
-          <Route path={ROUTE_PATHS.BIBLIO_CLEAN}>
-            {() => <DynamicProductPage slug="biblio-clean" />}
-          </Route>
+          <Route path={ROUTE_PATHS.BIBLIO_CLEAN} component={BiblioCleanPage} />
           <Route path={ROUTE_PATHS.BIBLIO_TABLE}>
             {() => <DynamicProductPage slug="biblio-table" />}
           </Route>
