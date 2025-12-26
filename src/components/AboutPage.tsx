@@ -1,38 +1,63 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { ROUTE_PATHS } from '@/config/routes';
 import { ArrowRight, Sparkles, BarChart3, Rocket, Zap, Layers, RefreshCw } from 'lucide-react';
+import FluidBackground from './FluidBackground';
+
+const Section = ({
+  children,
+  className = '',
+  contentClassName = 'max-w-5xl',
+}: {
+  children: React.ReactNode;
+  className?: string;
+  contentClassName?: string;
+}) => (
+  <section
+    className={`py-16 md:py-24 px-6 md:px-10 landing-sections-gradient text-white ${className} relative overflow-hidden`}
+  >
+    <div className={`mx-auto ${contentClassName} relative z-10`}>
+      {children}
+    </div>
+  </section>
+);
 
 const AboutPage: React.FC = () => {
   return (
-    <div className="about-page-shell relative min-h-screen bg-gradient-to-b from-[#0b0c0f] via-[#0e1014] to-[#0b0c0f] text-white">
+    <div className="min-h-screen bg-background">
       {/* Section 1: Hero / Vision Statement */}
-      <section className="section-content pt-28 pb-16 w-full px-4 md:px-6">
-        <div className="text-center">
+      <section className="landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center pt-32 pb-20 px-6 md:px-10 text-white">
+        <div className="landing-hero-gradient__layer" aria-hidden="true" />
+        <div className="landing-hero-noise" aria-hidden="true" />
+        <div className="landing-hero-contrast" aria-hidden="true" />
+        <FluidBackground />
+
+        <div className="mx-auto max-w-5xl relative z-10 text-center">
           <p className="text-sm uppercase tracking-[0.18em] text-violet-400 mb-4">
             About BiblioKit
           </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white md:tracking-tight">
             The Story Behind BiblioKit: Reimagining the Design Workflow
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 leading-relaxed mx-auto mb-4 text-center">
+          <p className="text-xl md:text-2xl text-white/90 leading-relaxed mb-4 max-w-3xl mx-auto">
             Empowering designers to spend more time creating and less time maintaining.
           </p>
-          <p className="text-lg text-white/70 leading-relaxed mx-auto text-center">
+          <p className="text-lg text-white/70 leading-relaxed max-w-3xl mx-auto">
             BiblioKit was born out of a simple observation: design systems are growing faster than our ability to manage them. We build the tools that bridge the gap between creative vision and technical execution.
           </p>
         </div>
       </section>
 
       {/* Section 2: The Problem / The "Why" */}
-      <section className="section-content pb-16 max-w-5xl mx-auto px-4 md:px-6">
+      <Section className="border-y border-slate-800/50">
         <div className="rounded-3xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-transparent p-8 md:p-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">
             The Problem We Solve
           </h2>
           <div className="max-w-3xl mx-auto space-y-4 text-white/80 leading-relaxed">
             <p>
-              Modern design teams are bogged down by <span className="text-amber-400 font-medium">"design debt"</span>—fragmented plugin stacks, manual refactoring, and inconsistent handoffs.
+              Modern design teams are bogged down by <span className="text-amber-400 font-medium">"design debt"</span>, fragmented plugin stacks, manual refactoring, and inconsistent handoffs.
             </p>
             <p>
               We saw teams spending <span className="text-white font-semibold">40% of their time on maintenance</span> rather than innovation.
@@ -42,10 +67,10 @@ const AboutPage: React.FC = () => {
             </p>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Section 3: What We Do / The "How" */}
-      <section className="section-content pb-16 max-w-5xl mx-auto px-4 md:px-6">
+      <Section>
         <div className="rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl shadow-[0_30px_90px_rgba(0,0,0,0.45)] p-8 md:p-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-center">
             What We Build
@@ -86,10 +111,10 @@ const AboutPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Section 4: Our Values */}
-      <section className="section-content pb-16 max-w-5xl mx-auto px-4 md:px-6">
+      <Section>
         <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">
           Our Values
         </h2>
@@ -109,7 +134,7 @@ const AboutPage: React.FC = () => {
             </div>
             <div>
               <h3 className="font-semibold text-white mb-1">Seamless Integration</h3>
-              <p className="text-sm text-white/60">Our tools live where you work—no new platforms, just better workflows in Figma.</p>
+              <p className="text-sm text-white/60">Our tools live where you work. No new platforms, just better workflows in Figma.</p>
             </div>
           </div>
           <div className="flex gap-4 p-5 rounded-xl bg-white/[0.02] border border-white/5">
@@ -122,10 +147,10 @@ const AboutPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Section 5: CTA */}
-      <section className="section-content pb-24 max-w-4xl mx-auto px-4 md:px-6">
+      <Section className="pb-24" contentClassName="max-w-4xl">
         <div className="rounded-3xl border border-violet-500/20 bg-gradient-to-br from-violet-500/10 to-transparent p-8 md:p-12 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Ready to accelerate your workflow?
@@ -133,17 +158,17 @@ const AboutPage: React.FC = () => {
           <p className="text-white/70 leading-relaxed max-w-xl mx-auto mb-8">
             Join the designers and teams already using BiblioKit to ship faster and maintain less.
           </p>
-          <Button asChild size="lg" className="bg-violet-600 hover:bg-violet-500">
+          <Button asChild size="lg" className={HERO_PRIMARY_BUTTON_CLASS}>
             <a href={ROUTE_PATHS.HOME}>
               Explore the Plugin Suite
               <ArrowRight className="ml-2 w-4 h-4" />
             </a>
           </Button>
         </div>
-      </section>
+      </Section>
 
       {/* Contact */}
-      <section className="section-content pb-16 max-w-4xl mx-auto px-4 md:px-6">
+      <Section className="pt-0 pb-16" contentClassName="max-w-4xl">
         <div className="text-center">
           <p className="text-white/50 text-sm">
             Questions? Reach us at{' '}
@@ -152,7 +177,7 @@ const AboutPage: React.FC = () => {
             </a>
           </p>
         </div>
-      </section>
+      </Section>
     </div>
   );
 };

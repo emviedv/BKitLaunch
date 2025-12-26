@@ -11,16 +11,19 @@ const XLogo = (props: React.SVGProps<SVGSVGElement>) => (
 
 const products = [
   { name: 'BiblioRename', href: '/biblio-rename' },
-      { name: 'BiblioAudit', href: '/biblio-audit' },
-    { name: 'BiblioTable', href: '/biblio-table' },      { name: 'BiblioClean', href: '/biblio-clean' },];
+  { name: 'BiblioAudit', href: '/biblio-audit' },
+  { name: 'BiblioTable', href: '/biblio-table' },
+  { name: 'BiblioClean', href: '/biblio-clean' },
+];
 
 const company = [
+  { name: 'About', href: '/about' },
   { name: 'Blog', href: '/blog' },
   { name: 'Resources', href: '/resources' },
 ];
 
 const social = [
-  { name: 'Follow on X', href: 'https://twitter.com/bibliokit' }
+  { name: 'Follow on X', href: 'https://twitter.com/bibliokit' },
 ];
 
 const Footer = () => {
@@ -28,7 +31,6 @@ const Footer = () => {
     <footer className="landing-footer text-white/80 py-12">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between gap-10">
-          
           {/* Left Side: Logo and Copyright */}
           <div className="mb-8 md:mb-0 md:w-1/2">
             <a href="/" className="flex items-center mb-4 text-xl font-semibold text-white">
@@ -49,8 +51,8 @@ const Footer = () => {
               <ul className="mt-4 space-y-2">
                 {products.map((product) => (
                   <li key={product.name}>
-                    <a 
-                      href={product.href} 
+                    <a
+                      href={product.href}
                       className="text-sm text-white/80 hover:text-white transition-colors"
                       target={product.href.startsWith('http') ? '_blank' : '_self'}
                       rel={product.href.startsWith('http') ? 'noopener noreferrer' : ''}
@@ -94,11 +96,10 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-
         </div>
       </div>
     </footer>
   );
 };
 
-export default Footer; 
+export default Footer;

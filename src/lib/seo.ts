@@ -229,14 +229,14 @@ const aiRenameVariantsMetadata: SEOMetadata = {
 // Route-specific metadata configurations
 export const routeMetadata: RouteMetadata = {
   '/': {
-    title: 'BiblioKit: Figma Plugins for Streamlined Design Workflows',
-    description: "BiblioKit speeds Figma shipping for designers, developers, and marketers. Join the beta to automate audits, renaming, cleanup, and launch faster.",
+    title: 'BiblioKit - Suite of Figma Plugins & DesignOps Tools',
+    description: 'BiblioKit replaces plugin stacks with DesignOps, AI refactoring, and UX intelligence. Cut maintenance so designers, developers, and marketers ship faster.',
     keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
-    ogTitle: 'BiblioKit: Figma Plugins for Streamlined Design Workflows',
-    ogDescription: "BiblioKit speeds Figma shipping for designers, developers, and marketers. Join the beta to automate audits, renaming, cleanup, and launch faster.",
+    ogTitle: 'BiblioKit - Suite of Figma Plugins & DesignOps Tools',
+    ogDescription: 'BiblioKit replaces plugin stacks with DesignOps, AI refactoring, and UX intelligence. Cut maintenance so designers, developers, and marketers ship faster.',
     ogImage: "/og/og-default.svg",
-    twitterTitle: 'BiblioKit: Figma Plugins for Streamlined Design Workflows',
-    twitterDescription: "BiblioKit speeds Figma shipping for designers, developers, and marketers. Join the beta to automate audits, renaming, cleanup, and launch faster.",
+    twitterTitle: 'BiblioKit - Suite of Figma Plugins & DesignOps Tools',
+    twitterDescription: 'BiblioKit replaces plugin stacks with DesignOps, AI refactoring, and UX intelligence. Cut maintenance so designers, developers, and marketers ship faster.',
     twitterImage: "/og/og-default.svg",
     structuredData: [
       {

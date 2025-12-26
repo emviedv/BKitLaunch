@@ -207,6 +207,13 @@ const Header = () => {
             {navItems.map((item, index) => {
               if ((item as DropdownNavItem).type === 'dropdown') {
                 const dd = item as DropdownNavItem;
+                const isPluginsDropdown = dd.label?.trim().toLowerCase() === 'plugins';
+                const dropdownPanelClassName = isPluginsDropdown
+                  ? 'absolute top-full left-0 mt-3 w-[560px] rounded-3xl border border-white/12 bg-[#0b0c0f]/95 backdrop-blur-xl shadow-[0_32px_90px_rgba(7,5,16,0.6)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50'
+                  : 'absolute top-full left-0 mt-3 w-[380px] rounded-2xl border border-white/12 bg-[#0b0c0f] shadow-[0_26px_80px_rgba(7,5,16,0.55)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50';
+                const dropdownContentClassName = isPluginsDropdown
+                  ? 'p-5 grid gap-3 sm:grid-cols-2'
+                  : 'p-4 space-y-2';
                 return (
                   <div key={`dd-${index}`} className="relative group">
                     <button className="text-sm font-semibold text-white hover:text-[#ff2f87] transition-colors flex items-center">
@@ -215,21 +222,24 @@ const Header = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
-                    <div className="absolute top-full left-0 mt-3 w-[380px] rounded-2xl border border-white/12 bg-[#0b0c0f] shadow-[0_26px_80px_rgba(7,5,16,0.55)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                      <div className="p-4 space-y-2">
+                    <div className={dropdownPanelClassName}>
+                      <div className={dropdownContentClassName}>
                         {(dd.children || []).map((child, ci) => {
                           const href = child.href || '#';
                           const normalizedHref = href.startsWith('#') ? `/${href}` : href;
                           const ChildIcon = resolveLucideIcon(child.icon || child.label);
+                          const itemClassName = isPluginsDropdown
+                            ? 'group/item flex gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 transition-colors hover:bg-white/10 hover:border-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff2f87]'
+                            : 'flex gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-[#ff2f87]/12';
                           return (
                             <a
                               key={`dd-item-${index}-${ci}`}
                               href={normalizedHref}
                               target={child.isExternal ? '_blank' : undefined}
                               rel={linkRel(child.nofollow, !!child.isExternal)}
-                              className="flex gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-[#ff2f87]/12"
+                              className={itemClassName}
                             >
-                              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10">
+                              <span className={isPluginsDropdown ? 'flex h-10 w-10 items-center justify-center rounded-2xl bg-[#ff2f87]/14 text-white border border-white/10' : 'flex h-9 w-9 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10'}>
                                 <ChildIcon className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
                               </span>
                               <span className="flex-1 text-left">
