@@ -308,7 +308,6 @@ export const routeMetadata: RouteMetadata = {
           "description": "BiblioKit is a unified suite of Figma plugins designed for the modern DesignOps era. We build tools that bridge the gap between creative vision and technical execution.",
           "url": "https://www.bibliokit.com",
           "logo": "https://www.bibliokit.com/logo.svg",
-          "industry": "Software Application",
           "slogan": "Empowering designers to spend more time creating and less time maintaining"
         }
       }
@@ -798,7 +797,6 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
     url: baseUrl,
     description: 'BiblioKit is a software company building Figma plugins and DesignOps tools. We help designers, developers, and marketers automate audits, renaming, cleanup, and ship faster.',
     slogan: 'Figma Plugins & DesignOps Tools',
-    industry: 'Software Application',
     logo: `${baseUrl}/logo.svg`,
     sameAs: socialProfiles.length ? socialProfiles : undefined,
     contactPoint,

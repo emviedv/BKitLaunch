@@ -2,6 +2,12 @@
 
 ## 2025-12-26
 
+- **Time:** 2025-12-27 01:19 EST
+- **Summary:** Removed Organization `industry` fields to resolve Schema.org validation errors.
+- **Root Cause:** The `industry` property is not recognized by Schema.org, so validators flagged it.
+- **Changed Files:** AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md; index.html; src/lib/seo.ts
+- **Verification:** Not run (structured data update only).
+
 - **Time:** 2025-12-26 23:16 EST
 - **Summary:** Added Organization logo data and SoftwareApplication image fields for rich result validation.
 - **Root Cause:** The Organization schema on the About page lacked a logo, and SoftwareApplication entries were missing image URLs.
