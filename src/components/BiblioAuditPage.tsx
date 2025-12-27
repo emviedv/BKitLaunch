@@ -35,7 +35,7 @@ const BiblioAuditPage = () => {
   const biblioAuditHeroImageDimensions = getImageDimensions('/media/biblio-audit-hero.png');
   const faqs = [
     { question: "Does it work with any design system?", answer: "Yes. BiblioAudit checks against your local styles and enabled libraries." },
-    { question: "Can I fix errors automatically?", answer: "Many errors, like simple style mismatches or reset overrides, can be fixed with one click." },
+    { question: "Does it change my file?", answer: "No. BiblioAudit surfaces issues and jumps you to the exact layers so you can decide what to update." },
     { question: "Is it safe to run on large files?", answer: "Yes. BiblioAudit is optimized for performance and handles large files by scanning on demand." },
     { question: "Is BiblioAudit free?", answer: "Yes, BiblioAudit is currently free to use for all features." },
   ];
@@ -76,7 +76,7 @@ const BiblioAuditPage = () => {
             Stop shipping<br className="hidden md:block" /> broken files.
           </h1>
           <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
-            Find detached instances, validate tokens, and fix design system drift instantly. Keep designers, developers, and marketers aligned before handoff.
+            Find detached instances, validate tokens, and surface design system drift instantly. Keep designers, developers, and marketers aligned before handoff.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
@@ -151,12 +151,12 @@ const BiblioAuditPage = () => {
           <div className="inline-block bg-green-500/10 text-green-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-green-500/20">
             Typical Result: 100% System Compliance
           </div>
-          <SectionTitle>See BiblioAudit in Action: Audit & Bulk-Fix Figma Design Errors</SectionTitle>
+          <SectionTitle>See BiblioAudit in Action: Audit & Flag Figma Design Errors</SectionTitle>
         </div>
         
         <div className="grid md:grid-cols-12 gap-8 mb-12">
            <div className="md:col-span-8">
-              <PlaceholderImage label="GIF: Run Audit -> See 50 Errors -> Bulk Fix" height="h-96" />
+              <PlaceholderImage label="GIF: Run Audit -> See 50 Errors -> Bulk Flag" height="h-96" />
            </div>
            <div className="md:col-span-4 flex flex-col gap-4">
               <PlaceholderImage label="Before/After: Error List" height="h-28" className="bg-slate-800" />
@@ -195,9 +195,9 @@ const BiblioAuditPage = () => {
           </div>
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center font-bold text-white z-10">3</div>
-            <PlaceholderImage label="Step 3: Fix Instantly" height="h-64" />
-            <h3 className="text-xl font-bold mt-6 mb-2">Automated Remediation</h3>
-            <p className="text-slate-400">Click to locate the error or use auto-fix to reset overrides and reattach instances.</p>
+            <PlaceholderImage label="Step 3: Review Issues" height="h-64" />
+            <h3 className="text-xl font-bold mt-6 mb-2">Guided Review</h3>
+            <p className="text-slate-400">Click to locate each issue and jump to the exact layer for review.</p>
           </div>
         </div>
       </Section>
@@ -277,12 +277,12 @@ const BiblioAuditPage = () => {
                 </a>
               </Button>
               <p className="mt-4 text-sm text-cyan-100">
-                Fix detached instances fast with{' '}
+                Clear prototype links fast with{' '}
                 <a
-                  href="/blog/fix-detached-instances-figma"
+                  href="https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines"
                   className="text-cyan-200 underline underline-offset-4 hover:text-white"
                 >
-                  Fix Detached Instances in Figma
+                  BiblioClean
                 </a>{' '}
                 for designers, developers, and marketers.
               </p>
@@ -307,7 +307,7 @@ const BiblioAuditPage = () => {
 
       {/* Block 8: FAQ */}
       <Section dark>
-        <SectionTitle className="text-center mb-12">See BiblioAudit in Action: Audit &amp; Bulk-Fix Figma Design Errors</SectionTitle>
+        <SectionTitle className="text-center mb-12">See BiblioAudit in Action: Audit &amp; Flag Figma Design Errors</SectionTitle>
         <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 

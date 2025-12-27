@@ -267,21 +267,21 @@ const BiblioCleanPage = () => {
                 </a>
               </Button>
               <p className="mt-4 text-sm text-blue-100">
-                Keep designers, developers, and marketers aligned with{' '}
+                Audit for drift with{' '}
                 <a
-                  href="/resources/remove-prototype-link"
+                  href="https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check"
                   className="text-blue-200 underline underline-offset-4 hover:text-white"
                 >
-                  Manage Figma Prototype Links
+                  BiblioAudit
                 </a>{' '}
-                and{' '}
+                and standardize naming with{' '}
                 <a
-                  href="/blog/remove-prototype-links-in-figma"
+                  href="https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted"
                   className="text-blue-200 underline underline-offset-4 hover:text-white"
                 >
-                  Remove Prototype Links in Figma
-                </a>
-                .
+                  BiblioRename
+                </a>{' '}
+                for designers, developers, and marketers.
               </p>
             </div>
             <div className="flex justify-center">

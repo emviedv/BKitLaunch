@@ -2,6 +2,24 @@
 
 ## 2025-12-27
 
+- **Time:** 2025-12-27 09:46 EST
+- **Summary:** Pointed product callout links to the official Figma Community listings instead of internal product routes.
+- **Root Cause:** The updated product CTAs linked to internal pages, but the requirement is to send users directly to the Figma plugin pages.
+- **Changed Files:** AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/components/RemovePrototypeLinkPage.tsx
+- **Verification:** Not run (link update only).
+
+- **Time:** 2025-12-27 09:43 EST
+- **Summary:** Replaced non-product CTA links with Biblio product CTAs on the BiblioAudit, BiblioClean, and Remove Prototype Link pages.
+- **Root Cause:** Product and resource CTAs pointed to blog or resource content that read like product callouts.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/components/RemovePrototypeLinkPage.tsx
+- **Verification:** Not run (copy update only).
+
+- **Time:** 2025-12-27 09:28 EST
+- **Summary:** Removed fix language from the BiblioAudit product page copy to avoid auto-fix claims.
+- **Root Cause:** The page copy used fix/auto-fix phrasing that conflicts with the requirement to describe BiblioAudit as surfacing issues.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/BiblioAuditPage.tsx
+- **Verification:** Not run (copy update only).
+
 - **Time:** 2025-12-27 03:36 EST
 - **Summary:** Adjusted landing hero description width, cleaned hero copy, and refreshed header dropdown labels/icons.
 - **Root Cause:** The landing hero description was still capped at a narrower max width with outdated wording, and the header dropdowns did not reflect the updated labeling and plugin icon coverage.
