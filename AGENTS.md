@@ -7,9 +7,12 @@
 - When Emily notes that something “should have been done” a certain way, capture that guidance here as a concise rule (add a brief example when useful).
 - When creating a commit, always add the update to `AGENTS.md` to keep rules current.
 - Products are built for designers, developers, and marketers—keep language inclusive of all three.
+- Always use designer, developer, and marketing vocabulary in customer-facing copy (e.g., design systems, handoff, implementation, launch, campaigns).
 - IndexNow submissions should include the full sitemap URL list (blog + product pages), not just top-level URLs.
 - Netlify IndexNow deploy plugin should submit the full sitemap URL list (fetch `/sitemap.xml` and include every `<loc>` URL), not only the sitemap URL itself.
 - Blog posts must be added to `BLOG_POSTS` so sitemap.xml auto-includes `/blog/{slug}` entries (e.g., add the slug in `src/data/blogPosts.ts`).
+- Blog post excerpts and meta descriptions must be punchy, benefit-driven, and post-specific (e.g., "Build scannable Figma tables fast with Auto Layout patterns that stay intact.").
+- Blog post descriptions should focus on the post topic benefits, do not force the "designers, developers, and marketers" phrase unless it is genuinely relevant.
 - Success feedback surfaces must cap padding at 20px (e.g., waitlist success message stays tight with `p-5`).
 - When applying a specific rule from this file, explicitly mention it in the conversation for clarity (e.g., “Applying Debug Log Policy” or “Following Commit Guidelines”).
 - Use action/benefit-driven marketing copy (e.g., “Work x10,000 faster.”) whenever writing or updating customer-facing text.

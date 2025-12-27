@@ -176,6 +176,13 @@ export const buildSitemapXml = (baseUrl: string): string => {
       images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Blog' }]
     },
     {
+      path: '/products',
+      lastmod: defaultLastmod,
+      changefreq: 'weekly',
+      priority: '0.7',
+      images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Products' }]
+    },
+    {
       path: '/resources',
       lastmod: defaultLastmod,
       changefreq: 'monthly',

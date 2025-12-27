@@ -23,6 +23,13 @@ interface BlogArticlePageProps {
 
 const blogCardHoverClass =
   'group flex h-full flex-col transition hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
+const BLOG_HERO_TITLE_CLASS =
+  'text-4xl sm:text-5xl md:text-6xl font-sans font-extrabold leading-[1.1] tracking-normal sm:tracking-[-0.01em] text-white';
+const BLOG_HERO_CONTENT_WIDTH_CLASS = 'w-full max-w-[70%]';
+const BLOG_HERO_TITLE_CLAMP_LINES = 4;
+const BLOG_HERO_DESCRIPTION_WIDTH_CLASS = 'max-w-full';
+const BLOG_CARD_IMAGE_CLASS = 'h-[140px] w-full object-cover';
+const BLOG_CARD_IMAGE_WRAPPER_CLASS = 'mb-4 overflow-hidden rounded-lg bg-white/10';
 
 const blogImageDebugEnabled = () => {
   if (typeof process !== 'undefined') {
@@ -170,6 +177,46 @@ const summarizePost = (post: BlogPost | null | undefined, maxSentences = 3): str
   return summary || source.trim();
 };
 
+const dropFirstSentence = (text: string): string => {
+  const trimmed = text.trim();
+  if (!trimmed) return '';
+
+  const sentences = trimmed.split(/(?<=[.!?])\s+/).filter(Boolean);
+  if (sentences.length <= 1) {
+    return trimmed;
+  }
+
+  const firstSentence = sentences[0] ?? '';
+  const isGenericLead = /^(BiblioKit|BiblioAudit|BiblioClean|BiblioRename|BiblioTable|BiblioStart|BiblioStates|BiblioScale|BiblioUX|UXBiblio|BiblioMotion|BiblioAttach)\b/i
+    .test(firstSentence.trim());
+  if (!isGenericLead) {
+    return trimmed;
+  }
+
+  return sentences.slice(1).join(' ').trim();
+};
+
+const renderCardImage = (post: BlogPost) => {
+  if (!post?.heroImage) return null;
+
+  const imageDimensions = getImageDimensions(post.heroImage);
+  const imageAlt = post.heroImageAlt?.trim() || `${post.title} illustration`;
+
+  return (
+    <div className={BLOG_CARD_IMAGE_WRAPPER_CLASS}>
+      <img
+        src={post.heroImage}
+        alt={imageAlt}
+        className={BLOG_CARD_IMAGE_CLASS}
+        width={imageDimensions?.width}
+        height={imageDimensions?.height}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  );
+};
+
 const BlogFAQSection: React.FC<{ faqs: BlogFAQ[] }> = ({ faqs }) => {
   useSchema(createFAQSchema(faqs), 'blog-faq-schema');
 
@@ -193,6 +240,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
   const post = findBlogPostBySlug(slug);
   const pagePath = `/blog/${slug}`;
   const summary = summarizePost(post);
+  const heroSummary = summary ? dropFirstSentence(summary) : '';
   const postIndex = BLOG_POSTS.findIndex((entry) => entry.slug === slug);
   const previousPost = postIndex > 0 ? BLOG_POSTS[postIndex - 1] : null;
   const nextPost = postIndex >= 0 && postIndex < BLOG_POSTS.length - 1 ? BLOG_POSTS[postIndex + 1] : null;
@@ -230,7 +278,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
       : undefined
   );
 
-  const heroDescription = summary ? renderTextWithLinks(summary) : null;
+  const heroDescription = heroSummary ? renderTextWithLinks(heroSummary) : null;
   const updatedDate =
     (post as any)?.lastUpdated ||
     (post as any)?.updatedAt ||
@@ -242,7 +290,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
         title: post.title,
         subtitle: null,
         description: post.slug === 'remove-prototype-links-in-figma' ? null : heroDescription,
-        align: 'left',
+        align: 'center',
         primaryButton: null,
         primaryButtonLink: null,
         secondaryButton: null,
@@ -263,7 +311,16 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
   if (!post) {
     return (
       <div className="bg-gradient-to-b from-white via-slate-50 to-slate-100/60 text-foreground">
-        <LandingHero hero={resolvedHero} compact />
+        <LandingHero
+          hero={resolvedHero}
+          compact
+          titleClassName={BLOG_HERO_TITLE_CLASS}
+          contentMaxWidthClassName={BLOG_HERO_CONTENT_WIDTH_CLASS}
+          titleClampLines={BLOG_HERO_TITLE_CLAMP_LINES}
+          descriptionMaxWidthClassName={BLOG_HERO_DESCRIPTION_WIDTH_CLASS}
+          descriptionClassName="text-[1.4rem]"
+          disableCursorEffects
+        />
         <section className="section-content pb-16">
           <div className="mx-auto max-w-3xl rounded-[28px] border border-slate-200/70 bg-white/80 p-8 text-center shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur">
             <p className="text-base text-muted-foreground">
@@ -286,7 +343,16 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
   return (
     <div className="landing-sections-gradient text-white min-h-screen">
       <div className="blog-hero">
-        <LandingHero hero={resolvedHero} compact />
+        <LandingHero
+          hero={resolvedHero}
+          compact
+          titleClassName={BLOG_HERO_TITLE_CLASS}
+          contentMaxWidthClassName={BLOG_HERO_CONTENT_WIDTH_CLASS}
+          titleClampLines={BLOG_HERO_TITLE_CLAMP_LINES}
+          descriptionMaxWidthClassName={BLOG_HERO_DESCRIPTION_WIDTH_CLASS}
+          descriptionClassName="text-[1.4rem]"
+          disableCursorEffects
+        />
       </div>
       <article className="section-content pb-20 pt-6">
         <div className="mx-auto w-full max-w-[780px] mb-4 flex items-start">
@@ -322,6 +388,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
                   className={`rounded-2xl border border-white/10 bg-white/5 p-4 ${blogCardHoverClass}`}
                   aria-label={`Read the previous article: ${previousPost.title}`}
                 >
+                  {renderCardImage(previousPost)}
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Before</p>
                   <p className="mt-1 text-lg font-normal text-[#ffb3d4]">
                     {previousPost.title}
@@ -340,6 +407,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
                   className={`rounded-2xl border border-white/10 bg-white/5 p-4 ${blogCardHoverClass}`}
                   aria-label={`Read the next article: ${nextPost.title}`}
                 >
+                  {renderCardImage(nextPost)}
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Next</p>
                   <p className="mt-1 text-lg font-normal text-[#ffb3d4]">
                     {nextPost.title}
@@ -370,6 +438,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
                   className={`rounded-2xl border border-white/10 bg-white/5 p-4 ${blogCardHoverClass}`}
                   aria-label={`Read related article: ${relatedPost.title}`}
                 >
+                  {renderCardImage(relatedPost)}
                   <p className="mt-1 text-lg font-normal text-[#ffb3d4]">
                     {relatedPost.title}
                   </p>

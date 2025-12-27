@@ -31,6 +31,7 @@ type ProductDetail = {
   mediaComponent?: string;
   mediaUrl?: string;
   mediaAlt?: string;
+  mediaLoading?: 'lazy' | 'eager';
   mediaExamples?: any[];
   mediaBlueprint?: any;
   mediaProgress?: any;

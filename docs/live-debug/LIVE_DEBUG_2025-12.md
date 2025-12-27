@@ -2,6 +2,12 @@
 
 ## 2025-12-27
 
+- **Time:** 2025-12-27 10:01 EST
+- **Summary:** Set blog post hero description font size to 1.4rem.
+- **Root Cause:** Blog hero descriptions were still using the default hero size instead of the requested 1.4rem.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/BlogArticlePage.tsx; src/components/LandingHero.tsx
+- **Verification:** Not run (style update only).
+
 - **Time:** 2025-12-27 09:46 EST
 - **Summary:** Pointed product callout links to the official Figma Community listings instead of internal product routes.
 - **Root Cause:** The updated product CTAs linked to internal pages, but the requirement is to send users directly to the Figma plugin pages.
@@ -1369,3 +1375,95 @@
 - **Root Cause:** The design-dev-gap-2026 blog content linked to the plugin ID without the official listing slug, which triggered the 403 external-resource report.
 - **Changed Files:** src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (click the updated blog links after deploy).
+
+## 2025-12-27
+
+- **Time:** 2025-12-27 07:54 EST
+- **Summary:** Increased blog article hero height and centered hero text to prevent clipped titles.
+- **Root Cause:** Blog heroes used the compact layout with auto min-height while the hero text was absolutely positioned, so longer titles overflowed the short container.
+- **Changed Files:** src/components/BlogArticlePage.tsx; src/index.css; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check the blog article hero on a long title).
+
+- **Time:** 2025-12-27 08:05 EST
+- **Summary:** Reduced blog post hero title sizes by two type steps to soften oversized headings.
+- **Root Cause:** Blog hero titles remained sized for the landing hero, which read too large for article pages.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check blog post hero typography across breakpoints).
+
+- **Time:** 2025-12-27 08:07 EST
+- **Summary:** Set blog post hero content max width to 70% to tighten the title measure.
+- **Root Cause:** Blog hero content defaulted to the general hero max width, leaving titles too wide.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check blog post hero width on desktop/mobile).
+
+- **Time:** 2025-12-27 08:11 EST
+- **Summary:** Enabled wrapping for blog hero titles to prevent single-line overflow in the 70% width layout.
+- **Root Cause:** Blog hero title spans forced nowrap when no clamp was set, so long titles overflowed and clipped inside the hero.
+- **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check blog hero title wrapping).
+
+- **Time:** 2025-12-27 08:15 EST
+- **Summary:** Set the blog page hero description to a 90% max width and rendered it as an H2 with paragraph sizing.
+- **Root Cause:** The blog hero description was full width and used a paragraph tag instead of the requested H2 structure.
+- **Changed Files:** src/components/BlogPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check the blog hero description width/typography).
+
+- **Time:** 2025-12-27 08:16 EST
+- **Summary:** Expanded the blog page hero description to full width.
+- **Root Cause:** The hero description max width was set below 100%, which did not match the updated request.
+- **Changed Files:** src/components/BlogPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check the blog hero description width).
+
+- **Time:** 2025-12-27 08:19 EST
+- **Summary:** Set blog post hero descriptions to full width within the hero content block.
+- **Root Cause:** Blog article heroes inherited the default `max-w-xl` description width from the shared hero component.
+- **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check the blog post hero description width).
+
+- **Time:** 2025-12-27 08:20 EST
+- **Summary:** Disabled cursor animation overlays on blog post heroes.
+- **Root Cause:** The shared hero component always rendered animated cursor overlays, which was undesired for blog pages.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check blog post hero has no cursor animations).
+
+- **Time:** 2025-12-27 08:24 EST
+- **Summary:** Added hero images to blog post next/previous and related article cards with explicit dimensions.
+- **Root Cause:** Blog article navigation and related cards lacked images, reducing visual context for the linked posts.
+- **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check next/previous and related cards show images).
+
+- **Time:** 2025-12-27 08:26 EST
+- **Summary:** Replaced the BiblioTable dropdown icon with the latest marketing asset.
+- **Root Cause:** Dropdown icon still used the previous BiblioTable icon file.
+- **Changed Files:** public/media/icons/biblio-table-icon.png; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check the dropdown icon).
+
+- **Time:** 2025-12-27 08:36 EST
+- **Summary:** Dropped the first sentence from blog post hero summaries so only the second line shows.
+- **Root Cause:** Blog hero summaries reused two-sentence meta descriptions that started with a generic BiblioKit line.
+- **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check blog post hero descriptions).
+
+- **Time:** 2025-12-27 08:42 EST
+- **Summary:** Only remove the first blog hero sentence when it starts with a generic Biblio product lead.
+- **Root Cause:** Blanket removal stripped relevant first sentences on posts where the opening line was already post-specific.
+- **Changed Files:** src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check blog hero descriptions remain post-specific).
+
+- **Time:** 2025-12-27 08:42 EST
+- **Summary:** Reduced blog post hero minimum height by 120px.
+- **Root Cause:** Blog hero min height was taller than requested after recent hero adjustments.
+- **Changed Files:** src/index.css; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check blog hero height).
+
+- **Time:** 2025-12-27 09:10 EST
+- **Summary:** Made blog post excerpts and meta descriptions punchy and benefit-driven for every post.
+- **Root Cause:** Blog descriptions were long or generic, so hero summaries and listings did not highlight clear outcomes.
+- **Changed Files:** src/data/blogPosts.ts; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (review blog list and hero summaries).
+
+- **Time:** 2025-12-27 09:14 EST
+- **Summary:** Removed forced audience phrasing from blog meta descriptions while keeping benefits post-specific.
+- **Root Cause:** Descriptions reused the "designers, developers, and marketers" phrasing even when it did not fit the post summary.
+- **Changed Files:** src/data/blogPosts.ts; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (review blog meta descriptions).

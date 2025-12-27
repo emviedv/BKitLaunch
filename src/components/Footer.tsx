@@ -10,6 +10,7 @@ const XLogo = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const products = [
+  { name: 'All Products', href: '/products' },
   { name: 'BiblioRename', href: '/biblio-rename' },
   { name: 'BiblioAudit', href: '/biblio-audit' },
   { name: 'BiblioTable', href: '/biblio-table' },

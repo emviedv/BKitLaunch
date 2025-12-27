@@ -1947,13 +1947,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Design Systems',
     readingTime: '6 min read',
     excerpt:
-      'For design system maintainers, 2026 marks the shift from static sticker sheets to variable-driven logic that mirrors production code. Whether you are auditing a legacy system or building a new one from scratch, this guide covers the essential architecture, workflows, and tooling you need to stay competitive.',
+      'Upgrade your 2026 design system with variable-first architecture, AI cleanup, and Code Connect so teams ship faster.',
     heroImage: buildHeroImagePath('complete-guide-design-systems-figma-2026/hero-design-systems-figma-2026.png'),
     heroImageAlt: 'The Complete Guide to Design Systems in Figma',
     lastUpdated: '2025-12-23',
     metaTitle: 'BiblioKit 2026 Design Systems Guide: Scale Figma Faster',
     metaDescription:
-      'BiblioKit helps designers, developers, and marketers modernize Figma design systems for 2026. Use variables, AI cleanup, and Code Connect to scale.',
+      'Upgrade Figma design systems for 2026 with variable-first architecture, AI cleanup, and Code Connect to scale without drift.',
     content: completeGuideDesignSystemsFigma2026Content
   },
   {
@@ -1962,13 +1962,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Design Systems',
     readingTime: '5 min read',
     excerpt:
-      'Bridge the design-dev gap with five 2026 component library shifts that keep designers, developers, and marketers aligned with code.',
+      'Close the 2026 design-dev gap with five library shifts that keep tokens, components, and teams in sync.',
     heroImage: buildHeroImagePath('design-dev-gap-2026/hero-component-library.png'),
     heroImageAlt: 'Design system component library floating in a modern office.',
     lastUpdated: '2025-12-22',
     metaTitle: '2026 Design-Dev Gap: 5 Shifts to Close It',
     metaDescription:
-      'BiblioKit helps designers, developers, and marketers close the design-dev gap in 2026. Apply five library shifts to keep tokens and code aligned.',
+      'Close the 2026 design-dev gap with five component library shifts that align tokens with production code.',
     content: designDevGap2026Content
   },
   {
@@ -1977,13 +1977,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Figma Plugins',
     readingTime: '4 min read',
     excerpt:
-      'The right plugin stack can shave hours off your work week, turning tedious chores into one-click actions.',
+      'Build a lean Figma plugin stack that wipes busywork and saves hours every week.',
     heroImage: buildHeroImagePath('ultimate-figma-plugin-stack/hero-figma-plugin-stack.png'),
     heroImageAlt: 'Figma UI showing Unsplash plugin panels and a photo grid on a desktop monitor',
     lastUpdated: '2025-12-22',
     metaTitle: 'The Ultimate Figma Plugin Stack: 8 Tools to Save You Hours Every Week',
     metaDescription:
-      "BiblioKit's Figma plugin stack helps designers, developers, and marketers save hours. Install 8 essential tools for faster docs, content, and cleanup.",
+      'Install 8 Figma plugins that cut renaming, cleanup, and docs time so your team saves hours every week.',
     content: ultimateFigmaPluginStackContent
   },
   {
@@ -1992,13 +1992,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Figma Plugins',
     readingTime: '5 min read',
     excerpt:
-      'Reclaim time for designers, developers, and marketers by automating renaming, audits, states, tables, and cleanup with Figma plugins.',
+      'Automate renaming, audits, states, tables, and cleanup so your Figma workflow runs in minutes, not hours.',
     heroImage: buildHeroImagePath('figma-workflow-automation-tools/figma-workflow-automation-hero.png'),
     heroImageAlt: 'Figma canvas showing a website mockup filled with colorful button styles',
     lastUpdated: '2025-12-21',
     metaTitle: 'Figma Workflow Automation: Tools to Ship Faster',
     metaDescription:
-      'BiblioKit speeds Figma workflows for designers, developers, and marketers. Automate renaming, audits, states, tables, and cleanup to save hours.',
+      'Automate Figma renaming, audits, states, tables, and cleanup so your team ships faster each sprint.',
     content: figmaWorkflowAutomationToolsContent
   },
   {
@@ -2007,13 +2007,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'UI Design',
     readingTime: '4 min read',
     excerpt:
-      'Designing tables in Figma used to be a nightmare of manual resizing and broken layouts.',
+      'Build clean, scannable Figma tables fast with Auto Layout patterns that stay intact.',
     heroImage: buildHeroImagePath('effortless-table-design-figma/table-status-hero.png'),
     heroImageAlt: 'Table UI with status badges, dates, and user names, highlighting an active row',
     lastUpdated: '2025-12-21',
     metaTitle: 'Figma Table Design: Build Clean Data Grids Fast',
     metaDescription:
-      'BiblioKit shows designers, developers, and marketers how to build Figma tables faster. Follow Auto Layout steps to keep data grids scannable.',
+      'Build scannable Figma tables fast with Auto Layout patterns that keep rows aligned.',
     content: effortlessTableDesignFigmaContent
   },
   {
@@ -2022,13 +2022,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'UI Design',
     readingTime: '6 min read',
     excerpt:
-      "Ever feel like tables are the unsung heroes of UI design? They might not have the flashy appeal of a hero banner, but let's be real: tables are the backbone of how we present complex data.",
+      'Fix messy tables with Auto Layout techniques that keep data aligned and dashboards crisp.',
     heroImage: buildHeroImagePath('effortless-table-design/effortless-table-design-hero.png'),
     heroImageAlt: 'Table UI listing team members with roles and last activity timestamps',
     lastUpdated: '2025-12-14',
     metaTitle: 'BiblioKit: Effortless Table Design in Figma',
     metaDescription:
-      'BiblioKit helps designers, developers, and marketers fix Figma table layouts fast. Use Auto Layout practices to align data and ship cleaner dashboards.',
+      'Use Auto Layout to align Figma tables, reduce rework, and ship cleaner dashboards.',
     twitterTitle: 'Solve Auto-Layout Issues with Perfect Table Design #UIDesign',
     content: tableDesignContent
   },
@@ -2038,13 +2038,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'UI Design',
     readingTime: '8 min read',
     excerpt:
-      "You know that feeling when you interact with an app or website, and everything just... works? It feels intuitive. You click something, and it reacts. You hover, and it shows you it's clickable. That's not magic, my friend. That's the power of UI component states.",
+      'Define hover, focus, error, and loading states so your UI feels reliable and accessible.',
     heroImage: buildHeroImagePath('ui-component-states/dashboard-dark.png'),
     heroImageAlt: 'Dark dashboard UI showing toggles, buttons, and charts for state examples',
     lastUpdated: '2025-12-14',
     metaTitle: 'Master UI Component States: BiblioKit\'s Design Guide',
     metaDescription:
-      'BiblioKit helps designers, developers, and marketers master UI component states. Use hover, focus, and error patterns to make interfaces feel reliable.',
+      'Master UI component states so interfaces feel reliable, accessible, and consistent.',
     twitterTitle: 'Boost UI with Mastered Component States! #UIDesign',
     content: componentStatesContent
   },
@@ -2054,13 +2054,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Figma Plugins',
     readingTime: '4 min read',
     excerpt:
-      'Turn on Auto Layout Wrap, keep components responsive, and audit fixed-width layers so Figma layouts do not break when screens change.',
+      'Turn on Auto Layout Wrap to keep components responsive and stop layout breaks on resize.',
     heroImage: buildHeroImagePath('auto-layout-wrap/auto-layout-wrap-hero.png'),
     heroImageAlt: 'Abstract responsive grid illustration showing Auto Layout Wrap adapting to screen sizes',
     lastUpdated: '2025-11-28',
     metaTitle: 'Figma Auto Layout Wrap Guide 2025: Master It with BiblioKit',
     metaDescription:
-      'BiblioKit helps designers, developers, and marketers master Figma Auto Layout Wrap. Turn on wrap, fix layout bugs, and ship responsive components.',
+      'Master Figma Auto Layout Wrap so responsive components stay intact without layout bugs.',
     content: autoLayoutWrapContent
   },
   {
@@ -2069,13 +2069,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Figma Plugins',
     readingTime: '7 min read',
     excerpt:
-      'Find and fix detached Figma instances fast so your design system stays consistent and your files stay light—no manual hunts.',
+      'Find detached instances fast so your design system stays consistent and files stay light.',
     heroImage: buildHeroImagePath('detached-instances/image-hero-8_23-2.jpeg'),
     heroImageAlt: 'Broken chain between a design system gem and a detached Figma component',
     lastUpdated: '2025-12-07',
     metaTitle: 'Fix Figma Detached Instances: BiblioKit\'s 2025 Guide',
     metaDescription:
-      'BiblioKit helps designers, developers, and marketers fix detached instances fast. Follow the 2025 cleanup steps to keep your design system linked.',
+      'Spot detached instances fast so Figma systems stay linked without drift.',
     content: detachedInstancesContent
   },
   {
@@ -2084,13 +2084,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Figma Plugins',
     readingTime: '6 min read',
     excerpt:
-      'Figma makes it easy to build polished interfaces and prototypes. As files evolve, you may need to strip prototype links to refresh interactions or start clean while keeping your workflow smooth.',
+      'Strip prototype links safely so your Figma file stays clean when you need a fresh build.',
     heroImage: buildHeroImagePath('remove-prototype-links/hero-abstract.svg'),
     heroImageAlt: 'Abstract interface blocks illustration',
     lastUpdated: '2025-11-26',
     metaTitle: 'Remove Figma Links: BiblioKit\'s Safe Guide (2025)',
     metaDescription:
-      'BiblioKit helps designers, developers, and marketers remove prototype links safely. Revoke stale URLs and share the right build in minutes.',
+      'Remove Figma prototype links safely so you share the right build without broken flows.',
     content: removePrototypeLinksContent,
     faqs: removePrototypeLinksFaqs
   },
@@ -2100,13 +2100,13 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Design Systems',
     readingTime: '9 min read',
     excerpt:
-      'Build living design system guidelines that keep designers, developers, and marketers aligned with clear principles, Figma workflows, and governance that ship faster.',
+      'Create design system guidelines that keep teams aligned, reduce drift, and speed handoff.',
     heroImage: buildHeroImagePath('design-system-guidelines/hero-1.jpg'),
     heroImageAlt: 'Desktop monitor showing design system components alongside a notebook, pen, mug, and color swatches',
     lastUpdated: '2025-12-14',
     metaTitle: 'BiblioKit\'s Design System Guidelines: A Figma Guide',
     metaDescription:
-      'BiblioKit helps designers, developers, and marketers align on design system guidelines. Use governance steps that keep components consistent.',
+      'Build design system guidelines that keep components consistent and shipping speeds up.',
     twitterTitle: 'Design Systems: Clarity & Governance in Figma #DesignSystems',
     content: designSystemGuidelinesContent,
     faqs: designSystemGuidelinesFaqs

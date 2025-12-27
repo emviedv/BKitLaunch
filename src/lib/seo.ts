@@ -324,6 +324,17 @@ export const routeMetadata: RouteMetadata = {
     twitterDescription: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
     twitterImage: '/og/og-default.svg'
   },
+  '/products': {
+    title: 'BiblioKit Products: Figma Plugins to Ship Faster',
+    description: 'Explore every BiblioKit plugin to audit, rename, clean, and launch faster. Built for designers, developers, and marketers.',
+    keywords: 'BiblioKit products, Figma plugins, design ops automation, Figma audits, rename layers, prototype cleanup',
+    ogTitle: 'BiblioKit Products: Figma Plugins to Ship Faster',
+    ogDescription: 'Explore every BiblioKit plugin to audit, rename, clean, and launch faster. Built for designers, developers, and marketers.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'BiblioKit Products: Figma Plugins to Ship Faster',
+    twitterDescription: 'Explore every BiblioKit plugin to audit, rename, clean, and launch faster. Built for designers, developers, and marketers.',
+    twitterImage: '/og/og-default.svg'
+  },
   '/admin': {
     title: "BiblioKit Admin Dashboard - Content Management",
     description: "Manage your BiblioKit content, settings, and configurations through the admin dashboard.",

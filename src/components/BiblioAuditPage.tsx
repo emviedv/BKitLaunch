@@ -167,11 +167,15 @@ const BiblioAuditPage = () => {
            </div>
         </div>
         
-        <div className="flex justify-center items-center gap-8 opacity-50 grayscale">
+        <div className="flex flex-wrap justify-center items-center gap-8 opacity-50 grayscale">
             <span className="text-sm font-semibold uppercase tracking-wider">Trusted by</span>
             {/* Using text for logos as placeholders */}
             <span className="font-bold text-lg">Design System Teams</span>
             <span className="font-bold text-lg">QA Leads</span>
+            <span className="font-bold text-lg">Design Ops</span>
+            <span className="font-bold text-lg">Product Designers</span>
+            <span className="font-bold text-lg">Frontend Engineers</span>
+            <span className="font-bold text-lg">Brand Teams</span>
         </div>
       </Section>
 
@@ -237,6 +241,22 @@ const BiblioAuditPage = () => {
               <p className="text-slate-300 text-lg mb-6">Identify instances with heavy manual overrides that should be variants. Keep your components clean and predictable.</p>
             </div>
             <PlaceholderImage label="Screenshot: Override Analysis" />
+          </div>
+
+          {/* Feature 4 */}
+          <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+             <div className="md:col-start-2">
+              <h3 className="text-2xl font-bold mb-4">Track a Health Score Over Time</h3>
+              <p className="text-slate-300 text-lg mb-6">Get a single health score that surfaces system drift at a glance, then review score history across audits to prove progress.</p>
+              <ul className="text-sm text-slate-400 space-y-2">
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Health score rolls up detached instances, token drift, and overrides</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> History shows score changes per audit run</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Share progress with your team before handoff</li>
+              </ul>
+            </div>
+            <div className="md:col-start-1">
+               <PlaceholderImage label="Screenshot: Health Score History" />
+            </div>
           </div>
         </div>
       </Section>

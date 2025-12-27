@@ -33,9 +33,9 @@ const BlogPage: React.FC = () => {
                 <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
                   BiblioKit Blog: From Kickoff to Ship with Figma Workflows &amp; Tools
                 </h1>
-                <p className="mt-3 text-lg text-white/80">
+                <h2 className="mt-3 max-w-full text-lg font-normal text-white/80">
                   From kickoff to ship: tools and workflows that keep designers, developers, and marketers on one page. Short, practical playbooks you can apply in the next sprint.
-                </p>
+                </h2>
               </div>
               {featuredPost && (
                 <article className="flex flex-col gap-4 text-left text-white">

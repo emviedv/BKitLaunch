@@ -651,6 +651,10 @@
     display: none;
   }
 
+  .blog-hero .landing-hero-compact-tight {
+    min-height: clamp(360px, 70vh, 600px);
+  }
+
   /* Blog header surface matches landing hero background without extra overlays or padding */
   .blog-header-surface {
     background-image:

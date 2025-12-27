@@ -157,11 +157,15 @@ const BiblioCleanPage = () => {
            </div>
         </div>
         
-        <div className="flex justify-center items-center gap-8 opacity-50 grayscale">
+        <div className="flex flex-wrap justify-center items-center gap-8 opacity-50 grayscale">
             <span className="text-sm font-semibold uppercase tracking-wider">Trusted by</span>
             {/* Using text for logos as placeholders */}
             <span className="font-bold text-lg">Secure Design Ops</span>
             <span className="font-bold text-lg">Enterprise Teams</span>
+            <span className="font-bold text-lg">Product Designers</span>
+            <span className="font-bold text-lg">Frontend Engineers</span>
+            <span className="font-bold text-lg">QA Leads</span>
+            <span className="font-bold text-lg">Brand Teams</span>
         </div>
       </Section>
 

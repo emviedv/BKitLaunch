@@ -49,6 +49,10 @@ export interface LandingHeroProps {
   compact?: boolean;
   titleClampLines?: number;
   descriptionMaxWidthClassName?: string;
+  descriptionClassName?: string;
+  titleClassName?: string;
+  contentMaxWidthClassName?: string;
+  disableCursorEffects?: boolean;
 }
 
 const heroGradientDiagnosticsEnabled = () => {
@@ -113,6 +117,10 @@ const LandingHero: React.FC<LandingHeroProps> = ({
   compact,
   titleClampLines,
   descriptionMaxWidthClassName,
+  descriptionClassName,
+  titleClassName,
+  contentMaxWidthClassName,
+  disableCursorEffects,
 }) => {
   const confettiRef = useRef<ConfettiRef>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -120,6 +128,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [showCursor, setShowCursor] = useState(false);
+  const shouldShowCursorEffects = !disableCursorEffects;
 
   const title = hero?.title?.trim();
   if (!title) {
@@ -137,10 +146,13 @@ const LandingHero: React.FC<LandingHeroProps> = ({
     ? Math.floor(titleClampLines)
     : null;
   const shouldClampTitle = Boolean(resolvedClampLines);
+  const resolvedTitleClassName = titleClassName?.trim() || LANDING_TITLE_CLASS;
   const heroContentWidthClass = shouldClampTitle
     ? 'w-full max-w-[calc(100vw-5rem)] sm:max-w-4xl'
     : 'max-w-4xl';
+  const resolvedContentWidthClassName = contentMaxWidthClassName?.trim() || heroContentWidthClass;
   const resolvedDescriptionMaxWidthClassName = descriptionMaxWidthClassName ?? 'max-w-xl';
+  const resolvedDescriptionClassName = descriptionClassName?.trim() ?? '';
 
   const { firstSentence, remainder } = splitHeroHeadline(title);
   const headlineSegments = useMemo(
@@ -185,6 +197,10 @@ const LandingHero: React.FC<LandingHeroProps> = ({
 
   // Mouse handling for interactive cursor
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (!shouldShowCursorEffects) {
+      return;
+    }
+
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       setMousePos({
@@ -280,8 +296,16 @@ const LandingHero: React.FC<LandingHeroProps> = ({
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setShowCursor(true)}
-      onMouseLeave={() => setShowCursor(false)}
+      onMouseEnter={() => {
+        if (shouldShowCursorEffects) {
+          setShowCursor(true);
+        }
+      }}
+      onMouseLeave={() => {
+        if (shouldShowCursorEffects) {
+          setShowCursor(false);
+        }
+      }}
       className={`landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden ${compact ? 'landing-hero-compact-tight' : ''}`}
     >
       <div ref={gradientLayerRef} className="landing-hero-gradient__layer" aria-hidden="true" />
@@ -290,7 +314,8 @@ const LandingHero: React.FC<LandingHeroProps> = ({
       <FluidBackground />
 
       {/* Cursor Overlay Layer */}
-      <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+      {shouldShowCursorEffects ? (
+        <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
         {/* User Cursor (You) */}
         <div
           className={`absolute top-0 left-0 transition-opacity duration-300 ${showCursor ? 'opacity-100' : 'opacity-0'}`}
@@ -352,13 +377,14 @@ const LandingHero: React.FC<LandingHeroProps> = ({
           </div>
         </div>
       </div>
+      ) : null}
 
       {/* Main Canvas Area */}
       <div className="absolute inset-0 w-full h-full">
         <div className="section-content relative h-full">
           {/* Centered Text Content */}
           <div
-            className={`absolute z-20 transition-all duration-75 ease-linear ${heroContentWidthClass} mt-8 flex flex-col ${
+            className={`absolute z-20 transition-all duration-75 ease-linear ${resolvedContentWidthClassName} mt-8 flex flex-col ${
               alignment === 'left' ? 'items-start text-left' : 'items-center text-center'
             }`}
             style={{
@@ -374,7 +400,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               </span>
             )}
 
-            <h1 className={LANDING_TITLE_CLASS + " mb-6 pointer-events-none select-none"}>
+            <h1 className={`${resolvedTitleClassName} mb-6 pointer-events-none select-none`}>
               {headlineSegments.length > 0 ? (
                 headlineSegments.map((segment) => {
                   const isSubtitle = segment.key === 'subtitle';
@@ -401,7 +427,9 @@ const LandingHero: React.FC<LandingHeroProps> = ({
             </h1>
 
             {description && (
-              <p className={`text-2xl text-white/75 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-8`}>
+              <p
+                className={`text-2xl text-white/75 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-8 ${resolvedDescriptionClassName}`}
+              >
                 {typeof description === 'string'
                   ? description.split('\n').map((line, i, arr) => (
                       <span key={i}>

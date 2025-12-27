@@ -27,6 +27,7 @@ type ProductDetail = {
   mediaComponent?: string;
   mediaUrl?: string;
   mediaAlt?: string;
+  mediaLoading?: 'lazy' | 'eager';
   mediaExamples?: FeatureComparisonExample[];
   mediaBlueprint?: FeatureBlueprintConfig;
   mediaProgress?: FeatureProgressConfig;
@@ -56,6 +57,7 @@ const ProductFeatureMedia: React.FC<Props> = ({ detail, productTitle, variant = 
   logFeatureMedia(detail, variant);
 
   const imageDimensions = detail.mediaUrl ? getImageDimensions(detail.mediaUrl) : null;
+  const imageLoading = detail.mediaLoading ?? 'lazy';
   const isShowcase = variant === 'showcase';
   const placeholderStroke = 'rgba(148,163,184,0.52)'; // slate-400, ~4 shades lighter than the slate-900 base
   const placeholderSecondaryStroke = 'rgba(148,163,184,0.28)';
@@ -133,7 +135,7 @@ const ProductFeatureMedia: React.FC<Props> = ({ detail, productTitle, variant = 
               className="w-full h-auto object-cover"
               width={imageDimensions?.width}
               height={imageDimensions?.height}
-              loading="lazy"
+              loading={imageLoading}
               decoding="async"
             />
           </div>
@@ -157,7 +159,7 @@ const ProductFeatureMedia: React.FC<Props> = ({ detail, productTitle, variant = 
           className="w-full h-auto object-cover"
           width={imageDimensions?.width}
           height={imageDimensions?.height}
-          loading="lazy"
+          loading={imageLoading}
           decoding="async"
         />
       </div>

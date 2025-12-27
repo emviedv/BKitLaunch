@@ -1,6 +1,7 @@
 export const ROUTE_PATHS = {
   HOME: '/',
   ABOUT: '/about',
+  PRODUCTS: '/products',
   DOCS: '/docs',
   BIBLIO_RENAME: '/biblio-rename',
   BIBLIO_CLEAN: '/biblio-clean',
