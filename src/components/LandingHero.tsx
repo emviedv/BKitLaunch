@@ -48,6 +48,7 @@ export interface LandingHeroProps {
   hero: LandingHeroContent | null | undefined;
   compact?: boolean;
   titleClampLines?: number;
+  descriptionMaxWidthClassName?: string;
 }
 
 const heroGradientDiagnosticsEnabled = () => {
@@ -107,7 +108,12 @@ const resolveTarget = (href?: string | null) => (href && href.startsWith('http')
 
 const resolveRel = (href?: string | null) => (href && href.startsWith('http') ? 'noopener noreferrer' : undefined);
 
-const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact, titleClampLines }) => {
+const LandingHero: React.FC<LandingHeroProps> = ({
+  hero,
+  compact,
+  titleClampLines,
+  descriptionMaxWidthClassName,
+}) => {
   const confettiRef = useRef<ConfettiRef>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
   const gradientLayerRef = useRef<HTMLDivElement | null>(null);
@@ -134,6 +140,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact, titleClampLine
   const heroContentWidthClass = shouldClampTitle
     ? 'w-full max-w-[calc(100vw-5rem)] sm:max-w-4xl'
     : 'max-w-4xl';
+  const resolvedDescriptionMaxWidthClassName = descriptionMaxWidthClassName ?? 'max-w-xl';
 
   const { firstSentence, remainder } = splitHeroHeadline(title);
   const headlineSegments = useMemo(
@@ -394,7 +401,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({ hero, compact, titleClampLine
             </h1>
 
             {description && (
-              <p className="text-2xl text-white/75 max-w-xl leading-relaxed text-center mx-auto mb-8">
+              <p className={`text-2xl text-white/75 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-8`}>
                 {typeof description === 'string'
                   ? description.split('\n').map((line, i, arr) => (
                       <span key={i}>

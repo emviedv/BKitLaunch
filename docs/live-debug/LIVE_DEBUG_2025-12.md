@@ -1,5 +1,13 @@
 # Live Debug Log — 2025-12
 
+## 2025-12-27
+
+- **Time:** 2025-12-27 03:36 EST
+- **Summary:** Adjusted landing hero description width, cleaned hero copy, and refreshed header dropdown labels/icons.
+- **Root Cause:** The landing hero description was still capped at a narrower max width with outdated wording, and the header dropdowns did not reflect the updated labeling and plugin icon coverage.
+- **Changed Files:** AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md; public/media/icons/biblio-table-icon.png; src/components/BiblioKitLanding.tsx; src/components/Header.tsx; src/components/LandingHero.tsx; src/data/products.json
+- **Verification:** Not run (content and nav updates only).
+
 ## 2025-12-26
 
 - **Time:** 2025-12-27 01:19 EST

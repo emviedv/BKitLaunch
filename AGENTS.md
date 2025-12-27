@@ -81,3 +81,6 @@
 
 ## Reference Links
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
+
+## Updates
+- 2025-12-27 03:36 EST: Updated landing hero description width, header dropdown labels, and plugin icon mapping.

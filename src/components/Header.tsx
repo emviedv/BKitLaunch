@@ -57,6 +57,7 @@ const Header = () => {
     '/biblio-rename': '/media/icons/biblio-rename-icon.png',
     '/biblio-clean': '/media/icons/biblio-clean-icon.png',
     '/biblio-audit': '/media/icons/biblio-audit-icon.png',
+    '/biblio-table': '/media/icons/biblio-table-icon.png',
   };
 
   const resolvePluginIconSrc = (child: NavChild): string | null => {
@@ -70,6 +71,7 @@ const Header = () => {
   navItems = navItems.map((item) => {
     if ((item as DropdownNavItem).type === 'dropdown') {
       const dd = item as DropdownNavItem;
+      const normalizedDropdownLabel = dd.label?.trim().toLowerCase();
       const children = (dd.children || []).map((child) => {
         const normalizedLabel = child.label?.trim().toLowerCase();
         if (normalizedLabel === 'component auditor' || normalizedLabel?.startsWith('biblioaudit')) {
@@ -81,6 +83,9 @@ const Header = () => {
         }
         return child;
       });
+      if (normalizedDropdownLabel === 'resources') {
+        return { ...dd, label: 'Free Figma Plugins', children };
+      }
       return { ...dd, children };
     }
     const normalizedLabel = (item as LinkNavItem).label?.trim().toLowerCase();
@@ -105,18 +110,12 @@ const Header = () => {
 
   const resourcesDropdown: DropdownNavItem = {
     type: 'dropdown',
-    label: 'Resources',
+    label: 'Free Figma Plugins',
     children: [
       {
             label: 'BiblioClean — The Blue Line Wiper',
             href: '/biblio-clean',        description: 'Remove prototype links safely without breaking your main components.',
         icon: 'plug',
-      },
-      {
-        label: 'Remove Prototype Link — Cleanup Ritual',
-        href: '/resources/remove-prototype-link',
-        description: 'Help designers, developers, and marketers revoke risky prototype links so everyone shares the right build.',
-        icon: 'link',
       }
     ],
   };
@@ -125,7 +124,7 @@ const Header = () => {
     (item) =>
       (item as DropdownNavItem).type === 'dropdown' &&
       typeof (item as DropdownNavItem).label === 'string' &&
-      (item as DropdownNavItem).label.trim().toLowerCase() === 'resources'
+      (item as DropdownNavItem).label.trim().toLowerCase() === 'free figma plugins'
   );
 
   if (!hasResourcesDropdown) {
@@ -216,6 +215,7 @@ const Header = () => {
               if ((item as DropdownNavItem).type === 'dropdown') {
                 const dd = item as DropdownNavItem;
                 const isPluginsDropdown = dd.label?.trim().toLowerCase() === 'plugins';
+                const isFreePluginsDropdown = dd.label?.trim().toLowerCase() === 'free figma plugins';
                 const dropdownPanelClassName = isPluginsDropdown
                   ? 'absolute top-full left-0 mt-3 w-[560px] rounded-3xl border border-white/12 bg-[#0b0c0f]/95 backdrop-blur-xl shadow-[0_32px_90px_rgba(7,5,16,0.6)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50'
                   : 'absolute top-full left-0 mt-3 w-[380px] rounded-2xl border border-white/12 bg-[#0b0c0f] shadow-[0_26px_80px_rgba(7,5,16,0.55)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50';
@@ -235,12 +235,15 @@ const Header = () => {
                         {(dd.children || []).map((child, ci) => {
                           const href = child.href || '#';
                           const normalizedHref = href.startsWith('#') ? `/${href}` : href;
-                          const pluginIconSrc = isPluginsDropdown ? resolvePluginIconSrc(child) : null;
+                          const pluginIconSrc = (isPluginsDropdown || isFreePluginsDropdown)
+                            ? resolvePluginIconSrc(child)
+                            : null;
+                          const usePluginIconStyle = isPluginsDropdown || Boolean(pluginIconSrc);
                           const ChildIcon = resolveLucideIcon(child.icon || child.label);
                           const itemClassName = isPluginsDropdown
                             ? 'group/item flex gap-3 rounded-2xl transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff2f87]'
                             : 'flex gap-3 rounded-xl transition-colors hover:bg-[#ff2f87]/12';
-                          const iconWrapperClassName = isPluginsDropdown
+                          const iconWrapperClassName = usePluginIconStyle
                             ? 'flex h-10 w-10 items-center justify-center'
                             : 'flex h-9 w-9 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10';
                           return (
@@ -340,13 +343,17 @@ const Header = () => {
                     const href = child.href || '#';
                     const normalizedHref = href.startsWith('#') ? `/${href}` : href;
                     const isPluginsDropdown = dd.label?.trim().toLowerCase() === 'plugins';
-                    const pluginIconSrc = isPluginsDropdown ? resolvePluginIconSrc(child) : null;
+                    const isFreePluginsDropdown = dd.label?.trim().toLowerCase() === 'free figma plugins';
+                    const pluginIconSrc = (isPluginsDropdown || isFreePluginsDropdown)
+                      ? resolvePluginIconSrc(child)
+                      : null;
+                    const usePluginIconStyle = isPluginsDropdown || Boolean(pluginIconSrc);
                     const ChildIcon = resolveLucideIcon(child.icon || child.label);
                     const isEmojiIcon =
                       !pluginIconSrc &&
                       typeof child.icon === 'string' &&
                       /[\p{Extended_Pictographic}]/u.test(child.icon);
-                    const iconWrapperClassName = isPluginsDropdown
+                    const iconWrapperClassName = usePluginIconStyle
                       ? 'flex h-9 w-9 items-center justify-center'
                       : 'flex h-9 w-9 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10';
                     return (
