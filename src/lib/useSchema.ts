@@ -36,21 +36,30 @@ export function useSchema(schema: SchemaData | SchemaData[], elementId?: string)
 }
 
 // Schema generators for different page types
-export const createProductSchema = (productData: any) => ({
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: productData.title,
-  description: productData.description,
-  applicationCategory: 'DesignApplication',
-  operatingSystem: 'Web Browser, Figma',
-  softwareVersion: '1.0',
-  dateModified: new Date().toISOString().split('T')[0],
-  author: {
-    '@type': 'Organization',
-    name: 'BiblioKit'
-  },
-  featureList: productData.details?.map((detail: any) => detail.title) || []
-});
+export const createProductSchema = (productData: any) => {
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.bibliokit.com';
+  const rawImage = productData?.image || productData?.ogImage || productData?.heroImage;
+  const normalizedImage = typeof rawImage === 'string' && rawImage.trim().length > 0
+    ? (rawImage.startsWith('http') ? rawImage : `${baseUrl}${rawImage.startsWith('/') ? '' : '/'}${rawImage}`)
+    : `${baseUrl}/og/og-default.svg`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: productData.title,
+    description: productData.description,
+    applicationCategory: 'DesignApplication',
+    operatingSystem: 'Web Browser, Figma',
+    softwareVersion: '1.0',
+    dateModified: new Date().toISOString().split('T')[0],
+    image: normalizedImage,
+    author: {
+      '@type': 'Organization',
+      name: 'BiblioKit'
+    },
+    featureList: productData.details?.map((detail: any) => detail.title) || []
+  };
+};
 
 export const createArticleSchema = (title: string, description: string, dateModified?: string) => ({
   '@context': 'https://schema.org',

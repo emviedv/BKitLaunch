@@ -117,12 +117,6 @@ const Header = () => {
         href: '/resources/remove-prototype-link',
         description: 'Help designers, developers, and marketers revoke risky prototype links so everyone shares the right build.',
         icon: 'link',
-      },
-      {
-        label: 'BiblioTable — Normalize Figma Tables',
-        href: '/biblio-table',
-        description: 'Equalize column widths and fix row heights in auto-layout tables.',
-        icon: 'layout',
       }
     ],
   };

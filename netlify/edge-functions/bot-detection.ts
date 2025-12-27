@@ -396,6 +396,7 @@ function getPageSchema(pathname: string, origin: string): string {
         "operatingSystem": "Web Browser, Figma",
         "softwareVersion": "1.0",
         "dateModified": "${new Date().toISOString().split('T')[0]}",
+        "image": "${origin}/og/og-default.svg",
         "author": {
           "@type": "Organization",
           "name": "BiblioKit"

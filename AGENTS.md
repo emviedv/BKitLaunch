@@ -43,6 +43,8 @@
 - For marketing/blog images, set explicit width/height and eager-load the first in-article image to reduce CLS/LCP; lazy-load the rest.
 - Netlify CLI deploys must publish `dist/client` (not `dist`) to avoid missing `/assets/*` bundles.
 - Keep `SoftwareApplication` schema for product pages, but omit `aggregateRating` and `review` unless we have verified, current rating data.
+- Organization schema must include `logo`, `industry` set to "Software Application", and `sameAs` with `https://www.figma.com/@bibliokit`.
+- SoftwareApplication schema must include `image` and `operatingSystem` for rich results.
 - Meta descriptions must be unique per page and stay under 155 characters (e.g., 120–150 chars) to avoid SERP truncation.
 - Ensure every sitemap URL has at least one crawlable internal link (e.g., resources detail pages must be linked from nav or related content).
 - When trimming meta descriptions, keep the action/benefit-driven tone and include designers, developers, and marketers when feasible.

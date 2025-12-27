@@ -68,6 +68,12 @@
             "href": "/biblio-audit",
             "description": "Scan Figma files for detached instances, token drift, and dirty overrides with automated QA.",
             "icon": "🧭"
+          },
+          {
+            "label": "BiblioTable — Normalize Figma Tables",
+            "href": "/biblio-table",
+            "description": "Equalize column widths and fix row heights in auto-layout tables.",
+            "icon": "layout"
           }
         ]
       },

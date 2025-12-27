@@ -75,7 +75,7 @@ const BiblioTablePage = () => {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
             Stop fighting<br className="hidden md:block" /> auto-layout tables.
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
             Normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping in one click.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">

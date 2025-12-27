@@ -74,7 +74,7 @@ const BiblioCleanPage = () => {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
             Wipe prototype links<br className="hidden md:block" /> before you ship.
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
             The Blue Line Wiper. Safely strip prototype connections and external URLs without breaking your main components.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">

@@ -2,6 +2,42 @@
 
 ## 2025-12-26
 
+- **Time:** 2025-12-26 23:16 EST
+- **Summary:** Added Organization logo data and SoftwareApplication image fields for rich result validation.
+- **Root Cause:** The Organization schema on the About page lacked a logo, and SoftwareApplication entries were missing image URLs.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; netlify/edge-functions/bot-detection.ts; src/lib/seo.ts; src/lib/useSchema.ts
+- **Verification:** Not run (structured data update only).
+
+- **Time:** 2025-12-26 23:10 EST
+- **Summary:** Added the official Figma Community profile to Organization `sameAs` links.
+- **Root Cause:** The `sameAs` list lacked the Figma Community profile, reducing entity authority signals.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/lib/seo.ts
+- **Verification:** Not run (structured data update only).
+
+- **Time:** 2025-12-26 22:58 EST
+- **Summary:** Restored the Organization `industry` field and set it to "Software Application."
+- **Root Cause:** The industry field was removed while resolving schema warnings, but the requirement is to keep it for Organization metadata.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/lib/seo.ts
+- **Verification:** Not run (structured data update only).
+
+- **Time:** 2025-12-26 21:24 EST
+- **Summary:** Removed the Google Doc link from the Docs resources list.
+- **Root Cause:** The link was added to the site instead of updating the source document directly.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/Docs.tsx
+- **Verification:** Not run (content change only).
+
+- **Time:** 2025-12-26 18:22 EST
+- **Summary:** Removed unsupported `industry` fields from structured data while keeping SoftwareApplication schemas.
+- **Root Cause:** `industry` is not recognized by Schema.org in validators, so it raised warnings in Organization JSON-LD.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/lib/seo.ts
+- **Verification:** Not run (structured data update only).
+
+- **Time:** 2025-12-26 18:12 EST
+- **Summary:** Set product page hero description max-widths to 60%.
+- **Root Cause:** Product hero descriptions were still capped at max-w-3xl instead of the 60% width spec.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/AIRenameVariantsPage.tsx; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/components/BiblioTablePage.tsx; src/components/ProductHero.tsx
+- **Verification:** Not run (layout update only).
+
 - **Time:** 2025-12-26 17:50 EST
 - **Summary:** Restored SoftwareApplication schema while removing rating fields.
 - **Root Cause:** The prior fix removed SoftwareApplication entirely, but the requirement is to keep it without aggregate rating fields.

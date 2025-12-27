@@ -32,6 +32,18 @@ import { useScrollTopOnHome } from './hooks/useScrollTopOnHome';
 // Configuration
 import { ROUTE_PATHS } from './config/routes';
 
+const SIMILAR_PATHS = [
+  ROUTE_PATHS.BLOG,
+  ROUTE_PATHS.RESOURCES,
+  ROUTE_PATHS.DOCS,
+  ROUTE_PATHS.ABOUT,
+  ROUTE_PATHS.BIBLIO_RENAME,
+  ROUTE_PATHS.BIBLIO_CLEAN,
+  ROUTE_PATHS.BIBLIO_AUDIT,
+  ROUTE_PATHS.BIBLIO_TABLE,
+  ROUTE_PATHS.UXBIBLIO,
+];
+
 /**
  * Content interface for published content structure
  */
@@ -98,6 +110,47 @@ const LegacyAIRenameRedirect: React.FC = () => {
   return <AIRenameVariantsPage />;
 };
 
+const NotFoundPage: React.FC = () => {
+  const [location] = useLocation();
+  const normalizedPath = (location || '/').split('?')[0].replace(/\/+$/, '') || '/';
+  let suggestedPath = ROUTE_PATHS.HOME;
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://www.bibliokit.com';
+
+  if (normalizedPath.startsWith('/blog/')) {
+    suggestedPath = ROUTE_PATHS.BLOG;
+  } else if (normalizedPath.startsWith('/resources/')) {
+    suggestedPath = ROUTE_PATHS.RESOURCES;
+  } else {
+    const segments = normalizedPath.split('/').filter(Boolean);
+    if (segments.length > 0) {
+      const firstSegment = `/${segments[0]}`;
+      if (SIMILAR_PATHS.includes(firstSegment)) {
+        suggestedPath = firstSegment;
+      }
+    }
+  }
+
+  const suggestedUrl = `${origin}${suggestedPath}`;
+
+  return (
+    <div className="container mx-auto px-4 py-16 text-center">
+      <h1 className="text-4xl font-bold mb-4">
+        Oops! We lost this page, but here's how to get back on track.
+      </h1>
+      <p className="text-muted-foreground mb-3">
+        The page you're looking for doesn't exist.
+      </p>
+      <p className="text-sm text-muted-foreground mb-8">
+        Try <a className="underline underline-offset-4" href={suggestedPath}>{suggestedUrl}</a>{' '}
+        to get back to the tools fast.
+      </p>
+      <Button asChild size="lg">
+        <a href="/">Go Home</a>
+      </Button>
+    </div>
+  );
+};
+
 /**
  * AppContent - Main application content wrapper
  * 
@@ -159,15 +212,7 @@ const AppContent: React.FC = () => {
           <Route path={ROUTE_PATHS.RESOURCES} component={ResourcesPage} />
           <Route path={ROUTE_PATHS.REMOVE_PROTOTYPE_LINK} component={RemovePrototypeLinkPage} />
           <Route>
-            <div className="container mx-auto px-4 py-16 text-center">
-              <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
-              <p className="text-muted-foreground mb-8">
-                The page you're looking for doesn't exist.
-              </p>
-              <Button asChild size="lg">
-                <a href="/">Go Home</a>
-              </Button>
-            </div>
+            <NotFoundPage />
           </Route>
         </Switch>
     </LandingLayout>
