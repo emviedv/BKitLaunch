@@ -36,6 +36,9 @@ https://bibliokit.com/* https://www.bibliokit.com/:splat 301!
 # Route legacy AI Rename path to the canonical BiblioRename URL
 /ai-rename-variants                             /biblio-rename    301
 
+# IndexNow verification key file (must serve as plain text)
+/*.txt           /:splat.txt                  200
+
 # SPA fallback for all other routes (must be last). Netlify automatically
 # routes /.netlify/functions/* without using redirects in dev/prod.
 /*               /index.html                  200
