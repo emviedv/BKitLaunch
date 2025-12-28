@@ -2,6 +2,54 @@
 
 ## 2025-12-27
 
+- **Time:** 2025-12-27 23:58 EST
+- **Summary:** Updated header dropdown triggers and aligned Learn/Design Ops page spacing and card lists.
+- **Root Cause:** Dropdown labels did not route to the intended pages, and Learn/Design Ops sections had inconsistent spacing and card selection.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/Header.tsx; src/components/LearnPage.tsx; src/components/DesignOpsFundamentalsPage.tsx
+- **Verification:** Not run (UI update only).
+
+- **Time:** 2025-12-27 21:32 EST
+- **Summary:** Added SoftwareApplication schema for each plugin page so rich results include plugin metadata.
+- **Root Cause:** Plugin pages only exposed Organization schema (and a single plugin schema in bot output), so crawlers lacked SoftwareApplication JSON-LD for most plugins.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; netlify/edge-functions/bot-detection.ts; src/components/BiblioAuditPage.tsx; src/components/BiblioCleanPage.tsx; src/lib/seo.ts
+- **Verification:** Not run (structured data update only).
+
+- **Time:** 2025-12-27 21:17 EST
+- **Summary:** Added descriptive alt text for landing page feature images to describe the UI/tool interfaces shown.
+- **Root Cause:** Landing page feature images used generic alt text that did not describe the interfaces, so scans flagged them as non-descriptive.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/data/products.json
+- **Verification:** Not run (content update only).
+
+- **Time:** 2025-12-27 18:57 EST
+- **Summary:** Updated the Design Ops section link label on Learn from "View more" to "See All".
+- **Root Cause:** The Learn section link copy did not match the requested label.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/LearnPage.tsx
+- **Verification:** Not run (copy update only).
+
+- **Time:** 2025-12-27 18:07 EST
+- **Summary:** Added the Design Ops Fundamentals "View more" link on the Learn page to surface the pillar page.
+- **Root Cause:** The Learn Design Ops section did not link to the Design Ops Fundamentals pillar page directly.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/LearnPage.tsx
+- **Verification:** Not run (content update only).
+
+- **Time:** 2025-12-27 18:04 EST
+- **Summary:** Added the three Design Systems blog posts to the Learn Design Ops section and rendered them as matching blog cards.
+- **Root Cause:** The Learn Design Ops section only surfaced a single related post instead of the full set of relevant Design Systems posts.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/LearnPage.tsx
+- **Verification:** Not run (content update only).
+
+- **Time:** 2025-12-27 18:01 EST
+- **Summary:** Matched the Learn hero title styling to the blog page hero typography and gradient treatment.
+- **Root Cause:** The Learn hero title used a different typography scale and lacked the gradient styling used on the blog hero.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/LearnPage.tsx
+- **Verification:** Not run (style update only).
+
+- **Time:** 2025-12-27 18:05 EST
+- **Summary:** Matched the Learn page featured blog card styling to the blog list cards and fixed spacing placement.
+- **Root Cause:** The Learn card used a simplified layout and the margin adjustment was applied to the wrong block, so the card visuals and spacing diverged from the blog cards.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/components/LearnPage.tsx
+- **Verification:** Not run (style update only).
+
 - **Time:** 2025-12-27 10:01 EST
 - **Summary:** Set blog post hero description font size to 1.4rem.
 - **Root Cause:** Blog hero descriptions were still using the default hero size instead of the requested 1.4rem.
@@ -1467,3 +1515,99 @@
 - **Root Cause:** Descriptions reused the "designers, developers, and marketers" phrasing even when it did not fit the post summary.
 - **Changed Files:** src/data/blogPosts.ts; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (review blog meta descriptions).
+
+- **Time:** 2025-12-27 19:30 EST
+- **Summary:** Removed the "(404)" suffix from the Resources page meta titles.
+- **Root Cause:** Resources page SEO titles were left with a temporary 404 label after the page returned.
+- **Changed Files:** src/lib/seo.ts; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (review Resources page meta titles).
+
+- **Time:** 2025-12-27 19:31 EST
+- **Summary:** Expanded the Design Ops Fundamentals content container to full width.
+- **Root Cause:** The page content was constrained to a narrow max-width container.
+- **Changed Files:** src/components/DesignOpsFundamentalsPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check `/learn/design-ops-fundamentals` content width).
+
+- **Time:** 2025-12-27 19:32 EST
+- **Summary:** Removed the Design Ops Fundamentals hero badges.
+- **Root Cause:** The hero included evergreen/update badges that are no longer needed.
+- **Changed Files:** src/components/DesignOpsFundamentalsPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check hero badges are gone).
+
+- **Time:** 2025-12-27 19:32 EST
+- **Summary:** Renamed the Learn page Design Ops section title to “What is Design Ops?”.
+- **Root Cause:** Requested title update for the Learn page content section.
+- **Changed Files:** src/components/LearnPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check Learn page section title).
+
+- **Time:** 2025-12-27 19:33 EST
+- **Summary:** Updated the Learn page Design Ops section description.
+- **Root Cause:** Requested copy update for the Learn page content description.
+- **Changed Files:** src/components/LearnPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check Learn page section description).
+
+- **Time:** 2025-12-27 19:34 EST
+- **Summary:** Added the Design System Foundations section on the Learn page.
+- **Root Cause:** Requested new Learn page section with title and description.
+- **Changed Files:** src/components/LearnPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check Learn page section copy).
+
+- **Time:** 2025-12-27 19:35 EST
+- **Summary:** Moved the Design System Foundations section to the Design Ops Fundamentals page.
+- **Root Cause:** Section was added to the Learn page but belongs on the Design Ops page.
+- **Changed Files:** src/components/LearnPage.tsx; src/components/DesignOpsFundamentalsPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check Design Ops Fundamentals section placement).
+
+- **Time:** 2025-12-27 19:38 EST
+- **Summary:** Reduced the Design Ops Fundamentals content to the Design System Foundations intro plus the related post cards.
+- **Root Cause:** Requested removal of remaining content while keeping the title, description, and cards.
+- **Changed Files:** src/components/DesignOpsFundamentalsPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check Design Ops Fundamentals content).
+
+- **Time:** 2025-12-27 19:42 EST
+- **Summary:** Replaced the Design Ops Fundamentals cards with placeholder article cards.
+- **Root Cause:** Requested placeholder cards in the Design System Foundations section.
+- **Changed Files:** src/components/DesignOpsFundamentalsPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check placeholder article cards).
+
+- **Time:** 2025-12-27 20:14 EST
+- **Summary:** Restored the Design Ops Fundamentals article cards to match the Learn page.
+- **Root Cause:** Placeholder cards were used instead of the Learn page article card layout.
+- **Changed Files:** src/components/DesignOpsFundamentalsPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check article cards on Design Ops Fundamentals page).
+
+- **Time:** 2025-12-27 20:17 EST
+- **Summary:** Set the footer copyright year to 2026 and let the footer columns stretch to distribute height.
+- **Root Cause:** Footer needed the updated year and auto-distributed column height.
+- **Changed Files:** src/components/Footer.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check footer layout).
+
+- **Time:** 2025-12-27 20:18 EST
+- **Summary:** Matched the Design Ops Fundamentals first content section top margin to the Learn page.
+- **Root Cause:** Pillar/hub page spacing needed to follow the Learn page format.
+- **Changed Files:** src/components/DesignOpsFundamentalsPage.tsx; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check first content section spacing).
+
+- **Time:** 2025-12-27 20:22 EST
+- **Summary:** Added a “See All” link to the Design System Foundations section and codified the section pattern for pillar/hub pages.
+- **Root Cause:** Sections need a consistent “See All” pattern across pillar and hub pages.
+- **Changed Files:** src/components/DesignOpsFundamentalsPage.tsx; AGENTS.md; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check section links).
+
+- **Time:** 2025-12-27 20:23 EST
+- **Summary:** Tightened the footer logo spacing so the description sits closer to the logo.
+- **Root Cause:** Footer description needed to sit closer to the logo per layout request.
+- **Changed Files:** src/components/Footer.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check footer spacing).
+
+- **Time:** 2025-12-27 20:25 EST
+- **Summary:** Added a Learn dropdown in the top nav and a Learn section in the footer.
+- **Root Cause:** Learn needed a dropdown in the header and links in the footer.
+- **Changed Files:** src/components/Header.tsx; src/components/Footer.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check header dropdown and footer links).
+
+- **Time:** 2025-12-27 20:26 EST
+- **Summary:** Made the Design Ops Fundamentals breadcrumb span the full header width.
+- **Root Cause:** Breadcrumb was constrained by the hero text column.
+- **Changed Files:** src/components/DesignOpsFundamentalsPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Not run (visual check breadcrumb width).

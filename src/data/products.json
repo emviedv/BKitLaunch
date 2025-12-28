@@ -80,6 +80,10 @@
       {
         "href": "/uxbiblio",
         "label": "UXBiblio"
+      },
+      {
+        "href": "/learn",
+        "label": "Learn"
       }
     ],
     "showSignIn": false,
@@ -106,7 +110,7 @@
       "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
       "media": {
         "src": "/media/BiblioRename.png",
-        "alt": "BiblioRename AI layer renaming preview"
+        "alt": "BiblioRename panel in Figma showing AI rename suggestions for layer and variant properties"
       },
       "buttonPreset": "custom"
     },
@@ -133,7 +137,7 @@
       "description": "BiblioAudit is the automated QA tool for Figma. Find detached instances, validate tokens, flag dirty overrides, and reveal deprecated or rogue components—whether you scan a selection, a single page, or the full file.",
       "media": {
         "src": "/media/BiblioAudit.png",
-        "alt": "BiblioAudit design system audit preview"
+        "alt": "BiblioAudit audit panel listing detached instances, design system token issues, and severity scores in Figma"
       },
       "buttonPreset": "custom"
     },
@@ -159,7 +163,7 @@
       "description": "The Blue Line Wiper. The safest way to remove prototype links and external connections. Cleans visual clutter without breaking your main components.",
       "media": {
         "src": "/media/BiblioClean.png",
-        "alt": "BiblioClean prototype link remover preview"
+        "alt": "BiblioClean cleanup panel showing prototype link removal options, safety warnings, and undo history"
       },
       "buttonPreset": "custom"
     },
@@ -186,7 +190,7 @@
       "buttonPreset": "custom",
       "media": {
         "src": "/media/BiblioStart.png",
-        "alt": "BiblioStart project setup and file scaffolding preview"
+        "alt": "BiblioStart setup screen with cover, handoff, and sandbox pages for a new Figma file"
       }
     },
     {
@@ -209,7 +213,7 @@
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
       "media": {
         "src": "/media/BiblioTable.png",
-        "alt": "BiblioTable auto-layout fixer preview"
+        "alt": "BiblioTable controls for normalizing column widths and zebra striping in auto layout tables"
       },
       "buttonPreset": "custom"
     },
@@ -236,7 +240,7 @@
       "buttonPreset": "custom",
       "media": {
         "src": "/media/uxbiblio-cover.png",
-        "alt": "UXBiblio library cover"
+        "alt": "UXBiblio library dashboard with tagged UX pattern cards, filters, and notes"
       }
     }
   ],

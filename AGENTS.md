@@ -30,6 +30,8 @@
 - Landing page product sections get the horizontal feature nav; individual product pages keep their original layout (e.g., enable nav in `BiblioKitLanding`, leave `AIRenameVariantsPage` without it).
 - Product pages alternate feature cards so media and copy swap sides down the page (e.g., AI Rename Variants features grid now alternates by default).
 - When padding, gaps, or similar layout styling is applied to one product page’s features section, mirror those adjustments across all product pages—but confirm the approach with Emily before rolling it out globally.
+- Pillar and hub pages should match the Learn page spacing format for the first content section (e.g., use `section-content pb-20 mt-8`).
+- Pillar and hub page sections should include a "See All" link under the title/description, matching the Learn page format.
 - HTML classes and IDs must be specific to the surface they belong to—no generic names like `button` or `section`. Prefer `ai-rename-hero-cta` over `cta` so styles stay scoped and readable.
 - Bridge is an internal tool; avoid referencing it in customer-facing copy unless explicitly approved.
 - Operational reminder: periodically pull waitlist signups locally with `npm run email:waitlist` (uses `DATABASE_URL` or .env/.env.local) to review beta interest.
@@ -86,5 +88,6 @@
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
 
 ## Updates
+- 2025-12-27 23:58 EST: Logged header dropdown and Learn/Design Ops layout updates before committing.
 - 2025-12-27 09:46 EST: Pointed product callout links to the official Figma Community listings.
 - 2025-12-27 03:36 EST: Updated landing hero description width, header dropdown labels, and plugin icon mapping.

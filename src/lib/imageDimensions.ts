@@ -29,6 +29,7 @@ const IMAGE_DIMENSIONS: Record<string, ImageDimensions> = {
   '/blog/effortless-table-design/bibliotable-auto-layout-fixer.png': { width: 2048, height: 1297 },
   '/blog/effortless-table-design/effortless-table-design-hero.png': { width: 1024, height: 1024 },
   '/blog/figma-workflow-automation-tools/figma-workflow-automation-hero.png': { width: 1408, height: 768 },
+  '/blog/what-is-design-ops-complete-guide/design-ops-pillars.png': { width: 1536, height: 1024 },
   '/blog/remove-prototype-links/creative-design-process.jpg': { width: 1080, height: 756 },
   '/blog/remove-prototype-links/design-project-plan.png': { width: 1024, height: 1024 },
   '/blog/remove-prototype-links/figma-design-interface.png': { width: 1024, height: 1024 },

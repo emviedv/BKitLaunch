@@ -8,6 +8,7 @@ import {
   type BlogPost
 } from '@/data/blogPosts';
 import { LANDING_WAITLIST_PATH } from '@/config/sectionAnchors';
+import { ROUTE_PATHS } from '@/config/routes';
 import LandingHero, { type LandingHeroContent } from './LandingHero';
 import { Button } from '@/components/ui/button';
 import { useDynamicSEO } from '@/hooks/useSEO';
@@ -372,6 +373,22 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
           )}
         </div>
         {post.faqs?.length ? <BlogFAQSection faqs={post.faqs} /> : null}
+        <section className="mt-12">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Learn</p>
+            <h2 className="mt-2 text-2xl font-semibold text-white">Design Ops Fundamentals</h2>
+            <p className="mt-2 text-sm text-white/70">
+              We built this evergreen mental model so designers, developers, and marketers can
+              align design systems, handoff, implementation, launch, and campaigns.
+            </p>
+            <a
+              href={ROUTE_PATHS.LEARN_DESIGN_OPS_FUNDAMENTALS}
+              className="mt-4 inline-flex text-sm font-semibold text-[#ff2f87] underline underline-offset-4 transition-colors hover:text-[#ff5ba0]"
+            >
+              Read the guide
+            </a>
+          </div>
+        </section>
         {(previousPost || nextPost) && (
           <section className="blog-article-nav mt-12 space-y-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">

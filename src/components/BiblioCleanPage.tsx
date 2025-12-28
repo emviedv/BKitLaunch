@@ -20,14 +20,15 @@ const BiblioCleanPage = () => {
   useEffect(() => {
     // SEO Metadata
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
-    const metadata = {
-        title: 'BiblioClean | Remove Prototype Links Safely',
-        description: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
-        ogTitle: 'BiblioClean | Remove Prototype Links Safely',
-        ogDescription: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
-        url: `${baseUrl}${ROUTE_PATHS.BIBLIO_CLEAN || '/biblio-clean'}`,
+    const metadata = generateMetadata(ROUTE_PATHS.BIBLIO_CLEAN, content, baseUrl);
+    const overrideMetadata = {
+      ...metadata,
+      title: 'BiblioClean | Remove Prototype Links Safely',
+      description: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
+      ogTitle: 'BiblioClean | Remove Prototype Links Safely',
+      ogDescription: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
     };
-    updatePageMetadata(metadata);
+    updatePageMetadata(overrideMetadata);
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines';

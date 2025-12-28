@@ -147,6 +147,60 @@ const mergeKeywords = (base?: string, additions: Array<string | undefined> = [])
   return set.size ? Array.from(set).join(', ') : undefined;
 };
 
+const toAbsoluteUrl = (baseUrl: string, value?: string | null): string | undefined => {
+  if (!value || typeof value !== 'string') return undefined;
+  if (/^https?:\/\//i.test(value)) return value;
+  const normalized = value.startsWith('/') ? value : `/${value}`;
+  return `${baseUrl}${normalized}`;
+};
+
+const PLUGIN_SOFTWARE_APPLICATIONS: Record<string, { name: string; image: string; description?: string }> = {
+  '/biblio-rename': {
+    name: 'BiblioRename',
+    image: '/media/BiblioRename.png',
+    description: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
+  },
+  '/biblio-clean': {
+    name: 'BiblioClean',
+    image: '/media/BiblioClean.png',
+    description: 'BiblioClean removes Figma prototype links safely for designers, developers, and marketers. Revoke stale URLs and share the right build fast.',
+  },
+  '/biblio-audit': {
+    name: 'BiblioAudit',
+    image: '/media/BiblioAudit.png',
+    description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
+  },
+  '/biblio-table': {
+    name: 'BiblioTable',
+    image: '/media/BiblioTable.png',
+    description: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
+  },
+};
+
+const buildPluginSoftwareApplicationSchema = (
+  path: string,
+  baseUrl: string,
+  descriptionFallback?: string
+): StructuredDataEntry | undefined => {
+  const config = PLUGIN_SOFTWARE_APPLICATIONS[path];
+  if (!config) return undefined;
+  const url = `${baseUrl}${path}`;
+  const image = toAbsoluteUrl(baseUrl, config.image);
+  const description = config.description || descriptionFallback;
+  return cleanStructuredDataEntry({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    '@id': `${url}#softwareapplication`,
+    name: config.name,
+    description,
+    applicationCategory: 'DesignApplication',
+    operatingSystem: 'Web Browser, Figma',
+    url,
+    image,
+    publisher: { '@id': `${baseUrl}#organization` },
+  });
+};
+
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
   title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
@@ -314,14 +368,36 @@ export const routeMetadata: RouteMetadata = {
     ]
   },
   '/resources': {
-    title: 'BiblioKit Resources: Figma Plugins & Design Tools (404)',
+    title: 'BiblioKit Resources: Figma Plugins & Design Tools',
     description: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
     keywords: 'BiblioKit resources, BiblioClean, Figma cleanup, design ops resources, Figma plugins',
-    ogTitle: 'BiblioKit Resources: Figma Plugins & Design Tools (404)',
+    ogTitle: 'BiblioKit Resources: Figma Plugins & Design Tools',
     ogDescription: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit Resources: Figma Plugins & Design Tools (404)',
+    twitterTitle: 'BiblioKit Resources: Figma Plugins & Design Tools',
     twitterDescription: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
+    twitterImage: '/og/og-default.svg'
+  },
+  '/learn': {
+    title: 'Learn Design Ops Fundamentals | BiblioKit',
+    description: 'Learn is the BiblioKit hub for designers, developers, and marketers to master design systems, handoff, implementation, launch, and campaigns.',
+    keywords: 'Design Ops fundamentals, design systems operations, design handoff, implementation workflow, launch campaigns',
+    ogTitle: 'Learn Design Ops Fundamentals | BiblioKit',
+    ogDescription: 'Learn is the BiblioKit hub for designers, developers, and marketers to master design systems, handoff, implementation, launch, and campaigns.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'Learn Design Ops Fundamentals | BiblioKit',
+    twitterDescription: 'Learn is the BiblioKit hub for designers, developers, and marketers to master design systems, handoff, implementation, launch, and campaigns.',
+    twitterImage: '/og/og-default.svg'
+  },
+  '/learn/design-ops-fundamentals': {
+    title: 'Design Ops Fundamentals | BiblioKit Learn',
+    description: 'Evergreen Design Ops Fundamentals guide for designers, developers, and marketers to align design systems, handoff, implementation, launch, and campaigns.',
+    keywords: 'Design Ops fundamentals, design system governance, design handoff, implementation standards, launch readiness',
+    ogTitle: 'Design Ops Fundamentals | BiblioKit Learn',
+    ogDescription: 'Evergreen Design Ops Fundamentals guide for designers, developers, and marketers to align design systems, handoff, implementation, launch, and campaigns.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'Design Ops Fundamentals | BiblioKit Learn',
+    twitterDescription: 'Evergreen Design Ops Fundamentals guide for designers, developers, and marketers to align design systems, handoff, implementation, launch, and campaigns.',
     twitterImage: '/og/og-default.svg'
   },
   '/products': {
@@ -580,6 +656,18 @@ export function generateMetadata(
       metadata.twitterSite = normalized;
       metadata.twitterCreator = normalized;
     }
+  }
+
+  const pluginSchema = buildPluginSoftwareApplicationSchema(
+    normalizedPathNoTrailingSlash,
+    baseUrl,
+    metadata.description
+  );
+  if (pluginSchema) {
+    metadata.structuredData = [
+      ...(metadata.structuredData || []),
+      pluginSchema
+    ];
   }
   
   // Ensure absolute URLs for social media

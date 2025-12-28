@@ -190,11 +190,32 @@ export const buildSitemapXml = (baseUrl: string): string => {
       images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Resources' }]
     },
     {
+      path: '/learn',
+      lastmod: defaultLastmod,
+      changefreq: 'monthly',
+      priority: '0.6',
+      images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Learn' }]
+    },
+    {
+      path: '/learn/design-ops-fundamentals',
+      lastmod: defaultLastmod,
+      changefreq: 'monthly',
+      priority: '0.6',
+      images: [{ loc: `${base}/og/og-default.svg`, title: 'Design Ops Fundamentals' }]
+    },
+    {
       path: '/resources/remove-prototype-link',
       lastmod: defaultLastmod,
       changefreq: 'monthly',
       priority: '0.6',
       images: [{ loc: `${base}/og/og-default.svg`, title: 'Remove Prototype Link resource' }]
+    },
+    {
+      path: '/about',
+      lastmod: defaultLastmod,
+      changefreq: 'monthly',
+      priority: '0.5',
+      images: [{ loc: `${base}/og/og-default.svg`, title: 'About BiblioKit' }]
     }
   ];
 

@@ -20,14 +20,15 @@ const BiblioAuditPage = () => {
   useEffect(() => {
     // SEO Metadata
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
-    const metadata = {
+    const metadata = generateMetadata(ROUTE_PATHS.BIBLIO_AUDIT, content, baseUrl);
+    const overrideMetadata = {
+      ...metadata,
       title: 'BiblioAudit | Find Detached Instances & Design System Check',
       description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
       ogTitle: 'BiblioAudit | Find Detached Instances & Design System Check',
       ogDescription: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
-      url: `${baseUrl}${ROUTE_PATHS.BIBLIO_AUDIT || '/biblio-audit'}`,
     };
-    updatePageMetadata(metadata);
+    updatePageMetadata(overrideMetadata);
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check';

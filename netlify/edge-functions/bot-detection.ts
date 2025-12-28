@@ -77,6 +77,61 @@ const PRODUCT_META: Record<string, { title: string; description: string; ogType?
   }
 };
 
+type SoftwareApplicationSchemaConfig = {
+  name: string;
+  description: string;
+  image: string;
+  offers?: {
+    price: string;
+    priceCurrency: string;
+    availability: string;
+    description?: string;
+  };
+  softwareVersion?: string;
+  featureList?: string[];
+  includeDateModified?: boolean;
+  authorName?: string;
+};
+
+const SOFTWARE_APPLICATION_SCHEMA: Record<string, SoftwareApplicationSchemaConfig> = {
+  '/biblio-rename': {
+    name: 'BiblioRename',
+    description: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
+    image: '/media/BiblioRename.png',
+    softwareVersion: '1.0',
+    featureList: [
+      'One-Click Renaming',
+      'Smart Context Analysis',
+      'Batch Processing',
+      'Component Intelligence',
+      'Cross-Frame Sync'
+    ],
+    includeDateModified: true,
+    authorName: 'BiblioKit',
+    offers: {
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      description: 'Free community plugin - completely free to use forever'
+    }
+  },
+  '/biblio-clean': {
+    name: 'BiblioClean',
+    description: 'BiblioClean removes Figma prototype links safely for designers, developers, and marketers. Revoke stale URLs and share the right build fast.',
+    image: '/media/BiblioClean.png'
+  },
+  '/biblio-audit': {
+    name: 'BiblioAudit',
+    description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
+    image: '/media/BiblioAudit.png'
+  },
+  '/biblio-table': {
+    name: 'BiblioTable',
+    description: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
+    image: '/media/BiblioTable.png'
+  }
+};
+
 const PRODUCT_PAGE_COPY: Record<string, { headline: string; description: string }> = {
   '/biblio-clean': {
     headline: 'BiblioClean',
@@ -137,6 +192,70 @@ const toAbsoluteUrl = (origin: string, input?: string | null): string | null => 
   } catch {
     return `${origin}${input.startsWith('/') ? input : `/${input}`}`;
   }
+};
+
+const renderSoftwareApplicationSchema = (origin: string, pathname: string): string => {
+  const config = SOFTWARE_APPLICATION_SCHEMA[pathname]
+    || (pathname === '/ai-rename-variants' ? SOFTWARE_APPLICATION_SCHEMA['/biblio-rename'] : undefined);
+  if (!config) {
+    return '';
+  }
+
+  const url = `${origin}${pathname}`;
+  const imageUrl = toAbsoluteUrl(origin, config.image) || `${origin}/og/og-default.svg`;
+  const softwareVersion = config.softwareVersion
+    ? `,
+      "softwareVersion": "${config.softwareVersion}"`
+    : '';
+  const dateModified = config.includeDateModified
+    ? `,
+      "dateModified": "${new Date().toISOString().split('T')[0]}"`
+    : '';
+  const author = config.authorName
+    ? `,
+      "author": {
+        "@type": "Organization",
+        "name": "${config.authorName}"
+      }`
+    : '';
+  const featureList = config.featureList
+    ? `,
+      "featureList": ${JSON.stringify(config.featureList)}`
+    : '';
+  const offersDescription = config.offers?.description
+    ? `,
+          "description": "${config.offers.description}"`
+    : '';
+  const offers = config.offers
+    ? `,
+        "offers": {
+          "@type": "Offer",
+          "price": "${config.offers.price}",
+          "priceCurrency": "${config.offers.priceCurrency}",
+          "availability": "${config.offers.availability}"${offersDescription}
+        }`
+    : '';
+
+  return `
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "@id": "${url}#softwareapplication",
+      "name": "${config.name}",
+      "description": "${config.description}",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Web Browser, Figma"${softwareVersion}${dateModified},
+      "url": "${url}",
+      "image": "${imageUrl}",
+      "publisher": {
+        "@type": "Organization",
+        "@id": "${origin}#organization",
+        "name": "BiblioKit"
+      }${author}${featureList}${offers}
+    }
+    </script>
+  `;
 };
 
 const renderSiteLinks = (links: Array<{ href: string; label: string }>, color = '#e5e7eb') =>
@@ -376,7 +495,8 @@ function getPageSchema(pathname: string, origin: string): string {
       },
       "sameAs": [
         "https://twitter.com/bibliokit",
-        "https://github.com/bibliokit"
+        "https://github.com/bibliokit",
+        "https://www.figma.com/@bibliokit"
       ],
       "dateModified": "${new Date().toISOString().split('T')[0]}",
       "keywords": "SaaS software, Figma plugins, API management, secure proxy, developer tools, design tools"
@@ -384,43 +504,8 @@ function getPageSchema(pathname: string, origin: string): string {
     </script>
   `;
 
-  if (pathname === '/biblio-rename' || pathname === '/ai-rename-variants') {
-    return organizationSchema + `
-      <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "BiblioRename",
-        "description": "BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.",
-        "applicationCategory": "DesignApplication",
-        "operatingSystem": "Web Browser, Figma",
-        "softwareVersion": "1.0",
-        "dateModified": "${new Date().toISOString().split('T')[0]}",
-        "image": "${origin}/og/og-default.svg",
-        "author": {
-          "@type": "Organization",
-          "name": "BiblioKit"
-        },
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock",
-          "description": "Free community plugin - completely free to use forever"
-        },
-        "featureList": [
-          "One-Click Renaming",
-          "Smart Context Analysis",
-          "Batch Processing",
-          "Component Intelligence",
-          "Cross-Frame Sync"
-        ]
-      }
-      </script>
-    `;
-  }
-
-  return organizationSchema;
+  const softwareApplicationSchema = renderSoftwareApplicationSchema(origin, pathname);
+  return organizationSchema + softwareApplicationSchema;
 }
 
 function getPageContent(pathname: string): string {

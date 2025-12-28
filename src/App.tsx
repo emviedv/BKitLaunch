@@ -23,6 +23,8 @@ import Docs from './components/Docs';
 import AdminPage from './components/AdminPage';
 import AboutPage from './components/AboutPage';
 import ProductsPage from './components/ProductsPage';
+import LearnPage from './components/LearnPage';
+import DesignOpsFundamentalsPage from './components/DesignOpsFundamentalsPage';
 
 // Context & Hooks
 import { usePublishedContent } from './hooks/usePublishedContent';
@@ -43,6 +45,7 @@ const SIMILAR_PATHS = [
   ROUTE_PATHS.BIBLIO_AUDIT,
   ROUTE_PATHS.BIBLIO_TABLE,
   ROUTE_PATHS.UXBIBLIO,
+  ROUTE_PATHS.LEARN,
 ];
 
 /**
@@ -211,6 +214,8 @@ const AppContent: React.FC = () => {
             {(params) => <BlogArticlePage slug={params?.slug ?? ''} />}
           </Route>
           <Route path={ROUTE_PATHS.BLOG} component={BlogPage} />
+          <Route path={ROUTE_PATHS.LEARN_DESIGN_OPS_FUNDAMENTALS} component={DesignOpsFundamentalsPage} />
+          <Route path={ROUTE_PATHS.LEARN} component={LearnPage} />
           <Route path={ROUTE_PATHS.RESOURCES} component={ResourcesPage} />
           <Route path={ROUTE_PATHS.REMOVE_PROTOTYPE_LINK} component={RemovePrototypeLinkPage} />
           <Route>

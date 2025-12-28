@@ -14,4 +14,6 @@ export const ROUTE_PATHS = {
   BLOG_ARTICLE: '/blog/:slug',
   RESOURCES: '/resources',
   REMOVE_PROTOTYPE_LINK: '/resources/remove-prototype-link',
+  LEARN: '/learn',
+  LEARN_DESIGN_OPS_FUNDAMENTALS: '/learn/design-ops-fundamentals',
 } as const;
