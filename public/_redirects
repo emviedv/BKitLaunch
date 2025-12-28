@@ -14,24 +14,24 @@ https://bibliokit.com/* https://www.bibliokit.com/:splat 301!
 /blog/boost-ux-with-atlassian-design-system    /blog    301
 
 # Return 410 for retired paths
-/docs                                  410
-/docs/*                                410
-/uxbiblio                              410
-/uxbiblio/*                            410
-/bibliokit-blocks                      410
-/bibliokit-blocks/*                    410
-/roadmap                               410
-/roadmap/*                             410
-/sign-up                               410
-/sign-up/*                             410
-/test                                  410
-/test/*                                410
-/component-auditor-figma-plugin        410
-/component-auditor-figma-plugin/*      410
-/month                                 410
-/month/*                               410
-/learn-more                            410
-/learn-more/*                          410
+/docs                                  /410 410
+/docs/*                                /410 410
+/uxbiblio                              /410 410
+/uxbiblio/*                            /410 410
+/bibliokit-blocks                      /410 410
+/bibliokit-blocks/*                    /410 410
+/roadmap                               /410 410
+/roadmap/*                             /410 410
+/sign-up                               /410 410
+/sign-up/*                             /410 410
+/test                                  /410 410
+/test/*                                /410 410
+/component-auditor-figma-plugin        /410 410
+/component-auditor-figma-plugin/*      /410 410
+/month                                 /410 410
+/month/*                               /410 410
+/learn-more                            /410 410
+/learn-more/*                          /410 410
 
 # Route legacy AI Rename path to the canonical BiblioRename URL
 /ai-rename-variants                             /biblio-rename    301

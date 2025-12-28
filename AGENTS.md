@@ -88,6 +88,7 @@
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
 
 ## Updates
+- 2025-12-28 02:17 EST: Fixed 410 redirect rules to include a destination path.
 - 2025-12-28 02:15 EST: Restored UXBiblio top-nav link as an external URL.
 - 2025-12-27 23:58 EST: Logged header dropdown and Learn/Design Ops layout updates before committing.
 - 2025-12-27 09:46 EST: Pointed product callout links to the official Figma Community listings.

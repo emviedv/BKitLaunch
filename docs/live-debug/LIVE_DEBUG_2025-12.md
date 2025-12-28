@@ -14,6 +14,12 @@
 - **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/data/products.json
 - **Verification:** Not run (nav update only).
 
+- **Time:** 2025-12-28 02:17 EST
+- **Summary:** Fixed 410 redirect rules to include a required destination so Netlify accepts the retired-path responses.
+- **Root Cause:** Netlify redirect rules require a `to` target; missing it caused warnings and invalid 410 rules during deploy.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; _redirects; public/_redirects
+- **Verification:** Not run (redirect syntax update only).
+
 ## 2025-12-27
 
 - **Time:** 2025-12-27 23:58 EST
