@@ -914,12 +914,11 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
     inLanguage: language,
     publisher: { '@id': `${baseUrl}#organization` },
     potentialAction: [{
-      '@type': 'ContactAction',
+      '@type': 'ReadAction',
       name: 'Contact Sales',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${baseUrl}#contact`,
-        inLanguage: language
+        urlTemplate: `${baseUrl}#contact`
       }
     }]
   });
