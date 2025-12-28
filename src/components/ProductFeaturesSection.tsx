@@ -1,9 +1,20 @@
 import React from 'react';
 
-import {
-  gridClassForColumns,
-} from './productContentSectionHelpers';
+import ContentChunk from './ContentChunk';
+import { Button } from '@/components/ui/button';
+import { HERO_PRIMARY_BUTTON_CLASS } from './heroConstants';
+import { SECTION_TITLE_CLASS } from './productContentSectionConstants';
+import { computeFeatureLayout } from './productContentSectionLayout';
+import { cn } from '@/lib/utils';
+import { debugService } from '@/lib/debugService';
 import ProductFeatureMedia from './ProductFeatureMedia';
+import {
+  createFeatureAnchorId,
+  gridClassForCount,
+  normalizeHref,
+  parseFeatureTitle,
+  productSectionsDebugEnabled,
+} from './productContentSectionHelpers';
 
 type FeaturePill = {
   label: string;
@@ -27,32 +38,36 @@ type ProductDetail = {
   pill?: FeaturePill | null;
 };
 
-interface Props {
+type FeatureNavItem = { title: string; anchorId: string };
+
+type Props = {
   details: ProductDetail[] | undefined;
   productTitle?: string;
   primaryButton?: string;
-  landingShowcaseLayout?: boolean;
-  shouldAlternateFeatures?: boolean;
-  hideFeatureIllustrations?: boolean;
-  featuresTitle?: string;
-  logoMarquee?: React.ReactNode;
-  introContent?: React.ReactNode;
-  enableFeaturesNav?: boolean;
-  compactLayout?: boolean;
+  landingShowcaseLayout: boolean;
+  shouldAlternateFeatures: boolean;
+  hideFeatureIllustrations: boolean;
+  featuresTitle: string;
+  logoMarquee: React.ReactNode;
+  introContent: React.ReactNode;
+  enableFeaturesNav: boolean;
+  compactLayout: boolean;
   sectionId?: string;
-}
+};
 
 const ProductFeaturesSection: React.FC<Props> = ({
   details,
   productTitle,
   primaryButton,
-  landingShowcaseLayout = false,
-  shouldAlternateFeatures = true,
-  hideFeatureIllustrations = false,
+  landingShowcaseLayout,
+  shouldAlternateFeatures,
+  hideFeatureIllustrations,
+  featuresTitle,
   logoMarquee,
   introContent,
-  enableFeaturesNav = false,
-  sectionId
+  enableFeaturesNav,
+  compactLayout,
+  sectionId,
 }) => {
   const detailEntries = Array.isArray(details)
     ? details.map((detail, index) => ({
