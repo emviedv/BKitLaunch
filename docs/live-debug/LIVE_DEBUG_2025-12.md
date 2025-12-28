@@ -1,5 +1,19 @@
 # Live Debug Log — 2025-12
 
+## 2025-12-28
+
+- **Time:** 2025-12-28 02:09 EST
+- **Summary:** Removed internal links and sitemap entries for retired URLs and added 410 responses for unwanted paths.
+- **Root Cause:** Deprecated routes were still linked or surfaced in bot HTML and redirects, so crawlers continued to discover them.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; _redirects; public/_redirects; public/llms.txt; src/data/products.json; netlify/functions/sitemap.ts; netlify/edge-functions/bot-detection.ts
+- **Verification:** Not run (redirect/content update only).
+
+- **Time:** 2025-12-28 02:13 EST
+- **Summary:** Restored UXBiblio in the header nav as an external link to UXBiblio.com.
+- **Root Cause:** UXBiblio was removed from the top nav while cleaning up deprecated internal URLs.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2025-12.md; src/data/products.json
+- **Verification:** Not run (nav update only).
+
 ## 2025-12-27
 
 - **Time:** 2025-12-27 23:58 EST

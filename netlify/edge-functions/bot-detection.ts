@@ -2,6 +2,9 @@ import { BLOG_POSTS as BLOG_POST_DATA } from '../../src/data/blogPosts.ts';
 
 const RETIRED_PATHS = new Set([
   '/product',
+  '/docs',
+  '/uxbiblio',
+  '/bibliokit-blocks',
   '/roadmap',
   '/sign-up',
   '/test',
@@ -40,7 +43,6 @@ const SITE_LINKS = [
   { label: 'BiblioClean', href: '/biblio-clean' },
   { label: 'BiblioAudit', href: '/biblio-audit' },
   { label: 'BiblioTable', href: '/biblio-table' },
-  { label: 'UXBiblio', href: '/uxbiblio' },
   { label: 'Blog', href: '/blog' }
 ];
 

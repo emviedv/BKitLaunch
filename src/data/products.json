@@ -78,8 +78,9 @@
         ]
       },
       {
-        "href": "/uxbiblio",
-        "label": "UXBiblio"
+        "href": "https://uxbiblio.com",
+        "label": "UXBiblio",
+        "isExternal": true
       },
       {
         "href": "/learn",
@@ -327,10 +328,6 @@
           {
             "href": "#landing-pricing",
             "label": "Pricing"
-          },
-          {
-            "href": "/docs",
-            "label": "Documentation"
           },
           {
             "href": "#contact",

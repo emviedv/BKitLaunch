@@ -3,14 +3,12 @@
 
 ## Core
 - https://www.bibliokit.com/ - BiblioKit overview and waitlist.
-- https://www.bibliokit.com/docs - Setup guides and API notes.
 
 ## Products
 - https://www.bibliokit.com/biblio-rename - AI batch renaming for variants and layers.
 - https://www.bibliokit.com/biblio-clean - Safe prototype link cleanup workflows.
 - https://www.bibliokit.com/biblio-audit - Design system audits and QA checks.
 - https://www.bibliokit.com/biblio-table - Auto Layout table fixes and normalization.
-- https://www.bibliokit.com/uxbiblio - AI-tagged UX pattern library.
 
 ## Resources
 - https://www.bibliokit.com/resources - Playbooks and free tools.

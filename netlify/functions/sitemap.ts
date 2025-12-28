@@ -19,6 +19,7 @@ type SitemapEntry = {
 
 const DEFAULT_CHANGEFREQ = 'weekly';
 const DEFAULT_PRIORITY = '0.8';
+const EXCLUDED_PRODUCT_SLUGS = new Set(['uxbiblio']);
 
 const canonicalizeSlug = (slug: string): string =>
   slug === 'ai-rename-variants' ? 'biblio-rename' : slug;
@@ -167,7 +168,6 @@ export const buildSitemapXml = (baseUrl: string): string => {
     { path: '/biblio-clean', lastmod: defaultLastmod },
     { path: '/biblio-audit', lastmod: defaultLastmod },
     { path: '/biblio-table', lastmod: defaultLastmod },
-    { path: '/uxbiblio', lastmod: defaultLastmod },
     {
       path: '/blog',
       lastmod: defaultLastmod,
@@ -221,11 +221,13 @@ export const buildSitemapXml = (baseUrl: string): string => {
 
   const productEntries = (productData as any)?.products;
   const dynamicProductEntries: SitemapEntry[] = productEntries
-    ? Object.keys(productEntries).map((slug) => ({
-        path: `/${canonicalizeSlug(slug)}`,
-        lastmod: toIsoDate((productEntries as any)?.[slug]?.lastUpdated, defaultLastmod),
-        images: resolveProductImages(base, slug, (productEntries as any)[slug])
-      }))
+    ? Object.keys(productEntries)
+        .filter((slug) => !EXCLUDED_PRODUCT_SLUGS.has(slug))
+        .map((slug) => ({
+          path: `/${canonicalizeSlug(slug)}`,
+          lastmod: toIsoDate((productEntries as any)?.[slug]?.lastUpdated, defaultLastmod),
+          images: resolveProductImages(base, slug, (productEntries as any)[slug])
+        }))
     : [];
 
   const blogEntries = Array.isArray(BLOG_POSTS) ? buildBlogEntries(base, defaultLastmod) : [];
