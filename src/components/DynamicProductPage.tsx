@@ -138,8 +138,6 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
     }
   }, [product, slug, effectiveContent]);
 
-  const colorClasses = ['icon-purple', 'icon-blue', 'icon-green', 'icon-orange', 'icon-pink', 'icon-indigo'];
-
   const faqs =
     (product as any)?.faqs || [
       {

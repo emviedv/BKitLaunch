@@ -5,7 +5,7 @@ import { debugService } from '@/lib/debugService';
 import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
-import { Check, RefreshCw, Shield, Lock, Download } from '@/lib/iconUtils';
+import { Check, Shield, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
@@ -21,14 +21,7 @@ const BiblioCleanPage = () => {
     // SEO Metadata
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
     const metadata = generateMetadata(ROUTE_PATHS.BIBLIO_CLEAN, content, baseUrl);
-    const overrideMetadata = {
-      ...metadata,
-      title: 'BiblioClean | Remove Prototype Links Safely',
-      description: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
-      ogTitle: 'BiblioClean | Remove Prototype Links Safely',
-      ogDescription: 'BiblioKit: Remove Figma prototype links safely with BiblioClean. Clean your files and ensure smooth design handoff. Try it free!',
-    };
-    updatePageMetadata(overrideMetadata);
+    updatePageMetadata(metadata);
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines';
@@ -99,7 +92,7 @@ const BiblioCleanPage = () => {
       <Section dark className="border-y border-slate-800/50">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <SectionTitle>Stop shipping "blue spaghetti."</SectionTitle>
+            <SectionTitle>Stop shipping &quot;blue spaghetti.&quot;</SectionTitle>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3 text-lg text-slate-300">
                 <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
@@ -111,7 +104,7 @@ const BiblioCleanPage = () => {
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
                 <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
-                Manually clicking "minus" on interactions takes forever.
+                Manually clicking &quot;minus&quot; on interactions takes forever.
               </li>
             </ul>
             <div className="bg-red-900/20 border border-red-900/50 p-6 rounded-lg mb-6">
@@ -119,7 +112,7 @@ const BiblioCleanPage = () => {
               <p className="text-red-300">One wrong flow connection sends your dev team down a rabbit hole of outdated screens.</p>
             </div>
             <p className="italic text-slate-400">
-              "We spent a sprint building a flow that was supposed to be cut, just because the prototype line was still there."
+              &quot;We spent a sprint building a flow that was supposed to be cut, just because the prototype line was still there.&quot;
             </p>
           </div>
           <div className="relative">
@@ -268,7 +261,7 @@ const BiblioCleanPage = () => {
               <p className="text-xl text-blue-200 mb-8">Install BiblioClean for free and wipe those blue lines away.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Get BiblioClean — Free
+                  Get BiblioClean &mdash; Free
                 </a>
               </Button>
               <p className="mt-4 text-sm text-blue-100">

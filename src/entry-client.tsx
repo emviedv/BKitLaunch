@@ -7,18 +7,18 @@ import './index.css';
 
 try {
   LogRocket.init('wgazc5/bibliokit');
-} catch {}
+} catch { /* empty */ }
 
 try {
   document.documentElement.classList.add('dark');
-} catch {}
+} catch { /* empty */ }
 
 // Disable native scroll restoration so refresh starts at the top unless a hash is present
 try {
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
-} catch {}
+} catch { /* empty */ }
 
 // Basic production/consent-gated Hotjar loader for public routes only
 const loadHotjarIfAllowed = (): void => {
@@ -42,7 +42,7 @@ const loadHotjarIfAllowed = (): void => {
     if (!isProd || isAdmin || !consent || alreadyLoaded) return;
 
     // Define hj and _hjSettings BEFORE injecting the loader script
-    (window as any).hj = (window as any).hj || function () { ((window as any).hj.q = (window as any).hj.q || []).push(arguments); };
+    (window as any).hj = (window as any).hj || function (...args: any[]) { ((window as any).hj.q = (window as any).hj.q || []).push(args); };
     (window as any)._hjSettings = { hjid: 6484850, hjsv: 6 };
     
     // Allowlist domains via CSP (Edge sends Report-Only policy allowing Hotjar domains)
@@ -53,7 +53,7 @@ const loadHotjarIfAllowed = (): void => {
     
     console.log('✅ HotJar script injected successfully');
   } catch {
-    // no-op
+    /* empty */
   }
 };
 

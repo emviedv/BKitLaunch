@@ -3,17 +3,17 @@ import React from 'react';
 interface StatBoxProps {
   statistic: string;
   description: string;
-  source: string;
-  date: string;
+  _source?: string;
+  _date?: string;
   className?: string;
 }
 
 const StatBox: React.FC<StatBoxProps> = ({
   statistic,
   description,
-  source,
-  date,
-  className = ''
+  _source,
+  _date,
+  className,
 }) => {
   return (
     <div

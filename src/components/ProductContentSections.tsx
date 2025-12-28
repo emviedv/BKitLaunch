@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import ContentChunk from './ContentChunk';
 import ExpertQuote from './ExpertQuote';
 import FAQSchema from './FAQSchema';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { debugService } from '@/lib/debugService';
 import { SECTION_TITLE_CLASS, SECTION_DESCRIPTION_CLASS } from './productContentSectionConstants';
@@ -12,14 +11,10 @@ import {
   createFeatureAnchorId,
   createSectionClassBuilder,
   gridClassForColumns,
-  gridClassForCount,
   mediaDiagnosticsEnabled,
-  normalizeHref,
-  parseFeatureTitle,
   productSectionsDebugEnabled,
   sanitizeColumns
 } from './productContentSectionHelpers';
-import ProductFeatureMedia from './ProductFeatureMedia';
 import ProductFeaturesSection from './ProductFeaturesSection';
 
 type FeaturePill = {
@@ -71,6 +66,7 @@ type ProductLike = {
     specifications?: boolean;
     faqs?: boolean;
     testimonials?: boolean;
+    waitlist?: boolean;
   };
   sections?: {
     features?: { title?: string; description?: string; columns?: number };
@@ -117,7 +113,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     standardContainerClass
   );
   const buildContainerClass = buildSectionClass;
-  const buildSectionContentClass = buildSectionClass;
 
   useEffect(() => {
     if (!sectionsDebug || typeof document === 'undefined') return;
@@ -170,19 +165,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     });
   }, [sectionsDebug]);
 
-  const logFeatureMedia = (detail: ProductDetail, variant: 'default' | 'showcase') => {
-    if (!mediaDiagnosticsEnabled() || !detail.mediaUrl) {
-      return;
-    }
-    debugService.debug('landing:feature-media', {
-      title: detail.title,
-      mediaUrl: detail.mediaUrl,
-      mediaAlt: detail.mediaAlt,
-      variant,
-      isLocal: detail.mediaUrl.startsWith('/'),
-    });
-  };
-
   const expertQuote = {
     quote: product?.llm?.expertQuote?.quote || '',
     expertName: product?.llm?.expertQuote?.expertName || '—',
@@ -225,24 +207,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
   };
 
   const hasDetails = Boolean(details && details.length > 0);
-  const detailEntries = hasDetails
-    ? details!.map((detail, index) => ({
-        detail,
-        anchorId: createFeatureAnchorId(detail.title, index),
-      }))
-    : [];
   const shouldAlternateFeatures = true;
-  const featureNavItems = enableFeaturesNav
-    ? detailEntries
-        .map(({ detail, anchorId }) =>
-          detail.title ? { title: detail.title, anchorId } : null
-        )
-        .filter(Boolean) as Array<{ title: string; anchorId: string }>
-    : [];
-
-  const renderDetailMedia = (detail: ProductDetail, variant: 'default' | 'showcase' = 'default') => (
-    <ProductFeatureMedia detail={detail} productTitle={(product as any)?.title} variant={variant} />
-  );
 
   const featuresTitle = sectionOverrides?.featuresTitle
     || product?.sections?.features?.title

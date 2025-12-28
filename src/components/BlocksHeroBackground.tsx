@@ -20,7 +20,8 @@ interface UIComponentOutline {
   delay: number;
 }
 
-type IconComponent = React.ComponentType<{ size?: number | string; className?: string }>;
+// Relaxed type to avoid strict mismatches with Lucide's ForwardRef definitions
+type IconComponent = any;
 
 interface FloatingIconDef {
   Icon: IconComponent;

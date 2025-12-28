@@ -49,10 +49,6 @@ const renderBadges = (feature: FeatureLike) => {
 const Features: React.FC = () => {
   const { content } = usePublishedContent();
 
-  if (content?.settings?.visibility?.features === false) {
-    return null;
-  }
-
   const featuresSection =
     content.features && !Array.isArray(content.features)
       ? content.features
@@ -67,6 +63,10 @@ const Features: React.FC = () => {
     }
     return [];
   }, [content.features]);
+
+  if (content?.settings?.visibility?.features === false) {
+    return null;
+  }
 
   const shouldHideFeature = (feature: FeatureLike): boolean => {
     const title = (feature?.title || '').trim().toLowerCase();

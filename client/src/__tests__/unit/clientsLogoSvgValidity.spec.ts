@@ -34,8 +34,12 @@ describe('Client Logo SVG Validity', () => {
     });
 
     it('should not have excessive width/height attributes', () => {
-      const widthMatch = content.match(/\bwidth\s*=\s*["']?(\d+)/i);
-      const heightMatch = content.match(/\bheight\s*=\s*["']?(\d+)/i);
+      // Extract just the opening <svg> tag to avoid matching internal elements like <rect>
+      const svgTagMatch = content.match(/<svg([^>]*)>/i);
+      const svgAttrs = svgTagMatch ? svgTagMatch[1] : '';
+
+      const widthMatch = svgAttrs.match(/\bwidth\s*=\s*["']?(\d+)/i);
+      const heightMatch = svgAttrs.match(/\bheight\s*=\s*["']?(\d+)/i);
 
       const width = widthMatch ? parseInt(widthMatch[1], 10) : 0;
       const height = heightMatch ? parseInt(heightMatch[1], 10) : 0;

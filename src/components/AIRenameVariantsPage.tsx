@@ -106,15 +106,15 @@ const AIRenameVariantsPage = () => {
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
                 <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
-                Wasted designer hours on "final_final_v2" cleanup.
+                Wasted designer hours on &quot;final_final_v2&quot; cleanup.
               </li>
             </ul>
             <div className="bg-red-900/20 border border-red-900/50 p-6 rounded-lg mb-6">
               <p className="font-semibold text-red-200 mb-1">The Hidden Cost</p>
-              <p className="text-red-300">3 designers × 1.5 hours/week = 6+ hours lost to rote work.</p>
+              <p className="text-red-300">3 designers &times; 1.5 hours/week = 6+ hours lost to rote work.</p>
             </div>
             <p className="italic text-slate-400">
-              "We spent the entire post-launch retro discussing a wrong button variant that broke the checkout flow."
+              &quot;We spent the entire post-launch retro discussing a wrong button variant that broke the checkout flow.&quot;
             </p>
           </div>
           <div className="relative">
@@ -305,7 +305,7 @@ const AIRenameVariantsPage = () => {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
            {/* Testimonial 1 */}
            <div className="p-6 bg-slate-800/40 rounded-xl border border-slate-700/50 backdrop-blur-sm">
-              <p className="text-slate-300 mb-4">"Reduced handoff bugs by 40%. Exported the health score to show progress to our PM."</p>
+              <p className="text-slate-300 mb-4">&quot;Reduced handoff bugs by 40%. Exported the health score to show progress to our PM.&quot;</p>
               <div className="flex items-center gap-3">
                  <div className="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center font-bold text-white">LM</div>
                  <div>
@@ -316,7 +316,7 @@ const AIRenameVariantsPage = () => {
            </div>
             {/* Testimonial 2 */}
            <div className="p-6 bg-slate-800/40 rounded-xl border border-slate-700/50 backdrop-blur-sm">
-              <p className="text-slate-300 mb-4">"The audit log saved us. We could revert a bad batch rename instantly."</p>
+              <p className="text-slate-300 mb-4">&quot;The audit log saved us. We could revert a bad batch rename instantly.&quot;</p>
               <div className="flex items-center gap-3">
                  <div className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center font-bold text-white">JS</div>
                  <div>
@@ -327,7 +327,7 @@ const AIRenameVariantsPage = () => {
            </div>
             {/* Testimonial 3 */}
            <div className="p-6 bg-slate-800/40 rounded-xl border border-slate-700/50 backdrop-blur-sm">
-              <p className="text-slate-300 mb-4">"Finally, a way to enforce CamelCase on variants without nagging the team."</p>
+              <p className="text-slate-300 mb-4">&quot;Finally, a way to enforce CamelCase on variants without nagging the team.&quot;</p>
               <div className="flex items-center gap-3">
                  <div className="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center font-bold text-white">AK</div>
                  <div>
@@ -431,7 +431,7 @@ const AIRenameVariantsPage = () => {
             </div>
             <div className="mt-12 pt-12 border-t border-slate-800/50">
                <p className="italic text-slate-400 text-lg mb-6">
-                  "Built by a designer who fixed variant chaos after a broken launch."
+                  &quot;Built by a designer who fixed variant chaos after a broken launch.&quot;
                </p>
                <div className="flex justify-center items-center gap-2">
                   <span className="font-semibold">5.0</span>

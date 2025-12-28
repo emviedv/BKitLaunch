@@ -15,17 +15,8 @@ interface CTASectionProps {
   className?: string;
 }
 
-/**
- * CTA Section Data Interface
- */
-interface CTAData {
-  title: string;
-  description: string;
-  primaryButton: string;
-  secondaryButton: string;
-  primaryButtonLink?: string;
-  secondaryButtonLink?: string;
-}
+//   - secondaryButtonLink (string)
+//   - align ('left' | 'center')
 
 /**
  * CTASection - Reusable call-to-action component

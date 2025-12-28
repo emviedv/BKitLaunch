@@ -11,8 +11,9 @@ import { Button, type ButtonProps } from "@/components/ui/button";
 interface MagnetizeButtonProps extends ButtonProps {
   particleCount?: number;
   attractRadius?: number;
+  attractStrength?: number;
   href?: string;
-  target?: React.HTMLAttributeAnchorTarget;
+  target?: string;
   rel?: string;
 }
 

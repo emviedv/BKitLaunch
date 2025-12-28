@@ -151,7 +151,7 @@ const ProductsPage: React.FC = () => {
     () =>
       featureDetails.map((detail, index) => {
         if (index !== 0 || !detail.mediaUrl) return detail;
-        return { ...detail, mediaLoading: 'eager' };
+        return { ...detail, mediaLoading: 'eager' as const };
       }),
     [featureDetails]
   );
@@ -162,7 +162,7 @@ const ProductsPage: React.FC = () => {
         All BiblioKit products
       </h1>
       <p className={`${SECTION_DESCRIPTION_CLASS} products-page-description text-white/70`}>
-        Pick the plugin that cuts the manual grind out of your Figma file. We've built this suite
+        Pick the plugin that cuts the manual grind out of your Figma file. We&apos;ve built this suite
         for designers, developers, and marketers fighting messy workflows, tangled systems, and
         handoff confusion so teams stay aligned from wireframes to polished products.
       </p>

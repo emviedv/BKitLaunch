@@ -33,10 +33,6 @@ const Hero: React.FC = () => {
     title: hero.title,
   });
 
-  if (content.settings?.visibility?.hero === false) {
-    return null;
-  }
-
   const hasHeroContent = Boolean(
     hero.title ||
       hero.subtitle ||
@@ -44,10 +40,6 @@ const Hero: React.FC = () => {
       hero.primaryButton ||
       hero.secondaryButton,
   );
-
-  if (!hasHeroContent) {
-    return null;
-  }
 
   const handleAnchorClick = (event: React.MouseEvent, href?: string) => {
     if (!href || !href.startsWith("#")) return;
@@ -89,6 +81,14 @@ const Hero: React.FC = () => {
       });
     }
   }, [headlineSegments, hero.subtitle]);
+
+  if (content.settings?.visibility?.hero === false) {
+    return null;
+  }
+
+  if (!hasHeroContent) {
+    return null;
+  }
 
   return (
     <section id={LANDING_HERO_ID} className="landing-hero-section section-hero relative -mt-16 overflow-hidden">

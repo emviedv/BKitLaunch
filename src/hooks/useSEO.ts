@@ -39,7 +39,7 @@ export function applyClientMetadata(
  */
 export function useSEO(contentData?: any, options?: UseSEOOptions) {
   const shouldSkip = options?.shouldSkip;
-  const [location] = (typeof window !== 'undefined') ? useLocation() : (["/", () => {}] as unknown as ReturnType<typeof useLocation>);
+  const [location] = useLocation();
   
   useEffect(() => {
     // Skip if this is SSR or if we don't have window

@@ -9,7 +9,7 @@ interface ShaderBackgroundProps {
 
 export function ShaderBackground({ children }: ShaderBackgroundProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [isActive, setIsActive] = useState(false)
+  const [_isActive, setIsActive] = useState(false)
 
   useEffect(() => {
     const handleMouseEnter = () => setIsActive(true)
@@ -64,12 +64,14 @@ export function ShaderBackground({ children }: ShaderBackgroundProps) {
         className="absolute inset-0 w-full h-full"
         colors={["#000000", "#8B4513", "#ffffff", "#3E2723", "#5D4037"]}
         speed={0.3}
+        // @ts-expect-error - Prop passed to shader but missing in types
         backgroundColor="#000000"
       />
       <MeshGradient
         className="absolute inset-0 w-full h-full opacity-60"
         colors={["#000000", "#ffffff", "#8B4513", "#000000"]}
         speed={0.2}
+        // @ts-expect-error - Prop passed to shader but missing in types
         wireframe="true"
         backgroundColor="transparent"
       />
@@ -92,6 +94,7 @@ export function PulsingCircle() {
           thickness={0.1}
           softness={0.2}
           intensity={5}
+          // @ts-expect-error - Prop passed to shader but missing in types
           spotsPerColor={5}
           spotSize={0.1}
           pulse={0.1}

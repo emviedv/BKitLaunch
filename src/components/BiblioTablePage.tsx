@@ -5,7 +5,7 @@ import { debugService } from '@/lib/debugService';
 import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
-import { Check, Columns, Layout, Table as TableIcon, Download } from '@/lib/iconUtils';
+import { Check, Layout, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
@@ -20,13 +20,7 @@ const BiblioTablePage = () => {
   useEffect(() => {
     // SEO Metadata
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
-    const metadata = {
-        title: 'BiblioTable | Normalize Figma Tables in One Click',
-        description: 'BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!',
-        ogTitle: 'BiblioTable | Normalize Figma Tables in One Click',
-        ogDescription: 'BiblioTable: Streamline Figma tables with BiblioKit. Normalize widths, fix rotation issues, and add zebra striping instantly. Join the beta now!',
-        url: `${baseUrl}${ROUTE_PATHS.BIBLIO_TABLE || '/biblio-table'}`,
-    };
+    const metadata = generateMetadata(ROUTE_PATHS.BIBLIO_TABLE, content, baseUrl);
     updatePageMetadata(metadata);
   }, [content]);
 
@@ -99,7 +93,7 @@ const BiblioTablePage = () => {
       <Section dark className="border-y border-slate-800/50">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <SectionTitle>Tables shouldn't be this hard.</SectionTitle>
+            <SectionTitle>Tables shouldn&apos;t be this hard.</SectionTitle>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3 text-lg text-slate-300">
                 <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
@@ -116,10 +110,10 @@ const BiblioTablePage = () => {
             </ul>
             <div className="bg-red-900/20 border border-red-900/50 p-6 rounded-lg mb-6">
               <p className="font-semibold text-red-200 mb-1">The Layout Tax</p>
-              <p className="text-red-300">Designers spend hours fiddling with "Fill container" vs "Fixed width" instead of designing the data view.</p>
+              <p className="text-red-300">Designers spend hours fiddling with &quot;Fill container&quot; vs &quot;Fixed width&quot; instead of designing the data view.</p>
             </div>
             <p className="italic text-slate-400">
-              "I dread designing data tables because keeping the columns aligned across 50 rows is a nightmare."
+              &quot;I dread designing data tables because keeping the columns aligned across 50 rows is a nightmare.&quot;
             </p>
           </div>
           <div className="relative">

@@ -57,13 +57,13 @@ const AboutPage: React.FC = () => {
           </h2>
           <div className="max-w-3xl mx-auto space-y-4 text-white/80 leading-relaxed">
             <p>
-              Modern design teams are bogged down by <span className="text-amber-400 font-medium">"design debt"</span>, fragmented plugin stacks, manual refactoring, and inconsistent handoffs.
+              Modern design teams are bogged down by <span className="text-amber-400 font-medium">&quot;design debt&quot;</span>, fragmented plugin stacks, manual refactoring, and inconsistent handoffs.
             </p>
             <p>
               We saw teams spending <span className="text-white font-semibold">40% of their time on maintenance</span> rather than innovation.
             </p>
             <p className="text-lg text-white/90">
-              BiblioKit was created to solve the <span className="text-amber-400 font-medium">"maintenance tax"</span> on creativity.
+              BiblioKit was created to solve the <span className="text-amber-400 font-medium">&quot;maintenance tax&quot;</span> on creativity.
             </p>
           </div>
         </div>
@@ -125,7 +125,7 @@ const AboutPage: React.FC = () => {
             </div>
             <div>
               <h3 className="font-semibold text-white mb-1">Efficiency First</h3>
-              <p className="text-sm text-white/60">If a machine can do it, a designer shouldn't have to.</p>
+              <p className="text-sm text-white/60">If a machine can do it, a designer shouldn&apos;t have to.</p>
             </div>
           </div>
           <div className="flex gap-4 p-5 rounded-xl bg-white/[0.02] border border-white/5">

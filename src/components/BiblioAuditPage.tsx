@@ -5,7 +5,7 @@ import { debugService } from '@/lib/debugService';
 import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
-import { Check, Shield, Search, Lock, Download } from '@/lib/iconUtils';
+import { Check, Search, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
@@ -21,14 +21,7 @@ const BiblioAuditPage = () => {
     // SEO Metadata
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
     const metadata = generateMetadata(ROUTE_PATHS.BIBLIO_AUDIT, content, baseUrl);
-    const overrideMetadata = {
-      ...metadata,
-      title: 'BiblioAudit | Find Detached Instances & Design System Check',
-      description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
-      ogTitle: 'BiblioAudit | Find Detached Instances & Design System Check',
-      ogDescription: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
-    };
-    updatePageMetadata(overrideMetadata);
+    updatePageMetadata(metadata);
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check';
@@ -121,7 +114,7 @@ const BiblioAuditPage = () => {
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
                 <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
-                "Dirty" overrides breaking developer handoff.
+                &quot;Dirty&quot; overrides breaking developer handoff.
               </li>
             </ul>
             <div className="bg-red-900/20 border border-red-900/50 p-6 rounded-lg mb-6">
@@ -129,7 +122,7 @@ const BiblioAuditPage = () => {
               <p className="text-red-300">Every detached component doubles the maintenance cost when you update your library.</p>
             </div>
             <p className="italic text-slate-400">
-              "We pushed a rebranding update and realized half our screens didn't change because designers had detached the buttons."
+              &quot;We pushed a rebranding update and realized half our screens didn&apos;t change because designers had detached the buttons.&quot;
             </p>
           </div>
           <div className="relative">
@@ -217,7 +210,7 @@ const BiblioAuditPage = () => {
               <p className="text-slate-300 text-lg mb-6">Locate every component that has been detached from the library. Reattach them to keep your design system connected.</p>
               <ul className="text-sm text-slate-400 space-y-2">
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Scans deeply nested layers</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Flags "rogue" UI elements</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Flags &quot;rogue&quot; UI elements</li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> One-click navigation to error</li>
               </ul>
             </div>
@@ -238,7 +231,7 @@ const BiblioAuditPage = () => {
           {/* Feature 3 */}
           <div className="grid md:grid-cols-2 gap-12 items-center">
              <div>
-              <h3 className="text-2xl font-bold mb-4">Flag "Dirty" Overrides</h3>
+              <h3 className="text-2xl font-bold mb-4">Flag &quot;Dirty&quot; Overrides</h3>
               <p className="text-slate-300 text-lg mb-6">Identify instances with heavy manual overrides that should be variants. Keep your components clean and predictable.</p>
             </div>
             <PlaceholderImage label="Screenshot: Override Analysis" />
@@ -294,7 +287,7 @@ const BiblioAuditPage = () => {
               <p className="text-xl text-cyan-200 mb-8">Install BiblioAudit for free and catch errors before your developers do.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Get BiblioAudit — Free
+                  Get BiblioAudit &mdash; Free
                 </a>
               </Button>
               <p className="mt-4 text-sm text-cyan-100">

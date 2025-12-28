@@ -49,25 +49,6 @@ const SIMILAR_PATHS = [
 ];
 
 /**
- * Content interface for published content structure
- */
-interface PublishedContent {
-  settings?: {
-    visibility?: {
-      cta?: boolean;
-    };
-  };
-  cta?: {
-    title: string;
-    description: string;
-    primaryButton: string;
-    secondaryButton: string;
-    primaryButtonLink?: string;
-    secondaryButtonLink?: string;
-  };
-}
-
-/**
  * HomePage - Main landing page component
  */
 const HomePage: React.FC = () => {
@@ -117,7 +98,7 @@ const LegacyAIRenameRedirect: React.FC = () => {
 const NotFoundPage: React.FC = () => {
   const [location] = useLocation();
   const normalizedPath = (location || '/').split('?')[0].replace(/\/+$/, '') || '/';
-  let suggestedPath = ROUTE_PATHS.HOME;
+  let suggestedPath: string = ROUTE_PATHS.HOME;
   const origin = typeof window !== 'undefined' ? window.location.origin : 'https://www.bibliokit.com';
 
   if (normalizedPath.startsWith('/blog/')) {
@@ -128,7 +109,7 @@ const NotFoundPage: React.FC = () => {
     const segments = normalizedPath.split('/').filter(Boolean);
     if (segments.length > 0) {
       const firstSegment = `/${segments[0]}`;
-      if (SIMILAR_PATHS.includes(firstSegment)) {
+      if (SIMILAR_PATHS.includes(firstSegment as any)) {
         suggestedPath = firstSegment;
       }
     }
@@ -139,10 +120,10 @@ const NotFoundPage: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-16 text-center">
       <h1 className="text-4xl font-bold mb-4">
-        Oops! We lost this page, but here's how to get back on track.
+        Oops! We lost this page, but here&apos;s how to get back on track.
       </h1>
       <p className="text-muted-foreground mb-3">
-        The page you're looking for doesn't exist.
+        The page you&apos;re looking for doesn&apos;t exist.
       </p>
       <p className="text-sm text-muted-foreground mb-8">
         Try <a className="underline underline-offset-4" href={suggestedPath}>{suggestedUrl}</a>{' '}

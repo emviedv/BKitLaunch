@@ -7,15 +7,13 @@ import { useLocation } from 'wouter';
  * Keeps hash behavior intact (handled by useHashScroll).
  */
 export const useScrollTopOnHome = (): void => {
-  const [location] = (typeof window !== 'undefined')
-    ? useLocation()
-    : (['/', () => {}] as unknown as ReturnType<typeof useLocation>);
+  const [location] = useLocation();
 
   const scrollTopNow = () => {
     if (typeof window === 'undefined') return;
-    try { window.scrollTo(0, 0); } catch {}
-    try { document.documentElement.scrollTop = 0; } catch {}
-    try { (document.body as any).scrollTop = 0; } catch {}
+    try { window.scrollTo(0, 0); } catch { /* empty */ }
+    try { document.documentElement.scrollTop = 0; } catch { /* empty */ }
+    try { (document.body as any).scrollTop = 0; } catch { /* empty */ }
   };
 
   // After initial hydration
@@ -43,7 +41,7 @@ export const useScrollTopOnHome = (): void => {
   // Handle BFCache and pageshow
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const handler = (e: PageTransitionEvent) => {
+    const handler = () => {
       try {
         const { pathname, hash } = window.location;
         if (pathname === '/' && !hash) {
@@ -51,7 +49,7 @@ export const useScrollTopOnHome = (): void => {
           requestAnimationFrame(scrollTopNow);
           window.setTimeout(scrollTopNow, 50);
         }
-      } catch {}
+      } catch { /* empty */ }
     };
     window.addEventListener('pageshow', handler as any);
     return () => window.removeEventListener('pageshow', handler as any);

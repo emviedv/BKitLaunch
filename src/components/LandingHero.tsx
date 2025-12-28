@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Confetti, type ConfettiRef } from '@/components/ui/confetti';
 import {
-  HERO_DESCRIPTION_CLASS,
   HERO_PRIMARY_BUTTON_CLASS,
   buildHeroHeadlineSegments,
   splitHeroHeadline,
@@ -108,10 +107,6 @@ const handleAnchorNavigation = (event: React.MouseEvent, href?: string | null) =
   }
 };
 
-const resolveTarget = (href?: string | null) => (href && href.startsWith('http') ? '_blank' : undefined);
-
-const resolveRel = (href?: string | null) => (href && href.startsWith('http') ? 'noopener noreferrer' : undefined);
-
 const LandingHero: React.FC<LandingHeroProps> = ({
   hero,
   compact,
@@ -130,11 +125,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
   const [showCursor, setShowCursor] = useState(false);
   const shouldShowCursorEffects = !disableCursorEffects;
 
-  const title = hero?.title?.trim();
-  if (!title) {
-    return null;
-  }
-
+  const title = hero?.title?.trim() || '';
   const subtitle = hero?.subtitle ?? undefined;
   const description = hero?.description ?? undefined;
   const primaryButton = hero?.primaryButton ?? undefined;
@@ -216,6 +207,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
   }, []);
 
   useEffect(() => {
+    if (!title) return;
     logHeroHeadlineSplit({
       component: 'LandingHero',
       title,
@@ -291,6 +283,10 @@ const LandingHero: React.FC<LandingHeroProps> = ({
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  if (!title) {
+    return null;
+  }
 
   return (
     <section

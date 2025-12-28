@@ -46,7 +46,7 @@ export const loadPublishedContent = () => {
     debugService.debug('hero:loadPublishedContent-snapshot', {
       timestamp: new Date().toISOString(),
       heroTitle: content?.hero?.title,
-      heroSubtitle: content?.hero?.subtitle,
+      heroSubtitle: (content?.hero as any)?.subtitle,
       heroVisibleSetting: content?.settings?.visibility?.hero,
       heroFlagVisible: (content as any)?.hero?.visible,
       hasRootProduct: Boolean((content as any)?.product),

@@ -83,15 +83,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
     debugService.info('ProductHero render', {
       title: product?.title
     });
-  } catch {}
-
-  if (!product || !product.title) {
-    return null;
-  }
-
-  if (compact) {
-    return <LandingHero hero={product} />;
-  }
+  } catch { /* empty */ }
 
   const resolvedHeadingId = typeof headingId === 'string' && headingId.trim().length > 0
     ? headingId.trim()
@@ -99,11 +91,11 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
 
   const productIconToken = product?.emoji || product?.icon;
   const ProductGlyph = productIconToken ? resolveLucideIcon(productIconToken) : null;
-  const PrimaryButtonIcon = product.primaryButtonIcon ? resolveLucideIcon(product.primaryButtonIcon) : ArrowRight;
+  const PrimaryButtonIcon = product?.primaryButtonIcon ? resolveLucideIcon(product.primaryButtonIcon) : ArrowRight;
   // Product hero callouts are intentionally hidden on product pages.
   const calloutItems: NormalizedCallout[] = [];
 
-  const rawBadgeLabel = product.badgeLabel ?? '';
+  const rawBadgeLabel = product?.badgeLabel ?? '';
   const badgeLabel = useMemo(
     () => rawBadgeLabel.replace(/^[\p{Emoji_Presentation}\p{Emoji}\p{Extended_Pictographic}\s]+/gu, '').trim(),
     [rawBadgeLabel]
@@ -112,11 +104,19 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   const headlineSegments: HeroHeadlineSegment[] = useMemo(
     () =>
       buildHeroHeadlineSegments({
-        subtitle: product.subtitle,
-        title: product.title,
+        subtitle: product?.subtitle,
+        title: product?.title || '',
       }),
-    [product.subtitle, product.title]
+    [product?.subtitle, product?.title]
   );
+
+  if (!product || !product.title) {
+    return null;
+  }
+
+  if (compact) {
+    return <LandingHero hero={product} />;
+  }
 
   const sectionClassName = cn(
     'landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center',
@@ -218,7 +218,8 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
 
             {calloutItems.length > 0 && (
               <div className={calloutContainerClassName}>
-                {calloutItems.map(({ label, Icon, href }, index) => {
+                {calloutItems.map(({ label, icon, href }, index) => {
+                  const Icon = icon ? resolveLucideIcon(icon) : ArrowRight;
                   const resolvedHref = href?.startsWith('#') ? `/${href}` : href;
                   const isExternalCalloutLink = Boolean(resolvedHref && resolvedHref.startsWith('http'));
                   const calloutContent = resolvedHref ? (

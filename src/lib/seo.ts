@@ -194,6 +194,7 @@ const buildPluginSoftwareApplicationSchema = (
     name: config.name,
     description,
     applicationCategory: 'DesignApplication',
+    applicationSubCategory: 'Figma Plugin',
     operatingSystem: 'Web Browser, Figma',
     url,
     image,
@@ -219,50 +220,50 @@ const defaultMetadata: SEOMetadata = {
 };
 
 const biblioRenameMetadata: SEOMetadata = {
-  title: 'Optimize Figma Designs with AI (BiblioRename) | BiblioKit',
-  description: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
+  title: 'BiblioRename | Optimize Figma Designs with AI',
+  description: 'BiblioRename standardizes variant and layer names for designers. Batch-rename with AI rules so handoff stays clean.',
   keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system architecture, component health, structural validation, figma limits',
-  ogTitle: 'Optimize Figma Designs with AI (BiblioRename) | BiblioKit',
-  ogDescription: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
+  ogTitle: 'BiblioRename | Optimize Figma Designs with AI',
+  ogDescription: 'BiblioRename standardizes variant and layer names for designers. Batch-rename with AI rules so handoff stays clean.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'Optimize Figma Designs with AI (BiblioRename) | BiblioKit',
-  twitterDescription: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
+  twitterTitle: 'BiblioRename | Optimize Figma Designs with AI',
+  twitterDescription: 'BiblioRename standardizes variant and layer names for designers. Batch-rename with AI rules so handoff stays clean.',
   twitterImage: '/og/og-default.svg'
 };
 
 const biblioTableMetadata: SEOMetadata = {
-  title: 'BiblioTable: One-Click Figma Table Normalization in 2025',
-  description: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
+  title: 'BiblioTable | Normalize Figma Tables in One Click',
+  description: 'BiblioTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
   keywords: 'BiblioTable, figma table plugin, auto-layout tables, figma columns, zebra striping, design ops, figma automation',
-  ogTitle: 'BiblioTable: One-Click Figma Table Normalization in 2025',
-  ogDescription: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
+  ogTitle: 'BiblioTable | Normalize Figma Tables in One Click',
+  ogDescription: 'BiblioTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioTable: One-Click Figma Table Normalization in 2025',
-  twitterDescription: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
+  twitterTitle: 'BiblioTable | Normalize Figma Tables in One Click',
+  twitterDescription: 'BiblioTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
   twitterImage: '/og/og-default.svg'
 };
 
 const biblioAuditMetadata: SEOMetadata = {
-  title: 'BiblioAudit: Figma Design System Check & Issue Finder',
-  description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
+  title: 'BiblioAudit | Figma Design System Check & Issue Finder',
+  description: 'BiblioAudit scans Figma files for drift. Catch detached instances, token issues, and rogue overrides before handoff.',
   keywords: 'BiblioAudit, design system audit, figma qa, detached instances, token validation, figma plugin, design ops',
-  ogTitle: 'BiblioAudit: Figma Design System Check & Issue Finder',
-  ogDescription: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
+  ogTitle: 'BiblioAudit | Figma Design System Check & Issue Finder',
+  ogDescription: 'BiblioAudit scans Figma files for drift. Catch detached instances, token issues, and rogue overrides before handoff.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioAudit: Figma Design System Check & Issue Finder',
-  twitterDescription: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
+  twitterTitle: 'BiblioAudit | Figma Design System Check & Issue Finder',
+  twitterDescription: 'BiblioAudit scans Figma files for drift. Catch detached instances, token issues, and rogue overrides before handoff.',
   twitterImage: '/og/og-default.svg'
 };
 
 const biblioCleanMetadata: SEOMetadata = {
-  title: 'BiblioClean: Remove Figma Prototype Links Safely (Free)',
-  description: 'BiblioClean removes Figma prototype links safely for designers, developers, and marketers. Revoke stale URLs and share the right build fast.',
+  title: 'BiblioClean | Remove Figma Prototype Links Safely (Free)',
+  description: 'BiblioClean removes Figma prototype links safely. Revoke stale URLs and share the right build fast without breaking components.',
   keywords: 'BiblioClean, remove prototype link, figma prototype cleanup, revoke share links, design system safety, figma plugin, design ops',
-  ogTitle: 'BiblioClean: Remove Figma Prototype Links Safely (Free)',
-  ogDescription: 'BiblioClean removes Figma prototype links safely for designers, developers, and marketers. Revoke stale URLs and share the right build fast.',
+  ogTitle: 'BiblioClean | Remove Figma Prototype Links Safely (Free)',
+  ogDescription: 'BiblioClean removes Figma prototype links safely. Revoke stale URLs and share the right build fast without breaking components.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioClean: Remove Figma Prototype Links Safely (Free)',
-  twitterDescription: 'BiblioClean removes Figma prototype links safely for designers, developers, and marketers. Revoke stale URLs and share the right build fast.',
+  twitterTitle: 'BiblioClean | Remove Figma Prototype Links Safely (Free)',
+  twitterDescription: 'BiblioClean removes Figma prototype links safely. Revoke stale URLs and share the right build fast without breaking components.',
   twitterImage: '/og/og-default.svg'
 };
 
@@ -506,7 +507,7 @@ export function generateMetadata(
   const routeData = routeMetadata[matchedRouteKey] || {};
   
   // Start with default metadata
-  let metadata: SEOMetadata = {
+  const metadata: SEOMetadata = {
     ...defaultMetadata,
     ...routeData,
     structuredData: Array.isArray(routeData.structuredData)

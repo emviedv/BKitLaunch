@@ -24,9 +24,9 @@ const ExpertQuote: React.FC<ExpertQuoteProps> = ({
           </svg>
         </div>
         <div className="flex-1">
-          <blockquote className="text-lg text-white/80 italic mb-6 leading-relaxed">
-            "{quote}"
-          </blockquote>
+      <p className="text-xl md:text-3xl font-serif italic text-white leading-tight">
+        &ldquo;{quote}&rdquo;
+      </p>
           <div className="flex items-center text-sm text-white/70">
             <div className="w-12 h-12 bg-gradient-to-br from-[#f871a0] via-[#b970ff] to-[#5bceff] rounded-full flex items-center justify-center text-white font-semibold mr-4">
               {expertName.split(' ').map(n => n[0]).join('').slice(0, 2)}

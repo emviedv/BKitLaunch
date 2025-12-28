@@ -9,7 +9,6 @@ import { HEADER_MOBILE_MENU_ID } from '@/config/sectionAnchors';
 const Header = () => {
   const { content } = usePublishedContent();
   const [location] = useLocation();
-  const slug = (location || '/').replace(/^\/+/, '').split('/')[0] || '';
   const comingSoonEnabled = Boolean((content?.settings as any)?.comingSoonEnabled);
 
   // Check if header should be visible
@@ -75,7 +74,7 @@ const Header = () => {
       const children = (dd.children || []).map((child) => {
         const normalizedLabel = child.label?.trim().toLowerCase();
         if (normalizedLabel === 'component auditor' || normalizedLabel?.startsWith('biblioaudit')) {
-          const { badge, ...rest } = child;
+          const { badge: _badge, ...rest } = child;
           return {
             ...rest,
             href: '/biblio-audit',
@@ -90,7 +89,7 @@ const Header = () => {
     }
     const normalizedLabel = (item as LinkNavItem).label?.trim().toLowerCase();
     if (normalizedLabel === 'component auditor' || normalizedLabel?.startsWith('biblioaudit')) {
-      const { badge, ...rest } = item as LinkNavItem & { badge?: string };
+      const { badge: _badge, ...rest } = item as LinkNavItem & { badge?: string };
       return rest;
     }
     return item;
@@ -197,13 +196,6 @@ const Header = () => {
     return item.type === 'external';
   };
 
-  const linkRel = (nofollow?: boolean, external?: boolean): string | undefined => {
-    const parts: string[] = [];
-    if (external) parts.push('noopener', 'noreferrer');
-    if (nofollow) parts.push('nofollow');
-    return parts.length ? parts.join(' ') : undefined;
-  };
-
   const isBlogRoute = location?.startsWith('/blog');
   const headerBackgroundClass = isBlogRoute
     ? 'blog-header-surface backdrop-blur-xl border-b border-white/8'
@@ -244,6 +236,8 @@ const Header = () => {
                 <a
                   href={(content.header?.signInHref || content.header?.signInLink || '#').startsWith('#') ? `/${content.header?.signInHref || content.header?.signInLink || '#'}` : (content.header?.signInHref || content.header?.signInLink || '#')}
                   aria-label={content.header?.signInText || 'Sign In'}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {content.header?.signInText || 'Sign In'}
                 </a>
@@ -311,7 +305,7 @@ const Header = () => {
                               key={`dd-item-${index}-${ci}`}
                               href={normalizedHref}
                               target={child.isExternal ? '_blank' : undefined}
-                              rel={linkRel(child.nofollow, !!child.isExternal)}
+                              rel={child.isExternal ? 'noopener noreferrer' : undefined}
                               className={itemClassName}
                             >
                               <span className={iconWrapperClassName}>
@@ -363,7 +357,7 @@ const Header = () => {
                     <a
                       href={normalizedHref}
                       target={isExternal ? '_blank' : undefined}
-                      rel={linkRel(li.nofollow, isExternal)}
+                      rel={isExternal ? (li.nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer') : (li.nofollow ? 'nofollow' : undefined)}
                       aria-label={li.label}
                     >
                       {li.label}
@@ -376,12 +370,13 @@ const Header = () => {
                   key={`nav-${index}`}
                   href={normalizedHref}
                   target={isExternal ? '_blank' : undefined}
-                  rel={linkRel(li.nofollow, isExternal)}
+                  rel={isExternal ? (li.nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer') : (li.nofollow ? 'nofollow' : undefined)}
                   className="text-sm font-semibold text-white hover:text-[#ff2f87] transition-colors"
                 >
                   {li.label}
                 </a>
               );
+
             })}
           </nav>
         </div>
@@ -440,7 +435,7 @@ const Header = () => {
                         key={`m-dd-item-${index}-${ci}`}
                         href={normalizedHref}
                         target={child.isExternal ? '_blank' : undefined}
-                        rel={linkRel(child.nofollow, !!child.isExternal)}
+                        rel={child.isExternal ? 'noopener noreferrer' : undefined}
                         className={itemClassName}
                       >
                         <span className={iconWrapperClassName}>
@@ -493,7 +488,7 @@ const Header = () => {
                   <a
                     href={normalizedHref}
                     target={isExternal ? '_blank' : undefined}
-                    rel={linkRel(li.nofollow, isExternal)}
+                    rel={isExternal ? (li.nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer') : (li.nofollow ? 'nofollow' : undefined)}
                     aria-label={li.label}
                   >
                     {li.label}
@@ -506,7 +501,7 @@ const Header = () => {
                 key={`m-nav-${index}`}
                 href={normalizedHref}
                 target={isExternal ? '_blank' : undefined}
-                rel={linkRel(li.nofollow, isExternal)}
+                rel={isExternal ? (li.nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer') : (li.nofollow ? 'nofollow' : undefined)}
                 className="block py-2 text-sm font-semibold text-white/80 hover:text-white transition-colors"
               >
                 {li.label}

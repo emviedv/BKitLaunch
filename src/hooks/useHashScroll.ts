@@ -7,9 +7,7 @@ import { useLocation } from 'wouter';
  * Includes light retry logic for async-rendered sections.
  */
 export const useHashScroll = (): void => {
-  const [location] = (typeof window !== 'undefined')
-    ? useLocation()
-    : (["/", () => {}] as unknown as ReturnType<typeof useLocation>);
+  const [location] = useLocation();
 
   useEffect(() => {
     if (typeof window === 'undefined') return;

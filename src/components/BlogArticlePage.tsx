@@ -118,7 +118,7 @@ const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: s
           {renderTextWithLinks(block.text)}
         </p>
       );
-    case 'image':
+    case 'image': {
       const resolvedAlt = block.alt?.trim() || block.caption || 'Blog illustration';
       const isExternalSrc = /^https?:\/\//.test(block.src);
       const imageDimensions = getImageDimensions(block.src);
@@ -156,6 +156,7 @@ const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: s
           )}
         </figure>
       );
+    }
     default:
       return null;
   }
@@ -269,6 +270,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
     pagePath,
     post
       ? {
+          slug: post.slug,
           title: post.title,
           metaTitle: post.metaTitle,
           metaDescription: post.metaDescription ?? post.excerpt,

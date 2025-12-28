@@ -1,20 +1,9 @@
 import React from 'react';
 
-import ContentChunk from './ContentChunk';
-import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from './heroConstants';
-import { SECTION_TITLE_CLASS } from './productContentSectionConstants';
-import { computeFeatureLayout } from './productContentSectionLayout';
-import { cn } from '@/lib/utils';
-import { debugService } from '@/lib/debugService';
-import ProductFeatureMedia from './ProductFeatureMedia';
 import {
-  createFeatureAnchorId,
-  gridClassForCount,
-  normalizeHref,
-  parseFeatureTitle,
-  productSectionsDebugEnabled,
+  gridClassForColumns,
 } from './productContentSectionHelpers';
+import ProductFeatureMedia from './ProductFeatureMedia';
 
 type FeaturePill = {
   label: string;
@@ -38,36 +27,32 @@ type ProductDetail = {
   pill?: FeaturePill | null;
 };
 
-type FeatureNavItem = { title: string; anchorId: string };
-
-type Props = {
+interface Props {
   details: ProductDetail[] | undefined;
   productTitle?: string;
   primaryButton?: string;
-  landingShowcaseLayout: boolean;
-  shouldAlternateFeatures: boolean;
-  hideFeatureIllustrations: boolean;
-  featuresTitle: string;
-  logoMarquee: React.ReactNode;
-  introContent: React.ReactNode;
-  enableFeaturesNav: boolean;
-  compactLayout: boolean;
+  landingShowcaseLayout?: boolean;
+  shouldAlternateFeatures?: boolean;
+  hideFeatureIllustrations?: boolean;
+  featuresTitle?: string;
+  logoMarquee?: React.ReactNode;
+  introContent?: React.ReactNode;
+  enableFeaturesNav?: boolean;
+  compactLayout?: boolean;
   sectionId?: string;
-};
+}
 
 const ProductFeaturesSection: React.FC<Props> = ({
   details,
   productTitle,
   primaryButton,
-  landingShowcaseLayout,
-  shouldAlternateFeatures,
-  hideFeatureIllustrations,
-  featuresTitle,
+  landingShowcaseLayout = false,
+  shouldAlternateFeatures = true,
+  hideFeatureIllustrations = false,
   logoMarquee,
   introContent,
-  enableFeaturesNav,
-  compactLayout,
-  sectionId,
+  enableFeaturesNav = false,
+  sectionId
 }) => {
   const detailEntries = Array.isArray(details)
     ? details.map((detail, index) => ({
