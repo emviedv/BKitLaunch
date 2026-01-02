@@ -107,24 +107,8 @@ edge_functions = "netlify/edge-functions"
 # CRITICAL: Exempt functions from SPA fallback - MUST come before /* catch-all
 # Note: Using _redirects file instead as netlify.toml doesn't support /.netlify paths
 
-# Force HTTPS redirect - production only
-[[redirects]]
-  from = "http://bibliokit.com/*"
-  to = "https://www.bibliokit.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://www.bibliokit.com/*"
-  to = "https://www.bibliokit.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "https://bibliokit.com/*"
-  to = "https://www.bibliokit.com/:splat"
-  status = 301
-  force = true
+# Netlify handles HTTPS and domain canonicalization automatically via Domain settings
+# Removed manual redirects that were conflicting with asset loading
 
 # Exclude development files from SPA fallback - order matters!
 [[redirects]]
