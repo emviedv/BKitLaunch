@@ -1,6 +1,4 @@
-http://bibliokit.com/* https://www.bibliokit.com/:splat 301!
-http://www.bibliokit.com/* https://www.bibliokit.com/:splat 301!
-https://bibliokit.com/* https://www.bibliokit.com/:splat 301!
+# Domain redirects removed - Netlify handles canonicalization via Domain settings
 
 /api/*           /.netlify/functions/:splat  200
 
