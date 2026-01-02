@@ -5,6 +5,11 @@ Disallow: /admin
 Disallow: /editor
 Allow: /
 
+User-agent: Googlebot
+Disallow: /admin
+Disallow: /editor
+Allow: /
+
 # AI crawler allowances
 User-agent: GPTBot
 Allow: /
@@ -21,4 +26,7 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://www.bibliokit.com/sitemap.xml
+User-agent: AhrefsBot
+Allow: /
+
+Sitemap: https://bibliokit.com/sitemap.xml
