@@ -88,6 +88,7 @@
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
 
 ## Updates
+- 2026-01-06 00:26 EST: Replaced the BiblioAudit problem-section screenshot with the structural health dashboard image.
 - 2026-01-05 19:11 EST: Removed cross-product CTA helper copy on product pages and logged the debug entry.
 - 2025-12-28 02:17 EST: Fixed 410 redirect rules to include a destination path.
 - 2025-12-28 02:15 EST: Restored UXBiblio top-nav link as an external URL.

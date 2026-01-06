@@ -47,6 +47,7 @@ const IMAGE_DIMENSIONS: Record<string, ImageDimensions> = {
   '/blog/ultimate-figma-plugin-stack/similayer-plugin.png': { width: 1228, height: 614 },
   '/blog/ultimate-figma-plugin-stack/stark-plugin.png': { width: 1920, height: 960 },
   '/blog/ultimate-figma-plugin-stack/unsplash-plugin.png': { width: 1200, height: 800 },
+  '/media/biblio-audit-leak.png': { width: 800, height: 1182 },
   '/media/BiblioAudit.png': { width: 1920, height: 1080 },
   '/media/BiblioClean.png': { width: 1920, height: 1080 },
   '/media/BiblioRename.png': { width: 1920, height: 1080 },

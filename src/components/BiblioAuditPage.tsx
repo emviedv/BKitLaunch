@@ -25,8 +25,8 @@ const BiblioAuditPage = () => {
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check';
-  const biblioAuditImageDimensions = getImageDimensions('/media/BiblioAudit.png');
   const biblioAuditHeroImageDimensions = getImageDimensions('/media/biblio-audit-hero.png');
+  const biblioAuditLeakImageDimensions = getImageDimensions('/media/biblio-audit-leak.png');
   const faqs = [
     { question: "Does it work with any design system?", answer: "Yes. BiblioAudit checks against your local styles and enabled libraries." },
     { question: "Does it change my file?", answer: "No. BiblioAudit surfaces issues and jumps you to the exact layers so you can decide what to update." },
@@ -76,7 +76,7 @@ const BiblioAuditPage = () => {
             <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
               <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
-                <span>Run Health Check — Free</span>
+                <span>Run Component Check</span>
               </a>
             </Button>
             <span className="flex items-center gap-2 text-sm text-slate-400">
@@ -127,11 +127,11 @@ const BiblioAuditPage = () => {
           </div>
           <div className="relative">
              <img 
-               src="/media/BiblioAudit.png" 
-               alt="Screenshot of BiblioAudit finding errors in Figma" 
+               src="/media/biblio-audit-leak.png" 
+               alt="BiblioAudit structural health dashboard showing score, issues, and recovery path." 
                className="w-full h-auto rounded-xl border border-slate-700 shadow-2xl"
-               width={biblioAuditImageDimensions?.width}
-               height={biblioAuditImageDimensions?.height}
+               width={biblioAuditLeakImageDimensions?.width}
+               height={biblioAuditLeakImageDimensions?.height}
                loading="lazy"
                decoding="async"
              />
