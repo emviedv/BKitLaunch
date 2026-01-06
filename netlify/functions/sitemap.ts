@@ -21,8 +21,14 @@ const DEFAULT_CHANGEFREQ = 'weekly';
 const DEFAULT_PRIORITY = '0.8';
 const EXCLUDED_PRODUCT_SLUGS = new Set(['uxbiblio']);
 
-const canonicalizeSlug = (slug: string): string =>
-  slug === 'ai-rename-variants' ? 'biblio-rename' : slug;
+const canonicalizeSlug = (slug: string): string => {
+  const slugMap: Record<string, string> = {
+    'ai-rename-variants': 'biblio-rename',
+    'biblio-audit': 'figma-design-system-audit-plugin',
+    'biblio-clean': 'figma-plugin-remove-prototype-links',
+  };
+  return slugMap[slug] || slug;
+};
 
 const normalizeBase = (raw?: string | null): string => {
   if (!raw) return 'https://www.bibliokit.com';
@@ -165,8 +171,8 @@ export const buildSitemapXml = (baseUrl: string): string => {
       images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Homepage' }]
     },
     { path: '/biblio-rename', lastmod: defaultLastmod },
-    { path: '/biblio-clean', lastmod: defaultLastmod },
-    { path: '/biblio-audit', lastmod: defaultLastmod },
+    { path: '/figma-plugin-remove-prototype-links', lastmod: defaultLastmod },
+    { path: '/figma-design-system-audit-plugin', lastmod: defaultLastmod },
     { path: '/biblio-table', lastmod: defaultLastmod },
     {
       path: '/blog',
