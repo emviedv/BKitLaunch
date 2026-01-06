@@ -264,23 +264,6 @@ const BiblioCleanPage = () => {
                   Get BiblioClean &mdash; Free
                 </a>
               </Button>
-              <p className="mt-4 text-sm text-blue-100">
-                Audit for drift with{' '}
-                <a
-                  href="https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check"
-                  className="text-blue-200 underline underline-offset-4 hover:text-white"
-                >
-                  BiblioAudit
-                </a>{' '}
-                and standardize naming with{' '}
-                <a
-                  href="https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted"
-                  className="text-blue-200 underline underline-offset-4 hover:text-white"
-                >
-                  BiblioRename
-                </a>{' '}
-                for designers, developers, and marketers.
-              </p>
             </div>
             <div className="flex justify-center">
                <div className="relative">

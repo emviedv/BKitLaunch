@@ -285,18 +285,9 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     const introContent = (
       <div className="relative mx-auto text-center text-white isolate flex flex-col items-center justify-center border border-white" style={{ width: '85vw', maxWidth: '1400px' }}>
         <div
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-px w-screen -translate-x-1/2 -translate-y-1/2 border-b border-white/70 opacity-80"
+          className="pointer-events-none absolute left-0 right-0 top-1/2 z-0 h-px -translate-y-1/2 bg-white/70 opacity-80"
           aria-hidden="true"
         />
-        <div
-          className="absolute inset-0 z-10 pointer-events-none overflow-hidden"
-        >
-          <div
-            data-us-project="clh5ttrCGWQmiptJb8bS"
-            className="[&_canvas]:!w-full [&_canvas]:!h-full [&_canvas]:object-cover"
-            style={{ width: '100%', height: '100%' }}
-          />
-        </div>
         <div className="relative z-20 py-16 px-12 w-full text-center">
           <h2 className={cn(SECTION_TITLE_CLASS, 'font-display text-center text-white drop-shadow-[0_20px_60px_rgba(4,0,12,0.6)]')}>
             {featuresTitle.split('\n').map((line, i, arr) => (

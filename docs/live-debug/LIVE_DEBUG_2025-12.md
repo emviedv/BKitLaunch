@@ -1631,3 +1631,9 @@
 - **Root Cause:** Breadcrumb was constrained by the hero text column.
 - **Changed Files:** src/components/DesignOpsFundamentalsPage.tsx; docs/live-debug/LIVE_DEBUG_2025-12.md
 - **Verification:** Not run (visual check breadcrumb width).
+
+- **Time:** 2025-12-28 04:21 EST
+- **Summary:** Allowed AhrefsBot and Googlebot explicitly in robots.txt while keeping the global allowlist.
+- **Root Cause:** Crawlers needed explicit allowances to align with crawl accessibility requests.
+- **Changed Files:** public/robots.txt; docs/live-debug/LIVE_DEBUG_2025-12.md
+- **Verification:** Live check: `https://www.bibliokit.com/robots.txt` includes Googlebot/AhrefsBot; homepage returns 200.

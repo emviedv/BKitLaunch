@@ -68,6 +68,9 @@ dist
 .storybook-out 
 # Local Netlify folder
 .netlify
+
+# SSL certificates and keys (NEVER commit private keys)
+ssl/
 cookies.txt
 
 # Vite timestamp artifacts

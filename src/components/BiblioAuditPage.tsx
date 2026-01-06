@@ -290,16 +290,6 @@ const BiblioAuditPage = () => {
                   Get BiblioAudit &mdash; Free
                 </a>
               </Button>
-              <p className="mt-4 text-sm text-cyan-100">
-                Clear prototype links fast with{' '}
-                <a
-                  href="https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines"
-                  className="text-cyan-200 underline underline-offset-4 hover:text-white"
-                >
-                  BiblioClean
-                </a>{' '}
-                for designers, developers, and marketers.
-              </p>
             </div>
             <div className="flex justify-center">
                <div className="relative">
