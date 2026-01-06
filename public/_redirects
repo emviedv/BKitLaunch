@@ -34,6 +34,10 @@
 # Route legacy AI Rename path to the canonical BiblioRename URL
 /ai-rename-variants                             /biblio-rename    301
 
+# Route legacy product paths to SEO-friendly URLs
+/biblio-audit                                   /figma-design-system-audit-plugin    301
+/biblio-clean                                   /figma-plugin-remove-prototype-links    301
+
 # IndexNow verification key file (must serve as plain text)
 /*.txt           /:splat.txt                  200
 
