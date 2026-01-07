@@ -32,11 +32,14 @@
 /learn-more/*                          /410 410
 
 # Route legacy AI Rename path to the canonical BiblioRename URL
-/ai-rename-variants                             /biblio-rename    301
+/ai-rename-variants                             /figma-component-variant-renamer    301
+/biblio-rename                                  /figma-component-variant-renamer    301
 
 # Route legacy product paths to SEO-friendly URLs
 /biblio-audit                                   /figma-design-system-audit-plugin    301
 /biblio-clean                                   /figma-plugin-remove-prototype-links    301
+/biblio-states                                  /figma-component-states    301
+/biblio-table                                   /figma-table-builder    301
 
 # IndexNow verification key file (must serve as plain text)
 /*.txt           /:splat.txt                  200

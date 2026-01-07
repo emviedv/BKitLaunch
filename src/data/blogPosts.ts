@@ -184,7 +184,7 @@ const componentStatesContent: BlogContentBlock[] = [
 ];
 
 const autoLayoutWrapContent: BlogContentBlock[] = [
-  { type: 'heading', text: 'BiblioKit 2025: Master Figma Auto Layout Wrap for Responsive Designs' },
+  { type: 'heading', text: 'BiblioKit 2026: Master Figma Auto Layout Wrap for Responsive Designs' },
   {
     type: 'image',
     src: buildHeroImagePath('auto-layout-wrap/auto-layout-wrap-hero.png'),
@@ -719,7 +719,7 @@ const effortlessTableDesignFigmaContent: BlogContentBlock[] = [
 ];
 
 const detachedInstancesContent: BlogContentBlock[] = [
-  { type: 'heading', text: 'How to Find and Fix Detached Instances in Figma (2025 Guide)' },
+  { type: 'heading', text: 'How to Find and Fix Detached Instances in Figma (2026 Guide)' },
   {
     type: 'image',
     src: '/blog/detached-instances/image-hero-8_23-2.jpeg',
@@ -857,15 +857,15 @@ const detachedInstancesContent: BlogContentBlock[] = [
 ];
 
 const removePrototypeLinksContent: BlogContentBlock[] = [
-  { type: 'heading', text: 'Remove Figma Prototype Links: A Guide by BiblioKit (2025)', level: 'h2' },
+  { type: 'heading', text: 'Remove Figma Prototype Links: A Guide by BiblioKit (2026)', level: 'h2' },
   {
     type: 'paragraph',
-    text: `In the world of design, Figma stands out as a powerful tool for creating stunning interfaces and seamless prototypes. However, as projects evolve, you might find yourself needing to remove prototype links to refine your designs or start afresh. This guide will walk you through the process of removing prototype links in Figma, ensuring that your design workflow remains smooth and efficient.`
+    text: `In the world of design, Figma stands out as a powerful tool for creating stunning interfaces and seamless prototypes. However, as projects evolve, you might find yourself needing to remove prototype links to refine your designs or start afresh. This guide will walk you through how to remove all prototype links in Figma, ensuring that your design workflow remains smooth and efficient.`
   },
   {
     type: 'image',
     src: buildHeroImagePath('remove-prototype-links/figma-design-interface.png'),
-    alt: 'Figma design interface',
+    alt: 'Figma canvas showing frames connected by prototype links and interaction arrows',
     caption: 'Figma design interface'
   },
   { type: 'heading', text: 'Understanding Prototype Links in Figma', level: 'h2' },
@@ -885,7 +885,7 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   {
     type: 'image',
     src: buildHeroImagePath('remove-prototype-links/design-project-plan.png'),
-    alt: 'Design project plan',
+    alt: 'Figma project wireframe showing planned user flow and navigation structure',
     caption: 'Design project plan'
   },
   { type: 'heading', text: 'Manual Removal of Prototype Links', level: 'h2' },
@@ -918,7 +918,7 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'This is why we built the [BiblioClean Plugin for Figma](https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines), formerly Link Remover.'
+    text: 'This is why we built [BiblioClean](/figma-plugin-remove-prototype-links), our [Figma plugin for removing prototype links](https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines) safely.'
   },
   { type: 'heading', text: 'Why Generic Plugins Are Dangerous', level: 'h3' as any },
   {
@@ -965,7 +965,7 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   {
     type: 'image',
     src: '/blog/remove-prototype-links/figma-plugins-interface.jpg',
-    alt: 'Figma plugins interface',
+    alt: 'Figma plugins panel showing community plugins for managing and removing prototype links',
     caption: 'Figma plugins interface (photo by Sigmund — unsplash.com/@sigmund)'
   },
   { type: 'heading', text: 'How to Install and Use Plugins', level: 'h3' },
@@ -1021,8 +1021,12 @@ const removePrototypeLinksContent: BlogContentBlock[] = [
   {
     type: 'image',
     src: '/blog/remove-prototype-links/creative-design-process.jpg',
-    alt: 'Creative design process',
+    alt: 'Designer workspace with Figma open showing a clean prototype after link cleanup',
     caption: 'Creative design process (photo by Lucas George Wendt — unsplash.com/@lucasgwendt)'
+  },
+  {
+    type: 'paragraph',
+    text: 'Want to automate this cleanup? Try <a href="/figma-plugin-remove-prototype-links">BiblioClean</a>, our free Figma plugin that removes all prototype links in one click. Or check out our <a href="/resources/remove-prototype-link">prototype link cleanup checklist</a> for a repeatable workflow.'
   },
   {
     type: 'paragraph',
@@ -1787,7 +1791,7 @@ const completeGuideDesignSystemsFigma2026Content: BlogContentBlock[] = [
   {
     type: 'image',
     src: buildHeroImagePath('complete-guide-design-systems-figma-2026/hero-design-systems-figma-2026.png'),
-    alt: 'The Complete Guide to Design Systems in Figma'
+    alt: 'Figma component library with design tokens, variables panel, and connected UI components for 2026'
   },
   {
     type: 'paragraph',
@@ -2174,7 +2178,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: 'mastering-figma-auto-layout-wrap',
-    title: 'BiblioKit 2025: Master Figma Auto Layout Wrap for Responsive Designs',
+    title: 'BiblioKit 2026: Master Figma Auto Layout Wrap for Responsive Designs',
     category: 'Figma Plugins',
     readingTime: '4 min read',
     excerpt:
@@ -2182,14 +2186,14 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('auto-layout-wrap/auto-layout-wrap-hero.png'),
     heroImageAlt: 'Abstract responsive grid illustration showing Auto Layout Wrap adapting to screen sizes',
     lastUpdated: '2025-11-28',
-    metaTitle: 'Figma Auto Layout Wrap Guide 2025: Master It with BiblioKit',
+    metaTitle: 'Figma Auto Layout Wrap Guide 2026: Master It with BiblioKit',
     metaDescription:
       'Master Figma Auto Layout Wrap so responsive components stay intact without layout bugs.',
     content: autoLayoutWrapContent
   },
   {
     slug: 'fix-detached-instances-figma',
-    title: 'How to Find and Fix Detached Instances in Figma (2025 Guide)',
+    title: 'How to Find and Fix Detached Instances in Figma (2026 Guide)',
     category: 'Figma Plugins',
     readingTime: '7 min read',
     excerpt:
@@ -2197,14 +2201,14 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('detached-instances/image-hero-8_23-2.jpeg'),
     heroImageAlt: 'Broken chain between a design system gem and a detached Figma component',
     lastUpdated: '2025-12-07',
-    metaTitle: 'Fix Figma Detached Instances: BiblioKit\'s 2025 Guide',
+    metaTitle: 'Fix Figma Detached Instances: BiblioKit\'s 2026 Guide',
     metaDescription:
       'Spot detached instances fast so Figma systems stay linked without drift.',
     content: detachedInstancesContent
   },
   {
     slug: 'remove-prototype-links-in-figma',
-    title: 'Remove Figma Prototype Links: A Guide by BiblioKit (2025)',
+    title: 'Remove Figma Prototype Links: A Guide by BiblioKit (2026)',
     category: 'Figma Plugins',
     readingTime: '6 min read',
     excerpt:
@@ -2212,7 +2216,7 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('remove-prototype-links/hero-abstract.svg'),
     heroImageAlt: 'Abstract interface blocks illustration',
     lastUpdated: '2025-11-26',
-    metaTitle: 'Remove Figma Links: BiblioKit\'s Safe Guide (2025)',
+    metaTitle: 'Remove Figma Links: BiblioKit\'s Safe Guide (2026)',
     metaDescription:
       'Remove Figma prototype links safely so you share the right build without broken flows.',
     content: removePrototypeLinksContent,

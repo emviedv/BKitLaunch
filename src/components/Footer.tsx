@@ -11,10 +11,12 @@ const XLogo = (props: React.SVGProps<SVGSVGElement>) => (
 
 const products = [
   { name: 'All Products', href: '/products' },
-  { name: 'BiblioRename', href: '/biblio-rename' },
-  { name: 'BiblioAudit', href: '/biblio-audit' },
-  { name: 'BiblioTable', href: '/biblio-table' },
-  { name: 'BiblioClean', href: '/biblio-clean' },
+  { name: 'BiblioRename', href: '/figma-component-variant-renamer' },
+  { name: 'BiblioAudit', href: '/figma-design-system-audit-plugin' },
+  { name: 'BiblioStates', href: '/figma-component-states' },
+  { name: 'BiblioTable', href: '/figma-table-builder' },
+  { name: 'BiblioClean', href: '/figma-plugin-remove-prototype-links' },
+  { name: 'BiblioOrganize', href: '/figma-organize-design-files-plugin' },
 ];
 
 const company = [

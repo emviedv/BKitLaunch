@@ -128,8 +128,8 @@ const BiblioAuditPage = () => {
           <div className="relative">
              <img 
                src="/media/biblio-audit-leak.png" 
-               alt="BiblioAudit structural health dashboard showing score, issues, and recovery path." 
-               className="w-full h-auto rounded-xl border border-slate-700 shadow-2xl"
+               alt="BiblioAudit Figma plugin detecting detached components and design system drift in a real design file" 
+               className="w-4/5 h-auto rounded-xl border border-slate-700 shadow-2xl"
                width={biblioAuditLeakImageDimensions?.width}
                height={biblioAuditLeakImageDimensions?.height}
                loading="lazy"
@@ -150,7 +150,15 @@ const BiblioAuditPage = () => {
         
         <div className="grid md:grid-cols-12 gap-8 mb-12">
            <div className="md:col-span-8">
-              <PlaceholderImage label="GIF: Run Audit -> See 50 Errors -> Bulk Flag" height="h-96" />
+              <video
+                className="w-full h-full object-cover rounded-xl"
+                src="/media/BiblioAudit-demo.mp4"
+                loop
+                autoPlay
+                muted
+                playsInline
+                aria-label="BiblioAudit demo: running audit, finding 50 errors, and bulk flagging issues in Figma"
+              />
            </div>
            <div className="md:col-span-4 flex flex-col gap-4">
               <PlaceholderImage label="Before/After: Error List" height="h-28" className="bg-slate-800" />
@@ -287,7 +295,7 @@ const BiblioAuditPage = () => {
               <p className="text-xl text-cyan-200 mb-8">Install BiblioAudit for free and catch errors before your developers do.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Get BiblioAudit &mdash; Free
+                  Get BiblioAudit for free
                 </a>
               </Button>
             </div>
@@ -296,11 +304,11 @@ const BiblioAuditPage = () => {
                    <PlaceholderImage label="BiblioAudit Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
                    <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
-                        <Check className="w-4 h-4 text-green-400" />
+                        <Check className="w-4 h-4 text-cyan-400" />
                         <span className="text-sm font-bold">Audit Passed</span>
                       </div>
                       <div className="h-2 w-32 bg-slate-700 rounded-full overflow-hidden">
-                         <div className="h-full w-full bg-green-400" />
+                         <div className="h-full w-full bg-cyan-400" />
                       </div>
                    </div>
                </div>
@@ -318,7 +326,8 @@ const BiblioAuditPage = () => {
       {/* Block 9: Final CTA */}
       <section className="py-24 px-6 md:px-10 text-center landing-sections-gradient text-white">
          <div className="max-w-4xl mx-auto relative z-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">Ship perfect files.</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Ship perfect files.</h2>
+            <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">Catch broken tokens, inconsistent spacing, and detached styles before they reach developers.</p>
             <div className="flex flex-col items-center gap-4">
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
@@ -326,6 +335,9 @@ const BiblioAuditPage = () => {
                 </a>
               </Button>
             </div>
+            <p className="mt-6 text-slate-400">
+              Need to clean up prototype links too? <a href="/figma-plugin-remove-prototype-links" className="text-cyan-400 hover:underline">Check out BiblioClean</a>
+            </p>
          </div>
       </section>
 

@@ -23,9 +23,13 @@ const EXCLUDED_PRODUCT_SLUGS = new Set(['uxbiblio']);
 
 const canonicalizeSlug = (slug: string): string => {
   const slugMap: Record<string, string> = {
-    'ai-rename-variants': 'biblio-rename',
+    'ai-rename-variants': 'figma-component-variant-renamer',
+    'biblio-rename': 'figma-component-variant-renamer',
     'biblio-audit': 'figma-design-system-audit-plugin',
     'biblio-clean': 'figma-plugin-remove-prototype-links',
+    'biblio-organize': 'figma-organize-design-files-plugin',
+    'biblio-states': 'figma-component-states',
+    'biblio-table': 'figma-table-builder',
   };
   return slugMap[slug] || slug;
 };
@@ -170,10 +174,10 @@ export const buildSitemapXml = (baseUrl: string): string => {
       changefreq: 'weekly',
       images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Homepage' }]
     },
-    { path: '/biblio-rename', lastmod: defaultLastmod },
+    { path: '/figma-component-variant-renamer', lastmod: defaultLastmod },
     { path: '/figma-plugin-remove-prototype-links', lastmod: defaultLastmod },
     { path: '/figma-design-system-audit-plugin', lastmod: defaultLastmod },
-    { path: '/biblio-table', lastmod: defaultLastmod },
+    { path: '/figma-table-builder', lastmod: defaultLastmod },
     {
       path: '/blog',
       lastmod: defaultLastmod,

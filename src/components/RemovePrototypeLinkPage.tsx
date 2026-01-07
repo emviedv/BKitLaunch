@@ -43,7 +43,7 @@ const workflowSteps: Highlight[] = [
 ];
 
 const RemovePrototypeLinkPage: React.FC = () => {
-  const updatedDate = '2025-12-11';
+  const updatedDate = '2026-01-07';
   const hero: LandingHeroContent = {
     badgeLabel: 'Resource',
     title: 'BiblioKit: Effortlessly Audit and Revoke Stale Figma Prototype Links',
@@ -159,7 +159,7 @@ const RemovePrototypeLinkPage: React.FC = () => {
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <a
-              href="/biblio-clean"
+              href="/figma-plugin-remove-prototype-links"
               className="rounded-2xl border border-slate-200/70 bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
               <p className="text-lg font-semibold text-foreground">Streamline Figma Links with BiblioClean</p>
@@ -168,12 +168,12 @@ const RemovePrototypeLinkPage: React.FC = () => {
               </p>
             </a>
             <a
-              href="https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check"
+              href="/blog/remove-prototype-links-in-figma"
               className="rounded-2xl border border-slate-200/70 bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
-              <p className="text-lg font-semibold text-foreground">Audit Design System Drift with BiblioAudit</p>
+              <p className="text-lg font-semibold text-foreground">Remove Stale Prototype Links Guide</p>
               <p className="mt-2 text-sm text-muted-foreground">
-                Surface detached instances and token issues before handoff.
+                Step-by-step guide to cleaning up prototype links in Figma.
               </p>
             </a>
           </div>

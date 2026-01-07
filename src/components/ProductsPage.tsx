@@ -185,6 +185,15 @@ const ProductsPage: React.FC = () => {
         compactLayout={false}
         sectionId="products-page-list"
       />
+
+      {/* Internal Links Section */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-white/70 text-sm">
+            Need free checklists and templates? Explore our <a href="/resources" className="text-[#ff2f87] hover:underline">free Figma resources</a>.
+          </p>
+        </div>
+      </section>
     </div>
   );
 };

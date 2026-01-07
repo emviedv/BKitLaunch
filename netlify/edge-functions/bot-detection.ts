@@ -39,15 +39,15 @@ const AI_CRAWLERS = [
 
 const SITE_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'BiblioRename', href: '/biblio-rename' },
-  { label: 'BiblioClean', href: '/biblio-clean' },
-  { label: 'BiblioAudit', href: '/biblio-audit' },
-  { label: 'BiblioTable', href: '/biblio-table' },
+  { label: 'BiblioRename', href: '/figma-component-variant-renamer' },
+  { label: 'BiblioClean', href: '/figma-plugin-remove-prototype-links' },
+  { label: 'BiblioAudit', href: '/figma-design-system-audit-plugin' },
+  { label: 'BiblioTable', href: '/figma-table-builder' },
   { label: 'Blog', href: '/blog' }
 ];
 
 const PRODUCT_META: Record<string, { title: string; description: string; ogType?: string }> = {
-  '/biblio-rename': {
+  '/figma-component-variant-renamer': {
     title: 'BiblioRename for Figma | BiblioKit',
     description:
       'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
@@ -65,7 +65,7 @@ const PRODUCT_META: Record<string, { title: string; description: string; ogType?
       'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.',
     ogType: 'product'
   },
-  '/biblio-table': {
+  '/figma-table-builder': {
     title: 'BiblioTable | Normalize Figma Tables in One Click',
     description:
       'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.',
@@ -96,7 +96,7 @@ type SoftwareApplicationSchemaConfig = {
 };
 
 const SOFTWARE_APPLICATION_SCHEMA: Record<string, SoftwareApplicationSchemaConfig> = {
-  '/biblio-rename': {
+  '/figma-component-variant-renamer': {
     name: 'BiblioRename',
     description: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
     image: '/media/BiblioRename.png',
@@ -127,7 +127,7 @@ const SOFTWARE_APPLICATION_SCHEMA: Record<string, SoftwareApplicationSchemaConfi
     description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
     image: '/media/BiblioAudit.png'
   },
-  '/biblio-table': {
+  '/figma-table-builder': {
     name: 'BiblioTable',
     description: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
     image: '/media/BiblioTable.png'
@@ -145,7 +145,7 @@ const PRODUCT_PAGE_COPY: Record<string, { headline: string; description: string 
     description:
       'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.'
   },
-  '/biblio-table': {
+  '/figma-table-builder': {
     headline: 'BiblioTable',
     description:
       'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.'
@@ -198,7 +198,7 @@ const toAbsoluteUrl = (origin: string, input?: string | null): string | null => 
 
 const renderSoftwareApplicationSchema = (origin: string, pathname: string): string => {
   const config = SOFTWARE_APPLICATION_SCHEMA[pathname]
-    || (pathname === '/ai-rename-variants' ? SOFTWARE_APPLICATION_SCHEMA['/biblio-rename'] : undefined);
+    || (pathname === '/ai-rename-variants' ? SOFTWARE_APPLICATION_SCHEMA['/figma-component-variant-renamer'] : undefined);
   if (!config) {
     return '';
   }
@@ -366,7 +366,7 @@ export default async (request: Request, context: any) => {
 };
 
 function generateStaticHtml(pathname: string, origin: string): string {
-  const canonicalPath = pathname === '/ai-rename-variants' ? '/biblio-rename' : pathname;
+  const canonicalPath = pathname === '/ai-rename-variants' || pathname === '/biblio-rename' ? '/figma-component-variant-renamer' : pathname;
   const baseHtml = `
 <!DOCTYPE html>
 <html lang="en">
@@ -545,7 +545,7 @@ function getPageContent(pathname: string): string {
                 Automate the things you hate, focus on design you love.
               </p>
               <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="/biblio-rename" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;">Batch Rename with BiblioRename</a>
+                <a href="/figma-component-variant-renamer" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;">Batch Rename with BiblioRename</a>
                 <a href="#landing-features" style="border: 2px solid rgba(255,255,255,0.3); color: white; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none;">View Features</a>
               </div>
             </div>
@@ -604,7 +604,7 @@ function getPageContent(pathname: string): string {
         </main>
       `;
     
-    case '/biblio-rename':
+    case '/figma-component-variant-renamer':
     case '/ai-rename-variants':
       return `
         ${renderSiteHeader()}

@@ -53,10 +53,12 @@ const Header = () => {
     : [];
 
   const pluginIconSrcByHref: Record<string, string> = {
-    '/biblio-rename': '/media/icons/biblio-rename-icon.png',
-    '/biblio-clean': '/media/icons/biblio-clean-icon.png',
-    '/biblio-audit': '/media/icons/biblio-audit-icon.png',
-    '/biblio-table': '/media/icons/biblio-table-icon.png',
+    '/figma-component-variant-renamer': '/media/icons/biblio-rename-icon.png',
+    '/figma-plugin-remove-prototype-links': '/media/icons/biblio-clean-icon.png',
+    '/figma-design-system-audit-plugin': '/media/icons/biblio-audit-icon.png',
+    '/figma-component-states': '/media/icons/biblio-states-icon.png',
+    '/figma-table-builder': '/media/icons/biblio-table-icon.png',
+    '/figma-organize-design-files-plugin': '/media/icons/biblio-organize-icon.png',
   };
 
   const resolvePluginIconSrc = (child: NavChild): string | null => {
@@ -77,7 +79,7 @@ const Header = () => {
           const { badge: _badge, ...rest } = child;
           return {
             ...rest,
-            href: '/biblio-audit',
+            href: '/figma-design-system-audit-plugin',
           };
         }
         return child;
@@ -113,7 +115,8 @@ const Header = () => {
     children: [
       {
             label: 'BiblioClean — The Blue Line Wiper',
-            href: '/biblio-clean',        description: 'Remove prototype links safely without breaking your main components.',
+            href: '/figma-plugin-remove-prototype-links',
+            description: 'Remove prototype links safely without breaking your main components.',
         icon: 'plug',
       }
     ],
@@ -295,7 +298,7 @@ const Header = () => {
                             ? 'group/item flex items-start gap-3 rounded-2xl transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff2f87]'
                             : 'flex items-center gap-3 rounded-xl transition-colors hover:bg-[#ff2f87]/12';
                           const iconWrapperClassName = usePluginIconStyle
-                            ? 'flex h-9 w-9 items-center justify-center'
+                            ? 'flex h-[22px] w-[22px] items-center justify-center'
                             : 'flex h-8 w-8 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10';
                           const textWrapperClassName = isPluginsDropdown
                             ? 'flex-1 text-left'
@@ -313,9 +316,9 @@ const Header = () => {
                                   <img
                                     src={pluginIconSrc}
                                     alt={`${child.label} icon`}
-                                    className="h-9 w-9 rounded-2xl object-contain"
-                                    width={36}
-                                    height={36}
+                                    className="h-[22px] w-[22px] rounded-2xl object-contain"
+                                    width={22}
+                                    height={22}
                                   />
                                 ) : (
                                   <ChildIcon className="h-3.5 w-3.5" strokeWidth={1.8} aria-hidden="true" />
@@ -422,7 +425,7 @@ const Header = () => {
                       typeof child.icon === 'string' &&
                       /[\p{Extended_Pictographic}]/u.test(child.icon);
                     const iconWrapperClassName = usePluginIconStyle
-                      ? 'flex h-8 w-8 items-center justify-center'
+                      ? 'flex h-[19px] w-[19px] items-center justify-center'
                       : 'flex h-8 w-8 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10';
                     const itemClassName = isPluginsDropdown
                       ? 'flex items-start gap-3 rounded-xl text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white'
@@ -443,9 +446,9 @@ const Header = () => {
                             <img
                               src={pluginIconSrc}
                               alt={`${child.label} icon`}
-                              className="h-8 w-8 rounded-xl object-contain"
-                              width={32}
-                              height={32}
+                              className="h-[19px] w-[19px] rounded-xl object-contain"
+                              width={19}
+                              height={19}
                             />
                           ) : isEmojiIcon ? (
                             <span className="text-lg" aria-hidden="true">

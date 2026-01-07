@@ -187,3 +187,4 @@ export const Music = createIconWrapper('solar:music-note-linear');
 export const Layout = createIconWrapper('solar:layers-minimalistic-linear');
 export const Columns = createIconWrapper('solar:list-linear');
 export const Table = createIconWrapper('solar:clipboard-list-linear');
+export const FolderTree = createIconWrapper('solar:folder-linear');

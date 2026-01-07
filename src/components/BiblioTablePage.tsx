@@ -250,8 +250,8 @@ const BiblioTablePage = () => {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Fix your tables instantly.</h2>
               <p className="text-xl text-purple-200 mb-8">Install the BiblioTable plugin from Figma Community and normalize every table fast.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
-                 <a href={CTA_LINK} className="inline-flex items-center gap-2">
-                  <span>FIX YOUR TABLES</span>
+                 <a href={CTA_LINK} target="_blank" rel="noopener noreferrer">
+                  FIX YOUR TABLES
                 </a>
               </Button>
             </div>
@@ -260,11 +260,11 @@ const BiblioTablePage = () => {
                    <PlaceholderImage label="BiblioTable Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
                    <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
-                        <Check className="w-4 h-4 text-green-400" />
+                        <Check className="w-4 h-4 text-purple-400" />
                         <span className="text-sm font-bold">Table Normalized</span>
                       </div>
                       <div className="h-2 w-32 bg-slate-700 rounded-full overflow-hidden">
-                         <div className="h-full w-full bg-green-400" />
+                         <div className="h-full w-full bg-purple-400" />
                       </div>
                    </div>
                </div>

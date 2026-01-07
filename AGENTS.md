@@ -37,6 +37,7 @@
 - Operational reminder: periodically pull waitlist signups locally with `npm run email:waitlist` (uses `DATABASE_URL` or .env/.env.local) to review beta interest.
 - Keep React bundled with its vendor dependencies—do not isolate React (or scheduler) into a separate manual chunk, as circular imports can break hooks (`useState` undefined).
 - After any change and deployment, explicitly verify the live production site loads (no blank/black screens) before handing off.
+- When making infrastructure changes (DNS, hosting, domain config), always check for dependent services that could break (e.g., email MX records, SPF/DKIM/DMARC, third-party integrations). DNS changes for websites can silently break email delivery if MX records are missing or overwritten.
 - When linking to live Figma Community assets, grab the official URLs from https://www.figma.com/@bibliokit (use product-specific plugin/file links, not generic waits or betas).
 - In blog posts, hyperlink plugin names to their official Figma Community listings (e.g., `[BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check)`).
 - Avoid bare Figma plugin ID URLs; always use the full listing slug (e.g., `https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check`).
@@ -44,7 +45,7 @@
 - Blog posts typically do not include FAQs; do not add FAQ sections unless explicitly requested.
 - FAQs across the site should use the pink numbered bubble on the left for consistent styling.
 - Search Console sitemap submit (BiblioKit): use service account `search-console-submitter@bibliokit.iam.gserviceaccount.com` with key at `/tmp/search-console-submitter-key.json` (create if missing), scope `https://www.googleapis.com/auth/webmasters`, and submit `https://www.bibliokit.com/sitemap.xml` to `sc-domain:bibliokit.com` via the Search Console API.
-- Apply current SEO best practices (keep guidance refreshed for 2025): meaningful alt text on all images, clean descriptive URLs/slugs, accurate meta titles/descriptions, structured headings, and up-to-date sitemap/robots handling where relevant.
+- Apply current SEO best practices (keep guidance refreshed for 2026): meaningful alt text on all images, clean descriptive URLs/slugs, accurate meta titles/descriptions, structured headings, and up-to-date sitemap/robots handling where relevant.
 - For marketing/blog images, set explicit width/height and eager-load the first in-article image to reduce CLS/LCP; lazy-load the rest.
 - Netlify CLI deploys must publish `dist/client` (not `dist`) to avoid missing `/assets/*` bundles.
 - Keep `SoftwareApplication` schema for product pages, but omit `aggregateRating` and `review` unless we have verified, current rating data.
@@ -52,9 +53,11 @@
 - SoftwareApplication schema must include `image` and `operatingSystem` for rich results.
 - Meta descriptions must be unique per page and stay under 155 characters (e.g., 120–150 chars) to avoid SERP truncation.
 - Ensure every sitemap URL has at least one crawlable internal link (e.g., resources detail pages must be linked from nav or related content).
+- Always check for SEO issues when adding new pages or changing URLs: verify sitemap includes the new/updated paths, confirm canonicalizeSlug mappings in sitemap.ts match route paths, and ensure meta titles/descriptions are set in seo.ts.
 - When trimming meta descriptions, keep the action/benefit-driven tone and include designers, developers, and marketers when feasible.
 - Typography tracking rules: text under 40px keeps tracking at 0; text 40–70px uses -1% tracking; text over 70px uses -2% to -4% tracking (tighter spacing for larger display type).
 - Product pages must follow the BiblioAuditPage format: Hero, Problem Agitation, Quick Proof, How It Works (3 steps), Features (alternating layout), Use Cases, CTA, FAQ, Final CTA. Use dedicated page components (e.g., BiblioCleanPage.tsx) instead of DynamicProductPage for this structure.
+- Product page Final CTA sections must include: (1) a bold title, (2) a description paragraph explaining the product benefit, (3) the primary CTA button, and (4) a cross-reference text link to a complementary product (e.g., "Want to audit your file for errors? Check out BiblioAudit"). Use the product's accent color for the cross-reference link (e.g., `text-cyan-400` for BiblioAudit, `text-blue-400` for BiblioClean, `text-violet-400` for BiblioOrganize, `text-purple-400` for BiblioRename, `text-emerald-400` for BiblioStates).
 
 ## Business Information
 - Business Description — BiblioKit provides a suite of Figma plugins designed to accelerate the design process and improve product development workflows. The company focuses on enhancing speed, structure, and creativity for designers working within the Figma environment. BiblioKit offers tools that automate repetitive tasks, standardize design elements, and streamline project setup. These plugins address common pain points in design workflows, such as manual renaming, design system auditing, prototype link management, and table normalization. By automating these processes, BiblioKit enables designers to focus on higher-level creative and strategic tasks. The company operates as a digital service provider, offering its plugins directly to Figma users. BiblioKit targets design teams and individual designers seeking to optimize their Figma workflows and improve overall design efficiency. The company's plugins are actively used by designers shipping real products, indicating a focus on practical, production-ready solutions.
@@ -88,6 +91,7 @@
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
 
 ## Updates
+- 2026-01-06 EST: Added infrastructure edge-case rule after DNS changes broke email (missing MX records).
 - 2026-01-06 00:26 EST: Replaced the BiblioAudit problem-section screenshot with the structural health dashboard image.
 - 2026-01-05 19:11 EST: Removed cross-product CTA helper copy on product pages and logged the debug entry.
 - 2025-12-28 02:17 EST: Fixed 410 redirect rules to include a destination path.

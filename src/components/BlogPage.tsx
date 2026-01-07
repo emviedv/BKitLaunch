@@ -108,7 +108,7 @@ const BlogPage: React.FC = () => {
         <div className="section-content">
           <div className="space-y-4 text-left">
             <h2 className="text-2xl font-semibold text-white">Browse BiblioKit articles</h2>
-            <p className="text-base leading-7 text-white/80">Workflow tips, state specs, accessibility checks, and system hygiene guides that teams can drop into real projects right now. Use them to clean files, align teams, and ship faster.</p>
+            <p className="text-base leading-7 text-white/80">Workflow tips, state specs, accessibility checks, and system hygiene guides that teams can drop into real projects right now. Use them to clean files, align teams, and ship faster. Looking for checklists and templates? Check out our <a href="/resources" className="text-[#ff2f87] hover:underline">free resources</a>.</p>
           </div>
           <div className="mt-8 columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6">
                 {BLOG_POSTS.map((post) => {

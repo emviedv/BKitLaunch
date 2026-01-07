@@ -261,7 +261,7 @@ const BiblioCleanPage = () => {
               <p className="text-xl text-blue-200 mb-8">Install BiblioClean for free and wipe those blue lines away.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Get BiblioClean &mdash; Free
+                  Get BiblioClean for free
                 </a>
               </Button>
             </div>
@@ -270,11 +270,11 @@ const BiblioCleanPage = () => {
                    <PlaceholderImage label="BiblioClean Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
                    <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
-                        <Check className="w-4 h-4 text-green-400" />
+                        <Check className="w-4 h-4 text-blue-400" />
                         <span className="text-sm font-bold">Canvas Cleaned</span>
                       </div>
                       <div className="h-2 w-32 bg-slate-700 rounded-full overflow-hidden">
-                         <div className="h-full w-full bg-green-400" />
+                         <div className="h-full w-full bg-blue-400" />
                       </div>
                    </div>
                </div>
@@ -283,7 +283,22 @@ const BiblioCleanPage = () => {
         </div>
       </Section>
 
-      {/* Block 8: FAQ */}
+      {/* Block 8: Related Resources */}
+      <Section dark className="border-y border-slate-800/50">
+        <SectionTitle className="text-center mb-8">Learn more about prototype link cleanup</SectionTitle>
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <a href="/blog/remove-prototype-links-in-figma" className="bg-[#0f172a]/50 p-6 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
+            <h4 className="text-lg font-bold mb-2">Remove Prototype Links in Figma</h4>
+            <p className="text-slate-400 text-sm">Step-by-step guide to cleaning up prototype links safely.</p>
+          </a>
+          <a href="/resources/remove-prototype-link" className="bg-[#0f172a]/50 p-6 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
+            <h4 className="text-lg font-bold mb-2">Prototype Link Cleanup Checklist</h4>
+            <p className="text-slate-400 text-sm">Keep designers, developers, and marketers aligned on the right build.</p>
+          </a>
+        </div>
+      </Section>
+
+      {/* Block 9: FAQ */}
       <Section dark>
         <SectionTitle className="text-center mb-12">Watch BiblioClean Instantly Remove Prototype Links</SectionTitle>
         <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
@@ -292,7 +307,8 @@ const BiblioCleanPage = () => {
       {/* Block 9: Final CTA */}
       <section className="py-24 px-6 md:px-10 text-center landing-sections-gradient text-white">
          <div className="max-w-4xl mx-auto relative z-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">No more blue spaghetti.</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">No more blue spaghetti.</h2>
+            <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">Remove every prototype link across your file in one click—keep your canvas clean and focused.</p>
             <div className="flex flex-col items-center gap-4">
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
@@ -300,6 +316,9 @@ const BiblioCleanPage = () => {
                 </a>
               </Button>
             </div>
+            <p className="mt-6 text-slate-400">
+              Want to audit your file for other errors? <a href="/figma-design-system-audit-plugin" className="text-blue-400 hover:underline">Check out BiblioAudit</a>
+            </p>
          </div>
       </section>
 

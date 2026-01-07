@@ -155,25 +155,35 @@ const toAbsoluteUrl = (baseUrl: string, value?: string | null): string | undefin
 };
 
 const PLUGIN_SOFTWARE_APPLICATIONS: Record<string, { name: string; image: string; description?: string }> = {
-  '/biblio-rename': {
+  '/figma-component-variant-renamer': {
     name: 'BiblioRename',
     image: '/media/BiblioRename.png',
     description: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
   },
-  '/biblio-clean': {
+  '/figma-plugin-remove-prototype-links': {
     name: 'BiblioClean',
     image: '/media/BiblioClean.png',
     description: 'BiblioClean removes Figma prototype links safely for designers, developers, and marketers. Revoke stale URLs and share the right build fast.',
   },
-  '/biblio-audit': {
+  '/figma-design-system-audit-plugin': {
     name: 'BiblioAudit',
     image: '/media/BiblioAudit.png',
     description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
   },
-  '/biblio-table': {
+  '/figma-table-builder': {
     name: 'BiblioTable',
     image: '/media/BiblioTable.png',
     description: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
+  },
+  '/figma-component-states': {
+    name: 'BiblioStates',
+    image: '/media/BiblioStates.png',
+    description: 'BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
+  },
+  '/figma-organize-design-files-plugin': {
+    name: 'BiblioOrganize',
+    image: '/media/BiblioOrganize.png',
+    description: 'BiblioOrganize scaffolds Figma files for designers, developers, and marketers. One-click blueprints create covers, README cards, and page hierarchies in seconds.',
   },
 };
 
@@ -267,17 +277,29 @@ const biblioCleanMetadata: SEOMetadata = {
   twitterImage: '/og/og-default.svg'
 };
 
+const biblioStatesMetadata: SEOMetadata = {
+  title: 'BiblioStates | Generate Component States & Specs in Figma',
+  description: 'BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
+  keywords: 'BiblioStates, component states, figma state generator, design system specs, handoff documentation, UI state matrix',
+  ogTitle: 'BiblioStates | Generate Component States & Specs in Figma',
+  ogDescription: 'BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
+  ogImage: '/og/og-default.svg',
+  twitterTitle: 'BiblioStates | Generate Component States & Specs in Figma',
+  twitterDescription: 'BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
+  twitterImage: '/og/og-default.svg'
+};
+
 const aiRenameVariantsMetadata: SEOMetadata = {
   title: 'BiblioRename Legacy URL | BiblioKit',
-  description: 'BiblioRename lives at /biblio-rename for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
+  description: 'BiblioRename lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
   robots: 'noindex, follow',
   googlebot: 'noindex, follow',
   bingbot: 'noindex, follow',
   ogTitle: 'BiblioRename Legacy URL | BiblioKit',
-  ogDescription: 'BiblioRename lives at /biblio-rename for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
+  ogDescription: 'BiblioRename lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
   ogImage: '/og/og-default.svg',
   twitterTitle: 'BiblioRename Legacy URL | BiblioKit',
-  twitterDescription: 'BiblioRename lives at /biblio-rename for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
+  twitterDescription: 'BiblioRename lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
   twitterImage: '/og/og-default.svg'
 };
 
@@ -456,10 +478,22 @@ export const routeMetadata: RouteMetadata = {
       }
     ]
   },
-  '/biblio-rename': biblioRenameMetadata,
-  '/biblio-clean': biblioCleanMetadata,
-  '/biblio-audit': biblioAuditMetadata,
-  '/biblio-table': biblioTableMetadata,
+  '/figma-component-variant-renamer': biblioRenameMetadata,
+  '/figma-plugin-remove-prototype-links': biblioCleanMetadata,
+  '/figma-design-system-audit-plugin': biblioAuditMetadata,
+  '/figma-table-builder': biblioTableMetadata,
+  '/figma-component-states': biblioStatesMetadata,
+  '/figma-organize-design-files-plugin': {
+    title: 'BiblioOrganize: Figma File Scaffolding & Design Organization Plugin',
+    description: 'BiblioOrganize scaffolds Figma files for designers, developers, and marketers. One-click blueprints create covers, README cards, and page hierarchies in under 30 seconds.',
+    keywords: 'BiblioOrganize, Figma plugin, file scaffolding, design organization, page hierarchy, project setup, design ops',
+    ogTitle: 'BiblioOrganize: Figma File Scaffolding & Design Organization Plugin',
+    ogDescription: 'BiblioOrganize scaffolds Figma files for designers, developers, and marketers. One-click blueprints create covers, README cards, and page hierarchies in under 30 seconds.',
+    ogImage: '/media/BiblioOrganize.png',
+    twitterTitle: 'BiblioOrganize: Figma File Scaffolding & Design Organization Plugin',
+    twitterDescription: 'BiblioOrganize scaffolds Figma files for designers, developers, and marketers. One-click blueprints create covers, README cards, and page hierarchies in under 30 seconds.',
+    twitterImage: '/media/BiblioOrganize.png'
+  },
   '/ai-rename-variants': aiRenameVariantsMetadata,
   '/uxbiblio': {
     title: 'UXBiblio: AI UX Patterns by BiblioKit - Discover & Organize',
@@ -473,13 +507,13 @@ export const routeMetadata: RouteMetadata = {
     twitterImage: '/og/og-default.svg'
   },
   '/blog': {
-    title: 'BiblioKit Blog: Design Tips and Figma Workflows for 2025',
+    title: 'BiblioKit Blog: Design Tips and Figma Workflows for 2026',
     description: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
     keywords: 'design ops blog, figma workflow tips, prototype cleanup, design system rituals, bibliokit blog, real-world figma fixes',
-    ogTitle: 'BiblioKit Blog: Design Tips and Figma Workflows for 2025',
+    ogTitle: 'BiblioKit Blog: Design Tips and Figma Workflows for 2026',
     ogDescription: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit Blog: Design Tips and Figma Workflows for 2025',
+    twitterTitle: 'BiblioKit Blog: Design Tips and Figma Workflows for 2026',
     twitterDescription: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
     twitterImage: '/og/og-default.svg'
   }
@@ -697,7 +731,7 @@ export function generateMetadata(
   // Set canonical URL and clamp lengths
   let canonicalPath = normalizedPathNoTrailingSlash === '' ? '/' : normalizedPathNoTrailingSlash;
   if (canonicalPath === '/ai-rename-variants') {
-    canonicalPath = '/biblio-rename';
+    canonicalPath = '/figma-component-variant-renamer';
   }
   metadata.canonical = `${baseUrl}${canonicalPath}`;
   metadata.title = clampText(metadata.title, 60);

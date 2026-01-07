@@ -53,27 +53,39 @@
         "children": [
           {
             "label": "BiblioRename",
-            "href": "/biblio-rename",
+            "href": "/figma-component-variant-renamer",
             "description": "The AI Organizer. Standardize layer names and variant properties with context-aware AI.",
             "icon": "✨"
           },
           {
             "label": "BiblioClean — The Blue Line Wiper",
-            "href": "/biblio-clean",
+            "href": "/figma-plugin-remove-prototype-links",
             "description": "Remove prototype links safely without breaking main components.",
             "icon": "broom"
           },
           {
             "label": "BiblioAudit — Find Detached Instances & Design System Check",
-            "href": "/biblio-audit",
+            "href": "/figma-design-system-audit-plugin",
             "description": "Scan Figma files for detached instances, token drift, and dirty overrides with automated QA.",
             "icon": "🧭"
           },
           {
+            "label": "BiblioStates",
+            "href": "/figma-component-states",
+            "description": "Generate component states and specs so designers, developers, and marketers align on design systems, handoff, implementation, launch, and campaigns.",
+            "icon": "sparkles"
+          },
+          {
             "label": "BiblioTable — Normalize Figma Tables",
-            "href": "/biblio-table",
+            "href": "/figma-table-builder",
             "description": "Equalize column widths and fix row heights in auto-layout tables.",
             "icon": "layout"
+          },
+          {
+            "label": "BiblioOrganize — Design File Scaffolding",
+            "href": "/figma-organize-design-files-plugin",
+            "description": "One-click blueprints with covers, README cards, and page hierarchies.",
+            "icon": "🗂️"
           }
         ]
       },
@@ -105,7 +117,7 @@
       "topItems": [],
       "showBadge": true,
       "badgeColor": "#10b981",
-      "buttonLink": "/biblio-rename",
+      "buttonLink": "/figma-component-variant-renamer",
       "buttonText": "Standardize names with AI",
       "isFeatured": false,
       "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
@@ -132,7 +144,7 @@
       ],
       "showBadge": true,
       "badgeColor": "#0ea5e9",
-      "buttonLink": "/biblio-audit",
+      "buttonLink": "/figma-design-system-audit-plugin",
       "buttonText": "Audit my file now",
       "isFeatured": false,
       "description": "BiblioAudit is the automated QA tool for Figma. Find detached instances, validate tokens, flag dirty overrides, and reveal deprecated or rogue components—whether you scan a selection, a single page, or the full file.",
@@ -158,7 +170,7 @@
       ],
       "showBadge": true,
       "badgeColor": "#0ea5e9",
-      "buttonLink": "/biblio-clean",
+      "buttonLink": "/figma-plugin-remove-prototype-links",
       "buttonText": "Clean prototype links",
       "isFeatured": false,
       "description": "The Blue Line Wiper. The safest way to remove prototype links and external connections. Cleans visual clutter without breaking your main components.",
@@ -169,12 +181,37 @@
       "buttonPreset": "custom"
     },
     {
+      "icon": "🧩",
+      "idea": "State matrices in minutes.",
+      "badge": "Launched",
+      "category": "Launched",
+      "title": "Generate Component States and Specs in Figma (BiblioStates)",
+      "tagline": "Component State Generator & Specs",
+      "badges": [],
+      "topItems": [
+        "Auto-generate hover, focus, error, and disabled states.",
+        "Create a state matrix and documentation cards for handoff.",
+        "Surface missing states before implementation and launch QA."
+      ],
+      "showBadge": true,
+      "badgeColor": "#10b981",
+      "buttonLink": "/figma-component-states",
+      "buttonText": "Generate states fast",
+      "isFeatured": false,
+      "description": "BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.",
+      "media": {
+        "src": "/media/BiblioStates.png",
+        "alt": "BiblioStates plugin panel showing component state generation and spec card preview in Figma"
+      },
+      "buttonPreset": "custom"
+    },
+    {
       "icon": "🗂️",
       "idea": "Launch projects with zero setup drag.",
       "badge": "Launched",
       "category": "Launched",
-      "title": "Spin Up Figma Project Blueprints Fast (BiblioStart)",
-      "tagline": "Project Setup & File Scaffolding",
+      "title": "Organize Design Files & Page Scaffolding (BiblioOrganize)",
+      "tagline": "Design File Organization & Scaffolding",
       "badges": [],
       "topItems": [
         "One-click project shell with cover page, flows, and handoff templates.",
@@ -184,14 +221,14 @@
       ],
       "showBadge": true,
       "badgeColor": "#8b5cf6",
-      "buttonLink": "#landing-waitlist",
-      "buttonText": "Generate my starter kit",
+      "buttonLink": "/figma-organize-design-files-plugin",
+      "buttonText": "Organize my Figma file",
       "isFeatured": false,
       "description": "Spin up production-ready Figma projects with standardized pages, tokens, and folder scaffolding so teams start building in minutes.",
       "buttonPreset": "custom",
       "media": {
-        "src": "/media/BiblioStart.png",
-        "alt": "BiblioStart setup screen with cover, handoff, and sandbox pages for a new Figma file"
+        "src": "/media/BiblioOrganize.png",
+        "alt": "BiblioOrganize preset panel showing product handoff and journey map scaffolding options"
       }
     },
     {
@@ -208,7 +245,7 @@
       ],
       "showBadge": true,
       "badgeColor": "#0ea5e9",
-      "buttonLink": "/biblio-table",
+      "buttonLink": "/figma-table-builder",
       "buttonText": "Fix my tables",
       "isFeatured": false,
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
@@ -788,6 +825,98 @@
         {
           "question": "When will it be released?",
           "answer": "BiblioTable is live. Install it from our Figma Community profile."
+        }
+      ]
+    },
+    "biblio-states": {
+      "title": "BiblioStates",
+      "subtitle": "Ship complete component states.",
+      "description": "BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.",
+      "primaryButton": "Install BiblioStates",
+      "primaryButtonIcon": "download",
+      "primaryButtonLink": "https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs",
+      "badgeLabel": "Figma Plugin",
+      "heroImage": "/media/BiblioStates.png",
+      "visibility": {
+        "waitlist": false
+      }
+    },
+    "biblio-organize": {
+      "title": "BiblioOrganize",
+      "subtitle": "Cure blank canvas paralysis.",
+      "description": "BiblioOrganize seeds Figma files with opinionated hierarchies, covers, README/status cards, and starter content so your team is ready to work in under 30 seconds.",
+      "primaryButton": "Try BiblioOrganize",
+      "primaryButtonIcon": "download",
+      "primaryButtonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
+      "badgeLabel": "Figma Plugin",
+      "visibility": {
+        "waitlist": false
+      },
+      "details": [
+        {
+          "title": "One-Click File Scaffolding",
+          "items": [
+            "Create divider pages, covers, and README/status frames instantly.",
+            "Opinionated hierarchies ready in under 30 seconds.",
+            "No more blank canvas paralysis for new projects."
+          ],
+          "buttonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
+          "mediaUrl": "/media/BiblioOrganize.png",
+          "mediaAlt": "BiblioOrganize preset selection panel"
+        },
+        {
+          "title": "Reusable Presets",
+          "items": [
+            "Product Handoff preset with status, review, and ownership scaffolding.",
+            "Journey/Flow Maps preset for cross-functional flow mapping.",
+            "Archive dividers and documentation anchors included."
+          ],
+          "buttonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
+          "mediaUrl": "/media/BiblioOrganize.png",
+          "mediaAlt": "BiblioOrganize preset options"
+        },
+        {
+          "title": "Smart Tips & Rollback",
+          "items": [
+            "Trojan Horse tips nudge teams toward proven Biblio workflows.",
+            "Idempotent runs detect existing scaffolds and skip duplicates.",
+            "Rollback cleans up partial failures automatically."
+          ],
+          "buttonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
+          "mediaUrl": "/media/BiblioOrganize.png",
+          "mediaAlt": "BiblioOrganize tips and rollback features"
+        }
+      ],
+      "benefits": [
+        "Problem: Teams waste time inventing structure. Result: Production-ready workspace in 30 seconds.",
+        "Problem: Inconsistent handoffs across projects. Result: Standardized templates with ownership fields."
+      ],
+      "sections": {
+        "features": {
+          "title": "Stop fighting the blank canvas.",
+          "description": "One-click blueprints that create professional file structures with covers, README cards, and documentation anchors."
+        },
+        "useCases": {
+          "title": "Essential for new projects.",
+          "description": "Help designers, PMs, and design ops teams start with consistent, professional file structures."
+        }
+      },
+      "faqs": [
+        {
+          "question": "Does it work with existing files?",
+          "answer": "Yes. BiblioOrganize detects existing scaffold elements and skips duplicates to avoid conflicts."
+        },
+        {
+          "question": "Can I customize the presets?",
+          "answer": "V1 includes Product Handoff and Journey/Flow Maps presets. Custom preset builder is planned for future releases."
+        },
+        {
+          "question": "Will it break my existing pages?",
+          "answer": "No. BiblioOrganize adds new pages and scaffolding without modifying existing content. Rollback cleans up partial failures."
+        },
+        {
+          "question": "Is BiblioOrganize free?",
+          "answer": "Yes, BiblioOrganize is currently free to use for all features."
         }
       ]
     },

@@ -121,7 +121,8 @@ const buildFeatureDetails = (rawFeatures: FeatureLike[]): ResourceFeatureDetail[
 
 const matchesBiblioClean = (detail: ResourceFeatureDetail): boolean => {
   const titleMatch = detail.title.toLowerCase().includes('biblioclean');
-  const linkMatch = (detail.buttonLink || '').toLowerCase().includes('biblio-clean');
+  const link = (detail.buttonLink || '').toLowerCase();
+  const linkMatch = link.includes('biblio-clean') || link.includes('figma-plugin-remove-prototype-links');
   return titleMatch || linkMatch;
 };
 
@@ -194,6 +195,15 @@ const ResourcesPage: React.FC = () => {
         enableFeaturesNav={false}
         compactLayout={false}
       />
+
+      {/* Internal Links Section */}
+      <section className="py-16 px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-white/70 text-sm">
+            Looking for more? Browse <a href="/products" className="text-[#ff2f87] hover:underline">all BiblioKit products</a> or read our <a href="/blog" className="text-[#ff2f87] hover:underline">Figma workflow tips on the blog</a>.
+          </p>
+        </div>
+      </section>
     </div>
   );
 };

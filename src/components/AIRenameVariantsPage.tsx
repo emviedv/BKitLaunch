@@ -278,20 +278,20 @@ const AIRenameVariantsPage = () => {
               <p className="text-xl text-purple-200 mb-8">Start with 8 free credits and erase variant naming debt in minutes.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Start fixing — 8 free credits
+                  Start fixing with 8 free credits
                 </a>
               </Button>
             </div>
             <div className="flex justify-center">
                <div className="relative">
-                   <PlaceholderImage label="Audit Snapshot Preview" height="h-64" className="w-48 shadow-2xl rotate-3" />
+                   <PlaceholderImage label="Audit Snapshot Preview" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
                    <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
-                        <Check className="w-4 h-4 text-green-400" />
+                        <Check className="w-4 h-4 text-purple-400" />
                         <span className="text-sm font-bold">Audit Complete</span>
                       </div>
                       <div className="h-2 w-32 bg-slate-700 rounded-full overflow-hidden">
-                         <div className="h-full w-3/4 bg-green-400" />
+                         <div className="h-full w-full bg-purple-400" />
                       </div>
                    </div>
                </div>
@@ -421,7 +421,8 @@ const AIRenameVariantsPage = () => {
       {/* Block 12: Final CTA */}
       <section className="py-24 px-6 md:px-10 text-center landing-sections-gradient text-white">
          <div className="max-w-4xl mx-auto relative z-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">Stop fixing names by hand.</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Stop fixing names by hand.</h2>
+            <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">Let AI suggest consistent naming patterns and apply them across hundreds of variants instantly.</p>
             <div className="flex flex-col items-center gap-4">
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
@@ -429,6 +430,9 @@ const AIRenameVariantsPage = () => {
                 </a>
               </Button>
             </div>
+            <p className="mt-6 text-slate-400">
+              Looking to organize your file structure? <a href="/figma-organize-design-files-plugin" className="text-purple-400 hover:underline">Check out BiblioOrganize</a>
+            </p>
             <div className="mt-12 pt-12 border-t border-slate-800/50">
                <p className="italic text-slate-400 text-lg mb-6">
                   &quot;Built by a designer who fixed variant chaos after a broken launch.&quot;

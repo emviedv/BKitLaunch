@@ -261,8 +261,8 @@ export default async (request: Request, context: Context) => {
   }
 
   const normalizedPath = url.pathname === '/' ? '/' : url.pathname.replace(/\/+$/, '');
-  if (normalizedPath === '/ai-rename-variants') {
-    const redirectUrl = new URL('/biblio-rename', url.origin);
+  if (normalizedPath === '/ai-rename-variants' || normalizedPath === '/biblio-rename') {
+    const redirectUrl = new URL('/figma-component-variant-renamer', url.origin);
     redirectUrl.search = url.search;
     return Response.redirect(redirectUrl.toString(), 301);
   }
