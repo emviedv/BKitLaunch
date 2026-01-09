@@ -10,8 +10,8 @@ import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
-const BiblioOrganizePage = () => {
-  debugService.info('BiblioOrganizePage mounted', {
+const OrganizeFilePage = () => {
+  debugService.info('OrganizeFilePage mounted', {
     timestamp: new Date().toISOString()
   });
 
@@ -25,12 +25,12 @@ const BiblioOrganizePage = () => {
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/com.biblio.biblioorganize';
-  const biblioOrganizeHeroImageDimensions = getImageDimensions('/media/BiblioOrganize.png');
+  const biblioOrganizeHeroImageDimensions = getImageDimensions('/media/OrganizeFile.png');
   const faqs = [
-    { question: "When will BiblioOrganize be available?", answer: "BiblioOrganize is coming soon. We're putting the finishing touches on the plugin and will announce the launch date shortly." },
-    { question: "Does it work with existing files?", answer: "Yes. BiblioOrganize detects existing scaffold elements and skips duplicates to avoid conflicts." },
+    { question: "When will OrganizeFile be available?", answer: "OrganizeFile is coming soon. We're putting the finishing touches on the plugin and will announce the launch date shortly." },
+    { question: "Does it work with existing files?", answer: "Yes. OrganizeFile detects existing scaffold elements and skips duplicates to avoid conflicts." },
     { question: "Can I customize the presets?", answer: "V1 includes Product Handoff and Journey/Flow Maps presets. Custom preset builder is planned for future releases." },
-    { question: "Will it break my existing pages?", answer: "No. BiblioOrganize adds new pages and scaffolding without modifying existing content. Rollback cleans up partial failures." },
+    { question: "Will it break my existing pages?", answer: "No. OrganizeFile adds new pages and scaffolding without modifying existing content. Rollback cleans up partial failures." },
   ];
 
   // --- Reusable Components ---
@@ -82,8 +82,8 @@ const BiblioOrganizePage = () => {
           </div>
           <div className="mx-auto max-w-4xl shadow-2xl rounded-lg overflow-hidden border border-slate-700/50">
             <img
-              src="/media/BiblioOrganize.png"
-              alt="BiblioOrganize preset panel showing product handoff and journey map scaffolding options in Figma."
+              src="/media/OrganizeFile.png"
+              alt="OrganizeFile preset panel showing product handoff and journey map scaffolding options in Figma."
               className="w-full h-auto"
               width={biblioOrganizeHeroImageDimensions?.width}
               height={biblioOrganizeHeroImageDimensions?.height}
@@ -134,7 +134,7 @@ const BiblioOrganizePage = () => {
           <div className="inline-block bg-green-500/10 text-green-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-green-500/20">
             Typical Result: Ready in Under 30 Seconds
           </div>
-          <SectionTitle>See BiblioOrganize in Action: Scaffold Files Instantly</SectionTitle>
+          <SectionTitle>See OrganizeFile in Action: Scaffold Files Instantly</SectionTitle>
         </div>
 
         <div className="grid md:grid-cols-12 gap-8 mb-12">
@@ -169,7 +169,7 @@ const BiblioOrganizePage = () => {
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-violet-500 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Open Plugin" height="h-64" />
-            <h3 className="text-xl font-bold mt-6 mb-2">Open BiblioOrganize</h3>
+            <h3 className="text-xl font-bold mt-6 mb-2">Open OrganizeFile</h3>
             <p className="text-slate-400">Launch the plugin from your Figma menu. Your last preset and toggles are remembered.</p>
           </div>
           <div className="relative">
@@ -224,7 +224,7 @@ const BiblioOrganizePage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
              <div>
               <h3 className="text-2xl font-bold mb-4">Idempotent Runs &amp; Rollback</h3>
-              <p className="text-slate-300 text-lg mb-6">Rerun the plugin safely. BiblioOrganize detects existing scaffolds and skips duplicates. Partial failures roll back automatically.</p>
+              <p className="text-slate-300 text-lg mb-6">Rerun the plugin safely. OrganizeFile detects existing scaffolds and skips duplicates. Partial failures roll back automatically.</p>
               <ul className="text-sm text-slate-400 space-y-2">
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Detects existing elements to avoid duplicates</li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Warns when runs exceed 30s target</li>
@@ -241,7 +241,7 @@ const BiblioOrganizePage = () => {
               <p className="text-slate-300 text-lg mb-6">Trojan Horse tips nudge teams toward proven Biblio workflows. Toggleable and non-intrusive.</p>
               <ul className="text-sm text-slate-400 space-y-2">
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Context-aware sticky notes on relevant pages</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Links to BiblioRename, BiblioAudit, and more</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Links to BiblioRename, ComponentQA, and more</li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Toggle tips off in the preset panel</li>
               </ul>
             </div>
@@ -281,7 +281,7 @@ const BiblioOrganizePage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Scaffold your file in seconds.</h2>
-              <p className="text-xl text-violet-200 mb-8">BiblioOrganize is coming soon. Start every project with professional structure.</p>
+              <p className="text-xl text-violet-200 mb-8">OrganizeFile is coming soon. Start every project with professional structure.</p>
               <div className="flex items-center gap-3">
                 <Button className={`${HERO_PRIMARY_BUTTON_CLASS} opacity-60 cursor-not-allowed`} size="lg" disabled>
                   Coming Soon
@@ -291,8 +291,8 @@ const BiblioOrganizePage = () => {
             <div className="flex justify-center">
                <div className="relative">
                    <img
-                     src="/media/icons/biblio-organize-icon.png"
-                     alt="BiblioOrganize plugin icon"
+                     src="/media/icons/organize-file-icon.png"
+                     alt="OrganizeFile plugin icon"
                      className="h-64 w-48 rounded-3xl object-contain shadow-2xl rotate-3"
                      width={128}
                      height={128}
@@ -328,7 +328,7 @@ const BiblioOrganizePage = () => {
                 Coming Soon
               </div>
               <Button className={`${HERO_PRIMARY_BUTTON_CLASS} opacity-60 cursor-not-allowed`} size="lg" disabled>
-                Install BiblioOrganize
+                Install OrganizeFile
               </Button>
             </div>
             <p className="mt-6 text-slate-400">
@@ -341,4 +341,4 @@ const BiblioOrganizePage = () => {
   );
 };
 
-export default BiblioOrganizePage;
+export default OrganizeFilePage;

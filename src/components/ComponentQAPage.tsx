@@ -10,9 +10,9 @@ import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
-const BiblioAuditPage = () => {
-  debugService.info('BiblioAuditPage mounted', { 
-    timestamp: new Date().toISOString() 
+const ComponentQAPage = () => {
+  debugService.info('ComponentQAPage mounted', {
+    timestamp: new Date().toISOString()
   });
 
   const { content } = usePublishedContent();
@@ -24,14 +24,14 @@ const BiblioAuditPage = () => {
     updatePageMetadata(metadata);
   }, [content]);
 
-  const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check';
-  const biblioAuditHeroImageDimensions = getImageDimensions('/media/biblio-audit-hero.png');
-  const biblioAuditLeakImageDimensions = getImageDimensions('/media/biblio-audit-leak.png');
+  const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check';
+  const componentQAHeroImageDimensions = getImageDimensions('/media/component-qa-hero.png');
+  const componentQALeakImageDimensions = getImageDimensions('/media/component-qa-leak.png');
   const faqs = [
-    { question: "Does it work with any design system?", answer: "Yes. BiblioAudit checks against your local styles and enabled libraries." },
-    { question: "Does it change my file?", answer: "No. BiblioAudit surfaces issues and jumps you to the exact layers so you can decide what to update." },
-    { question: "Is it safe to run on large files?", answer: "Yes. BiblioAudit is optimized for performance and handles large files by scanning on demand." },
-    { question: "Is BiblioAudit free?", answer: "Yes, BiblioAudit is currently free to use for all features." },
+    { question: "Does it work with any design system?", answer: "Yes. ComponentQA checks against your local styles and enabled libraries." },
+    { question: "Does it change my file?", answer: "No. ComponentQA surfaces issues and jumps you to the exact layers so you can decide what to update." },
+    { question: "Is it safe to run on large files?", answer: "Yes. ComponentQA is optimized for performance and handles large files by scanning on demand." },
+    { question: "Is ComponentQA free?", answer: "Yes, ComponentQA is currently free to use for all features." },
   ];
 
   // --- Reusable Components ---
@@ -85,11 +85,11 @@ const BiblioAuditPage = () => {
           </div>
           <div className="mx-auto max-w-4xl shadow-2xl rounded-lg overflow-hidden border border-slate-700/50">
             <img
-              src="/media/biblio-audit-hero.png"
-              alt="BiblioAudit audit results dashboard in Figma showing components and issue counts."
+              src="/media/component-qa-hero.png"
+              alt="ComponentQA audit results dashboard in Figma showing components and issue counts."
               className="w-full h-auto"
-              width={biblioAuditHeroImageDimensions?.width}
-              height={biblioAuditHeroImageDimensions?.height}
+              width={componentQAHeroImageDimensions?.width}
+              height={componentQAHeroImageDimensions?.height}
               loading="eager"
               fetchPriority="high"
               decoding="async"
@@ -126,12 +126,12 @@ const BiblioAuditPage = () => {
             </p>
           </div>
           <div className="relative">
-             <img 
-               src="/media/biblio-audit-leak.png" 
-               alt="BiblioAudit Figma plugin detecting detached components and design system drift in a real design file" 
+             <img
+               src="/media/component-qa-leak.png"
+               alt="ComponentQA Figma plugin detecting detached components and design system drift in a real design file"
                className="w-4/5 h-auto rounded-xl border border-slate-700 shadow-2xl"
-               width={biblioAuditLeakImageDimensions?.width}
-               height={biblioAuditLeakImageDimensions?.height}
+               width={componentQALeakImageDimensions?.width}
+               height={componentQALeakImageDimensions?.height}
                loading="lazy"
                decoding="async"
              />
@@ -145,19 +145,19 @@ const BiblioAuditPage = () => {
           <div className="inline-block bg-green-500/10 text-green-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-green-500/20">
             Typical Result: 100% System Compliance
           </div>
-          <SectionTitle>See BiblioAudit in Action: Audit & Flag Figma Design Errors</SectionTitle>
+          <SectionTitle>See ComponentQA in Action: Audit & Flag Figma Design Errors</SectionTitle>
         </div>
         
         <div className="grid md:grid-cols-12 gap-8 mb-12">
            <div className="md:col-span-8">
               <video
                 className="w-full h-full object-cover rounded-xl"
-                src="/media/BiblioAudit-demo.mp4"
+                src="/media/ComponentQA-demo.mp4"
                 loop
                 autoPlay
                 muted
                 playsInline
-                aria-label="BiblioAudit demo: running audit, finding 50 errors, and bulk flagging issues in Figma"
+                aria-label="ComponentQA demo: running audit, finding 50 errors, and bulk flagging issues in Figma"
               />
            </div>
            <div className="md:col-span-4 flex flex-col gap-4">
@@ -191,7 +191,7 @@ const BiblioAuditPage = () => {
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Select Scope" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Scan Anything</h3>
-            <p className="text-slate-400">Audit a single selection, a whole page, or the entire file. BiblioAudit crawls every layer.</p>
+            <p className="text-slate-400">Audit a single selection, a whole page, or the entire file. ComponentQA crawls every layer.</p>
           </div>
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center font-bold text-white z-10">2</div>
@@ -292,16 +292,16 @@ const BiblioAuditPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Audit your file in seconds.</h2>
-              <p className="text-xl text-cyan-200 mb-8">Install BiblioAudit for free and catch errors before your developers do.</p>
+              <p className="text-xl text-cyan-200 mb-8">Install ComponentQA for free and catch errors before your developers do.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Get BiblioAudit for free
+                  Get ComponentQA for free
                 </a>
               </Button>
             </div>
             <div className="flex justify-center">
                <div className="relative">
-                   <PlaceholderImage label="BiblioAudit Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
+                   <PlaceholderImage label="ComponentQA Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
                    <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
                         <Check className="w-4 h-4 text-cyan-400" />
@@ -319,7 +319,7 @@ const BiblioAuditPage = () => {
 
       {/* Block 8: FAQ */}
       <Section dark>
-        <SectionTitle className="text-center mb-12">See BiblioAudit in Action: Audit &amp; Flag Figma Design Errors</SectionTitle>
+        <SectionTitle className="text-center mb-12">See ComponentQA in Action: Audit &amp; Flag Figma Design Errors</SectionTitle>
         <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 
@@ -331,7 +331,7 @@ const BiblioAuditPage = () => {
             <div className="flex flex-col items-center gap-4">
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Install BiblioAudit
+                  Install ComponentQA
                 </a>
               </Button>
             </div>
@@ -345,4 +345,4 @@ const BiblioAuditPage = () => {
   );
 };
 
-export default BiblioAuditPage;
+export default ComponentQAPage;

@@ -189,7 +189,7 @@ const dropFirstSentence = (text: string): string => {
   }
 
   const firstSentence = sentences[0] ?? '';
-  const isGenericLead = /^(BiblioKit|BiblioAudit|BiblioClean|BiblioRename|BiblioTable|BiblioStart|BiblioStates|BiblioScale|BiblioUX|UXBiblio|BiblioMotion|BiblioAttach)\b/i
+  const isGenericLead = /^(BiblioKit|ComponentQA|BiblioClean|BiblioRename|BiblioTable|BiblioStart|StateBuilder|BiblioScale|BiblioUX|UXBiblio|BiblioMotion|BiblioAttach)\b/i
     .test(firstSentence.trim());
   if (!isGenericLead) {
     return trimmed;

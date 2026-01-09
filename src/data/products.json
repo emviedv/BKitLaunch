@@ -64,13 +64,13 @@
             "icon": "broom"
           },
           {
-            "label": "BiblioAudit — Find Detached Instances & Design System Check",
+            "label": "ComponentQA — Find Detached Instances & Design System Check",
             "href": "/figma-design-system-audit-plugin",
             "description": "Scan Figma files for detached instances, token drift, and dirty overrides with automated QA.",
             "icon": "🧭"
           },
           {
-            "label": "BiblioStates",
+            "label": "StateBuilder",
             "href": "/figma-component-states",
             "description": "Generate component states and specs so designers, developers, and marketers align on design systems, handoff, implementation, launch, and campaigns.",
             "icon": "sparkles"
@@ -82,7 +82,7 @@
             "icon": "layout"
           },
           {
-            "label": "BiblioOrganize — Design File Scaffolding",
+            "label": "OrganizeFile — Design File Scaffolding",
             "href": "/figma-organize-design-files-plugin",
             "description": "One-click blueprints with covers, README cards, and page hierarchies.",
             "icon": "🗂️"
@@ -132,7 +132,7 @@
       "idea": "Stop shipping broken files.",
       "badge": "Launched",
       "category": "Launched",
-      "title": "Automate Design System Audits (BiblioAudit)",
+      "title": "Automate Design System Audits (ComponentQA)",
       "tagline": "Find Detached Instances & Design System Check",
       "badges": [],
       "topItems": [
@@ -147,10 +147,10 @@
       "buttonLink": "/figma-design-system-audit-plugin",
       "buttonText": "Audit my file now",
       "isFeatured": false,
-      "description": "BiblioAudit is the automated QA tool for Figma. Find detached instances, validate tokens, flag dirty overrides, and reveal deprecated or rogue components—whether you scan a selection, a single page, or the full file.",
+      "description": "ComponentQA is the automated QA tool for Figma. Find detached instances, validate tokens, flag dirty overrides, and reveal deprecated or rogue components—whether you scan a selection, a single page, or the full file.",
       "media": {
-        "src": "/media/BiblioAudit.png",
-        "alt": "BiblioAudit audit panel listing detached instances, design system token issues, and severity scores in Figma"
+        "src": "/media/ComponentQA.png",
+        "alt": "ComponentQA audit panel listing detached instances, design system token issues, and severity scores in Figma"
       },
       "buttonPreset": "custom"
     },
@@ -185,7 +185,7 @@
       "idea": "State matrices in minutes.",
       "badge": "Launched",
       "category": "Launched",
-      "title": "Generate Component States and Specs in Figma (BiblioStates)",
+      "title": "Generate Component States and Specs in Figma (StateBuilder)",
       "tagline": "Component State Generator & Specs",
       "badges": [],
       "topItems": [
@@ -198,10 +198,10 @@
       "buttonLink": "/figma-component-states",
       "buttonText": "Generate states fast",
       "isFeatured": false,
-      "description": "BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.",
+      "description": "StateBuilder generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.",
       "media": {
-        "src": "/media/BiblioStates.png",
-        "alt": "BiblioStates plugin panel showing component state generation and spec card preview in Figma"
+        "src": "/media/StateBuilder.png",
+        "alt": "StateBuilder plugin panel showing component state generation and spec card preview in Figma"
       },
       "buttonPreset": "custom"
     },
@@ -210,7 +210,7 @@
       "idea": "Launch projects with zero setup drag.",
       "badge": "Launched",
       "category": "Launched",
-      "title": "Organize Design Files & Page Scaffolding (BiblioOrganize)",
+      "title": "Organize Design Files & Page Scaffolding (OrganizeFile)",
       "tagline": "Design File Organization & Scaffolding",
       "badges": [],
       "topItems": [
@@ -227,8 +227,8 @@
       "description": "Spin up production-ready Figma projects with standardized pages, tokens, and folder scaffolding so teams start building in minutes.",
       "buttonPreset": "custom",
       "media": {
-        "src": "/media/BiblioOrganize.png",
-        "alt": "BiblioOrganize preset panel showing product handoff and journey map scaffolding options"
+        "src": "/media/OrganizeFile.png",
+        "alt": "OrganizeFile preset panel showing product handoff and journey map scaffolding options"
       }
     },
     {
@@ -829,23 +829,23 @@
       ]
     },
     "biblio-states": {
-      "title": "BiblioStates",
+      "title": "StateBuilder",
       "subtitle": "Ship complete component states.",
-      "description": "BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.",
-      "primaryButton": "Install BiblioStates",
+      "description": "StateBuilder generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.",
+      "primaryButton": "Install StateBuilder",
       "primaryButtonIcon": "download",
       "primaryButtonLink": "https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs",
       "badgeLabel": "Figma Plugin",
-      "heroImage": "/media/BiblioStates.png",
+      "heroImage": "/media/StateBuilder.png",
       "visibility": {
         "waitlist": false
       }
     },
     "biblio-organize": {
-      "title": "BiblioOrganize",
+      "title": "OrganizeFile",
       "subtitle": "Cure blank canvas paralysis.",
-      "description": "BiblioOrganize seeds Figma files with opinionated hierarchies, covers, README/status cards, and starter content so your team is ready to work in under 30 seconds.",
-      "primaryButton": "Try BiblioOrganize",
+      "description": "OrganizeFile seeds Figma files with opinionated hierarchies, covers, README/status cards, and starter content so your team is ready to work in under 30 seconds.",
+      "primaryButton": "Try OrganizeFile",
       "primaryButtonIcon": "download",
       "primaryButtonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
       "badgeLabel": "Figma Plugin",
@@ -861,8 +861,8 @@
             "No more blank canvas paralysis for new projects."
           ],
           "buttonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
-          "mediaUrl": "/media/BiblioOrganize.png",
-          "mediaAlt": "BiblioOrganize preset selection panel"
+          "mediaUrl": "/media/OrganizeFile.png",
+          "mediaAlt": "OrganizeFile preset selection panel"
         },
         {
           "title": "Reusable Presets",
@@ -872,8 +872,8 @@
             "Archive dividers and documentation anchors included."
           ],
           "buttonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
-          "mediaUrl": "/media/BiblioOrganize.png",
-          "mediaAlt": "BiblioOrganize preset options"
+          "mediaUrl": "/media/OrganizeFile.png",
+          "mediaAlt": "OrganizeFile preset options"
         },
         {
           "title": "Smart Tips & Rollback",
@@ -883,8 +883,8 @@
             "Rollback cleans up partial failures automatically."
           ],
           "buttonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
-          "mediaUrl": "/media/BiblioOrganize.png",
-          "mediaAlt": "BiblioOrganize tips and rollback features"
+          "mediaUrl": "/media/OrganizeFile.png",
+          "mediaAlt": "OrganizeFile tips and rollback features"
         }
       ],
       "benefits": [
@@ -904,7 +904,7 @@
       "faqs": [
         {
           "question": "Does it work with existing files?",
-          "answer": "Yes. BiblioOrganize detects existing scaffold elements and skips duplicates to avoid conflicts."
+          "answer": "Yes. OrganizeFile detects existing scaffold elements and skips duplicates to avoid conflicts."
         },
         {
           "question": "Can I customize the presets?",
@@ -912,11 +912,11 @@
         },
         {
           "question": "Will it break my existing pages?",
-          "answer": "No. BiblioOrganize adds new pages and scaffolding without modifying existing content. Rollback cleans up partial failures."
+          "answer": "No. OrganizeFile adds new pages and scaffolding without modifying existing content. Rollback cleans up partial failures."
         },
         {
-          "question": "Is BiblioOrganize free?",
-          "answer": "Yes, BiblioOrganize is currently free to use for all features."
+          "question": "Is OrganizeFile free?",
+          "answer": "Yes, OrganizeFile is currently free to use for all features."
         }
       ]
     },

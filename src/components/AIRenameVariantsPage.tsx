@@ -431,7 +431,7 @@ const AIRenameVariantsPage = () => {
               </Button>
             </div>
             <p className="mt-6 text-slate-400">
-              Looking to organize your file structure? <a href="/figma-organize-design-files-plugin" className="text-purple-400 hover:underline">Check out BiblioOrganize</a>
+              Looking to organize your file structure? <a href="/figma-organize-design-files-plugin" className="text-purple-400 hover:underline">Check out OrganizeFile</a>
             </p>
             <div className="mt-12 pt-12 border-t border-slate-800/50">
                <p className="italic text-slate-400 text-lg mb-6">

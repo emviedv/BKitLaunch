@@ -41,7 +41,7 @@ const SITE_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'BiblioRename', href: '/figma-component-variant-renamer' },
   { label: 'BiblioClean', href: '/figma-plugin-remove-prototype-links' },
-  { label: 'BiblioAudit', href: '/figma-design-system-audit-plugin' },
+  { label: 'ComponentQA', href: '/figma-design-system-audit-plugin' },
   { label: 'BiblioTable', href: '/figma-table-builder' },
   { label: 'Blog', href: '/blog' }
 ];
@@ -60,7 +60,7 @@ const PRODUCT_META: Record<string, { title: string; description: string; ogType?
     ogType: 'product'
   },
   '/biblio-audit': {
-    title: 'BiblioAudit | Find Detached Instances & Design System Check',
+    title: 'ComponentQA | Find Detached Instances & Design System Check',
     description:
       'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.',
     ogType: 'product'
@@ -123,9 +123,9 @@ const SOFTWARE_APPLICATION_SCHEMA: Record<string, SoftwareApplicationSchemaConfi
     image: '/media/BiblioClean.png'
   },
   '/biblio-audit': {
-    name: 'BiblioAudit',
-    description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
-    image: '/media/BiblioAudit.png'
+    name: 'ComponentQA',
+    description: 'ComponentQA scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
+    image: '/media/ComponentQA.png'
   },
   '/figma-table-builder': {
     name: 'BiblioTable',
@@ -141,7 +141,7 @@ const PRODUCT_PAGE_COPY: Record<string, { headline: string; description: string 
       'Instantly remove prototype connections (blue lines) and revoke public share links before they leak. The safest way to clean Figma files.'
   },
   '/biblio-audit': {
-    headline: 'BiblioAudit',
+    headline: 'ComponentQA',
     description:
       'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.'
   },

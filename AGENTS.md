@@ -19,7 +19,7 @@
 - Keep CTA and product messaging designer/team-first—avoid stakeholder-targeted language. Default to “Join Designers shipping faster with BiblioKit” plus “Drop your email to jump the line for our next Figma plugins in beta” when updating shared copy.
 - Never use em dashes in customer-facing copy; use commas or short sentences instead.
 - When Emily requests a specific change, do not expand the scope or add extra copy/behavior beyond the exact ask (e.g., no bonus marketing lines unless explicitly requested).
-- BiblioAudit does not fix errors; describe it as surfacing issues or audits, not auto-fixing them (e.g., “deep scan, full audit” instead of “auto-fix”).
+- ComponentQA does not fix errors; describe it as surfacing issues or audits, not auto-fixing them (e.g., "deep scan, full audit" instead of "auto-fix").
 - When Emily explicitly asks to commit all changes, include untracked assets as requested (e.g., `tmp/searchatlas-crops/`).
 - BiblioRename titles must keep the product name as just "BiblioRename" (e.g., "Batch Rename Layers with AI (BiblioRename)", not "BiblioRename: ...").
 - When Emily provides blog copy (e.g., Google Doc content), import it verbatim without edits or extra lines; keep the published post text exactly as supplied.
@@ -39,8 +39,8 @@
 - After any change and deployment, explicitly verify the live production site loads (no blank/black screens) before handing off.
 - When making infrastructure changes (DNS, hosting, domain config), always check for dependent services that could break (e.g., email MX records, SPF/DKIM/DMARC, third-party integrations). DNS changes for websites can silently break email delivery if MX records are missing or overwritten.
 - When linking to live Figma Community assets, grab the official URLs from https://www.figma.com/@bibliokit (use product-specific plugin/file links, not generic waits or betas).
-- In blog posts, hyperlink plugin names to their official Figma Community listings (e.g., `[BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check)`).
-- Avoid bare Figma plugin ID URLs; always use the full listing slug (e.g., `https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check`).
+- In blog posts, hyperlink plugin names to their official Figma Community listings (e.g., `[ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check)`).
+- Avoid bare Figma plugin ID URLs; always use the full listing slug (e.g., `https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check`).
 - Blog posts should render H2s larger than H3s to keep heading hierarchy visually distinct.
 - Blog posts typically do not include FAQs; do not add FAQ sections unless explicitly requested.
 - FAQs across the site should use the pink numbered bubble on the left for consistent styling.
@@ -54,10 +54,19 @@
 - Meta descriptions must be unique per page and stay under 155 characters (e.g., 120–150 chars) to avoid SERP truncation.
 - Ensure every sitemap URL has at least one crawlable internal link (e.g., resources detail pages must be linked from nav or related content).
 - Always check for SEO issues when adding new pages or changing URLs: verify sitemap includes the new/updated paths, confirm canonicalizeSlug mappings in sitemap.ts match route paths, and ensure meta titles/descriptions are set in seo.ts.
+- Homepage SEO strategy: define the category ("Workflow Automation") before the brand. Page title: `Figma Workflow Automation & Design System Tools | BiblioKit`. Meta description: `BiblioKit is the Workflow OS for Figma. Automate DesignOps with an all-in-one suite for auditing systems, renaming variants, and fixing design drift.`
+- ComponentQA SEO strategy: target the "Audit" and "QA" keywords. Page title: `Figma Design Audit Plugin & QA Tool - ComponentQA`. Meta description: `Automate Figma QA and Design System Audits. Instantly find detached instances, validate token usage, and fix design drift before developer handoff.`
+- BiblioRename SEO strategy: be specific about components/variants so people know it is not for layers. Page title: `Batch Rename Figma Components & Variants | BiblioRename`. Meta description: `The bulk renamer for Figma Component Sets & Variants. Standardize properties, fix taxonomy errors, and clean up component logic without breaking instances.`
+- BiblioClean SEO strategy: target the prototype links pain point. Page title: `Remove Figma Prototype Links & Clean Files | BiblioClean`. Meta description: `Instantly remove 100s of broken prototype links in one click. Clean up your Figma file layers to reduce lag and ensure a smooth developer handoff.`
+- BiblioStart SEO strategy: target file organization. Page title: `Figma File Organizer & Project Scaffolding Tool | BiblioStart`. Meta description: `Stop setting up Figma files manually. Generate standardized project scaffolding, cover pages, and section templates instantly with BiblioStart.`
+- Resources/Guides SEO strategy: target playbooks. Page title: `Design System Guides, Playbooks & Checklists | BiblioKit`. Meta description: `Free Figma playbooks and Design System guides. Master file organization, automated auditing, and design handoff with our implementation checklists.`
+- Title rule: lead with the search keyword and put the brand name last.
+- Title rule: separate keyword and brand with a pipe (`|`) or dash (`-`).
+- Title rule: keep titles under 60 characters when possible.
 - When trimming meta descriptions, keep the action/benefit-driven tone and include designers, developers, and marketers when feasible.
 - Typography tracking rules: text under 40px keeps tracking at 0; text 40–70px uses -1% tracking; text over 70px uses -2% to -4% tracking (tighter spacing for larger display type).
-- Product pages must follow the BiblioAuditPage format: Hero, Problem Agitation, Quick Proof, How It Works (3 steps), Features (alternating layout), Use Cases, CTA, FAQ, Final CTA. Use dedicated page components (e.g., BiblioCleanPage.tsx) instead of DynamicProductPage for this structure.
-- Product page Final CTA sections must include: (1) a bold title, (2) a description paragraph explaining the product benefit, (3) the primary CTA button, and (4) a cross-reference text link to a complementary product (e.g., "Want to audit your file for errors? Check out BiblioAudit"). Use the product's accent color for the cross-reference link (e.g., `text-cyan-400` for BiblioAudit, `text-blue-400` for BiblioClean, `text-violet-400` for BiblioOrganize, `text-purple-400` for BiblioRename, `text-emerald-400` for BiblioStates).
+- Product pages must follow the ComponentQAPage format: Hero, Problem Agitation, Quick Proof, How It Works (3 steps), Features (alternating layout), Use Cases, CTA, FAQ, Final CTA. Use dedicated page components (e.g., BiblioCleanPage.tsx) instead of DynamicProductPage for this structure.
+- Product page Final CTA sections must include: (1) a bold title, (2) a description paragraph explaining the product benefit, (3) the primary CTA button, and (4) a cross-reference text link to a complementary product (e.g., "Want to audit your file for errors? Check out ComponentQA"). Use the product's accent color for the cross-reference link (e.g., `text-cyan-400` for ComponentQA, `text-blue-400` for BiblioClean, `text-violet-400` for OrganizeFile, `text-purple-400` for BiblioRename, `text-emerald-400` for StateBuilder).
 
 ## Business Information
 - Business Description — BiblioKit provides a suite of Figma plugins designed to accelerate the design process and improve product development workflows. The company focuses on enhancing speed, structure, and creativity for designers working within the Figma environment. BiblioKit offers tools that automate repetitive tasks, standardize design elements, and streamline project setup. These plugins address common pain points in design workflows, such as manual renaming, design system auditing, prototype link management, and table normalization. By automating these processes, BiblioKit enables designers to focus on higher-level creative and strategic tasks. The company operates as a digital service provider, offering its plugins directly to Figma users. BiblioKit targets design teams and individual designers seeking to optimize their Figma workflows and improve overall design efficiency. The company's plugins are actively used by designers shipping real products, indicating a focus on practical, production-ready solutions.
@@ -68,11 +77,11 @@
 - Central Search Intent — Optimize Figma Workflows.
 
 ## Product Roster
-- BiblioAudit — Figma plugin that automates component consistency checks, token validation, and remediation reports; severity scoring; deep-selection scanning for rapid fixes.
+- ComponentQA — Figma plugin that automates component consistency checks, token validation, and remediation reports; severity scoring; deep-selection scanning for rapid fixes.
 - BiblioClean — Safely strips prototype links with dry-run preview; selective rules (nav/external links, variants, keep-cover); component/library warnings; per-batch undo and audit export.
 - BiblioRename — AI-assisted variant/property renamer; enforces taxonomy conventions; batch rename with override safety; prompt-tuned for design systems.
 - UXBiblio Chrome Extension — Manifest V3 extension to capture UI flows, run instant AI audits, tag friction with citations, and sync structured evidence to BiblioUX boards.
-- BiblioStates — Auto-generates interaction states (hover/focus/error) and developer doc cards to keep specs consistent without manual redlines.
+- StateBuilder — Auto-generates interaction states (hover/focus/error) and developer doc cards to keep specs consistent without manual redlines.
 - BiblioScale — Adaptive campaign generator that turns a master frame into channel-ready outputs (TikTok/Story/Feed) with quality guardrails.
 - BiblioUX (Figma Plugin) — In-canvas heuristic/accessibility/psych feedback on selected frames with citation-backed action steps.
 - BiblioMotion — WebGL shaders/animated backgrounds that render live in Figma to add motion to static prototypes.

@@ -10,8 +10,8 @@ import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
-const BiblioStatesPage = () => {
-  debugService.info('BiblioStatesPage mounted', { 
+const StateBuilderPage = () => {
+  debugService.info('StateBuilderPage mounted', { 
     timestamp: new Date().toISOString() 
   });
 
@@ -26,23 +26,23 @@ const BiblioStatesPage = () => {
   }, [content]);
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs';
-  const biblioStatesHeroImageDimensions = getImageDimensions('/media/BiblioStates.png');
+  const biblioStatesHeroImageDimensions = getImageDimensions('/media/StateBuilder.png');
   const biblioStatesDashboardImageDimensions = getImageDimensions('/blog/ui-component-states/dashboard-dark.png');
   const faqs = [
     {
-      question: "What states does BiblioStates generate?",
+      question: "What states does StateBuilder generate?",
       answer: "Generate hover, focus, pressed, error, and disabled states, plus optional success or selected states based on your component."
     },
     {
       question: "Does it work with any design system?",
-      answer: "Yes. BiblioStates works with any Figma components and is tuned for design system variants."
+      answer: "Yes. StateBuilder works with any Figma components and is tuned for design system variants."
     },
     {
       question: "Can I choose which states to include?",
       answer: "Yes. Pick the states you need before generation, then review the matrix before handoff."
     },
     {
-      question: "Is BiblioStates live?",
+      question: "Is StateBuilder live?",
       answer: "Yes. Install it from Figma Community and generate your next state matrix."
     },
   ];
@@ -112,7 +112,7 @@ const BiblioStatesPage = () => {
             <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
               <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
-                <span>Install BiblioStates</span>
+                <span>Install StateBuilder</span>
               </a>
             </Button>
             <span className="flex items-center gap-2 text-sm text-slate-400">
@@ -121,8 +121,8 @@ const BiblioStatesPage = () => {
           </div>
           <div className="mx-auto max-w-4xl shadow-2xl rounded-lg overflow-hidden border border-slate-700/50">
             <img
-              src="/media/BiblioStates.png"
-              alt="BiblioStates plugin panel showing component state generation and spec card preview in Figma."
+              src="/media/StateBuilder.png"
+              alt="StateBuilder plugin panel showing component state generation and spec card preview in Figma."
               className="w-full h-auto"
               width={biblioStatesHeroImageDimensions?.width}
               height={biblioStatesHeroImageDimensions?.height}
@@ -183,7 +183,7 @@ const BiblioStatesPage = () => {
           <div className="inline-block bg-emerald-500/10 text-emerald-300 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-emerald-500/20">
             Typical Result: Full state coverage in minutes
           </div>
-          <SectionTitle>Watch BiblioStates generate UI states and specs</SectionTitle>
+          <SectionTitle>Watch StateBuilder generate UI states and specs</SectionTitle>
         </div>
 
         <div className="grid md:grid-cols-12 gap-8 mb-12">
@@ -223,7 +223,7 @@ const BiblioStatesPage = () => {
             <PlaceholderImage label="Step 1: Select components" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Select Components</h3>
             <p className="text-slate-400">
-              Choose the components or variants you want to document. BiblioStates reads their structure.
+              Choose the components or variants you want to document. StateBuilder reads their structure.
             </p>
           </div>
           <div className="relative">
@@ -289,7 +289,7 @@ const BiblioStatesPage = () => {
             <div>
               <h3 className="text-2xl font-bold mb-4">Surface missing states before launch</h3>
               <p className="text-slate-300 text-lg mb-6">
-                BiblioStates surfaces gaps in your state coverage so handoff stays clean and implementation stays accurate.
+                StateBuilder surfaces gaps in your state coverage so handoff stays clean and implementation stays accurate.
               </p>
             </div>
             <PlaceholderImage label="Screenshot: Missing state alerts" />
@@ -331,17 +331,17 @@ const BiblioStatesPage = () => {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Generate states once, ship everywhere.</h2>
               <p className="text-xl text-emerald-200 mb-8">
-                Install BiblioStates to create state matrices and spec cards so designers, developers, and marketers stay aligned through handoff, implementation, launch, and campaigns.
+                Install StateBuilder to create state matrices and spec cards so designers, developers, and marketers stay aligned through handoff, implementation, launch, and campaigns.
               </p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                 <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Install BiblioStates
+                  Install StateBuilder
                 </a>
               </Button>
             </div>
             <div className="flex justify-center">
               <div className="relative">
-                <PlaceholderImage label="BiblioStates Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
+                <PlaceholderImage label="StateBuilder Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
                 <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
                   <div className="flex items-center gap-2 mb-2">
                     <Check className="w-4 h-4 text-emerald-400" />
@@ -359,7 +359,7 @@ const BiblioStatesPage = () => {
 
       {/* Block 8: FAQ */}
       <Section dark>
-        <SectionTitle className="text-center mb-12">Watch BiblioStates generate UI states and specs</SectionTitle>
+        <SectionTitle className="text-center mb-12">Watch StateBuilder generate UI states and specs</SectionTitle>
         <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 
@@ -373,12 +373,12 @@ const BiblioStatesPage = () => {
           <div className="flex flex-col items-center gap-4">
             <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
               <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                Install BiblioStates
+                Install StateBuilder
               </a>
             </Button>
           </div>
           <p className="mt-6 text-slate-400">
-            Want to audit your design system for errors? <a href="/figma-design-system-audit-plugin" className="text-emerald-400 hover:underline">Check out BiblioAudit</a>
+            Want to audit your design system for errors? <a href="/figma-design-system-audit-plugin" className="text-emerald-400 hover:underline">Check out ComponentQA</a>
           </p>
         </div>
       </section>
@@ -386,4 +386,4 @@ const BiblioStatesPage = () => {
   );
 };
 
-export default BiblioStatesPage;
+export default StateBuilderPage;

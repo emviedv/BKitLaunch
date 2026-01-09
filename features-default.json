@@ -154,7 +154,7 @@
       },
       {
         "icon": "🔍",
-        "title": "BiblioAudit",
+        "title": "ComponentQA",
         "description": "Instantly find detached instances, missing styles, and broken tokens. Get a full health check before you hand off to developers.",
         "idea": "The Design System Fixer.",
         "topItems": [

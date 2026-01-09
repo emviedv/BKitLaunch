@@ -55,10 +55,10 @@ const Header = () => {
   const pluginIconSrcByHref: Record<string, string> = {
     '/figma-component-variant-renamer': '/media/icons/biblio-rename-icon.png',
     '/figma-plugin-remove-prototype-links': '/media/icons/biblio-clean-icon.png',
-    '/figma-design-system-audit-plugin': '/media/icons/biblio-audit-icon.png',
-    '/figma-component-states': '/media/icons/biblio-states-icon.png',
+    '/figma-design-system-audit-plugin': '/media/icons/component-qa-icon.png',
+    '/figma-component-states': '/media/icons/state-builder-icon.png',
     '/figma-table-builder': '/media/icons/biblio-table-icon.png',
-    '/figma-organize-design-files-plugin': '/media/icons/biblio-organize-icon.png',
+    '/figma-organize-design-files-plugin': '/media/icons/organize-file-icon.png',
   };
 
   const resolvePluginIconSrc = (child: NavChild): string | null => {
@@ -75,7 +75,7 @@ const Header = () => {
       const normalizedDropdownLabel = dd.label?.trim().toLowerCase();
       const children = (dd.children || []).map((child) => {
         const normalizedLabel = child.label?.trim().toLowerCase();
-        if (normalizedLabel === 'component auditor' || normalizedLabel?.startsWith('biblioaudit')) {
+        if (normalizedLabel === 'component auditor' || normalizedLabel?.startsWith('componentqa')) {
           const { badge: _badge, ...rest } = child;
           return {
             ...rest,
@@ -90,7 +90,7 @@ const Header = () => {
       return { ...dd, children };
     }
     const normalizedLabel = (item as LinkNavItem).label?.trim().toLowerCase();
-    if (normalizedLabel === 'component auditor' || normalizedLabel?.startsWith('biblioaudit')) {
+    if (normalizedLabel === 'component auditor' || normalizedLabel?.startsWith('componentqa')) {
       const { badge: _badge, ...rest } = item as LinkNavItem & { badge?: string };
       return rest;
     }

@@ -150,12 +150,12 @@ const componentStatesContent: BlogContentBlock[] = [
   { type: 'heading', text: 'How to Fix It (Without Losing Your Mind)', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Finding and managing these rogue elements is critical for a healthy system. Use [BiblioAudit: Find Detached Instances and Design System Check](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to scan files, reattach instances, and fix drift before it hits development.'
+    text: 'Finding and managing these rogue elements is critical for a healthy system. Use [ComponentQA: Find Detached Instances and Design System Check](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) to scan files, reattach instances, and fix drift before it hits development.'
   },
   { type: 'heading', text: 'Automating the Documentation Gap', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Documentation is usually the first thing skipped under deadline. Instead of manually writing every hover, focus, and error state, use [BiblioStates: Component State Generator and Specs](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) to auto-generate visual states and documentation cards for engineers.'
+    text: 'Documentation is usually the first thing skipped under deadline. Instead of manually writing every hover, focus, and error state, use [StateBuilder: Component State Generator and Specs](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) to auto-generate visual states and documentation cards for engineers.'
   },
   { type: 'heading', text: '7. Best Practices for Implementing Component States', level: 'h2' },
   {
@@ -270,7 +270,7 @@ const autoLayoutWrapContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'Fast Fix: Run [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) on your file. It scans your design system and flags layout inconsistencies, detached instances, and rogue fixed-width layers that are breaking responsiveness.'
+    text: 'Fast Fix: Run [ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) on your file. It scans your design system and flags layout inconsistencies, detached instances, and rogue fixed-width layers that are breaking responsiveness.'
   },
   { type: 'heading', text: 'Summary' },
   { type: 'paragraph', text: 'Figma\'s Auto Layout Wrap is essential for modern product design. It bridges the gap between static mockups and the reality of CSS Flexbox.' },
@@ -334,10 +334,10 @@ const figmaWorkflowAutomationToolsContent: BlogContentBlock[] = [
     type: 'paragraph',
     text: 'You need a mechanism that acts like a spell-checker for your design system—an automated auditing workflow that catches inconsistencies before they ship to production.'
   },
-  { type: 'heading', text: 'Tool Spotlight: BiblioAudit', level: 'h3' },
+  { type: 'heading', text: 'Tool Spotlight: ComponentQA', level: 'h3' },
   {
     type: 'paragraph',
-    text: '[BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) is your automated quality assurance lead.'
+    text: '[ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) is your automated quality assurance lead.'
   },
   {
     type: 'unorderedList',
@@ -358,10 +358,10 @@ const figmaWorkflowAutomationToolsContent: BlogContentBlock[] = [
     type: 'paragraph',
     text: 'Why push pixels manually when logic can do it for you? The modern workflow involves generating standard states and specifications programmatically.'
   },
-  { type: 'heading', text: 'Tool Spotlight: BiblioStates', level: 'h3' },
+  { type: 'heading', text: 'Tool Spotlight: StateBuilder', level: 'h3' },
   {
     type: 'paragraph',
-    text: '[BiblioStates](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) accelerates library creation dramatically.'
+    text: '[StateBuilder](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) accelerates library creation dramatically.'
   },
   {
     type: 'unorderedList',
@@ -776,11 +776,11 @@ const detachedInstancesContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: '[Figma File Audit with BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
+    text: '[Figma File Audit with ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) is the automated Quality Assurance tool for Figma. It scans your file, identifies every detached instance, and flags missing styles instantly.'
   },
   {
     type: 'paragraph',
-    text: 'Install [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) for free on Figma. Find detached instances, reset overrides, and fix your design system in minutes.'
+    text: 'Install [ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) for free on Figma. Find detached instances, reset overrides, and fix your design system in minutes.'
   },
   {
     type: 'image',
@@ -815,13 +815,13 @@ const detachedInstancesContent: BlogContentBlock[] = [
     items: [
       "Manual Inspection: Check your Layers panel. If you see a component on the canvas but a Frame (#) or Group icon in the layer list, that's a red flag.",
       'The "Select All" Trick: Select a healthy instance, right-click, and choose "Select all with same instance." If identical-looking elements aren\'t selected, they\'re likely detached.',
-      'Automated Detection: The pro move. Use plugins like [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to scan your entire file in seconds and get a list of every detached instance, missing style, and deprecated component.'
+      'Automated Detection: The pro move. Use plugins like [ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) to scan your entire file in seconds and get a list of every detached instance, missing style, and deprecated component.'
     ]
   },
   {
     type: 'image',
     src: '/blog/detached-instances/image-audit-panel-5_52.jpeg',
-    alt: 'BiblioAudit Figma plugin showing audit results for components and detached instances',
+    alt: 'ComponentQA Figma plugin showing audit results for components and detached instances',
     caption: "Don't hunt manually. Let the audit tool find them for you."
   },
   { type: 'heading', text: 'Strategies to Fix Detached Instances' },
@@ -831,7 +831,7 @@ const detachedInstancesContent: BlogContentBlock[] = [
       'Reconnect: Select the element and use the "Change Instance" menu (diamond icon) in the right sidebar to swap it back to the correct library component.',
       'Replace: Delete the detached element and drag a fresh, linked instance from your Assets panel.',
       "New Master: If the detached element was changed on purpose because it's a unique design, turn it into a New Master Component to keep your system organized.",
-      'Batch Fixing: For massive cleanups, use a dedicated tool like [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check). Instead of clicking through thousands of layers, you get a prioritized list of errors you can navigate to instantly.'
+      'Batch Fixing: For massive cleanups, use a dedicated tool like [ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check). Instead of clicking through thousands of layers, you get a prioritized list of errors you can navigate to instantly.'
     ]
   },
   { type: 'heading', text: 'Prevention: Best Practices' },
@@ -839,7 +839,7 @@ const detachedInstancesContent: BlogContentBlock[] = [
     type: 'orderedList',
     items: [
       'Documentation: Create clear guidelines on when (and when NOT) to detach.',
-      'Regular Audits: Schedule a "Hygiene Day" at the end of each day with [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check).',
+      'Regular Audits: Schedule a "Hygiene Day" at the end of each day with [ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check).',
       'Use Variants: Teach your team to use Component Variants for different states (Hover, Active, Error) instead of detaching to change colors manually.',
       'Version Control: Treat your design system like code. Publish changes deliberately.'
     ]
@@ -1195,11 +1195,11 @@ const designSystemGuidelinesContent: BlogContentBlock[] = [
   { type: 'heading', text: 'Leveraging Figma Plugins for Enhanced Management', level: 'h3' },
   {
     type: 'paragraph',
-    text: "This is where things get really efficient. There are incredible plugins to help you maintain your system's health. Use [BiblioAudit - Find Detached Instances & Design System Check](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to identify and fix detached instances before they undermine your system."
+    text: "This is where things get really efficient. There are incredible plugins to help you maintain your system's health. Use [ComponentQA - Find Detached Instances & Design System Check](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) to identify and fix detached instances before they undermine your system."
   },
   {
     type: 'paragraph',
-    text: 'And for streamlining the documentation of component states, tools like [BiblioStates - Component State Generator & Specs](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) are game-changers. They help you efficiently generate component states and create detailed specs, making developer handoff a breeze.'
+    text: 'And for streamlining the documentation of component states, tools like [StateBuilder - Component State Generator & Specs](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) are game-changers. They help you efficiently generate component states and create detailed specs, making developer handoff a breeze.'
   },
   { type: 'heading', text: 'Integration with Development Workflows', level: 'h3' },
   {
@@ -1285,7 +1285,7 @@ const designSystemGuidelinesFaqs: BlogFAQ[] = [
   {
     question: 'How do we prevent detached instances and drift in Figma?',
     answer:
-      'Audit libraries weekly with [BiblioAudit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to catch detached instances, lock/publish libraries on a cadence, and keep contribution guidelines tight. Use [BiblioStates](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) to generate state specs so engineers ship what designers expect.'
+      'Audit libraries weekly with [ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) to catch detached instances, lock/publish libraries on a cadence, and keep contribution guidelines tight. Use [StateBuilder](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) to generate state specs so engineers ship what designers expect.'
   }
 ];
 
@@ -1440,28 +1440,28 @@ const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
   {
     type: 'image',
     src: buildHeroImagePath('ultimate-figma-plugin-stack/bibliostates-plugin.png'),
-    alt: 'BiblioStates plugin showing component state options and button states in Figma'
+    alt: 'StateBuilder plugin showing component state options and button states in Figma'
   },
   {
     type: 'paragraph',
     text: 'Why it matters: Handoff and documentation are notoriously the biggest time-sinks for designers. Creating specs manually is necessary for developers, but it kills your creative momentum.'
   },
-  { type: 'heading', text: '1. Bibliostates (Top Pick)', level: 'h3' },
+  { type: 'heading', text: '1. StateBuilder (Top Pick)', level: 'h3' },
   {
     type: 'paragraph',
-    text: "If you manage a design system, this is the plugin you didn't know you needed but won't be able to live without. [Bibliostates](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) is a powerhouse tool designed to generate component states and specifications automatically."
+    text: "If you manage a design system, this is the plugin you didn't know you needed but won't be able to live without. [StateBuilder](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) is a powerhouse tool designed to generate component states and specifications automatically."
   },
   {
     type: 'unorderedList',
     items: [
       'Overview: It takes your master components and automatically generates a visual library of their states.',
-      'Key Benefit: It deeply reduces the manual effort required to visualize different component variants (hover, active, disabled, error) for developers. Instead of manually dragging out every variant and arranging them in a grid, [Bibliostates](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) does the heavy lifting.',
+      'Key Benefit: It deeply reduces the manual effort required to visualize different component variants (hover, active, disabled, error) for developers. Instead of manually dragging out every variant and arranging them in a grid, [StateBuilder](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) does the heavy lifting.',
       'Use Case: This is perfect for design system managers who need to create comprehensive specifications (specs) quickly. It ensures your developers see every possible state of a button or input field without you having to build a manual "sticker sheet."'
     ]
   },
   {
     type: 'paragraph',
-    text: '👉 [Try BiblioStates here](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs)'
+    text: '👉 [Try StateBuilder here](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs)'
   },
   {
     type: 'image',
@@ -1600,7 +1600,7 @@ const ultimateFigmaPluginStackContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'If you are looking for an immediate ROI on your time, start by automating your documentation. Handing off clear, state-based specs is usually the most time-consuming part of the job. Give [BiblioStates](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) a try to instantly streamline that process.'
+    text: 'If you are looking for an immediate ROI on your time, start by automating your documentation. Handing off clear, state-based specs is usually the most time-consuming part of the job. Give [StateBuilder](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) a try to instantly streamline that process.'
   },
   {
     type: 'paragraph',
@@ -1708,7 +1708,7 @@ const designDevGap2026Content: BlogContentBlock[] = [
   { type: 'heading', text: '🛠️ Tool Recommendation: Component Auditor Toolkit', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'If you manage a library, you need visibility. I highly recommend checking out the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check).'
+    text: 'If you manage a library, you need visibility. I highly recommend checking out the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check).'
   },
   {
     type: 'unorderedList',
@@ -1777,7 +1777,7 @@ const designDevGap2026Content: BlogContentBlock[] = [
     type: 'orderedList',
     items: [
       'Migrate to Variables immediately.',
-      'Audit your files using tools like the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to clean up the mess left behind by old habits.',
+      'Audit your files using tools like the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) to clean up the mess left behind by old habits.',
       'Connect to Code to ensure your design reality matches the user\'s reality.'
     ]
   },
@@ -1878,7 +1878,7 @@ const completeGuideDesignSystemsFigma2026Content: BlogContentBlock[] = [
   { type: 'heading', text: 'Recommended Tool:', level: 'h3' },
   {
     type: 'paragraph',
-    text: '[BiblioStates: Component State Generator](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) Even with AI, missing states are a common pain point. This community favorite automatically generates missing component states (hover, focus, disabled) based on your core variant, ensuring your component sets are complete.'
+    text: '[StateBuilder: Component State Generator](https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs) Even with AI, missing states are a common pain point. This community favorite automatically generates missing component states (hover, focus, disabled) based on your core variant, ensuring your component sets are complete.'
   },
   { type: 'heading', text: '5. Bridging the Gap: Dev Mode & Code Connect', level: 'h2' },
   {
@@ -1908,7 +1908,7 @@ const completeGuideDesignSystemsFigma2026Content: BlogContentBlock[] = [
   { type: 'heading', text: 'Recommended Tool:', level: 'h3' },
   {
     type: 'paragraph',
-    text: '[Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) Governance requires visibility. This plugin scans your files to find detached instances and overridden components, helping you identify where your system is breaking and where "design debt" is accumulating.'
+    text: '[Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) Governance requires visibility. This plugin scans your files to find detached instances and overridden components, helping you identify where your system is breaking and where "design debt" is accumulating.'
   },
   { type: 'heading', text: '7. Conclusion: Upgrading to the 2026 Standard', level: 'h2' },
   {
@@ -1921,7 +1921,7 @@ const completeGuideDesignSystemsFigma2026Content: BlogContentBlock[] = [
       'Migrate Styles to Variables: Start with colors, then move to radius and spacing (numbers), and finally typography.',
       'Implement Code Connect: Work with your engineering lead to map your top 20 core components to their repo counterparts.',
       'Clean Up with AI: Run a "Rename Layers" pass on your master component files.',
-      'Audit Your Debt: Use the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130/biblioaudit-find-detached-instances-design-system-check) to find where your team is detaching components and address the root cause.'
+      'Audit Your Debt: Use the [Component Auditor Toolkit](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check) to find where your team is detaching components and address the root cause.'
     ]
   },
   {

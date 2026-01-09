@@ -178,6 +178,8 @@ export const buildSitemapXml = (baseUrl: string): string => {
     { path: '/figma-plugin-remove-prototype-links', lastmod: defaultLastmod },
     { path: '/figma-design-system-audit-plugin', lastmod: defaultLastmod },
     { path: '/figma-table-builder', lastmod: defaultLastmod },
+    { path: '/figma-component-states', lastmod: defaultLastmod },
+    { path: '/figma-organize-design-files-plugin', lastmod: defaultLastmod },
     {
       path: '/blog',
       lastmod: defaultLastmod,

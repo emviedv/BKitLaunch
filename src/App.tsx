@@ -12,10 +12,10 @@ import ComingSoon from './components/ComingSoon';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AIRenameVariantsPage from './components/AIRenameVariantsPage';
-import BiblioAuditPage from './components/BiblioAuditPage';
+import ComponentQAPage from './components/ComponentQAPage';
 import BiblioCleanPage from './components/BiblioCleanPage';
-import BiblioOrganizePage from './components/BiblioOrganizePage';
-import BiblioStatesPage from './components/BiblioStatesPage';
+import OrganizeFilePage from './components/OrganizeFilePage';
+import StateBuilderPage from './components/StateBuilderPage';
 import BiblioTablePage from './components/BiblioTablePage';
 import DynamicProductPage from './components/DynamicProductPage';
 import RemovePrototypeLinkPage from './components/RemovePrototypeLinkPage';
@@ -188,11 +188,11 @@ const AppContent: React.FC = () => {
           <Route path={ROUTE_PATHS.PRODUCTS} component={ProductsPage} />
           <Route path={ROUTE_PATHS.DOCS} component={Docs} />
           <Route path={ROUTE_PATHS.BIBLIO_RENAME} component={AIRenameVariantsPage} />
-          <Route path={ROUTE_PATHS.BIBLIO_AUDIT} component={BiblioAuditPage} />
+          <Route path={ROUTE_PATHS.BIBLIO_AUDIT} component={ComponentQAPage} />
           <Route path={ROUTE_PATHS.BIBLIO_CLEAN} component={BiblioCleanPage} />
           <Route path={ROUTE_PATHS.BIBLIO_TABLE} component={BiblioTablePage} />
-          <Route path={ROUTE_PATHS.BIBLIO_STATES} component={BiblioStatesPage} />
-          <Route path={ROUTE_PATHS.BIBLIO_ORGANIZE} component={BiblioOrganizePage} />
+          <Route path={ROUTE_PATHS.BIBLIO_STATES} component={StateBuilderPage} />
+          <Route path={ROUTE_PATHS.BIBLIO_ORGANIZE} component={OrganizeFilePage} />
           <Route path={ROUTE_PATHS.AI_RENAME_VARIANTS} component={LegacyAIRenameRedirect} />
           <Route path={ROUTE_PATHS.ADMIN} component={AdminPage} />
           <Route path={ROUTE_PATHS.UXBIBLIO}>

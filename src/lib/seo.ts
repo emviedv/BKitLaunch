@@ -166,9 +166,9 @@ const PLUGIN_SOFTWARE_APPLICATIONS: Record<string, { name: string; image: string
     description: 'BiblioClean removes Figma prototype links safely for designers, developers, and marketers. Revoke stale URLs and share the right build fast.',
   },
   '/figma-design-system-audit-plugin': {
-    name: 'BiblioAudit',
-    image: '/media/BiblioAudit.png',
-    description: 'BiblioAudit scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
+    name: 'ComponentQA',
+    image: '/media/ComponentQA.png',
+    description: 'ComponentQA scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
   },
   '/figma-table-builder': {
     name: 'BiblioTable',
@@ -176,14 +176,14 @@ const PLUGIN_SOFTWARE_APPLICATIONS: Record<string, { name: string; image: string
     description: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
   },
   '/figma-component-states': {
-    name: 'BiblioStates',
-    image: '/media/BiblioStates.png',
-    description: 'BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
+    name: 'StateBuilder',
+    image: '/media/StateBuilder.png',
+    description: 'StateBuilder generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
   },
   '/figma-organize-design-files-plugin': {
-    name: 'BiblioOrganize',
-    image: '/media/BiblioOrganize.png',
-    description: 'BiblioOrganize scaffolds Figma files for designers, developers, and marketers. One-click blueprints create covers, README cards, and page hierarchies in seconds.',
+    name: 'OrganizeFile',
+    image: '/media/OrganizeFile.png',
+    description: 'OrganizeFile scaffolds Figma files for designers, developers, and marketers. One-click blueprints create covers, README cards, and page hierarchies in seconds.',
   },
 };
 
@@ -214,8 +214,8 @@ const buildPluginSoftwareApplicationSchema = (
 
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
-  title: "BiblioKit - Suite of Figma Plugins & DesignOps Tools",
-  description: "BiblioKit speeds Figma work for designers, developers, and marketers. Automate audits, renaming, cleanup, and setup to ship faster.",
+  title: "Figma Workflow Automation & Design System Tools | BiblioKit",
+  description: "BiblioKit is the Workflow OS for Figma. Automate DesignOps with an all-in-one suite for auditing systems, renaming variants, and fixing design drift.",
   keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   googlebot: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -230,14 +230,14 @@ const defaultMetadata: SEOMetadata = {
 };
 
 const biblioRenameMetadata: SEOMetadata = {
-  title: 'BiblioRename | Optimize Figma Designs with AI',
-  description: 'BiblioRename standardizes variant and layer names for designers. Batch-rename with AI rules so handoff stays clean.',
+  title: 'Batch Rename Figma Components & Variants | BiblioRename',
+  description: 'The bulk renamer for Figma Component Sets & Variants. Standardize properties, fix taxonomy errors, and clean up component logic without breaking instances.',
   keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system architecture, component health, structural validation, figma limits',
-  ogTitle: 'BiblioRename | Optimize Figma Designs with AI',
-  ogDescription: 'BiblioRename standardizes variant and layer names for designers. Batch-rename with AI rules so handoff stays clean.',
+  ogTitle: 'Batch Rename Figma Components & Variants | BiblioRename',
+  ogDescription: 'The bulk renamer for Figma Component Sets & Variants. Standardize properties, fix taxonomy errors, and clean up component logic without breaking instances.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioRename | Optimize Figma Designs with AI',
-  twitterDescription: 'BiblioRename standardizes variant and layer names for designers. Batch-rename with AI rules so handoff stays clean.',
+  twitterTitle: 'Batch Rename Figma Components & Variants | BiblioRename',
+  twitterDescription: 'The bulk renamer for Figma Component Sets & Variants. Standardize properties, fix taxonomy errors, and clean up component logic without breaking instances.',
   twitterImage: '/og/og-default.svg'
 };
 
@@ -254,38 +254,38 @@ const biblioTableMetadata: SEOMetadata = {
 };
 
 const biblioAuditMetadata: SEOMetadata = {
-  title: 'BiblioAudit | Figma Design System Check & Issue Finder',
-  description: 'BiblioAudit scans Figma files for drift. Catch detached instances, token issues, and rogue overrides before handoff.',
-  keywords: 'BiblioAudit, design system audit, figma qa, detached instances, token validation, figma plugin, design ops',
-  ogTitle: 'BiblioAudit | Figma Design System Check & Issue Finder',
-  ogDescription: 'BiblioAudit scans Figma files for drift. Catch detached instances, token issues, and rogue overrides before handoff.',
+  title: 'Figma Design Audit Plugin & QA Tool - ComponentQA',
+  description: 'Automate Figma QA and Design System Audits. Instantly find detached instances, validate token usage, and fix design drift before developer handoff.',
+  keywords: 'ComponentQA, design system audit, figma qa, detached instances, token validation, figma plugin, design ops',
+  ogTitle: 'Figma Design Audit Plugin & QA Tool - ComponentQA',
+  ogDescription: 'Automate Figma QA and Design System Audits. Instantly find detached instances, validate token usage, and fix design drift before developer handoff.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioAudit | Figma Design System Check & Issue Finder',
-  twitterDescription: 'BiblioAudit scans Figma files for drift. Catch detached instances, token issues, and rogue overrides before handoff.',
+  twitterTitle: 'Figma Design Audit Plugin & QA Tool - ComponentQA',
+  twitterDescription: 'Automate Figma QA and Design System Audits. Instantly find detached instances, validate token usage, and fix design drift before developer handoff.',
   twitterImage: '/og/og-default.svg'
 };
 
 const biblioCleanMetadata: SEOMetadata = {
-  title: 'BiblioClean | Remove Figma Prototype Links Safely (Free)',
-  description: 'BiblioClean removes Figma prototype links safely. Revoke stale URLs and share the right build fast without breaking components.',
+  title: 'Remove Figma Prototype Links & Clean Files | BiblioClean',
+  description: 'Instantly remove 100s of broken prototype links in one click. Clean up your Figma file layers to reduce lag and ensure a smooth developer handoff.',
   keywords: 'BiblioClean, remove prototype link, figma prototype cleanup, revoke share links, design system safety, figma plugin, design ops',
-  ogTitle: 'BiblioClean | Remove Figma Prototype Links Safely (Free)',
-  ogDescription: 'BiblioClean removes Figma prototype links safely. Revoke stale URLs and share the right build fast without breaking components.',
+  ogTitle: 'Remove Figma Prototype Links & Clean Files | BiblioClean',
+  ogDescription: 'Instantly remove 100s of broken prototype links in one click. Clean up your Figma file layers to reduce lag and ensure a smooth developer handoff.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioClean | Remove Figma Prototype Links Safely (Free)',
-  twitterDescription: 'BiblioClean removes Figma prototype links safely. Revoke stale URLs and share the right build fast without breaking components.',
+  twitterTitle: 'Remove Figma Prototype Links & Clean Files | BiblioClean',
+  twitterDescription: 'Instantly remove 100s of broken prototype links in one click. Clean up your Figma file layers to reduce lag and ensure a smooth developer handoff.',
   twitterImage: '/og/og-default.svg'
 };
 
-const biblioStatesMetadata: SEOMetadata = {
-  title: 'BiblioStates | Generate Component States & Specs in Figma',
-  description: 'BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
-  keywords: 'BiblioStates, component states, figma state generator, design system specs, handoff documentation, UI state matrix',
-  ogTitle: 'BiblioStates | Generate Component States & Specs in Figma',
-  ogDescription: 'BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
+const stateBuilderMetadata: SEOMetadata = {
+  title: 'StateBuilder | Generate Component States & Specs in Figma',
+  description: 'StateBuilder generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
+  keywords: 'StateBuilder, component states, figma state generator, design system specs, handoff documentation, UI state matrix',
+  ogTitle: 'StateBuilder | Generate Component States & Specs in Figma',
+  ogDescription: 'StateBuilder generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioStates | Generate Component States & Specs in Figma',
-  twitterDescription: 'BiblioStates generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
+  twitterTitle: 'StateBuilder | Generate Component States & Specs in Figma',
+  twitterDescription: 'StateBuilder generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
   twitterImage: '/og/og-default.svg'
 };
 
@@ -306,14 +306,14 @@ const aiRenameVariantsMetadata: SEOMetadata = {
 // Route-specific metadata configurations
 export const routeMetadata: RouteMetadata = {
   '/': {
-    title: 'BiblioKit - Suite of Figma Plugins & DesignOps Tools',
-    description: 'BiblioKit replaces plugin stacks with DesignOps, AI refactoring, and UX intelligence. Cut maintenance so designers, developers, and marketers ship faster.',
+    title: 'Figma Workflow Automation & Design System Tools | BiblioKit',
+    description: 'BiblioKit is the Workflow OS for Figma. Automate DesignOps with an all-in-one suite for auditing systems, renaming variants, and fixing design drift.',
     keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
-    ogTitle: 'BiblioKit - Suite of Figma Plugins & DesignOps Tools',
-    ogDescription: 'BiblioKit replaces plugin stacks with DesignOps, AI refactoring, and UX intelligence. Cut maintenance so designers, developers, and marketers ship faster.',
+    ogTitle: 'Figma Workflow Automation & Design System Tools | BiblioKit',
+    ogDescription: 'BiblioKit is the Workflow OS for Figma. Automate DesignOps with an all-in-one suite for auditing systems, renaming variants, and fixing design drift.',
     ogImage: "/og/og-default.svg",
-    twitterTitle: 'BiblioKit - Suite of Figma Plugins & DesignOps Tools',
-    twitterDescription: 'BiblioKit replaces plugin stacks with DesignOps, AI refactoring, and UX intelligence. Cut maintenance so designers, developers, and marketers ship faster.',
+    twitterTitle: 'Figma Workflow Automation & Design System Tools | BiblioKit',
+    twitterDescription: 'BiblioKit is the Workflow OS for Figma. Automate DesignOps with an all-in-one suite for auditing systems, renaming variants, and fixing design drift.',
     twitterImage: "/og/og-default.svg",
     structuredData: [
       {
@@ -391,14 +391,14 @@ export const routeMetadata: RouteMetadata = {
     ]
   },
   '/resources': {
-    title: 'BiblioKit Resources: Figma Plugins & Design Tools',
-    description: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
+    title: 'Design System Guides, Playbooks & Checklists | BiblioKit',
+    description: 'Free Figma playbooks and Design System guides. Master file organization, automated auditing, and design handoff with our implementation checklists.',
     keywords: 'BiblioKit resources, BiblioClean, Figma cleanup, design ops resources, Figma plugins',
-    ogTitle: 'BiblioKit Resources: Figma Plugins & Design Tools',
-    ogDescription: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
+    ogTitle: 'Design System Guides, Playbooks & Checklists | BiblioKit',
+    ogDescription: 'Free Figma playbooks and Design System guides. Master file organization, automated auditing, and design handoff with our implementation checklists.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit Resources: Figma Plugins & Design Tools',
-    twitterDescription: "BiblioKit resources help designers, developers, and marketers ship faster in Figma. Grab playbooks to clean links, audit systems, and move quicker.",
+    twitterTitle: 'Design System Guides, Playbooks & Checklists | BiblioKit',
+    twitterDescription: 'Free Figma playbooks and Design System guides. Master file organization, automated auditing, and design handoff with our implementation checklists.',
     twitterImage: '/og/og-default.svg'
   },
   '/learn': {
@@ -482,17 +482,17 @@ export const routeMetadata: RouteMetadata = {
   '/figma-plugin-remove-prototype-links': biblioCleanMetadata,
   '/figma-design-system-audit-plugin': biblioAuditMetadata,
   '/figma-table-builder': biblioTableMetadata,
-  '/figma-component-states': biblioStatesMetadata,
+  '/figma-component-states': stateBuilderMetadata,
   '/figma-organize-design-files-plugin': {
-    title: 'BiblioOrganize: Figma File Scaffolding & Design Organization Plugin',
-    description: 'BiblioOrganize scaffolds Figma files for designers, developers, and marketers. One-click blueprints create covers, README cards, and page hierarchies in under 30 seconds.',
-    keywords: 'BiblioOrganize, Figma plugin, file scaffolding, design organization, page hierarchy, project setup, design ops',
-    ogTitle: 'BiblioOrganize: Figma File Scaffolding & Design Organization Plugin',
-    ogDescription: 'BiblioOrganize scaffolds Figma files for designers, developers, and marketers. One-click blueprints create covers, README cards, and page hierarchies in under 30 seconds.',
-    ogImage: '/media/BiblioOrganize.png',
-    twitterTitle: 'BiblioOrganize: Figma File Scaffolding & Design Organization Plugin',
-    twitterDescription: 'BiblioOrganize scaffolds Figma files for designers, developers, and marketers. One-click blueprints create covers, README cards, and page hierarchies in under 30 seconds.',
-    twitterImage: '/media/BiblioOrganize.png'
+    title: 'Figma File Organizer & Project Scaffolding Tool | OrganizeFile',
+    description: 'Stop setting up Figma files manually. Generate standardized project scaffolding, cover pages, and section templates instantly with OrganizeFile.',
+    keywords: 'OrganizeFile, Figma plugin, file scaffolding, design organization, page hierarchy, project setup, design ops',
+    ogTitle: 'Figma File Organizer & Project Scaffolding Tool | OrganizeFile',
+    ogDescription: 'Stop setting up Figma files manually. Generate standardized project scaffolding, cover pages, and section templates instantly with OrganizeFile.',
+    ogImage: '/media/OrganizeFile.png',
+    twitterTitle: 'Figma File Organizer & Project Scaffolding Tool | OrganizeFile',
+    twitterDescription: 'Stop setting up Figma files manually. Generate standardized project scaffolding, cover pages, and section templates instantly with OrganizeFile.',
+    twitterImage: '/media/OrganizeFile.png'
   },
   '/ai-rename-variants': aiRenameVariantsMetadata,
   '/uxbiblio': {

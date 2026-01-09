@@ -39,6 +39,7 @@
 /biblio-audit                                   /figma-design-system-audit-plugin    301
 /biblio-clean                                   /figma-plugin-remove-prototype-links    301
 /biblio-states                                  /figma-component-states    301
+/biblio-organize                                /figma-organize-design-files-plugin    301
 /biblio-table                                   /figma-table-builder    301
 
 # IndexNow verification key file (must serve as plain text)
