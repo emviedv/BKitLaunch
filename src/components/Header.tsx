@@ -295,8 +295,8 @@ const Header = () => {
                           const usePluginIconStyle = isPluginsDropdown || Boolean(pluginIconSrc);
                           const ChildIcon = resolveLucideIcon(child.icon || child.label);
                           const itemClassName = isPluginsDropdown
-                            ? 'group/item flex items-start gap-3 rounded-2xl transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff2f87]'
-                            : 'flex items-center gap-3 rounded-xl transition-colors hover:bg-[#ff2f87]/12';
+                            ? 'group/item flex items-start gap-3 py-2 rounded-2xl transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff2f87]'
+                            : 'flex items-center gap-3 py-2 rounded-xl transition-colors hover:bg-[#ff2f87]/12';
                           const iconWrapperClassName = usePluginIconStyle
                             ? 'flex h-[22px] w-[22px] items-center justify-center'
                             : 'flex h-8 w-8 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10';

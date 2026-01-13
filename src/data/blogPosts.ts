@@ -310,10 +310,10 @@ const figmaWorkflowAutomationToolsContent: BlogContentBlock[] = [
     type: 'paragraph',
     text: 'Manual renaming is a waste of human intelligence. The solution lies in automating naming conventions using AI that understands not just the object type, but the context of what you designed.'
   },
-  { type: 'heading', text: 'Tool Spotlight: BiblioRename', level: 'h3' },
+  { type: 'heading', text: 'Tool Spotlight: RenameVariantsAI', level: 'h3' },
   {
     type: 'paragraph',
-    text: '[BiblioRename](https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted) takes the guesswork out of file hygiene.'
+    text: '[RenameVariantsAI](https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted) takes the guesswork out of file hygiene.'
   },
   {
     type: 'unorderedList',

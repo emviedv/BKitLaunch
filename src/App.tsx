@@ -28,6 +28,7 @@ import AboutPage from './components/AboutPage';
 import ProductsPage from './components/ProductsPage';
 import LearnPage from './components/LearnPage';
 import DesignOpsFundamentalsPage from './components/DesignOpsFundamentalsPage';
+import ScaleResizerPage from './components/ScaleResizerPage';
 
 // Context & Hooks
 import { usePublishedContent } from './hooks/usePublishedContent';
@@ -51,6 +52,7 @@ const SIMILAR_PATHS = [
   ROUTE_PATHS.BIBLIO_ORGANIZE,
   ROUTE_PATHS.UXBIBLIO,
   ROUTE_PATHS.LEARN,
+  ROUTE_PATHS.SCALE_RESIZER,
 ];
 
 /**
@@ -163,6 +165,7 @@ const AppContent: React.FC = () => {
     if (normalizedPath === ROUTE_PATHS.BIBLIO_ORGANIZE) return true;
     if (normalizedPath === ROUTE_PATHS.AI_RENAME_VARIANTS) return true;
     if (normalizedPath === ROUTE_PATHS.UXBIBLIO) return true;
+    if (normalizedPath === ROUTE_PATHS.SCALE_RESIZER) return true;
     if (normalizedPath.startsWith('/blog/') && normalizedPath !== ROUTE_PATHS.BLOG) return true;
     return false;
   }, []);
@@ -194,6 +197,7 @@ const AppContent: React.FC = () => {
           <Route path={ROUTE_PATHS.BIBLIO_STATES} component={StateBuilderPage} />
           <Route path={ROUTE_PATHS.BIBLIO_ORGANIZE} component={OrganizeFilePage} />
           <Route path={ROUTE_PATHS.AI_RENAME_VARIANTS} component={LegacyAIRenameRedirect} />
+          <Route path={ROUTE_PATHS.SCALE_RESIZER} component={ScaleResizerPage} />
           <Route path={ROUTE_PATHS.ADMIN} component={AdminPage} />
           <Route path={ROUTE_PATHS.UXBIBLIO}>
             {() => <DynamicProductPage slug="uxbiblio" />}

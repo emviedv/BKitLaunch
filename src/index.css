@@ -585,9 +585,10 @@
 
   .landing-hero-accent-word {
     font-family: "Instrument Serif", serif;
-    font-weight: 400;
+    font-weight: 500;
     font-style: italic;
     font-size: calc(1em + 12px);
+    letter-spacing: -0.03em;
   }
 
   .product-features-title-accent {

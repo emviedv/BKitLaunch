@@ -50,7 +50,7 @@ const IMAGE_DIMENSIONS: Record<string, ImageDimensions> = {
   '/media/component-qa-leak.png': { width: 800, height: 1182 },
   '/media/ComponentQA.png': { width: 1920, height: 1080 },
   '/media/BiblioClean.png': { width: 1920, height: 1080 },
-  '/media/BiblioRename.png': { width: 1920, height: 1080 },
+  '/media/RenameVariantsAI.png': { width: 1920, height: 1080 },
   '/media/BiblioStart.png': { width: 1920, height: 1080 },
   '/media/StateBuilder.png': { width: 1908, height: 1516 },
   '/media/BiblioTable.png': { width: 1920, height: 1080 },

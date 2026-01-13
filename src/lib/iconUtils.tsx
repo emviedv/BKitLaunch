@@ -188,3 +188,23 @@ export const Layout = createIconWrapper('solar:layers-minimalistic-linear');
 export const Columns = createIconWrapper('solar:list-linear');
 export const Table = createIconWrapper('solar:clipboard-list-linear');
 export const FolderTree = createIconWrapper('solar:folder-linear');
+
+// Additional icons for ScaleResizer page
+export const Scaling = createIconWrapper('solar:scaling-linear');
+export const Grid2X2 = createIconWrapper('solar:widget-4-linear');
+export const Monitor = createIconWrapper('solar:monitor-linear');
+export const Square = createIconWrapper('solar:gallery-minimalistic-linear');
+export const Youtube = createIconWrapper('solar:play-circle-linear');
+export const Smartphone = createIconWrapper('solar:smartphone-linear');
+export const ShoppingCart = createIconWrapper('solar:cart-large-minimalistic-linear');
+export const Package = createIconWrapper('solar:box-linear');
+export const Brain = createIconWrapper('solar:brain-linear');
+export const AlertTriangle = createIconWrapper('solar:danger-triangle-linear');
+export const Tags = createIconWrapper('solar:tag-linear');
+export const Crosshair = createIconWrapper('solar:target-linear');
+export const Layers = createIconWrapper('solar:layers-linear');
+export const Clock = createIconWrapper('solar:clock-circle-linear');
+export const SplitSquareHorizontal = createIconWrapper('solar:slider-horizontal-linear');
+export const AlignCenter = createIconWrapper('solar:align-horizontal-center-linear');
+export const AlignVerticalJustifyStart = createIconWrapper('solar:align-vertical-spacing-linear');
+export const AlignHorizontalJustifyStart = createIconWrapper('solar:align-horizontal-spacing-linear');

@@ -39,7 +39,7 @@ const AI_CRAWLERS = [
 
 const SITE_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'BiblioRename', href: '/figma-component-variant-renamer' },
+  { label: 'RenameVariantsAI', href: '/figma-component-variant-renamer' },
   { label: 'BiblioClean', href: '/figma-plugin-remove-prototype-links' },
   { label: 'ComponentQA', href: '/figma-design-system-audit-plugin' },
   { label: 'BiblioTable', href: '/figma-table-builder' },
@@ -48,9 +48,9 @@ const SITE_LINKS = [
 
 const PRODUCT_META: Record<string, { title: string; description: string; ogType?: string }> = {
   '/figma-component-variant-renamer': {
-    title: 'BiblioRename for Figma | BiblioKit',
+    title: 'RenameVariantsAI for Figma | BiblioKit',
     description:
-      'BiblioRename batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
+      'RenameVariantsAI batch-renames Figma variants and layers with AI, enforces naming conventions, and keeps properties consistent for cleaner developer handoff.',
     ogType: 'product'
   },
   '/biblio-clean': {
@@ -97,9 +97,9 @@ type SoftwareApplicationSchemaConfig = {
 
 const SOFTWARE_APPLICATION_SCHEMA: Record<string, SoftwareApplicationSchemaConfig> = {
   '/figma-component-variant-renamer': {
-    name: 'BiblioRename',
-    description: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
-    image: '/media/BiblioRename.png',
+    name: 'RenameVariantsAI',
+    description: 'RenameVariantsAI standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
+    image: '/media/RenameVariantsAI.png',
     softwareVersion: '1.0',
     featureList: [
       'One-Click Renaming',
@@ -545,7 +545,7 @@ function getPageContent(pathname: string): string {
                 Automate the things you hate, focus on design you love.
               </p>
               <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="/figma-component-variant-renamer" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;">Batch Rename with BiblioRename</a>
+                <a href="/figma-component-variant-renamer" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;">Batch Rename with RenameVariantsAI</a>
                 <a href="#landing-features" style="border: 2px solid rgba(255,255,255,0.3); color: white; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none;">View Features</a>
               </div>
             </div>
@@ -616,12 +616,12 @@ function getPageContent(pathname: string): string {
               <div style="display: inline-block; background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 25px; margin-bottom: 2rem;">
                 Figma Plugin
               </div>
-              <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1.5rem;">BiblioRename</h1>
+              <h1 style="font-size: 3rem; font-weight: bold; margin-bottom: 1.5rem;">RenameVariantsAI</h1>
               <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9;">
-                BiblioRename batch-renames Figma variants and layers with AI so naming conventions stay consistent for cleaner developer handoff.
+                RenameVariantsAI batch-renames Figma variants and layers with AI so naming conventions stay consistent for cleaner developer handoff.
               </p>
               <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;" target="_blank">Install BiblioRename</a>
+                <a href="https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted" style="background: white; color: #667eea; padding: 1rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: bold;" target="_blank">Install RenameVariantsAI</a>
               </div>
             </div>
           </section>

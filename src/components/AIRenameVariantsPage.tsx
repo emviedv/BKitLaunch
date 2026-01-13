@@ -137,7 +137,7 @@ const AIRenameVariantsPage = () => {
           <div className="inline-block bg-green-500/10 text-green-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-green-500/20">
             Typical Result: 12 Hours Reclaimed / Week
           </div>
-          <SectionTitle>BiblioRename Demo: Batch-Rename Figma Variants in Seconds</SectionTitle>
+          <SectionTitle>RenameVariantsAI Demo: Batch-Rename Figma Variants in Seconds</SectionTitle>
         </div>
         
         <div className="grid md:grid-cols-12 gap-8 mb-12">
@@ -414,7 +414,7 @@ const AIRenameVariantsPage = () => {
 
       {/* Block 11: FAQ */}
       <Section dark>
-        <SectionTitle className="text-center mb-12">BiblioRename Demo - Batch-Rename Figma Variants in Seconds</SectionTitle>
+        <SectionTitle className="text-center mb-12">RenameVariantsAI Demo - Batch-Rename Figma Variants in Seconds</SectionTitle>
         <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 

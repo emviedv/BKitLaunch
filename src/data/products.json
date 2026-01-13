@@ -52,7 +52,7 @@
         "label": "Plugins",
         "children": [
           {
-            "label": "BiblioRename",
+            "label": "RenameVariantsAI",
             "href": "/figma-component-variant-renamer",
             "description": "The AI Organizer. Standardize layer names and variant properties with context-aware AI.",
             "icon": "✨"
@@ -116,7 +116,7 @@
       "icon": "🏷️",
       "idea": "The AI Organizer.",
       "badge": "Launched",
-      "title": "Context-Aware AI for Batch Renaming Figma Layers (BiblioRename)",
+      "title": "Context-Aware AI for Batch Renaming Figma Layers (RenameVariantsAI)",
       "category": "Launched",
       "tagline": "AI Layer Renamer & Naming Conventions",
       "badges": [],
@@ -128,8 +128,8 @@
       "isFeatured": false,
       "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
       "media": {
-        "src": "/media/BiblioRename.png",
-        "alt": "BiblioRename panel in Figma showing AI rename suggestions for layer and variant properties"
+        "src": "/media/RenameVariantsAI.png",
+        "alt": "RenameVariantsAI panel in Figma showing AI rename suggestions for layer and variant properties"
       },
       "buttonPreset": "custom"
     },
@@ -428,7 +428,7 @@
   },
   "products": {
     "ai-rename-variants": {
-        "title": "BiblioRename",
+        "title": "RenameVariantsAI",
         "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
         "heroHighlight": null,
         "primaryButton": "Rename Layers",
@@ -634,7 +634,7 @@
         }
       ],
       "llm": {
-        "answerBox": "BiblioRename automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.",
+        "answerBox": "RenameVariantsAI automatically renames Figma variant and layer names using context-aware artificial intelligence. Clean up messy design files instantly, improve team collaboration, and maintain consistent naming conventions across your design system with zero manual effort.",
         "statistics": [
           {
             "date": "March 2024",
@@ -669,7 +669,7 @@
         },
         "faqs": [
           {
-            "question": "Is BiblioRename secure for design files?",
+            "question": "Is RenameVariantsAI secure for design files?",
             "answer": "Yes. Rename logic runs inside Figma; we don't export files or store customer data, and team permissions stay enforced."
           },
           {

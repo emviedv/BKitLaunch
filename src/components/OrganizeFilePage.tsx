@@ -241,7 +241,7 @@ const OrganizeFilePage = () => {
               <p className="text-slate-300 text-lg mb-6">Trojan Horse tips nudge teams toward proven Biblio workflows. Toggleable and non-intrusive.</p>
               <ul className="text-sm text-slate-400 space-y-2">
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Context-aware sticky notes on relevant pages</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Links to BiblioRename, ComponentQA, and more</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Links to RenameVariantsAI, ComponentQA, and more</li>
                 <li className="flex items-center gap-2"><Check className="w-4 h-4 text-violet-400" /> Toggle tips off in the preset panel</li>
               </ul>
             </div>
@@ -332,7 +332,7 @@ const OrganizeFilePage = () => {
               </Button>
             </div>
             <p className="mt-6 text-slate-400">
-              Need to batch-rename your variants? <a href="/figma-component-variant-renamer" className="text-violet-400 hover:underline">Check out BiblioRename</a>
+              Need to batch-rename your variants? <a href="/figma-component-variant-renamer" className="text-violet-400 hover:underline">Check out RenameVariantsAI</a>
             </p>
          </div>
       </section>

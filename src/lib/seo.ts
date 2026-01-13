@@ -156,9 +156,9 @@ const toAbsoluteUrl = (baseUrl: string, value?: string | null): string | undefin
 
 const PLUGIN_SOFTWARE_APPLICATIONS: Record<string, { name: string; image: string; description?: string }> = {
   '/figma-component-variant-renamer': {
-    name: 'BiblioRename',
-    image: '/media/BiblioRename.png',
-    description: 'BiblioRename standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
+    name: 'RenameVariantsAI',
+    image: '/media/RenameVariantsAI.png',
+    description: 'RenameVariantsAI standardizes variant and layer names for designers, developers, and marketers. Batch-rename with AI rules so handoff stays clean.',
   },
   '/figma-plugin-remove-prototype-links': {
     name: 'BiblioClean',
@@ -230,13 +230,13 @@ const defaultMetadata: SEOMetadata = {
 };
 
 const biblioRenameMetadata: SEOMetadata = {
-  title: 'Batch Rename Figma Components & Variants | BiblioRename',
+  title: 'Batch Rename Figma Components & Variants | RenameVariantsAI',
   description: 'The bulk renamer for Figma Component Sets & Variants. Standardize properties, fix taxonomy errors, and clean up component logic without breaking instances.',
-  keywords: 'BiblioRename, AI rename variants, Figma naming plugin, design system architecture, component health, structural validation, figma limits',
-  ogTitle: 'Batch Rename Figma Components & Variants | BiblioRename',
+  keywords: 'RenameVariantsAI, AI rename variants, Figma naming plugin, design system architecture, component health, structural validation, figma limits',
+  ogTitle: 'Batch Rename Figma Components & Variants | RenameVariantsAI',
   ogDescription: 'The bulk renamer for Figma Component Sets & Variants. Standardize properties, fix taxonomy errors, and clean up component logic without breaking instances.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'Batch Rename Figma Components & Variants | BiblioRename',
+  twitterTitle: 'Batch Rename Figma Components & Variants | RenameVariantsAI',
   twitterDescription: 'The bulk renamer for Figma Component Sets & Variants. Standardize properties, fix taxonomy errors, and clean up component logic without breaking instances.',
   twitterImage: '/og/og-default.svg'
 };
@@ -290,16 +290,16 @@ const stateBuilderMetadata: SEOMetadata = {
 };
 
 const aiRenameVariantsMetadata: SEOMetadata = {
-  title: 'BiblioRename Legacy URL | BiblioKit',
-  description: 'BiblioRename lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
+  title: 'RenameVariantsAI Legacy URL | BiblioKit',
+  description: 'RenameVariantsAI lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
   robots: 'noindex, follow',
   googlebot: 'noindex, follow',
   bingbot: 'noindex, follow',
-  ogTitle: 'BiblioRename Legacy URL | BiblioKit',
-  ogDescription: 'BiblioRename lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
+  ogTitle: 'RenameVariantsAI Legacy URL | BiblioKit',
+  ogDescription: 'RenameVariantsAI lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioRename Legacy URL | BiblioKit',
-  twitterDescription: 'BiblioRename lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
+  twitterTitle: 'RenameVariantsAI Legacy URL | BiblioKit',
+  twitterDescription: 'RenameVariantsAI lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
   twitterImage: '/og/og-default.svg'
 };
 

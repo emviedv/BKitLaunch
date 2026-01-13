@@ -11,7 +11,7 @@ const XLogo = (props: React.SVGProps<SVGSVGElement>) => (
 
 const products = [
   { name: 'All Products', href: '/products' },
-  { name: 'BiblioRename', href: '/figma-component-variant-renamer' },
+  { name: 'RenameVariantsAI', href: '/figma-component-variant-renamer' },
   { name: 'ComponentQA', href: '/figma-design-system-audit-plugin' },
   { name: 'StateBuilder', href: '/figma-component-states' },
   { name: 'BiblioTable', href: '/figma-table-builder' },
