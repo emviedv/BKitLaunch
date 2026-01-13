@@ -333,11 +333,6 @@ const Header = () => {
                                     </span>
                                   )}
                                 </span>
-                                {child.description && (
-                                  <span className="mt-1 block text-xs leading-5 text-white/75">
-                                    {child.description}
-                                  </span>
-                                )}
                               </span>
                             </a>
                           );
@@ -467,11 +462,6 @@ const Header = () => {
                                 </span>
                               )}
                             </span>
-                            {child.description && (
-                              <p className="mt-1 text-xs font-normal text-white/70">
-                                {child.description}
-                              </p>
-                            )}
                           </span>
                         </a>
                     );
