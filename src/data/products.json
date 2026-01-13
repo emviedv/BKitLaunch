@@ -58,13 +58,13 @@
             "icon": "✨"
           },
           {
-            "label": "BiblioClean — The Blue Line Wiper",
+            "label": "BiblioClean",
             "href": "/figma-plugin-remove-prototype-links",
             "description": "Remove prototype links safely without breaking main components.",
             "icon": "broom"
           },
           {
-            "label": "ComponentQA — Find Detached Instances & Design System Check",
+            "label": "ComponentQA",
             "href": "/figma-design-system-audit-plugin",
             "description": "Scan Figma files for detached instances, token drift, and dirty overrides with automated QA.",
             "icon": "🧭"
@@ -76,16 +76,22 @@
             "icon": "sparkles"
           },
           {
-            "label": "BiblioTable — Normalize Figma Tables",
+            "label": "BiblioTable",
             "href": "/figma-table-builder",
             "description": "Equalize column widths and fix row heights in auto-layout tables.",
             "icon": "layout"
           },
           {
-            "label": "OrganizeFile — Design File Scaffolding",
+            "label": "OrganizeFile",
             "href": "/figma-organize-design-files-plugin",
             "description": "One-click blueprints with covers, README cards, and page hierarchies.",
             "icon": "🗂️"
+          },
+          {
+            "label": "ScaleResizer",
+            "href": "/figma-marketing-resizer-plugin",
+            "description": "Transform marketing frames into 9 format variants with AI-powered layout optimization.",
+            "icon": "scaling"
           }
         ]
       },
