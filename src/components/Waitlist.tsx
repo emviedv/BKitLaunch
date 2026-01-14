@@ -63,9 +63,17 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride, titleOverride, des
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (!state.email.trim()) {
+
+    const email = state.email.trim();
+    if (!email) {
       setState(prev => ({ ...prev, error: 'Please enter your email address.' }));
+      return;
+    }
+
+    // Email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setState(prev => ({ ...prev, error: 'Please enter a valid email address.' }));
       return;
     }
 

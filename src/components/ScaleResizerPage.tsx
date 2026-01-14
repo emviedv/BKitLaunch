@@ -27,6 +27,7 @@ import {
 import FAQList from '@/components/FAQList';
 import { scaleResizerFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
+import Waitlist from './Waitlist';
 
 const ScaleResizerPage = () => {
   debugService.info('ScaleResizerPage mounted', {
@@ -307,42 +308,14 @@ const ScaleResizerPage = () => {
       </Section>
 
       {/* Block 8: Waitlist CTA */}
-      <Section dark id="waitlist">
-        <div className="bg-gradient-to-br from-purple-900/40 to-slate-900/40 border border-purple-500/20 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-sm">
-          <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Be first to automate your resizing workflow.</h2>
-              <p className="text-xl text-purple-200 mb-8">Join the waitlist for early access. Transform 25+ minute manual workflows into &lt;30 second automation.</p>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 bg-slate-900/80 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-purple-500"
-                />
-                <Button className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
-                  <Bell className="w-5 h-5 mr-2" />
-                  Join Waitlist
-                </Button>
-              </div>
-              <p className="text-sm text-slate-500 mt-4">No spam. Early access + plugin updates only.</p>
-            </div>
-            <div className="flex justify-center">
-               <div className="relative">
-                   <PlaceholderImage label="6 Format Grid Preview" height="h-64" className="w-64 shadow-2xl rotate-3 rounded-3xl" />
-                   <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Zap className="w-4 h-4 text-purple-400" />
-                        <span className="text-sm font-bold">6 Variants Ready</span>
-                      </div>
-                      <div className="h-2 w-32 bg-slate-700 rounded-full overflow-hidden">
-                         <div className="h-full w-full bg-purple-400" />
-                      </div>
-                   </div>
-               </div>
-            </div>
-          </div>
-        </div>
-      </Section>
+      <div id="waitlist">
+        <Waitlist
+          visibleOverride={true}
+          titleOverride="Be first to automate your resizing workflow."
+          descriptionOverride="Join the waitlist for early access. Transform 25+ minute manual workflows into <30 second automation. No spam — early access + plugin updates only."
+          buttonTextOverride="Join Waitlist"
+        />
+      </div>
 
       {/* Block 9: Stats */}
       <Section dark className="border-y border-slate-800/50">
