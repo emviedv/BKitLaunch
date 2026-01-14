@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Layout, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
+import { biblioTableFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
@@ -27,12 +28,7 @@ const BiblioTablePage = () => {
   // Figma Community plugin link
   const CTA_LINK = 'https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner';
   const biblioTableImageDimensions = getImageDimensions('/media/BiblioTable.png');
-  const faqs = [
-    { question: "Does this work with complex nested auto-layouts?", answer: "Yes. BiblioTable is designed to parse standard row/column auto-layout structures commonly used for tables." },
-    { question: "Does it break responsive resizing?", answer: "No. It applies fixed widths where necessary to ensure alignment, but respects 'Fill container' where appropriate for the table wrapper." },
-    { question: "Can I customize the zebra striping color?", answer: "Yes. You can select the fill color for alternating rows." },
-    { question: "When will it be released?", answer: "BiblioTable is live. Install it from our Figma Community profile." },
-  ];
+  const faqs = biblioTableFaqs;
 
   // --- Reusable Components ---
 

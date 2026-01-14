@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Columns, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
+import { stateBuilderFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
@@ -28,24 +29,7 @@ const StateBuilderPage = () => {
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs';
   const biblioStatesHeroImageDimensions = getImageDimensions('/media/StateBuilder.png');
   const biblioStatesDashboardImageDimensions = getImageDimensions('/blog/ui-component-states/dashboard-dark.png');
-  const faqs = [
-    {
-      question: "What states does StateBuilder generate?",
-      answer: "Generate hover, focus, pressed, error, and disabled states, plus optional success or selected states based on your component."
-    },
-    {
-      question: "Does it work with any design system?",
-      answer: "Yes. StateBuilder works with any Figma components and is tuned for design system variants."
-    },
-    {
-      question: "Can I choose which states to include?",
-      answer: "Yes. Pick the states you need before generation, then review the matrix before handoff."
-    },
-    {
-      question: "Is StateBuilder live?",
-      answer: "Yes. Install it from Figma Community and generate your next state matrix."
-    },
-  ];
+  const faqs = stateBuilderFaqs;
 
   const Section = ({
     children,

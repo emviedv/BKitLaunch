@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Shield, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
+import { biblioCleanFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
@@ -26,12 +27,7 @@ const BiblioCleanPage = () => {
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines';
   const biblioCleanImageDimensions = getImageDimensions('/media/BiblioClean.png');
-  const faqs = [
-    { question: "Will this break my main components?", answer: "BiblioClean includes safety warnings when you attempt to clean main components or instances that shouldn't be touched." },
-    { question: "Can I undo the cleanup?", answer: "Yes. You can use Figma's native undo (Cmd+Z) to revert any changes made by the plugin instantly." },
-    { question: "Does it remove links from the whole file?", answer: "You can choose your scope: clean only the selected items or the entire current page." },
-    { question: "Is BiblioClean free?", answer: "Yes, BiblioClean is currently free to use for all features." },
-  ];
+  const faqs = biblioCleanFaqs;
 
   // --- Reusable Components ---
 

@@ -1,5 +1,6 @@
 // SEO Metadata Management System
 import { findBlogPostBySlug, type BlogPost } from '@/data/blogPosts';
+import { PAGE_FAQS_BY_ROUTE, defaultProductFaqs, type FAQEntry } from '@/data/pageFaqs';
 
 export interface SEOMetadata {
   title: string;
@@ -86,6 +87,62 @@ const resolveBlogContent = (path: string, contentData?: any): BlogPost | undefin
 
   return undefined;
 };
+
+const normalizeFaqs = (faqs: unknown): FAQEntry[] | undefined => {
+  if (!Array.isArray(faqs)) return undefined;
+  const normalized = faqs
+    .map((faq) => {
+      const question = typeof (faq as any)?.question === 'string' ? (faq as any).question.trim() : '';
+      const answer = typeof (faq as any)?.answer === 'string' ? (faq as any).answer.trim() : '';
+      if (!question || !answer) return null;
+      return { question, answer };
+    })
+    .filter(Boolean) as FAQEntry[];
+  return normalized.length > 0 ? normalized : undefined;
+};
+
+const resolveFaqsForPath = (
+  path: string,
+  contentData?: any,
+  blogContent?: BlogPost | undefined
+): FAQEntry[] | undefined => {
+  const blogFaqs = normalizeFaqs(blogContent?.faqs);
+  if (blogFaqs?.length) {
+    return blogFaqs;
+  }
+
+  const routeFaqs = PAGE_FAQS_BY_ROUTE[path];
+  if (Array.isArray(routeFaqs) && routeFaqs.length > 0) {
+    return routeFaqs;
+  }
+
+  const slug = path.replace(/^\/+/, '').split('/')[0];
+  const product = slug ? contentData?.products?.[slug] : undefined;
+  const productFaqs = normalizeFaqs(product?.faqs);
+  if (productFaqs?.length) {
+    return productFaqs;
+  }
+  if (product) {
+    return defaultProductFaqs;
+  }
+
+  return undefined;
+};
+
+const buildFaqStructuredData = (faqs: FAQEntry[], canonical?: string) =>
+  cleanStructuredDataEntry({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': canonical ? `${canonical}#faq` : undefined,
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  });
 
 const normalizeDateValue = (value?: string | number | Date | null): string | undefined => {
   if (value === null || value === undefined) return undefined;
@@ -764,6 +821,15 @@ export function generateMetadata(
     ];
   }
 
+  const faqItems = resolveFaqsForPath(normalizedPathNoTrailingSlash, contentData, blogContent);
+  const faqEntry = faqItems && metadata.canonical ? buildFaqStructuredData(faqItems, metadata.canonical) : undefined;
+  if (faqEntry) {
+    metadata.structuredData = [
+      ...(metadata.structuredData || []),
+      faqEntry
+    ];
+  }
+
   // Ensure page type defaults based on context
   if (!metadata.webPageType) {
     metadata.webPageType = normalizedPathNoTrailingSlash === '/' ? 'CollectionPage' : 'WebPage';
@@ -972,7 +1038,7 @@ function createGlobalStructuredData(params: StructuredDataMergeParams): Structur
     publisher: { '@id': `${baseUrl}#organization` },
     primaryImageOfPage: primaryImage ? { '@id': primaryImage['@id'] } : undefined,
     image: primaryImage ? primaryImage.url : undefined,
-    breadcrumb: path !== '/' ? { '@id': `${metadata.canonical}#breadcrumb` } : undefined
+    breadcrumb: metadata.canonical ? { '@id': `${metadata.canonical}#breadcrumb` } : undefined
   });
 
   const entries: StructuredDataEntry[] = [
@@ -1070,10 +1136,10 @@ function normalizeSocialUrl(value: unknown, platform: 'twitter' | 'github' | 'li
 function createFallbackBreadcrumb(baseUrl: string, path: string, metadata: SEOMetadata): StructuredDataEntry | undefined {
   if (!metadata.canonical) return undefined;
   const normalizedPath = path.replace(/\/+$/g, '');
-  if (!normalizedPath || normalizedPath === '/') return undefined;
-
-  const segments = normalizedPath.replace(/^\//, '').split('/').filter(Boolean);
-  if (segments.length === 0) return undefined;
+  const isRoot = !normalizedPath || normalizedPath === '/';
+  const segments = isRoot
+    ? []
+    : normalizedPath.replace(/^\//, '').split('/').filter(Boolean);
 
   const items: StructuredDataEntry[] = [
     { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl }

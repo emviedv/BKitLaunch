@@ -1,5 +1,13 @@
 # Live Debug Log — 2026-01
 
+## 2026-01-13
+
+- **Time:** 2026-01-13 08:08 EST
+- **Summary:** Added SSR FAQ and breadcrumb structured data so Search Console can detect them on product and blog pages.
+- **Root Cause:** FAQ JSON-LD was only injected client-side and breadcrumb output skipped the root path, so Search Console reported zero items.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md; src/data/pageFaqs.ts; src/lib/seo.ts; src/components/AIRenameVariantsPage.tsx; src/components/BiblioCleanPage.tsx; src/components/BiblioTablePage.tsx; src/components/ComponentQAPage.tsx; src/components/OrganizeFilePage.tsx; src/components/ScaleResizerPage.tsx; src/components/StateBuilderPage.tsx
+- **Verification:** Not run (SEO metadata update only).
+
 ## 2026-01-05
 
 - **Time:** 2026-01-05 15:40 EST

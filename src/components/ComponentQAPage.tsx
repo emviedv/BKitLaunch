@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Search, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
+import { componentQAFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
@@ -27,12 +28,7 @@ const ComponentQAPage = () => {
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check';
   const componentQAHeroImageDimensions = getImageDimensions('/media/component-qa-hero.png');
   const componentQALeakImageDimensions = getImageDimensions('/media/component-qa-leak.png');
-  const faqs = [
-    { question: "Does it work with any design system?", answer: "Yes. ComponentQA checks against your local styles and enabled libraries." },
-    { question: "Does it change my file?", answer: "No. ComponentQA surfaces issues and jumps you to the exact layers so you can decide what to update." },
-    { question: "Is it safe to run on large files?", answer: "Yes. ComponentQA is optimized for performance and handles large files by scanning on demand." },
-    { question: "Is ComponentQA free?", answer: "Yes, ComponentQA is currently free to use for all features." },
-  ];
+  const faqs = componentQAFaqs;
 
   // --- Reusable Components ---
 

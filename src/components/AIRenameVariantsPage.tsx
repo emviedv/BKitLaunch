@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, RefreshCw, Shield, Lock, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
+import { renameVariantsFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
@@ -26,14 +27,7 @@ const AIRenameVariantsPage = () => {
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted';
   const variantChaosDimensions = getImageDimensions('/media/biblio-rename/variant-chaos-example.png');
-  const faqs = [
-    { question: "Will it change files without my approval?", answer: "No. All changes show as suggestions; you approve edits." },
-    { question: "Can I undo changes?", answer: "Yes. Single-click revert and full audit log export." },
-    { question: "Does it access files outside my selection?", answer: "No. You choose selection or file scope before any action." },
-    { question: "How many free credits do I get?", answer: "8 free credits. Each covers an audit of up to 50 components." },
-    { question: "Will it conflict with our naming conventions?", answer: "No. You set the rules (CamelCase, etc.) and token hints." },
-    { question: "Is it safe for prototypes?", answer: "Yes. We preserve prototype links and master components." }
-  ];
+  const faqs = renameVariantsFaqs;
 
   // --- Reusable Components ---
 

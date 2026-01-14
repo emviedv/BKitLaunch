@@ -223,6 +223,13 @@ export const buildSitemapXml = (baseUrl: string): string => {
       images: [{ loc: `${base}/og/og-default.svg`, title: 'Remove Prototype Link resource' }]
     },
     {
+      path: '/figma-marketing-resizer-plugin',
+      lastmod: defaultLastmod,
+      changefreq: 'weekly',
+      priority: '0.8',
+      images: [{ loc: `${base}/og/og-default.svg`, title: 'Figma Marketing Resizer Plugin' }]
+    },
+    {
       path: '/about',
       lastmod: defaultLastmod,
       changefreq: 'monthly',

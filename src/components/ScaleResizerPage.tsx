@@ -25,6 +25,7 @@ import {
   ArrowRight,
 } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
+import { scaleResizerFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 
 const ScaleResizerPage = () => {
@@ -70,28 +71,7 @@ const ScaleResizerPage = () => {
   ];
 
 
-  const faqs = [
-    {
-      question: 'How does ScaleResizer preserve brand consistency?',
-      answer: 'ScaleResizer maintains your original assets, colors, and typography while adapting layout to each format\'s safe areas and aspect ratios. No content is regenerated or restyled.'
-    },
-    {
-      question: 'Does it work with auto-layout frames?',
-      answer: 'Yes. ScaleResizer captures auto-layout snapshots before scaling and intelligently restores layout settings post-transformation, handling nested layouts and constraints.'
-    },
-    {
-      question: 'Can I customize which formats to generate?',
-      answer: 'Yes. Select individual targets or batch-generate all 6 formats in a single run. Each format can be configured with custom safe-area presets (Tight, Balanced, Roomy).'
-    },
-    {
-      question: 'How are variants organized?',
-      answer: 'All variants are grouped in timestamped run containers on a dedicated staging page called "ScaleResizer Variants" for easy review and export.'
-    },
-    {
-      question: 'What are safe areas?',
-      answer: 'Format-specific content boundaries that prevent overlap with platform UI. For example, YouTube has mobile safe zones, TikTok has UI exclusion areas for comments and buttons.'
-    },
-  ];
+  const faqs = scaleResizerFaqs;
 
   // --- Reusable Components ---
 

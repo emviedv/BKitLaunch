@@ -5,6 +5,7 @@ import { debugService } from '@/lib/debugService';
 import ProductContentSections from './ProductContentSections';
 import ProductHero from './ProductHero';
 import productData from '@/data/products.json' with { type: 'json' };
+import { defaultProductFaqs } from '@/data/pageFaqs';
 
 interface ProductDetail {
   title: string;
@@ -138,18 +139,7 @@ const DynamicProductPage: React.FC<DynamicProductPageProps> = ({ slug }) => {
     }
   }, [product, slug, effectiveContent]);
 
-  const faqs =
-    (product as any)?.faqs || [
-      {
-        question: 'What is this product?',
-        answer:
-          'A professional tool crafted by BiblioKit to improve design system workflows and accelerate delivery.',
-      },
-      {
-        question: 'How do I get started?',
-        answer: 'Use the primary call-to-action to try the product or contact us for a demo.',
-      },
-    ];
+  const faqs = (product as any)?.faqs || defaultProductFaqs;
 
   if (!product) {
     if (loading) {

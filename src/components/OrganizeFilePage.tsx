@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
+import { organizeFileFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
@@ -26,12 +27,7 @@ const OrganizeFilePage = () => {
 
   const PLUGIN_URL = 'https://www.figma.com/community/plugin/com.biblio.biblioorganize';
   const biblioOrganizeHeroImageDimensions = getImageDimensions('/media/OrganizeFile.png');
-  const faqs = [
-    { question: "When will OrganizeFile be available?", answer: "OrganizeFile is coming soon. We're putting the finishing touches on the plugin and will announce the launch date shortly." },
-    { question: "Does it work with existing files?", answer: "Yes. OrganizeFile detects existing scaffold elements and skips duplicates to avoid conflicts." },
-    { question: "Can I customize the presets?", answer: "V1 includes Product Handoff and Journey/Flow Maps presets. Custom preset builder is planned for future releases." },
-    { question: "Will it break my existing pages?", answer: "No. OrganizeFile adds new pages and scaffolding without modifying existing content. Rollback cleans up partial failures." },
-  ];
+  const faqs = organizeFileFaqs;
 
   // --- Reusable Components ---
 
