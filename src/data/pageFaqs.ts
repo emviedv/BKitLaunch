@@ -80,10 +80,10 @@ export const biblioCleanFaqs: FAQEntry[] = [
   },
 ];
 
-export const biblioTableFaqs: FAQEntry[] = [
+export const fixTableFaqs: FAQEntry[] = [
   {
     question: "Does this work with complex nested auto-layouts?",
-    answer: "Yes. BiblioTable is designed to parse standard row/column auto-layout structures commonly used for tables.",
+    answer: "Yes. FixTable is designed to parse standard row/column auto-layout structures commonly used for tables.",
   },
   {
     question: "Does it break responsive resizing?",
@@ -95,7 +95,7 @@ export const biblioTableFaqs: FAQEntry[] = [
   },
   {
     question: "When will it be released?",
-    answer: "BiblioTable is live. Install it from our Figma Community profile.",
+    answer: "FixTable is live. Install it from our Figma Community profile.",
   },
 ];
 
@@ -165,7 +165,7 @@ export const PAGE_FAQS_BY_ROUTE: Record<string, FAQEntry[]> = {
   "/figma-component-variant-renamer": renameVariantsFaqs,
   "/ai-rename-variants": renameVariantsFaqs,
   "/figma-plugin-remove-prototype-links": biblioCleanFaqs,
-  "/figma-table-builder": biblioTableFaqs,
+  "/figma-table-builder": fixTableFaqs,
   "/figma-organize-design-files-plugin": organizeFileFaqs,
   "/figma-component-states": stateBuilderFaqs,
   "/figma-marketing-resizer-plugin": scaleResizerFaqs,

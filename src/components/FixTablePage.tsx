@@ -7,13 +7,13 @@ import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Layout, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
-import { biblioTableFaqs } from '@/data/pageFaqs';
+import { fixTableFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
-const BiblioTablePage = () => {
-  debugService.info('BiblioTablePage mounted', { 
-    timestamp: new Date().toISOString() 
+const FixTablePage = () => {
+  debugService.info('FixTablePage mounted', {
+    timestamp: new Date().toISOString()
   });
 
   const { content } = usePublishedContent();
@@ -27,8 +27,8 @@ const BiblioTablePage = () => {
 
   // Figma Community plugin link
   const CTA_LINK = 'https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner';
-  const biblioTableImageDimensions = getImageDimensions('/media/BiblioTable.png');
-  const faqs = biblioTableFaqs;
+  const fixTableImageDimensions = getImageDimensions('/media/FixTable.png');
+  const faqs = fixTableFaqs;
 
   // --- Reusable Components ---
 
@@ -113,12 +113,12 @@ const BiblioTablePage = () => {
             </p>
           </div>
           <div className="relative">
-             <img 
-               src="/media/BiblioTable.png" 
-               alt="Screenshot of BiblioTable fixing a Figma table" 
+             <img
+               src="/media/FixTable.png"
+               alt="Screenshot of FixTable fixing a Figma table"
                className="w-full h-auto rounded-xl border border-slate-700 shadow-2xl"
-               width={biblioTableImageDimensions?.width}
-               height={biblioTableImageDimensions?.height}
+               width={fixTableImageDimensions?.width}
+               height={fixTableImageDimensions?.height}
                loading="lazy"
                decoding="async"
              />
@@ -132,7 +132,7 @@ const BiblioTablePage = () => {
           <div className="inline-block bg-purple-500/10 text-purple-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-purple-500/20">
             Typical Result: Perfect Alignment in 2s
           </div>
-          <SectionTitle>Watch BiblioTable in Action: Normalize & Zebra-Stripe Figma Tables</SectionTitle>
+          <SectionTitle>Watch FixTable in Action: Normalize & Zebra-Stripe Figma Tables</SectionTitle>
         </div>
         
         <div className="grid md:grid-cols-12 gap-8 mb-12">
@@ -159,7 +159,7 @@ const BiblioTablePage = () => {
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Select Auto-Layout Frame" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Select Table</h3>
-            <p className="text-slate-400">Select any frame using auto-layout for rows and columns. BiblioTable analyzes the structure.</p>
+            <p className="text-slate-400">Select any frame using auto-layout for rows and columns. FixTable analyzes the structure.</p>
           </div>
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center font-bold text-white z-10">2</div>
@@ -244,7 +244,7 @@ const BiblioTablePage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Fix your tables instantly.</h2>
-              <p className="text-xl text-purple-200 mb-8">Install the BiblioTable plugin from Figma Community and normalize every table fast.</p>
+              <p className="text-xl text-purple-200 mb-8">Install the FixTable plugin from Figma Community and normalize every table fast.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={CTA_LINK} target="_blank" rel="noopener noreferrer">
                   FIX YOUR TABLES
@@ -253,7 +253,7 @@ const BiblioTablePage = () => {
             </div>
             <div className="flex justify-center">
                <div className="relative">
-                   <PlaceholderImage label="BiblioTable Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
+                   <PlaceholderImage label="FixTable Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
                    <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
                         <Check className="w-4 h-4 text-purple-400" />
@@ -271,7 +271,7 @@ const BiblioTablePage = () => {
 
       {/* Block 8: FAQ */}
       <Section dark>
-        <SectionTitle className="text-center mb-12">Watch BiblioTable in Action: Normalize &amp; Zebra-Stripe Figma Tables</SectionTitle>
+        <SectionTitle className="text-center mb-12">Watch FixTable in Action: Normalize &amp; Zebra-Stripe Figma Tables</SectionTitle>
         <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 
@@ -293,4 +293,4 @@ const BiblioTablePage = () => {
   );
 };
 
-export default BiblioTablePage;
+export default FixTablePage;

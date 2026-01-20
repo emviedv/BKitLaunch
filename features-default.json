@@ -175,7 +175,7 @@
       },
       {
         "icon": "📊",
-        "title": "BiblioTable",
+        "title": "FixTable",
         "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
         "idea": "The Table Fixer.",
         "topItems": [
@@ -193,7 +193,7 @@
         "buttonLink": "https://blocks.bibliokit.com/signup",
         "media": {
           "src": "/media/table-fixer-ui.svg",
-          "alt": "BiblioTable table fixer UI preview"
+          "alt": "FixTable table fixer UI preview"
         }
       },
       {

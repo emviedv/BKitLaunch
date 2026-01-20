@@ -14,7 +14,7 @@ const products = [
   { name: 'RenameVariantsAI', href: '/figma-component-variant-renamer' },
   { name: 'ComponentQA', href: '/figma-design-system-audit-plugin' },
   { name: 'StateBuilder', href: '/figma-component-states' },
-  { name: 'BiblioTable', href: '/figma-table-builder' },
+  { name: 'FixTable', href: '/figma-table-builder' },
   { name: 'BiblioClean', href: '/figma-plugin-remove-prototype-links' },
   { name: 'OrganizeFile', href: '/figma-organize-design-files-plugin' },
 ];

@@ -53,7 +53,7 @@ const IMAGE_DIMENSIONS: Record<string, ImageDimensions> = {
   '/media/RenameVariantsAI.png': { width: 1920, height: 1080 },
   '/media/BiblioStart.png': { width: 1920, height: 1080 },
   '/media/StateBuilder.png': { width: 1908, height: 1516 },
-  '/media/BiblioTable.png': { width: 1920, height: 1080 },
+  '/media/FixTable.png': { width: 1920, height: 1080 },
   '/media/OrganizeFile.png': { width: 1920, height: 1080 },
   '/media/biblio-rename/variant-chaos-example.png': { width: 1476, height: 1428 },
   '/media/table-fixer-figma.png': { width: 1920, height: 1080 },

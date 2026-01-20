@@ -171,7 +171,7 @@
       "icon": "📊",
       "idea": "The Table Fixer.",
       "badge": "Launched",
-      "title": "BiblioTable",
+      "title": "FixTable",
       "badges": [],
       "topItems": [
         "Normalize column widths in one click.",
@@ -186,7 +186,7 @@
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
       "media": {
         "src": "/media/table-fixer-ui.svg",
-        "alt": "BiblioTable table fixer UI preview"
+        "alt": "FixTable table fixer UI preview"
       },
       "buttonPreset": "custom"
     },
@@ -218,14 +218,14 @@
   },
   "products": {
     "bibliokit-blocks": {
-      "title": "BiblioTable",
+      "title": "FixTable",
       "description": "Professional design system analytics platform that tracks Figma component usage, measures design system ROI, and optimizes component libraries with automated insights for product teams.",
       "primaryButton": "Start Free Trial",
       "secondaryButton": "View Demo",
       "primaryButtonLink": "https://blocks.bibliokit.com/signup",
       "secondaryButtonLink": "https://blocks.bibliokit.com/demo",
       "heroImage": "/media/table-fixer-ui.svg",
-      "heroImageAlt": "BiblioTable table fixer UI preview",
+      "heroImageAlt": "FixTable table fixer UI preview",
       "badgeLabel": "SaaS Analytics Platform",
       "visibility": { "waitlist": false },
       "details": [
@@ -297,7 +297,7 @@
         "description": "Professional design system analytics for growing product teams. 14-day free trial included."
       },
       "llm": {
-        "answerBox": "BiblioTable provides comprehensive design system analytics that automatically tracks Figma component usage, measures ROI, and delivers actionable insights to optimize component libraries. Increase adoption rates by 25%+ and reduce maintenance overhead through data-driven decision making for product teams.",
+        "answerBox": "FixTable provides comprehensive design system analytics that automatically tracks Figma component usage, measures ROI, and delivers actionable insights to optimize component libraries. Increase adoption rates by 25%+ and reduce maintenance overhead through data-driven decision making for product teams.",
         "statistic": {
           "date": "February 2024",
           "source": "Product Team Analytics Report 2024",
@@ -312,19 +312,19 @@
         },
         "faqs": [
           {
-            "question": "How does BiblioTable track component usage across my design files?",
-            "answer": "BiblioTable connects to your Figma account via secure OAuth and automatically scans your design libraries and files to track component instances, usage frequency, and adoption patterns in real-time without manual setup."
+            "question": "How does FixTable track component usage across my design files?",
+            "answer": "FixTable connects to your Figma account via secure OAuth and automatically scans your design libraries and files to track component instances, usage frequency, and adoption patterns in real-time without manual setup."
           },
           {
             "question": "Can I measure the ROI of my design system investment?",
-            "answer": "Yes, BiblioTable provides comprehensive ROI reporting with quantifiable metrics including time savings, efficiency gains, component reuse rates, and productivity improvements that demonstrate clear business value to stakeholders."
+            "answer": "Yes, FixTable provides comprehensive ROI reporting with quantifiable metrics including time savings, efficiency gains, component reuse rates, and productivity improvements that demonstrate clear business value to stakeholders."
           },
           {
             "question": "What kind of analytics insights will I get about my components?",
             "answer": "You'll receive detailed analytics on component usage trends, adoption rates, over-used vs. under-used components, team collaboration patterns, and actionable recommendations for optimizing your design system performance."
           },
           {
-            "question": "Is my Figma data secure with BiblioTable?",
+            "question": "Is my Figma data secure with FixTable?",
             "answer": "Absolutely. We use enterprise-grade security with SOC 2 compliance, encrypted data transmission, and secure OAuth integration. Your design data is protected with the same security standards used by Fortune 500 companies."
           },
           {

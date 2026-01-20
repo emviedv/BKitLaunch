@@ -85,7 +85,7 @@
 - BiblioScale — Adaptive campaign generator that turns a master frame into channel-ready outputs (TikTok/Story/Feed) with quality guardrails.
 - BiblioUX (Figma Plugin) — In-canvas heuristic/accessibility/psych feedback on selected frames with citation-backed action steps.
 - BiblioMotion — WebGL shaders/animated backgrounds that render live in Figma to add motion to static prototypes.
-- BiblioTable — Control surface for Figma auto layout; restores predictable collapse/hover behavior; improves structural hygiene for tables.
+- FixTable — Control surface for Figma auto layout; restores predictable collapse/hover behavior; improves structural hygiene for tables.
 - BiblioStart — Generates standardized file scaffolding (Cover, Handoff, Sandbox) for consistent project setup.
 - BiblioAttach — Rebuilds “dumb groups” into healthy components; swaps detached structures for reusable instances.
 - Biblio Automate — Record/replay Figma cleanup/ops routines as reusable templates (backlog).

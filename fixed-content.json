@@ -206,12 +206,12 @@
     "8": {
       "icon": "📊",
       "badge": "Launched",
-      "title": "BiblioTable",
+      "title": "FixTable",
       "badgeColor": "#10b981",
       "description": "Analytics platform that tracks Figma component usage, measures design system ROI, and helps teams scale efficiently.",
       "media": {
         "src": "/media/table-fixer-ui.svg",
-        "alt": "BiblioTable table fixer UI preview"
+        "alt": "FixTable table fixer UI preview"
       }
     },
     "9": {

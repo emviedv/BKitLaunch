@@ -42,7 +42,7 @@ const SITE_LINKS = [
   { label: 'RenameVariantsAI', href: '/figma-component-variant-renamer' },
   { label: 'BiblioClean', href: '/figma-plugin-remove-prototype-links' },
   { label: 'ComponentQA', href: '/figma-design-system-audit-plugin' },
-  { label: 'BiblioTable', href: '/figma-table-builder' },
+  { label: 'FixTable', href: '/figma-table-builder' },
   { label: 'Blog', href: '/blog' }
 ];
 
@@ -66,7 +66,7 @@ const PRODUCT_META: Record<string, { title: string; description: string; ogType?
     ogType: 'product'
   },
   '/figma-table-builder': {
-    title: 'BiblioTable | Normalize Figma Tables in One Click',
+    title: 'FixTable | Normalize Figma Tables in One Click',
     description:
       'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.',
     ogType: 'product'
@@ -128,9 +128,9 @@ const SOFTWARE_APPLICATION_SCHEMA: Record<string, SoftwareApplicationSchemaConfi
     image: '/media/ComponentQA.png'
   },
   '/figma-table-builder': {
-    name: 'BiblioTable',
-    description: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
-    image: '/media/BiblioTable.png'
+    name: 'FixTable',
+    description: 'FixTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
+    image: '/media/FixTable.png'
   }
 };
 
@@ -146,7 +146,7 @@ const PRODUCT_PAGE_COPY: Record<string, { headline: string; description: string 
       'Automated QA for Figma. Find detached instances, validate tokens, and flag design system drift instantly.'
   },
   '/figma-table-builder': {
-    headline: 'BiblioTable',
+    headline: 'FixTable',
     description:
       'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.'
   },

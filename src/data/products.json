@@ -76,7 +76,7 @@
             "icon": "sparkles"
           },
           {
-            "label": "BiblioTable",
+            "label": "FixTable",
             "href": "/figma-table-builder",
             "description": "Equalize column widths and fix row heights in auto-layout tables.",
             "icon": "layout"
@@ -242,7 +242,7 @@
       "idea": "The Table Fixer.",
       "badge": "Launched",
       "category": "Launched",
-      "title": "Normalize Figma Tables in One Click (BiblioTable)",
+      "title": "Normalize Figma Tables in One Click (FixTable)",
       "badges": [],
       "topItems": [
         "Normalize column widths in one click.",
@@ -256,8 +256,8 @@
       "isFeatured": false,
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
       "media": {
-        "src": "/media/BiblioTable.png",
-        "alt": "BiblioTable controls for normalizing column widths and zebra striping in auto layout tables"
+        "src": "/media/FixTable.png",
+        "alt": "FixTable controls for normalizing column widths and zebra striping in auto layout tables"
       },
       "buttonPreset": "custom"
     },
@@ -424,7 +424,7 @@
     "title": "Join Designers shipping faster with BiblioKit",
     "description": "Drop your email to jump the line for our next Figma plugins in beta.",
     "buttonText": "Get Beta Access",
-    "successMessage": "You're on the beta list! We'll reach out with BiblioStart and BiblioTable early access details."
+    "successMessage": "You're on the beta list! We'll reach out with BiblioStart and FixTable early access details."
   },
   "products": {
     "ai-rename-variants": {
@@ -760,9 +760,9 @@
       ]
     },
     "biblio-table": {
-      "title": "BiblioTable",
+      "title": "FixTable",
       "subtitle": "Stop fighting auto-layout tables.",
-      "description": "BiblioTable helps designers, developers, and marketers fix Auto Layout tables fast. Normalize widths, remove sub-pixel bugs, and keep dashboards readable.",
+      "description": "FixTable helps designers, developers, and marketers fix Auto Layout tables fast. Normalize widths, remove sub-pixel bugs, and keep dashboards readable.",
       "primaryButton": "FIX YOUR TABLES",
       "primaryButtonIcon": "download",
       "primaryButtonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
@@ -779,8 +779,8 @@
             "Respects padding and gaps"
           ],
           "buttonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
-          "mediaUrl": "/media/BiblioTable.png",
-          "mediaAlt": "BiblioTable normalizing column widths in Figma"
+          "mediaUrl": "/media/FixTable.png",
+          "mediaAlt": "FixTable normalizing column widths in Figma"
         },
         {
           "title": "Generate Zebra Striping",
@@ -788,8 +788,8 @@
             "Add alternating background colors to your auto-layout rows without creating messy background rectangles manually."
           ],
           "buttonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
-          "mediaUrl": "/media/BiblioTable.png",
-          "mediaAlt": "BiblioTable zebra striping controls"
+          "mediaUrl": "/media/FixTable.png",
+          "mediaAlt": "FixTable zebra striping controls"
         },
         {
           "title": "Fix Sub-Pixel Bugs",
@@ -797,8 +797,8 @@
             "Detect and round off sub-pixel positioning (e.g., 100.34px) that causes blurry rendering or 1px misalignments in development."
           ],
           "buttonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
-          "mediaUrl": "/media/BiblioTable.png",
-          "mediaAlt": "BiblioTable fixing sub-pixel alignment"
+          "mediaUrl": "/media/FixTable.png",
+          "mediaAlt": "FixTable fixing sub-pixel alignment"
         }
       ],
       "benefits": [
@@ -818,7 +818,7 @@
       "faqs": [
         {
           "question": "Does this work with complex nested auto-layouts?",
-          "answer": "Yes. BiblioTable is designed to parse standard row/column auto-layout structures commonly used for tables."
+          "answer": "Yes. FixTable is designed to parse standard row/column auto-layout structures commonly used for tables."
         },
         {
           "question": "Does it break responsive resizing?",
@@ -830,7 +830,7 @@
         },
         {
           "question": "When will it be released?",
-          "answer": "BiblioTable is live. Install it from our Figma Community profile."
+          "answer": "FixTable is live. Install it from our Figma Community profile."
         }
       ]
     },

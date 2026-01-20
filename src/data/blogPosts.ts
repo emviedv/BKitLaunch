@@ -257,7 +257,7 @@ const autoLayoutWrapContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'Pro Tip: Use [BiblioTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) to equalize column widths and fix row heights. It forces consistency so your auto-layout wrap behaves predictably every time.'
+    text: 'Pro Tip: Use [FixTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) to equalize column widths and fix row heights. It forces consistency so your auto-layout wrap behaves predictably every time.'
   },
   { type: 'heading', text: 'Managing Layout Hygiene (The Hidden Problem)' },
   {
@@ -382,10 +382,10 @@ const figmaWorkflowAutomationToolsContent: BlogContentBlock[] = [
     type: 'paragraph',
     text: 'General design tools aren\'t enough for complex data; you need specialized automation tools designed specifically for table alignment and data management.'
   },
-  { type: 'heading', text: 'Tool Spotlight: BiblioTable', level: 'h3' },
+  { type: 'heading', text: 'Tool Spotlight: FixTable', level: 'h3' },
   {
     type: 'paragraph',
-    text: '[BiblioTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) turns one of the hardest UI tasks into one of the easiest.'
+    text: '[FixTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) turns one of the hardest UI tasks into one of the easiest.'
   },
   {
     type: 'unorderedList',
@@ -516,7 +516,7 @@ const tableDesignContent: BlogContentBlock[] = [
   {
     type: 'image',
     src: buildHeroImagePath('effortless-table-design/bibliotable-auto-layout-fixer.png'),
-    alt: 'BiblioTable Figma plugin panel showing column width controls, zebra striping, and layout charts'
+    alt: 'FixTable Figma plugin panel showing column width controls, zebra striping, and layout charts'
   },
   { type: 'heading', text: 'Tools and Plugins for Flawless Table Creation & Management', level: 'h2' },
   {
@@ -525,15 +525,15 @@ const tableDesignContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: "This is where a little help from the community comes in handy. If you've been tearing your hair out over misaligned cells and endless manual adjustments, you absolutely need to check out the [BiblioTable Auto-Layout Table Fixer & Data Aligner](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner)."
+    text: "This is where a little help from the community comes in handy. If you've been tearing your hair out over misaligned cells and endless manual adjustments, you absolutely need to check out the [FixTable Auto-Layout Table Fixer & Data Aligner](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner)."
   },
   {
     type: 'paragraph',
-    text: "This Figma plugin is a game-changer because it's built specifically to solve those common auto-layout and data alignment problems we just talked about. Instead of fiddling with individual cell constraints for ages, [BiblioTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) swoops in to automate spacing, ensure perfect alignment, and even help with responsive adjustments."
+    text: "This Figma plugin is a game-changer because it's built specifically to solve those common auto-layout and data alignment problems we just talked about. Instead of fiddling with individual cell constraints for ages, [FixTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) swoops in to automate spacing, ensure perfect alignment, and even help with responsive adjustments."
   },
   {
     type: 'paragraph',
-    text: 'Imagine a world where your table cells just... work. This plugin aims to give you that by letting you set up your table structure and then letting it do the heavy lifting of keeping everything tidy. It means less time debugging your auto-layout stack and more time focusing on the actual user experience. If you want to boost your design efficiency and get rid of those table headaches, this tool is definitely worth adding to your Figma arsenal. Find it here: [BiblioTable Auto-Layout Table Fixer & Data Aligner](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner).'
+    text: 'Imagine a world where your table cells just... work. This plugin aims to give you that by letting you set up your table structure and then letting it do the heavy lifting of keeping everything tidy. It means less time debugging your auto-layout stack and more time focusing on the actual user experience. If you want to boost your design efficiency and get rid of those table headaches, this tool is definitely worth adding to your Figma arsenal. Find it here: [FixTable Auto-Layout Table Fixer & Data Aligner](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner).'
   },
   { type: 'heading', text: 'Advanced Table Features & Interactions', level: 'h2' },
   {
@@ -559,7 +559,7 @@ const tableDesignContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: "And let's not forget tackling those frustrating auto-layout issues head-on. By applying smart design principles, leveraging component-based workflows, and using helpful tools like the [BiblioTable Auto-Layout Table Fixer & Data Aligner](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner), you can elevate your data presentation from clunky to flawless."
+    text: "And let's not forget tackling those frustrating auto-layout issues head-on. By applying smart design principles, leveraging component-based workflows, and using helpful tools like the [FixTable Auto-Layout Table Fixer & Data Aligner](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner), you can elevate your data presentation from clunky to flawless."
   },
   {
     type: 'paragraph',
@@ -714,7 +714,7 @@ const effortlessTableDesignFigmaContent: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'While building these manually gives you great control, you can supercharge your productivity by using [BiblioTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) to automate the alignment and structure of your Figma tables.'
+    text: 'While building these manually gives you great control, you can supercharge your productivity by using [FixTable](https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner) to automate the alignment and structure of your Figma tables.'
   }
 ];
 

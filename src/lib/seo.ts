@@ -228,9 +228,9 @@ const PLUGIN_SOFTWARE_APPLICATIONS: Record<string, { name: string; image: string
     description: 'ComponentQA scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
   },
   '/figma-table-builder': {
-    name: 'BiblioTable',
-    image: '/media/BiblioTable.png',
-    description: 'BiblioTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
+    name: 'FixTable',
+    image: '/media/FixTable.png',
+    description: 'FixTable fixes Figma tables for designers, developers, and marketers. Normalize widths and strip layout bugs so data stays readable.',
   },
   '/figma-component-states': {
     name: 'StateBuilder',
@@ -298,15 +298,15 @@ const biblioRenameMetadata: SEOMetadata = {
   twitterImage: '/og/og-default.svg'
 };
 
-const biblioTableMetadata: SEOMetadata = {
-  title: 'BiblioTable | Normalize Figma Tables in One Click',
-  description: 'BiblioTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
-  keywords: 'BiblioTable, figma table plugin, auto-layout tables, figma columns, zebra striping, design ops, figma automation',
-  ogTitle: 'BiblioTable | Normalize Figma Tables in One Click',
-  ogDescription: 'BiblioTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
+const fixTableMetadata: SEOMetadata = {
+  title: 'FixTable | Normalize Figma Tables in One Click',
+  description: 'FixTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
+  keywords: 'FixTable, figma table plugin, auto-layout tables, figma columns, zebra striping, design ops, figma automation',
+  ogTitle: 'FixTable | Normalize Figma Tables in One Click',
+  ogDescription: 'FixTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'BiblioTable | Normalize Figma Tables in One Click',
-  twitterDescription: 'BiblioTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
+  twitterTitle: 'FixTable | Normalize Figma Tables in One Click',
+  twitterDescription: 'FixTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
   twitterImage: '/og/og-default.svg'
 };
 
@@ -538,7 +538,7 @@ export const routeMetadata: RouteMetadata = {
   '/figma-component-variant-renamer': biblioRenameMetadata,
   '/figma-plugin-remove-prototype-links': biblioCleanMetadata,
   '/figma-design-system-audit-plugin': biblioAuditMetadata,
-  '/figma-table-builder': biblioTableMetadata,
+  '/figma-table-builder': fixTableMetadata,
   '/figma-component-states': stateBuilderMetadata,
   '/figma-organize-design-files-plugin': {
     title: 'Figma File Organizer & Project Scaffolding Tool | OrganizeFile',

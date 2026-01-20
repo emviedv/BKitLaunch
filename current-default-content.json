@@ -155,7 +155,7 @@
         }
       ],
       "product": {
-        "title": "BiblioTable – Design System Analytics",
+        "title": "FixTable – Design System Analytics",
         "details": [
           {
             "title": "Automated Figma Integration",
@@ -195,7 +195,7 @@
         "visibility": {
           "waitlist": false
         },
-        "description": "BiblioTable is a professional analytics platform for Figma design systems. Track component usage, measure ROI, and make smarter decisions to optimize design libraries with AI-powered insights.",
+        "description": "FixTable is a professional analytics platform for Figma design systems. Track component usage, measure ROI, and make smarter decisions to optimize design libraries with AI-powered insights.",
         "primaryButton": "Start Free Trial",
         "secondaryButton": "View Demo",
         "primaryButtonLink": "https://blocks.bibliokit.com/signup",
@@ -248,7 +248,7 @@
           "icon": "📊",
           "idea": "The Table Fixer.",
           "badge": "Launched",
-          "title": "BiblioTable",
+          "title": "FixTable",
           "badges": [],
           "topItems": [
             "Normalize column widths in one click.",
@@ -263,7 +263,7 @@
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
       "media": {
         "src": "/media/table-fixer-ui.svg",
-        "alt": "BiblioTable table fixer UI preview"
+        "alt": "FixTable table fixer UI preview"
       },
       "buttonPreset": "custom"
     },

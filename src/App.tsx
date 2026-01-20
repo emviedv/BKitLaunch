@@ -16,7 +16,7 @@ import ComponentQAPage from './components/ComponentQAPage';
 import BiblioCleanPage from './components/BiblioCleanPage';
 import OrganizeFilePage from './components/OrganizeFilePage';
 import StateBuilderPage from './components/StateBuilderPage';
-import BiblioTablePage from './components/BiblioTablePage';
+import FixTablePage from './components/FixTablePage';
 import DynamicProductPage from './components/DynamicProductPage';
 import RemovePrototypeLinkPage from './components/RemovePrototypeLinkPage';
 import ResourcesPage from './components/ResourcesPage';
@@ -193,7 +193,7 @@ const AppContent: React.FC = () => {
           <Route path={ROUTE_PATHS.BIBLIO_RENAME} component={AIRenameVariantsPage} />
           <Route path={ROUTE_PATHS.BIBLIO_AUDIT} component={ComponentQAPage} />
           <Route path={ROUTE_PATHS.BIBLIO_CLEAN} component={BiblioCleanPage} />
-          <Route path={ROUTE_PATHS.BIBLIO_TABLE} component={BiblioTablePage} />
+          <Route path={ROUTE_PATHS.BIBLIO_TABLE} component={FixTablePage} />
           <Route path={ROUTE_PATHS.BIBLIO_STATES} component={StateBuilderPage} />
           <Route path={ROUTE_PATHS.BIBLIO_ORGANIZE} component={OrganizeFilePage} />
           <Route path={ROUTE_PATHS.AI_RENAME_VARIANTS} component={LegacyAIRenameRedirect} />
