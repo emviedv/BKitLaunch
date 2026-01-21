@@ -105,6 +105,14 @@ const Header = () => {
     navItems = [...navItems, { label: 'Blog', href: '/blog', type: 'link' }];
   }
 
+  const hasTutorialsLink = navItems.some(
+    (item) => (item as LinkNavItem).label?.trim().toLowerCase() === 'tutorials'
+  );
+
+  if (!hasTutorialsLink) {
+    navItems = [...navItems, { label: 'Tutorials', href: ROUTE_PATHS.TUTORIALS, type: 'link' }];
+  }
+
   if (hideNavLinks) {
     navItems = [];
   }

@@ -18,5 +18,6 @@ export const ROUTE_PATHS = {
   REMOVE_PROTOTYPE_LINK: '/resources/remove-prototype-link',
   LEARN: '/learn',
   LEARN_DESIGN_OPS_FUNDAMENTALS: '/learn/design-ops-fundamentals',
+  TUTORIALS: '/tutorials',
   SCALE_RESIZER: '/figma-marketing-resizer-plugin',
 } as const;

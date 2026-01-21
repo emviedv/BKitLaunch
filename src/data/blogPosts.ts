@@ -2052,6 +2052,180 @@ const designOpsCompleteGuideContent: BlogContentBlock[] = [
   }
 ];
 
+const installUninstallFigmaPluginContent: BlogContentBlock[] = [
+  { type: 'caption', text: 'Figma Plugins' },
+  {
+    type: 'heading',
+    text: "How to Install and Uninstall a Figma Plugin: A Beginner's Guide",
+    level: 'h2'
+  },
+  {
+    type: 'paragraph',
+    text: "Figma plugins are mini-tools that extend what you can do inside Figma. They help you automate repetitive tasks, generate content, clean up your files, and speed up your workflow. Whether you're a designer, developer, or marketer, plugins can save you hours every week."
+  },
+  {
+    type: 'paragraph',
+    text: "In this guide, you'll learn how to install, run, and uninstall Figma plugins so you can start customizing your workflow right away."
+  },
+  {
+    type: 'image',
+    src: '/blog/install-uninstall-figma-plugin/designer-workspace.jpg',
+    alt: 'Designer workspace with computer showing design interface',
+    caption: 'Plugins extend your Figma workspace with powerful automation tools.'
+  },
+  { type: 'heading', text: 'How to Install a Figma Plugin', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "There are two ways to install a Figma plugin: from the Figma Community website, or directly inside the Figma app. Both methods work on the desktop app and in the browser."
+  },
+  { type: 'heading', text: 'Method 1: Install from the Figma Community Website', level: 'h3' },
+  {
+    type: 'orderedList',
+    items: [
+      'Go to [figma.com/community/plugins](https://www.figma.com/community/plugins)',
+      'Search for the plugin you want (e.g., "RenameVariantsAI" or "Unsplash")',
+      'Click on the plugin card to open its detail page',
+      'Click the blue "Install" button in the top right',
+      'The plugin is now saved to your account and ready to use'
+    ]
+  },
+  { type: 'heading', text: 'Method 2: Install from Inside Figma', level: 'h3' },
+  {
+    type: 'orderedList',
+    items: [
+      'Open any Figma file',
+      'Right-click on the canvas (or press Cmd/Ctrl + /)',
+      'Type the plugin name or browse "Plugins" in the menu',
+      'Click "Run" to try it, or click the three dots (•••) and select "Save to plugins"',
+      'The plugin is now in your saved list for quick access'
+    ]
+  },
+  {
+    type: 'paragraph',
+    text: 'Tip: When you install a plugin, it becomes available across all your files and teams. You only need to install it once.'
+  },
+  { type: 'heading', text: 'How to Run a Figma Plugin', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Once a plugin is installed, you can run it in any Figma file. Here's how:"
+  },
+  {
+    type: 'orderedList',
+    items: [
+      'Open the file where you want to use the plugin',
+      'Right-click anywhere on the canvas',
+      'Hover over "Plugins" in the context menu',
+      'Select "Saved plugins" to see your installed plugins',
+      'Click the plugin name to launch it'
+    ]
+  },
+  {
+    type: 'paragraph',
+    text: 'Keyboard shortcut: Press Cmd/Ctrl + / to open the quick actions menu, then type the plugin name. This is the fastest way to run any plugin.'
+  },
+  {
+    type: 'image',
+    src: '/blog/install-uninstall-figma-plugin/dual-monitors.jpg',
+    alt: 'Clean workspace with dual monitors for design work',
+    caption: 'Access your saved plugins from any Figma file with a right-click.'
+  },
+  { type: 'heading', text: 'How to Uninstall a Figma Plugin', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "If a plugin is cluttering your list or you no longer need it, you can remove it. Uninstalling a plugin doesn't delete any work you've done with it."
+  },
+  { type: 'heading', text: 'Method 1: Uninstall from Inside Figma', level: 'h3' },
+  {
+    type: 'orderedList',
+    items: [
+      'Right-click on the canvas',
+      'Go to Plugins → Saved plugins',
+      'Hover over the plugin you want to remove',
+      'Click the three dots (•••) next to the plugin name',
+      'Select "Remove from saved plugins"'
+    ]
+  },
+  { type: 'heading', text: 'Method 2: Uninstall from the Community Page', level: 'h3' },
+  {
+    type: 'orderedList',
+    items: [
+      'Go to the plugin\'s page on [Figma Community](https://www.figma.com/community/plugins)',
+      'Click the "Installed" button (it replaces the Install button after installation)',
+      'The plugin is removed from your saved list'
+    ]
+  },
+  { type: 'heading', text: 'Managing Your Plugin Library', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "As you discover more plugins, your saved list can grow quickly. Here are some tips to keep it manageable:"
+  },
+  {
+    type: 'image',
+    src: '/blog/install-uninstall-figma-plugin/figma-community.jpg',
+    alt: 'Creative workspace with design tools and color swatches',
+    caption: 'Keep your plugin library organized for faster access.'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      'Remove plugins you haven\'t used in months - you can always reinstall them later',
+      'Use the quick actions menu (Cmd/Ctrl + /) to search by name instead of scrolling through your list',
+      'Try plugins before saving them - use "Run" first to see if they fit your workflow',
+      'Check for plugin updates - developers frequently add features and fix bugs'
+    ]
+  },
+  { type: 'heading', text: 'Recommended Plugins to Get Started', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: 'Looking for plugins that actually save time? Here are a few from the BiblioKit suite designed for designers and design system maintainers:'
+  },
+  {
+    type: 'unorderedList',
+    items: [
+      '[RenameVariantsAI](/figma-ai-rename-variants) - Batch rename layers and variants with AI assistance',
+      '[ComponentQA](/figma-plugin-component-qa) - Audit your design system and find detached instances',
+      '[BiblioClean](/figma-plugin-remove-prototype-links) - Remove all prototype links in one click',
+      '[FixTable](/figma-plugin-fix-tables) - Normalize messy table structures to proper Auto Layout'
+    ]
+  },
+  {
+    type: 'paragraph',
+    text: 'Each plugin is free to try and built to solve real workflow headaches.'
+  },
+  { type: 'heading', text: 'Conclusion', level: 'h2' },
+  {
+    type: 'paragraph',
+    text: "Installing and uninstalling Figma plugins is straightforward once you know where to look. Start with a few essential plugins, try them out, and build a toolkit that matches your workflow. The right plugins can turn repetitive tasks into one-click actions."
+  },
+  {
+    type: 'paragraph',
+    text: 'Ready to level up? Check out [The Ultimate Figma Plugin Stack](/blog/ultimate-figma-plugin-stack) for a curated list of 8 plugins that save designers hours every week.'
+  }
+];
+
+const installUninstallFigmaPluginFaqs: BlogFAQ[] = [
+  {
+    question: 'Are Figma plugins free to use?',
+    answer:
+      'Many Figma plugins are free. Some offer premium features or require a subscription. You can always check the plugin\'s Community page for pricing details before installing.'
+  },
+  {
+    question: 'Do Figma plugins work on the free plan?',
+    answer:
+      'Yes, Figma plugins work on all plans including the free Starter plan. Plugin availability is not restricted by your Figma subscription tier.'
+  },
+  {
+    question: 'Can I use Figma plugins in FigJam?',
+    answer:
+      'FigJam has its own set of plugins (called widgets and plugins) separate from Figma design plugins. Some developers create versions for both, but they are not automatically cross-compatible.'
+  },
+  {
+    question: 'How do I update a Figma plugin?',
+    answer:
+      'Figma plugins update automatically. When a developer publishes a new version, you\'ll get it the next time you run the plugin. There\'s no manual update process required.'
+  }
+];
+
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'what-is-design-ops-complete-guide',
@@ -2238,6 +2412,22 @@ export const BLOG_POSTS: BlogPost[] = [
     twitterTitle: 'Design Systems: Clarity & Governance in Figma #DesignSystems',
     content: designSystemGuidelinesContent,
     faqs: designSystemGuidelinesFaqs
+  },
+  {
+    slug: 'install-uninstall-figma-plugin',
+    title: "How to Install and Uninstall a Figma Plugin: A Beginner's Guide",
+    category: 'Figma Plugins',
+    readingTime: '4 min read',
+    excerpt:
+      'Learn how to install, run, and uninstall Figma plugins with this step-by-step beginner guide.',
+    heroImage: buildHeroImagePath('install-uninstall-figma-plugin/hero.jpg'),
+    heroImageAlt: 'Designer workspace with UX design tools and wireframes',
+    lastUpdated: '2026-01-21',
+    metaTitle: 'How to Install and Uninstall Figma Plugins (2026)',
+    metaDescription:
+      'Learn how to install and uninstall Figma plugins in minutes. Step-by-step guide for beginners.',
+    content: installUninstallFigmaPluginContent,
+    faqs: installUninstallFigmaPluginFaqs
   }
 ];
 

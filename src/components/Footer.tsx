@@ -27,6 +27,7 @@ const company = [
 
 const learn = [
   { name: 'Learn', href: '/learn' },
+  { name: 'Tutorials', href: '/tutorials' },
   { name: 'Design Ops Fundamentals', href: '/learn/design-ops-fundamentals' },
 ];
 

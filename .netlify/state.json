@@ -12,11 +12,11 @@
 				"name": "New York"
 			},
 			"timezone": "America/New_York",
-			"latitude": 43.1394,
-			"longitude": -77.6463,
-			"postalCode": "14619"
+			"latitude": 43.1311,
+			"longitude": -77.6053,
+			"postalCode": "14620"
 		},
-		"timestamp": 1759932086909
+		"timestamp": 1768392809463
 	},
 	"siteId": "c51412af-76f0-480f-8948-20fd895d61ed",
 	"liveTunnelSlug": "8fa95274"

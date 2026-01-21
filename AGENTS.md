@@ -42,6 +42,7 @@
 - In blog posts, hyperlink plugin names to their official Figma Community listings (e.g., `[ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check)`).
 - Avoid bare Figma plugin ID URLs; always use the full listing slug (e.g., `https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check`).
 - Blog posts should render H2s larger than H3s to keep heading hierarchy visually distinct.
+- Blog post content must use Markdown-style links `[text](url)` instead of raw HTML `<a>` tags; the `renderTextWithLinks` function only parses Markdown links.
 - Blog posts typically do not include FAQs; do not add FAQ sections unless explicitly requested.
 - FAQs across the site should use the pink numbered bubble on the left for consistent styling.
 - Search Console sitemap submit (BiblioKit): use service account `search-console-submitter@bibliokit.iam.gserviceaccount.com` with key at `/tmp/search-console-submitter-key.json` (create if missing), scope `https://www.googleapis.com/auth/webmasters`, and submit `https://www.bibliokit.com/sitemap.xml` to `sc-domain:bibliokit.com` via the Search Console API.

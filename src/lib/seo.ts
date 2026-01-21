@@ -492,6 +492,17 @@ export const routeMetadata: RouteMetadata = {
     twitterDescription: 'Evergreen Design Ops Fundamentals guide for designers, developers, and marketers to align design systems, handoff, implementation, launch, and campaigns.',
     twitterImage: '/og/og-default.svg'
   },
+  '/tutorials': {
+    title: 'Figma Tutorials | BiblioKit',
+    description: 'Step-by-step Figma tutorials for designers and developers. Learn auto-layout, fix detached instances, clean prototype links, and master design system workflows.',
+    keywords: 'Figma tutorials, Figma how-to, auto-layout tutorial, detached instances fix, design system tutorials, Figma workflow',
+    ogTitle: 'Figma Tutorials | BiblioKit',
+    ogDescription: 'Step-by-step Figma tutorials for designers and developers. Learn auto-layout, fix detached instances, clean prototype links, and master design system workflows.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'Figma Tutorials | BiblioKit',
+    twitterDescription: 'Step-by-step Figma tutorials for designers and developers. Learn auto-layout, fix detached instances, and master design system workflows.',
+    twitterImage: '/og/og-default.svg'
+  },
   '/products': {
     title: 'Figma Plugins to Ship Faster | BiblioKit Products',
     description: 'Explore every BiblioKit plugin to audit, rename, clean, and launch faster. Built for designers, developers, and marketers.',

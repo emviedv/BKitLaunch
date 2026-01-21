@@ -216,6 +216,13 @@ export const buildSitemapXml = (baseUrl: string): string => {
       images: [{ loc: `${base}/og/og-default.svg`, title: 'Design Ops Fundamentals' }]
     },
     {
+      path: '/tutorials',
+      lastmod: defaultLastmod,
+      changefreq: 'weekly',
+      priority: '0.6',
+      images: [{ loc: `${base}/og/og-default.svg`, title: 'Figma Tutorials' }]
+    },
+    {
       path: '/resources/remove-prototype-link',
       lastmod: defaultLastmod,
       changefreq: 'monthly',

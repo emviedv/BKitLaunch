@@ -28,6 +28,7 @@ import AboutPage from './components/AboutPage';
 import ProductsPage from './components/ProductsPage';
 import LearnPage from './components/LearnPage';
 import DesignOpsFundamentalsPage from './components/DesignOpsFundamentalsPage';
+import TutorialsPage from './components/TutorialsPage';
 import ScaleResizerPage from './components/ScaleResizerPage';
 
 // Context & Hooks
@@ -52,6 +53,7 @@ const SIMILAR_PATHS = [
   ROUTE_PATHS.BIBLIO_ORGANIZE,
   ROUTE_PATHS.UXBIBLIO,
   ROUTE_PATHS.LEARN,
+  ROUTE_PATHS.TUTORIALS,
   ROUTE_PATHS.SCALE_RESIZER,
 ];
 
@@ -208,6 +210,7 @@ const AppContent: React.FC = () => {
           <Route path={ROUTE_PATHS.BLOG} component={BlogPage} />
           <Route path={ROUTE_PATHS.LEARN_DESIGN_OPS_FUNDAMENTALS} component={DesignOpsFundamentalsPage} />
           <Route path={ROUTE_PATHS.LEARN} component={LearnPage} />
+          <Route path={ROUTE_PATHS.TUTORIALS} component={TutorialsPage} />
           <Route path={ROUTE_PATHS.RESOURCES} component={ResourcesPage} />
           <Route path={ROUTE_PATHS.REMOVE_PROTOTYPE_LINK} component={RemovePrototypeLinkPage} />
           <Route>
