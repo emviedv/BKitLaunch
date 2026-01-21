@@ -80,7 +80,7 @@ const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: s
             : 'text-xl sm:text-2xl';
       return (
         <HeadingTag key={key} className={`${headingSizeClasses} font-semibold text-white`}>
-          {block.text}
+          {renderTextWithLinks(block.text)}
         </HeadingTag>
       );
     }

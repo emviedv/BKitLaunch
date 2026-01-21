@@ -5,6 +5,7 @@ export type ImageDimensions = {
 
 const IMAGE_DIMENSIONS: Record<string, ImageDimensions> = {
   '/blog/auto-layout-wrap/auto-layout-wrap-hero.png': { width: 1024, height: 1024 },
+  '/blog/best-figma-plugins-organize-design-files-2026/hero.png': { width: 1024, height: 1024 },
   '/blog/complete-guide-design-systems-figma-2026/hero-design-systems-figma-2026.png': {
     width: 1024,
     height: 1024,

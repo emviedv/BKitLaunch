@@ -2,6 +2,12 @@
 
 ## 2026-01-21
 
+- **Time:** 2026-01-21 11:24 EST
+- **Summary:** Added the “Stop the Chaos” blog post with hero art and kept heading links clickable in the article body.
+- **Root Cause:** New Google Doc post needed publishing, and heading text previously did not render Markdown links.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md; src/data/blogPosts.ts; src/components/BlogArticlePage.tsx; src/lib/imageDimensions.ts; public/blog/best-figma-plugins-organize-design-files-2026/hero.png
+- **Verification:** Not run (content update only).
+
 - **Time:** 2026-01-21 05:30 EST
 - **Summary:** Sorted Blog and Learn hub lists by newest `lastUpdated` so fresh posts lead the feed.
 - **Root Cause:** Blog used the `BLOG_POSTS` array order and Learn hubs used fixed slug arrays without date sorting.
