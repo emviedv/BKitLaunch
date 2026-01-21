@@ -1,5 +1,13 @@
 # Live Debug Log — 2026-01
 
+## 2026-01-21
+
+- **Time:** 2026-01-21 (SEO fix)
+- **Summary:** Added `offers` field to SoftwareApplication schemas; added missing SEO metadata for ScaleResizer page to fix duplicate title tag issue.
+- **Root Cause:** (1) SoftwareApplication schemas missing required `offers` field; (2) `/figma-marketing-resizer-plugin` had no SEO entry, falling back to homepage title.
+- **Changed Files:** src/lib/seo.ts, src/lib/useSchema.ts
+- **Verification:** Build passes. Deploy to production and re-validate in Search Console.
+
 ## 2026-01-13
 
 - **Time:** 2026-01-13 08:08 EST

@@ -39,7 +39,7 @@ const ScaleResizerPage = () => {
   useEffect(() => {
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'https://www.bibliokit.com';
     const metadata = generateMetadata(ROUTE_PATHS.SCALE_RESIZER, content, baseUrl);
-    metadata.title = 'ScaleResizer: AI-Powered Figma Marketing Frame Resizer | 6 Format Variants';
+    metadata.title = 'AI-Powered Marketing Frame Resizer | ScaleResizer';
     metadata.description = 'Transform marketing frames into 6 format variants (YouTube, TikTok, social, web banners, Gumroad) with AI-powered layout optimization. 25+ min to <30 sec.';
     updatePageMetadata(metadata);
   }, [content]);

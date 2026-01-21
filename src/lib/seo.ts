@@ -242,6 +242,11 @@ const PLUGIN_SOFTWARE_APPLICATIONS: Record<string, { name: string; image: string
     image: '/media/OrganizeFile.png',
     description: 'OrganizeFile scaffolds Figma files for designers, developers, and marketers. One-click blueprints create covers, README cards, and page hierarchies in seconds.',
   },
+  '/figma-marketing-resizer-plugin': {
+    name: 'ScaleResizer',
+    image: '/media/ScaleResizer.png',
+    description: 'ScaleResizer transforms marketing frames into 17 format variants with AI-powered layout optimization. From 2 hours to under 30 sec.',
+  },
 };
 
 const buildPluginSoftwareApplicationSchema = (
@@ -266,6 +271,13 @@ const buildPluginSoftwareApplicationSchema = (
     url,
     image,
     publisher: { '@id': `${baseUrl}#organization` },
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      url,
+    },
   });
 };
 
@@ -311,13 +323,13 @@ const fixTableMetadata: SEOMetadata = {
 };
 
 const biblioAuditMetadata: SEOMetadata = {
-  title: 'Figma Design Audit Plugin & QA Tool - ComponentQA',
+  title: 'Figma Design Audit Plugin & QA Tool | ComponentQA',
   description: 'Automate Figma QA and Design System Audits. Instantly find detached instances, validate token usage, and fix design drift before developer handoff.',
   keywords: 'ComponentQA, design system audit, figma qa, detached instances, token validation, figma plugin, design ops',
-  ogTitle: 'Figma Design Audit Plugin & QA Tool - ComponentQA',
+  ogTitle: 'Figma Design Audit Plugin & QA Tool | ComponentQA',
   ogDescription: 'Automate Figma QA and Design System Audits. Instantly find detached instances, validate token usage, and fix design drift before developer handoff.',
   ogImage: '/og/og-default.svg',
-  twitterTitle: 'Figma Design Audit Plugin & QA Tool - ComponentQA',
+  twitterTitle: 'Figma Design Audit Plugin & QA Tool | ComponentQA',
   twitterDescription: 'Automate Figma QA and Design System Audits. Instantly find detached instances, validate token usage, and fix design drift before developer handoff.',
   twitterImage: '/og/og-default.svg'
 };
@@ -481,18 +493,18 @@ export const routeMetadata: RouteMetadata = {
     twitterImage: '/og/og-default.svg'
   },
   '/products': {
-    title: 'BiblioKit Products: Figma Plugins to Ship Faster',
+    title: 'Figma Plugins to Ship Faster | BiblioKit Products',
     description: 'Explore every BiblioKit plugin to audit, rename, clean, and launch faster. Built for designers, developers, and marketers.',
     keywords: 'BiblioKit products, Figma plugins, design ops automation, Figma audits, rename layers, prototype cleanup',
-    ogTitle: 'BiblioKit Products: Figma Plugins to Ship Faster',
+    ogTitle: 'Figma Plugins to Ship Faster | BiblioKit Products',
     ogDescription: 'Explore every BiblioKit plugin to audit, rename, clean, and launch faster. Built for designers, developers, and marketers.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit Products: Figma Plugins to Ship Faster',
+    twitterTitle: 'Figma Plugins to Ship Faster | BiblioKit Products',
     twitterDescription: 'Explore every BiblioKit plugin to audit, rename, clean, and launch faster. Built for designers, developers, and marketers.',
     twitterImage: '/og/og-default.svg'
   },
   '/admin': {
-    title: "BiblioKit Admin Dashboard - Content Management",
+    title: "Admin Dashboard | BiblioKit",
     description: "Manage your BiblioKit content, settings, and configurations through the admin dashboard.",
     keywords: "BiblioKit admin, content management, dashboard, CMS",
     ogTitle: "BiblioKit Admin Dashboard",
@@ -500,13 +512,13 @@ export const routeMetadata: RouteMetadata = {
     ogType: "website"
   },
   '/resources/remove-prototype-link': {
-    title: 'BiblioKit: Remove Figma Prototype Links for Better Design',
+    title: 'Remove Figma Prototype Links | BiblioKit Resources',
     description: 'BiblioKit helps designers, developers, and marketers revoke stale prototype links. Follow the cleanup steps to replace URLs and keep reviews on track.',
     keywords: 'remove prototype link, figma prototype cleanup, revoke share links, design ops hygiene, prototype handoff',
-    ogTitle: 'BiblioKit: Remove Figma Prototype Links for Better Design',
+    ogTitle: 'Remove Figma Prototype Links | BiblioKit Resources',
     ogDescription: 'BiblioKit helps designers, developers, and marketers revoke stale prototype links. Follow the cleanup steps to replace URLs and keep reviews on track.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit: Remove Figma Prototype Links for Better Design',
+    twitterTitle: 'Remove Figma Prototype Links | BiblioKit Resources',
     twitterDescription: 'BiblioKit helps designers, developers, and marketers revoke stale prototype links. Follow the cleanup steps to replace URLs and keep reviews on track.',
     twitterImage: '/og/og-default.svg',
     structuredData: [
@@ -551,26 +563,37 @@ export const routeMetadata: RouteMetadata = {
     twitterDescription: 'Stop setting up Figma files manually. Generate standardized project scaffolding, cover pages, and section templates instantly with OrganizeFile.',
     twitterImage: '/media/OrganizeFile.png'
   },
+  '/figma-marketing-resizer-plugin': {
+    title: 'ScaleResizer | AI-Powered Marketing Frame Resizer for Figma',
+    description: 'Transform marketing frames into 17 format variants with AI-powered layout optimization. YouTube, TikTok, social, web banners in under 30 seconds.',
+    keywords: 'ScaleResizer, Figma resizer, marketing frames, ad resizer, social media formats, YouTube thumbnail, TikTok, batch resize',
+    ogTitle: 'ScaleResizer | AI-Powered Marketing Frame Resizer for Figma',
+    ogDescription: 'Transform marketing frames into 17 format variants with AI-powered layout optimization. YouTube, TikTok, social, web banners in under 30 seconds.',
+    ogImage: '/media/ScaleResizer.png',
+    twitterTitle: 'ScaleResizer | AI-Powered Marketing Frame Resizer for Figma',
+    twitterDescription: 'Transform marketing frames into 17 format variants with AI-powered layout optimization. YouTube, TikTok, social, web banners in under 30 seconds.',
+    twitterImage: '/media/ScaleResizer.png'
+  },
   '/ai-rename-variants': aiRenameVariantsMetadata,
   '/uxbiblio': {
-    title: 'UXBiblio: AI UX Patterns by BiblioKit - Discover & Organize',
+    title: 'UXBiblio | AI UX Patterns by BiblioKit',
     description: 'UXBiblio organizes UX patterns for designers, developers, and marketers. Capture flows, tag insights, and reuse proven UI faster.',
     keywords: 'UXBiblio, UX pattern library, design inspiration, AI tagging, UX research repository',
-    ogTitle: 'UXBiblio: AI UX Patterns by BiblioKit - Discover & Organize',
+    ogTitle: 'UXBiblio | AI UX Patterns by BiblioKit',
     ogDescription: 'UXBiblio organizes UX patterns for designers, developers, and marketers. Capture flows, tag insights, and reuse proven UI faster.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'UXBiblio: AI UX Patterns by BiblioKit - Discover & Organize',
+    twitterTitle: 'UXBiblio | AI UX Patterns by BiblioKit',
     twitterDescription: 'UXBiblio organizes UX patterns for designers, developers, and marketers. Capture flows, tag insights, and reuse proven UI faster.',
     twitterImage: '/og/og-default.svg'
   },
   '/blog': {
-    title: 'BiblioKit Blog: Design Tips and Figma Workflows for 2026',
+    title: 'Design Tips & Figma Workflows | BiblioKit Blog',
     description: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
     keywords: 'design ops blog, figma workflow tips, prototype cleanup, design system rituals, bibliokit blog, real-world figma fixes',
-    ogTitle: 'BiblioKit Blog: Design Tips and Figma Workflows for 2026',
+    ogTitle: 'Design Tips & Figma Workflows | BiblioKit Blog',
     ogDescription: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
     ogImage: '/og/og-default.svg',
-    twitterTitle: 'BiblioKit Blog: Design Tips and Figma Workflows for 2026',
+    twitterTitle: 'Design Tips & Figma Workflows | BiblioKit Blog',
     twitterDescription: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
     twitterImage: '/og/og-default.svg'
   }

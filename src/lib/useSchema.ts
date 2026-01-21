@@ -57,7 +57,13 @@ export const createProductSchema = (productData: any) => {
       '@type': 'Organization',
       name: 'BiblioKit'
     },
-    featureList: productData.details?.map((detail: any) => detail.title) || []
+    featureList: productData.details?.map((detail: any) => detail.title) || [],
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock'
+    }
   };
 };
 
