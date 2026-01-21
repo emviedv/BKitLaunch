@@ -2,6 +2,12 @@
 
 ## 2026-01-21
 
+- **Time:** 2026-01-21 05:30 EST
+- **Summary:** Sorted Tutorials hub posts by newest `lastUpdated` so fresh guides appear first.
+- **Root Cause:** Tutorials hub used a fixed slug order, so new posts could render last.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md; src/components/TutorialsPage.tsx
+- **Verification:** Not run (ordering update only).
+
 - **Time:** 2026-01-21 (SEO fix)
 - **Summary:** Added `offers` field to SoftwareApplication schemas; added missing SEO metadata for ScaleResizer page to fix duplicate title tag issue.
 - **Root Cause:** (1) SoftwareApplication schemas missing required `offers` field; (2) `/figma-marketing-resizer-plugin` had no SEO entry, falling back to homepage title.

@@ -22,9 +22,18 @@ const blogCardHoverClass =
   'transform-gpu transition duration-200 hover:-translate-y-1 hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
 
 const TutorialsPage: React.FC = () => {
+  const getPostTimestamp = (post: BlogPost) => {
+    if (!post.lastUpdated) {
+      return 0;
+    }
+    const parsed = Date.parse(post.lastUpdated);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  };
+
   const tutorialPosts = TUTORIAL_POST_SLUGS
     .map((slug) => findBlogPostBySlug(slug))
-    .filter((post): post is BlogPost => Boolean(post));
+    .filter((post): post is BlogPost => Boolean(post))
+    .sort((a, b) => getPostTimestamp(b) - getPostTimestamp(a));
 
   const featuredPost = tutorialPosts[0];
   const remainingPosts = tutorialPosts.slice(1);

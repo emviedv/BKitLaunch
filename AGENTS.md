@@ -32,6 +32,7 @@
 - When padding, gaps, or similar layout styling is applied to one product page’s features section, mirror those adjustments across all product pages—but confirm the approach with Emily before rolling it out globally.
 - Pillar and hub pages should match the Learn page spacing format for the first content section (e.g., use `section-content pb-20 mt-8`).
 - Pillar and hub page sections should include a "See All" link under the title/description, matching the Learn page format.
+- Hub pages should show the newest blog posts first, sorting by `lastUpdated` (e.g., Tutorials).
 - HTML classes and IDs must be specific to the surface they belong to—no generic names like `button` or `section`. Prefer `ai-rename-hero-cta` over `cta` so styles stay scoped and readable.
 - Bridge is an internal tool; avoid referencing it in customer-facing copy unless explicitly approved.
 - Operational reminder: periodically pull waitlist signups locally with `npm run email:waitlist` (uses `DATABASE_URL` or .env/.env.local) to review beta interest.
