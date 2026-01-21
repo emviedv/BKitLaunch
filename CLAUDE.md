@@ -4,144 +4,91 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-### Core Development
-- `npm run dev` - Start development server on port 5176
-- `npm run build` - Build TypeScript and Vite for production
-- `npm run preview` - Preview production build on port 5176
-- `npm run serve` - Serve production build on port 5176
+```bash
+# Core Development
+npm run dev              # Start dev server (port 9990)
+npm run build            # Build for production (client + server SSR)
+npm run preview          # Preview production build
 
-### Netlify Commands
-- `npm run netlify:dev` - Start Netlify dev server (includes functions)
-- `npm run netlify:build` - Build using Netlify's build process
+# Testing
+npm run test:unit        # Run Jest unit tests
+npm run test:e2e         # Run Playwright e2e tests
 
-### Development Monitoring (from .cursorrules)
-- `./scripts/dev-monitor.sh status` - Check development server status
-- `./scripts/dev-monitor.sh monitor` - Monitor live development
-- `./scripts/dev-monitor.sh restart` - Restart development server
+# Netlify
+npm run netlify:dev      # Start Netlify dev server with functions
+npx netlify-cli deploy --prod --dir=dist/client  # Deploy to production
+
+# Utilities
+npm run email:waitlist   # Pull waitlist signups from database
+```
 
 ## Architecture Overview
 
-### Tech Stack
-- **Frontend**: React 18 + TypeScript + Vite
-- **Styling**: TailwindCSS (no CSS or style tags allowed per rules)
-- **Routing**: Wouter for client-side routing
-- **Backend**: Netlify Functions (serverless)
-- **Database**: PostgreSQL via `pg` package
-- **Deployment**: Netlify
+**Stack**: React 18 + TypeScript + Vite + TailwindCSS + Wouter (routing) + Netlify Functions + PostgreSQL
 
-### Project Structure
-```
-src/
-├── components/           # React components (organized by feature)
-│   ├── ContentEditor/   # Content editing components
-│   └── [Various UI components]
-├── contexts/            # React contexts (AuthContext)
-├── data/               # Static data (products.json)
-├── hooks/              # Custom React hooks
-├── lib/                # Utilities and API clients
-│   ├── contentApi.ts   # Main API client for content management
-│   ├── database.ts     # Database types and API client
-│   ├── debugService.ts # Debug utilities
-│   └── utils.ts        # General utilities
-└── main.tsx            # Entry point
+### Key Directories
+- `src/components/` - React components (product pages like `ComponentQAPage.tsx`, `FixTablePage.tsx`)
+- `src/data/` - Static data (`products.json`, `blogPosts.ts`, `pageFaqs.ts`)
+- `src/lib/` - Utilities (`seo.ts`, `contentApi.ts`, `database.ts`)
+- `netlify/functions/` - Serverless API endpoints
+- `netlify/edge-functions/` - Edge functions (bot detection for SEO)
 
-netlify/
-├── functions/          # Serverless functions
-└── edge-functions/     # Edge functions (bot detection)
-```
+### Content System
+- **Dual storage**: JSON files + PostgreSQL database with localStorage fallback
+- **Versioning**: Content has draft/published states
+- **Admin interface**: `/admin` route for content editing
+- **SEO metadata**: Defined in `src/lib/seo.ts` with structured data schemas
 
-### Key Architecture Patterns
+### Product Pages Pattern
+Product pages follow this structure: Hero → Problem Agitation → Quick Proof → How It Works (3 steps) → Features (alternating layout) → Use Cases → CTA → FAQ → Final CTA. Use dedicated page components (e.g., `BiblioCleanPage.tsx`) rather than dynamic routing.
 
-#### Content Management System
-- **Dual Storage**: Content stored both as JSON (localStorage fallback) and in PostgreSQL database
-- **Versioning**: Content has draft/published states with full version history
-- **Sync System**: JSON content can be synced to structured database tables
-- **Admin Interface**: Built-in content editor accessible via edit button (✏️) or `/admin` route
-
-#### API Architecture
-- **Serverless Functions**: All backend logic in `netlify/functions/`
-- **CORS Handling**: All functions include proper CORS headers
-- **Authentication**: Token-based auth stored in localStorage
-- **Error Handling**: Standard API response format: `{ success, data?, error?, message? }`
-
-#### Database Design
-- **Content Sections**: Modular content stored by section type (hero, features, pricing, etc.)
-- **Features & Pricing**: Nested structures for complex content types
-- **Users Table**: For waitlist and user management
-- **Connection Pooling**: Required for PostgreSQL connections
-
-## Development Guidelines
-
-### Code Quality (from .cursor/rules)
-- **TypeScript everywhere** - All variables, props, parameters must have explicit types
-- **Functional components only** - No class components
-- **Named exports preferred** (except for main components)
-- **Early returns** to avoid deep nesting
-- **DRY principle** - Extract repeated logic into hooks/utilities
-
-### Styling Rules
-- **TailwindCSS only** - No CSS files or style tags
-- Use `clsx` for conditional classes
-- Semantic, accessible HTML required
-- Consistent design system adherence
-
-### Security Requirements
-- **Environment variables only** for secrets (never hardcode)
-- **Parameterized queries** (`$1, $2`) - never string interpolation
-- **CORS headers** on all API endpoints
-- **Error sanitization** - never expose stack traces to clients
-
-### Content Management Workflow
-1. Content can be edited via admin interface (`/admin`) or JSON editor
-2. Changes can be saved as drafts or published immediately
-3. Database sync ensures content is available in structured format
-4. Fallback to localStorage when database unavailable
-
-## Testing & Deployment
-
-### Local Development
-- Development server runs on `http://localhost:5176`
-- Admin interface: `http://localhost:5176/admin`
-- Functions: `http://localhost:5176/.netlify/functions/[function-name]`
-- Screen session: `bibliokit-dev` for background monitoring
-
-### Database Environment
-- Uses `VITE_DATABASE_URL` for connection string
-- Additional config via `VITE_DB_*` environment variables
-- SSL required in production
+## Critical Rules
 
 ### Deployment
-- **Build Command**: `npm run build`
-- **Publish Directory**: `dist`
-- Netlify handles function deployment automatically
-- Environment variables must be configured in Netlify dashboard
+- **Publish directory is `dist/client`** (not `dist`) - missing this breaks asset loading
+- Verify the live site loads after every deployment (no blank screens)
 
-## Key Files to Know
+### SEO Requirements
+- Meta descriptions: unique per page, under 155 characters
+- Title format: `[Keyword] | [Brand]` - keyword first, under 60 chars
+- Every new page must be added to `src/lib/seo.ts` and sitemap
+- SoftwareApplication schema requires `image` and `operatingSystem`
+- Blog posts must be added to `src/data/blogPosts.ts` for sitemap inclusion
 
-- `src/lib/contentApi.ts` - Main API client with comprehensive CRUD operations
-- `src/lib/database.ts` - Database types and configuration
-- `src/App.tsx` - Main routing and layout logic
-- `src/components/ContentEditor.tsx` - Built-in content editing interface
-- `netlify/functions/content-management.ts` - Core content API backend
-- `.cursorrules` - Development standards and coding guidelines
+### Code Standards
+- **TailwindCSS only** - no CSS files or style tags
+- **TypeScript everywhere** - explicit types on all parameters
+- **Functional components only** - no class components
+- **Parameterized SQL queries** (`$1, $2`) - never string interpolation
+- HTML class names must be specific (e.g., `ai-rename-hero-cta` not `cta`)
 
-## Common Development Tasks
+### Content Voice
+- Target audience: designers, developers, and marketers
+- Voice: "Relatable Pro" - empathetic, conversational, names the pain
+- Action/benefit-driven copy (e.g., "Work x10,000 faster")
+- No em dashes in customer-facing copy
+- Plugin names in blog posts must hyperlink to Figma Community listings
 
-### Adding New Content Types
-1. Define TypeScript interfaces in `src/lib/database.ts`
-2. Add database migration for new tables
-3. Create CRUD functions in `netlify/functions/`
-4. Add frontend editing components in `src/components/ContentEditor/`
-5. Update API client in `src/lib/contentApi.ts`
+## Product Roster
 
-### API Development
-- All functions must handle OPTIONS preflight requests
-- Use `netlify/functions/utils.ts` for shared utilities
-- Follow the established error handling patterns
-- Include proper TypeScript types for request/response
+| Product | Description |
+|---------|-------------|
+| RenameVariantsAI | AI-assisted batch variant/property renamer |
+| ComponentQA | Design system audits, detached instance detection |
+| BiblioClean | Safely removes prototype links |
+| FixTable | Normalizes auto-layout table structures |
+| StateBuilder | Auto-generates interaction states |
+| OrganizeFile | File scaffolding and project setup |
 
-### Content Editing
-- Admin interface supports real-time preview
-- Content auto-saves to localStorage as backup
-- Database sync happens on publish
-- JSON editor provides direct content manipulation
+## Key Files
+
+- `src/App.tsx` - Main routing (uses Wouter)
+- `src/lib/seo.ts` - All SEO metadata and structured data
+- `src/data/products.json` - Product content and feature data
+- `src/data/blogPosts.ts` - Blog content (add new posts here)
+- `netlify/edge-functions/bot-detection.ts` - SSR for crawlers
+- `AGENTS.md` - Detailed business rules and coding guidelines
+
+## Debug Logging
+
+Every bug fix must be recorded in `docs/live-debug/LIVE_DEBUG_YYYY-MM.md` with: date/time, summary, root cause, changed files, and verification steps.
