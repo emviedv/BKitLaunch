@@ -102,6 +102,7 @@
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
 
 ## Updates
+- 2026-01-21 05:30 EST: Sorted hub pages to show newest blog posts first.
 - 2026-01-13 08:10 EST: Added SSR FAQ and breadcrumb schema output to improve Search Console detection.
 - 2026-01-06 EST: Added infrastructure edge-case rule after DNS changes broke email (missing MX records).
 - 2026-01-06 00:26 EST: Replaced the BiblioAudit problem-section screenshot with the structural health dashboard image.

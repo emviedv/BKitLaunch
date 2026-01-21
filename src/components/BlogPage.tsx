@@ -8,8 +8,19 @@ const blogCardHoverClass =
 const blogCtaButtonClass =
   'inline-flex items-center justify-center text-sm font-semibold text-[#ff2f87] underline underline-offset-4 transition duration-200 hover:text-[#e02074] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
 
+const getPostTimestamp = (lastUpdated?: string) => {
+  if (!lastUpdated) {
+    return 0;
+  }
+  const parsed = Date.parse(lastUpdated);
+  return Number.isNaN(parsed) ? 0 : parsed;
+};
+
 const BlogPage: React.FC = () => {
-  const featuredPost = BLOG_POSTS[0];
+  const sortedPosts = [...BLOG_POSTS].sort(
+    (a, b) => getPostTimestamp(b.lastUpdated) - getPostTimestamp(a.lastUpdated)
+  );
+  const featuredPost = sortedPosts[0];
   const featuredImageDimensions = featuredPost?.heroImage
     ? getImageDimensions(featuredPost.heroImage)
     : null;
@@ -83,7 +94,7 @@ const BlogPage: React.FC = () => {
             <aside className="text-white space-y-4">
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-white/70">Recent articles</p>
               <div className="space-y-4">
-                {BLOG_POSTS.slice(1).map((post) => (
+                {sortedPosts.slice(1).map((post) => (
                   <a
                     key={`recent-${post.slug}`}
                     href={buildBlogPostHref(post.slug)}
@@ -111,7 +122,7 @@ const BlogPage: React.FC = () => {
             <p className="text-base leading-7 text-white/80">Workflow tips, state specs, accessibility checks, and system hygiene guides that teams can drop into real projects right now. Use them to clean files, align teams, and ship faster. Looking for checklists and templates? Check out our <a href="/resources" className="text-[#ff2f87] hover:underline">free resources</a>.</p>
           </div>
           <div className="mt-8 columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6">
-                {BLOG_POSTS.map((post) => {
+                {sortedPosts.map((post) => {
                   const href = buildBlogPostHref(post.slug);
                   const previewDimensions = getImageDimensions(post.heroImage);
                   return (

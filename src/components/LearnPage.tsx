@@ -11,10 +11,21 @@ const DESIGN_OPS_POST_SLUGS = [
   'mastering-design-system-guidelines',
 ];
 
+const getPostTimestamp = (post: BlogPost) => {
+  if (!post.lastUpdated) {
+    return 0;
+  }
+  const parsed = Date.parse(post.lastUpdated);
+  return Number.isNaN(parsed) ? 0 : parsed;
+};
+
 const LearnPage: React.FC = () => {
   const designOpsPosts = DESIGN_OPS_POST_SLUGS
     .map((slug) => findBlogPostBySlug(slug))
     .filter((post): post is BlogPost => Boolean(post));
+  const sortedDesignOpsPosts = [...designOpsPosts].sort(
+    (a, b) => getPostTimestamp(b) - getPostTimestamp(a)
+  );
 
   return (
     <div className="landing-sections-gradient text-white min-h-screen">
@@ -49,7 +60,7 @@ const LearnPage: React.FC = () => {
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 !mt-8">
-              {designOpsPosts.slice(0, 3).map((post) => {
+              {sortedDesignOpsPosts.slice(0, 3).map((post) => {
                 const imageDimensions = getImageDimensions(post.heroImage);
                 return (
                 <a

@@ -3,6 +3,18 @@
 ## 2026-01-21
 
 - **Time:** 2026-01-21 05:30 EST
+- **Summary:** Sorted Blog and Learn hub lists by newest `lastUpdated` so fresh posts lead the feed.
+- **Root Cause:** Blog used the `BLOG_POSTS` array order and Learn hubs used fixed slug arrays without date sorting.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md; src/components/BlogPage.tsx; src/components/LearnPage.tsx; src/components/DesignOpsFundamentalsPage.tsx
+- **Verification:** Not run (ordering update only).
+
+- **Time:** 2026-01-21 05:28 EST
+- **Summary:** Found blog and Learn hub lists aren’t sorted by newest `lastUpdated`, so fresh posts can appear later in the feed.
+- **Root Cause:** Blog uses `BLOG_POSTS` array order, and Learn/Design Ops hubs use fixed slug arrays without date sorting.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md
+- **Verification:** Reviewed `src/components/BlogPage.tsx`, `src/components/LearnPage.tsx`, `src/components/DesignOpsFundamentalsPage.tsx`, and `src/data/blogPosts.ts` ordering.
+
+- **Time:** 2026-01-21 05:30 EST
 - **Summary:** Sorted Tutorials hub posts by newest `lastUpdated` so fresh guides appear first.
 - **Root Cause:** Tutorials hub used a fixed slug order, so new posts could render last.
 - **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md; src/components/TutorialsPage.tsx
