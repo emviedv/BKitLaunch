@@ -39,6 +39,7 @@
 - Keep React bundled with its vendor dependencies—do not isolate React (or scheduler) into a separate manual chunk, as circular imports can break hooks (`useState` undefined).
 - After any change and deployment, explicitly verify the live production site loads (no blank/black screens) before handing off.
 - When making infrastructure changes (DNS, hosting, domain config), always check for dependent services that could break (e.g., email MX records, SPF/DKIM/DMARC, third-party integrations). DNS changes for websites can silently break email delivery if MX records are missing or overwritten.
+- Preserve Google Search Console verification TXT records during DNS changes, and re-check them after updates (e.g., `dig TXT bibliokit.com +short` should still return the `google-site-verification=...` value).
 - When linking to live Figma Community assets, grab the official URLs from https://www.figma.com/@bibliokit (use product-specific plugin/file links, not generic waits or betas).
 - In blog posts, hyperlink plugin names to their official Figma Community listings (e.g., `[ComponentQA](https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check)`).
 - Avoid bare Figma plugin ID URLs; always use the full listing slug (e.g., `https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check`).

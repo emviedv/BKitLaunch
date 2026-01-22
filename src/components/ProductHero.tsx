@@ -177,11 +177,6 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                   <span>{badgeLabel}</span>
                 </span>
               )}
-              {product.lastUpdated && (
-                <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/80">
-                  Updated {product.lastUpdated}
-                </span>
-              )}
               {headlineSegments.length > 0 ? (
                 <h1 className={cn(HERO_TITLE_CLASS, 'pb-3')} id={resolvedHeadingId}>
                   {headlineSegments.map((segment) => {

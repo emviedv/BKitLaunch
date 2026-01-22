@@ -43,7 +43,6 @@ const workflowSteps: Highlight[] = [
 ];
 
 const RemovePrototypeLinkPage: React.FC = () => {
-  const updatedDate = '2026-01-07';
   const hero: LandingHeroContent = {
     badgeLabel: 'Resource',
     title: 'BiblioKit: Effortlessly Audit and Revoke Stale Figma Prototype Links',
@@ -59,11 +58,6 @@ const RemovePrototypeLinkPage: React.FC = () => {
   return (
     <div className="bg-gradient-to-b from-white via-slate-50 to-slate-100/60 text-foreground">
       <LandingHero hero={hero} titleClampLines={6} />
-      <div className="section-content pb-4 pt-2">
-        <span className="inline-flex items-center rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600 shadow-sm">
-          Updated {updatedDate}
-        </span>
-      </div>
 
       <section id="prototype-cleanup" className="section-content pb-16 pt-10">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">

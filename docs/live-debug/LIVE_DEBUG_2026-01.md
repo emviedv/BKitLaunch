@@ -1,5 +1,25 @@
 # Live Debug Log — 2026-01
 
+## 2026-01-22
+
+- **Time:** 2026-01-22 05:50 EST
+- **Summary:** Restored Google Search Console domain verification by adding the missing TXT record to Netlify DNS for bibliokit.com.
+- **Root Cause:** The `google-site-verification` TXT record was removed, leaving only SPF/DMARC TXT entries, so GSC could no longer verify the domain.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md; Netlify DNS zone `bibliokit.com`
+- **Verification:** `netlify api getDnsRecords` shows TXT record `google-site-verification=uFHaAsAFus7W7xsYYteeBcvTMU5ek3KYqfQ-UQ9moq0` for bibliokit.com.
+
+- **Time:** 2026-01-22 00:11 EST
+- **Summary:** Noted evergreen landing pages were showing updated dates in search snippets.
+- **Root Cause:** Product landing UI rendered an "Updated" badge, giving search engines a byline date on non-blog pages.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md
+- **Verification:** Reviewed `src/components/ProductHero.tsx` and `src/components/RemovePrototypeLinkPage.tsx` for date badges.
+
+- **Time:** 2026-01-22 00:18 EST
+- **Summary:** Removed updated date badges from evergreen product/resource landing pages.
+- **Root Cause:** Product and resource heroes surfaced dates intended for blog/guide posts only.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md; src/components/ProductHero.tsx; src/components/RemovePrototypeLinkPage.tsx
+- **Verification:** Not run (UI copy-only removal).
+
 ## 2026-01-21
 
 - **Time:** 2026-01-21 11:24 EST
