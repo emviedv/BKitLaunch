@@ -2,6 +2,12 @@
 
 ## 2026-01-22
 
+- **Time:** 2026-01-22 06:15 EST
+- **Summary:** Added trailing-slash redirects in the SSR edge function to enforce non-trailing canonical URLs for blog/resources pages.
+- **Root Cause:** `/blog/` and `/resources/` returned 200 alongside `/blog` and `/resources`, creating duplicate canonical warnings in Search Console.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md; netlify/edge-functions/ssr.ts
+- **Verification:** `curl -I https://bibliokit.com/blog/` and `/resources/` now return 301 to the non-trailing URLs after deploy.
+
 - **Time:** 2026-01-22 05:50 EST
 - **Summary:** Restored Google Search Console domain verification by adding the missing TXT record to Netlify DNS for bibliokit.com.
 - **Root Cause:** The `google-site-verification` TXT record was removed, leaving only SPF/DMARC TXT entries, so GSC could no longer verify the domain.

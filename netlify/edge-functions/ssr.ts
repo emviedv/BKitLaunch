@@ -266,9 +266,11 @@ export default async (request: Request, context: Context) => {
     redirectUrl.search = url.search;
     return Response.redirect(redirectUrl.toString(), 301);
   }
-  
-  // Skip SSR for API routes, admin assets, dev/Vite assets, and static files
-  if (
+
+  const isStaticAsset = Boolean(
+    url.pathname.match(/\.(png|jpg|jpeg|gif|svg|webp|webm|mp4|ico|json|xml|txt|css|js|woff|woff2|ttf|eot)$/i)
+  );
+  const shouldBypassSsr = (
     url.pathname.startsWith('/.netlify/') ||
     url.pathname.startsWith('/api/') ||
     url.pathname.startsWith('/admin') ||
@@ -278,9 +280,17 @@ export default async (request: Request, context: Context) => {
     url.pathname.startsWith('/assets/') ||
     url.pathname.endsWith('/robots.txt') ||
     url.pathname.endsWith('/sitemap.xml') ||
-    // Regex for common static asset extensions to ensure they bypass SSR even if excludedPath fails
-    url.pathname.match(/\.(png|jpg|jpeg|gif|svg|webp|webm|mp4|ico|json|xml|txt|css|js|woff|woff2|ttf|eot)$/i)
-  ) {
+    isStaticAsset
+  );
+  const hasTrailingSlash = url.pathname.length > 1 && url.pathname.endsWith('/');
+  if (hasTrailingSlash && normalizedPath !== url.pathname && !shouldBypassSsr) {
+    const redirectUrl = new URL(normalizedPath, url.origin);
+    redirectUrl.search = url.search;
+    return Response.redirect(redirectUrl.toString(), 301);
+  }
+  
+  // Skip SSR for API routes, admin assets, dev/Vite assets, and static files
+  if (shouldBypassSsr) {
     return context.next();
   }
   
