@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { ShieldCheck, Zap, Sparkles } from "lucide-react";
 
 import { usePublishedContent } from "@/hooks/usePublishedContent";
 import { resolveLucideIcon } from "@/lib/iconUtils";
@@ -147,6 +148,22 @@ const Features: React.FC = () => {
           )}
           {featuresSection?.description && (
             <p className="landing-features-description section-description">{featuresSection.description}</p>
+          )}
+          {featuresSection?.description && (
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-[#6580E1]" />
+                Data stays in Figma
+              </span>
+              <span className="flex items-center gap-2">
+                <Zap className="h-4 w-4 text-[#6580E1]" />
+                Results in seconds
+              </span>
+              <span className="flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-[#6580E1]" />
+                No signup required
+              </span>
+            </div>
           )}
         </div>
 

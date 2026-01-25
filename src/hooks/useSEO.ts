@@ -8,6 +8,11 @@ type UseSEOOptions = {
 
 const resolveClientBaseUrl = (): string => {
   if (typeof window !== 'undefined' && window.location) {
+    const hostname = window.location.hostname.toLowerCase();
+    // Normalize to www for production canonical URLs
+    if (hostname === 'bibliokit.com') {
+      return 'https://www.bibliokit.com';
+    }
     return `${window.location.protocol}//${window.location.host}`;
   }
   return 'https://www.bibliokit.com';

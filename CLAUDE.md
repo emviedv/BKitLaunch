@@ -42,6 +42,19 @@ npm run email:waitlist   # Pull waitlist signups from database
 ### Product Pages Pattern
 Product pages follow this structure: Hero → Problem Agitation → Quick Proof → How It Works (3 steps) → Features (alternating layout) → Use Cases → CTA → FAQ → Final CTA. Use dedicated page components (e.g., `BiblioCleanPage.tsx`) rather than dynamic routing.
 
+### Blog Posts
+- Links must use Markdown format `[text](url)` - the `renderTextWithLinks` function does NOT parse HTML `<a>` tags
+- Register image dimensions in `src/lib/imageDimensions.ts` to prevent CLS
+- Add new posts to `BLOG_POSTS` array in `src/data/blogPosts.ts`
+- For tutorials, also add slug to `TUTORIAL_POST_SLUGS` in `TutorialsPage.tsx`
+- First in-article image uses `loading="eager"`, rest use `lazy`
+
+### New Page Checklist
+1. Add route in `src/App.tsx`
+2. Add SEO metadata in `src/lib/seo.ts`
+3. Verify sitemap includes the path
+4. Register any images in `src/lib/imageDimensions.ts`
+
 ## Critical Rules
 
 ### Deployment

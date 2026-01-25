@@ -1,5 +1,13 @@
 # Live Debug Log — 2026-01
 
+## 2026-01-25
+
+- **Time:** 2026-01-25 (canonical URL fix)
+- **Summary:** Fixed canonical URL inconsistency where non-www URLs were being generated instead of www, causing Google to choose different canonical than user-declared.
+- **Root Cause:** Three separate URL resolution functions preserved the incoming host variant (www or non-www) instead of normalizing to www.bibliokit.com. The sitemap uses www, so canonical tags outputting non-www created a conflict.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-01.md; src/lib/seo.ts; src/entry-server.tsx; src/hooks/useSEO.ts
+- **Verification:** Build passes. Deploy to production and use GSC URL Inspection tool on `/blog` and `/resources` to verify canonical matches sitemap.
+
 ## 2026-01-22
 
 - **Time:** 2026-01-22 06:15 EST

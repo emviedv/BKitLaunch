@@ -50,8 +50,9 @@ const normalizeCanonicalBaseUrl = (baseUrl: string): string => {
   try {
     const parsed = new URL(baseUrl);
     const hostname = parsed.hostname.toLowerCase();
-    if (CANONICAL_HTTPS_HOSTS.has(hostname)) {
-      return `https://${parsed.host}`;
+    // Always normalize to www.bibliokit.com for production canonical URLs
+    if (hostname === 'bibliokit.com' || hostname === 'www.bibliokit.com') {
+      return 'https://www.bibliokit.com';
     }
     return parsed.origin;
   } catch {

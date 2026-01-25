@@ -93,6 +93,10 @@ const resolveTrustedOrigin = (urlObj: URL): string => {
     return urlObj.origin;
   }
   if (isHostAllowed(hostname)) {
+    // Normalize to www for production canonical URLs
+    if (hostname === 'bibliokit.com') {
+      return 'https://www.bibliokit.com';
+    }
     return `${urlObj.protocol}//${urlObj.host}`;
   }
   for (const origin of preferredOrigins) {
