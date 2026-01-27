@@ -5,7 +5,7 @@ import { debugService } from '@/lib/debugService';
 import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
-import { Check, Search, Download } from '@/lib/iconUtils';
+import { Check, Search, Download, Shield } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import { componentQAFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
@@ -90,6 +90,20 @@ const ComponentQAPage = () => {
               fetchPriority="high"
               decoding="async"
             />
+          </div>
+          <div className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-slate-400">
+            <span className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-slate-500" />
+              Runs inside Figma
+            </span>
+            <span className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-slate-500" />
+              No files leave your environment
+            </span>
+            <span className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-slate-500" />
+              No canvas content stored or transmitted
+            </span>
           </div>
         </div>
       </section>
