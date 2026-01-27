@@ -91,7 +91,7 @@ const ComponentQAPage = () => {
               decoding="async"
             />
           </div>
-          <div className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-slate-400">
+          <div className="flex flex-wrap justify-center gap-8 mt-8 text-base text-slate-300">
             <span className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-slate-500" />
               Runs inside Figma
