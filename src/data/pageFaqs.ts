@@ -32,6 +32,14 @@ export const componentQAFaqs: FAQEntry[] = [
     question: "Is ComponentQA free?",
     answer: "Yes, ComponentQA is currently free to use for all features.",
   },
+  {
+    question: "How is this different from Compare with Master in Figma dev mode?",
+    answer: "Compare with Master shows what's changed on one instance at a time. ComponentQA scans your entire file and finds all the problems at once: detached components, overrides, broken instances. It's like spell-check for your whole document vs. looking at one word.",
+  },
+  {
+    question: "How does it handle component swaps?",
+    answer: "The swap itself gets flagged. When you swap ComponentA → ComponentB, the plugin sees that as an override which is listed.",
+  },
 ];
 
 export const renameVariantsFaqs: FAQEntry[] = [
