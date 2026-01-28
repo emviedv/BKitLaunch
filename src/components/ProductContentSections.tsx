@@ -304,17 +304,17 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
             </p>
           )}
           {featuresDescription && (
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm font-medium text-white/60">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-base font-medium text-white/60">
               <span className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-[#6580E1]" />
+                <ShieldCheck className="h-5 w-5 text-[#6580E1]" />
                 Data stays in Figma
               </span>
               <span className="flex items-center gap-2">
-                <Zap className="h-4 w-4 text-[#6580E1]" />
+                <Zap className="h-5 w-5 text-[#6580E1]" />
                 Results in seconds
               </span>
               <span className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-[#6580E1]" />
+                <Sparkles className="h-5 w-5 text-[#6580E1]" />
                 No signup required
               </span>
             </div>
