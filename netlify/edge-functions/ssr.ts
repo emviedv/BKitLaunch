@@ -365,6 +365,16 @@ export default async (request: Request, context: Context) => {
 })();</script>`
       : '';
 
+    // Apollo.io Website Tracker
+    const apolloTag = isProdHost && !isAdminPath
+      ? `<script nonce="${nonce}">
+  function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
+  o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,
+  o.onload=function(){window.trackingFunctions.onLoad({appId:"697902f91a7bc300114dc098"})},
+  document.head.appendChild(o)}initApollo();
+</script>`
+      : '';
+
     // Resolve Vite-built asset paths from manifest with safe fallbacks
     let cssLinks = '';
     let jsPath = '/assets/main.js';
@@ -495,6 +505,7 @@ export default async (request: Request, context: Context) => {
 
     ${consentBootstrapTag}
     ${hotjarTag}
+    ${apolloTag}
   </head>
   <body>
     <div id="root">${appHtml}</div>
@@ -533,7 +544,7 @@ export default async (request: Request, context: Context) => {
 
     // Compose security headers including CSP-Report-Only with nonce to validate
     const securityHeaders: Record<string, string> = {
-      'Content-Security-Policy-Report-Only': `default-src 'self' https:; script-src 'self' 'nonce-${nonce}' https://static.hotjar.com https://script.hotjar.com; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https: https://*.hotjar.com wss://*.hotjar.com;`,
+      'Content-Security-Policy-Report-Only': `default-src 'self' https:; script-src 'self' 'nonce-${nonce}' https://static.hotjar.com https://script.hotjar.com https://assets.apollo.io; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https: https://*.hotjar.com wss://*.hotjar.com https://*.apollo.io;`,
     };
 
     return new Response(html, {
