@@ -284,7 +284,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     const marqueeItems = [...logoItems, ...logoItems];
 
     const introContent = (
-      <div className="relative mx-auto text-center text-white isolate flex flex-col items-center justify-center border border-white" style={{ width: '85vw', maxWidth: '1400px' }}>
+      <div className="relative mx-auto text-center text-white isolate flex flex-col items-center justify-center" style={{ width: '85vw', maxWidth: '1400px' }}>
         <div
           className="pointer-events-none absolute left-0 right-0 top-1/2 z-0 h-px -translate-y-1/2 bg-white/70 opacity-80"
           aria-hidden="true"

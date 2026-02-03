@@ -53,16 +53,9 @@ const IMAGE_DIMENSIONS: Record<string, ImageDimensions> = {
   '/blog/ultimate-figma-plugin-stack/stark-plugin.png': { width: 1920, height: 960 },
   '/blog/ultimate-figma-plugin-stack/unsplash-plugin.png': { width: 1200, height: 800 },
   '/media/component-qa-leak.png': { width: 800, height: 1182 },
-  '/media/ComponentQA.png': { width: 1920, height: 1080 },
-  '/media/BiblioClean.png': { width: 1920, height: 1080 },
-  '/media/RenameVariantsAI.png': { width: 1920, height: 1080 },
   '/media/BiblioStart.png': { width: 1920, height: 1080 },
-  '/media/StateBuilder.png': { width: 1908, height: 1516 },
-  '/media/FixTable.png': { width: 1920, height: 1080 },
-  '/media/OrganizeFile.png': { width: 1920, height: 1080 },
   '/media/biblio-rename/variant-chaos-example.png': { width: 1476, height: 1428 },
   '/media/table-fixer-figma.png': { width: 1920, height: 1080 },
-  '/media/uxbiblio-cover.png': { width: 1279, height: 800 },
 };
 
 export const getImageDimensions = (src?: string | null): ImageDimensions | null => {

@@ -120,7 +120,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
       </div>
       <div className="section-content relative overflow-visible z-10 pt-16">
         <div className="mt-12 relative">
-          <div className="columns-1 md:columns-2 xl:columns-3 gap-6 [column-fill:balance]">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {detailEntries.map(({ detail, anchorId }) => {
               const rawItems = Array.isArray(detail.items) ? detail.items : [];
               const promotedFirstItem = !detail.description && rawItems.length > 0;
@@ -152,74 +152,68 @@ const ProductFeaturesSection: React.FC<Props> = ({
                 <article
                   id={anchorId}
                   key={anchorId}
-                  className="relative mb-6 rounded-[4px] border border-slate-200 px-4 py-6 sm:px-6 sm:py-8 text-white shadow-md break-inside-avoid"
-                  style={{ breakInside: 'avoid-column' }}
+                  className="relative h-full rounded-[4px] border border-slate-200 px-4 py-6 sm:px-6 sm:py-8 text-white shadow-md"
                 >
-                  <div className="flex h-full flex-col gap-6">
-                    <div className="relative w-full">
-                      <ProductFeatureMedia detail={detail} productTitle={productTitle} variant="showcase" />
-                    </div>
-                    <div className="space-y-6 text-white">
-                      <div className="space-y-4">
-                        {featurePill && (
-                          <div className="landing-feature-pill-wrapper">
-                            <span
-                              className={cn(
-                                'landing-feature-pill inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold tracking-tight text-white/90',
-                                featurePill.classes
-                              )}
-                            >
-                              <span className={cn('h-1.5 w-1.5 rounded-full', featurePill.dotClass || 'bg-white/80')} />
-                              {featurePill.label}
-                            </span>
-                          </div>
-                        )}
-                        {productName ? (
-                          <>
-                            <h2 className="text-3xl font-semibold text-white leading-tight">
-                              {productName}
-                            </h2>
-                            {(headline || detail.title) && (
-                              <p className="text-xl font-semibold text-white/85 leading-relaxed">
-                                {headline || detail.title}
-                              </p>
-                            )}
-                          </>
-                        ) : (
-                          <h2 className="text-3xl font-semibold text-white leading-tight">
-                            {headline || detail.title}
-                          </h2>
-                        )}
-                        {descriptionText && (
-                          <p className="text-lg text-white/75 leading-relaxed">
-                            {descriptionText}
-                          </p>
-                        )}
-                      </div>
-                      {buttonLabel && (
-                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                          <Button
-                            asChild={Boolean(buttonHref)}
-                            size="lg"
+                  <div className="flex h-full flex-col">
+                    <div className="space-y-4 text-white">
+                      {featurePill && (
+                        <div className="landing-feature-pill-wrapper">
+                          <span
                             className={cn(
-                              HERO_PRIMARY_BUTTON_CLASS
+                              'landing-feature-pill inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold tracking-tight text-white/90',
+                              featurePill.classes
                             )}
                           >
-                            {buttonHref ? (
-                              <a
-                                href={buttonHref}
-                                target={isExternalButton ? '_blank' : '_self'}
-                                rel={isExternalButton ? 'noopener noreferrer' : undefined}
-                              >
-                                {buttonLabel}
-                              </a>
-                            ) : (
-                              <span>{buttonLabel}</span>
-                            )}
-                          </Button>
+                            <span className={cn('h-1.5 w-1.5 rounded-full', featurePill.dotClass || 'bg-white/80')} />
+                            {featurePill.label}
+                          </span>
                         </div>
                       )}
+                      {productName ? (
+                        <>
+                          <h2 className="text-3xl font-semibold text-white leading-tight">
+                            {productName}
+                          </h2>
+                          {(headline || detail.title) && (
+                            <p className="text-xl font-semibold text-white/85 leading-relaxed">
+                              {headline || detail.title}
+                            </p>
+                          )}
+                        </>
+                      ) : (
+                        <h2 className="text-3xl font-semibold text-white leading-tight">
+                          {headline || detail.title}
+                        </h2>
+                      )}
+                      {descriptionText && (
+                        <p className="text-lg text-white/75 leading-relaxed line-clamp-2">
+                          {descriptionText}
+                        </p>
+                      )}
                     </div>
+                    {buttonLabel && (
+                      <div className="mt-auto pt-6">
+                        <Button
+                          asChild={Boolean(buttonHref)}
+                          size="lg"
+                          className={cn(
+                            HERO_PRIMARY_BUTTON_CLASS
+                          )}
+                        >
+                          {buttonHref ? (
+                            <a
+                              href={buttonHref}
+                              target={isExternalButton ? '_blank' : '_self'}
+                              rel={isExternalButton ? 'noopener noreferrer' : undefined}
+                            >
+                              {buttonLabel}
+                            </a>
+                          ) : (
+                            <span>{buttonLabel}</span>
+                          )}
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </article>
               );

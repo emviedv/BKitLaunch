@@ -123,14 +123,10 @@
       "topItems": [],
       "showBadge": true,
       "badgeColor": "#10b981",
-      "buttonLink": "/figma-component-variant-renamer",
-      "buttonText": "Standardize names with AI",
+      "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
+      "buttonText": "Try now",
       "isFeatured": false,
       "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
-      "media": {
-        "src": "/media/RenameVariantsAI.png",
-        "alt": "RenameVariantsAI panel in Figma showing AI rename suggestions for layer and variant properties"
-      },
       "buttonPreset": "custom"
     },
     {
@@ -150,14 +146,10 @@
       ],
       "showBadge": true,
       "badgeColor": "#0ea5e9",
-      "buttonLink": "/figma-design-system-audit-plugin",
-      "buttonText": "Audit my file now",
+      "buttonLink": "https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check",
+      "buttonText": "Try now",
       "isFeatured": false,
       "description": "ComponentQA is the automated QA tool for Figma. Find detached instances, validate tokens, flag dirty overrides, and reveal deprecated or rogue components—whether you scan a selection, a single page, or the full file.",
-      "media": {
-        "src": "/media/ComponentQA.png",
-        "alt": "ComponentQA audit panel listing detached instances, design system token issues, and severity scores in Figma"
-      },
       "buttonPreset": "custom"
     },
     {
@@ -176,14 +168,10 @@
       ],
       "showBadge": true,
       "badgeColor": "#0ea5e9",
-      "buttonLink": "/figma-plugin-remove-prototype-links",
-      "buttonText": "Clean prototype links",
+      "buttonLink": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
+      "buttonText": "Try now",
       "isFeatured": false,
       "description": "The Blue Line Wiper. The safest way to remove prototype links and external connections. Cleans visual clutter without breaking your main components.",
-      "media": {
-        "src": "/media/BiblioClean.png",
-        "alt": "BiblioClean cleanup panel showing prototype link removal options, safety warnings, and undo history"
-      },
       "buttonPreset": "custom"
     },
     {
@@ -201,14 +189,10 @@
       ],
       "showBadge": true,
       "badgeColor": "#10b981",
-      "buttonLink": "/figma-component-states",
-      "buttonText": "Generate states fast",
+      "buttonLink": "https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs",
+      "buttonText": "Try now",
       "isFeatured": false,
       "description": "StateBuilder generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.",
-      "media": {
-        "src": "/media/StateBuilder.png",
-        "alt": "StateBuilder plugin panel showing component state generation and spec card preview in Figma"
-      },
       "buttonPreset": "custom"
     },
     {
@@ -227,15 +211,11 @@
       ],
       "showBadge": true,
       "badgeColor": "#8b5cf6",
-      "buttonLink": "/figma-organize-design-files-plugin",
-      "buttonText": "Organize my Figma file",
+      "buttonLink": "https://www.figma.com/community/plugin/1590764972487321562/organizefile-figma-organize-design-file-plugin-setup",
+      "buttonText": "Try now",
       "isFeatured": false,
       "description": "Spin up production-ready Figma projects with standardized pages, tokens, and folder scaffolding so teams start building in minutes.",
-      "buttonPreset": "custom",
-      "media": {
-        "src": "/media/OrganizeFile.png",
-        "alt": "OrganizeFile preset panel showing product handoff and journey map scaffolding options"
-      }
+      "buttonPreset": "custom"
     },
     {
       "icon": "📊",
@@ -251,14 +231,10 @@
       ],
       "showBadge": true,
       "badgeColor": "#0ea5e9",
-      "buttonLink": "/figma-table-builder",
-      "buttonText": "Fix my tables",
+      "buttonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
+      "buttonText": "Try now",
       "isFeatured": false,
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
-      "media": {
-        "src": "/media/FixTable.png",
-        "alt": "FixTable controls for normalizing column widths and zebra striping in auto layout tables"
-      },
       "buttonPreset": "custom"
     },
     {
@@ -278,14 +254,10 @@
       "showBadge": true,
       "badgeColor": "#0ea5e9",
       "buttonLink": "https://uxbiblio.com",
-      "buttonText": "Browse UX patterns",
+      "buttonText": "Try now",
       "isFeatured": true,
       "description": "A centralized UX/UI repository. Save screenshots, patterns, and resources with AI tagging, heuristic analysis, and visual documentation for inspiration.",
-      "buttonPreset": "custom",
-      "media": {
-        "src": "/media/uxbiblio-cover.png",
-        "alt": "UXBiblio library dashboard with tagged UX pattern cards, filters, and notes"
-      }
+      "buttonPreset": "custom"
     }
   ],
   "featuresSection": {
