@@ -152,7 +152,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
                 <article
                   id={anchorId}
                   key={anchorId}
-                  className="relative h-full rounded-[4px] border border-slate-200 px-4 py-6 sm:px-6 sm:py-8 text-white shadow-md"
+                  className="relative h-full rounded-[16px] border border-slate-200 px-4 py-6 sm:px-6 sm:py-8 text-white shadow-md"
                 >
                   <div className="flex h-full flex-col">
                     <div className="flex-1 space-y-4 text-white">
