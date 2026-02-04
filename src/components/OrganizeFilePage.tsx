@@ -25,7 +25,7 @@ const OrganizeFilePage = () => {
     updatePageMetadata(metadata);
   }, [content]);
 
-  const PLUGIN_URL = 'https://www.figma.com/community/plugin/com.biblio.biblioorganize';
+  const PLUGIN_URL = 'https://www.figma.com/community/plugin/1590764972487321562/organizefile-figma-organize-design-file-plugin-setup';
   const biblioOrganizeHeroImageDimensions = getImageDimensions('/media/OrganizeFile.png');
   const faqs = organizeFileFaqs;
 

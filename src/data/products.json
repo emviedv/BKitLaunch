@@ -824,7 +824,7 @@
       "description": "OrganizeFile seeds Figma files with opinionated hierarchies, covers, README/status cards, and starter content so your team is ready to work in under 30 seconds.",
       "primaryButton": "Try OrganizeFile",
       "primaryButtonIcon": "download",
-      "primaryButtonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
+      "primaryButtonLink": "https://www.figma.com/community/plugin/1590764972487321562/organizefile-figma-organize-design-file-plugin-setup",
       "badgeLabel": "Figma Plugin",
       "visibility": {
         "waitlist": false
@@ -837,7 +837,7 @@
             "Opinionated hierarchies ready in under 30 seconds.",
             "No more blank canvas paralysis for new projects."
           ],
-          "buttonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
+          "buttonLink": "https://www.figma.com/community/plugin/1590764972487321562/organizefile-figma-organize-design-file-plugin-setup",
           "mediaUrl": "/media/OrganizeFile.png",
           "mediaAlt": "OrganizeFile preset selection panel"
         },
@@ -848,7 +848,7 @@
             "Journey/Flow Maps preset for cross-functional flow mapping.",
             "Archive dividers and documentation anchors included."
           ],
-          "buttonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
+          "buttonLink": "https://www.figma.com/community/plugin/1590764972487321562/organizefile-figma-organize-design-file-plugin-setup",
           "mediaUrl": "/media/OrganizeFile.png",
           "mediaAlt": "OrganizeFile preset options"
         },
@@ -859,7 +859,7 @@
             "Idempotent runs detect existing scaffolds and skip duplicates.",
             "Rollback cleans up partial failures automatically."
           ],
-          "buttonLink": "https://www.figma.com/community/plugin/com.biblio.biblioorganize",
+          "buttonLink": "https://www.figma.com/community/plugin/1590764972487321562/organizefile-figma-organize-design-file-plugin-setup",
           "mediaUrl": "/media/OrganizeFile.png",
           "mediaAlt": "OrganizeFile tips and rollback features"
         }
