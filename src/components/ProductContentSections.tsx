@@ -214,8 +214,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
     || product?.sections?.features?.title
     || 'Trusted by designers\nshipping real products in Figma.';
   const featuresDescription = sectionOverrides?.featuresDescription
-    || product?.sections?.features?.description
-    || 'Comprehensive design system analytics platform with automated Figma integration and ROI tracking';
+    || product?.sections?.features?.description;
 
   const useCasesTitle = sectionOverrides?.useCasesTitle
     || product?.sections?.useCases?.title
