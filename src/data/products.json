@@ -126,7 +126,7 @@
       "buttonLink": "https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted",
       "buttonText": "Try now",
       "isFeatured": false,
-      "description": "Stop renaming manually. Use context-aware AI to standardize layer names, fix variant properties, and enforce naming conventions.",
+      "description": "AI-powered batch renaming for layers and variant properties.",
       "buttonPreset": "custom"
     },
     {
@@ -149,7 +149,7 @@
       "buttonLink": "https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check",
       "buttonText": "Try now",
       "isFeatured": false,
-      "description": "ComponentQA is the automated QA tool for Figma. Find detached instances, validate tokens, flag dirty overrides, and reveal deprecated or rogue components—whether you scan a selection, a single page, or the full file.",
+      "description": "Find detached instances, validate tokens, and flag overrides across your file.",
       "buttonPreset": "custom"
     },
     {
@@ -171,7 +171,7 @@
       "buttonLink": "https://www.figma.com/community/plugin/1573014835821113198/biblioclean-remove-prototype-links-blue-lines",
       "buttonText": "Try now",
       "isFeatured": false,
-      "description": "The Blue Line Wiper. The safest way to remove prototype links and external connections. Cleans visual clutter without breaking your main components.",
+      "description": "Safely remove prototype links and blue lines without breaking components.",
       "buttonPreset": "custom"
     },
     {
@@ -192,7 +192,7 @@
       "buttonLink": "https://www.figma.com/community/plugin/1576299538313439140/bibliostates-component-state-generator-specs",
       "buttonText": "Try now",
       "isFeatured": false,
-      "description": "StateBuilder generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.",
+      "description": "Auto-generate hover, focus, and error states with documentation cards.",
       "buttonPreset": "custom"
     },
     {
@@ -214,7 +214,7 @@
       "buttonLink": "https://www.figma.com/community/plugin/1590764972487321562/organizefile-figma-organize-design-file-plugin-setup",
       "buttonText": "Try now",
       "isFeatured": false,
-      "description": "Spin up production-ready Figma projects with standardized pages, tokens, and folder scaffolding so teams start building in minutes.",
+      "description": "One-click project setup with pages, tokens, and folder scaffolding.",
       "buttonPreset": "custom"
     },
     {
@@ -256,7 +256,7 @@
       "buttonLink": "https://uxbiblio.com",
       "buttonText": "Try now",
       "isFeatured": true,
-      "description": "A centralized UX/UI repository. Save screenshots, patterns, and resources with AI tagging, heuristic analysis, and visual documentation for inspiration.",
+      "description": "Save and organize UX patterns with AI tagging and heuristic analysis.",
       "buttonPreset": "custom"
     }
   ],

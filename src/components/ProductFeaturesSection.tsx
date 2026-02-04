@@ -186,7 +186,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
                         </h2>
                       )}
                       {descriptionText && (
-                        <p className="text-lg text-white/75 leading-relaxed line-clamp-2">
+                        <p className="text-lg text-white/75 leading-relaxed">
                           {descriptionText}
                         </p>
                       )}
