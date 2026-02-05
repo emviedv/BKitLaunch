@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
 
 import ContentChunk from './ContentChunk';
+import { resolveLucideIcon, ArrowRight } from '@/lib/iconUtils';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from './heroConstants';
 import { SECTION_TITLE_CLASS } from './productContentSectionConstants';
@@ -125,7 +125,18 @@ const ProductFeaturesSection: React.FC<Props> = ({
       <div className="section-content relative overflow-visible z-10 pt-16">
         <div className="mt-12 relative">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {detailEntries.map(({ detail, anchorId }) => {
+            {detailEntries.map(({ detail, anchorId }, index) => {
+              // Color themes for each card (bg, icon color, border)
+              const colorThemes = [
+                { bg: 'rgba(59, 130, 246, 0.08)', icon: '#3b82f6', border: 'rgba(59, 130, 246, 0.2)' },   // Blue
+                { bg: 'rgba(168, 85, 247, 0.08)', icon: '#a855f7', border: 'rgba(168, 85, 247, 0.2)' },   // Purple
+                { bg: 'rgba(20, 184, 166, 0.08)', icon: '#14b8a6', border: 'rgba(20, 184, 166, 0.2)' },   // Teal
+                { bg: 'rgba(34, 197, 94, 0.08)', icon: '#22c55e', border: 'rgba(34, 197, 94, 0.2)' },     // Green
+                { bg: 'rgba(249, 115, 22, 0.08)', icon: '#f97316', border: 'rgba(249, 115, 22, 0.2)' },   // Orange
+                { bg: 'rgba(99, 102, 241, 0.08)', icon: '#6366f1', border: 'rgba(99, 102, 241, 0.2)' },   // Indigo
+                { bg: 'rgba(236, 72, 153, 0.08)', icon: '#ec4899', border: 'rgba(236, 72, 153, 0.2)' },   // Pink
+              ];
+              const theme = colorThemes[index % colorThemes.length];
               const rawItems = Array.isArray(detail.items) ? detail.items : [];
               const promotedFirstItem = !detail.description && rawItems.length > 0;
               const descriptionText = detail.description ?? (promotedFirstItem ? rawItems[0] : undefined);
@@ -152,57 +163,55 @@ const ProductFeaturesSection: React.FC<Props> = ({
                 } catch {}
               }
 
-              // Extract initials from product name for icon
-              const displayName = productName || headline || detail.title || '';
-              const initials = displayName
-                .split(/[\s-]+/)
-                .filter((word: string) => word.length > 0 && /^[A-Z]/.test(word))
-                .slice(0, 2)
-                .map((word: string) => word[0])
-                .join('') || displayName.slice(0, 2).toUpperCase();
-
               return (
                 <article
                   id={anchorId}
                   key={anchorId}
-                  className="relative h-full rounded-[20px] bg-white px-6 py-7 shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-100"
+                  className="relative h-full rounded-[20px] px-6 py-7"
+                  style={{ backgroundColor: theme.bg, borderWidth: 1, borderStyle: 'solid', borderColor: theme.border }}
                 >
                   <div className="flex h-full flex-col">
                     {/* Top row: Icon + Category badge */}
                     <div className="flex items-start justify-between mb-6">
-                      {/* Icon square with initials */}
-                      <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-fuchsia-50 text-fuchsia-600 text-lg font-semibold">
-                        {detail.icon || initials}
+                      {/* Icon square */}
+                      <div className="flex h-14 w-14 items-center justify-center rounded-xl" style={{ backgroundColor: theme.bg, color: theme.icon, border: `1px solid ${theme.icon}` }}>
+                        {(() => {
+                          const IconComponent = resolveLucideIcon(detail.icon);
+                          return <IconComponent size={28} />;
+                        })()}
                       </div>
                       {/* Category badge */}
                       {featurePill && (
-                        <span className="inline-flex items-center rounded-full bg-violet-50 px-3 py-1.5 text-xs font-semibold tracking-wide text-violet-600 uppercase">
+                        <span
+                          className="inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold tracking-wide uppercase"
+                          style={{ backgroundColor: theme.bg, color: theme.icon, border: `1px solid ${theme.icon}` }}
+                        >
                           {featurePill.label}
                         </span>
                       )}
                     </div>
 
                     {/* Title and description */}
-                    <div className="flex-1 space-y-3">
-                      <h2 className="text-xl font-bold text-slate-900 leading-snug">
+                    <div className="flex-1 space-y-2">
+                      <h2 className="text-xl font-semibold text-white">
                         {productName || headline || detail.title}
                       </h2>
                       {descriptionText && (
-                        <p className="text-base text-slate-500 leading-relaxed">
+                        <p className="text-base text-slate-400 leading-relaxed">
                           {descriptionText}
                         </p>
                       )}
                     </div>
 
                     {/* Divider */}
-                    <div className="my-6 border-t border-slate-100" />
+                    <div className="my-6 border-t" style={{ borderColor: theme.border }} />
 
                     {/* Bottom row: Stat + Arrow button */}
                     <div className="flex items-end justify-between">
                       {/* Stat */}
                       {detail.statValue && (
                         <div>
-                          <div className="text-4xl font-bold text-fuchsia-600 leading-none">
+                          <div className="text-4xl font-bold text-[#ff2f87] leading-none">
                             {detail.statValue}
                           </div>
                           {detail.statLabel && (
@@ -218,7 +227,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
                           href={buttonHref}
                           target={isExternalButton ? '_blank' : '_self'}
                           rel={isExternalButton ? 'noopener noreferrer' : undefined}
-                          className="flex h-12 w-12 items-center justify-center rounded-full bg-fuchsia-500 text-white transition-colors hover:bg-fuchsia-600"
+                          className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff2f87] text-white transition-colors hover:brightness-110"
                           aria-label={`Go to ${productName || detail.title}`}
                         >
                           <ArrowRight className="h-5 w-5" />
