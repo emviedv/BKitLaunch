@@ -171,12 +171,12 @@ const ProductFeaturesSection: React.FC<Props> = ({
                     {/* Top row: Icon + Category badge */}
                     <div className="flex items-start justify-between mb-6">
                       {/* Icon square with initials */}
-                      <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-sky-50 text-sky-600 text-lg font-semibold">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-fuchsia-50 text-fuchsia-600 text-lg font-semibold">
                         {detail.icon || initials}
                       </div>
                       {/* Category badge */}
                       {featurePill && (
-                        <span className="inline-flex items-center rounded-full bg-sky-50 px-3 py-1.5 text-xs font-semibold tracking-wide text-sky-600 uppercase">
+                        <span className="inline-flex items-center rounded-full bg-violet-50 px-3 py-1.5 text-xs font-semibold tracking-wide text-violet-600 uppercase">
                           {featurePill.label}
                         </span>
                       )}
@@ -202,7 +202,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
                       {/* Stat */}
                       {detail.statValue && (
                         <div>
-                          <div className="text-4xl font-bold text-slate-900 leading-none">
+                          <div className="text-4xl font-bold text-fuchsia-600 leading-none">
                             {detail.statValue}
                           </div>
                           {detail.statLabel && (
@@ -218,7 +218,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
                           href={buttonHref}
                           target={isExternalButton ? '_blank' : '_self'}
                           rel={isExternalButton ? 'noopener noreferrer' : undefined}
-                          className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-500 text-white transition-colors hover:bg-sky-600"
+                          className="flex h-12 w-12 items-center justify-center rounded-full bg-fuchsia-500 text-white transition-colors hover:bg-fuchsia-600"
                           aria-label={`Go to ${productName || detail.title}`}
                         >
                           <ArrowRight className="h-5 w-5" />
