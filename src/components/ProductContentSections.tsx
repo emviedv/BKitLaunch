@@ -288,7 +288,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           className="pointer-events-none absolute left-0 right-0 top-1/2 z-0 h-px -translate-y-1/2 bg-white/70 opacity-80"
           aria-hidden="true"
         />
-        <div className="relative z-20 py-16 px-12 w-full text-center">
+        <div className="relative z-20 py-11 px-12 w-full text-center">
           <h2 className={cn(SECTION_TITLE_CLASS, 'font-display text-center text-white drop-shadow-[0_20px_60px_rgba(4,0,12,0.6)]')}>
             {featuresTitle.split('\n').map((line, i, arr) => (
               <span key={i}>
