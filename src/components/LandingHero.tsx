@@ -31,7 +31,7 @@ export type LandingHeroContent = {
   align?: 'left' | 'center';
 };
 
-const LANDING_TITLE_CLASS = 'text-6xl md:text-8xl font-sans font-extrabold leading-[1.1] tracking-tight text-white';
+const LANDING_TITLE_CLASS = 'text-[72px] font-bold leading-[1.05] tracking-tight text-white';
 const HERO_ACCENT_WORDS = ['faster', 'products'];
 
 // Origami layout configuration
@@ -424,7 +424,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
 
             {description && (
               <p
-                className={`text-2xl text-white/75 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-8 ${resolvedDescriptionClassName}`}
+                className={`text-lg text-white/75 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-8 ${resolvedDescriptionClassName}`}
               >
                 {typeof description === 'string'
                   ? description.split('\n').map((line, i, arr) => (

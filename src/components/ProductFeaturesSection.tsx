@@ -211,7 +211,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
                       {/* Stat */}
                       {detail.statValue && (
                         <div>
-                          <div className="text-4xl font-bold text-[#ff2f87] leading-none">
+                          <div className="text-4xl font-bold text-white leading-none">
                             {detail.statValue}
                           </div>
                           {detail.statLabel && (
