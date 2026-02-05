@@ -127,7 +127,9 @@
       "buttonText": "Try now",
       "isFeatured": false,
       "description": "AI-powered batch renaming for layers and variant properties.",
-      "buttonPreset": "custom"
+      "buttonPreset": "custom",
+      "statValue": "10x",
+      "statLabel": "FASTER NAMING"
     },
     {
       "icon": "🔍",
@@ -150,7 +152,9 @@
       "buttonText": "Try now",
       "isFeatured": false,
       "description": "Find detached instances, validate tokens, and flag overrides across your file.",
-      "buttonPreset": "custom"
+      "buttonPreset": "custom",
+      "statValue": "99%",
+      "statLabel": "ISSUES CAUGHT"
     },
     {
       "icon": "🧹",
@@ -172,7 +176,9 @@
       "buttonText": "Try now",
       "isFeatured": false,
       "description": "Safely remove prototype links and blue lines without breaking components.",
-      "buttonPreset": "custom"
+      "buttonPreset": "custom",
+      "statValue": "100%",
+      "statLabel": "LINKS REMOVED"
     },
     {
       "icon": "🧩",
@@ -193,7 +199,9 @@
       "buttonText": "Try now",
       "isFeatured": false,
       "description": "Auto-generate hover, focus, and error states with documentation cards.",
-      "buttonPreset": "custom"
+      "buttonPreset": "custom",
+      "statValue": "5min",
+      "statLabel": "STATE MATRIX"
     },
     {
       "icon": "🗂️",
@@ -215,7 +223,9 @@
       "buttonText": "Try now",
       "isFeatured": false,
       "description": "One-click project setup with pages, tokens, and folder scaffolding.",
-      "buttonPreset": "custom"
+      "buttonPreset": "custom",
+      "statValue": "30sec",
+      "statLabel": "PROJECT READY"
     },
     {
       "icon": "📊",
@@ -235,7 +245,9 @@
       "buttonText": "Try now",
       "isFeatured": false,
       "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
-      "buttonPreset": "custom"
+      "buttonPreset": "custom",
+      "statValue": "1-click",
+      "statLabel": "TABLES FIXED"
     },
     {
       "icon": "🛒",
@@ -257,7 +269,9 @@
       "buttonText": "Try now",
       "isFeatured": true,
       "description": "Save and organize UX patterns with AI tagging and heuristic analysis.",
-      "buttonPreset": "custom"
+      "buttonPreset": "custom",
+      "statValue": "1000s",
+      "statLabel": "PATTERNS SAVED"
     }
   ],
   "featuresSection": {

@@ -30,6 +30,9 @@ type FeatureLike = {
     src?: string;
     alt?: string;
   };
+  icon?: string;
+  statValue?: string;
+  statLabel?: string;
 };
 
 type ProductVisibility = {
@@ -125,6 +128,9 @@ const BiblioKitLanding: React.FC = () => {
     mediaUrl?: string;
     mediaAlt?: string;
     pill?: FeaturePill | null;
+    icon?: string;
+    statValue?: string;
+    statLabel?: string;
   };
 
   const featureDetails = useMemo<LandingFeatureDetail[]>(() => {
@@ -151,6 +157,9 @@ const BiblioKitLanding: React.FC = () => {
           buttonText: buttonText || undefined,
           buttonLink: buttonLink || undefined,
           pill,
+          icon: item.icon,
+          statValue: item.statValue,
+          statLabel: item.statLabel,
         };
 
         if (mediaSrc) {

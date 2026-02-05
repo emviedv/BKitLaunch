@@ -1,4 +1,5 @@
 import React from 'react';
+import { ArrowRight } from 'lucide-react';
 
 import ContentChunk from './ContentChunk';
 import { Button } from '@/components/ui/button';
@@ -36,6 +37,9 @@ type ProductDetail = {
   mediaBlueprint?: any;
   mediaProgress?: any;
   pill?: FeaturePill | null;
+  icon?: string;
+  statValue?: string;
+  statLabel?: string;
 };
 
 type FeatureNavItem = { title: string; anchorId: string };
@@ -148,72 +152,79 @@ const ProductFeaturesSection: React.FC<Props> = ({
                 } catch {}
               }
 
+              // Extract initials from product name for icon
+              const displayName = productName || headline || detail.title || '';
+              const initials = displayName
+                .split(/[\s-]+/)
+                .filter((word: string) => word.length > 0 && /^[A-Z]/.test(word))
+                .slice(0, 2)
+                .map((word: string) => word[0])
+                .join('') || displayName.slice(0, 2).toUpperCase();
+
               return (
                 <article
                   id={anchorId}
                   key={anchorId}
-                  className="relative h-full rounded-[16px] border border-slate-200 px-4 py-6 sm:px-6 sm:py-8 text-white shadow-md"
+                  className="relative h-full rounded-[20px] bg-white px-6 py-7 shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-slate-100"
                 >
                   <div className="flex h-full flex-col">
-                    <div className="flex-1 space-y-4 text-white">
+                    {/* Top row: Icon + Category badge */}
+                    <div className="flex items-start justify-between mb-6">
+                      {/* Icon square with initials */}
+                      <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-sky-50 text-sky-600 text-lg font-semibold">
+                        {detail.icon || initials}
+                      </div>
+                      {/* Category badge */}
                       {featurePill && (
-                        <div className="landing-feature-pill-wrapper">
-                          <span
-                            className={cn(
-                              'landing-feature-pill inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold tracking-tight text-white/90',
-                              featurePill.classes
-                            )}
-                          >
-                            <span className={cn('h-1.5 w-1.5 rounded-full', featurePill.dotClass || 'bg-white/80')} />
-                            {featurePill.label}
-                          </span>
-                        </div>
+                        <span className="inline-flex items-center rounded-full bg-sky-50 px-3 py-1.5 text-xs font-semibold tracking-wide text-sky-600 uppercase">
+                          {featurePill.label}
+                        </span>
                       )}
-                      {productName ? (
-                        <>
-                          <h2 className="text-3xl font-semibold text-white leading-tight">
-                            {productName}
-                          </h2>
-                          {(headline || detail.title) && (
-                            <p className="text-xl font-semibold text-white/85 leading-relaxed">
-                              {headline || detail.title}
-                            </p>
-                          )}
-                        </>
-                      ) : (
-                        <h2 className="text-3xl font-semibold text-white leading-tight">
-                          {headline || detail.title}
-                        </h2>
-                      )}
+                    </div>
+
+                    {/* Title and description */}
+                    <div className="flex-1 space-y-3">
+                      <h2 className="text-xl font-bold text-slate-900 leading-snug">
+                        {productName || headline || detail.title}
+                      </h2>
                       {descriptionText && (
-                        <p className="text-lg text-white/75 leading-relaxed">
+                        <p className="text-base text-slate-500 leading-relaxed">
                           {descriptionText}
                         </p>
                       )}
                     </div>
-                    {buttonLabel && (
-                      <div className="mt-auto pt-6">
-                        <Button
-                          asChild={Boolean(buttonHref)}
-                          size="lg"
-                          className={cn(
-                            HERO_PRIMARY_BUTTON_CLASS
+
+                    {/* Divider */}
+                    <div className="my-6 border-t border-slate-100" />
+
+                    {/* Bottom row: Stat + Arrow button */}
+                    <div className="flex items-end justify-between">
+                      {/* Stat */}
+                      {detail.statValue && (
+                        <div>
+                          <div className="text-4xl font-bold text-slate-900 leading-none">
+                            {detail.statValue}
+                          </div>
+                          {detail.statLabel && (
+                            <div className="mt-1 text-xs font-medium tracking-wider text-slate-400 uppercase">
+                              {detail.statLabel}
+                            </div>
                           )}
+                        </div>
+                      )}
+                      {/* Arrow button */}
+                      {buttonHref && (
+                        <a
+                          href={buttonHref}
+                          target={isExternalButton ? '_blank' : '_self'}
+                          rel={isExternalButton ? 'noopener noreferrer' : undefined}
+                          className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-500 text-white transition-colors hover:bg-sky-600"
+                          aria-label={`Go to ${productName || detail.title}`}
                         >
-                          {buttonHref ? (
-                            <a
-                              href={buttonHref}
-                              target={isExternalButton ? '_blank' : '_self'}
-                              rel={isExternalButton ? 'noopener noreferrer' : undefined}
-                            >
-                              {buttonLabel}
-                            </a>
-                          ) : (
-                            <span>{buttonLabel}</span>
-                          )}
-                        </Button>
-                      </div>
-                    )}
+                          <ArrowRight className="h-5 w-5" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </article>
               );

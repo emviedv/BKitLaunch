@@ -27,6 +27,9 @@ type FeatureLike = {
     src?: string;
     alt?: string;
   };
+  icon?: string;
+  statValue?: string;
+  statLabel?: string;
 };
 
 type ProductFeatureDetail = {
@@ -40,6 +43,9 @@ type ProductFeatureDetail = {
   mediaAlt?: string;
   pill?: FeaturePill | null;
   mediaLoading?: 'lazy' | 'eager';
+  icon?: string;
+  statValue?: string;
+  statLabel?: string;
 };
 
 const sanitizeCopy = (value?: string): string | undefined => {
@@ -116,6 +122,9 @@ const buildFeatureDetails = (rawFeatures: FeatureLike[]): ProductFeatureDetail[]
         buttonText: buttonText || undefined,
         buttonLink: buttonLink || undefined,
         pill,
+        icon: item.icon,
+        statValue: item.statValue,
+        statLabel: item.statLabel,
       };
 
       if (mediaSrc) {
