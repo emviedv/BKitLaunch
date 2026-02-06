@@ -1,6 +1,7 @@
 // SEO Metadata Management System
 import { findBlogPostBySlug, type BlogPost } from '@/data/blogPosts';
 import { PAGE_FAQS_BY_ROUTE, defaultProductFaqs, type FAQEntry } from '@/data/pageFaqs';
+import { normalizeBaseUrl, CANONICAL_BASE_URL } from '@/lib/urlUtils';
 
 export interface SEOMetadata {
   title: string;
@@ -43,22 +44,8 @@ interface StructuredDataMergeParams {
   contentData?: any;
 }
 
-const CANONICAL_HTTPS_HOSTS = new Set(['bibliokit.com', 'www.bibliokit.com']);
-
-const normalizeCanonicalBaseUrl = (baseUrl: string): string => {
-  if (!baseUrl) return baseUrl;
-  try {
-    const parsed = new URL(baseUrl);
-    const hostname = parsed.hostname.toLowerCase();
-    // Always normalize to www.bibliokit.com for production canonical URLs
-    if (hostname === 'bibliokit.com' || hostname === 'www.bibliokit.com') {
-      return 'https://www.bibliokit.com';
-    }
-    return parsed.origin;
-  } catch {
-    return baseUrl;
-  }
-};
+// URL normalization is handled by @/lib/urlUtils to ensure consistency
+// across sitemap, canonical tags, and all URL-generating code.
 
 const extractBlogSlug = (path: string): string | null => {
   const match = path.replace(/\/+$/, '').match(/^\/blog\/([^/]+)/);
@@ -613,11 +600,11 @@ export const routeMetadata: RouteMetadata = {
 
 // Generate metadata for a given route with content data
 export function generateMetadata(
-  path: string, 
-  contentData?: any, 
-  baseUrl: string = 'https://www.bibliokit.com'
+  path: string,
+  contentData?: any,
+  baseUrl: string = CANONICAL_BASE_URL
 ): SEOMetadata {
-  baseUrl = normalizeCanonicalBaseUrl(baseUrl);
+  baseUrl = normalizeBaseUrl(baseUrl);
   const normalizedPath = path ? path.split('?')[0] : '/';
   const normalizedPathNoTrailingSlash = (normalizedPath || '/').replace(/\/+$/, '') || '/';
   const isBlogArticle = normalizedPathNoTrailingSlash.startsWith('/blog/') && normalizedPathNoTrailingSlash !== '/blog';

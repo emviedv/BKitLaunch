@@ -68,11 +68,14 @@ const OrganizeFilePage = () => {
             Stop wasting time setting up dividers, covers, and empty pages. Scaffold a professional workspace in under 30 seconds.
           </p>
           <div className="flex flex-col items-center justify-center gap-3 mb-12">
-            <div className="inline-block bg-violet-500/20 text-violet-300 px-4 py-1.5 rounded-full text-sm font-semibold mb-2 border border-violet-500/30">
-              Coming Soon
-            </div>
-            <Button className={`${HERO_PRIMARY_BUTTON_CLASS} opacity-60 cursor-not-allowed`} size="lg" disabled>
-              Generate My File Structure
+            <Button
+              className={HERO_PRIMARY_BUTTON_CLASS}
+              size="lg"
+              asChild
+            >
+              <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
+                Generate My File Structure
+              </a>
             </Button>
             <span className="text-sm text-slate-400">Includes Handoff &amp; Journey Map Presets</span>
           </div>

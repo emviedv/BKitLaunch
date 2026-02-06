@@ -4,8 +4,7 @@ import App from './App';
 import { Router } from 'wouter';
 import { generateMetadata as generateSEOMetadata, generateMetaTags, generateStructuredData } from './lib/seo';
 import { loadPublishedContent } from './lib/publishedContent';
-
-const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
+import { isProductionHost, isDevHost, CANONICAL_BASE_URL } from './lib/urlUtils';
 
 const normalizeOrigin = (raw?: string): string | null => {
   if (!raw) return null;
@@ -72,7 +71,7 @@ const allowedHostRules = (() => {
 
 const isHostAllowed = (hostname: string): boolean => {
   const normalized = hostname.toLowerCase();
-  if (DEV_HOSTS.has(normalized)) {
+  if (isDevHost(normalized)) {
     return true;
   }
   if (allowedHostRules.length === 0) {
@@ -89,13 +88,13 @@ const isHostAllowed = (hostname: string): boolean => {
 
 const resolveTrustedOrigin = (urlObj: URL): string => {
   const hostname = urlObj.hostname.toLowerCase();
-  if (DEV_HOSTS.has(hostname)) {
+  if (isDevHost(hostname)) {
     return urlObj.origin;
   }
   if (isHostAllowed(hostname)) {
-    // Normalize to www for production canonical URLs
-    if (hostname === 'bibliokit.com') {
-      return 'https://www.bibliokit.com';
+    // Use shared utility for production normalization
+    if (isProductionHost(hostname)) {
+      return CANONICAL_BASE_URL;
     }
     return `${urlObj.protocol}//${urlObj.host}`;
   }

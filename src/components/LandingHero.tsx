@@ -396,7 +396,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               </span>
             )}
 
-            <h1 className={`${resolvedTitleClassName} mb-6 pointer-events-none select-none`}>
+            <h1 className={`${resolvedTitleClassName} mb-[78px] pointer-events-none select-none`}>
               {headlineSegments.length > 0 ? (
                 headlineSegments.map((segment) => {
                   const isSubtitle = segment.key === 'subtitle';
@@ -437,7 +437,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               </p>
             )}
 
-            <div className="flex flex-wrap gap-4 pointer-events-auto justify-center">
+            <div className="flex flex-wrap gap-4 pointer-events-auto justify-center mt-4">
               {primaryButton && (
                 <Button
                   size="lg"

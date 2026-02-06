@@ -75,6 +75,15 @@ Product pages follow this structure: Hero → Problem Agitation → Quick Proof 
 - **Parameterized SQL queries** (`$1, $2`) - never string interpolation
 - HTML class names must be specific (e.g., `ai-rename-hero-cta` not `cta`)
 
+### Bug Fix Protocol
+When fixing any bug, **always search the entire codebase** for similar patterns:
+1. **Grep for the bug pattern** - Find ALL instances of the problematic code, not just the one reported
+2. **Check related files** - If fixing URL handling in `seo.ts`, also check `sitemap.ts`, `entry-server.tsx`, hooks, etc.
+3. **Consolidate duplicates** - If the same logic exists in multiple places, extract to a shared utility (see `src/lib/urlUtils.ts` as example)
+4. **Verify all instances** - Run tests that cover ALL locations, not just the one you found first
+
+Example: The www/non-www canonical URL bug was "fixed" in Jan 2026 but recurred in Feb 2026 because `sitemap.ts` was missed. Four files had URL normalization logic; only three were updated.
+
 ### Content Voice
 - Target audience: designers, developers, and marketers
 - Voice: "Relatable Pro" - empathetic, conversational, names the pain

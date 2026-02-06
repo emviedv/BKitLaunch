@@ -2,6 +2,7 @@ import type { Handler } from '@netlify/functions';
 import { withCors } from './utils.ts';
 import productData from '../../src/data/products.json' with { type: 'json' };
 import { BLOG_POSTS, type BlogPost } from '../../src/data/blogPosts.ts';
+import { normalizeBaseUrl, CANONICAL_BASE_URL } from '../../src/lib/urlUtils.ts';
 
 type ImageEntry = {
   loc: string;
@@ -34,19 +35,8 @@ const canonicalizeSlug = (slug: string): string => {
   return slugMap[slug] || slug;
 };
 
-const normalizeBase = (raw?: string | null): string => {
-  if (!raw) return 'https://www.bibliokit.com';
-  try {
-    const url = new URL(raw);
-    return url.origin;
-  } catch {
-    try {
-      return new URL(`https://${raw}`).origin;
-    } catch {
-      return 'https://www.bibliokit.com';
-    }
-  }
-};
+// URL normalization is handled by shared utility in src/lib/urlUtils.ts
+// to ensure sitemap URLs match canonical tags across all pages.
 
 const escapeXml = (value: string): string =>
   value
@@ -163,7 +153,7 @@ const buildBlogEntries = (base: string, defaultLastmod: string): SitemapEntry[] 
 };
 
 export const buildSitemapXml = (baseUrl: string): string => {
-  const base = normalizeBase(baseUrl);
+  const base = normalizeBaseUrl(baseUrl);
   const defaultLastmod = toIsoDate(process.env.BUILD_TIMESTAMP || Date.now()) || new Date().toISOString().split('T')[0];
 
   const staticEntries: SitemapEntry[] = [
@@ -290,11 +280,11 @@ export const buildSitemapXml = (baseUrl: string): string => {
 
 const handlerImpl: Handler = async () => {
   // Use the same base URL logic as the SEO system for consistency
-  const base = normalizeBase(
+  const base = normalizeBaseUrl(
     process.env.PUBLIC_SITE_URL ||
     process.env.URL ||
     process.env.DEPLOY_URL ||
-    'https://www.bibliokit.com'
+    CANONICAL_BASE_URL
   );
 
   const xml = buildSitemapXml(base);
