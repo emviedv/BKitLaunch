@@ -96,7 +96,7 @@ const StateBuilderPage = () => {
             <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
               <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
-                <span>Install StateBuilder</span>
+                <span>Install StateBuilder — Free</span>
               </a>
             </Button>
             <span className="flex items-center gap-2 text-sm text-slate-400">
@@ -319,7 +319,7 @@ const StateBuilderPage = () => {
               </p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                 <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Install StateBuilder
+                  Install StateBuilder — Free
                 </a>
               </Button>
             </div>

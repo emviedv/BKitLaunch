@@ -72,7 +72,7 @@ const FixTablePage = () => {
             <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
               <a href={CTA_LINK} className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
-                <span>FIX YOUR TABLES</span>
+                <span>Fix Your Tables — Free</span>
               </a>
             </Button>
             <span className="flex items-center gap-2 text-sm text-slate-400">
@@ -247,7 +247,7 @@ const FixTablePage = () => {
               <p className="text-xl text-purple-200 mb-8">Install the FixTable plugin from Figma Community and normalize every table fast.</p>
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={CTA_LINK} target="_blank" rel="noopener noreferrer">
-                  FIX YOUR TABLES
+                  Fix Your Tables — Free
                 </a>
               </Button>
             </div>
@@ -282,7 +282,7 @@ const FixTablePage = () => {
             <div className="flex flex-col items-center gap-4">
               <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
                  <a href={CTA_LINK}>
-                  FIX YOUR TABLES
+                  Fix Your Tables — Free
                 </a>
               </Button>
             </div>
