@@ -31,7 +31,7 @@ export type LandingHeroContent = {
   align?: 'left' | 'center';
 };
 
-const LANDING_TITLE_CLASS = 'text-[72px] font-bold leading-[1.05] tracking-tight text-white';
+const LANDING_TITLE_CLASS = 'text-[84px] font-bold leading-[1.05] tracking-tight text-white';
 const HERO_ACCENT_WORDS = ['faster', 'products'];
 
 // Origami layout configuration
