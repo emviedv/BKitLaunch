@@ -4,6 +4,9 @@ export type ImageDimensions = {
 };
 
 const IMAGE_DIMENSIONS: Record<string, ImageDimensions> = {
+  '/blog/scaling-design-system/hero.webp': { width: 1024, height: 1024 },
+  '/blog/scaling-design-system/governance-models.webp': { width: 1024, height: 1024 },
+  '/blog/scaling-design-system/component-library.webp': { width: 1024, height: 1024 },
   '/blog/auto-layout-wrap/auto-layout-wrap-hero.png': { width: 1024, height: 1024 },
   '/blog/best-figma-plugins-organize-design-files-2026/hero.png': { width: 1024, height: 1024 },
   '/blog/complete-guide-design-systems-figma-2026/hero-design-systems-figma-2026.png': {
