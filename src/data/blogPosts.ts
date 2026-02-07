@@ -2385,9 +2385,9 @@ const installUninstallFigmaPluginContent: BlogContentBlock[] = [
     type: 'unorderedList',
     items: [
       '[RenameVariantsAI](/figma-ai-rename-variants) - Batch rename layers and variants with AI assistance',
-      '[ComponentQA](/figma-plugin-component-qa) - Audit your design system and find detached instances',
+      '[ComponentQA](/figma-design-system-audit-plugin) - Audit your design system and find detached instances',
       '[BiblioClean](/figma-plugin-remove-prototype-links) - Remove all prototype links in one click',
-      '[FixTable](/figma-plugin-fix-tables) - Normalize messy table structures to proper Auto Layout'
+      '[FixTable](/figma-table-builder) - Normalize messy table structures to proper Auto Layout'
     ]
   },
   {
