@@ -292,7 +292,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
         <div className="relative z-20 py-11 px-12 w-full text-center">
           <div className="flex items-center justify-center gap-1 mb-4">
             {[...Array(5)].map((_, i) => (
-              <Icon key={i} icon="solar:star-bold" className="w-6 h-6 text-yellow-400" />
+              <Icon key={i} icon="solar:star-linear" className="w-6 h-6 text-yellow-400" />
             ))}
           </div>
           <h2 className={cn(SECTION_TITLE_CLASS, 'font-display text-center text-white drop-shadow-[0_20px_60px_rgba(4,0,12,0.6)]')}>
