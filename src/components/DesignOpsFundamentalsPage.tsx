@@ -9,6 +9,7 @@ const DESIGN_OPS_POST_SLUGS = [
 ];
 
 const DESIGN_SYSTEM_POST_SLUGS = [
+  'scaling-design-system-governance',
   'complete-guide-design-systems-figma-2026',
   'design-dev-gap-2026',
   'mastering-design-system-guidelines',

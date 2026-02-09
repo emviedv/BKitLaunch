@@ -1155,7 +1155,7 @@ const designSystemGuidelinesContent: BlogContentBlock[] = [
   { type: 'heading', text: 'Structure and Hierarchy', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Organize your information logically, just like a well-designed website. Use clear headings, subheadings, and a consistent navigation scheme. This helps users quickly find what they need without getting lost.'
+    text: 'Organize your information logically, just like a well-designed website. Use clear headings, subheadings, and a consistent navigation scheme. Tools like [OrganizeFile](/figma-organize-design-files-plugin) can help scaffold a standardized file structure from the start. This helps users quickly find what they need without getting lost.'
   },
   { type: 'heading', text: 'Visual Examples and Demos', level: 'h3' },
   {
@@ -1765,7 +1765,7 @@ const designDevGap2026Content: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'This frees up your Design Systems team to focus on architecture and strategy rather than typing out "padding-left: 16px" for the hundredth time.'
+    text: 'This frees up your Design Systems team to focus on architecture and strategy rather than typing out "padding-left: 16px" for the hundredth time. Tools like [StateBuilder](/figma-component-states) automate the tedious work of generating component state specs, so your documentation stays current without manual updates.'
   },
   { type: 'heading', text: 'Conclusion', level: 'h2' },
   {
@@ -1799,7 +1799,7 @@ const completeGuideDesignSystemsFigma2026Content: BlogContentBlock[] = [
   },
   {
     type: 'paragraph',
-    text: 'For design system maintainers, 2026 marks the shift from static sticker sheets to variable-driven logic that mirrors production code. Whether you are auditing a legacy system or building a new one from scratch, this guide covers the essential architecture, workflows, and tooling you need to stay competitive.'
+    text: 'For design system maintainers, 2026 marks the shift from static sticker sheets to variable-driven logic that mirrors production code. Whether you are auditing a legacy system or building a new one from scratch (use [OrganizeFile](/figma-organize-design-files-plugin) to scaffold your file structure), this guide covers the essential architecture, workflows, and tooling you need to stay competitive.'
   },
   { type: 'heading', text: 'The Complete Guide to Design Systems in Figma (2026 Edition)' },
   { type: 'heading', text: 'The New Era of System Design', level: 'h2' },
@@ -1975,7 +1975,7 @@ const designOpsCompleteGuideContent: BlogContentBlock[] = [
     items: [
       `Standardization: Use "playbooks," not "rulebooks." A playbook guides decision-making; a rulebook kills creativity.`,
       'The Meeting Audit: Ruthlessly cut syncs. If a status update can be a Loom video or a Slack thread, cancel the meeting.',
-      'Design QA: Shift from manual "pixel peeping" to automated guardrails. Modern Ops uses linting tools to catch errors before they leave the design file.'
+      'Design QA: Shift from manual "pixel peeping" to automated guardrails. Modern Ops uses linting tools like [ComponentQA](/figma-design-system-audit-plugin) to catch errors before they leave the design file.'
     ]
   },
   { type: 'heading', text: '3. Tools: The Consolidated Stack', level: 'h3' },
@@ -2019,7 +2019,7 @@ const designOpsCompleteGuideContent: BlogContentBlock[] = [
     items: [
       'Phase 1: Audit (Weeks 1-4): Map the friction. Where is time being wasted? Look for the "hidden factories" where designers create their own workarounds.',
       'Phase 2: Centralize (Weeks 5-8): Unify file storage, naming conventions, and the design system. Establish the "Single Source of Truth."',
-      'Phase 3: Automate (Weeks 9+): Implement plugins and bots for handoffs and QA. If a task happens three times, automate it.'
+      'Phase 3: Automate (Weeks 9+): Implement plugins and bots for handoffs and QA. Use [ComponentQA](/figma-design-system-audit-plugin) for automated design audits and [StateBuilder](/figma-component-states) for documentation automation. If a task happens three times, automate it.'
     ]
   },
   { type: 'paragraph', text: '________________' },
@@ -2333,7 +2333,7 @@ const scalingDesignSystemGovernanceContent: BlogContentBlock[] = [
   { type: 'heading', text: 'What are design tokens and their role in scalable systems?', level: 'h3' },
   {
     type: 'paragraph',
-    text: 'Design tokens are named variables for colors, typography, spacing, and more. They make platform-agnostic design decisions portable: update a token, and the change propagates across web, mobile, and native apps. Tokens reduce friction between design and engineering and help enforce a consistent visual language.'
+    text: 'Design tokens are named variables for colors, typography, spacing, and more. They make platform-agnostic design decisions portable: update a token, and the change propagates across web, mobile, and native apps. Tokens reduce friction between design and engineering and help enforce a consistent visual language. For teams inheriting inconsistent naming conventions, [RenameVariantsAI](/figma-component-variant-renamer) can batch-rename component variants to align with your token structure.'
   },
   { type: 'heading', text: 'How to organize and maintain component libraries efficiently?', level: 'h3' },
   {
@@ -2375,7 +2375,7 @@ const scalingDesignSystemGovernanceContent: BlogContentBlock[] = [
   {
     type: 'orderedList',
     items: [
-      'Run focused training: Short sessions that cover core principles, component usage, and where to find resources.',
+      'Run focused training: Short sessions that cover core principles, component usage (including state variations with tools like [StateBuilder](/figma-component-states)), and where to find resources.',
       'Pair with a guide: Assign a mentor who can answer questions and point newcomers to best practices.',
       'Provide clear docs: Maintain concise getting-started guides and practical examples for common tasks.'
     ]
