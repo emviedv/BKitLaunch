@@ -461,8 +461,8 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                   }}
                   aria-label={`${primaryButton} - Primary action`}
                 >
-                  <ArrowRight className="w-5 h-5 mr-2" />
                   {primaryButton}
+                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               )}
               {secondaryButton && (
