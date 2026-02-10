@@ -311,7 +311,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
 
       {/* Cursor Overlay Layer */}
       {shouldShowCursorEffects ? (
-        <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden" style={{ contain: 'layout style paint' }}>
         {/* User Cursor (You) */}
         <div
           className={`absolute top-0 left-0 transition-opacity duration-300 ${showCursor ? 'opacity-100' : 'opacity-0'}`}
@@ -609,6 +609,16 @@ const LandingHero: React.FC<LandingHeroProps> = ({
           95% { opacity: 1; transform: scale(1.02); }
         }
 
+        /* GPU-accelerated cursor animations */
+        .animate-cursor-designer,
+        .animate-cursor-developer,
+        .animate-cursor-reviewer,
+        .animate-cursor-explorer,
+        .animate-cursor-miriam {
+          will-change: transform;
+          backface-visibility: hidden;
+        }
+
         .animate-cursor-designer { animation: cursor-designer 24s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
         .animate-cursor-developer { animation: cursor-developer 16s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; }
         .animate-cursor-reviewer { animation: cursor-reviewer 22s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
@@ -626,6 +636,28 @@ const LandingHero: React.FC<LandingHeroProps> = ({
         .animate-cursor-label-pulse-3 { animation: cursor-label-pulse 5s ease-in-out infinite; animation-delay: 2s; }
         .animate-cursor-label-pulse-4 { animation: cursor-label-pulse 3.5s ease-in-out infinite; animation-delay: 0.8s; }
         .animate-cursor-label-pulse-5 { animation: cursor-label-pulse 4.4s ease-in-out infinite; animation-delay: 1.6s; }
+
+        /* Disable animations for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          .animate-cursor-designer,
+          .animate-cursor-developer,
+          .animate-cursor-reviewer,
+          .animate-cursor-explorer,
+          .animate-cursor-miriam,
+          .animate-cursor-click-1,
+          .animate-cursor-click-2,
+          .animate-cursor-click-3,
+          .animate-cursor-click-4,
+          .animate-cursor-click-5,
+          .animate-cursor-label-pulse-1,
+          .animate-cursor-label-pulse-2,
+          .animate-cursor-label-pulse-3,
+          .animate-cursor-label-pulse-4,
+          .animate-cursor-label-pulse-5,
+          .animate-hover-gentle {
+            animation: none !important;
+          }
+        }
       `}</style>
     </section>
   );
