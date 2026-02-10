@@ -68,7 +68,7 @@ const PRODUCT_META: Record<string, { title: string; description: string; ogType?
   '/figma-table-builder': {
     title: 'FixTable | Normalize Figma Tables in One Click',
     description:
-      'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.',
+      'Instantly normalize column widths, fix sub-pixel bugs, and add zebra striping to any auto-layout table in Figma.',
     ogType: 'product'
   },
   '/uxbiblio': {
@@ -148,7 +148,7 @@ const PRODUCT_PAGE_COPY: Record<string, { headline: string; description: string 
   '/figma-table-builder': {
     headline: 'FixTable',
     description:
-      'Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table in Figma.'
+      'Instantly normalize column widths, fix sub-pixel bugs, and add zebra striping to any auto-layout table in Figma.'
   },
   '/uxbiblio': {
     headline: 'UXBiblio',

@@ -244,7 +244,7 @@
       "buttonLink": "https://www.figma.com/community/plugin/1580378065847525472/bibliotable-auto-layout-table-fixer-data-aligner",
       "buttonText": "Try Free",
       "isFeatured": false,
-      "description": "Instantly normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping for any auto-layout table.",
+      "description": "Instantly normalize column widths, fix sub-pixel bugs, and add zebra striping to any auto-layout table.",
       "buttonPreset": "custom",
       "statValue": "1-click",
       "statLabel": "TABLES FIXED"
