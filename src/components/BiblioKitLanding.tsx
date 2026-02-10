@@ -279,7 +279,7 @@ const BiblioKitLanding: React.FC = () => {
   return (
     <>
       {shouldRenderHero && (
-        <LandingHero hero={mergedProduct as any} descriptionMaxWidthClassName="max-w-[90%]" />
+        <LandingHero hero={mergedProduct as any} descriptionMaxWidthClassName="max-w-[90%]" disableCursorEffects />
       )}
       {shouldRenderSections && (
         <div className="relative isolate overflow-hidden">
