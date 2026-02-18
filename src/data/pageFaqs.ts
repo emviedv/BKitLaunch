@@ -168,7 +168,31 @@ export const scaleResizerFaqs: FAQEntry[] = [
   },
 ];
 
+export const homepageFaqs: FAQEntry[] = [
+  {
+    question: "Are BiblioKit plugins free?",
+    answer: "Most BiblioKit plugins are free to use. Some advanced features like AI-powered renaming offer free credits with optional paid upgrades for heavy usage.",
+  },
+  {
+    question: "Is my design data secure with BiblioKit?",
+    answer: "Yes. All BiblioKit plugins run directly in Figma—your design data never leaves your file or gets sent to external servers. Everything stays in Figma.",
+  },
+  {
+    question: "Do BiblioKit plugins work with FigJam?",
+    answer: "BiblioKit plugins are designed for Figma design files. FigJam compatibility varies by plugin—check individual plugin pages for details.",
+  },
+  {
+    question: "How do I install BiblioKit plugins?",
+    answer: "Visit any plugin page and click 'Try it Free' to open the Figma Community listing. From there, click 'Try it out' to install directly into Figma.",
+  },
+  {
+    question: "Can I use BiblioKit plugins on large files?",
+    answer: "Yes. All BiblioKit plugins are optimized for performance and can handle large enterprise design files with thousands of layers and components.",
+  },
+];
+
 export const PAGE_FAQS_BY_ROUTE: Record<string, FAQEntry[]> = {
+  "/": homepageFaqs,
   "/figma-design-system-audit-plugin": componentQAFaqs,
   "/figma-component-variant-renamer": renameVariantsFaqs,
   "/ai-rename-variants": renameVariantsFaqs,

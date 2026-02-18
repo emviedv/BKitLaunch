@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import LandingHero from './LandingHero';
 import ProductContentSections from './ProductContentSections';
 import Waitlist from './Waitlist';
-import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
 
@@ -59,8 +58,11 @@ const heroDiagnosticsEnabled = () => {
   return false;
 };
 
-const BiblioKitLanding: React.FC = () => {
-  const { content } = usePublishedContent();
+interface BiblioKitLandingProps {
+  content?: any;
+}
+
+const BiblioKitLanding: React.FC<BiblioKitLandingProps> = ({ content }) => {
 
   const hero = content?.hero ?? {};
   const heroVisible = content?.settings?.visibility?.hero !== false;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Route, Switch, useLocation } from 'wouter';
 
 // UI Components
@@ -11,25 +11,6 @@ import BiblioKitLanding from './components/BiblioKitLanding';
 import ComingSoon from './components/ComingSoon';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import AIRenameVariantsPage from './components/AIRenameVariantsPage';
-import ComponentQAPage from './components/ComponentQAPage';
-import BiblioCleanPage from './components/BiblioCleanPage';
-import OrganizeFilePage from './components/OrganizeFilePage';
-import StateBuilderPage from './components/StateBuilderPage';
-import FixTablePage from './components/FixTablePage';
-import DynamicProductPage from './components/DynamicProductPage';
-import RemovePrototypeLinkPage from './components/RemovePrototypeLinkPage';
-import ResourcesPage from './components/ResourcesPage';
-import BlogPage from './components/BlogPage';
-import BlogArticlePage from './components/BlogArticlePage';
-import Docs from './components/Docs';
-import AdminPage from './components/AdminPage';
-import AboutPage from './components/AboutPage';
-import ProductsPage from './components/ProductsPage';
-import LearnPage from './components/LearnPage';
-import DesignOpsFundamentalsPage from './components/DesignOpsFundamentalsPage';
-import TutorialsPage from './components/TutorialsPage';
-import ScaleResizerPage from './components/ScaleResizerPage';
 
 // Context & Hooks
 import { usePublishedContent } from './hooks/usePublishedContent';
@@ -57,29 +38,36 @@ const SIMILAR_PATHS = [
   ROUTE_PATHS.SCALE_RESIZER,
 ];
 
+const AboutPage = React.lazy(() => import('./components/AboutPage'));
+const ProductsPage = React.lazy(() => import('./components/ProductsPage'));
+const Docs = React.lazy(() => import('./components/Docs'));
+const AIRenameVariantsPage = React.lazy(() => import('./components/AIRenameVariantsPage'));
+const ComponentQAPage = React.lazy(() => import('./components/ComponentQAPage'));
+const BiblioCleanPage = React.lazy(() => import('./components/BiblioCleanPage'));
+const FixTablePage = React.lazy(() => import('./components/FixTablePage'));
+const StateBuilderPage = React.lazy(() => import('./components/StateBuilderPage'));
+const OrganizeFilePage = React.lazy(() => import('./components/OrganizeFilePage'));
+const ScaleResizerPage = React.lazy(() => import('./components/ScaleResizerPage'));
+const AdminPage = React.lazy(() => import('./components/AdminPage'));
+const DynamicProductPage = React.lazy(() => import('./components/DynamicProductPage'));
+const BlogArticlePage = React.lazy(() => import('./components/BlogArticlePage'));
+const BlogPage = React.lazy(() => import('./components/BlogPage'));
+const DesignOpsFundamentalsPage = React.lazy(() => import('./components/DesignOpsFundamentalsPage'));
+const LearnPage = React.lazy(() => import('./components/LearnPage'));
+const TutorialsPage = React.lazy(() => import('./components/TutorialsPage'));
+const ResourcesPage = React.lazy(() => import('./components/ResourcesPage'));
+const RemovePrototypeLinkPage = React.lazy(() => import('./components/RemovePrototypeLinkPage'));
+
+const RouteLoadingFallback: React.FC = () => (
+  <div className="container mx-auto px-4 py-16 text-center">
+    <p className="text-muted-foreground">Loading page...</p>
+  </div>
+);
+
 /**
  * HomePage - Main landing page component
  */
-const HomePage: React.FC = () => {
-  const { content, error } = usePublishedContent();
-
-  // Note: Loading state removed to prevent flash during hydration
-  // Content will smoothly transition from static fallback to dynamic content
-
-  // Show error state
-  if (error && !content) {
-    return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold text-red-600 mb-4">Content Error</h1>
-        <p className="text-muted-foreground">{error}</p>
-      </div>
-    );
-  }
-
-  return (
-    <BiblioKitLanding />
-  );
-};
+const HomePage: React.FC<{ content: any }> = ({ content }) => <BiblioKitLanding content={content} />;
 
 /**
  * LandingLayout - Minimal shell for the public landing experience
@@ -187,8 +175,11 @@ const AppContent: React.FC = () => {
 
   return (
     <LandingLayout>
+      <Suspense fallback={<RouteLoadingFallback />}>
         <Switch>
-          <Route path={ROUTE_PATHS.HOME} component={HomePage} />
+          <Route path={ROUTE_PATHS.HOME}>
+            {() => <HomePage content={content} />}
+          </Route>
           <Route path={ROUTE_PATHS.ABOUT} component={AboutPage} />
           <Route path={ROUTE_PATHS.PRODUCTS} component={ProductsPage} />
           <Route path={ROUTE_PATHS.DOCS} component={Docs} />
@@ -217,6 +208,7 @@ const AppContent: React.FC = () => {
             <NotFoundPage />
           </Route>
         </Switch>
+      </Suspense>
     </LandingLayout>
   );
 };

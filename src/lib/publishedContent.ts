@@ -2,6 +2,7 @@ import productData from '../data/products.json' with { type: 'json' };
 import { debugService } from './debugService.ts';
 
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value));
+let cachedPublishedContent: typeof productData | null = null;
 
 const debugEnabled = () => {
   if (typeof process !== 'undefined' && process.env?.DEBUG_FIX) {
@@ -36,7 +37,11 @@ const heroDiagnosticsEnabled = () => {
  * Debug logging can be enabled by setting DEBUG_FIX=1 or VITE_DEBUG_FIX=1.
  */
 export const loadPublishedContent = () => {
-  const content = clone(productData);
+  if (!cachedPublishedContent) {
+    cachedPublishedContent = clone(productData);
+  }
+
+  const content = cachedPublishedContent;
   if (debugEnabled()) {
     console.debug('[cms-removal] loadPublishedContent returning bundled data', {
       keys: Object.keys(content ?? {}),

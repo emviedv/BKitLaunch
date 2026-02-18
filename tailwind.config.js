@@ -8,12 +8,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Inter"', 'sans-serif'],
-        display: ['"Inter"', 'sans-serif'],
-        'work': ['"Work Sans"', 'sans-serif'],
-        'albert': ['"Albert Sans"', 'sans-serif'],
-        'barlow': ['"Barlow"', 'sans-serif'],
-        'inter': ['"Inter"', 'sans-serif'],
+        sans: ['"Google Sans Flex"', '"Google Sans"', 'sans-serif'],
+        display: ['"Google Sans Flex"', '"Google Sans"', 'sans-serif'],
+        'work': ['"Google Sans Flex"', '"Google Sans"', 'sans-serif'],
+        'albert': ['"Google Sans Flex"', '"Google Sans"', 'sans-serif'],
+        'barlow': ['"Google Sans Flex"', '"Google Sans"', 'sans-serif'],
+        'inter': ['"Google Sans Flex"', '"Google Sans"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Confetti, type ConfettiRef } from '@/components/ui/confetti';
 import {
   HERO_PRIMARY_BUTTON_CLASS,
+  HERO_SECONDARY_BUTTON_CLASS,
   buildHeroHeadlineSegments,
   splitHeroHeadline,
 } from './heroConstants';
@@ -16,7 +16,8 @@ import {
   LANDING_PRICING_ID,
   LANDING_WAITLIST_ID,
 } from '@/config/sectionAnchors';
-import { Zap, MousePointer2, ArrowRight } from '@/lib/iconUtils';
+import { MousePointer2, ArrowRight } from '@/lib/iconUtils';
+import { Layers, FileCheck, Paintbrush } from 'lucide-react';
 import FluidBackground from './FluidBackground';
 
 export type LandingHeroContent = {
@@ -31,7 +32,7 @@ export type LandingHeroContent = {
   align?: 'left' | 'center';
 };
 
-const LANDING_TITLE_CLASS = 'text-[84px] font-bold leading-[1.05] tracking-tight text-white';
+const LANDING_TITLE_CLASS = 'text-[84px] font-semibold leading-[1.05] tracking-tight text-white';
 const HERO_ACCENT_WORDS = ['faster', 'products'];
 
 // Origami layout configuration
@@ -40,7 +41,7 @@ const ORIGAMI_LAYOUT = {
   blob2: { x: 40, y: 40, scale: 1 },   // Diamond (Center)
   blob3: { x: 80, y: 20, scale: 1 },   // Media Card (Right)
   blob4: { x: 25, y: 75, scale: 1 },   // Sticky Note (Bottom Left)
-  content: { x: 32, y: 50, scale: 1 }  // Text Content (Left side, balanced)
+  content: { x: 32, y: 46, scale: 1 }  // Text Content (Left side, vertically balanced)
 };
 
 export interface LandingHeroProps {
@@ -86,6 +87,33 @@ const scrollTargetMap: Record<string, string> = {
   waitlist: LANDING_WAITLIST_ID,
 };
 
+const TRUSTED_HERO_LOGOS_COL1 = [
+  { name: 'Figma', url: '/clients/figma.svg' },
+  { name: 'Linear', url: '/clients/linear.svg' },
+  { name: 'Webflow', url: '/clients/webflow.svg' },
+  { name: 'Stripe', url: '/clients/stripe.svg' },
+];
+
+const HERO_AVATAR_ITEMS = [
+  { id: 'avatar-1', src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face', alt: 'Product designer' },
+  { id: 'avatar-2', src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face', alt: 'UI designer' },
+  { id: 'avatar-3', src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face', alt: 'Design systems lead' },
+  { id: 'avatar-4', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face', alt: 'Design operations specialist' },
+];
+
+const TRUSTED_HERO_LOGOS_COL2 = [
+  { name: 'Dropbox', url: '/clients/dropbox.svg' },
+  { name: 'Atlassian', url: '/clients/atlassian.svg' },
+  { name: 'Zapier', url: '/clients/zapier.svg' },
+  { name: 'OpenAI', url: '/clients/openai.svg' },
+];
+
+const HERO_STATS = [
+  { icon: Layers, value: '100k+', label: 'Layers renamed' },
+  { icon: FileCheck, value: '50k+', label: 'Files audited' },
+  { icon: Paintbrush, value: '25k+', label: 'Prototypes cleaned' },
+];
+
 const scrollToSection = (id: string) => {
   const normalizedKey = id.replace(/^#/, '');
   const resolvedId = scrollTargetMap[normalizedKey] || normalizedKey;
@@ -117,7 +145,6 @@ const LandingHero: React.FC<LandingHeroProps> = ({
   contentMaxWidthClassName,
   disableCursorEffects,
 }) => {
-  const confettiRef = useRef<ConfettiRef>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
   const gradientLayerRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -157,33 +184,8 @@ const LandingHero: React.FC<LandingHeroProps> = ({
 
   const badgeLabel = useMemo(() => sanitizeBadgeLabel(hero?.badgeLabel), [hero?.badgeLabel]);
 
-  const renderHeroAccentWords = (text: string, keyPrefix: string) => {
-    const accentRegex = new RegExp(`\\b(${HERO_ACCENT_WORDS.join('|')})\\b`, 'gi');
-    const parts = text.split(accentRegex);
-
-    if (parts.length === 1) {
-      return text;
-    }
-
-    return parts.map((part, index) => {
-      const isAccent = HERO_ACCENT_WORDS.some(
-        (word) => word.toLowerCase() === part.toLowerCase()
-      );
-
-      if (!isAccent) {
-        return (
-          <React.Fragment key={`${keyPrefix}-text-${index}`}>
-            {part}
-          </React.Fragment>
-        );
-      }
-
-      return (
-        <span key={`${keyPrefix}-accent-${index}`} className="landing-hero-accent-word">
-          {part}
-        </span>
-      );
-    });
+  const renderHeroAccentWords = (text: string, _keyPrefix: string) => {
+    return text;
   };
 
   // Mouse handling for interactive cursor
@@ -202,9 +204,6 @@ const LandingHero: React.FC<LandingHeroProps> = ({
   };
 
   const pos = ORIGAMI_LAYOUT;
-  const fireHeroConfetti = React.useCallback(() => {
-    confettiRef.current?.fire({});
-  }, []);
 
   useEffect(() => {
     if (!title) return;
@@ -380,7 +379,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
         <div className="section-content relative h-full">
           {/* Centered Text Content */}
           <div
-            className={`absolute z-20 transition-all duration-75 ease-linear ${resolvedContentWidthClassName} mt-8 flex flex-col ${
+            className={`absolute z-20 transition-all duration-75 ease-linear ${resolvedContentWidthClassName} flex flex-col ${
               alignment === 'left' ? 'items-start text-left' : 'items-center text-center'
             }`}
             style={{
@@ -389,42 +388,69 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               transform: 'translate(-50%, -50%)',
             }}
           >
-            {badgeLabel && (
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 shadow-[0_0_30px_rgba(250,174,255,0.25)] supports-[backdrop-filter]:bg-white/10 mb-8">
-                <span className="inline-flex h-2 w-2 rounded-full bg-[#F1A0FF]" />
-                <span>{badgeLabel}</span>
-              </span>
-            )}
+            {/* Avatar strip + badge */}
+            <div className="flex flex-col items-center gap-3 mb-6">
+              <div className="flex items-center -space-x-2">
+                {HERO_AVATAR_ITEMS.map((avatar) => (
+                  <img
+                    key={avatar.id}
+                    src={avatar.src}
+                    alt={avatar.alt}
+                    className="h-9 w-9 rounded-full border-2 border-[#0b0c0f] bg-[#10121a] object-cover shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
+                    width={36}
+                    height={36}
+                    loading="eager"
+                    decoding="async"
+                  />
+                ))}
+              </div>
+              {badgeLabel && (
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.06] px-3.5 py-1.5 text-sm font-medium text-white/75 backdrop-blur-sm">
+                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[#F1A0FF]" />
+                  <span>{badgeLabel}</span>
+                </span>
+              )}
+            </div>
 
-            <h1 className={`${resolvedTitleClassName} mb-[78px] pointer-events-none select-none`}>
-              {headlineSegments.length > 0 ? (
-                headlineSegments.map((segment) => {
-                  const isSubtitle = segment.key === 'subtitle';
-                  const baseClass = segment.gradient || isSubtitle ? LANDING_TITLE_GRADIENT_CLASS : 'text-white';
-                  const shouldClampSegment = shouldClampTitle && segment.key.startsWith('title');
-                  return (
-                    <span
-                      key={segment.key}
-                      className={`${baseClass} block ${shouldClampTitle ? 'whitespace-normal' : 'whitespace-nowrap'}${segment.gradient && !isSubtitle ? ' pb-4' : ''}`.trim()}
-                      style={shouldClampSegment ? {
+            <div className="landing-hero-headline-capture mb-6">
+              <h1 className={`${resolvedTitleClassName}`}>
+                {headlineSegments.length > 0 ? (
+                  headlineSegments.map((segment) => {
+                    const isSubtitle = segment.key === 'subtitle';
+                    const baseClass = segment.gradient || isSubtitle ? LANDING_TITLE_GRADIENT_CLASS : 'text-white';
+                    const shouldClampSegment = shouldClampTitle && segment.key.startsWith('title');
+                    const headlineSegmentStyle: React.CSSProperties = {};
+
+                    if (shouldClampSegment) {
+                      Object.assign(headlineSegmentStyle, {
                         display: '-webkit-box',
                         WebkitLineClamp: resolvedClampLines ?? undefined,
                         WebkitBoxOrient: 'vertical',
                         overflow: 'hidden',
-                      } : undefined}
-                    >
-                      {renderHeroAccentWords(segment.text, segment.key)}
-                    </span>
-                  );
-                })
-              ) : (
-                title
-              )}
-            </h1>
+                      });
+                    }
+
+                    return (
+                      <span
+                        key={segment.key}
+                        className={`${baseClass} block ${shouldClampTitle ? 'whitespace-normal' : 'whitespace-nowrap'}${
+                          segment.gradient && !isSubtitle ? ' pb-4' : ''
+                        }`.trim()}
+                        style={headlineSegmentStyle}
+                      >
+                        {renderHeroAccentWords(segment.text, segment.key)}
+                      </span>
+                    );
+                  })
+                ) : (
+                  title
+                )}
+              </h1>
+            </div>
 
             {description && (
               <p
-                className={`text-lg text-white/75 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-8 ${resolvedDescriptionClassName}`}
+                className={`text-lg text-white/70 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-10 ${resolvedDescriptionClassName}`}
               >
                 {typeof description === 'string'
                   ? description.split('\n').map((line, i, arr) => (
@@ -437,7 +463,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               </p>
             )}
 
-            <div className="flex flex-wrap gap-4 pointer-events-auto justify-center mt-4">
+            <div className="flex flex-wrap gap-3 pointer-events-auto justify-center">
               {primaryButton && (
                 <Button
                   size="lg"
@@ -452,12 +478,6 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                     if (!primaryButtonLink) {
                       scrollToSection(LANDING_FEATURES_ID);
                     }
-                    fireHeroConfetti();
-                  }}
-                  onMouseEnter={fireHeroConfetti}
-                  onPointerEnter={fireHeroConfetti}
-                  onFocus={() => {
-                    fireHeroConfetti();
                   }}
                   aria-label={`${primaryButton} - Primary action`}
                 >
@@ -468,24 +488,105 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               {secondaryButton && (
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="px-6 rounded-md bg-white border-2 border-slate-100 text-slate-700 shadow-md hover:border-[hsl(var(--primary)/0.25)] hover:bg-[hsl(var(--primary)/0.06)] text-sm font-medium uppercase tracking-wide flex items-center gap-2"
+                  variant="ghost"
+                  className={HERO_SECONDARY_BUTTON_CLASS}
                   onClick={secondaryButtonLink ? (event) => handleAnchorNavigation(event, secondaryButtonLink) : () => scrollToSection(LANDING_PRICING_ID)}
+                  asChild={secondaryButtonLink && !secondaryButtonLink.startsWith('#')}
                 >
-                  <Zap className="w-4 h-4 text-[hsl(var(--primary))]" />
-                  {secondaryButton}
+                  {secondaryButtonLink && !secondaryButtonLink.startsWith('#') ? (
+                    <a href={secondaryButtonLink}>
+                      {secondaryButton}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </a>
+                  ) : (
+                    <span>
+                      {secondaryButton}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </span>
+                  )}
                 </Button>
               )}
+            </div>
+            {primaryButton && (
+              <div className="relative mt-12 h-7 overflow-hidden pointer-events-none opacity-60">
+                {/* Vertical slider of horizontal logo rows */}
+                <div className="logo-row-slide flex flex-col">
+                  {/* Row 1 */}
+                  <div className="flex justify-center gap-10 h-7 shrink-0">
+                    {TRUSTED_HERO_LOGOS_COL1.map((logo) => (
+                      <span
+                        key={`row1-${logo.name}`}
+                        className="flex h-7 w-20 shrink-0 items-center justify-center"
+                      >
+                        <img
+                          src={logo.url}
+                          alt={`${logo.name} logo`}
+                          className="max-h-6 w-auto object-contain brightness-0 invert opacity-80"
+                          loading="lazy"
+                        />
+                      </span>
+                    ))}
+                  </div>
+                  {/* Row 2 */}
+                  <div className="flex justify-center gap-10 h-7 shrink-0">
+                    {TRUSTED_HERO_LOGOS_COL2.map((logo) => (
+                      <span
+                        key={`row2-${logo.name}`}
+                        className="flex h-7 w-20 shrink-0 items-center justify-center"
+                      >
+                        <img
+                          src={logo.url}
+                          alt={`${logo.name} logo`}
+                          className="max-h-6 w-auto object-contain brightness-0 invert opacity-80"
+                          loading="lazy"
+                        />
+                      </span>
+                    ))}
+                  </div>
+                  {/* Duplicate Row 1 for seamless loop */}
+                  <div className="flex justify-center gap-10 h-7 shrink-0">
+                    {TRUSTED_HERO_LOGOS_COL1.map((logo) => (
+                      <span
+                        key={`row1-dup-${logo.name}`}
+                        className="flex h-7 w-20 shrink-0 items-center justify-center"
+                      >
+                        <img
+                          src={logo.url}
+                          alt={`${logo.name} logo`}
+                          className="max-h-6 w-auto object-contain brightness-0 invert opacity-80"
+                          loading="lazy"
+                        />
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Stats row */}
+            <div className="mt-16 flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+              {HERO_STATS.map((stat) => {
+                const StatIcon = stat.icon;
+                return (
+                  <div key={stat.label} className="flex items-center gap-2.5">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/[0.08] border border-white/15">
+                      <StatIcon className="h-5 w-5 text-[#F772B6]" />
+                    </div>
+                    <div className="text-left">
+                      <div className="text-xl font-bold text-white tabular-nums leading-tight">
+                        {stat.value}
+                      </div>
+                      <div className="text-[11px] font-medium text-white/50 uppercase tracking-wider">
+                        {stat.label}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </div>
-
-      <Confetti
-        ref={confettiRef}
-        className="absolute left-0 top-0 z-[1] h-full w-full pointer-events-none"
-        manualstart
-      />
 
       <div
         className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 md:h-64 z-0"
@@ -506,6 +607,162 @@ const LandingHero: React.FC<LandingHeroProps> = ({
         }
         .animate-hover-gentle {
           animation: hover-gentle 6s ease-in-out infinite;
+        }
+
+        /* Vertical row slide - shows row 1, then row 2, loops back */
+        @keyframes logo-row-slide {
+          0%, 40% { transform: translateY(0); }
+          50%, 90% { transform: translateY(-28px); }
+          100% { transform: translateY(-56px); }
+        }
+        .logo-row-slide {
+          animation: logo-row-slide 6s ease-in-out infinite;
+        }
+
+        .landing-hero-headline-capture {
+          position: relative;
+          display: inline-block;
+          width: fit-content;
+          max-width: 100%;
+        }
+
+        .landing-hero-headline-capture-overlay {
+          position: absolute;
+          inset: -22px -24px -22px -24px;
+          z-index: 4;
+          pointer-events: none;
+        }
+
+        @keyframes landing-hero-headline-screenshot-reveal {
+          0% {
+            clip-path: inset(0 100% 100% 0);
+            opacity: 0.28;
+          }
+          8% {
+            clip-path: inset(0 78% 80% 0);
+            opacity: 0.6;
+          }
+          32% {
+            clip-path: inset(0 44% 46% 0);
+            opacity: 0.82;
+          }
+          100% {
+            clip-path: inset(0 0 0 0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes landing-hero-headline-selection-box {
+          0% {
+            opacity: 0.9;
+            width: 12%;
+            height: 14%;
+            transform: translate3d(0, 0, 0);
+          }
+          20% {
+            width: 44%;
+            height: 46%;
+            transform: translate3d(0, 0, 0);
+          }
+          60% {
+            width: 82%;
+            height: 74%;
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            opacity: 0.9;
+            width: 100%;
+            height: 100%;
+            transform: translate3d(0, 0, 0);
+          }
+        }
+
+        @keyframes landing-hero-headline-selection-cursor {
+          0% {
+            opacity: 1;
+            left: 0%;
+            top: 0%;
+            transform: scale(1);
+          }
+          24% {
+            opacity: 1;
+            left: 30%;
+            top: 34%;
+            transform: scale(0.99);
+          }
+          60% {
+            opacity: 1;
+            left: 64%;
+            top: 66%;
+            transform: scale(0.97);
+          }
+          100% {
+            opacity: 1;
+            left: calc(100% - 20px);
+            top: calc(100% - 20px);
+            transform: scale(0.95);
+          }
+        }
+
+        @keyframes landing-hero-headline-selection-flash {
+          0%, 72%, 100% {
+            opacity: 0;
+            transform: scale(0.68);
+          }
+          80% {
+            opacity: 0.78;
+            transform: scale(1);
+          }
+        }
+
+        .landing-hero-headline-surface {
+          display: inline-block;
+          width: max-content;
+          max-width: 100%;
+          opacity: 0.22;
+          clip-path: inset(0 100% 100% 0);
+          will-change: clip-path, opacity;
+          transform: translateZ(0);
+          backface-visibility: hidden;
+          animation: landing-hero-headline-screenshot-reveal 3.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .landing-hero-headline-selection-box {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 0;
+          height: 0;
+          border-radius: 12px;
+          border: 1.5px solid #ff2f87;
+          background: linear-gradient(130deg, rgb(255 47 135 / 0.24), transparent 72%);
+          box-shadow:
+            inset 0 0 0 1px rgb(255 47 135 / 0.45),
+            0 16px 40px rgb(255 47 135 / 0.25);
+          z-index: 5;
+          will-change: width, height, opacity, transform;
+          animation: landing-hero-headline-selection-box 3.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .landing-hero-headline-selection-cursor {
+          position: absolute;
+          left: 0;
+          top: 0;
+          filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.35));
+          z-index: 6;
+          will-change: left, top, transform, opacity;
+          animation: landing-hero-headline-selection-cursor 3.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .landing-hero-headline-selection-flash {
+          position: absolute;
+          right: 2%;
+          top: 74%;
+          width: 56px;
+          height: 56px;
+          border-radius: 9999px;
+          background: radial-gradient(circle, rgb(255 47 135 / 0.65) 0%, rgb(255 47 135 / 0.2) 42%, transparent 72%);
+          animation: landing-hero-headline-selection-flash 3.2s ease-out forwards;
         }
 
         /* Designer cursor - deliberate movements with creative pauses */
@@ -639,6 +896,10 @@ const LandingHero: React.FC<LandingHeroProps> = ({
 
         /* Disable animations for users who prefer reduced motion */
         @media (prefers-reduced-motion: reduce) {
+          .landing-hero-headline-surface,
+          .landing-hero-headline-selection-box,
+          .landing-hero-headline-selection-cursor,
+          .landing-hero-headline-selection-flash,
           .animate-cursor-designer,
           .animate-cursor-developer,
           .animate-cursor-reviewer,
@@ -654,8 +915,20 @@ const LandingHero: React.FC<LandingHeroProps> = ({
           .animate-cursor-label-pulse-3,
           .animate-cursor-label-pulse-4,
           .animate-cursor-label-pulse-5,
-          .animate-hover-gentle {
+          .animate-hover-gentle,
+          .logo-row-slide {
             animation: none !important;
+          }
+
+          .landing-hero-headline-surface {
+            opacity: 1 !important;
+            clip-path: inset(0 0 0 0) !important;
+            transform: none !important;
+            filter: none !important;
+          }
+
+          .landing-hero-headline-capture-overlay {
+            display: none !important;
           }
         }
       `}</style>

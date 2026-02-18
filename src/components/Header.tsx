@@ -222,7 +222,7 @@ const Header = () => {
           title="Go to Home"
           className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
         >
-          <span className="text-logo font-[Satoshi,Inter_Variable,Inter,ui-sans-serif] font-bold tracking-[-0.04em] text-xl leading-none">
+          <span className="text-logo font-sans font-bold tracking-[-0.04em] text-xl leading-none">
             {content.header?.logoText || 'BiblioKit'}
           </span>
         </a>
@@ -264,12 +264,12 @@ const Header = () => {
                 const isLearnDropdown = dd.label?.trim().toLowerCase() === 'learn';
                 const isResourcesDropdown = isFreePluginsDropdown;
                 const dropdownPanelClassName = isPluginsDropdown
-                  ? 'absolute top-full left-0 mt-3 w-[560px] rounded-3xl border border-white/12 bg-[#0b0c0f]/95 backdrop-blur-xl shadow-[0_32px_90px_rgba(7,5,16,0.6)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50'
-                  : 'absolute top-full left-0 mt-3 w-[380px] rounded-2xl border border-white/12 bg-[#0b0c0f] shadow-[0_26px_80px_rgba(7,5,16,0.55)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50';
+                  ? 'absolute top-full left-0 mt-2 w-[520px] rounded-2xl border border-white/10 bg-[#131417] shadow-[0_24px_64px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50'
+                  : 'absolute top-full left-0 mt-2 w-[320px] rounded-xl border border-white/10 bg-[#131417] shadow-[0_20px_48px_rgba(0,0,0,0.45)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50';
                 const dropdownContentClassName = isPluginsDropdown
-                  ? 'p-5 grid gap-3 sm:grid-cols-2'
-                  : 'p-4 space-y-2';
-                const dropdownTriggerClassName = 'text-sm font-semibold text-white hover:text-[#ff2f87] transition-colors flex items-center';
+                  ? 'p-2 grid gap-1 sm:grid-cols-2'
+                  : 'p-2 space-y-0.5';
+                const dropdownTriggerClassName = 'text-sm font-medium text-white hover:text-[#ff2f87] transition-colors flex items-center';
                 const dropdownTriggerHref = isLearnDropdown
                   ? ROUTE_PATHS.LEARN
                   : isResourcesDropdown
@@ -303,11 +303,11 @@ const Header = () => {
                           const usePluginIconStyle = isPluginsDropdown || Boolean(pluginIconSrc);
                           const ChildIcon = resolveLucideIcon(child.icon || child.label);
                           const itemClassName = isPluginsDropdown
-                            ? 'group/item flex items-start gap-3 py-2 rounded-2xl transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff2f87]'
-                            : 'flex items-center gap-3 py-2 rounded-xl transition-colors hover:bg-[#ff2f87]/12';
+                            ? 'group/item flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors hover:bg-white/[0.12] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff2f87]'
+                            : 'flex items-center gap-3 px-3 py-2 rounded-xl transition-colors hover:bg-white/[0.12]';
                           const iconWrapperClassName = usePluginIconStyle
-                            ? 'flex h-[22px] w-[22px] items-center justify-center'
-                            : 'flex h-8 w-8 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10';
+                            ? 'flex h-6 w-6 items-center justify-center flex-shrink-0'
+                            : 'flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-white flex-shrink-0';
                           const textWrapperClassName = isPluginsDropdown
                             ? 'flex-1 text-left'
                             : 'flex-1 text-left flex flex-col justify-center';
@@ -324,19 +324,19 @@ const Header = () => {
                                   <img
                                     src={pluginIconSrc}
                                     alt={`${child.label} icon`}
-                                    className="h-[22px] w-[22px] rounded-2xl object-contain"
-                                    width={22}
-                                    height={22}
+                                    className="h-6 w-6 rounded-lg object-contain"
+                                    width={24}
+                                    height={24}
                                   />
                                 ) : (
-                                  <ChildIcon className="h-3.5 w-3.5" strokeWidth={1.8} aria-hidden="true" />
+                                  <ChildIcon className="h-4 w-4 text-white/70" strokeWidth={1.8} aria-hidden="true" />
                                 )}
                               </span>
                               <span className={textWrapperClassName}>
                                 <span className="flex items-center gap-2">
-                                  <span className="text-sm font-semibold text-white">{child.label}</span>
+                                  <span className="text-sm font-medium text-white/90 group-hover/item:text-white transition-colors">{child.label}</span>
                                   {child.badge && (
-                                    <span className="text-[10px] font-semibold uppercase tracking-wide text-white bg-[#ff2f87]/20 px-2 py-[2px] rounded-full border border-[#ff2f87]/40">
+                                    <span className="text-[10px] font-medium uppercase tracking-wide text-[#ff2f87] bg-[#ff2f87]/10 px-1.5 py-0.5 rounded">
                                       {child.badge}
                                     </span>
                                   )}
@@ -377,7 +377,7 @@ const Header = () => {
                   href={normalizedHref}
                   target={isExternal ? '_blank' : undefined}
                   rel={isExternal ? (li.nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer') : (li.nofollow ? 'nofollow' : undefined)}
-                  className="text-sm font-semibold text-white hover:text-[#ff2f87] transition-colors"
+                  className="text-sm font-medium text-white hover:text-[#ff2f87] transition-colors"
                 >
                   {li.label}
                 </a>
@@ -391,7 +391,7 @@ const Header = () => {
       {/* Mobile menu */}
       <div
         id={HEADER_MOBILE_MENU_ID}
-        className="hidden md:hidden bg-gradient-to-br from-[#0c0d10] via-[#0b0c0f] to-[#0a0a0c] transition-colors duration-300 text-white"
+        className="hidden md:hidden bg-[#0b0c0f] text-white"
       >
         <div className="section-content py-2 space-y-2">
           {navItems.map((item, index) => {
@@ -407,11 +407,11 @@ const Header = () => {
               return (
                 <div key={`m-dd-${index}`} className="py-2">
                   {dropdownLabelHref ? (
-                    <a href={dropdownLabelHref} className="inline-flex text-sm font-semibold text-white/70 mb-2 hover:text-white transition-colors">
+                    <a href={dropdownLabelHref} className="inline-flex text-sm font-medium text-white/70 mb-2 hover:text-white transition-colors">
                       {dd.label}
                     </a>
                   ) : (
-                    <div className="text-sm font-semibold text-white/70 mb-2">{dd.label}</div>
+                    <div className="text-sm font-medium text-white/70 mb-2">{dd.label}</div>
                   )}
                   {(dd.children || []).map((child, ci) => {
                     const href = child.href || '#';
@@ -428,11 +428,11 @@ const Header = () => {
                       typeof child.icon === 'string' &&
                       /[\p{Extended_Pictographic}]/u.test(child.icon);
                     const iconWrapperClassName = usePluginIconStyle
-                      ? 'flex h-[19px] w-[19px] items-center justify-center'
-                      : 'flex h-8 w-8 items-center justify-center rounded-xl bg-[#ff2f87]/14 text-white border border-white/10';
+                      ? 'flex h-6 w-6 items-center justify-center flex-shrink-0'
+                      : 'flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-white flex-shrink-0';
                     const itemClassName = isPluginsDropdown
-                      ? 'flex items-start gap-3 rounded-xl text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white'
-                      : 'flex items-center gap-3 rounded-xl text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white';
+                      ? 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/80 transition-colors hover:bg-white/[0.12] hover:text-white'
+                      : 'flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-white/80 transition-colors hover:bg-white/[0.12] hover:text-white';
                     const textWrapperClassName = isPluginsDropdown
                       ? 'flex-1 text-left'
                       : 'flex-1 text-left flex flex-col justify-center';
@@ -449,9 +449,9 @@ const Header = () => {
                             <img
                               src={pluginIconSrc}
                               alt={`${child.label} icon`}
-                              className="h-[19px] w-[19px] rounded-xl object-contain"
-                              width={19}
-                              height={19}
+                              className="h-6 w-6 rounded-lg object-contain"
+                              width={24}
+                              height={24}
                             />
                           ) : isEmojiIcon ? (
                             <span className="text-lg" aria-hidden="true">
@@ -503,7 +503,7 @@ const Header = () => {
                 href={normalizedHref}
                 target={isExternal ? '_blank' : undefined}
                 rel={isExternal ? (li.nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer') : (li.nofollow ? 'nofollow' : undefined)}
-                className="block py-2 text-sm font-semibold text-white/80 hover:text-white transition-colors"
+                className="block py-2 text-sm font-medium text-white/80 hover:text-white transition-colors"
               >
                 {li.label}
               </a>

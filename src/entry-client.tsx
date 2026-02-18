@@ -2,12 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { Router } from 'wouter';
-import LogRocket from 'logrocket';
 import './index.css';
-
-try {
-  LogRocket.init('wgazc5/bibliokit');
-} catch { /* empty */ }
 
 try {
   document.documentElement.classList.add('dark');
@@ -36,9 +31,7 @@ const loadHotjarIfAllowed = (): void => {
       (typeof localStorage !== 'undefined' && localStorage.getItem('consent:analytics') === 'true');
     const alreadyLoaded = typeof (window as any).hj === 'function' ||
       !!document.querySelector('script[src*="hotjar-6484850.js"]');
-    
-    console.log('HotJar Debug:', { isProd, isAdmin, consent, alreadyLoaded, hostname: location.hostname });
-    
+
     if (!isProd || isAdmin || !consent || alreadyLoaded) return;
 
     // Define hj and _hjSettings BEFORE injecting the loader script
@@ -50,11 +43,22 @@ const loadHotjarIfAllowed = (): void => {
     s.async = true;
     s.src = 'https://static.hotjar.com/c/hotjar-6484850.js?sv=6';
     document.head.appendChild(s);
-    
-    console.log('✅ HotJar script injected successfully');
   } catch {
     /* empty */
   }
+};
+
+const scheduleAnalyticsLoad = (): void => {
+  const load = () => {
+    loadHotjarIfAllowed();
+  };
+
+  if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+    (window as any).requestIdleCallback(load, { timeout: 2000 });
+    return;
+  }
+
+  window.setTimeout(load, 1200);
 };
 
 // Check if we're doing SSR hydration or normal client rendering
@@ -82,5 +86,5 @@ if (hasSSRContent && !isLocalDevHost) {
   );
 }
 
-// Load analytics last, after render
-queueMicrotask(loadHotjarIfAllowed);
+// Load analytics last, after render and initial idle period
+queueMicrotask(scheduleAnalyticsLoad);

@@ -38,6 +38,12 @@ class DebugService {
   }
 
   private formatMessage(level: string, message: string, data?: any): void {
+    const shouldLogMessage = this.shouldLog(level);
+
+    if (!shouldLogMessage && !this.config.persistent) {
+      return;
+    }
+
     const timestamp = new Date().toISOString();
     const logEntry = { timestamp, level, message, data };
     
@@ -49,7 +55,7 @@ class DebugService {
       }
     }
 
-    if (this.shouldLog(level)) {
+    if (shouldLogMessage) {
       const emoji = {
         debug: '🔍',
         info: 'ℹ️',
@@ -164,7 +170,8 @@ if (typeof window !== 'undefined' && typeof window.location !== 'undefined') {
   const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   debugService.configure({ 
     enabled: isDev,
-    level: isDev ? 'debug' : 'warn'
+    level: isDev ? 'debug' : 'warn',
+    persistent: isDev
   });
 
   // Make available globally for console debugging

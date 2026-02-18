@@ -565,12 +565,12 @@
       auto;
     background-position:
       center;
-    min-height: 78vh;
+    min-height: calc(78vh + 120px);
   }
 
   .landing-hero-expanded {
-    padding-top: clamp(80px, 15vh, 160px);
-    padding-bottom: 120px;
+    padding-top: clamp(100px, 18vh, 180px);
+    padding-bottom: clamp(80px, 12vh, 140px);
   }
 
   .landing-hero-compact {
@@ -584,14 +584,14 @@
   }
 
   .landing-hero-accent-word {
-    font-family: "Instrument Serif", serif;
+    font-family: "Google Sans Flex", "Google Sans", sans-serif;
     font-weight: 400;
     font-style: italic;
     font-size: calc(1em + 12px);
   }
 
   .product-features-title-accent {
-    font-family: "Instrument Serif", serif;
+    font-family: "Google Sans Flex", "Google Sans", sans-serif;
     font-weight: 400;
     font-style: italic;
     font-size: calc(1em + 12px);
@@ -858,13 +858,6 @@
   }
 } 
 
-/* Hide Unicorn Studio watermarks */
-[data-us-project] a[href*="unicorn.studio"],
-[data-us-project] a[href*="unicorn"] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-}
 
 /* Pink shimmer focus effect for inputs, textareas, selects */
 @layer utilities {

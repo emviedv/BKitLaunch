@@ -272,8 +272,8 @@ const buildPluginSoftwareApplicationSchema = (
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
   title: "Figma Workflow Automation & Design System Tools | BiblioKit",
-  description: "BiblioKit is the Workflow OS for Figma. Automate DesignOps with an all-in-one suite for auditing systems, renaming variants, and fixing design drift.",
-  keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
+  description: "Automate Figma audits, layer renaming, and prototype cleanup. BiblioKit's 6 plugins help design teams ship faster without the manual grind.",
+  keywords: "Figma plugins, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, figma governance tool, design ops automation, detached instances, component states, table fixer, BiblioKit",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   googlebot: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   bingbot: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -364,13 +364,13 @@ const aiRenameVariantsMetadata: SEOMetadata = {
 export const routeMetadata: RouteMetadata = {
   '/': {
     title: 'Figma Workflow Automation & Design System Tools | BiblioKit',
-    description: 'BiblioKit is the Workflow OS for Figma. Automate DesignOps with an all-in-one suite for auditing systems, renaming variants, and fixing design drift.',
-    keywords: "clean Figma files, resize frames, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, predictive eye tracking figma, attention heatmaps, bulk resize ads, figma governance tool, design ops automation, BiblioKit",
+    description: "Automate Figma audits, layer renaming, and prototype cleanup. BiblioKit's 6 plugins help design teams ship faster without the manual grind.",
+    keywords: "Figma plugins, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, figma governance tool, design ops automation, detached instances, component states, table fixer, BiblioKit",
     ogTitle: 'Figma Workflow Automation & Design System Tools | BiblioKit',
-    ogDescription: 'BiblioKit is the Workflow OS for Figma. Automate DesignOps with an all-in-one suite for auditing systems, renaming variants, and fixing design drift.',
+    ogDescription: "Automate Figma audits, layer renaming, and prototype cleanup. BiblioKit's 6 plugins help design teams ship faster without the manual grind.",
     ogImage: "/og/og-default.svg",
     twitterTitle: 'Figma Workflow Automation & Design System Tools | BiblioKit',
-    twitterDescription: 'BiblioKit is the Workflow OS for Figma. Automate DesignOps with an all-in-one suite for auditing systems, renaming variants, and fixing design drift.',
+    twitterDescription: "Automate Figma audits, layer renaming, and prototype cleanup. BiblioKit's 6 plugins help design teams ship faster without the manual grind.",
     twitterImage: "/og/og-default.svg",
     structuredData: [
       {
@@ -386,6 +386,13 @@ export const routeMetadata: RouteMetadata = {
           "@type": "Organization",
           "@id": "https://www.bibliokit.com/#organization",
           "name": "BiblioKit"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "1500",
+          "bestRating": "5",
+          "worstRating": "1"
         },
         "offers": [
           {

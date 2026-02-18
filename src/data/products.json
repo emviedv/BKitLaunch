@@ -11,7 +11,7 @@
       "pricing": false,
       "product": true,
       "features": true,
-      "uxbiblio": true,
+      "uxbiblio": false,
       "waitlist": true,
       "bibliokit-blocks": true,
       "biblio-rename": true,
@@ -28,12 +28,12 @@
   "hero": {
     "visible": true,
     "title": "Design faster in Figma.\nShip better products",
-    "badgeLabel": null,
-    "description": null,
+    "badgeLabel": "Trusted by 1.5k+ designers",
+    "description": "Audit files, rename layers, clean prototypes, and ship.",
     "primaryButton": "Explore Products",
-    "secondaryButton": null,
+    "secondaryButton": "Browse Tutorials",
     "primaryButtonLink": "#landing-features",
-    "secondaryButtonLink": null,
+    "secondaryButtonLink": "/learn",
     "gradientColors": [
       "#ecfeff00",
       "#ecfeff10",
@@ -94,11 +94,6 @@
             "icon": "scaling"
           }
         ]
-      },
-      {
-        "href": "https://uxbiblio.com",
-        "label": "UXBiblio",
-        "isExternal": true
       },
       {
         "href": "/learn",
@@ -248,30 +243,6 @@
       "buttonPreset": "custom",
       "statValue": "1-click",
       "statLabel": "TABLES FIXED"
-    },
-    {
-      "icon": "🛒",
-      "idea": "Your personal UX library for patterns and ideas.",
-      "badge": "Launched",
-      "category": "Launched",
-      "title": "Catalog UX Patterns with AI (UXBiblio)",
-      "badges": [],
-      "topItems": [
-        "AI-powered tagging",
-        "Heuristic analysis",
-        "Centralized repository",
-        "Supports code, PDFs, GIFs",
-        "Add notes + insights"
-      ],
-      "showBadge": true,
-      "badgeColor": "#0ea5e9",
-      "buttonLink": "https://uxbiblio.com",
-      "buttonText": "Try Free",
-      "isFeatured": true,
-      "description": "Save and organize UX patterns with AI tagging and heuristic analysis.",
-      "buttonPreset": "custom",
-      "statValue": "1000s",
-      "statLabel": "PATTERNS SAVED"
     }
   ],
   "featuresSection": {

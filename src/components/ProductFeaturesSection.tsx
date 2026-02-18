@@ -113,7 +113,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
   const renderLandingCard = () => (
     <section
       id={sectionId}
-      className="relative overflow-hidden landing-sections-gradient py-24 sm:py-28"
+      className="relative overflow-hidden landing-sections-gradient py-20 sm:py-24"
       key="features-landing"
     >
       <div className="relative z-10 w-full flex flex-col items-center">
@@ -122,8 +122,8 @@ const ProductFeaturesSection: React.FC<Props> = ({
         </div>
         {logoMarquee}
       </div>
-      <div className="section-content relative overflow-visible z-10 pt-16">
-        <div className="mt-12 relative">
+      <div className="section-content relative overflow-visible z-10 pt-12">
+        <div className="mt-8 relative">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {detailEntries.map(({ detail, anchorId }, index) => {
               // Color themes for each card (bg, icon color, border)

@@ -275,7 +275,7 @@ const OrigamiIllustration: React.FC<OrigamiIllustrationProps> = ({ className, sh
           transform: translate(-50%, -50%) rotate(-3deg);
         }
         .origami-visual__handwriting {
-          font-family: 'Satoshi', 'Inter', 'Inter_Variable', system-ui, sans-serif;
+          font-family: 'Google Sans Flex', 'Google Sans', sans-serif;
           font-size: 16px;
           color: #6b21a8;
           line-height: 1.3;

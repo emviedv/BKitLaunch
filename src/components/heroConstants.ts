@@ -10,6 +10,9 @@ export const HERO_DESCRIPTION_CLASS =
 export const HERO_PRIMARY_BUTTON_CLASS =
   'w-full sm:w-auto min-w-[12rem] px-6 rounded-md bg-[#ff2f87] text-white shadow-md transition-colors duration-200 hover:bg-[#e02074] text-sm font-semibold tracking-wide';
 
+export const HERO_SECONDARY_BUTTON_CLASS =
+  'w-full sm:w-auto min-w-[12rem] px-6 rounded-md bg-white/10 border border-white/25 text-white shadow-md backdrop-blur-sm transition-colors duration-200 hover:bg-white/20 hover:border-white/40 text-sm font-semibold tracking-wide';
+
 export const HERO_HEADLINE_GRADIENT_CLASS = 'hero-gradient-text';
 
 /**

@@ -20,7 +20,7 @@
     <link rel="canonical" href="https://www.bibliokit.com/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700;800&family=Barlow:wght@400;500;600;700&family=Instrument+Serif:ital,wght@1,400&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
     <meta property="og:title" content="BiblioKit | Suite of Figma Plugins &amp; DesignOps Tools" />
     <meta property="og:description" content="BiblioKit speeds Figma shipping for designers, developers, and marketers. Join the beta to automate audits, renaming, cleanup, and launch faster." />
     <meta property="og:type" content="website" />
@@ -183,6 +183,14 @@
     <!-- Hotjar consent bootstrap + Tracking Code for BiblioKit -->
     <script>
       (function () {
+        var scheduleWhenIdle = function (fn) {
+          if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(fn, { timeout: 2000 });
+            return;
+          }
+          setTimeout(fn, 1200);
+        };
+
         try {
           // Allow quick validation with ?hj=1 or ?analytics=1
           var qp = new URLSearchParams(location.search);
@@ -192,33 +200,66 @@
             try { window.__USER_CONSENT__ = Object.assign({}, window.__USER_CONSENT__, { analytics: true }); } catch(e) {}
           }
         } catch (e) {}
-        try {
-          var isProd = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1';
-          var isAdmin = location.pathname.startsWith('/admin');
-          var consent = (window.__USER_CONSENT__ && window.__USER_CONSENT__.analytics === true) ||
-            (function () { try { return localStorage.getItem('consent:analytics') === 'true'; } catch (e) { return false; } })();
-          var alreadyLoaded = typeof window.hj === 'function' || !!document.querySelector('script[src*="hotjar-6484850.js"]');
-          if (!isProd || isAdmin || !consent || alreadyLoaded) return;
 
-          // Official order: define before loading
-          window.hj = window.hj || function(){ (window.hj.q = window.hj.q || []).push(arguments) };
-          window._hjSettings = { hjid: 6484850, hjsv: 6 };
-          var a = document.getElementsByTagName('head')[0];
-          var r = document.createElement('script'); r.async = 1;
-          r.src = 'https://static.hotjar.com/c/hotjar-' + window._hjSettings.hjid + '.js?sv=' + window._hjSettings.hjsv;
-          a.appendChild(r);
+        var loadHotjar = function () {
+          try {
+            var isProd = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1';
+            var isAdmin = location.pathname.startsWith('/admin');
+            var consent = (window.__USER_CONSENT__ && window.__USER_CONSENT__.analytics === true) ||
+              (function () { try { return localStorage.getItem('consent:analytics') === 'true'; } catch (e) { return false; } })();
+            var alreadyLoaded = typeof window.hj === 'function' || !!document.querySelector('script[src*="hotjar-6484850.js"]');
+            if (!isProd || isAdmin || !consent || alreadyLoaded) return;
+
+            // Official order: define before loading
+            window.hj = window.hj || function(){ (window.hj.q = window.hj.q || []).push(arguments) };
+            window._hjSettings = { hjid: 6484850, hjsv: 6 };
+            var a = document.getElementsByTagName('head')[0];
+            var r = document.createElement('script'); r.async = 1;
+            r.src = 'https://static.hotjar.com/c/hotjar-' + window._hjSettings.hjid + '.js?sv=' + window._hjSettings.hjsv;
+            a.appendChild(r);
+          } catch (e) {}
+        };
+
+        try {
+          if (document.readyState === 'complete') {
+            scheduleWhenIdle(loadHotjar);
+          } else {
+            window.addEventListener('load', function () { scheduleWhenIdle(loadHotjar); }, { once: true });
+          }
         } catch (e) {}
       })();
     </script>
-    <script>
-      !function(){if(!window.UnicornStudio){window.UnicornStudio={};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.5.2/dist/unicornStudio.umd.js",(document.head||document.body).appendChild(i)}}();
-    </script>
     <!-- Apollo.io Website Tracker -->
     <script>
-      function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
-      o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,
-      o.onload=function(){window.trackingFunctions.onLoad({appId:"697902f91a7bc300114dc098"})},
-      document.head.appendChild(o)}initApollo();
+      (function () {
+        var scheduleApolloLoad = function (fn) {
+          if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(fn, { timeout: 3000 });
+            return;
+          }
+          setTimeout(fn, 1500);
+        };
+
+        var initApollo = function () {
+          try {
+            var n = Math.random().toString(36).substring(7);
+            var o = document.createElement('script');
+            o.src = 'https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache=' + n;
+            o.async = true;
+            o.defer = true;
+            o.onload = function () {
+              try { window.trackingFunctions.onLoad({ appId: '697902f91a7bc300114dc098' }); } catch (e) {}
+            };
+            document.head.appendChild(o);
+          } catch (e) {}
+        };
+
+        if (document.readyState === 'complete') {
+          scheduleApolloLoad(initApollo);
+        } else {
+          window.addEventListener('load', function () { scheduleApolloLoad(initApollo); }, { once: true });
+        }
+      })();
     </script>
   </head>
   <body data-hero-motion="on">
