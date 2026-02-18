@@ -613,6 +613,17 @@ export const routeMetadata: RouteMetadata = {
     twitterTitle: 'Figma Use Cases & Tutorials | BiblioKit',
     twitterDescription: 'Step-by-step guides for common Figma tasks. Learn how to batch rename layers, find detached instances, and more.',
     twitterImage: '/og/og-default.svg'
+  },
+  '/for': {
+    title: 'Figma Plugins by Role | BiblioKit',
+    description: 'Discover the best Figma plugins for your role. Tailored recommendations for design system managers, freelance designers, product designers, design leads, and UI engineers.',
+    keywords: 'figma plugins by role, design system manager figma, freelance designer figma, product designer tools, design lead plugins',
+    ogTitle: 'Figma Plugins by Role | BiblioKit',
+    ogDescription: 'Discover the best Figma plugins for your role. Tailored recommendations for every type of design professional.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'Figma Plugins by Role | BiblioKit',
+    twitterDescription: 'Discover the best Figma plugins for your role. Tailored recommendations for every type of design professional.',
+    twitterImage: '/og/og-default.svg'
   }
 };
 

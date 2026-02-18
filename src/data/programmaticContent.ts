@@ -1523,6 +1523,953 @@ export const USE_CASE_PAGES: UseCasePage[] = [
       'code friendly properties figma',
       'hasIcon figma'
     ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // ComponentQA - Color Contrast
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'check-color-contrast-figma',
+    title: 'How to Check Color Contrast in Figma',
+    metaTitle: 'Check Color Contrast in Figma | ComponentQA',
+    metaDescription: 'Automatically check WCAG color contrast ratios across your Figma designs. Find accessibility issues before development handoff.',
+    plugin: 'componentqa',
+    pluginName: 'ComponentQA',
+    pluginUrl: '/figma-design-system-audit-plugin',
+    communityUrl: PLUGIN_DATA['componentqa'].communityUrl,
+    problem: 'Poor color contrast makes designs inaccessible',
+    problemDetails: [
+      'WCAG requires 4.5:1 contrast for normal text, 3:1 for large text',
+      'Manual checking with color pickers is slow and error-prone',
+      'Designs look fine on your screen but fail accessibility audits',
+      'Developers catch contrast issues late in the process'
+    ],
+    solution: 'ComponentQA scans text and background color combinations across your designs and flags any that fail WCAG AA or AAA standards.',
+    steps: [
+      {
+        title: 'Select scope',
+        description: 'Choose what to audit: current selection, page, or entire file. ComponentQA analyzes all text layers and their backgrounds.',
+        tip: 'Start with critical screens like forms and navigation.'
+      },
+      {
+        title: 'Run contrast check',
+        description: 'Enable "Color Contrast" in the audit settings and click Run. ComponentQA calculates ratios for every text/background pair.',
+        tip: 'Choose between WCAG AA (minimum) or AAA (enhanced) standards.'
+      },
+      {
+        title: 'Fix failing colors',
+        description: 'Click any failing item to navigate to it. ComponentQA suggests the minimum color adjustment needed to pass.',
+        tip: 'Update your color tokens at the source to fix all instances at once.'
+      }
+    ],
+    benefits: [
+      'Automatic WCAG compliance checking',
+      'Navigate directly to issues',
+      'Suggested color fixes',
+      'AA and AAA level support',
+      'Exportable accessibility report'
+    ],
+    faqs: [
+      {
+        question: 'What contrast ratio is required?',
+        answer: 'WCAG AA requires 4.5:1 for normal text and 3:1 for large text (18pt+ or 14pt bold). WCAG AAA requires 7:1 and 4.5:1 respectively.'
+      },
+      {
+        question: 'Does it check images and icons?',
+        answer: 'ComponentQA focuses on text contrast. For UI icons, ensure 3:1 contrast against backgrounds.'
+      },
+      {
+        question: 'Can I export a compliance report?',
+        answer: 'Yes. Export results as a PDF or CSV for stakeholder review or documentation.'
+      }
+    ],
+    relatedUseCases: [
+      'audit-design-system-figma',
+      'validate-design-tokens-figma'
+    ],
+    keywords: [
+      'color contrast figma',
+      'wcag contrast checker',
+      'accessibility figma',
+      'color contrast ratio',
+      'figma a11y audit'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // ComponentQA - Unused Styles
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'clean-unused-styles-figma',
+    title: 'How to Clean Unused Styles in Figma',
+    metaTitle: 'Clean Unused Styles in Figma | ComponentQA',
+    metaDescription: 'Find and remove unused color, text, and effect styles from your Figma file. Keep your design system lean and maintainable.',
+    plugin: 'componentqa',
+    pluginName: 'ComponentQA',
+    pluginUrl: '/figma-design-system-audit-plugin',
+    communityUrl: PLUGIN_DATA['componentqa'].communityUrl,
+    problem: 'Unused styles clutter your design system',
+    problemDetails: [
+      'Old styles accumulate as designs evolve',
+      'Designers cannot tell which styles are actually used',
+      'Style picker becomes cluttered with abandoned options',
+      'Library size grows unnecessarily'
+    ],
+    solution: 'ComponentQA scans your entire file to identify which styles are actually applied to layers. Unused styles are flagged for removal.',
+    steps: [
+      {
+        title: 'Run style audit',
+        description: 'Open ComponentQA and select "Unused Styles" from the audit options. The scan covers colors, text styles, and effects.',
+        tip: 'Scan your library files separately from consumer files.'
+      },
+      {
+        title: 'Review unused styles',
+        description: 'ComponentQA lists all styles with zero usages. Review each to confirm it is truly unused and not reserved for future use.',
+        tip: 'Mark intentionally reserved styles with a naming convention like "Reserved/".'
+      },
+      {
+        title: 'Delete or archive',
+        description: 'Select unused styles and delete them, or move them to an "Archive" section if you want to preserve them.',
+        tip: 'Publish library changes to propagate cleanup to all consumers.'
+      }
+    ],
+    benefits: [
+      'Identify all unused styles',
+      'Clean style picker',
+      'Smaller library files',
+      'Easier style maintenance',
+      'Clear design system governance'
+    ],
+    faqs: [
+      {
+        question: 'Does it check across multiple files?',
+        answer: 'ComponentQA scans one file at a time. For libraries, scan the library file to find styles unused within it.'
+      },
+      {
+        question: 'What about styles used in other files?',
+        answer: 'Library style usage is tracked across consumers. ComponentQA can identify styles that have no consumers.'
+      },
+      {
+        question: 'Can I undo style deletion?',
+        answer: 'Style deletion can be undone with Cmd/Ctrl+Z immediately after. For published libraries, version history preserves old states.'
+      }
+    ],
+    relatedUseCases: [
+      'audit-design-system-figma',
+      'validate-design-tokens-figma'
+    ],
+    keywords: [
+      'unused styles figma',
+      'clean figma styles',
+      'remove unused colors',
+      'figma style cleanup',
+      'design system maintenance'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // ComponentQA - Design Tokens
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'validate-design-tokens-figma',
+    title: 'How to Validate Design Tokens in Figma',
+    metaTitle: 'Validate Design Tokens in Figma | ComponentQA',
+    metaDescription: 'Check that your Figma designs use proper design tokens instead of hardcoded values. Ensure token compliance before handoff.',
+    plugin: 'componentqa',
+    pluginName: 'ComponentQA',
+    pluginUrl: '/figma-design-system-audit-plugin',
+    communityUrl: PLUGIN_DATA['componentqa'].communityUrl,
+    problem: 'Hardcoded values bypass your design token system',
+    problemDetails: [
+      'Designers apply hex colors instead of using color styles',
+      'Font sizes get typed manually instead of using text styles',
+      'Token drift accumulates silently across the file',
+      'Developers cannot map designs to code tokens'
+    ],
+    solution: 'ComponentQA validates that all colors, typography, spacing, and effects come from your defined styles/variables. Non-token values are flagged.',
+    steps: [
+      {
+        title: 'Define token sources',
+        description: 'Tell ComponentQA which styles and variables constitute your token system. It uses your published styles as the source of truth.',
+        tip: 'Include all color, text, effect, and layout grid styles.'
+      },
+      {
+        title: 'Run validation',
+        description: 'Scan your file for any property values that do not reference a defined token. Results are categorized by type.',
+        tip: 'Filter by severity to focus on critical issues like colors first.'
+      },
+      {
+        title: 'Convert to tokens',
+        description: 'For each flagged value, either apply an existing token or create a new one. ComponentQA can suggest the closest matching token.',
+        tip: 'Use batch select to apply the same token to multiple similar violations.'
+      }
+    ],
+    benefits: [
+      'Ensure 100% token coverage',
+      'Catch token drift early',
+      'Suggest closest matching tokens',
+      'Batch fix similar violations',
+      'Export compliance reports'
+    ],
+    faqs: [
+      {
+        question: 'What counts as a token?',
+        answer: 'Tokens are your published styles (color, text, effect, grid) and variables. Any direct value that bypasses these is flagged.'
+      },
+      {
+        question: 'Can I allow some hardcoded values?',
+        answer: 'Yes. Mark specific values as "allowed exceptions" in ComponentQA settings for intentional one-offs.'
+      },
+      {
+        question: 'Does it validate spacing tokens?',
+        answer: 'If you use spacing variables or auto-layout presets, ComponentQA can validate against those. Raw pixel values are flagged.'
+      }
+    ],
+    relatedUseCases: [
+      'audit-design-system-figma',
+      'check-color-contrast-figma'
+    ],
+    keywords: [
+      'design tokens figma',
+      'validate tokens',
+      'figma token compliance',
+      'hardcoded values figma',
+      'token drift'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // StateBuilder - Loading States
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'create-loading-states-figma',
+    title: 'How to Create Loading States in Figma',
+    metaTitle: 'Create Loading States in Figma | StateBuilder',
+    metaDescription: 'Auto-generate loading, skeleton, and spinner states for your Figma components. Build complete async UX without manual work.',
+    plugin: 'statebuilder',
+    pluginName: 'StateBuilder',
+    pluginUrl: '/figma-component-states',
+    communityUrl: PLUGIN_DATA['statebuilder'].communityUrl,
+    problem: 'Loading states are often forgotten until late in design',
+    problemDetails: [
+      'Every data-driven component needs a loading state',
+      'Skeleton screens require recreating layout with placeholder shapes',
+      'Spinner placement and sizing needs consistency',
+      'Developers implement loading states without design guidance'
+    ],
+    solution: 'StateBuilder generates loading state variants from your content-filled designs. It creates skeleton placeholders that match your component structure.',
+    steps: [
+      {
+        title: 'Select component',
+        description: 'Select the component in its default, content-filled state. StateBuilder analyzes the layout structure.',
+        tip: 'Components with clear content areas work best for skeleton generation.'
+      },
+      {
+        title: 'Choose loading style',
+        description: 'Select loading type: skeleton (placeholder shapes), spinner overlay, shimmer effect, or custom combination.',
+        tip: 'Skeletons work well for cards and lists. Spinners suit buttons and forms.'
+      },
+      {
+        title: 'Generate and customize',
+        description: 'StateBuilder creates the loading variant with proper structure. Adjust placeholder sizing or add animation hints as needed.',
+        tip: 'Add "pulse" or "shimmer" notes for developers to implement animations.'
+      }
+    ],
+    benefits: [
+      'Consistent loading patterns',
+      'Skeleton screens from content layouts',
+      'Multiple loading styles',
+      'Proper variant structure',
+      'Animation documentation'
+    ],
+    beforeAfter: {
+      before: 'Card component (content state only)',
+      after: 'Card component with Loading variant (skeleton placeholders)',
+      beforeLabel: 'Missing loading state',
+      afterLabel: 'Complete async UX'
+    },
+    faqs: [
+      {
+        question: 'What loading styles are available?',
+        answer: 'Skeleton (gray placeholder shapes), spinner overlay, shimmer effect, and dot loader. You can combine styles.'
+      },
+      {
+        question: 'Does it animate the skeleton?',
+        answer: 'Figma cannot animate fills. StateBuilder documents the intended animation for developers to implement.'
+      },
+      {
+        question: 'How do I show partial loading?',
+        answer: 'Create multiple loading variants: full skeleton, partial load, and loaded. Use component properties to control display.'
+      }
+    ],
+    relatedUseCases: [
+      'create-error-states-figma',
+      'create-empty-states-figma'
+    ],
+    keywords: [
+      'loading state figma',
+      'skeleton screen figma',
+      'figma loading spinner',
+      'async state design',
+      'placeholder loading figma'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // StateBuilder - Error States
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'create-error-states-figma',
+    title: 'How to Create Error States in Figma',
+    metaTitle: 'Create Error States in Figma | StateBuilder',
+    metaDescription: 'Design error states for forms, inputs, and API failures. Auto-generate error variants with proper messaging patterns.',
+    plugin: 'statebuilder',
+    pluginName: 'StateBuilder',
+    pluginUrl: '/figma-component-states',
+    communityUrl: PLUGIN_DATA['statebuilder'].communityUrl,
+    problem: 'Error states are designed inconsistently or forgotten entirely',
+    problemDetails: [
+      'Each form field needs validation error styling',
+      'API errors need user-friendly messaging',
+      'Error patterns differ across components',
+      'Developers improvise when error designs are missing'
+    ],
+    solution: 'StateBuilder generates error state variants with proper visual treatment: red borders, error icons, and message placement.',
+    steps: [
+      {
+        title: 'Select input or component',
+        description: 'Select the form field, card, or component that needs an error state. StateBuilder works with any component type.',
+        tip: 'Apply to your base input component to propagate errors to all variants.'
+      },
+      {
+        title: 'Configure error styling',
+        description: 'Define error visual rules: border color, background tint, icon placement, and error message position.',
+        tip: 'Use your design system error color token for consistency.'
+      },
+      {
+        title: 'Generate variants',
+        description: 'StateBuilder creates the Error variant with all visual changes applied. Add sample error messages for context.',
+        tip: 'Create both field-level and form-level error patterns.'
+      }
+    ],
+    benefits: [
+      'Consistent error visual treatment',
+      'Proper error message placement',
+      'Works with any input type',
+      'Matches design token colors',
+      'Complete validation specs'
+    ],
+    faqs: [
+      {
+        question: 'What error styles can I apply?',
+        answer: 'Border color, background tint, error icon (inline or adjacent), shake animation notation, and error message text styling.'
+      },
+      {
+        question: 'Should error messages be inside the component?',
+        answer: 'Best practice is to show error messages below the field. StateBuilder supports inline and external message placement.'
+      },
+      {
+        question: 'How do I handle multiple errors?',
+        answer: 'Create variants for single-error and multiple-error states. Use boolean properties to control error message visibility.'
+      }
+    ],
+    relatedUseCases: [
+      'create-loading-states-figma',
+      'create-empty-states-figma'
+    ],
+    keywords: [
+      'error state figma',
+      'form validation design',
+      'input error figma',
+      'error message design',
+      'form error styling'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // StateBuilder - Empty States
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'create-empty-states-figma',
+    title: 'How to Create Empty States in Figma',
+    metaTitle: 'Create Empty States in Figma | StateBuilder',
+    metaDescription: 'Design empty states for lists, tables, and data views. Create helpful zero-data experiences that guide users to action.',
+    plugin: 'statebuilder',
+    pluginName: 'StateBuilder',
+    pluginUrl: '/figma-component-states',
+    communityUrl: PLUGIN_DATA['statebuilder'].communityUrl,
+    problem: 'Empty states are overlooked, leaving users confused',
+    problemDetails: [
+      'Empty lists show nothing, with no guidance',
+      'First-time users see blank screens instead of onboarding',
+      'Search results show "0 results" without helpful suggestions',
+      'Empty states are designed ad-hoc without patterns'
+    ],
+    solution: 'StateBuilder generates empty state variants with placeholder illustrations, helpful copy, and calls-to-action based on your component context.',
+    steps: [
+      {
+        title: 'Select data component',
+        description: 'Select your list, table, grid, or data container in its populated state. StateBuilder uses this to understand the context.',
+        tip: 'Empty states should match the dimensions of the populated component.'
+      },
+      {
+        title: 'Configure empty state',
+        description: 'Choose empty state elements: illustration, headline, description, and primary action. StateBuilder provides templates.',
+        tip: 'Include a clear call-to-action that helps users add their first item.'
+      },
+      {
+        title: 'Generate variant',
+        description: 'StateBuilder creates the Empty variant with centered messaging. Adjust illustration and copy to match your brand voice.',
+        tip: 'Create multiple empty states: first-time (onboarding) vs filtered (no results).'
+      }
+    ],
+    benefits: [
+      'Consistent empty state patterns',
+      'Helpful onboarding moments',
+      'Clear calls-to-action',
+      'Illustration placeholders',
+      'Multiple empty state types'
+    ],
+    beforeAfter: {
+      before: 'Empty list showing blank space',
+      after: 'Empty list with illustration, message, and "Add First Item" button',
+      beforeLabel: 'Confusing blank',
+      afterLabel: 'Helpful empty state'
+    },
+    faqs: [
+      {
+        question: 'What elements should an empty state have?',
+        answer: 'Typically: illustration (optional), headline, description, and primary action button. Keep messaging encouraging, not negative.'
+      },
+      {
+        question: 'Should I use different empty states for different scenarios?',
+        answer: 'Yes. First-time/onboarding, no search results, and error-caused empty states should have different messaging.'
+      },
+      {
+        question: 'Where can I get empty state illustrations?',
+        answer: 'Use your brand illustration library, or source from free libraries like unDraw, Humaaans, or Blush.'
+      }
+    ],
+    relatedUseCases: [
+      'create-loading-states-figma',
+      'create-error-states-figma'
+    ],
+    keywords: [
+      'empty state figma',
+      'zero data state',
+      'no results design',
+      'first-time user experience',
+      'empty list design'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // ScaleResizer - Batch Export
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'batch-export-figma-assets',
+    title: 'How to Batch Export Assets from Figma',
+    metaTitle: 'Batch Export Figma Assets to Multiple Sizes | ScaleResizer',
+    metaDescription: 'Export Figma frames to multiple sizes at once. Generate @1x, @2x, @3x assets and all platform dimensions in a single export.',
+    plugin: 'scaleresizer',
+    pluginName: 'ScaleResizer',
+    pluginUrl: '/figma-marketing-resizer-plugin',
+    communityUrl: PLUGIN_DATA['scaleresizer'].communityUrl,
+    problem: 'Exporting assets to multiple sizes is tedious and error-prone',
+    problemDetails: [
+      'iOS needs @1x, @2x, @3x for every asset',
+      'Android needs mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi',
+      'Web needs multiple sizes for responsive images',
+      'Manually setting up export settings takes forever'
+    ],
+    solution: 'ScaleResizer batch exports your frames to all required sizes at once. Set up platform presets and export everything with proper naming.',
+    steps: [
+      {
+        title: 'Select frames to export',
+        description: 'Select the frames or components you want to export. ScaleResizer handles multiple selections.',
+        tip: 'Use consistent frame naming for clean exported file names.'
+      },
+      {
+        title: 'Choose export presets',
+        description: 'Select platform presets: iOS (@1x-@3x), Android (density buckets), Web (responsive sizes), or custom multipliers.',
+        tip: 'Create custom presets for your specific app requirements.'
+      },
+      {
+        title: 'Export all sizes',
+        description: 'Click Export to generate all size variations. Files are named with proper suffixes and organized in folders.',
+        tip: 'Use PNG for graphics with transparency, JPG for photos, SVG for icons.'
+      }
+    ],
+    benefits: [
+      'All platform sizes in one export',
+      'Proper file naming (@2x, _xxhdpi)',
+      'Organized folder structure',
+      'Custom export presets',
+      'Multiple format support'
+    ],
+    faqs: [
+      {
+        question: 'What sizes do iOS apps need?',
+        answer: 'iOS typically needs @1x, @2x, and @3x versions. App icons need additional sizes for different contexts.'
+      },
+      {
+        question: 'What about Android density buckets?',
+        answer: 'ScaleResizer exports to mdpi (1x), hdpi (1.5x), xhdpi (2x), xxhdpi (3x), and xxxhdpi (4x) with proper folder structure.'
+      },
+      {
+        question: 'Can I export SVG and PNG together?',
+        answer: 'Yes. ScaleResizer can export the same frame in multiple formats simultaneously.'
+      }
+    ],
+    relatedUseCases: [
+      'resize-marketing-assets-figma',
+      'create-social-media-sizes-figma'
+    ],
+    keywords: [
+      'batch export figma',
+      'export multiple sizes figma',
+      'figma @2x export',
+      'ios asset export figma',
+      'android export figma'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // OrganizeFile - Icon Components
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'create-icon-component-figma',
+    title: 'How to Create Icon Components in Figma',
+    metaTitle: 'Create Scalable Icon Components in Figma | OrganizeFile',
+    metaDescription: 'Build icon components that scale properly and support color customization. Set up your icon library with best practices.',
+    plugin: 'organizefile',
+    pluginName: 'OrganizeFile',
+    pluginUrl: '/figma-organize-design-files-plugin',
+    communityUrl: PLUGIN_DATA['organizefile'].communityUrl,
+    problem: 'Icons break when resized or need color changes',
+    problemDetails: [
+      'Icon strokes scale incorrectly at different sizes',
+      'Colors are hardcoded instead of using currentColor',
+      'Icon naming is inconsistent across the library',
+      'No clear organization for hundreds of icons'
+    ],
+    solution: 'OrganizeFile helps you set up a properly structured icon library with scalable components, consistent naming, and color token support.',
+    steps: [
+      {
+        title: 'Prepare icon frames',
+        description: 'Ensure icons are in consistent frame sizes (24x24, 20x20, etc.) with proper padding. Flatten complex shapes.',
+        tip: 'Use a 24x24 base size with 2px padding for optimal scalability.'
+      },
+      {
+        title: 'Convert to components',
+        description: 'OrganizeFile batch converts icon frames to components with proper naming (icon/arrow-right, icon/check).',
+        tip: 'Use slash notation for icon categories: icon/navigation/arrow-right.'
+      },
+      {
+        title: 'Apply color tokens',
+        description: 'Set icon fills to use color variables so they inherit color from parent components.',
+        tip: 'Use a semantic token like "icon-color" that maps to your text color.'
+      }
+    ],
+    benefits: [
+      'Scalable icon components',
+      'Consistent naming convention',
+      'Color token support',
+      'Organized icon categories',
+      'Easy icon discovery'
+    ],
+    faqs: [
+      {
+        question: 'What size should icon components be?',
+        answer: 'Common sizes are 16x16, 20x20, 24x24, and 32x32. Design at your most-used size and let Figma scale.'
+      },
+      {
+        question: 'How do I make icons change color?',
+        answer: 'Set icon fills to use a color variable. When placed in a component, the icon inherits the variable value.'
+      },
+      {
+        question: 'Should I use component properties for sizes?',
+        answer: 'For simple scaling, let consumers resize the component. For size-specific variations, use variant properties.'
+      }
+    ],
+    relatedUseCases: [
+      'organize-figma-file-structure',
+      'batch-rename-figma-layers'
+    ],
+    keywords: [
+      'icon component figma',
+      'figma icon library',
+      'scalable icons figma',
+      'icon system figma',
+      'create icon set'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // OrganizeFile - Page Naming
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'standardize-figma-page-naming',
+    title: 'How to Standardize Page Naming in Figma',
+    metaTitle: 'Standardize Figma Page Names | OrganizeFile',
+    metaDescription: 'Create consistent page naming conventions across your Figma files. Use emoji prefixes and clear hierarchies for better navigation.',
+    plugin: 'organizefile',
+    pluginName: 'OrganizeFile',
+    pluginUrl: '/figma-organize-design-files-plugin',
+    communityUrl: PLUGIN_DATA['organizefile'].communityUrl,
+    problem: 'Inconsistent page names make files hard to navigate',
+    problemDetails: [
+      'Page names like "Page 1", "test", "old" provide no context',
+      'Different designers use different naming conventions',
+      'No visual hierarchy in the page list',
+      'Finding specific pages requires clicking through everything'
+    ],
+    solution: 'OrganizeFile applies consistent page naming conventions with optional emoji prefixes, numbered ordering, and clear hierarchy.',
+    steps: [
+      {
+        title: 'Choose naming convention',
+        description: 'Select a naming pattern: emoji prefix (📐 Components), numbered (01. Components), or plain text hierarchy.',
+        tip: 'Emoji prefixes create strong visual grouping in the page list.'
+      },
+      {
+        title: 'Define page types',
+        description: 'Categorize your pages: Cover, Flows, Components, Screens, Archive. OrganizeFile suggests appropriate names.',
+        tip: 'Use divider pages like "─────" to create visual sections.'
+      },
+      {
+        title: 'Apply to file',
+        description: 'OrganizeFile renames existing pages to match your convention. Preview changes before applying.',
+        tip: 'Save your naming convention as a team template for new files.'
+      }
+    ],
+    benefits: [
+      'Consistent naming across files',
+      'Visual hierarchy with emojis',
+      'Easy page navigation',
+      'Team-wide conventions',
+      'Professional file presentation'
+    ],
+    beforeAfter: {
+      before: 'Page 1, Components v2, test, flows (2)',
+      after: '📋 Cover, 🔄 Flows, 🧩 Components, 🖼️ Screens, 📦 Archive',
+      beforeLabel: 'Messy names',
+      afterLabel: 'Clear convention'
+    },
+    faqs: [
+      {
+        question: 'What emojis work well for page names?',
+        answer: 'Common choices: 📋 Cover, 🔄 Flows, 🧩 Components, 🖼️ Screens, 📝 Specs, 📦 Archive, ⚙️ Settings.'
+      },
+      {
+        question: 'Should I use numbers or emojis?',
+        answer: 'Numbers (01, 02) provide strict ordering. Emojis provide visual grouping. Some teams use both: "01 📋 Cover".'
+      },
+      {
+        question: 'How do I create section dividers?',
+        answer: 'Create empty pages named with dashes "─────────" or category headers like "[ DESIGN ]".'
+      }
+    ],
+    relatedUseCases: [
+      'organize-figma-file-structure',
+      'create-figma-file-template'
+    ],
+    keywords: [
+      'figma page naming',
+      'organize figma pages',
+      'figma page convention',
+      'emoji page names figma',
+      'figma file organization'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // FixTable - Responsive Tables
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'create-responsive-table-figma',
+    title: 'How to Create Responsive Tables in Figma',
+    metaTitle: 'Create Responsive Tables in Figma | FixTable',
+    metaDescription: 'Build tables that adapt to different screen sizes. Design responsive data tables with proper mobile and desktop layouts.',
+    plugin: 'fixtable',
+    pluginName: 'FixTable',
+    pluginUrl: '/figma-table-builder',
+    communityUrl: PLUGIN_DATA['fixtable'].communityUrl,
+    problem: 'Data tables break on mobile screens',
+    problemDetails: [
+      'Desktop tables do not fit on mobile viewports',
+      'Horizontal scrolling creates poor UX',
+      'Responsive table patterns need separate mobile designs',
+      'Maintaining two table versions doubles the work'
+    ],
+    solution: 'FixTable helps you build responsive table components that adapt to viewport sizes using proper auto-layout and component properties.',
+    steps: [
+      {
+        title: 'Build desktop table',
+        description: 'Create your full-width table with all columns visible. Use auto-layout rows and fixed or fill column widths.',
+        tip: 'Start with desktop as the base and derive mobile from it.'
+      },
+      {
+        title: 'Create mobile variant',
+        description: 'Use FixTable to generate a mobile-friendly version: stacked cards, priority columns, or horizontal scroll.',
+        tip: 'Card layout works well for 3-5 columns. Scroll works for data-dense tables.'
+      },
+      {
+        title: 'Connect with properties',
+        description: 'Use component properties to switch between Desktop and Mobile layouts. Consumers choose the appropriate variant.',
+        tip: 'Add a Viewport property with Desktop/Mobile options.'
+      }
+    ],
+    benefits: [
+      'Mobile-friendly table patterns',
+      'Single component, multiple layouts',
+      'Card and scroll alternatives',
+      'Auto-layout based structure',
+      'Consistent data presentation'
+    ],
+    faqs: [
+      {
+        question: 'What are the best responsive table patterns?',
+        answer: 'Stacked cards (each row becomes a card), priority columns (hide non-essential columns), or horizontal scroll with frozen first column.'
+      },
+      {
+        question: 'Should I use separate mobile and desktop components?',
+        answer: 'Using variants in a single component is cleaner. Use a Viewport property to switch layouts.'
+      },
+      {
+        question: 'How do I handle many columns on mobile?',
+        answer: 'Show only essential columns with a "View Details" action that reveals full data in a modal or expanded row.'
+      }
+    ],
+    relatedUseCases: [
+      'fix-figma-table-alignment',
+      'auto-layout-table-figma'
+    ],
+    keywords: [
+      'responsive table figma',
+      'mobile table design',
+      'data table responsive',
+      'figma table mobile',
+      'adaptive table design'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // BiblioClean - Before Export
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'clean-figma-file-before-export',
+    title: 'How to Clean Figma Files Before Export',
+    metaTitle: 'Clean Figma Files Before Export | BiblioClean',
+    metaDescription: 'Prepare your Figma file for export by removing hidden layers, prototype links, and clutter. Export clean, optimized assets.',
+    plugin: 'biblioclean',
+    pluginName: 'BiblioClean',
+    pluginUrl: '/figma-plugin-remove-prototype-links',
+    communityUrl: PLUGIN_DATA['biblioclean'].communityUrl,
+    problem: 'Exported files contain unnecessary cruft',
+    problemDetails: [
+      'Hidden layers get exported accidentally',
+      'Prototype links add complexity to exported code',
+      'Unused styles bloat exported file size',
+      'Export preview looks different from design view'
+    ],
+    solution: 'BiblioClean scans and removes elements that should not be exported: hidden layers, prototype connections, external links, and visual clutter.',
+    steps: [
+      {
+        title: 'Select export scope',
+        description: 'Select frames that will be exported. BiblioClean focuses cleanup on your selection.',
+        tip: 'Create a dedicated "Export" page with only production-ready frames.'
+      },
+      {
+        title: 'Run pre-export cleanup',
+        description: 'BiblioClean identifies hidden layers, prototype links, empty groups, and other export artifacts.',
+        tip: 'Review hidden layers before deletion - some may be intentional state management.'
+      },
+      {
+        title: 'Clean and export',
+        description: 'Apply cleanup changes, then use standard Figma export. Your exported assets will be clean and optimized.',
+        tip: 'Run cleanup immediately before export to catch last-minute additions.'
+      }
+    ],
+    benefits: [
+      'Clean exported assets',
+      'No hidden layer accidents',
+      'Smaller file sizes',
+      'No prototype cruft in exports',
+      'Professional delivery'
+    ],
+    faqs: [
+      {
+        question: 'Does cleanup affect my original file?',
+        answer: 'Yes, changes are applied to your file. Use branches or duplicate pages if you want to preserve the original state.'
+      },
+      {
+        question: 'What hidden layers should I keep?',
+        answer: 'Keep hidden layers used for state management (hover states, modals). Delete truly unused hidden elements.'
+      },
+      {
+        question: 'Will this reduce my file size?',
+        answer: 'Removing unused elements can reduce file size, but the main benefit is cleaner exports, not storage savings.'
+      }
+    ],
+    relatedUseCases: [
+      'remove-prototype-links-figma',
+      'prepare-figma-handoff-developers'
+    ],
+    keywords: [
+      'clean figma export',
+      'figma export optimization',
+      'remove hidden layers figma',
+      'figma export cleanup',
+      'optimize figma file'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // RenameVariantsAI - Clean Up Layers
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'clean-up-figma-layer-names',
+    title: 'How to Clean Up Figma Layer Names',
+    metaTitle: 'Clean Up Figma Layer Names in Bulk | RenameVariantsAI',
+    metaDescription: 'Fix messy layer names like Frame 123 and Group copy copy. Batch rename to semantic, organized names automatically.',
+    plugin: 'rename-variants',
+    pluginName: 'RenameVariantsAI',
+    pluginUrl: '/figma-component-variant-renamer',
+    communityUrl: PLUGIN_DATA['rename-variants'].communityUrl,
+    problem: 'Figma default names make files impossible to navigate',
+    problemDetails: [
+      'Figma creates names like "Frame 387", "Rectangle 12", "Group copy copy"',
+      'Copy-paste compounds the problem with "copy" suffixes',
+      'Searching for layers by name becomes useless',
+      'Layer panel becomes an unreadable mess'
+    ],
+    solution: 'RenameVariantsAI analyzes layer content, position, and hierarchy to generate meaningful names automatically. Clean up hundreds of layers in seconds.',
+    steps: [
+      {
+        title: 'Select messy layers',
+        description: 'Select the frames, pages, or components with default Figma names. RenameVariantsAI works with any selection size.',
+        tip: 'Use Cmd/Ctrl+A to select all layers on a page for comprehensive cleanup.'
+      },
+      {
+        title: 'Run AI rename',
+        description: 'RenameVariantsAI analyzes each layer and generates semantic names based on content, siblings, and component context.',
+        tip: 'Enable "Content Analysis" to use text content as naming hints.'
+      },
+      {
+        title: 'Review and apply',
+        description: 'Preview all proposed names in the before/after view. Adjust any names manually, then apply all changes.',
+        tip: 'Run regularly after heavy design sessions to keep files clean.'
+      }
+    ],
+    benefits: [
+      'Replace default names instantly',
+      'AI understands layer context',
+      'Remove "copy copy" suffixes',
+      'Searchable layer names',
+      'Organized layer panel'
+    ],
+    beforeAfter: {
+      before: 'Frame 387, Rectangle 12, Group copy copy, Ellipse 3',
+      after: 'Hero-Section, Hero-Background, CTA-Container, Avatar-Circle',
+      beforeLabel: 'Default Figma names',
+      afterLabel: 'Semantic names'
+    },
+    faqs: [
+      {
+        question: 'How does AI determine names?',
+        answer: 'RenameVariantsAI analyzes layer position (header, footer, sidebar), content (text, images), hierarchy, and sibling patterns.'
+      },
+      {
+        question: 'Can it remove "copy" suffixes?',
+        answer: 'Yes. RenameVariantsAI automatically removes copy/copy copy suffixes and generates unique, meaningful names.'
+      },
+      {
+        question: 'Will it rename my components?',
+        answer: 'Component instances keep their component names. RenameVariantsAI renames frames, groups, shapes, and other layers.'
+      }
+    ],
+    relatedUseCases: [
+      'batch-rename-figma-layers',
+      'rename-figma-layers-before-handoff'
+    ],
+    keywords: [
+      'clean up layer names figma',
+      'fix frame names figma',
+      'remove copy suffix figma',
+      'figma layer organization',
+      'rename frames figma'
+    ]
+  },
+
+  // -----------------------------------------------------------------------------
+  // ComponentQA - Component Coverage
+  // -----------------------------------------------------------------------------
+  {
+    slug: 'check-design-system-coverage',
+    title: 'How to Check Design System Coverage in Figma',
+    metaTitle: 'Check Design System Coverage in Figma | ComponentQA',
+    metaDescription: 'Measure how much of your Figma design uses design system components vs custom elements. Track adoption and coverage metrics.',
+    plugin: 'componentqa',
+    pluginName: 'ComponentQA',
+    pluginUrl: '/figma-design-system-audit-plugin',
+    communityUrl: PLUGIN_DATA['componentqa'].communityUrl,
+    problem: 'No visibility into design system adoption',
+    problemDetails: [
+      'Cannot measure what percentage of designs use the design system',
+      'Custom one-off elements accumulate without tracking',
+      'No way to prove ROI of design system investment',
+      'Adoption varies across teams without visibility'
+    ],
+    solution: 'ComponentQA calculates design system coverage: the percentage of layers that use library components vs custom elements. Track adoption over time.',
+    steps: [
+      {
+        title: 'Configure coverage metrics',
+        description: 'Tell ComponentQA which libraries define your design system. It distinguishes library instances from custom layers.',
+        tip: 'Include all relevant libraries: core components, icons, patterns.'
+      },
+      {
+        title: 'Run coverage analysis',
+        description: 'Scan your file to calculate coverage. Results show library usage vs custom elements, broken down by type.',
+        tip: 'Run on production screens, not explorations, for accurate metrics.'
+      },
+      {
+        title: 'Track and improve',
+        description: 'Export coverage reports over time. Identify files or teams with low adoption for targeted education.',
+        tip: 'Set team goals like "80% coverage" and track progress monthly.'
+      }
+    ],
+    benefits: [
+      'Measure design system ROI',
+      'Identify low-adoption areas',
+      'Track coverage trends',
+      'Compare across teams',
+      'Data-driven governance'
+    ],
+    faqs: [
+      {
+        question: 'What counts toward coverage?',
+        answer: 'Component instances from published libraries count as "covered." Local components and custom shapes count as "custom."'
+      },
+      {
+        question: 'What is a good coverage percentage?',
+        answer: 'Mature design systems target 70-90% coverage. New systems might start at 30-50%. Track improvement over time.'
+      },
+      {
+        question: 'Can I exclude certain elements?',
+        answer: 'Yes. Exclude exploration pages, deprecated sections, or intentional custom elements from coverage calculations.'
+      }
+    ],
+    relatedUseCases: [
+      'audit-design-system-figma',
+      'find-detached-instances-figma'
+    ],
+    keywords: [
+      'design system coverage',
+      'figma adoption metrics',
+      'design system ROI',
+      'component usage figma',
+      'design system governance'
+    ]
   }
 ];
 
@@ -1563,6 +2510,20 @@ export const getAllUseCaseSlugs = (): string[] => {
   return USE_CASE_PAGES.map(page => page.slug);
 };
 
+/**
+ * Find a persona page by slug
+ */
+export const findPersonaBySlug = (slug: string): PersonaPage | undefined => {
+  return PERSONA_PAGES.find(page => page.slug === slug);
+};
+
+/**
+ * Get all persona slugs for sitemap generation
+ */
+export const getAllPersonaSlugs = (): string[] => {
+  return PERSONA_PAGES.map(page => page.slug);
+};
+
 // =============================================================================
 // Comparison Pages Data (Phase 2 - Placeholder)
 // =============================================================================
@@ -1570,10 +2531,409 @@ export const getAllUseCaseSlugs = (): string[] => {
 export const COMPARISON_PAGES: ComparisonPage[] = [];
 
 // =============================================================================
-// Persona Pages Data (Phase 3 - Placeholder)
+// Persona Pages Data (Phase 3)
 // =============================================================================
 
-export const PERSONA_PAGES: PersonaPage[] = [];
+export const PERSONA_PAGES: PersonaPage[] = [
+  {
+    slug: 'design-system-managers',
+    persona: 'Design System Managers',
+    title: 'Figma Plugins for Design System Managers',
+    metaTitle: 'Best Figma Plugins for Design System Managers | BiblioKit',
+    metaDescription: 'Essential Figma plugins for design system managers. Audit component usage, enforce governance, track token adoption, and maintain system health.',
+    heroText: 'Maintain design system health, enforce governance, and prove ROI with powerful audit and management tools.',
+    painPoints: [
+      {
+        title: 'Component Drift is Invisible',
+        description: 'Teams use detached instances and hardcoded values without you knowing. By the time drift is visible, it is already a major problem.'
+      },
+      {
+        title: 'No Way to Measure Adoption',
+        description: 'Stakeholders ask for ROI metrics but you have no data on how much of the product actually uses your design system.'
+      },
+      {
+        title: 'Governance Takes Too Much Time',
+        description: 'Manually auditing files for compliance is impossible to do regularly. Issues pile up between quarterly reviews.'
+      },
+      {
+        title: 'Naming Inconsistency Across Teams',
+        description: 'Each team uses different naming conventions for variants and properties, making the system harder to maintain.'
+      }
+    ],
+    recommendedPlugins: [
+      {
+        slug: 'componentqa',
+        name: 'ComponentQA',
+        reason: 'Run automated design system audits in seconds. Track detached instances, token drift, and component health across all files.',
+        url: '/figma-design-system-audit-plugin'
+      },
+      {
+        slug: 'rename-variants',
+        name: 'RenameVariantsAI',
+        reason: 'Standardize variant and property names across your entire component library. Enforce naming conventions automatically.',
+        url: '/figma-component-variant-renamer'
+      },
+      {
+        slug: 'statebuilder',
+        name: 'StateBuilder',
+        reason: 'Generate consistent component states (hover, disabled, loading) across all components. Ensure complete interaction specs.',
+        url: '/figma-component-states'
+      }
+    ],
+    workflow: [
+      { step: 1, action: 'Run weekly audits on production files', plugin: 'ComponentQA' },
+      { step: 2, action: 'Identify and fix detached instances', plugin: 'ComponentQA' },
+      { step: 3, action: 'Standardize component naming', plugin: 'RenameVariantsAI' },
+      { step: 4, action: 'Generate missing component states', plugin: 'StateBuilder' },
+      { step: 5, action: 'Export compliance reports for stakeholders', plugin: 'ComponentQA' }
+    ],
+    faqs: [
+      {
+        question: 'How often should I audit my design system?',
+        answer: 'We recommend weekly spot checks on active files and monthly comprehensive audits. ComponentQA makes this fast enough to do regularly.'
+      },
+      {
+        question: 'Can I share audit results with stakeholders?',
+        answer: 'Yes. ComponentQA exports reports showing adoption metrics, compliance scores, and improvement trends over time.'
+      },
+      {
+        question: 'How do I enforce naming conventions?',
+        answer: 'Use RenameVariantsAI to batch rename variants to your standard. Run it on new contributions before publishing to the library.'
+      }
+    ],
+    keywords: [
+      'design system manager figma',
+      'design system governance',
+      'figma design system audit',
+      'design system metrics',
+      'component library management'
+    ]
+  },
+
+  {
+    slug: 'freelance-designers',
+    persona: 'Freelance Designers',
+    title: 'Figma Plugins for Freelance Designers',
+    metaTitle: 'Best Figma Plugins for Freelance Designers | BiblioKit',
+    metaDescription: 'Save hours every week with Figma plugins built for freelancers. Organize files faster, clean up handoffs, and deliver professional work.',
+    heroText: 'Work faster, deliver cleaner files, and impress clients with professional handoffs every time.',
+    painPoints: [
+      {
+        title: 'File Cleanup Eats Into Billable Hours',
+        description: 'You spend hours renaming layers and cleaning up prototypes before handoff. That is time you cannot bill for.'
+      },
+      {
+        title: 'Inconsistent File Organization',
+        description: 'Every project starts differently. You waste time setting up file structure instead of designing.'
+      },
+      {
+        title: 'Clients See Messy Layer Names',
+        description: 'When clients or developers inspect your files, they see "Frame 422" and "Group copy copy" everywhere.'
+      },
+      {
+        title: 'Social Media Assets Take Forever',
+        description: 'Creating 10+ size variations for each marketing graphic is tedious repetitive work.'
+      }
+    ],
+    recommendedPlugins: [
+      {
+        slug: 'rename-variants',
+        name: 'RenameVariantsAI',
+        reason: 'Clean up layer names in seconds before handoff. Make your files look professional without manual renaming.',
+        url: '/figma-component-variant-renamer'
+      },
+      {
+        slug: 'organizefile',
+        name: 'OrganizeFile',
+        reason: 'Start every project with a consistent file structure. Save your templates for instant project setup.',
+        url: '/figma-organize-design-files-plugin'
+      },
+      {
+        slug: 'biblioclean',
+        name: 'BiblioClean',
+        reason: 'Remove prototype links and clean up files before client handoff. Deliver polished, professional files.',
+        url: '/figma-plugin-remove-prototype-links'
+      },
+      {
+        slug: 'scaleresizer',
+        name: 'ScaleResizer',
+        reason: 'Generate all social media sizes from one design. Export Instagram, Facebook, LinkedIn in one click.',
+        url: '/figma-marketing-resizer-plugin'
+      }
+    ],
+    workflow: [
+      { step: 1, action: 'Start project with template structure', plugin: 'OrganizeFile' },
+      { step: 2, action: 'Design and iterate with clients' },
+      { step: 3, action: 'Clean up layer names before handoff', plugin: 'RenameVariantsAI' },
+      { step: 4, action: 'Remove prototype cruft', plugin: 'BiblioClean' },
+      { step: 5, action: 'Export marketing assets to all sizes', plugin: 'ScaleResizer' }
+    ],
+    faqs: [
+      {
+        question: 'How much time will these plugins save me?',
+        answer: 'Most freelancers report saving 2-4 hours per project on file cleanup and asset export alone.'
+      },
+      {
+        question: 'Do clients care about layer names?',
+        answer: 'Developers definitely notice clean vs messy files. Professional layer names build trust and reduce questions.'
+      },
+      {
+        question: 'Can I use these for marketing work?',
+        answer: 'Absolutely. ScaleResizer is specifically designed for social media and marketing asset production.'
+      }
+    ],
+    keywords: [
+      'freelance designer figma',
+      'figma plugins freelancer',
+      'save time figma',
+      'figma file organization',
+      'freelance design tools'
+    ]
+  },
+
+  {
+    slug: 'design-leads',
+    persona: 'Design Leads & Managers',
+    title: 'Figma Plugins for Design Leads',
+    metaTitle: 'Best Figma Plugins for Design Team Leads | BiblioKit',
+    metaDescription: 'Figma plugins that help design leads maintain quality standards, streamline handoffs, and scale team processes efficiently.',
+    heroText: 'Scale your team processes, maintain quality standards, and ship consistent designs across every project.',
+    painPoints: [
+      {
+        title: 'Quality Varies Across Designers',
+        description: 'Junior designers create inconsistent files. You spend review time on basics instead of design feedback.'
+      },
+      {
+        title: 'Handoff Problems Slow Down Sprints',
+        description: 'Developers come back with questions because designs are unclear or prototype links are broken.'
+      },
+      {
+        title: 'No Standard File Structure',
+        description: 'Every designer organizes files differently. Onboarding new team members takes longer than it should.'
+      },
+      {
+        title: 'Component Inconsistency',
+        description: 'Designers detach instances or create one-off components instead of using the design system.'
+      }
+    ],
+    recommendedPlugins: [
+      {
+        slug: 'componentqa',
+        name: 'ComponentQA',
+        reason: 'Run QA checks before design reviews. Catch detached instances and non-standard components automatically.',
+        url: '/figma-design-system-audit-plugin'
+      },
+      {
+        slug: 'organizefile',
+        name: 'OrganizeFile',
+        reason: 'Create team file templates that enforce structure. Every project starts organized.',
+        url: '/figma-organize-design-files-plugin'
+      },
+      {
+        slug: 'biblioclean',
+        name: 'BiblioClean',
+        reason: 'Ensure clean handoffs with one-click prototype cleanup. No more broken links in production files.',
+        url: '/figma-plugin-remove-prototype-links'
+      },
+      {
+        slug: 'rename-variants',
+        name: 'RenameVariantsAI',
+        reason: 'Enforce layer naming standards across the team. Clean files become the norm, not the exception.',
+        url: '/figma-component-variant-renamer'
+      }
+    ],
+    workflow: [
+      { step: 1, action: 'Set up team file templates', plugin: 'OrganizeFile' },
+      { step: 2, action: 'Designers work on features' },
+      { step: 3, action: 'Run pre-review QA check', plugin: 'ComponentQA' },
+      { step: 4, action: 'Clean up before handoff', plugin: 'RenameVariantsAI + BiblioClean' },
+      { step: 5, action: 'Hand off with confidence' }
+    ],
+    faqs: [
+      {
+        question: 'How do I get my team to use these consistently?',
+        answer: 'Add plugin usage to your pre-handoff checklist. Running ComponentQA before reviews becomes habit quickly.'
+      },
+      {
+        question: 'Can junior designers use these tools?',
+        answer: 'Yes. The plugins are designed to be simple. They help juniors produce senior-quality file organization.'
+      },
+      {
+        question: 'What is the ROI for my team?',
+        answer: 'Teams typically see 20-30% reduction in handoff issues and faster onboarding for new designers.'
+      }
+    ],
+    keywords: [
+      'design lead figma',
+      'design manager tools',
+      'team design process',
+      'design team efficiency',
+      'figma team plugins'
+    ]
+  },
+
+  {
+    slug: 'product-designers',
+    persona: 'Product Designers',
+    title: 'Figma Plugins for Product Designers',
+    metaTitle: 'Best Figma Plugins for Product Designers | BiblioKit',
+    metaDescription: 'Speed up your product design workflow with plugins for component management, state generation, and professional developer handoff.',
+    heroText: 'Move faster from exploration to production. Build consistent components and ship with confidence.',
+    painPoints: [
+      {
+        title: 'Component States Take Forever',
+        description: 'Creating hover, disabled, and loading states for every component is tedious manual work.'
+      },
+      {
+        title: 'Handoff Specs Are Never Complete',
+        description: 'Developers always need "one more state" or "this edge case" that you did not design.'
+      },
+      {
+        title: 'Table Components Break Constantly',
+        description: 'Data tables lose alignment when content changes. Fixing them manually eats into design time.'
+      },
+      {
+        title: 'File Cleanup Before Reviews',
+        description: 'You rush to clean up layer names and prototype links before stakeholder reviews.'
+      }
+    ],
+    recommendedPlugins: [
+      {
+        slug: 'statebuilder',
+        name: 'StateBuilder',
+        reason: 'Generate all component states automatically. Default, Hover, Active, Disabled, Loading in one click.',
+        url: '/figma-component-states'
+      },
+      {
+        slug: 'fixtable',
+        name: 'FixTable',
+        reason: 'Fix table alignment instantly. No more manual column width adjustments when data changes.',
+        url: '/figma-table-builder'
+      },
+      {
+        slug: 'rename-variants',
+        name: 'RenameVariantsAI',
+        reason: 'Clean up layer names before handoff. Developers see semantic names that map to code.',
+        url: '/figma-component-variant-renamer'
+      },
+      {
+        slug: 'biblioclean',
+        name: 'BiblioClean',
+        reason: 'Remove old prototype links before shipping. Keep handoff files clean and professional.',
+        url: '/figma-plugin-remove-prototype-links'
+      }
+    ],
+    workflow: [
+      { step: 1, action: 'Design base component' },
+      { step: 2, action: 'Generate interaction states', plugin: 'StateBuilder' },
+      { step: 3, action: 'Build data tables', plugin: 'FixTable' },
+      { step: 4, action: 'Clean up before handoff', plugin: 'RenameVariantsAI + BiblioClean' },
+      { step: 5, action: 'Ship complete specs to developers' }
+    ],
+    faqs: [
+      {
+        question: 'What states should I include in components?',
+        answer: 'At minimum: Default, Hover, Active, Focused, Disabled. StateBuilder generates all of these from your base design.'
+      },
+      {
+        question: 'How do I handle responsive tables?',
+        answer: 'FixTable helps you build auto-layout tables that maintain alignment. Create mobile variants for different viewports.'
+      },
+      {
+        question: 'When should I clean up files?',
+        answer: 'Run cleanup before any handoff or review. It takes 30 seconds and makes a professional impression.'
+      }
+    ],
+    keywords: [
+      'product designer figma',
+      'figma product design',
+      'design to dev handoff',
+      'component design figma',
+      'product design workflow'
+    ]
+  },
+
+  {
+    slug: 'ui-engineers',
+    persona: 'UI Engineers & Front-End Developers',
+    title: 'Figma Plugins for UI Engineers',
+    metaTitle: 'Best Figma Plugins for UI Engineers & Devs | BiblioKit',
+    metaDescription: 'Figma plugins that improve design-to-code handoff. Get clean layer names, proper component states, and design tokens that map to code.',
+    heroText: 'Get design files that are actually dev-ready. Clean naming, complete states, and consistent structure.',
+    painPoints: [
+      {
+        title: 'Layer Names Do Not Map to Code',
+        description: 'Designs have names like "Frame 392" instead of "hero-section" or "cta-button". You guess what things are.'
+      },
+      {
+        title: 'Missing Component States',
+        description: 'You need hover, focus, and disabled states. The design only shows the default state.'
+      },
+      {
+        title: 'Inconsistent Spacing and Tokens',
+        description: 'Designers use hardcoded pixel values instead of design tokens. Nothing maps to your CSS variables.'
+      },
+      {
+        title: 'Prototype Links Add Confusion',
+        description: 'Blue prototype lines everywhere make it hard to understand the actual layer structure.'
+      }
+    ],
+    recommendedPlugins: [
+      {
+        slug: 'rename-variants',
+        name: 'RenameVariantsAI',
+        reason: 'Get semantic layer names that match code conventions. hero-section instead of Frame 392.',
+        url: '/figma-component-variant-renamer'
+      },
+      {
+        slug: 'componentqa',
+        name: 'ComponentQA',
+        reason: 'Verify designs use proper tokens before you start building. Flag hardcoded values early.',
+        url: '/figma-design-system-audit-plugin'
+      },
+      {
+        slug: 'statebuilder',
+        name: 'StateBuilder',
+        reason: 'Request designers generate all component states. Complete interaction specs from the start.',
+        url: '/figma-component-states'
+      },
+      {
+        slug: 'biblioclean',
+        name: 'BiblioClean',
+        reason: 'Ask designers to remove prototype clutter before handoff. Cleaner files, faster implementation.',
+        url: '/figma-plugin-remove-prototype-links'
+      }
+    ],
+    workflow: [
+      { step: 1, action: 'Request clean layer names', plugin: 'RenameVariantsAI' },
+      { step: 2, action: 'Verify token compliance', plugin: 'ComponentQA' },
+      { step: 3, action: 'Request complete component states', plugin: 'StateBuilder' },
+      { step: 4, action: 'Get cleaned handoff file', plugin: 'BiblioClean' },
+      { step: 5, action: 'Implement with confidence' }
+    ],
+    faqs: [
+      {
+        question: 'Should I share these plugins with designers?',
+        answer: 'Yes! These plugins help designers deliver dev-ready files. Share them to improve your handoff quality.'
+      },
+      {
+        question: 'How do I verify token usage?',
+        answer: 'ComponentQA audits designs for hardcoded values. Ask designers to run it before handoff.'
+      },
+      {
+        question: 'What naming convention should I request?',
+        answer: 'RenameVariantsAI supports kebab-case (hero-section), camelCase (heroSection), and custom patterns. Pick what matches your codebase.'
+      }
+    ],
+    keywords: [
+      'ui engineer figma',
+      'front-end developer figma',
+      'design to code',
+      'figma dev handoff',
+      'design developer workflow'
+    ]
+  }
+];
 
 // =============================================================================
 // Glossary Pages Data (Phase 4 - Placeholder)

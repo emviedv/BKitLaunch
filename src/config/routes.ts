@@ -23,4 +23,6 @@ export const ROUTE_PATHS = {
   // Programmatic SEO routes
   USE_CASES: '/use-cases',
   USE_CASE: '/use-cases/:slug',
+  PERSONAS: '/for',
+  PERSONA: '/for/:slug',
 } as const;

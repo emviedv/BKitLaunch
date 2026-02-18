@@ -210,3 +210,4 @@ export const AlignVerticalJustifyStart = createIconWrapper('solar:align-vertical
 export const AlignHorizontalJustifyStart = createIconWrapper('solar:align-horizontal-spacing-linear');
 export const ChevronRight = createIconWrapper('solar:alt-arrow-right-linear');
 export const HelpCircle = createIconWrapper('solar:question-circle-linear');
+export const Users = createIconWrapper('solar:users-group-rounded-linear');
