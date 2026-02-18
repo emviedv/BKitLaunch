@@ -208,3 +208,5 @@ export const SplitSquareHorizontal = createIconWrapper('solar:slider-horizontal-
 export const AlignCenter = createIconWrapper('solar:align-horizontal-center-linear');
 export const AlignVerticalJustifyStart = createIconWrapper('solar:align-vertical-spacing-linear');
 export const AlignHorizontalJustifyStart = createIconWrapper('solar:align-horizontal-spacing-linear');
+export const ChevronRight = createIconWrapper('solar:alt-arrow-right-linear');
+export const HelpCircle = createIconWrapper('solar:question-circle-linear');

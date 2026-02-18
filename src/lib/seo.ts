@@ -602,6 +602,17 @@ export const routeMetadata: RouteMetadata = {
     twitterTitle: 'Design Tips & Figma Workflows | BiblioKit Blog',
     twitterDescription: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
     twitterImage: '/og/og-default.svg'
+  },
+  '/use-cases': {
+    title: 'Figma Use Cases & Tutorials | BiblioKit',
+    description: 'Step-by-step guides for common Figma tasks. Learn how to batch rename layers, find detached instances, remove prototype links, fix table alignment, and more.',
+    keywords: 'figma tutorials, figma use cases, batch rename figma, detached instances, prototype links, design system audit, figma how-to',
+    ogTitle: 'Figma Use Cases & Tutorials | BiblioKit',
+    ogDescription: 'Step-by-step guides for common Figma tasks. Learn how to batch rename layers, find detached instances, and more.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'Figma Use Cases & Tutorials | BiblioKit',
+    twitterDescription: 'Step-by-step guides for common Figma tasks. Learn how to batch rename layers, find detached instances, and more.',
+    twitterImage: '/og/og-default.svg'
   }
 };
 

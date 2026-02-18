@@ -36,6 +36,7 @@ const SIMILAR_PATHS = [
   ROUTE_PATHS.LEARN,
   ROUTE_PATHS.TUTORIALS,
   ROUTE_PATHS.SCALE_RESIZER,
+  ROUTE_PATHS.USE_CASES,
 ];
 
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
@@ -57,6 +58,8 @@ const LearnPage = React.lazy(() => import('./components/LearnPage'));
 const TutorialsPage = React.lazy(() => import('./components/TutorialsPage'));
 const ResourcesPage = React.lazy(() => import('./components/ResourcesPage'));
 const RemovePrototypeLinkPage = React.lazy(() => import('./components/RemovePrototypeLinkPage'));
+const UseCasesIndexPage = React.lazy(() => import('./components/UseCasesIndexPage'));
+const UseCasePage = React.lazy(() => import('./components/UseCasePage'));
 
 const RouteLoadingFallback: React.FC = () => (
   <div className="container mx-auto px-4 py-16 text-center">
@@ -204,6 +207,10 @@ const AppContent: React.FC = () => {
           <Route path={ROUTE_PATHS.TUTORIALS} component={TutorialsPage} />
           <Route path={ROUTE_PATHS.RESOURCES} component={ResourcesPage} />
           <Route path={ROUTE_PATHS.REMOVE_PROTOTYPE_LINK} component={RemovePrototypeLinkPage} />
+          <Route path={ROUTE_PATHS.USE_CASES} component={UseCasesIndexPage} />
+          <Route path={ROUTE_PATHS.USE_CASE}>
+            {(params) => <UseCasePage slug={params?.slug ?? ''} />}
+          </Route>
           <Route>
             <NotFoundPage />
           </Route>

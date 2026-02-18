@@ -20,4 +20,7 @@ export const ROUTE_PATHS = {
   LEARN_DESIGN_OPS_FUNDAMENTALS: '/learn/design-ops-fundamentals',
   TUTORIALS: '/tutorials',
   SCALE_RESIZER: '/figma-marketing-resizer-plugin',
+  // Programmatic SEO routes
+  USE_CASES: '/use-cases',
+  USE_CASE: '/use-cases/:slug',
 } as const;

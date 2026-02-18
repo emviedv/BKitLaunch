@@ -2,6 +2,7 @@ import type { Handler } from '@netlify/functions';
 import { withCors } from './utils.ts';
 import productData from '../../src/data/products.json' with { type: 'json' };
 import { BLOG_POSTS, type BlogPost } from '../../src/data/blogPosts.ts';
+import { USE_CASE_PAGES, type UseCasePage } from '../../src/data/programmaticContent.ts';
 import { normalizeBaseUrl, CANONICAL_BASE_URL } from '../../src/lib/urlUtils.ts';
 
 type ImageEntry = {
@@ -152,6 +153,24 @@ const buildBlogEntries = (base: string, defaultLastmod: string): SitemapEntry[] 
   });
 };
 
+const buildUseCaseEntries = (base: string, defaultLastmod: string): SitemapEntry[] => {
+  return USE_CASE_PAGES.map((useCase: UseCasePage) => {
+    return {
+      path: `/use-cases/${useCase.slug}`,
+      lastmod: defaultLastmod,
+      images: [
+        {
+          loc: `${base}/og/og-default.svg`,
+          title: useCase.title,
+          caption: useCase.metaDescription
+        }
+      ],
+      changefreq: 'monthly',
+      priority: '0.7'
+    };
+  });
+};
+
 export const buildSitemapXml = (baseUrl: string): string => {
   const base = normalizeBaseUrl(baseUrl);
   const defaultLastmod = toIsoDate(process.env.BUILD_TIMESTAMP || Date.now()) || new Date().toISOString().split('T')[0];
@@ -232,6 +251,13 @@ export const buildSitemapXml = (baseUrl: string): string => {
       changefreq: 'monthly',
       priority: '0.5',
       images: [{ loc: `${base}/og/og-default.svg`, title: 'About BiblioKit' }]
+    },
+    {
+      path: '/use-cases',
+      lastmod: defaultLastmod,
+      changefreq: 'weekly',
+      priority: '0.7',
+      images: [{ loc: `${base}/og/og-default.svg`, title: 'Figma Use Cases & Tutorials' }]
     }
   ];
 
@@ -248,7 +274,9 @@ export const buildSitemapXml = (baseUrl: string): string => {
 
   const blogEntries = Array.isArray(BLOG_POSTS) ? buildBlogEntries(base, defaultLastmod) : [];
 
-  const entries = [...staticEntries, ...dynamicProductEntries, ...blogEntries];
+  const useCaseEntries = Array.isArray(USE_CASE_PAGES) ? buildUseCaseEntries(base, defaultLastmod) : [];
+
+  const entries = [...staticEntries, ...dynamicProductEntries, ...blogEntries, ...useCaseEntries];
   const deduped = Array.from(
     entries.reduce((map, entry) => {
       const key = entry.path;
