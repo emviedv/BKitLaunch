@@ -17,7 +17,6 @@ import {
   LANDING_WAITLIST_ID,
 } from '@/config/sectionAnchors';
 import { MousePointer2, ArrowRight } from '@/lib/iconUtils';
-import { Layers, FileCheck, Paintbrush } from 'lucide-react';
 import FluidBackground from './FluidBackground';
 
 export type LandingHeroContent = {
@@ -106,12 +105,6 @@ const TRUSTED_HERO_LOGOS_COL2 = [
   { name: 'Atlassian', url: '/clients/atlassian.svg' },
   { name: 'Zapier', url: '/clients/zapier.svg' },
   { name: 'OpenAI', url: '/clients/openai.svg' },
-];
-
-const HERO_STATS = [
-  { icon: Layers, value: '100k+', label: 'Layers renamed' },
-  { icon: FileCheck, value: '50k+', label: 'Files audited' },
-  { icon: Paintbrush, value: '25k+', label: 'Prototypes cleaned' },
 ];
 
 const scrollToSection = (id: string) => {
@@ -562,28 +555,6 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                 </div>
               </div>
             )}
-
-            {/* Stats row */}
-            <div className="mt-16 flex flex-wrap items-center justify-center gap-8 sm:gap-12">
-              {HERO_STATS.map((stat) => {
-                const StatIcon = stat.icon;
-                return (
-                  <div key={stat.label} className="flex items-center gap-2.5">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/[0.08] border border-white/15">
-                      <StatIcon className="h-5 w-5 text-[#F772B6]" />
-                    </div>
-                    <div className="text-left">
-                      <div className="text-xl font-bold text-white tabular-nums leading-tight">
-                        {stat.value}
-                      </div>
-                      <div className="text-[11px] font-medium text-white/50 uppercase tracking-wider">
-                        {stat.label}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </div>
       </div>
