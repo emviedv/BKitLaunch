@@ -4,7 +4,7 @@ import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
-import { ArrowRight, Search } from '@/lib/iconUtils';
+import { ArrowRight, Layers } from '@/lib/iconUtils';
 import FluidBackground from './FluidBackground';
 import {
   USE_CASE_PAGES,
@@ -70,11 +70,12 @@ const UseCasesIndexPage: React.FC = () => {
           </p>
 
           <div className="flex items-center justify-center gap-4 mb-8">
-            <div className="bg-slate-800/60 border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300">
-              <span className="font-semibold text-white">{USE_CASE_PAGES.length}</span> use case guides
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2">
+              <Layers className="w-4 h-4 text-pink-400" />
+              <span className="text-sm text-slate-300"><span className="font-semibold text-white">{USE_CASE_PAGES.length}</span> use case guides</span>
             </div>
-            <div className="bg-slate-800/60 border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300">
-              <span className="font-semibold text-white">{Object.keys(useCasesByPlugin).length}</span> plugins covered
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2">
+              <span className="text-sm text-slate-300"><span className="font-semibold text-white">{Object.keys(useCasesByPlugin).length}</span> plugins covered</span>
             </div>
           </div>
         </div>

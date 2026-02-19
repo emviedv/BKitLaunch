@@ -85,6 +85,12 @@ const PersonaPage: React.FC<PersonaPageProps> = ({ slug }) => {
             <span className="text-white">{persona.persona}</span>
           </nav>
 
+          {/* Role Badge */}
+          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 mb-6">
+            <span className="text-pink-400 font-semibold">{persona.recommendedPlugins.length}</span>
+            <span className="text-sm text-slate-300">recommended plugins</span>
+          </div>
+
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
             {persona.title}
           </h1>
