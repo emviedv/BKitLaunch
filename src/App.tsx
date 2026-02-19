@@ -38,6 +38,7 @@ const SIMILAR_PATHS = [
   ROUTE_PATHS.SCALE_RESIZER,
   ROUTE_PATHS.USE_CASES,
   ROUTE_PATHS.PERSONAS,
+  ROUTE_PATHS.GLOSSARY,
 ];
 
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
@@ -63,6 +64,8 @@ const UseCasesIndexPage = React.lazy(() => import('./components/UseCasesIndexPag
 const UseCasePage = React.lazy(() => import('./components/UseCasePage'));
 const PersonasIndexPage = React.lazy(() => import('./components/PersonasIndexPage'));
 const PersonaPage = React.lazy(() => import('./components/PersonaPage'));
+const GlossaryIndexPage = React.lazy(() => import('./components/GlossaryIndexPage'));
+const GlossaryPage = React.lazy(() => import('./components/GlossaryPage'));
 
 const RouteLoadingFallback: React.FC = () => (
   <div className="container mx-auto px-4 py-16 text-center">
@@ -217,6 +220,10 @@ const AppContent: React.FC = () => {
           <Route path={ROUTE_PATHS.PERSONAS} component={PersonasIndexPage} />
           <Route path={ROUTE_PATHS.PERSONA}>
             {(params) => <PersonaPage slug={params?.slug ?? ''} />}
+          </Route>
+          <Route path={ROUTE_PATHS.GLOSSARY} component={GlossaryIndexPage} />
+          <Route path={ROUTE_PATHS.GLOSSARY_TERM}>
+            {(params) => <GlossaryPage slug={params?.slug ?? ''} />}
           </Route>
           <Route>
             <NotFoundPage />

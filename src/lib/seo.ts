@@ -624,6 +624,17 @@ export const routeMetadata: RouteMetadata = {
     twitterTitle: 'Figma Plugins by Role | BiblioKit',
     twitterDescription: 'Discover the best Figma plugins for your role. Tailored recommendations for every type of design professional.',
     twitterImage: '/og/og-default.svg'
+  },
+  '/glossary': {
+    title: 'Figma & Design Systems Glossary | BiblioKit',
+    description: 'Learn key Figma and design systems terms. Clear definitions for detached instances, design tokens, auto-layout, design ops, and more.',
+    keywords: 'figma glossary, design systems glossary, figma terms, design terminology, what is detached instance, figma definitions',
+    ogTitle: 'Figma & Design Systems Glossary | BiblioKit',
+    ogDescription: 'Learn key Figma and design systems terms. Clear definitions for detached instances, design tokens, auto-layout, and more.',
+    ogImage: '/og/og-default.svg',
+    twitterTitle: 'Figma & Design Systems Glossary | BiblioKit',
+    twitterDescription: 'Learn key Figma and design systems terms. Clear definitions for detached instances, design tokens, auto-layout, and more.',
+    twitterImage: '/og/og-default.svg'
   }
 };
 

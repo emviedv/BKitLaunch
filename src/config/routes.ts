@@ -25,4 +25,6 @@ export const ROUTE_PATHS = {
   USE_CASE: '/use-cases/:slug',
   PERSONAS: '/for',
   PERSONA: '/for/:slug',
+  GLOSSARY: '/glossary',
+  GLOSSARY_TERM: '/glossary/:slug',
 } as const;

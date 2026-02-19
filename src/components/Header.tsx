@@ -150,6 +150,10 @@ const Header = () => {
         href: ROUTE_PATHS.USE_CASES,
       },
       {
+        label: 'Glossary',
+        href: ROUTE_PATHS.GLOSSARY,
+      },
+      {
         label: 'Design Ops Fundamentals',
         href: ROUTE_PATHS.LEARN_DESIGN_OPS_FUNDAMENTALS,
       },

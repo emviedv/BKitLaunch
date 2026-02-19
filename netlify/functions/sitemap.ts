@@ -2,7 +2,7 @@ import type { Handler } from '@netlify/functions';
 import { withCors } from './utils.ts';
 import productData from '../../src/data/products.json' with { type: 'json' };
 import { BLOG_POSTS, type BlogPost } from '../../src/data/blogPosts.ts';
-import { USE_CASE_PAGES, PERSONA_PAGES, type UseCasePage, type PersonaPage } from '../../src/data/programmaticContent.ts';
+import { USE_CASE_PAGES, PERSONA_PAGES, GLOSSARY_PAGES, type UseCasePage, type PersonaPage, type GlossaryPage } from '../../src/data/programmaticContent.ts';
 import { normalizeBaseUrl, CANONICAL_BASE_URL } from '../../src/lib/urlUtils.ts';
 
 type ImageEntry = {
@@ -189,6 +189,24 @@ const buildPersonaEntries = (base: string, defaultLastmod: string): SitemapEntry
   });
 };
 
+const buildGlossaryEntries = (base: string, defaultLastmod: string): SitemapEntry[] => {
+  return GLOSSARY_PAGES.map((glossary: GlossaryPage) => {
+    return {
+      path: `/glossary/${glossary.slug}`,
+      lastmod: defaultLastmod,
+      images: [
+        {
+          loc: `${base}/og/og-default.svg`,
+          title: glossary.term,
+          caption: glossary.metaDescription
+        }
+      ],
+      changefreq: 'monthly',
+      priority: '0.6'
+    };
+  });
+};
+
 export const buildSitemapXml = (baseUrl: string): string => {
   const base = normalizeBaseUrl(baseUrl);
   const defaultLastmod = toIsoDate(process.env.BUILD_TIMESTAMP || Date.now()) || new Date().toISOString().split('T')[0];
@@ -283,6 +301,13 @@ export const buildSitemapXml = (baseUrl: string): string => {
       changefreq: 'weekly',
       priority: '0.7',
       images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit for Design Professionals' }]
+    },
+    {
+      path: '/glossary',
+      lastmod: defaultLastmod,
+      changefreq: 'weekly',
+      priority: '0.7',
+      images: [{ loc: `${base}/og/og-default.svg`, title: 'Figma & Design Systems Glossary' }]
     }
   ];
 
@@ -303,7 +328,9 @@ export const buildSitemapXml = (baseUrl: string): string => {
 
   const personaEntries = Array.isArray(PERSONA_PAGES) ? buildPersonaEntries(base, defaultLastmod) : [];
 
-  const entries = [...staticEntries, ...dynamicProductEntries, ...blogEntries, ...useCaseEntries, ...personaEntries];
+  const glossaryEntries = Array.isArray(GLOSSARY_PAGES) ? buildGlossaryEntries(base, defaultLastmod) : [];
+
+  const entries = [...staticEntries, ...dynamicProductEntries, ...blogEntries, ...useCaseEntries, ...personaEntries, ...glossaryEntries];
   const deduped = Array.from(
     entries.reduce((map, entry) => {
       const key = entry.path;

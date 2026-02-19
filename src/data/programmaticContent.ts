@@ -2936,7 +2936,605 @@ export const PERSONA_PAGES: PersonaPage[] = [
 ];
 
 // =============================================================================
-// Glossary Pages Data (Phase 4 - Placeholder)
+// Glossary Pages Data (Phase 4)
 // =============================================================================
 
-export const GLOSSARY_PAGES: GlossaryPage[] = [];
+export const GLOSSARY_PAGES: GlossaryPage[] = [
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Core Figma Concepts
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'detached-instance',
+    term: 'Detached Instance',
+    definition: 'A component instance that has been disconnected from its main component, breaking the link that allows automatic updates when the main component changes.',
+    metaTitle: 'What is a Detached Instance in Figma? | BiblioKit Glossary',
+    metaDescription: 'Learn what detached instances are in Figma, why they break design systems, and how to find and fix them to maintain design consistency.',
+    context: 'When you detach an instance in Figma, you\'re essentially creating a copy that no longer receives updates from the main component. This can lead to design drift, inconsistencies across your files, and increased maintenance burden. While sometimes intentional for one-off variations, accidental detachment is a common source of design system debt.',
+    examples: [
+      'A button instance was detached so a designer could add a custom icon, but now it doesn\'t reflect the updated border radius from the design system.',
+      'A card component was detached months ago and now uses the old color palette while the rest of the app has been updated.',
+      'An engineer implemented a component based on a detached instance, resulting in hardcoded values instead of design tokens.'
+    ],
+    relatedTerms: ['instance', 'main-component', 'component-set', 'design-system-audit'],
+    pluginCta: {
+      plugin: 'componentqa',
+      pluginName: 'ComponentQA',
+      text: 'ComponentQA automatically scans your Figma files for detached instances, helping you identify and reconnect components to maintain design system integrity.',
+      url: '/figma-design-system-audit-plugin'
+    },
+    keywords: ['detached instance figma', 'what is detached instance', 'figma detach component', 'broken component figma', 'component disconnected']
+  },
+  {
+    slug: 'instance',
+    term: 'Instance',
+    definition: 'A linked copy of a main component that inherits its properties and automatically updates when the main component changes.',
+    metaTitle: 'What is an Instance in Figma? | BiblioKit Glossary',
+    metaDescription: 'Understand Figma instances, how they connect to main components, and best practices for using them in your design system.',
+    context: 'Instances are the foundation of scalable design in Figma. When you drag a component from your assets panel or library, you create an instance. The magic is that instances stay connected to their source—change the main component, and all instances update automatically. This creates a single source of truth for your design system.',
+    examples: [
+      'Your primary button component has 47 instances across 12 screens. Updating the main component\'s padding instantly updates all 47.',
+      'A card instance can have its content overridden (title, image) while maintaining the structural connection to the main card component.',
+      'Nested instances allow complex compositions—a form component might contain button instances and input field instances.'
+    ],
+    relatedTerms: ['main-component', 'detached-instance', 'component-set', 'variant-property'],
+    keywords: ['figma instance', 'what is instance figma', 'component instance', 'figma linked copy', 'instance vs component']
+  },
+  {
+    slug: 'main-component',
+    term: 'Main Component',
+    definition: 'The original, source component that defines the structure, styles, and behavior that all its instances inherit.',
+    metaTitle: 'What is a Main Component in Figma? | BiblioKit Glossary',
+    metaDescription: 'Learn about main components in Figma, how they differ from instances, and best practices for organizing your component library.',
+    context: 'Main components (also called master components) are the single source of truth in your design system. They\'re identified by the four-diamond icon and typically live in a dedicated component library file. Edits to main components propagate to all instances across your entire organization, making them powerful but requiring careful governance.',
+    examples: [
+      'A Button main component defines the base structure: icon slot, label, padding, border radius, and color tokens.',
+      'Main components for a card system might include CardBase, CardHeader, CardBody, and CardFooter.',
+      'Publishing a library makes your main components available across all team files as instances.'
+    ],
+    relatedTerms: ['instance', 'component-set', 'component-library', 'design-tokens'],
+    keywords: ['main component figma', 'master component', 'source component', 'figma component library', 'original component']
+  },
+  {
+    slug: 'component-set',
+    term: 'Component Set',
+    definition: 'A group of related component variants combined into a single component with configurable properties, allowing users to switch between variants without swapping components.',
+    metaTitle: 'What is a Component Set in Figma? | BiblioKit Glossary',
+    metaDescription: 'Understand component sets in Figma, how to create variants, and best practices for building flexible, scalable design system components.',
+    context: 'Component sets replaced the old "variant" workflow and represent a major evolution in Figma\'s component architecture. Instead of having separate Button/Primary, Button/Secondary, Button/Disabled components, you have one Button component set with Type and State properties. This simplifies your asset panel and makes component selection more intuitive for designers.',
+    examples: [
+      'A Button component set with properties: Type (Primary, Secondary, Tertiary), Size (Small, Medium, Large), State (Default, Hover, Pressed, Disabled).',
+      'An Input component set combining Text Input, Password Input, and Search Input variants with Error and Disabled states.',
+      'A complete icon component set containing 200+ icons, all accessible through a single Icon component with a Name property.'
+    ],
+    relatedTerms: ['variant-property', 'main-component', 'instance', 'naming-conventions'],
+    pluginCta: {
+      plugin: 'rename-variants',
+      pluginName: 'RenameVariantsAI',
+      text: 'RenameVariantsAI helps you batch rename variant properties across your component sets, ensuring consistent naming conventions throughout your design system.',
+      url: '/figma-component-variant-renamer'
+    },
+    keywords: ['component set figma', 'figma variants', 'component variants', 'variant properties', 'figma component organization']
+  },
+  {
+    slug: 'variant-property',
+    term: 'Variant Property',
+    definition: 'A configurable attribute of a component set that allows users to switch between different variations of a component, such as size, state, or type.',
+    metaTitle: 'What are Variant Properties in Figma? | BiblioKit Glossary',
+    metaDescription: 'Learn how variant properties work in Figma, naming conventions, and how to structure components for maximum flexibility.',
+    context: 'Variant properties are the backbone of flexible component systems. Each property (like Size, State, Type) can have multiple values (Small/Medium/Large, Default/Hover/Disabled, Primary/Secondary). Well-named properties make components intuitive; poorly named ones create confusion. Boolean properties can be exposed as simple toggles in the properties panel.',
+    examples: [
+      'Property "Size" with values "sm", "md", "lg" controls button dimensions.',
+      'Property "hasIcon" (boolean) toggles icon visibility in a button component.',
+      'Property "State" with values "default", "hover", "active", "disabled" handles interaction states.'
+    ],
+    relatedTerms: ['component-set', 'naming-conventions', 'component-states', 'instance'],
+    pluginCta: {
+      plugin: 'rename-variants',
+      pluginName: 'RenameVariantsAI',
+      text: 'Use RenameVariantsAI to standardize your variant property names across all components. AI-powered suggestions help you adopt consistent naming conventions.',
+      url: '/figma-component-variant-renamer'
+    },
+    keywords: ['variant property figma', 'figma component properties', 'variant naming', 'component configuration', 'figma variants explained']
+  },
+  {
+    slug: 'auto-layout',
+    term: 'Auto Layout',
+    definition: 'A Figma feature that automatically positions and resizes elements within a frame based on defined rules, similar to CSS Flexbox.',
+    metaTitle: 'What is Auto Layout in Figma? | BiblioKit Glossary',
+    metaDescription: 'Master auto layout in Figma. Learn how automatic positioning works, common patterns, and tips for building responsive components.',
+    context: 'Auto layout transforms static designs into responsive, flexible systems. Instead of manually positioning every element, you define relationships: stack horizontally with 16px gap, fill container width, hug content height. This mirrors how CSS works, making designs more developer-friendly and reducing the disconnect between design and code.',
+    examples: [
+      'A button with auto layout automatically expands when text is longer and contracts when text is shorter.',
+      'A card component uses nested auto layout: vertical stack for overall structure, horizontal stack for the header with icon and title.',
+      'A table row uses auto layout with "Space between" to distribute cells evenly across the available width.'
+    ],
+    relatedTerms: ['frame', 'constraints', 'design-tokens', 'design-handoff'],
+    pluginCta: {
+      plugin: 'fixtable',
+      pluginName: 'FixTable',
+      text: 'FixTable normalizes inconsistent auto layout settings in tables and data grids, ensuring consistent spacing and alignment.',
+      url: '/figma-table-builder'
+    },
+    keywords: ['auto layout figma', 'figma flexbox', 'responsive figma', 'auto layout tutorial', 'figma automatic sizing']
+  },
+  {
+    slug: 'frame',
+    term: 'Frame',
+    definition: 'A container element in Figma that can hold other elements, support auto layout, have its own styling, and serve as the building block for components.',
+    metaTitle: 'What is a Frame in Figma? | BiblioKit Glossary',
+    metaDescription: 'Understand frames in Figma, how they differ from groups, and when to use frames vs groups in your design workflow.',
+    context: 'Frames are the most versatile element in Figma. Unlike groups (which simply cluster elements), frames can have their own fill, stroke, corner radius, constraints, and auto layout. Think of frames as the div equivalent in HTML—they\'re the structural containers that define your layout. Components must start as frames.',
+    examples: [
+      'A card component is built from nested frames: CardFrame > HeaderFrame + BodyFrame + FooterFrame.',
+      'A frame with clip content enabled crops any child elements that extend beyond its bounds.',
+      'Frames can have responsive constraints that define how they resize relative to their parent.'
+    ],
+    relatedTerms: ['group', 'auto-layout', 'constraints', 'main-component'],
+    keywords: ['frame figma', 'figma frame vs group', 'container figma', 'figma layout', 'frame constraints']
+  },
+  {
+    slug: 'group',
+    term: 'Group',
+    definition: 'A simple container that clusters multiple elements together for easier selection and movement, without the advanced features of frames.',
+    metaTitle: 'What is a Group in Figma? | BiblioKit Glossary',
+    metaDescription: 'Learn about groups in Figma, when to use groups vs frames, and how groups fit into your design workflow.',
+    context: 'Groups are lightweight containers best used for temporary organization or simple clustering. They can\'t have their own fill, stroke, or auto layout—they simply group elements for convenience. When you need more control, convert groups to frames. Many designers use groups as a quick selection tool and frames for actual structure.',
+    examples: [
+      'Grouping three icons together to move them as a unit while designing.',
+      'A group of text layers that need to stay together but don\'t need container styling.',
+      'Selecting multiple elements and pressing Cmd/Ctrl+G creates a group.'
+    ],
+    relatedTerms: ['frame', 'auto-layout', 'constraints'],
+    keywords: ['group figma', 'figma grouping', 'group vs frame', 'figma organize layers', 'figma selection']
+  },
+  {
+    slug: 'constraints',
+    term: 'Constraints',
+    definition: 'Rules that define how an element resizes and repositions relative to its parent frame when the parent changes size.',
+    metaTitle: 'What are Constraints in Figma? | BiblioKit Glossary',
+    metaDescription: 'Master Figma constraints for responsive design. Learn how to pin elements, scale proportionally, and create flexible layouts.',
+    context: 'Constraints are essential for responsive design. They answer the question: "When this frame gets wider/taller, what should happen to this element?" Options include pinning to edges (left, right, top, bottom, center), scaling proportionally, or a combination. Proper constraints make resizing predictable and reduce the need for manual adjustments.',
+    examples: [
+      'A navigation bar pinned left-right stretches with the viewport while maintaining internal padding.',
+      'A centered modal constrained to "Center" horizontally stays centered regardless of screen width.',
+      'A corner badge constrained "Top" and "Right" stays in the corner as the parent card resizes.'
+    ],
+    relatedTerms: ['frame', 'auto-layout', 'design-handoff'],
+    keywords: ['figma constraints', 'responsive figma', 'figma resizing', 'pin to frame figma', 'figma layout constraints']
+  },
+  {
+    slug: 'design-tokens',
+    term: 'Design Tokens',
+    definition: 'Named, platform-agnostic values that store design decisions like colors, spacing, typography, and shadows, enabling consistent styling across design tools and code.',
+    metaTitle: 'What are Design Tokens? | BiblioKit Glossary',
+    metaDescription: 'Learn about design tokens, how they bridge design and development, and best practices for implementing a token-based design system.',
+    context: 'Design tokens are the atomic building blocks of a design system. Instead of using raw values (#FF5733 or 16px), you use named tokens (color.primary.500 or spacing.md). This abstraction allows you to change a token value once and have it update everywhere—in Figma, in CSS, in iOS, in Android. Tokens are the ultimate single source of truth.',
+    examples: [
+      'color.text.primary: "#1A1A1A" in light mode, "#FFFFFF" in dark mode—same token, different contexts.',
+      'spacing.component.padding: "16px" ensures consistent internal padding across all components.',
+      'typography.heading.lg: { fontSize: "32px", lineHeight: "40px", fontWeight: "700" } bundles related properties.'
+    ],
+    relatedTerms: ['token-drift', 'design-system', 'style-guide', 'design-system-audit'],
+    pluginCta: {
+      plugin: 'componentqa',
+      pluginName: 'ComponentQA',
+      text: 'ComponentQA audits your Figma files for hardcoded values that should be using design tokens, helping you maintain token compliance.',
+      url: '/figma-design-system-audit-plugin'
+    },
+    keywords: ['design tokens', 'style dictionary', 'figma variables', 'design system tokens', 'css custom properties']
+  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Design System Concepts
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'design-system',
+    term: 'Design System',
+    definition: 'A comprehensive collection of reusable components, patterns, guidelines, and design tokens that work together to ensure consistency and efficiency across product development.',
+    metaTitle: 'What is a Design System? | BiblioKit Glossary',
+    metaDescription: 'Understand design systems, their components, benefits, and how to build and maintain one for your organization.',
+    context: 'A design system is more than a component library—it\'s a living product that serves other products. It includes UI components, design tokens, documentation, usage guidelines, accessibility standards, and governance processes. Successful design systems accelerate development, ensure consistency, and reduce design debt.',
+    examples: [
+      'IBM\'s Carbon Design System includes components, icons, patterns, data visualization guidelines, and accessibility requirements.',
+      'A startup\'s design system might start simple: core components, color tokens, and spacing scale, growing as the product matures.',
+      'Design systems serve multiple platforms: web, iOS, Android, each with platform-specific implementations of the same components.'
+    ],
+    relatedTerms: ['component-library', 'design-tokens', 'style-guide', 'design-governance', 'design-ops'],
+    keywords: ['design system', 'what is design system', 'component library', 'design system benefits', 'figma design system']
+  },
+  {
+    slug: 'component-library',
+    term: 'Component Library',
+    definition: 'A collection of reusable UI components organized in a Figma library file, available for use across multiple design files and team projects.',
+    metaTitle: 'What is a Component Library in Figma? | BiblioKit Glossary',
+    metaDescription: 'Learn how to create and maintain a Figma component library, best practices for organization, and tips for scaling across teams.',
+    context: 'A component library in Figma is a dedicated file containing all your main components, published for use across your organization. When you publish a library, team members can access components through the assets panel. Updates to the library propagate to all files using those components, creating a centralized source of truth.',
+    examples: [
+      'A Core Library containing buttons, inputs, cards, modals, and other foundational components.',
+      'An Icons Library with 500+ icons organized by category, all accessible as components.',
+      'Separate libraries for mobile (iOS/Android) and web components with shared token foundations.'
+    ],
+    relatedTerms: ['design-system', 'main-component', 'instance', 'design-governance'],
+    pluginCta: {
+      plugin: 'organizefile',
+      pluginName: 'OrganizeFile',
+      text: 'OrganizeFile helps you set up properly structured component library files with consistent page organization and naming.',
+      url: '/figma-organize-design-files-plugin'
+    },
+    keywords: ['component library figma', 'figma library', 'shared components', 'figma assets', 'design library']
+  },
+  {
+    slug: 'style-guide',
+    term: 'Style Guide',
+    definition: 'Documentation that defines the visual language of a product, including color palettes, typography scales, spacing systems, and usage guidelines.',
+    metaTitle: 'What is a Style Guide? | BiblioKit Glossary',
+    metaDescription: 'Learn about style guides, how they differ from design systems, and best practices for documenting your design decisions.',
+    context: 'A style guide documents the "what" and "why" of design decisions. It\'s the reference manual for your visual language—how to use colors, which typeface for headings vs body, standard spacing values. Style guides existed before design systems and remain a crucial component, especially for branding consistency.',
+    examples: [
+      'A brand style guide defining primary/secondary colors, logo usage rules, and typography hierarchy.',
+      'A component style guide showing correct and incorrect usage of buttons, with spacing and alignment rules.',
+      'Accessibility guidelines within a style guide specifying color contrast ratios and focus state requirements.'
+    ],
+    relatedTerms: ['design-system', 'design-tokens', 'naming-conventions', 'design-governance'],
+    keywords: ['style guide', 'brand guidelines', 'design documentation', 'visual language', 'design standards']
+  },
+  {
+    slug: 'design-system-audit',
+    term: 'Design System Audit',
+    definition: 'A systematic review of design files to assess adherence to design system standards, identify inconsistencies, and find components that have drifted from their source.',
+    metaTitle: 'What is a Design System Audit? | BiblioKit Glossary',
+    metaDescription: 'Learn how to conduct design system audits, common issues to look for, and tools that automate the audit process.',
+    context: 'Design system audits are essential for maintaining design quality at scale. As teams grow and projects multiply, drift inevitably occurs—detached instances, hardcoded values, inconsistent spacing. Regular audits catch these issues before they accumulate into significant design debt. Audits can be manual or automated.',
+    examples: [
+      'A quarterly audit revealing 340 detached instances across 15 product files, prioritized by frequency and severity.',
+      'An automated audit flagging 12 buttons using hardcoded colors instead of the primary.500 token.',
+      'A pre-handoff audit ensuring all components are properly connected before developer implementation.'
+    ],
+    relatedTerms: ['detached-instance', 'token-drift', 'component-health', 'design-governance'],
+    pluginCta: {
+      plugin: 'componentqa',
+      pluginName: 'ComponentQA',
+      text: 'ComponentQA automates design system audits, scanning files for detached instances, hardcoded values, and other quality issues in seconds.',
+      url: '/figma-design-system-audit-plugin'
+    },
+    keywords: ['design system audit', 'figma audit', 'design qa', 'design quality', 'component audit']
+  },
+  {
+    slug: 'component-health',
+    term: 'Component Health',
+    definition: 'A measure of how well components in a design file adhere to design system standards, including proper connections, token usage, and naming conventions.',
+    metaTitle: 'What is Component Health? | BiblioKit Glossary',
+    metaDescription: 'Learn how to measure and improve component health in Figma, key metrics to track, and tools for automated health monitoring.',
+    context: 'Component health is the design equivalent of code quality. Healthy components are properly connected to the design system, use tokens instead of hardcoded values, follow naming conventions, and have complete variant coverage. Tracking component health over time reveals whether your design system is being adopted or eroding.',
+    examples: [
+      'A file health score of 94% indicates high design system compliance with minor issues to address.',
+      'Component health metrics: 98% connected instances, 100% token usage, 85% naming convention compliance.',
+      'A dashboard showing component health trends across all product files over the past 6 months.'
+    ],
+    relatedTerms: ['design-system-audit', 'detached-instance', 'token-drift', 'design-governance'],
+    pluginCta: {
+      plugin: 'componentqa',
+      pluginName: 'ComponentQA',
+      text: 'Track component health with ComponentQA\'s automated scanning. Get instant visibility into design system compliance across your files.',
+      url: '/figma-design-system-audit-plugin'
+    },
+    keywords: ['component health', 'design system health', 'design quality metrics', 'component compliance', 'design system adoption']
+  },
+  {
+    slug: 'token-drift',
+    term: 'Token Drift',
+    definition: 'The gradual divergence between design tokens in Figma and their implementations in code, causing visual inconsistencies across platforms.',
+    metaTitle: 'What is Token Drift? | BiblioKit Glossary',
+    metaDescription: 'Understand token drift, why it happens, how to detect it, and strategies for keeping design and code tokens in sync.',
+    context: 'Token drift occurs when design tokens get out of sync between design tools and code. A designer updates color.primary in Figma but the CSS variable isn\'t updated. Or a developer adds a new spacing token that doesn\'t exist in design. Over time, these small drifts compound into significant inconsistencies between designed and implemented products.',
+    examples: [
+      'The primary button is #0066CC in Figma but #0052A3 in the React component library.',
+      'Figma uses 8px/16px/24px spacing while code has 8px/12px/16px/24px/32px.',
+      'A new icon token was added in code for dark mode but never reflected in the Figma library.'
+    ],
+    relatedTerms: ['design-tokens', 'design-handoff', 'design-system-audit', 'design-ops'],
+    pluginCta: {
+      plugin: 'componentqa',
+      pluginName: 'ComponentQA',
+      text: 'ComponentQA helps identify token drift by auditing designs for hardcoded values and flagging tokens that may need synchronization.',
+      url: '/figma-design-system-audit-plugin'
+    },
+    keywords: ['token drift', 'design tokens sync', 'design code consistency', 'token management', 'design system maintenance']
+  },
+  {
+    slug: 'naming-conventions',
+    term: 'Naming Conventions',
+    definition: 'Standardized rules for naming design elements like layers, components, variants, and tokens to ensure consistency and improve team collaboration.',
+    metaTitle: 'What are Naming Conventions in Design? | BiblioKit Glossary',
+    metaDescription: 'Learn naming convention best practices for Figma layers, components, and design tokens. Improve team collaboration with consistent naming.',
+    context: 'Good naming conventions make designs self-documenting. When developers inspect a design, clear names like "Button/Primary/Large/Default" communicate intent instantly. Consistent naming also enables automation—scripts and plugins can parse well-named components to generate code, documentation, or perform batch operations.',
+    examples: [
+      'Component naming: "Button/Primary/Large" vs "btn-1-big" (good vs bad).',
+      'Token naming: "color.text.primary" follows a category.type.variant pattern.',
+      'Layer naming: "IconSlot" instead of "Frame 47" tells developers exactly what the layer is for.'
+    ],
+    relatedTerms: ['variant-property', 'design-tokens', 'component-set', 'design-handoff'],
+    pluginCta: {
+      plugin: 'rename-variants',
+      pluginName: 'RenameVariantsAI',
+      text: 'RenameVariantsAI brings consistency to your naming conventions with AI-powered batch renaming. Transform messy names into structured, developer-friendly conventions.',
+      url: '/figma-component-variant-renamer'
+    },
+    keywords: ['naming conventions', 'figma naming', 'layer naming', 'component naming', 'design organization']
+  },
+  {
+    slug: 'component-states',
+    term: 'Component States',
+    definition: 'The different visual appearances a component can have based on user interaction or context, such as default, hover, active, focus, disabled, and error states.',
+    metaTitle: 'What are Component States in Design? | BiblioKit Glossary',
+    metaDescription: 'Learn about component states (hover, focus, disabled), why they matter, and how to design complete state coverage for your components.',
+    context: 'Complete state coverage is essential for production-ready components. Each state communicates something to users: hover confirms interactivity, focus shows keyboard navigation position, disabled indicates unavailability. Missing states force developers to improvise, leading to inconsistent implementations.',
+    examples: [
+      'Button states: Default, Hover, Active/Pressed, Focus, Disabled, Loading.',
+      'Input states: Empty, Filled, Focus, Error, Disabled, Read-only.',
+      'Checkbox states: Unchecked, Checked, Indeterminate, each with Default/Hover/Focus/Disabled sub-states.'
+    ],
+    relatedTerms: ['variant-property', 'component-set', 'design-handoff'],
+    pluginCta: {
+      plugin: 'statebuilder',
+      pluginName: 'StateBuilder',
+      text: 'StateBuilder auto-generates interaction states for your components, ensuring complete state coverage without manual duplication.',
+      url: '/figma-component-states'
+    },
+    keywords: ['component states', 'button states', 'interaction states', 'hover state', 'disabled state figma']
+  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Design Operations
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'design-ops',
+    term: 'Design Ops',
+    definition: 'The practice of optimizing design team operations through processes, tools, and systems that enable designers to work more efficiently and effectively.',
+    metaTitle: 'What is Design Ops? | BiblioKit Glossary',
+    metaDescription: 'Learn about design operations (DesignOps), its role in scaling design teams, and how to implement design ops practices.',
+    context: 'Design Ops (or DesignOps) is the operational backbone of design organizations. Like DevOps for engineering, DesignOps removes friction from the design process—streamlining tool workflows, managing design systems, coordinating handoffs, and establishing quality standards. As design teams grow, DesignOps becomes essential for maintaining quality and velocity.',
+    examples: [
+      'A DesignOps manager implementing automated file organization standards across 50 designers.',
+      'Setting up a design system contribution workflow with review gates and versioning.',
+      'Creating onboarding documentation so new designers can contribute productively within their first week.'
+    ],
+    relatedTerms: ['design-governance', 'design-system', 'design-handoff', 'design-system-audit'],
+    keywords: ['design ops', 'designops', 'design operations', 'design team management', 'design workflow']
+  },
+  {
+    slug: 'design-handoff',
+    term: 'Design Handoff',
+    definition: 'The process of transferring design specifications, assets, and context from designers to developers for implementation.',
+    metaTitle: 'What is Design Handoff? | BiblioKit Glossary',
+    metaDescription: 'Master design handoff best practices. Learn how to create dev-ready designs, what to include, and common pitfalls to avoid.',
+    context: 'Design handoff is the critical bridge between design and development. A smooth handoff includes more than just designs—it\'s specifications, assets, interaction details, edge cases, and context. Poor handoffs lead to back-and-forth questions, incorrect implementations, and frustration on both sides. Modern workflows use Figma\'s inspect mode, but preparation still matters.',
+    examples: [
+      'A handoff document specifying responsive breakpoints, animation timing, and loading states.',
+      'Developers inspecting a Figma frame to extract exact measurements, colors (via tokens), and spacing.',
+      'A prototype demonstrating complex interactions that static designs can\'t fully communicate.'
+    ],
+    relatedTerms: ['design-ops', 'naming-conventions', 'component-states', 'token-drift'],
+    pluginCta: {
+      plugin: 'biblioclean',
+      pluginName: 'BiblioClean',
+      text: 'BiblioClean prepares files for handoff by removing prototype clutter, creating cleaner files that developers can inspect without distraction.',
+      url: '/figma-plugin-remove-prototype-links'
+    },
+    keywords: ['design handoff', 'design to dev', 'figma handoff', 'design specs', 'developer handoff']
+  },
+  {
+    slug: 'design-governance',
+    term: 'Design Governance',
+    definition: 'The policies, processes, and controls that ensure design system standards are maintained, contributions are reviewed, and quality is preserved at scale.',
+    metaTitle: 'What is Design Governance? | BiblioKit Glossary',
+    metaDescription: 'Learn about design governance, how to establish design quality standards, and processes for managing design system contributions.',
+    context: 'Design governance answers questions like: Who can modify the design system? How are new components approved? What quality standards must designs meet? Without governance, design systems become chaotic—everyone adds their own variations, quality degrades, and the "system" becomes a disorganized mess. Governance provides structure without stifling innovation.',
+    examples: [
+      'A design system contribution process: RFC proposal → team review → prototype → audit → merge.',
+      'Quality gates: All new components must pass accessibility review and have complete state coverage.',
+      'A quarterly design system council meeting to review proposed additions and deprecations.'
+    ],
+    relatedTerms: ['design-ops', 'design-system', 'design-system-audit', 'component-health'],
+    keywords: ['design governance', 'design system management', 'design quality control', 'design standards', 'design policy']
+  },
+  {
+    slug: 'prototype-links',
+    term: 'Prototype Links',
+    definition: 'Connections between frames in Figma that define interactive behaviors like navigation, overlays, and transitions for prototype presentations.',
+    metaTitle: 'What are Prototype Links in Figma? | BiblioKit Glossary',
+    metaDescription: 'Learn about prototype links in Figma, how to create interactive prototypes, and when to remove prototype connections.',
+    context: 'Prototype links turn static designs into interactive demos. They define what happens when a user clicks, hovers, or performs other actions—navigate to another frame, open an overlay, trigger an animation. While essential for presenting designs, prototype links can clutter files and confuse developers during inspection if not cleaned up.',
+    examples: [
+      'A button on the login screen linked to the dashboard screen with a "push" transition.',
+      'A dropdown trigger opening a menu overlay with "open overlay" positioning.',
+      'An onboarding prototype with 20 screens connected to demonstrate the full user flow.'
+    ],
+    relatedTerms: ['design-handoff', 'frame', 'component-states'],
+    pluginCta: {
+      plugin: 'biblioclean',
+      pluginName: 'BiblioClean',
+      text: 'BiblioClean safely removes prototype links from your files, cleaning up clutter while preserving your designs for developer handoff.',
+      url: '/figma-plugin-remove-prototype-links'
+    },
+    keywords: ['prototype links figma', 'figma prototype', 'interactive prototype', 'figma connections', 'remove prototype links']
+  },
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Technical Concepts
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    slug: 'boolean-property',
+    term: 'Boolean Property',
+    definition: 'A component property that toggles between true/false states, often used to show/hide elements or enable/disable features within a component.',
+    metaTitle: 'What are Boolean Properties in Figma? | BiblioKit Glossary',
+    metaDescription: 'Learn how boolean properties work in Figma components, common use cases, and best practices for toggleable component features.',
+    context: 'Boolean properties add flexibility to components without increasing variant complexity. Instead of creating separate "Button with Icon" and "Button without Icon" variants, you use a single "hasIcon" boolean property. In the properties panel, booleans appear as toggles, making them intuitive for designers to use.',
+    examples: [
+      'A "hasIcon" boolean that shows or hides the icon slot in a button component.',
+      'An "isRequired" boolean that toggles the asterisk visibility on form labels.',
+      'A "showDivider" boolean controlling separator visibility in list items.'
+    ],
+    relatedTerms: ['variant-property', 'component-set', 'instance'],
+    keywords: ['boolean property figma', 'figma toggle', 'component toggle', 'show hide figma', 'conditional component']
+  },
+  {
+    slug: 'slot',
+    term: 'Slot',
+    definition: 'A designated area within a component where content can be swapped or overridden in instances, enabling flexible content composition while maintaining structure.',
+    metaTitle: 'What is a Slot in Figma Components? | BiblioKit Glossary',
+    metaDescription: 'Learn about slots in Figma components, how to design swappable content areas, and best practices for flexible component architecture.',
+    context: 'Slots are the secret to flexible component composition. Instead of creating dozens of card variants (card with image, card with icon, card with illustration), you create one card with an "image slot" that can be swapped. This reduces component count while increasing flexibility—any frame can go in the slot.',
+    examples: [
+      'A card component with a "Media Slot" where designers can place images, illustrations, or icons.',
+      'A modal with a "Content Slot" that accepts any combination of text, forms, or custom content.',
+      'A navigation item with an "Icon Slot" that can be swapped with different icons per menu item.'
+    ],
+    relatedTerms: ['component-set', 'instance', 'variant-property', 'main-component'],
+    keywords: ['figma slot', 'component slot', 'swappable content', 'figma composition', 'nested components']
+  },
+  {
+    slug: 'nested-instance',
+    term: 'Nested Instance',
+    definition: 'A component instance placed inside another component, creating hierarchical component structures that maintain connections to multiple main components.',
+    metaTitle: 'What are Nested Instances in Figma? | BiblioKit Glossary',
+    metaDescription: 'Understand nested instances in Figma, how component nesting works, and best practices for building complex component hierarchies.',
+    context: 'Nested instances enable component composition—building complex components from simpler ones. A Modal component might contain nested Button instances and Icon instances. When you update the Button main component, all buttons inside all modals update automatically. This creates powerful cascading updates across your design system.',
+    examples: [
+      'A form component containing nested Input, Label, and Button instances.',
+      'A card component with nested Avatar and Badge instances in the header.',
+      'A data table row built from nested Cell, Checkbox, and IconButton instances.'
+    ],
+    relatedTerms: ['instance', 'main-component', 'slot', 'component-set'],
+    keywords: ['nested instance figma', 'component nesting', 'nested components', 'component hierarchy', 'figma composition']
+  },
+  {
+    slug: 'figma-variables',
+    term: 'Figma Variables',
+    definition: 'Reusable values in Figma that can store colors, numbers, strings, and booleans, supporting modes for theming and enabling design tokens directly in Figma.',
+    metaTitle: 'What are Figma Variables? | BiblioKit Glossary',
+    metaDescription: 'Learn about Figma Variables, how they enable design tokens, theming with modes, and best practices for variable organization.',
+    context: 'Figma Variables (introduced in 2023) bring design token functionality natively into Figma. Instead of using color styles alone, you can create variables with modes (light/dark, mobile/desktop) that switch contextually. Variables can reference other variables, creating a hierarchy. This is the closest Figma gets to true design token systems.',
+    examples: [
+      'A "surface.primary" color variable with Light Mode (#FFFFFF) and Dark Mode (#1A1A1A) values.',
+      'A "spacing.md" number variable (16) used across padding, gap, and margin properties.',
+      'An alias variable "button.background" referencing "interactive.primary" for maintainability.'
+    ],
+    relatedTerms: ['design-tokens', 'design-system', 'token-drift', 'component-set'],
+    keywords: ['figma variables', 'figma tokens', 'figma modes', 'design tokens figma', 'figma theming']
+  },
+  {
+    slug: 'figma-styles',
+    term: 'Figma Styles',
+    definition: 'Reusable design properties in Figma for colors, text, effects, and grids that can be applied across elements and updated globally from a single source.',
+    metaTitle: 'What are Figma Styles? | BiblioKit Glossary',
+    metaDescription: 'Learn about Figma Styles for colors, typography, effects, and grids. Understand when to use styles vs variables.',
+    context: 'Styles were Figma\'s original approach to reusable design values before Variables. Color styles, text styles, effect styles (shadows), and grid styles let you define properties once and apply them everywhere. While Variables offer more power (modes, numbers), Styles remain important for complex text styling and effects that Variables can\'t fully replicate.',
+    examples: [
+      'A "Heading/H1" text style defining font, size, weight, line height, and letter spacing together.',
+      'An "Elevation/Card" effect style combining drop shadow and subtle border.',
+      'A "Layout/12-Column" grid style for consistent page layouts across screens.'
+    ],
+    relatedTerms: ['figma-variables', 'design-tokens', 'design-system', 'style-guide'],
+    keywords: ['figma styles', 'color styles', 'text styles', 'effect styles', 'figma reusable styles']
+  },
+  {
+    slug: 'layer-organization',
+    term: 'Layer Organization',
+    definition: 'The practice of structuring, naming, and ordering layers in Figma files to improve clarity, navigation, and handoff quality.',
+    metaTitle: 'What is Layer Organization in Figma? | BiblioKit Glossary',
+    metaDescription: 'Master Figma layer organization. Learn naming conventions, grouping strategies, and best practices for clean, navigable files.',
+    context: 'Good layer organization is invisible when done right and painfully obvious when done wrong. Developers inspecting designs shouldn\'t see "Frame 427" and "Rectangle 12"—they should see "CardContainer" and "AvatarBadge". Organized layers communicate design intent, speed up inspection, and demonstrate professionalism.',
+    examples: [
+      'A button component with layers named "Container", "IconSlot", "Label" instead of auto-generated names.',
+      'Screens organized in the layers panel from top-to-bottom matching left-to-right canvas order.',
+      'Using "/" in layer names to create hierarchy: "Header/Nav/MenuItem" appears nested in the panel.'
+    ],
+    relatedTerms: ['naming-conventions', 'frame', 'group', 'design-handoff'],
+    pluginCta: {
+      plugin: 'rename-variants',
+      pluginName: 'RenameVariantsAI',
+      text: 'RenameVariantsAI helps clean up layer names across your files with AI-powered batch renaming, transforming messy auto-generated names into clear, semantic labels.',
+      url: '/figma-component-variant-renamer'
+    },
+    keywords: ['layer organization figma', 'figma layers', 'naming layers', 'clean figma files', 'layer management']
+  },
+  {
+    slug: 'file-organization',
+    term: 'File Organization',
+    definition: 'The system of structuring pages, frames, and sections within Figma files to create navigable, maintainable design documents.',
+    metaTitle: 'How to Organize Figma Files | BiblioKit Glossary',
+    metaDescription: 'Learn best practices for Figma file organization, page structures, section usage, and maintaining clean design files.',
+    context: 'File organization determines how quickly anyone can find what they need in your Figma files. A well-organized file has clear page structures (Cover, Components, Screens, Archive), logical section groupings, and consistent patterns that team members can predict. This becomes critical as files grow and teams scale.',
+    examples: [
+      'A standard file structure: Cover page, Components page, Screens organized by feature, Archive page for deprecated work.',
+      'Using Figma sections to group related screens: "Onboarding" section containing Welcome, SignUp, Verification screens.',
+      'An emoji-based page naming convention: "🎨 Components", "📱 Screens", "📦 Archive" for visual scanning.'
+    ],
+    relatedTerms: ['layer-organization', 'design-ops', 'design-governance', 'component-library'],
+    pluginCta: {
+      plugin: 'organizefile',
+      pluginName: 'OrganizeFile',
+      text: 'OrganizeFile sets up clean file structures automatically, creating standard pages and sections so you can start designing with an organized foundation.',
+      url: '/figma-organize-design-files-plugin'
+    },
+    keywords: ['figma file organization', 'organize figma', 'figma pages', 'figma sections', 'file structure']
+  },
+  {
+    slug: 'responsive-design',
+    term: 'Responsive Design',
+    definition: 'The approach of designing interfaces that adapt gracefully to different screen sizes, device types, and orientations.',
+    metaTitle: 'What is Responsive Design? | BiblioKit Glossary',
+    metaDescription: 'Learn responsive design principles, how to design for multiple screen sizes in Figma, and techniques for adaptive layouts.',
+    context: 'Responsive design means creating one design that works everywhere—mobile, tablet, desktop. In Figma, this involves using auto layout, constraints, and breakpoint frames. Responsive thinking should happen from the start, not as an afterthought. The goal is designs that feel intentional on any screen, not just squeezed or stretched versions.',
+    examples: [
+      'A navigation that transforms from horizontal tabs on desktop to a hamburger menu on mobile.',
+      'A card grid that shifts from 4 columns on desktop to 2 on tablet to 1 on mobile.',
+      'Typography that scales: 48px heading on desktop, 32px on tablet, 24px on mobile.'
+    ],
+    relatedTerms: ['auto-layout', 'constraints', 'frame', 'design-handoff'],
+    keywords: ['responsive design', 'mobile design', 'breakpoints figma', 'adaptive design', 'multi-device design']
+  },
+  {
+    slug: 'accessibility',
+    term: 'Accessibility',
+    definition: 'The practice of designing products usable by people with disabilities, including visual, motor, auditory, and cognitive impairments.',
+    metaTitle: 'What is Accessibility in Design? | BiblioKit Glossary',
+    metaDescription: 'Learn accessibility fundamentals for designers, WCAG guidelines, and how to create inclusive designs in Figma.',
+    context: 'Accessibility (a11y) isn\'t an edge case—it\'s a requirement. Roughly 15% of the world\'s population lives with some form of disability. Accessible design benefits everyone: curb cuts help wheelchair users and parents with strollers; captions help deaf users and people in loud environments. In design, this means sufficient color contrast, focus states, readable typography, and logical structure.',
+    examples: [
+      'A button with 4.5:1 color contrast ratio meeting WCAG AA standards for readability.',
+      'Focus states on all interactive elements enabling keyboard navigation.',
+      'Form inputs with clear labels and error messages read by screen readers.'
+    ],
+    relatedTerms: ['component-states', 'design-tokens', 'design-system', 'style-guide'],
+    keywords: ['accessibility design', 'a11y', 'wcag', 'inclusive design', 'accessible figma']
+  },
+  {
+    slug: 'design-debt',
+    term: 'Design Debt',
+    definition: 'Accumulated design shortcuts, inconsistencies, and deferred improvements that create maintenance burden and slow down future design work.',
+    metaTitle: 'What is Design Debt? | BiblioKit Glossary',
+    metaDescription: 'Understand design debt, how it accumulates, its impact on teams, and strategies for managing and reducing design debt.',
+    context: 'Design debt is the design equivalent of technical debt. Every detached instance, every hardcoded color, every "we\'ll fix it later" compounds over time. Small debts accumulate into systemic problems: inconsistent UIs, slow design velocity, frustrated developers. The key is balancing speed (sometimes incurring debt) with regular debt repayment.',
+    examples: [
+      'Hundreds of one-off components created instead of extending the design system properly.',
+      'Outdated screens that still use deprecated components because no one updated them.',
+      'Inconsistent spacing across the product because the spacing scale was never standardized.'
+    ],
+    relatedTerms: ['detached-instance', 'token-drift', 'design-system-audit', 'design-governance'],
+    pluginCta: {
+      plugin: 'componentqa',
+      pluginName: 'ComponentQA',
+      text: 'Quantify your design debt with ComponentQA. Automated audits reveal detached instances, hardcoded values, and other debt indicators.',
+      url: '/figma-design-system-audit-plugin'
+    },
+    keywords: ['design debt', 'design system debt', 'design technical debt', 'design inconsistency', 'design maintenance']
+  }
+];
+
+// Glossary helper functions
+export const findGlossaryBySlug = (slug: string): GlossaryPage | undefined => {
+  return GLOSSARY_PAGES.find(g => g.slug === slug);
+};
+
+export const getAllGlossarySlugs = (): string[] => {
+  return GLOSSARY_PAGES.map(g => g.slug);
+};

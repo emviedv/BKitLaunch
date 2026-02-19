@@ -30,6 +30,7 @@ const learn = [
   { name: 'Learn', href: '/learn' },
   { name: 'Tutorials', href: '/tutorials' },
   { name: 'Use Cases', href: '/use-cases' },
+  { name: 'Glossary', href: '/glossary' },
   { name: 'Design Ops Fundamentals', href: '/learn/design-ops-fundamentals' },
 ];
 
