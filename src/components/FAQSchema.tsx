@@ -11,10 +11,12 @@ interface FAQSchemaProps {
   faqs: FAQItem[];
   className?: string;
   productName?: string;
+  variant?: 'dark' | 'light';
 }
 
-const FAQSchema: React.FC<FAQSchemaProps> = ({ faqs, className = '', productName }) => {
+const FAQSchema: React.FC<FAQSchemaProps> = ({ faqs, className = '', productName, variant = 'dark' }) => {
   const productLabel = (productName || 'BiblioKit').trim() || 'BiblioKit';
+  const isDark = variant === 'dark';
 
   // Generate JSON-LD schema for FAQs
   const faqSchema = {
@@ -33,19 +35,22 @@ const FAQSchema: React.FC<FAQSchemaProps> = ({ faqs, className = '', productName
   // Inject the schema
   useSchema(faqSchema, 'faq-schema');
 
+  const titleClass = isDark ? 'text-white' : 'text-slate-900';
+  const subtitleClass = isDark ? 'text-white/70' : 'text-slate-600';
+
   return (
-    <div className={`faq-schema text-white ${className}`}>
+    <div className={`faq-schema ${isDark ? 'text-white' : 'text-slate-900'} ${className}`}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${titleClass}`}>
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-white/70">
+          <p className={`text-xl ${subtitleClass}`}>
             {`Quick answers to common questions about ${productLabel}`}
           </p>
         </div>
 
-        <FAQList faqs={faqs} />
+        <FAQList faqs={faqs} variant={variant} />
       </div>
     </div>
   );

@@ -289,7 +289,15 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           aria-hidden="true"
         />
         <div className="relative z-20 py-8 px-8 w-full text-center">
-          {/* Trust badges - above title */}
+          {/* Section Badge */}
+          <div className="flex justify-center mb-6">
+            <span className="section-badge section-badge--dark">
+              <Layers className="w-4 h-4" />
+              Our Products
+            </span>
+          </div>
+
+          {/* Trust badges - below main badge */}
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium text-white/55 mb-6">
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-white/40" />
@@ -380,12 +388,19 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
           ) : null,
           features: renderFeaturesSection(),
           benefits: (benefits && benefits.length > 0 && product?.visibility?.benefits !== false) ? (
-            <section className="py-20 landing-sections-gradient" key="benefits">
+            <section className="py-20 section-light-dotted" key="benefits">
               <div className={buildContainerClass()}>
                 <ContentChunk>
                   <div className="text-center mb-16">
-                    <h2 className={cn(SECTION_TITLE_CLASS, 'text-center mb-6 text-white')}>{useCasesTitle}</h2>
-                    <p className={cn(SECTION_DESCRIPTION_CLASS, 'text-center max-w-2xl mx-auto text-white/70')}>
+                    {/* Section Badge */}
+                    <div className="flex justify-center mb-6">
+                      <span className="section-badge section-badge--light">
+                        <Sparkles className="w-4 h-4" />
+                        Use Cases
+                      </span>
+                    </div>
+                    <h2 className={cn(SECTION_TITLE_CLASS, 'text-center mb-6 text-slate-900')}>{useCasesTitle}</h2>
+                    <p className={cn(SECTION_DESCRIPTION_CLASS, 'text-center max-w-2xl mx-auto text-slate-600')}>
                       {useCasesDescription}
                     </p>
                   </div>
@@ -393,13 +408,11 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                 <div className={cn(gridClassForColumns(useCasesColumns), 'max-w-4xl mx-auto')}>
                   {benefits.map((benefit: string, index: number) => (
                     <ContentChunk key={index}>
-                      <div className="flex items-start">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#f871a0]/30 via-[#b970ff]/30 to-[#5bceff]/30 flex items-center justify-center mr-4 mt-0.5 flex-shrink-0 text-white">
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
+                      <div className="flex items-start bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+                        <div className="step-circle step-circle--purple mr-4 flex-shrink-0">
+                          {index + 1}
                         </div>
-                        <span className="text-lg text-white">{benefit}</span>
+                        <span className="text-lg text-slate-800 pt-1.5">{benefit}</span>
                       </div>
                     </ContentChunk>
                   ))}
@@ -412,6 +425,13 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
               <div className={buildContainerClass()}>
                 <ContentChunk>
                   <div className="text-center mb-16">
+                    {/* Section Badge */}
+                    <div className="flex justify-center mb-6">
+                      <span className="section-badge section-badge--dark">
+                        <Icon icon="solar:chat-round-like-bold" className="w-4 h-4" />
+                        Testimonials
+                      </span>
+                    </div>
                     <h2 className={cn(SECTION_TITLE_CLASS, 'text-center mb-6 text-white')}>
                       {sectionOverrides?.testimonialsTitle || product?.sections?.testimonials?.title || 'What customers say'}
                     </h2>
@@ -441,9 +461,16 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
             </section>
           ) : null,
           faqs: (product?.visibility?.faqs !== false) ? (
-            <section className="py-20 landing-sections-gradient" key="faqs">
+            <section className="py-20 section-light-cream-dotted" key="faqs">
               <div className={buildContainerClass()}>
-                <FAQSchema faqs={faqs} productName={faqProductName} />
+                {/* Section Badge */}
+                <div className="flex justify-center mb-8">
+                  <span className="section-badge section-badge--pink">
+                    <Icon icon="solar:question-circle-bold" className="w-4 h-4" />
+                    FAQ
+                  </span>
+                </div>
+                <FAQSchema faqs={faqs} productName={faqProductName} variant="light" />
               </div>
             </section>
           ) : null,

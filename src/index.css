@@ -856,6 +856,92 @@
   .section-hero-blue {
     @apply relative bg-gradient-to-br from-[#141829] via-[#0f1422] to-[#090d18] text-title-darkest;
   }
+
+  /* Light section with dotted background pattern */
+  .section-light-dotted {
+    position: relative;
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(circle, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Cream variant for softer contrast */
+  .section-light-cream-dotted {
+    position: relative;
+    background-color: #fafaf9;
+    background-image:
+      radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Section badge/pill for headers */
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .section-badge--dark {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .section-badge--light {
+    background-color: rgba(168, 85, 247, 0.08);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    color: rgb(126, 34, 206);
+  }
+
+  .section-badge--pink {
+    background-color: rgba(236, 72, 153, 0.08);
+    border: 1px solid rgba(236, 72, 153, 0.2);
+    color: rgb(219, 39, 119);
+  }
+
+  /* Numbered step circle */
+  .step-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .step-circle--purple {
+    background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+    color: white;
+    box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35);
+  }
+
+  .step-circle--pink {
+    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+    color: white;
+    box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);
+  }
+
+  .step-circle--blue {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+  }
+
+  .step-circle--teal {
+    background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+    color: white;
+    box-shadow: 0 4px 14px rgba(20, 184, 166, 0.35);
+  }
 } 
 
 
