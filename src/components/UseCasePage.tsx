@@ -5,7 +5,7 @@ import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
 import { HERO_PRIMARY_BUTTON_CLASS, HERO_SECONDARY_BUTTON_CLASS } from '@/components/heroConstants';
-import { Check, ArrowRight, Download, ChevronRight, HelpCircle } from '@/lib/iconUtils';
+import { Check, ArrowRight, Download, ChevronRight, HelpCircle, Zap } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 import {
@@ -138,7 +138,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
               href={pageData.pluginUrl}
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-full text-sm font-medium transition-colors"
             >
-              <span>🔌</span>
+              <Zap className="w-4 h-4 text-pink-400" />
               <span>Powered by {pageData.pluginName}</span>
               <ArrowRight className="w-4 h-4" />
             </a>
