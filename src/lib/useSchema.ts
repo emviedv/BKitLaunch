@@ -83,7 +83,7 @@ export const createArticleSchema = (title: string, description: string, dateModi
     name: 'BiblioKit',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://bibliokit.com/logo.svg'
+        url: 'https://www.bibliokit.com/logo.svg'
       }
   },
   mainEntityOfPage: {
