@@ -129,6 +129,35 @@ export const onSuccess = async ({ utils, constants }) => {
     }
   }
 
+  // Google Sitemap Ping (uses GET, not POST like IndexNow)
+  const origin = normalizeSiteUrl(siteUrl) || 'https://www.bibliokit.com';
+  const sitemapUrl = `${origin}/sitemap.xml`;
+  try {
+    console.log(`[IndexNow Plugin] Pinging Google with sitemap: ${sitemapUrl}`);
+    const googlePing = await fetch(
+      `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`,
+      {
+        headers: {
+          'User-Agent': 'BiblioKit-IndexNow-Plugin/1.0',
+        },
+      }
+    );
+    console.log(`[IndexNow Plugin] Google Sitemap Ping response: ${googlePing.status}`);
+    results.push({
+      endpoint: 'Google Sitemap Ping',
+      status: googlePing.status,
+      ok: googlePing.ok,
+    });
+  } catch (error) {
+    console.error(`[IndexNow Plugin] Google Sitemap Ping failed: ${error?.message}`);
+    results.push({
+      endpoint: 'Google Sitemap Ping',
+      status: 'network_error',
+      ok: false,
+      message: error?.message,
+    });
+  }
+
   const successCount = results.filter((r) => r.ok).length;
   const summary = results
     .map((r) => `${r.endpoint} → ${r.status}${r.ok ? '' : ' (failed)'}`)

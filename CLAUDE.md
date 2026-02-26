@@ -58,6 +58,7 @@ Product pages follow this structure: Hero → Problem Agitation → Quick Proof 
 ## Critical Rules
 
 ### Deployment
+- **DO NOT push to GitHub or deploy to Netlify until explicitly instructed** - always wait for user confirmation
 - **Publish directory is `dist/client`** (not `dist`) - missing this breaks asset loading
 - Verify the live site loads after every deployment (no blank screens)
 
