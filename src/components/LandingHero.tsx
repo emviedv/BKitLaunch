@@ -501,52 +501,52 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               )}
             </div>
             {primaryButton && (
-              <div className="relative mt-12 h-7 overflow-hidden pointer-events-none opacity-60">
+              <div className="relative mt-12 h-[42px] overflow-hidden pointer-events-none opacity-60">
                 {/* Vertical slider of horizontal logo rows */}
                 <div className="logo-row-slide flex flex-col">
                   {/* Row 1 */}
-                  <div className="flex justify-center gap-10 h-7 shrink-0">
+                  <div className="flex justify-center gap-14 h-[42px] shrink-0">
                     {TRUSTED_HERO_LOGOS_COL1.map((logo) => (
                       <span
                         key={`row1-${logo.name}`}
-                        className="flex h-7 w-20 shrink-0 items-center justify-center"
+                        className="flex h-[42px] w-[120px] shrink-0 items-center justify-center"
                       >
                         <img
                           src={logo.url}
                           alt={`${logo.name} logo`}
-                          className="max-h-6 w-auto object-contain brightness-0 invert opacity-80"
+                          className="max-h-9 w-auto object-contain brightness-0 invert opacity-80"
                           loading="lazy"
                         />
                       </span>
                     ))}
                   </div>
                   {/* Row 2 */}
-                  <div className="flex justify-center gap-10 h-7 shrink-0">
+                  <div className="flex justify-center gap-14 h-[42px] shrink-0">
                     {TRUSTED_HERO_LOGOS_COL2.map((logo) => (
                       <span
                         key={`row2-${logo.name}`}
-                        className="flex h-7 w-20 shrink-0 items-center justify-center"
+                        className="flex h-[42px] w-[120px] shrink-0 items-center justify-center"
                       >
                         <img
                           src={logo.url}
                           alt={`${logo.name} logo`}
-                          className="max-h-6 w-auto object-contain brightness-0 invert opacity-80"
+                          className="max-h-9 w-auto object-contain brightness-0 invert opacity-80"
                           loading="lazy"
                         />
                       </span>
                     ))}
                   </div>
                   {/* Duplicate Row 1 for seamless loop */}
-                  <div className="flex justify-center gap-10 h-7 shrink-0">
+                  <div className="flex justify-center gap-14 h-[42px] shrink-0">
                     {TRUSTED_HERO_LOGOS_COL1.map((logo) => (
                       <span
                         key={`row1-dup-${logo.name}`}
-                        className="flex h-7 w-20 shrink-0 items-center justify-center"
+                        className="flex h-[42px] w-[120px] shrink-0 items-center justify-center"
                       >
                         <img
                           src={logo.url}
                           alt={`${logo.name} logo`}
-                          className="max-h-6 w-auto object-contain brightness-0 invert opacity-80"
+                          className="max-h-9 w-auto object-contain brightness-0 invert opacity-80"
                           loading="lazy"
                         />
                       </span>
@@ -583,8 +583,8 @@ const LandingHero: React.FC<LandingHeroProps> = ({
         /* Vertical row slide - shows row 1, then row 2, loops back */
         @keyframes logo-row-slide {
           0%, 40% { transform: translateY(0); }
-          50%, 90% { transform: translateY(-28px); }
-          100% { transform: translateY(-56px); }
+          50%, 90% { transform: translateY(-42px); }
+          100% { transform: translateY(-84px); }
         }
         .logo-row-slide {
           animation: logo-row-slide 6s ease-in-out infinite;

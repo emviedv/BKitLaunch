@@ -228,8 +228,12 @@ const Header = () => {
           href="/"
           aria-label="Go to Home"
           title="Go to Home"
-          className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
+          className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-sm"
         >
+          <svg viewBox="0 0 48 48" fill="none" className="h-7 w-7 text-white" aria-hidden="true">
+            <path d="M24 4L6 14v20l18 10 18-10V14L24 4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M6 14l18 10 18-10M24 44V24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
           <span className="text-logo font-sans font-bold tracking-[-0.04em] text-xl leading-none">
             {content.header?.logoText || 'BiblioKit'}
           </span>
