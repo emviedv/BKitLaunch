@@ -8,6 +8,8 @@ const products = [
   { name: 'FixTable', href: '/figma-table-builder' },
   { name: 'BiblioClean', href: '/figma-plugin-remove-prototype-links' },
   { name: 'OrganizeFile', href: '/figma-organize-design-files-plugin' },
+  { name: 'OverlayQA', href: 'https://overlayqa.com' },
+  { name: 'ComponentQA.com', href: 'https://componentqa.com' },
 ];
 
 const company = [
