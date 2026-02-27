@@ -61,6 +61,26 @@ Product pages follow this structure: Hero → Problem Agitation → Quick Proof 
 - **DO NOT push to GitHub or deploy to Netlify until explicitly instructed** - always wait for user confirmation
 - **Publish directory is `dist/client`** (not `dist`) - missing this breaks asset loading
 - Verify the live site loads after every deployment (no blank screens)
+- **Prefer `git push` + CI over `netlify-cli deploy --prod`** - CLI deploys can corrupt edge function state at the CDN layer, causing site-wide 400 errors
+
+### Edge Function 400 Error Recovery
+If the production site returns "400 Bad Request - Request Header Or Cookie Too Large" on all SSR routes (but static assets work):
+
+1. **Confirm symptoms**: Static files (favicon.ico, robots.txt) return 200; HTML routes (/, /blog) return 400
+2. **Temporarily disable edge functions** in `netlify.toml`:
+   ```toml
+   # [[edge_functions]]
+   #   path = "/*"
+   #   function = "ssr"
+   ```
+3. **Move edge-functions directory**: `mv netlify/edge-functions netlify/edge-functions.bak`
+4. **Deploy without edge functions**: `git add . && git commit -m "Disable edge functions" && git push`
+5. **Wait for CI build to complete** and verify site loads (will be client-side only)
+6. **Restore edge functions**: `mv netlify/edge-functions.bak netlify/edge-functions` and uncomment config
+7. **Deploy with edge functions**: `git add . && git commit -m "Re-enable edge functions" && git push`
+8. **Verify SSR works**: Check response headers for `x-ssr-generated` or CSP nonce headers
+
+Root cause: Netlify CLI edge function bundling can corrupt site-specific edge function state at the CDN layer (openresty). The disable/deploy/re-enable cycle clears corrupted state.
 
 ### SEO Requirements
 - Meta descriptions: unique per page, under 155 characters

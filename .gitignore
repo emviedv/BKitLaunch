@@ -75,3 +75,10 @@ cookies.txt
 
 # Vite timestamp artifacts
 /vite.config.ts.timestamp-*.mjs
+
+# Temporary files
+*.tmp
+
+# Analysis reports
+knip-report-*.txt
+knip-report-*.json

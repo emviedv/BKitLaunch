@@ -51,6 +51,8 @@
 - Apply current SEO best practices (keep guidance refreshed for 2026): meaningful alt text on all images, clean descriptive URLs/slugs, accurate meta titles/descriptions, structured headings, and up-to-date sitemap/robots handling where relevant.
 - For marketing/blog images, set explicit width/height and eager-load the first in-article image to reduce CLS/LCP; lazy-load the rest.
 - Netlify CLI deploys must publish `dist/client` (not `dist`) to avoid missing `/assets/*` bundles.
+- Prefer `git push` + Netlify CI over `netlify-cli deploy --prod` for production deploys; CLI deploys can corrupt edge function state at the CDN layer, causing site-wide 400 "Request Header Or Cookie Too Large" errors on all SSR routes while static assets still work.
+- If 400 errors occur on all SSR routes after a CLI deploy: (1) comment out `[[edge_functions]]` in netlify.toml, (2) move `netlify/edge-functions` to `.bak`, (3) deploy via git push, (4) restore directory and config, (5) deploy again via git push. This clears corrupted edge function state.
 - Keep `SoftwareApplication` schema for product pages, but omit `aggregateRating` and `review` unless we have verified, current rating data.
 - Organization schema must include `logo` and `sameAs` with `https://www.figma.com/@bibliokit`; do not use the `industry` property because Schema.org does not recognize it.
 - SoftwareApplication schema must include `image` and `operatingSystem` for rich results.
@@ -104,7 +106,8 @@
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
 
 ## Updates
-- 2026-01-21 11:24 EST: Added the “Stop the Chaos” blog post and enabled heading Markdown links in blog articles.
+- 2026-02-26 23:20 EST: Added Netlify CLI deploy warning and edge function 400 error recovery procedure after production outage caused by corrupted edge function state.
+- 2026-01-21 11:24 EST: Added the "Stop the Chaos" blog post and enabled heading Markdown links in blog articles.
 - 2026-01-21 05:30 EST: Sorted hub pages to show newest blog posts first.
 - 2026-01-13 08:10 EST: Added SSR FAQ and breadcrumb schema output to improve Search Console detection.
 - 2026-01-06 EST: Added infrastructure edge-case rule after DNS changes broke email (missing MX records).

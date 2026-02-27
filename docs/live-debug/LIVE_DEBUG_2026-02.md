@@ -203,3 +203,13 @@
 - **Root Cause:** User preference for vertical slide animation over horizontal scroll.
 - **Changed Files:** src/components/LandingHero.tsx; docs/live-debug/LIVE_DEBUG_2026-02.md
 - **Verification:** `npm run build:client` (pass). Two columns with staggered 8s vertical slide animation. Respects prefers-reduced-motion.
+
+## 2026-02-26
+
+- **Time:** 2026-02-26 23:20 EST
+- **Summary:** Fixed site-wide 400 "Request Header Or Cookie Too Large" error on all SSR routes (/, /blog, etc.) while static assets still worked.
+- **Root Cause:** Netlify CLI edge function bundling (`netlify-cli deploy --prod`) corrupted edge function state at the CDN layer (openresty). The error message was misleading—it wasn't actually about header/cookie size. Evidence: (1) clean curl requests with no cookies failed, (2) static assets worked while SSR routes failed, (3) older deploy previews suddenly started failing, (4) code hadn't changed between working and failing states.
+- **Changed Files:** netlify.toml (temporarily commented out [[edge_functions]], then restored); netlify/edge-functions/ (temporarily moved to .bak, then restored); CLAUDE.md (added edge function recovery docs); AGENTS.md (added CLI deploy warning rule); docs/live-debug/LIVE_DEBUG_2026-02.md
+- **Verification:** Production site at https://www.bibliokit.com returns HTTP 200 with SSR headers (`x-ssr-generated`, nonce-based CSP). All routes tested: /, /blog, /products/componentqa.
+- **Fix procedure:** (1) Comment out [[edge_functions]] in netlify.toml, (2) move edge-functions/ to .bak, (3) deploy via git push (not CLI), (4) restore directory and config, (5) deploy again via git push. This clears corrupted edge function state.
+- **Prevention:** Prefer `git push` + Netlify CI over `netlify-cli deploy --prod` for production deploys.
