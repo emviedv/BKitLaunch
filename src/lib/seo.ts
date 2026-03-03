@@ -2,6 +2,7 @@
 import { findBlogPostBySlug, type BlogPost } from '@/data/blogPosts';
 import { PAGE_FAQS_BY_ROUTE, defaultProductFaqs, type FAQEntry } from '@/data/pageFaqs';
 import { normalizeBaseUrl, CANONICAL_BASE_URL } from '@/lib/urlUtils';
+import { findUseCaseBySlug, findPersonaBySlug, findGlossaryBySlug } from '@/data/programmaticContent';
 
 export interface SEOMetadata {
   title: string;
@@ -800,6 +801,45 @@ export function generateMetadata(
           breadcrumbSchema
         ];
         metadata.webPageType = 'ProductPage';
+      }
+    }
+
+    // Programmatic content pages: use-cases, personas (for/*), glossary
+    if (normalizedPathNoTrailingSlash.startsWith('/use-cases/')) {
+      const slug = normalizedPathNoTrailingSlash.replace('/use-cases/', '');
+      const useCase = findUseCaseBySlug(slug);
+      if (useCase) {
+        metadata.title = useCase.metaTitle;
+        metadata.description = useCase.metaDescription;
+        metadata.ogTitle = useCase.metaTitle;
+        metadata.ogDescription = useCase.metaDescription;
+        metadata.twitterTitle = useCase.metaTitle;
+        metadata.twitterDescription = useCase.metaDescription;
+        metadata.keywords = useCase.keywords?.join(', ') || metadata.keywords;
+      }
+    } else if (normalizedPathNoTrailingSlash.startsWith('/for/')) {
+      const slug = normalizedPathNoTrailingSlash.replace('/for/', '');
+      const persona = findPersonaBySlug(slug);
+      if (persona) {
+        metadata.title = persona.metaTitle;
+        metadata.description = persona.metaDescription;
+        metadata.ogTitle = persona.metaTitle;
+        metadata.ogDescription = persona.metaDescription;
+        metadata.twitterTitle = persona.metaTitle;
+        metadata.twitterDescription = persona.metaDescription;
+        metadata.keywords = persona.keywords?.join(', ') || metadata.keywords;
+      }
+    } else if (normalizedPathNoTrailingSlash.startsWith('/glossary/')) {
+      const slug = normalizedPathNoTrailingSlash.replace('/glossary/', '');
+      const glossaryEntry = findGlossaryBySlug(slug);
+      if (glossaryEntry) {
+        metadata.title = glossaryEntry.metaTitle;
+        metadata.description = glossaryEntry.metaDescription;
+        metadata.ogTitle = glossaryEntry.metaTitle;
+        metadata.ogDescription = glossaryEntry.metaDescription;
+        metadata.twitterTitle = glossaryEntry.metaTitle;
+        metadata.twitterDescription = glossaryEntry.metaDescription;
+        metadata.keywords = glossaryEntry.keywords?.join(', ') || metadata.keywords;
       }
     }
 
