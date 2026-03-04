@@ -41,7 +41,7 @@ const LearnPage: React.FC = () => {
               Master Design Ops.
               <span className="block">Ship Creative Assets Faster.</span>
             </h1>
-            <p className="mt-4 text-lg sm:text-xl text-white/80 max-w-[80%]">
+            <p className="hero-description-copy mt-4 text-lg sm:text-xl text-white/80 max-w-[80%]">
               The comprehensive learning hub for design teams using BiblioKit. Learn design system best practices, master each plugin, and build scalable design workflows in Figma.
             </p>
           </div>
@@ -59,14 +59,14 @@ const LearnPage: React.FC = () => {
                 Learn what design ops is, why it matters, and how to build scalable design processes
               </p>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 !mt-8">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 !mt-8 items-center">
               {sortedDesignOpsPosts.slice(0, 3).map((post) => {
                 const imageDimensions = getImageDimensions(post.heroImage);
                 return (
                 <a
                   key={`design-ops-learn-${post.slug}`}
                   href={buildBlogPostHref(post.slug)}
-                  className="group mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur transform-gpu transition duration-200 hover:-translate-y-1 hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]"
+                  className="group mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur transform-gpu transition duration-200 hover:-translate-y-1 hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]"
                 >
                   <div className="flex h-full flex-col rounded-lg">
                     {post.heroImage ? (

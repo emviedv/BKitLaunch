@@ -2,9 +2,10 @@ import React from 'react';
 import { BLOG_POSTS, buildBlogPostHref } from '@/data/blogPosts';
 import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
 import { getImageDimensions } from '@/lib/imageDimensions';
+import { Badge } from '@/components/ui/badge';
 const BLOG_LIST_SECTION_ID = 'blog-latest';
 const blogCardHoverClass =
-  'transition hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
+  'transition hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
 const blogCtaButtonClass =
   'inline-flex items-center justify-center text-sm font-semibold text-[#ff2f87] underline underline-offset-4 transition duration-200 hover:text-[#e02074] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
 
@@ -44,16 +45,15 @@ const BlogPage: React.FC = () => {
                 <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
                   BiblioKit Blog: From Kickoff to Ship with Figma Workflows &amp; Tools
                 </h1>
-                <h2 className="mt-3 max-w-full text-lg font-normal text-white/80">
+                <h2 className="hero-description-copy mt-3 max-w-full text-lg font-normal text-white/80">
                   From kickoff to ship: tools and workflows that keep designers, developers, and marketers on one page. Short, practical playbooks you can apply in the next sprint.
                 </h2>
               </div>
               {featuredPost && (
                 <article className="flex flex-col gap-4 text-left text-white">
-                  <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 shadow-[0_0_30px_rgba(250,174,255,0.25)] supports-[backdrop-filter]:bg-white/10">
-                    <span className="inline-flex h-2 w-2 rounded-full bg-[#F1A0FF]" />
-                    <span>Latest Post</span>
-                  </span>
+                  <Badge variant="glass" withDot>
+                    Latest Post
+                  </Badge>
                   {featuredPost.heroImage && (
                     <div className="overflow-hidden rounded-[2px]">
                       <img

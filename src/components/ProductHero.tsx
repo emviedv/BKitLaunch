@@ -1,11 +1,11 @@
 import React, { useMemo, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Confetti, type ConfettiRef } from '@/components/ui/confetti';
 import { debugService } from '@/lib/debugService';
 import { resolveLucideIcon, ArrowRight } from '@/lib/iconUtils';
 import {
   HERO_TITLE_CLASS,
-  HERO_PRIMARY_BUTTON_CLASS,
   HERO_HEADLINE_GRADIENT_CLASS,
   buildHeroHeadlineSegments,
   type HeroHeadlineSegment,
@@ -125,7 +125,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   const layoutClassName = 'mx-auto grid w-full max-w-5xl grid-cols-1 gap-y-10 pb-16 pt-0 text-center justify-items-center lg:grid-cols-12 lg:gap-x-6 lg:justify-items-start lg:text-left';
   const contentColumnClassName = 'flex flex-col items-center gap-6 text-center lg:col-span-4 lg:items-start lg:text-left product-hero__content';
   const titleWrapperClassName = 'space-y-10 w-full';
-  const descriptionClassName = 'mx-auto mt-[-14px] mb-6 max-w-[60%] text-xl leading-relaxed text-white/80 whitespace-pre-line lg:mx-0';
+  const descriptionClassName = 'hero-description-copy mx-auto mt-[-14px] mb-6 max-w-[60%] text-xl leading-relaxed text-white/80 whitespace-pre-line lg:mx-0';
   const calloutContainerClassName = 'flex flex-col items-stretch gap-3 w-full text-white/80 product-hero__callouts';
   const calloutRowClassName = 'flex items-start gap-3 text-left';
   const calloutIconWrapperClassName = 'mt-[2px] flex-shrink-0 text-white';
@@ -138,7 +138,6 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   const HighlightIcon = highlight?.icon ? resolveLucideIcon(highlight.icon) : null;
   const highlightClassName = cn(highlightBaseClassName, highlight?.className);
   const ctaWrapperClassName = 'relative z-10 mt-0 flex justify-center lg:justify-start';
-  const primaryButtonClassName = HERO_PRIMARY_BUTTON_CLASS;
   const glyphWrapperClassName = 'mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-white lg:mx-0';
   const containerClassName = cn(
     'container mx-auto relative z-10 px-6 md:px-10',
@@ -172,10 +171,9 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
 
             <div className={titleWrapperClassName}>
               {badgeLabel && (
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 supports-[backdrop-filter]:bg-white/10">
-                  <span className="inline-flex h-2 w-2 rounded-full bg-[#F1A0FF]" />
-                  <span>{badgeLabel}</span>
-                </span>
+                <Badge variant="glass" withDot>
+                  {badgeLabel}
+                </Badge>
               )}
               {headlineSegments.length > 0 ? (
                 <h1 className={cn(HERO_TITLE_CLASS, 'pb-3')} id={resolvedHeadingId}>
@@ -277,8 +275,9 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                 {product.primaryButtonLink ? (
                   <Button
                     asChild
+                    variant="hero-primary"
                     size="lg"
-                    className={primaryButtonClassName}
+                    className="w-full sm:w-auto min-w-[12rem]"
                     onMouseEnter={() => {
                       confettiRef.current?.fire({});
                     }}
@@ -302,8 +301,9 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                   </Button>
                 ) : (
                   <Button
+                    variant="hero-primary"
                     size="lg"
-                    className={primaryButtonClassName}
+                    className="w-full sm:w-auto min-w-[12rem]"
                     onClick={() => {
                       const featuresSection = document.getElementById(LANDING_FEATURES_ID);
                       if (featuresSection) {
@@ -318,10 +318,10 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
                     }}
                     onMouseEnter={() => {
                       confettiRef.current?.fire({});
-                  }}
-                  aria-label={`${product.primaryButton} - Primary action`}
-                >
-                  <span className="inline-flex items-center gap-2">
+                    }}
+                    aria-label={`${product.primaryButton} - Primary action`}
+                  >
+                    <span className="inline-flex items-center gap-2">
                       {PrimaryButtonIcon && (
                         <PrimaryButtonIcon
                           className="h-4 w-4"

@@ -56,6 +56,31 @@ export default {
           DEFAULT: "hsl(var(--success) / <alpha-value>)",
           foreground: "hsl(var(--success-foreground))",
         },
+        // Design system tokens - consolidated hot pink scale
+        "ds-pink": {
+          50: "hsl(var(--color-pink-50))",
+          100: "hsl(var(--color-pink-100))",
+          200: "hsl(var(--color-pink-200))",
+          300: "hsl(var(--color-pink-300))",
+          400: "hsl(var(--color-pink-400))",
+          500: "hsl(var(--color-pink-500))",
+          600: "hsl(var(--color-pink-600))",
+          700: "hsl(var(--color-pink-700))",
+          800: "hsl(var(--color-pink-800))",
+          900: "hsl(var(--color-pink-900))",
+          glow: "hsl(var(--color-pink-glow))",
+          lavender: "hsl(var(--color-pink-lavender))",
+        },
+        // Design system tokens - dark surfaces
+        "ds-dark": {
+          950: "hsl(var(--color-dark-950))",
+          900: "hsl(var(--color-dark-900))",
+          850: "hsl(var(--color-dark-850))",
+          800: "hsl(var(--color-dark-800))",
+        },
+        // Semantic interactive accent
+        "interactive-accent": "hsl(var(--interactive-accent))",
+        "interactive-accent-hover": "hsl(var(--interactive-accent-hover))",
       },
       borderRadius: {
         lg: "var(--radius)",

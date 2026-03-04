@@ -4,7 +4,6 @@ import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import {
   Check,
   Bell,
@@ -144,11 +143,11 @@ const ScaleResizerPage = () => {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
             Resize marketing frames<br className="hidden md:block" /> in seconds, not hours.
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-[65%] mx-auto">
+          <p className="hero-description-copy text-xl md:text-2xl text-slate-300 mb-10 max-w-[65%] mx-auto">
             One click. 6 production-ready assets in seconds. Turn any Figma frame into YouTube, TikTok, social, and web-ready formats instantly.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href="#waitlist" className="inline-flex items-center gap-2">
                 <Bell className="w-5 h-5" />
                 <span>Join the Waitlist</span>
@@ -207,7 +206,7 @@ const ScaleResizerPage = () => {
           <p className="text-slate-400 max-w-2xl mx-auto">Each format includes target-specific safe areas, aspect-aware layout adaptation, and AI-powered QA signals.</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-center">
           {formats.map((format) => (
             <FormatCard key={format.name} format={format} />
           ))}
@@ -224,7 +223,7 @@ const ScaleResizerPage = () => {
           <p className="text-slate-400 max-w-2xl mx-auto">AI analyzes your frame composition and provides intelligent recommendations.</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6 items-center">
           {aiFeatures.map((feature) => (
             <AIFeatureCard key={feature.title} feature={feature} />
           ))}
@@ -236,7 +235,7 @@ const ScaleResizerPage = () => {
         <div className="text-center mb-16">
           <SectionTitle>Three steps to multi-channel assets.</SectionTitle>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-center">
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Select your marketing frame" height="h-64" />
@@ -319,7 +318,7 @@ const ScaleResizerPage = () => {
 
       {/* Block 9: Stats */}
       <Section dark className="border-y border-slate-800/50">
-        <div className="grid grid-cols-2 gap-8 text-center max-w-md mx-auto">
+        <div className="grid grid-cols-2 gap-8 text-center max-w-md mx-auto items-center">
            <div>
               <p className="text-3xl font-bold text-white mb-1">6</p>
               <p className="text-sm text-slate-400">Format Targets</p>
@@ -334,7 +333,7 @@ const ScaleResizerPage = () => {
       {/* Block 10: Safety */}
       <Section dark>
         <SectionTitle className="text-center mb-12">Enterprise-grade reliability.</SectionTitle>
-        <div className="grid md:grid-cols-3 gap-8 text-center">
+        <div className="grid md:grid-cols-3 gap-8 text-center items-center">
            <div className="flex flex-col items-center">
               <div className="w-12 h-12 bg-slate-800/50 rounded-full flex items-center justify-center mb-4 text-purple-400 border border-slate-700/50">
                 <Shield className="w-6 h-6" />
@@ -371,7 +370,7 @@ const ScaleResizerPage = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Stop resizing frames by hand.</h2>
             <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">Let AI handle format-specific layouts, safe areas, and QA while you focus on creative work.</p>
             <div className="flex flex-col items-center gap-4">
-              <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+              <Button asChild variant="hero-primary" size="lg">
                  <a href="#waitlist" className="inline-flex items-center gap-2">
                   <ArrowRight className="w-5 h-5" />
                   Join the Waitlist

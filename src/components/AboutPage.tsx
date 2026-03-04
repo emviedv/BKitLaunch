@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { ROUTE_PATHS } from '@/config/routes';
 import { ArrowRight, Sparkles, BarChart3, Rocket, Zap, Layers, RefreshCw } from 'lucide-react';
 import FluidBackground from './FluidBackground';
@@ -40,10 +39,10 @@ const AboutPage: React.FC = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white md:tracking-tight">
             The Story Behind BiblioKit: Reimagining the Design Workflow
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 leading-relaxed mb-4 max-w-3xl mx-auto">
+          <p className="hero-description-copy text-xl md:text-2xl text-white/90 leading-relaxed mb-4 max-w-3xl mx-auto">
             Empowering designers to spend more time creating and less time maintaining.
           </p>
-          <p className="text-lg text-white/70 leading-relaxed max-w-3xl mx-auto">
+          <p className="hero-description-copy text-lg text-white/70 leading-relaxed max-w-3xl mx-auto">
             BiblioKit was born out of a simple observation: design systems are growing faster than our ability to manage them. We build the tools that bridge the gap between creative vision and technical execution.
           </p>
         </div>
@@ -78,7 +77,7 @@ const AboutPage: React.FC = () => {
           <p className="text-center text-white/70 mb-10 max-w-2xl mx-auto">
             BiblioKit is a unified suite of Figma plugins designed for the modern DesignOps era. We focus on three core pillars:
           </p>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 items-center">
             {/* Pillar 1: AI Refactoring */}
             <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/5 text-center">
               <div className="w-14 h-14 rounded-xl bg-violet-500/20 flex items-center justify-center mx-auto mb-4">
@@ -118,7 +117,7 @@ const AboutPage: React.FC = () => {
         <h2 className="text-2xl md:text-3xl font-bold mb-10 text-center">
           Our Values
         </h2>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 items-center">
           <div className="flex gap-4 p-5 rounded-xl bg-white/[0.02] border border-white/5">
             <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
               <Zap className="w-5 h-5 text-amber-400" />
@@ -158,7 +157,7 @@ const AboutPage: React.FC = () => {
           <p className="text-white/70 leading-relaxed max-w-xl mx-auto mb-8">
             Join the designers and teams already using BiblioKit to ship faster and maintain less.
           </p>
-          <Button asChild size="lg" className={HERO_PRIMARY_BUTTON_CLASS}>
+          <Button asChild size="lg" variant="hero-primary">
             <a href={ROUTE_PATHS.HOME}>
               Explore the Plugin Suite
               <ArrowRight className="ml-2 w-4 h-4" />

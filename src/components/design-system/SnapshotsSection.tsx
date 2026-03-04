@@ -1,4 +1,5 @@
 import React from "react";
+import { Zap } from "lucide-react";
 
 const scoreMetrics = [
   { label: "Accessibility", value: "8.9" },
@@ -7,9 +8,9 @@ const scoreMetrics = [
 ] as const;
 
 const quickWins = [
-  "⚡ Increase button contrast for primary CTA",
-  "⚡ Add alt text to hero image",
-  "⚡ Reduce form fields on signup",
+  "Increase button contrast for primary CTA",
+  "Add alt text to hero image",
+  "Reduce form fields on signup",
 ] as const;
 
 export const SnapshotsSection: React.FC = () => (
@@ -58,8 +59,9 @@ export const SnapshotsSection: React.FC = () => (
         <h3 className="mb-3 font-medium">Snapshot — Quick Wins</h3>
         <ul className="space-y-2">
           {quickWins.map((item) => (
-            <li key={item} className="rounded-md border p-2">
-              {item}
+            <li key={item} className="rounded-md border p-2 flex items-center gap-2">
+              <Zap className="w-4 h-4 text-amber-500 flex-shrink-0" />
+              <span>{item}</span>
             </li>
           ))}
         </ul>

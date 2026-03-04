@@ -3,7 +3,6 @@ import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { ArrowRight, Users } from '@/lib/iconUtils';
 import FluidBackground from './FluidBackground';
 import { PERSONA_PAGES } from '@/data/programmaticContent';
@@ -53,7 +52,7 @@ const PersonasIndexPage: React.FC = () => {
 
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2">
-              <Users className="w-4 h-4 text-pink-400" />
+              <Users className="w-4 h-4 text-ds-pink-400" />
               <span className="text-sm text-slate-300"><span className="font-semibold text-white">{PERSONA_PAGES.length}</span> role guides</span>
             </div>
           </div>
@@ -63,23 +62,23 @@ const PersonasIndexPage: React.FC = () => {
       {/* Persona Cards */}
       <section className="landing-sections-gradient py-16 md:py-24 px-6 md:px-10 text-white">
         <div className="mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
             {PERSONA_PAGES.map((persona) => (
               <a
                 key={persona.slug}
                 href={`/for/${persona.slug}`}
                 className="group bg-slate-800/50 border border-slate-700 hover:border-slate-600 rounded-xl p-8 transition-all hover:bg-slate-800/70"
               >
-                <div className="w-12 h-12 rounded-xl bg-pink-500/20 border border-pink-500/40 flex items-center justify-center mb-6">
-                  <Users className="w-6 h-6 text-pink-400" />
+                <div className="w-12 h-12 rounded-xl bg-ds-pink-500/20 border border-ds-pink-500/40 flex items-center justify-center mb-6">
+                  <Users className="w-6 h-6 text-ds-pink-400" />
                 </div>
-                <h2 className="text-2xl font-semibold text-white mb-3 group-hover:text-pink-400 transition-colors">
+                <h2 className="text-2xl font-semibold text-white mb-3 group-hover:text-ds-pink-400 transition-colors">
                   {persona.persona}
                 </h2>
                 <p className="text-slate-400 mb-6 line-clamp-3">
                   {persona.heroText}
                 </p>
-                <div className="flex items-center gap-2 text-pink-400 font-medium">
+                <div className="flex items-center gap-2 text-ds-pink-400 font-medium">
                   <span>View recommendations</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -99,7 +98,7 @@ const PersonasIndexPage: React.FC = () => {
             Browse our complete product lineup to find the perfect tools for your workflow.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href="/products" className="inline-flex items-center gap-2">
                 <span>Browse All Products</span>
                 <ArrowRight className="w-5 h-5" />

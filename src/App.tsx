@@ -3,6 +3,7 @@ import { Route, Switch, useLocation } from 'wouter';
 
 // UI Components
 import { Button } from '@/components/ui/button';
+import DevTools from '@/components/DevTools';
 
 // Page Components
 import BiblioKitLanding from './components/BiblioKitLanding';
@@ -230,6 +231,7 @@ const AppContent: React.FC = () => {
           </Route>
         </Switch>
       </Suspense>
+      <DevTools />
     </LandingLayout>
   );
 };

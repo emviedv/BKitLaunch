@@ -154,6 +154,10 @@ const Header = () => {
         href: ROUTE_PATHS.GLOSSARY,
       },
       {
+        label: 'For Teams',
+        href: ROUTE_PATHS.PERSONAS,
+      },
+      {
         label: 'Design Ops Fundamentals',
         href: ROUTE_PATHS.LEARN_DESIGN_OPS_FUNDAMENTALS,
       },

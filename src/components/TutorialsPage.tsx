@@ -19,7 +19,7 @@ const TUTORIAL_POST_SLUGS = [
 ];
 
 const blogCardHoverClass =
-  'transform-gpu transition duration-200 hover:-translate-y-1 hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
+  'transform-gpu transition duration-200 hover:-translate-y-1 hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
 
 const TutorialsPage: React.FC = () => {
   const getPostTimestamp = (post: BlogPost) => {
@@ -50,7 +50,7 @@ const TutorialsPage: React.FC = () => {
         <div className="landing-hero-gradient__layer" aria-hidden="true" />
         <div className="landing-hero-noise" aria-hidden="true" />
         <div className="relative z-10 section-content text-white">
-          <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 lg:items-start">
+          <div className="grid gap-10 lg:gap-16 lg:grid-cols-2 items-center">
             <div className="max-w-2xl">
               <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
                 Step-by-step guides
@@ -58,7 +58,7 @@ const TutorialsPage: React.FC = () => {
               <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
                 Figma Tutorials
               </h1>
-              <p className="mt-4 text-lg sm:text-xl text-white/80">
+              <p className="hero-description-copy mt-4 text-lg sm:text-xl text-white/80">
                 Hands-on tutorials to level up your Figma workflow. From auto-layout mastery to design system maintenance, learn practical techniques you can apply today.
               </p>
             </div>
@@ -117,7 +117,7 @@ const TutorialsPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-center">
             {remainingPosts.map((post) => {
               const imageDimensions = getImageDimensions(post.heroImage);
               return (

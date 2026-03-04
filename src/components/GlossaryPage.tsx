@@ -3,7 +3,6 @@ import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS, HERO_SECONDARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { ArrowRight, Download } from '@/lib/iconUtils';
 import FluidBackground from './FluidBackground';
 import {
@@ -89,7 +88,7 @@ const GlossaryPage: React.FC<GlossaryPageProps> = ({ slug }) => {
             <span className="text-white">{glossary.term}</span>
           </nav>
 
-          <p className="text-pink-400 font-semibold uppercase tracking-wider text-sm mb-4">
+          <p className="text-ds-pink-400 font-semibold uppercase tracking-wider text-sm mb-4">
             Definition
           </p>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight">
@@ -128,8 +127,8 @@ const GlossaryPage: React.FC<GlossaryPageProps> = ({ slug }) => {
                   key={index}
                   className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 flex items-start gap-4"
                 >
-                  <div className="w-8 h-8 rounded-full bg-pink-500/20 border border-pink-500/40 flex items-center justify-center flex-shrink-0">
-                    <span className="text-pink-400 font-semibold text-sm">{index + 1}</span>
+                  <div className="w-8 h-8 rounded-full bg-ds-pink-500/20 border border-ds-pink-500/40 flex items-center justify-center flex-shrink-0">
+                    <span className="text-ds-pink-400 font-semibold text-sm">{index + 1}</span>
                   </div>
                   <p className="text-slate-300">{example}</p>
                 </div>
@@ -143,7 +142,7 @@ const GlossaryPage: React.FC<GlossaryPageProps> = ({ slug }) => {
       {glossary.pluginCta && (
         <section className="landing-sections-gradient border-t border-slate-800/50 py-16 md:py-24 px-6 md:px-10 text-white">
           <div className="mx-auto max-w-4xl">
-            <div className="bg-gradient-to-br from-pink-500/10 to-purple-500/10 border border-pink-500/30 rounded-2xl p-8 md:p-12">
+            <div className="bg-gradient-to-br from-ds-pink-500/10 to-purple-500/10 border border-ds-pink-500/30 rounded-2xl p-8 md:p-12">
               <h2 className="text-2xl md:text-3xl font-semibold mb-4">
                 How BiblioKit Helps
               </h2>
@@ -151,7 +150,7 @@ const GlossaryPage: React.FC<GlossaryPageProps> = ({ slug }) => {
                 {glossary.pluginCta.text}
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+                <Button asChild variant="hero-primary" size="lg">
                   <a href={glossary.pluginCta.url} className="inline-flex items-center gap-2">
                     <span>Learn About {glossary.pluginCta.pluginName}</span>
                     <ArrowRight className="w-5 h-5" />
@@ -178,14 +177,14 @@ const GlossaryPage: React.FC<GlossaryPageProps> = ({ slug }) => {
             <h2 className="text-3xl font-semibold mb-8">
               Related Terms
             </h2>
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4 items-center">
               {relatedGlossaryItems.map((term) => (
                 <a
                   key={term.slug}
                   href={`/glossary/${term.slug}`}
-                  className="group bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-pink-500/50 transition-colors"
+                  className="group bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-ds-pink-500/50 transition-colors"
                 >
-                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-pink-400 transition-colors">
+                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-ds-pink-400 transition-colors">
                     {term.term}
                   </h3>
                   <p className="text-slate-400 text-sm line-clamp-2">
@@ -208,13 +207,13 @@ const GlossaryPage: React.FC<GlossaryPageProps> = ({ slug }) => {
             Browse our complete glossary of Figma and design systems terminology.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href="/glossary" className="inline-flex items-center gap-2">
                 <span>View All Terms</span>
                 <ArrowRight className="w-5 h-5" />
               </a>
             </Button>
-            <Button asChild className={HERO_SECONDARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-secondary" size="lg">
               <a href="/products">
                 <span>Explore Plugins</span>
               </a>

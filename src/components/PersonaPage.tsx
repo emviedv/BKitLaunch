@@ -3,7 +3,6 @@ import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS, HERO_SECONDARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, ArrowRight, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
@@ -87,7 +86,7 @@ const PersonaPage: React.FC<PersonaPageProps> = ({ slug }) => {
 
           {/* Role Badge */}
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 mb-6">
-            <span className="text-pink-400 font-semibold">{persona.recommendedPlugins.length}</span>
+            <span className="text-ds-pink-400 font-semibold">{persona.recommendedPlugins.length}</span>
             <span className="text-sm text-slate-300">recommended plugins</span>
           </div>
 
@@ -99,13 +98,13 @@ const PersonaPage: React.FC<PersonaPageProps> = ({ slug }) => {
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href="#recommended-plugins" className="inline-flex items-center gap-2">
                 <span>See Recommended Plugins</span>
                 <ArrowRight className="w-5 h-5" />
               </a>
             </Button>
-            <Button asChild className={HERO_SECONDARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-secondary" size="lg">
               <a href="/products">
                 <span>Browse All Products</span>
               </a>
@@ -124,7 +123,7 @@ const PersonaPage: React.FC<PersonaPageProps> = ({ slug }) => {
             We understand the specific pain points that {persona.persona.toLowerCase()} deal with every day.
           </p>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
             {persona.painPoints.map((painPoint, index) => (
               <div
                 key={index}
@@ -167,12 +166,12 @@ const PersonaPage: React.FC<PersonaPageProps> = ({ slug }) => {
                     <p className="text-slate-400 mb-4">
                       {pluginInfo?.tagline}
                     </p>
-                    <div className="bg-pink-500/10 border border-pink-500/30 rounded-lg p-4 mb-4">
-                      <p className="text-pink-300 font-medium">Why you need it:</p>
+                    <div className="bg-ds-pink-500/10 border border-ds-pink-500/30 rounded-lg p-4 mb-4">
+                      <p className="text-ds-pink-300 font-medium">Why you need it:</p>
                       <p className="text-slate-300 mt-1">{plugin.reason}</p>
                     </div>
                     <div className="flex flex-wrap gap-3">
-                      <Button asChild className={HERO_PRIMARY_BUTTON_CLASS}>
+                      <Button asChild variant="hero-primary">
                         <a href={plugin.url}>
                           Learn More
                         </a>
@@ -209,13 +208,13 @@ const PersonaPage: React.FC<PersonaPageProps> = ({ slug }) => {
                   key={index}
                   className="flex items-start gap-4 bg-slate-800/30 border border-slate-700/50 rounded-xl p-6"
                 >
-                  <div className="w-10 h-10 rounded-full bg-pink-500/20 border border-pink-500/40 flex items-center justify-center flex-shrink-0">
-                    <span className="text-pink-400 font-semibold">{step.step}</span>
+                  <div className="w-10 h-10 rounded-full bg-ds-pink-500/20 border border-ds-pink-500/40 flex items-center justify-center flex-shrink-0">
+                    <span className="text-ds-pink-400 font-semibold">{step.step}</span>
                   </div>
                   <div>
                     <p className="text-white font-medium">{step.action}</p>
                     {step.plugin && (
-                      <p className="text-pink-400 text-sm mt-1">
+                      <p className="text-ds-pink-400 text-sm mt-1">
                         Using: {step.plugin}
                       </p>
                     )}
@@ -249,7 +248,7 @@ const PersonaPage: React.FC<PersonaPageProps> = ({ slug }) => {
             Join thousands of {persona.persona.toLowerCase()} who save hours every week with BiblioKit.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href="/products" className="inline-flex items-center gap-2">
                 <span>Explore All Products</span>
                 <ArrowRight className="w-5 h-5" />

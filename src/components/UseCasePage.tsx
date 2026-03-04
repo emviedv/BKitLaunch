@@ -4,8 +4,8 @@ import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS, HERO_SECONDARY_BUTTON_CLASS } from '@/components/heroConstants';
-import { Check, ArrowRight, Download, ChevronRight, HelpCircle, Zap } from '@/lib/iconUtils';
+import { Badge } from '@/components/ui/badge';
+import { Check, ArrowRight, Download, ChevronRight, HelpCircle, Zap, Lightbulb } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
 import {
@@ -111,37 +111,31 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
   return (
     <div className="min-h-screen bg-background">
 
-      {/* Breadcrumb */}
-      <nav className="landing-hero-gradient pt-20 pb-0 px-6 md:px-10 text-white" aria-label="Breadcrumb">
-        <div className="mx-auto max-w-5xl">
-          <ol className="flex items-center gap-2 text-sm text-slate-400">
-            <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
-            <ChevronRight className="w-4 h-4" />
-            <li><a href="/use-cases" className="hover:text-white transition-colors">Use Cases</a></li>
-            <ChevronRight className="w-4 h-4" />
-            <li className="text-white">{pageData.title}</li>
-          </ol>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="landing-hero-gradient section-hero relative overflow-hidden flex items-center pt-6 pb-12 sm:pb-16 px-6 md:px-10 text-white">
+      {/* Hero Section with Breadcrumb */}
+      <section className="landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20 px-6 md:px-10 text-white">
         <div className="landing-hero-gradient__layer" aria-hidden="true" />
         <div className="landing-hero-noise" aria-hidden="true" />
         <div className="landing-hero-contrast" aria-hidden="true" />
         <FluidBackground />
 
         <div className="mx-auto max-w-5xl relative z-10">
+          {/* Breadcrumb */}
+          <nav className="mb-6" aria-label="Breadcrumb">
+            <ol className="flex items-center gap-2 text-sm text-slate-400">
+              <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
+              <ChevronRight className="w-4 h-4" />
+              <li><a href="/use-cases" className="hover:text-white transition-colors">Use Cases</a></li>
+              <ChevronRight className="w-4 h-4" />
+              <li className="text-white">{pageData.title}</li>
+            </ol>
+          </nav>
+
           {/* Plugin Badge */}
           <div className="mb-6">
-            <a
-              href={pageData.pluginUrl}
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-full text-sm font-medium transition-colors"
-            >
-              <Zap className="w-4 h-4 text-pink-400" />
-              <span>Powered by {pageData.pluginName}</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
+            <Badge variant="accent" href={pageData.pluginUrl}>
+              <Zap className="w-4 h-4 text-ds-pink-400" />
+              Powered by {pageData.pluginName}
+            </Badge>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
@@ -153,13 +147,13 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href={pageData.communityUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
                 <span>Try {pageData.pluginName} — Free</span>
               </a>
             </Button>
-            <Button asChild className={HERO_SECONDARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-secondary" size="lg">
               <a href={pageData.pluginUrl} className="inline-flex items-center gap-2">
                 <span>Learn More</span>
                 <ArrowRight className="w-4 h-4" />
@@ -171,11 +165,11 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
 
       {/* Problem Section */}
       <Section dark className="border-y border-slate-800/50">
-        <div className="grid md:grid-cols-2 gap-12 items-start">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="inline-block bg-red-500/10 text-red-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-red-500/20">
+            <Badge variant="problem" className="mb-6">
               The Problem
-            </div>
+            </Badge>
             <SectionTitle>{pageData.problem}</SectionTitle>
             <ul className="space-y-4">
               {pageData.problemDetails.map((detail, index) => (
@@ -190,11 +184,11 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
           {pageData.beforeAfter && (
             <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
               <div className="mb-6">
-                <div className="text-xs uppercase tracking-wider text-slate-500 mb-2">
+                <div className="text-xs uppercase tracking-wider text-slate-500 mb-2 text-center">
                   {pageData.beforeAfter.beforeLabel || 'Before'}
                 </div>
-                <div className="bg-red-900/20 border border-red-900/40 rounded-lg p-4">
-                  <code className="text-red-300 text-sm break-all">
+                <div className="bg-red-900/20 border border-red-900/40 rounded-lg p-4 overflow-x-auto flex items-center justify-center min-h-[60px]">
+                  <code className="text-red-300 text-sm whitespace-nowrap sm:whitespace-normal sm:break-words text-center">
                     {pageData.beforeAfter.before}
                   </code>
                 </div>
@@ -205,11 +199,11 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
                 </div>
               </div>
               <div>
-                <div className="text-xs uppercase tracking-wider text-slate-500 mb-2">
+                <div className="text-xs uppercase tracking-wider text-slate-500 mb-2 text-center">
                   {pageData.beforeAfter.afterLabel || 'After'}
                 </div>
-                <div className="bg-green-900/20 border border-green-900/40 rounded-lg p-4">
-                  <code className="text-green-300 text-sm break-all">
+                <div className="bg-green-900/20 border border-green-900/40 rounded-lg p-4 overflow-x-auto flex items-center justify-center min-h-[60px]">
+                  <code className="text-green-300 text-sm whitespace-nowrap sm:whitespace-normal sm:break-words text-center">
                     {pageData.beforeAfter.after}
                   </code>
                 </div>
@@ -222,9 +216,9 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
       {/* Step-by-Step Solution */}
       <Section dark>
         <div className="text-center mb-12">
-          <div className="inline-block bg-green-500/10 text-green-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-green-500/20">
+          <Badge variant="solution" className="mb-6">
             Step-by-Step Solution
-          </div>
+          </Badge>
           <SectionTitle>How to {pageData.title.replace('How to ', '')}</SectionTitle>
         </div>
 
@@ -235,7 +229,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
               className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 md:p-8"
             >
               <div className="flex items-start gap-6">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-ds-pink-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
                   {index + 1}
                 </div>
                 <div className="flex-1">
@@ -247,7 +241,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
                   </p>
                   {step.tip && (
                     <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 flex items-start gap-3">
-                      <span className="text-blue-400 text-lg">💡</span>
+                      <Lightbulb className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                       <p className="text-blue-200 text-sm">
                         <strong>Pro tip:</strong> {step.tip}
                       </p>
@@ -261,7 +255,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
 
         {/* CTA after steps */}
         <div className="mt-12 text-center">
-          <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+          <Button asChild variant="hero-primary" size="lg">
             <a href={pageData.communityUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
               <Download className="w-5 h-5" />
               <span>Try {pageData.pluginName} — Free</span>
@@ -276,7 +270,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
           <SectionTitle>Why Use {pageData.pluginName}?</SectionTitle>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 items-center">
           {pageData.benefits.map((benefit, index) => (
             <div
               key={index}
@@ -294,10 +288,10 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
       {/* FAQ Section */}
       <Section dark>
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-slate-800 px-4 py-1.5 rounded-full text-sm font-medium mb-6 border border-slate-700">
+          <Badge variant="info" className="mb-6">
             <HelpCircle className="w-4 h-4" />
             <span>Frequently Asked Questions</span>
-          </div>
+          </Badge>
           <SectionTitle>Common Questions About {pageData.title.replace('How to ', '')}</SectionTitle>
         </div>
 
@@ -314,7 +308,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
             <p className="text-slate-400">Explore more ways to use {pageData.pluginName}</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-6 items-center">
             {relatedUseCases.map((relatedCase) => (
               <a
                 key={relatedCase.slug}
@@ -324,13 +318,13 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
                 <div className="text-xs uppercase tracking-wider text-slate-500 mb-2">
                   {relatedCase.pluginName}
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-pink-400 transition-colors">
+                <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-ds-pink-400 transition-colors">
                   {relatedCase.title}
                 </h3>
                 <p className="text-slate-400 text-sm line-clamp-2">
                   {relatedCase.problem}
                 </p>
-                <div className="mt-4 flex items-center gap-2 text-pink-400 text-sm font-medium">
+                <div className="mt-4 flex items-center gap-2 text-ds-pink-400 text-sm font-medium">
                   <span>Read guide</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -348,13 +342,13 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
             {pluginData.tagline}. Install {pageData.pluginName} for free and start in seconds.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href={pageData.communityUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
                 <span>Install {pageData.pluginName} — Free</span>
               </a>
             </Button>
-            <Button asChild className={HERO_SECONDARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-secondary" size="lg">
               <a href={pageData.pluginUrl} className="inline-flex items-center gap-2">
                 <span>View Full Documentation</span>
                 <ArrowRight className="w-4 h-4" />

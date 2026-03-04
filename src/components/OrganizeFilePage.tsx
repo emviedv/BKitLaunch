@@ -4,11 +4,11 @@ import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import { organizeFileFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
+import RelatedUseCases from '@/components/RelatedUseCases';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
 const OrganizeFilePage = () => {
@@ -64,12 +64,12 @@ const OrganizeFilePage = () => {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
             The Figma Plugin to Organize Your Design Files (Before You Start).
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
+          <p className="hero-description-copy text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
             Stop wasting time setting up dividers, covers, and empty pages. Scaffold a professional workspace in under 30 seconds.
           </p>
           <div className="flex flex-col items-center justify-center gap-3 mb-12">
             <Button
-              className={HERO_PRIMARY_BUTTON_CLASS}
+              variant="hero-primary"
               size="lg"
               asChild
             >
@@ -136,7 +136,7 @@ const OrganizeFilePage = () => {
           <SectionTitle>See OrganizeFile in Action: Scaffold Files Instantly</SectionTitle>
         </div>
 
-        <div className="grid md:grid-cols-12 gap-8 mb-12">
+        <div className="grid md:grid-cols-12 gap-8 items-center mb-12">
            <div className="md:col-span-8">
               <PlaceholderImage label="GIF: Select Preset -> Click Create -> File Scaffolded" height="h-96" />
            </div>
@@ -164,7 +164,7 @@ const OrganizeFilePage = () => {
         <div className="text-center mb-16">
           <SectionTitle>Three steps to a production-ready file.</SectionTitle>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-center">
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-violet-500 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Open Plugin" height="h-64" />
@@ -254,8 +254,8 @@ const OrganizeFilePage = () => {
       {/* Block 6: Use Cases */}
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Professional File Organization on Autopilot.</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="bg-[#0f172a]/50 p-8 rounded-2xl border border-slate-700/50">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
             <h4 className="text-xl font-bold mb-2">Product Handoff</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Every handoff has different structure. <br/>Result: Consistent templates with ownership fields.</p>
             <div className="grid grid-cols-2 gap-4">
@@ -263,7 +263,7 @@ const OrganizeFilePage = () => {
               <PlaceholderImage label="After: Organized Handoff" height="h-40" />
             </div>
           </div>
-          <div className="bg-[#0f172a]/50 p-8 rounded-2xl border border-slate-700/50">
+          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
             <h4 className="text-xl font-bold mb-2">Journey Mapping</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Flow maps start from scratch. <br/>Result: Pre-built structure for cross-functional mapping.</p>
              <div className="grid grid-cols-2 gap-4">
@@ -282,7 +282,7 @@ const OrganizeFilePage = () => {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Scaffold your file in seconds.</h2>
               <p className="text-xl text-violet-200 mb-8">OrganizeFile is coming soon. Start every project with professional structure.</p>
               <div className="flex items-center gap-3">
-                <Button className={`${HERO_PRIMARY_BUTTON_CLASS} opacity-60 cursor-not-allowed`} size="lg" disabled>
+                <Button variant="hero-primary" size="lg" disabled className="opacity-60 cursor-not-allowed">
                   Coming Soon
                 </Button>
               </div>
@@ -317,6 +317,9 @@ const OrganizeFilePage = () => {
         <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 
+      {/* Related Use Cases - internal linking for SEO */}
+      <RelatedUseCases plugin="organizefile" />
+
       {/* Block 9: Final CTA */}
       <section className="py-24 px-6 md:px-10 text-center landing-sections-gradient text-white">
          <div className="max-w-4xl mx-auto relative z-10">
@@ -326,7 +329,7 @@ const OrganizeFilePage = () => {
               <div className="inline-block bg-violet-500/20 text-violet-300 px-4 py-1.5 rounded-full text-sm font-semibold mb-2 border border-violet-500/30">
                 Coming Soon
               </div>
-              <Button className={`${HERO_PRIMARY_BUTTON_CLASS} opacity-60 cursor-not-allowed`} size="lg" disabled>
+              <Button variant="hero-primary" size="lg" disabled className="opacity-60 cursor-not-allowed">
                 Install OrganizeFile
               </Button>
             </div>

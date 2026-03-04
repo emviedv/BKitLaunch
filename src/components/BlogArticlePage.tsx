@@ -23,7 +23,7 @@ interface BlogArticlePageProps {
 }
 
 const blogCardHoverClass =
-  'group flex h-full flex-col transition hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
+  'group flex h-full flex-col transition hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
 const BLOG_HERO_TITLE_CLASS =
   'text-4xl sm:text-5xl md:text-6xl font-sans font-extrabold leading-[1.1] tracking-normal sm:tracking-[-0.01em] text-white';
 const BLOG_HERO_CONTENT_WIDTH_CLASS = 'w-full max-w-[70%]';
@@ -400,7 +400,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
                 </p>
               </div>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-2 items-center">
               {previousPost ? (
                 <a
                   href={buildBlogPostHref(previousPost.slug)}
@@ -409,7 +409,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
                 >
                   {renderCardImage(previousPost)}
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Before</p>
-                  <p className="mt-1 text-lg font-normal text-[#ffb3d4]">
+                  <p className="mt-1 text-lg font-normal text-ds-pink-200">
                     {previousPost.title}
                   </p>
                   <p className="mt-2 line-clamp-3 text-sm text-white/70">
@@ -428,7 +428,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
                 >
                   {renderCardImage(nextPost)}
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Next</p>
-                  <p className="mt-1 text-lg font-normal text-[#ffb3d4]">
+                  <p className="mt-1 text-lg font-normal text-ds-pink-200">
                     {nextPost.title}
                   </p>
                   <p className="mt-2 line-clamp-3 text-sm text-white/70">
@@ -449,7 +449,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Related articles</p>
               </div>
             </div>
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-3 items-center">
               {relatedPosts.map((relatedPost) => (
                 <a
                   key={`related-${relatedPost.slug}`}
@@ -458,7 +458,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
                   aria-label={`Read related article: ${relatedPost.title}`}
                 >
                   {renderCardImage(relatedPost)}
-                  <p className="mt-1 text-lg font-normal text-[#ffb3d4]">
+                  <p className="mt-1 text-lg font-normal text-ds-pink-200">
                     {relatedPost.title}
                   </p>
                   <p className="mt-2 line-clamp-3 text-sm text-white/70">

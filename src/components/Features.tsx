@@ -5,6 +5,7 @@ import { usePublishedContent } from "@/hooks/usePublishedContent";
 import { resolveLucideIcon } from "@/lib/iconUtils";
 import { getImageDimensions } from "@/lib/imageDimensions";
 import { LANDING_FEATURES_ID } from "@/config/sectionAnchors";
+import { Badge } from "@/components/ui/badge";
 
 type FeatureLike = {
   icon?: string;
@@ -78,30 +79,18 @@ const Features: React.FC = () => {
     (feature) => Boolean(feature?.title) && !shouldHideFeature(feature)
   );
 
-  const getCategoryPill = (feature: FeatureLike) => {
+  const getCategoryBadge = (feature: FeatureLike): { label: string; variant: 'launched' | 'coming-soon' | 'beta' } | null => {
     const key = (feature?.category || feature?.badge || '').trim().toLowerCase();
     if (!key) return null;
 
     if (key.startsWith('launch')) {
-      return {
-        label: 'Launched',
-        classes: 'border-emerald-200/80 bg-emerald-50/80 text-emerald-700',
-        dot: 'bg-emerald-500',
-      };
+      return { label: 'Launched', variant: 'launched' };
     }
     if (key.startsWith('coming')) {
-      return {
-        label: 'Coming Soon',
-        classes: 'border-amber-200/80 bg-amber-50/80 text-amber-800',
-        dot: 'bg-amber-500',
-      };
+      return { label: 'Coming Soon', variant: 'coming-soon' };
     }
     if (key.startsWith('beta')) {
-      return {
-        label: 'Beta',
-        classes: 'border-indigo-200/80 bg-indigo-50/80 text-indigo-700',
-        dot: 'bg-indigo-500',
-      };
+      return { label: 'Beta', variant: 'beta' };
     }
     return null;
   };
@@ -189,16 +178,13 @@ const Features: React.FC = () => {
           </div>
 
                 {(() => {
-                  const category = getCategoryPill(feature);
+                  const category = getCategoryBadge(feature);
                   if (!category) return null;
                   return (
                     <div className="mb-2">
-                      <span
-                        className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold tracking-tight ${category.classes}`}
-                      >
-                        <span className={`h-1.5 w-1.5 rounded-full ${category.dot}`} />
+                      <Badge variant={category.variant} size="sm" withDot>
                         {category.label}
-                      </span>
+                      </Badge>
                     </div>
                   );
                 })()}

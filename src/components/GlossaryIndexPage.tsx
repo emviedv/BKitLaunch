@@ -3,7 +3,6 @@ import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { ArrowRight, Search } from '@/lib/iconUtils';
 import FluidBackground from './FluidBackground';
 import { GLOSSARY_PAGES } from '@/data/programmaticContent';
@@ -70,7 +69,7 @@ const GlossaryIndexPage: React.FC = () => {
 
         <div className="mx-auto max-w-4xl relative z-10 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 mb-6">
-            <Search className="w-4 h-4 text-pink-400" />
+            <Search className="w-4 h-4 text-ds-pink-400" />
             <span className="text-sm text-slate-300">{GLOSSARY_PAGES.length} terms defined</span>
           </div>
 
@@ -82,7 +81,7 @@ const GlossaryIndexPage: React.FC = () => {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href="#terms" className="inline-flex items-center gap-2">
                 <span>Browse Terms</span>
                 <ArrowRight className="w-5 h-5" />
@@ -100,7 +99,7 @@ const GlossaryIndexPage: React.FC = () => {
               <a
                 key={letter}
                 href={`#letter-${letter}`}
-                className="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800/50 border border-slate-700 text-slate-300 hover:bg-pink-500/20 hover:border-pink-500/50 hover:text-white transition-all font-semibold"
+                className="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-800/50 border border-slate-700 text-slate-300 hover:bg-ds-pink-500/20 hover:border-ds-pink-500/50 hover:text-white transition-all font-semibold"
               >
                 {letter}
               </a>
@@ -114,17 +113,17 @@ const GlossaryIndexPage: React.FC = () => {
         <div className="mx-auto max-w-5xl">
           {sortedLetters.map(letter => (
             <div key={letter} id={`letter-${letter}`} className="mb-12 scroll-mt-32">
-              <h2 className="text-4xl font-bold text-pink-400 mb-6 pb-3 border-b border-slate-800">
+              <h2 className="text-4xl font-bold text-ds-pink-400 mb-6 pb-3 border-b border-slate-800">
                 {letter}
               </h2>
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4 items-center">
                 {groupedTerms[letter].map(term => (
                   <a
                     key={term.slug}
                     href={`/glossary/${term.slug}`}
-                    className="group bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-pink-500/50 transition-all hover:bg-slate-800/70"
+                    className="group bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-ds-pink-500/50 transition-all hover:bg-slate-800/70"
                   >
-                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-pink-400 transition-colors flex items-center gap-2">
+                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-ds-pink-400 transition-colors flex items-center gap-2">
                       {term.term}
                       <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </h3>
@@ -149,7 +148,7 @@ const GlossaryIndexPage: React.FC = () => {
             BiblioKit plugins help you apply design system best practices in Figma.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href="/products" className="inline-flex items-center gap-2">
                 <span>Explore Plugins</span>
                 <ArrowRight className="w-5 h-5" />

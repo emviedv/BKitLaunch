@@ -4,11 +4,11 @@ import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, RefreshCw, Shield, Lock, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import { renameVariantsFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
+import RelatedUseCases from '@/components/RelatedUseCases';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
 const AIRenameVariantsPage = () => {
@@ -64,11 +64,11 @@ const AIRenameVariantsPage = () => {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
             Fix variant naming debt<br className="hidden md:block" /> in seconds, not hours.
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
+          <p className="hero-description-copy text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
             AI-powered architectural analysis and renaming for component sets and variants. Keep designers, developers, and marketers aligned with clean, predictable naming.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
                 <span>Try the plugin — 8 free credits</span>
@@ -134,7 +134,7 @@ const AIRenameVariantsPage = () => {
           <SectionTitle>RenameVariantsAI Demo: Batch-Rename Figma Variants in Seconds</SectionTitle>
         </div>
         
-        <div className="grid md:grid-cols-12 gap-8 mb-12">
+        <div className="grid md:grid-cols-12 gap-8 items-center mb-12">
            <div className="md:col-span-8">
               <PlaceholderImage label="GIF: Run Audit -> List Issues -> One-Click Rename" height="h-96" />
            </div>
@@ -160,7 +160,7 @@ const AIRenameVariantsPage = () => {
         <div className="text-center mb-16">
           <SectionTitle>Three steps to order.</SectionTitle>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-center">
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Select Component & Click Audit" height="h-64" />
@@ -243,8 +243,8 @@ const AIRenameVariantsPage = () => {
       {/* Block 6: Before / After Showcase */}
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Trusted by teams cleaning up debt.</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="bg-[#0f172a]/50 p-8 rounded-2xl border border-slate-700/50">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
             <h4 className="text-xl font-bold mb-2">Startup Component Library</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Prototype token leaks. <br/>Result: Renamed 120 variants in 5 mins.</p>
             <div className="grid grid-cols-2 gap-4">
@@ -252,7 +252,7 @@ const AIRenameVariantsPage = () => {
               <PlaceholderImage label="After: Clean List" height="h-40" />
             </div>
           </div>
-          <div className="bg-[#0f172a]/50 p-8 rounded-2xl border border-slate-700/50">
+          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
             <h4 className="text-xl font-bold mb-2">Mid-Stage Design System</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Inconsistent layer names. <br/>Result: Health score +28 points.</p>
              <div className="grid grid-cols-2 gap-4">
@@ -270,7 +270,7 @@ const AIRenameVariantsPage = () => {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Level up your design system.</h2>
               <p className="text-xl text-purple-200 mb-8">Start with 8 free credits and erase variant naming debt in minutes.</p>
-              <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+              <Button asChild variant="hero-primary" size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
                   Start fixing with 8 free credits
                 </a>
@@ -323,7 +323,7 @@ const AIRenameVariantsPage = () => {
            <div className="p-6 bg-slate-800/40 rounded-xl border border-slate-700/50 backdrop-blur-sm">
               <p className="text-slate-300 mb-4">&quot;Finally, a way to enforce CamelCase on variants without nagging the team.&quot;</p>
               <div className="flex items-center gap-3">
-                 <div className="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center font-bold text-white">AK</div>
+                 <div className="w-10 h-10 bg-ds-pink-500 rounded-full flex items-center justify-center font-bold text-white">AK</div>
                  <div>
                     <p className="font-bold text-sm">Senior Designer</p>
                     <p className="text-xs text-slate-400">Agency</p>
@@ -412,13 +412,16 @@ const AIRenameVariantsPage = () => {
         <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 
+      {/* Related Use Cases - internal linking for SEO */}
+      <RelatedUseCases plugin="rename-variants" />
+
       {/* Block 12: Final CTA */}
       <section className="py-24 px-6 md:px-10 text-center landing-sections-gradient text-white">
          <div className="max-w-4xl mx-auto relative z-10">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Stop fixing names by hand.</h2>
             <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">Let AI suggest consistent naming patterns and apply them across hundreds of variants instantly.</p>
             <div className="flex flex-col items-center gap-4">
-              <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+              <Button asChild variant="hero-primary" size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
                   Try the plugin — 8 free credits
                 </a>

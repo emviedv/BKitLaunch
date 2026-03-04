@@ -3,8 +3,7 @@ import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
-import { ArrowRight, Layers } from '@/lib/iconUtils';
+import { ArrowRight, Layers, Search } from '@/lib/iconUtils';
 import FluidBackground from './FluidBackground';
 import {
   USE_CASE_PAGES,
@@ -71,7 +70,7 @@ const UseCasesIndexPage: React.FC = () => {
 
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2">
-              <Layers className="w-4 h-4 text-pink-400" />
+              <Layers className="w-4 h-4 text-ds-pink-400" />
               <span className="text-sm text-slate-300"><span className="font-semibold text-white">{USE_CASE_PAGES.length}</span> use case guides</span>
             </div>
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2">
@@ -95,7 +94,7 @@ const UseCasesIndexPage: React.FC = () => {
                   <div>
                     <a
                       href={plugin.pageUrl}
-                      className="group inline-flex items-center gap-2 text-2xl md:text-3xl font-semibold hover:text-pink-400 transition-colors"
+                      className="group inline-flex items-center gap-2 text-2xl md:text-3xl font-semibold hover:text-ds-pink-400 transition-colors"
                     >
                       {plugin.name}
                       <ArrowRight className="w-5 h-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
@@ -110,20 +109,20 @@ const UseCasesIndexPage: React.FC = () => {
                 </div>
 
                 {/* Use Case Cards */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-center">
                   {useCases.map((useCase) => (
                     <a
                       key={useCase.slug}
                       href={`/use-cases/${useCase.slug}`}
                       className="group bg-slate-800/50 border border-slate-700 hover:border-slate-600 rounded-xl p-6 transition-all hover:bg-slate-800/70"
                     >
-                      <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-pink-400 transition-colors">
+                      <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-ds-pink-400 transition-colors">
                         {useCase.title}
                       </h3>
                       <p className="text-slate-400 text-sm mb-4 line-clamp-2">
                         {useCase.problem}
                       </p>
-                      <div className="flex items-center gap-2 text-pink-400 text-sm font-medium">
+                      <div className="flex items-center gap-2 text-ds-pink-400 text-sm font-medium">
                         <span>Read guide</span>
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </div>
@@ -147,7 +146,7 @@ const UseCasesIndexPage: React.FC = () => {
             or reach out if you have a specific workflow question.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href="/blog" className="inline-flex items-center gap-2">
                 <Search className="w-5 h-5" />
                 <span>Browse All Tutorials</span>

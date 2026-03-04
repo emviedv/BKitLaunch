@@ -1,4 +1,5 @@
 import React, { type ReactNode } from "react";
+import { Sparkles, Users, FolderOpen, Bot, Share2, PartyPopper, ThumbsUp, ThumbsDown, AlertTriangle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -76,7 +77,7 @@ export const modalShowcases: ModalShowcase[] = [
         <div className="space-y-3 p-4 text-sm">
           <div className="grid gap-2">
             <div className="flex items-start gap-3 rounded-md border border-[#6580E1]/40 bg-[#6580E1]/10 p-3">
-              <span className="text-lg">✨</span>
+              <Sparkles className="w-5 h-5 text-[#6580E1] flex-shrink-0 mt-0.5" />
               <div>
                 <div className="font-medium">Unlimited analyses</div>
                 <div className="text-muted-foreground">
@@ -85,7 +86,7 @@ export const modalShowcases: ModalShowcase[] = [
               </div>
             </div>
             <div className="flex items-start gap-3 rounded-md border bg-muted/40 p-3">
-              <span className="text-lg">🤝</span>
+              <Users className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
               <div>
                 <div className="font-medium">Team collaboration</div>
                 <div className="text-muted-foreground">
@@ -121,14 +122,14 @@ export const modalShowcases: ModalShowcase[] = [
         </div>
         <div className="space-y-4 p-4 text-sm">
           <div className="flex items-start gap-3">
-            <span className="mt-1 text-lg">🗂️</span>
+            <FolderOpen className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
             <div>
               <div className="font-medium">Create a collection</div>
               <div className="text-muted-foreground">Organize analyses for your stakeholders.</div>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <span className="mt-1 text-lg">🤖</span>
+            <Bot className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
             <div>
               <div className="font-medium">Run an AI snapshot</div>
               <div className="text-muted-foreground">
@@ -137,7 +138,7 @@ export const modalShowcases: ModalShowcase[] = [
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <span className="mt-1 text-lg">📤</span>
+            <Share2 className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
             <div>
               <div className="font-medium">Share findings</div>
               <div className="text-muted-foreground">Invite teammates or export a polished deck.</div>
@@ -219,7 +220,7 @@ export const modalShowcases: ModalShowcase[] = [
             <label className="flex flex-col gap-1">
               <span className="text-xs text-muted-foreground">Icon</span>
               <div className="flex items-center gap-2 rounded-md border bg-background px-3 py-2">
-                <span className="text-lg">🗂️</span>
+                <FolderOpen className="w-5 h-5 text-muted-foreground" />
                 <span className="text-xs text-muted-foreground">ri-folder-line</span>
               </div>
             </label>
@@ -383,7 +384,7 @@ export const modalShowcases: ModalShowcase[] = [
       <>
         <div className="flex items-center justify-between border-b px-4 py-3">
           <div className="text-sm font-semibold">Check in complete?</div>
-          <span className="text-lg">🎉</span>
+          <PartyPopper className="w-5 h-5 text-amber-500" />
         </div>
         <div className="space-y-3 p-4 text-sm">
           <p className="text-muted-foreground">
@@ -455,8 +456,8 @@ export const modalShowcases: ModalShowcase[] = [
         </div>
         <div className="space-y-3 p-4 text-sm">
           <div className="flex gap-2">
-            <button className="rounded-md border bg-background px-3 py-2 text-lg">👍</button>
-            <button className="rounded-md border bg-background px-3 py-2 text-lg">👎</button>
+            <button className="rounded-md border bg-background px-3 py-2"><ThumbsUp className="w-5 h-5" /></button>
+            <button className="rounded-md border bg-background px-3 py-2"><ThumbsDown className="w-5 h-5" /></button>
           </div>
           <textarea
             className="h-20 rounded-md border bg-background px-3 py-2"
@@ -480,7 +481,7 @@ export const modalShowcases: ModalShowcase[] = [
     render: () => (
       <>
         <div className="flex items-center gap-3 border-b bg-amber-50 px-4 py-3">
-          <span className="text-lg">⚠️</span>
+          <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
           <div>
             <div className="text-sm font-semibold">Unsaved changes</div>
             <div className="text-xs text-muted-foreground">

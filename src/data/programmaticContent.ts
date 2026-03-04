@@ -3372,7 +3372,7 @@ export const GLOSSARY_PAGES: GlossaryPage[] = [
       'An "isRequired" boolean that toggles the asterisk visibility on form labels.',
       'A "showDivider" boolean controlling separator visibility in list items.'
     ],
-    relatedTerms: ['variant-property', 'component-set', 'instance'],
+    relatedTerms: ['variant-property', 'component-set', 'instance', 'nested-instance'],
     keywords: ['boolean property figma', 'figma toggle', 'component toggle', 'show hide figma', 'conditional component']
   },
   {
@@ -3402,7 +3402,7 @@ export const GLOSSARY_PAGES: GlossaryPage[] = [
       'A card component with nested Avatar and Badge instances in the header.',
       'A data table row built from nested Cell, Checkbox, and IconButton instances.'
     ],
-    relatedTerms: ['instance', 'main-component', 'slot', 'component-set'],
+    relatedTerms: ['instance', 'main-component', 'slot', 'component-set', 'boolean-property'],
     keywords: ['nested instance figma', 'component nesting', 'nested components', 'component hierarchy', 'figma composition']
   },
   {
@@ -3468,7 +3468,7 @@ export const GLOSSARY_PAGES: GlossaryPage[] = [
       'Using Figma sections to group related screens: "Onboarding" section containing Welcome, SignUp, Verification screens.',
       'An emoji-based page naming convention: "🎨 Components", "📱 Screens", "📦 Archive" for visual scanning.'
     ],
-    relatedTerms: ['layer-organization', 'design-ops', 'design-governance', 'component-library'],
+    relatedTerms: ['layer-organization', 'design-ops', 'design-governance', 'component-library', 'design-debt'],
     pluginCta: {
       plugin: 'organizefile',
       pluginName: 'OrganizeFile',
@@ -3489,7 +3489,7 @@ export const GLOSSARY_PAGES: GlossaryPage[] = [
       'A card grid that shifts from 4 columns on desktop to 2 on tablet to 1 on mobile.',
       'Typography that scales: 48px heading on desktop, 32px on tablet, 24px on mobile.'
     ],
-    relatedTerms: ['auto-layout', 'constraints', 'frame', 'design-handoff'],
+    relatedTerms: ['auto-layout', 'constraints', 'frame', 'design-handoff', 'accessibility'],
     keywords: ['responsive design', 'mobile design', 'breakpoints figma', 'adaptive design', 'multi-device design']
   },
   {
@@ -3504,7 +3504,7 @@ export const GLOSSARY_PAGES: GlossaryPage[] = [
       'Focus states on all interactive elements enabling keyboard navigation.',
       'Form inputs with clear labels and error messages read by screen readers.'
     ],
-    relatedTerms: ['component-states', 'design-tokens', 'design-system', 'style-guide'],
+    relatedTerms: ['component-states', 'design-tokens', 'design-system', 'style-guide', 'responsive-design'],
     keywords: ['accessibility design', 'a11y', 'wcag', 'inclusive design', 'accessible figma']
   },
   {
@@ -3519,7 +3519,7 @@ export const GLOSSARY_PAGES: GlossaryPage[] = [
       'Outdated screens that still use deprecated components because no one updated them.',
       'Inconsistent spacing across the product because the spacing scale was never standardized.'
     ],
-    relatedTerms: ['detached-instance', 'token-drift', 'design-system-audit', 'design-governance'],
+    relatedTerms: ['detached-instance', 'token-drift', 'design-system-audit', 'design-governance', 'file-organization'],
     pluginCta: {
       plugin: 'componentqa',
       pluginName: 'ComponentQA',

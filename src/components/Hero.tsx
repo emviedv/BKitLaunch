@@ -5,7 +5,6 @@ import { usePublishedContent } from "@/hooks/usePublishedContent";
 import {
   HERO_DESCRIPTION_CLASS,
   HERO_HEADLINE_GRADIENT_CLASS,
-  HERO_PRIMARY_BUTTON_CLASS,
   buildHeroHeadlineSegments,
   splitHeroHeadline,
   type HeroHeadlineSegment,
@@ -124,7 +123,7 @@ const Hero: React.FC = () => {
           )}
 
           {hero.description ? (
-            <p className={`${HERO_DESCRIPTION_CLASS} max-w-2xl`}>{hero.description}</p>
+            <p className={`${HERO_DESCRIPTION_CLASS} hero-description-copy max-w-2xl`}>{hero.description}</p>
           ) : null}
 
           {(hero.primaryButton || hero.secondaryButton || comingSoonEnabled) && (
@@ -132,7 +131,7 @@ const Hero: React.FC = () => {
               {comingSoonEnabled ? (
                 <Button
                   size="lg"
-                  className={HERO_PRIMARY_BUTTON_CLASS}
+                  variant="hero-primary"
                   onClick={(event) => handleAnchorClick(event, LANDING_WAITLIST_ANCHOR)}
                 >
                   Get Beta Access

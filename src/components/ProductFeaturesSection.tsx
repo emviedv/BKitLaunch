@@ -3,7 +3,6 @@ import React from 'react';
 import ContentChunk from './ContentChunk';
 import { resolveLucideIcon, ArrowRight } from '@/lib/iconUtils';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from './heroConstants';
 import { SECTION_TITLE_CLASS } from './productContentSectionConstants';
 import { computeFeatureLayout } from './productContentSectionLayout';
 import { cn } from '@/lib/utils';
@@ -134,7 +133,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
                 { bg: 'rgba(34, 197, 94, 0.08)', icon: '#22c55e', border: 'rgba(34, 197, 94, 0.2)' },     // Green
                 { bg: 'rgba(249, 115, 22, 0.08)', icon: '#f97316', border: 'rgba(249, 115, 22, 0.2)' },   // Orange
                 { bg: 'rgba(99, 102, 241, 0.08)', icon: '#6366f1', border: 'rgba(99, 102, 241, 0.2)' },   // Indigo
-                { bg: 'rgba(236, 72, 153, 0.08)', icon: '#ec4899', border: 'rgba(236, 72, 153, 0.2)' },   // Pink
+                { bg: 'rgba(255, 47, 135, 0.08)', icon: '#ff2f87', border: 'rgba(255, 47, 135, 0.2)' },   // Hot Pink
               ];
               const theme = colorThemes[index % colorThemes.length];
               const rawItems = Array.isArray(detail.items) ? detail.items : [];
@@ -356,7 +355,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
                           <Button
                             asChild={Boolean(buttonHref)}
                             size="lg"
-                            className={HERO_PRIMARY_BUTTON_CLASS}
+                            variant="hero-primary"
                           >
                             {buttonHref ? (
                               <a

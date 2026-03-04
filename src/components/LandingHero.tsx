@@ -2,8 +2,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
-  HERO_PRIMARY_BUTTON_CLASS,
-  HERO_SECONDARY_BUTTON_CLASS,
   buildHeroHeadlineSegments,
   splitHeroHeadline,
 } from './heroConstants';
@@ -443,7 +441,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
 
             {description && (
               <p
-                className={`text-lg text-white/70 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-10 ${resolvedDescriptionClassName}`}
+                className={`hero-description-copy text-lg text-white/70 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-10 ${resolvedDescriptionClassName}`}
               >
                 {typeof description === 'string'
                   ? description.split('\n').map((line, i, arr) => (
@@ -460,7 +458,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               {primaryButton && (
                 <Button
                   size="lg"
-                  className={HERO_PRIMARY_BUTTON_CLASS}
+                  variant="hero-primary"
                   onClick={(event) => {
                     if (primaryButtonLink) {
                       handleAnchorNavigation(event, primaryButtonLink);
@@ -481,8 +479,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               {secondaryButton && (
                 <Button
                   size="lg"
-                  variant="ghost"
-                  className={HERO_SECONDARY_BUTTON_CLASS}
+                  variant="hero-secondary"
                   onClick={secondaryButtonLink ? (event) => handleAnchorNavigation(event, secondaryButtonLink) : () => scrollToSection(LANDING_PRICING_ID)}
                   asChild={secondaryButtonLink && !secondaryButtonLink.startsWith('#')}
                 >

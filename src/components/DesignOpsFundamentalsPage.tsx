@@ -73,7 +73,7 @@ const DesignOpsFundamentalsPage: React.FC = () => {
             <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
               Design Ops Fundamentals
             </h1>
-            <p className="text-lg sm:text-xl text-white/80">
+            <p className="hero-description-copy text-lg sm:text-xl text-white/80">
               Master the fundamentals of design operations. Learn what design ops is, why it matters for modern design teams, and how to build scalable design processes that enable your team to ship faster. Perfect for designers new to design ops.
             </p>
           </div>
@@ -89,14 +89,14 @@ const DesignOpsFundamentalsPage: React.FC = () => {
                 Build your foundation by understanding the what, why, and how of design operations.
               </p>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-center">
               {sortedDesignOpsPosts.slice(0, 2).map((post) => {
                 const imageDimensions = getImageDimensions(post.heroImage);
                 return (
                 <a
                   key={`design-ops-learn-${post.slug}`}
                   href={buildBlogPostHref(post.slug)}
-                  className="group mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur transform-gpu transition duration-200 hover:-translate-y-1 hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]"
+                  className="group mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur transform-gpu transition duration-200 hover:-translate-y-1 hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]"
                 >
                   <div className="flex h-full flex-col rounded-lg">
                     {post.heroImage ? (
@@ -137,14 +137,14 @@ const DesignOpsFundamentalsPage: React.FC = () => {
                 Learn the core concepts of building and maintaining design systems at scale.
               </p>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-center">
               {sortedDesignSystemPosts.map((post) => {
                 const imageDimensions = getImageDimensions(post.heroImage);
                 return (
                 <a
                   key={`design-ops-learn-${post.slug}`}
                   href={buildBlogPostHref(post.slug)}
-                  className="group mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur transform-gpu transition duration-200 hover:-translate-y-1 hover:text-[#ffb3d4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]"
+                  className="group mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur transform-gpu transition duration-200 hover:-translate-y-1 hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]"
                 >
                   <div className="flex h-full flex-col rounded-lg">
                     {post.heroImage ? (

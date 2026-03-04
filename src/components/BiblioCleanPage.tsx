@@ -4,11 +4,11 @@ import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Shield, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import { biblioCleanFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
+import RelatedUseCases from '@/components/RelatedUseCases';
 import { getImageDimensions } from '@/lib/imageDimensions';
 
 const BiblioCleanPage = () => {
@@ -64,11 +64,11 @@ const BiblioCleanPage = () => {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
             Wipe prototype links<br className="hidden md:block" /> before you ship.
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
+          <p className="hero-description-copy text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
             The Blue Line Wiper. Safely strip prototype connections and external URLs without breaking your main components.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
                 <span>Try BiblioClean — Free</span>
@@ -134,7 +134,7 @@ const BiblioCleanPage = () => {
           <SectionTitle>Watch BiblioClean Instantly Remove Prototype Links</SectionTitle>
         </div>
         
-        <div className="grid md:grid-cols-12 gap-8 mb-12">
+        <div className="grid md:grid-cols-12 gap-8 items-center mb-12">
            <div className="md:col-span-8">
               <PlaceholderImage label="GIF: Select Frame -> Click Clean -> All Blue Lines Vanish" height="h-96" />
            </div>
@@ -154,7 +154,7 @@ const BiblioCleanPage = () => {
         <div className="text-center mb-16">
           <SectionTitle>Three steps to a clean file.</SectionTitle>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-center">
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Select Scope (Page/Selection)" height="h-64" />
@@ -218,8 +218,8 @@ const BiblioCleanPage = () => {
       {/* Block 6: Use Cases */}
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Essential for every handoff.</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="bg-[#0f172a]/50 p-8 rounded-2xl border border-slate-700/50">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
             <h4 className="text-xl font-bold mb-2">Pre-Handoff Cleanup</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Developers confused by old prototype flows. <br/>Result: Clean canvas, clear specs.</p>
             <div className="grid grid-cols-2 gap-4">
@@ -227,7 +227,7 @@ const BiblioCleanPage = () => {
               <PlaceholderImage label="After: Clean Assets" height="h-40" />
             </div>
           </div>
-          <div className="bg-[#0f172a]/50 p-8 rounded-2xl border border-slate-700/50">
+          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
             <h4 className="text-xl font-bold mb-2">Design System Maintenance</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Accidental links in component library. <br/>Result: Pure components, no side effects.</p>
              <div className="grid grid-cols-2 gap-4">
@@ -245,7 +245,7 @@ const BiblioCleanPage = () => {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Start cleaning in seconds.</h2>
               <p className="text-xl text-blue-200 mb-8">Install BiblioClean for free and wipe those blue lines away.</p>
-              <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+              <Button asChild variant="hero-primary" size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
                   Get BiblioClean for free
                 </a>
@@ -273,11 +273,11 @@ const BiblioCleanPage = () => {
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-8">Learn more about prototype link cleanup</SectionTitle>
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          <a href="/blog/remove-prototype-links-in-figma" className="bg-[#0f172a]/50 p-6 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
+          <a href="/blog/remove-prototype-links-in-figma" className="bg-[#0d0d15] p-6 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
             <h4 className="text-lg font-bold mb-2">Remove Prototype Links in Figma</h4>
             <p className="text-slate-400 text-sm">Step-by-step guide to cleaning up prototype links safely.</p>
           </a>
-          <a href="/resources/remove-prototype-link" className="bg-[#0f172a]/50 p-6 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
+          <a href="/resources/remove-prototype-link" className="bg-[#0d0d15] p-6 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
             <h4 className="text-lg font-bold mb-2">Prototype Link Cleanup Checklist</h4>
             <p className="text-slate-400 text-sm">Keep designers, developers, and marketers aligned on the right build.</p>
           </a>
@@ -290,13 +290,16 @@ const BiblioCleanPage = () => {
         <FAQList faqs={faqs} className="max-w-3xl mx-auto" />
       </Section>
 
-      {/* Block 9: Final CTA */}
+      {/* Related Use Cases - internal linking for SEO */}
+      <RelatedUseCases plugin="biblioclean" />
+
+      {/* Block 10: Final CTA */}
       <section className="py-24 px-6 md:px-10 text-center landing-sections-gradient text-white">
          <div className="max-w-4xl mx-auto relative z-10">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">No more blue spaghetti.</h2>
             <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">Remove every prototype link across your file in one click—keep your canvas clean and focused.</p>
             <div className="flex flex-col items-center gap-4">
-              <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+              <Button asChild variant="hero-primary" size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
                   Install BiblioClean
                 </a>

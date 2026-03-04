@@ -4,7 +4,6 @@ import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Layout, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import { fixTableFaqs } from '@/data/pageFaqs';
@@ -65,11 +64,11 @@ const FixTablePage = () => {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
             Stop fighting<br className="hidden md:block" /> auto-layout tables.
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
+          <p className="hero-description-copy text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
             Normalize column widths, fix sub-pixel rotation bugs, and generate zebra striping in one click.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href={CTA_LINK} className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
                 <span>Fix Your Tables — Free</span>
@@ -135,7 +134,7 @@ const FixTablePage = () => {
           <SectionTitle>Watch FixTable in Action: Normalize & Zebra-Stripe Figma Tables</SectionTitle>
         </div>
         
-        <div className="grid md:grid-cols-12 gap-8 mb-12">
+        <div className="grid md:grid-cols-12 gap-8 items-center mb-12">
            <div className="md:col-span-8">
               <PlaceholderImage label="GIF: Select Table -> Click 'Normalize Widths' -> Columns Snap to Grid" height="h-96" />
            </div>
@@ -154,7 +153,7 @@ const FixTablePage = () => {
         <div className="text-center mb-16">
           <SectionTitle>Three steps to order.</SectionTitle>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-center">
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Select Auto-Layout Frame" height="h-64" />
@@ -218,8 +217,8 @@ const FixTablePage = () => {
       {/* Block 6: Use Cases */}
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Essential for data-heavy UI.</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="bg-[#0f172a]/50 p-8 rounded-2xl border border-slate-700/50">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
             <h4 className="text-xl font-bold mb-2">Dashboard Design</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: 50-row tables that break when data changes. <br/>Result: Flexible, resilient layouts.</p>
             <div className="grid grid-cols-2 gap-4">
@@ -227,7 +226,7 @@ const FixTablePage = () => {
               <PlaceholderImage label="After: Responsive Table" height="h-40" />
             </div>
           </div>
-          <div className="bg-[#0f172a]/50 p-8 rounded-2xl border border-slate-700/50">
+          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
             <h4 className="text-xl font-bold mb-2">Pricing Pages</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Misaligned features vs checkmarks. <br/>Result: Perfectly aligned comparison.</p>
              <div className="grid grid-cols-2 gap-4">
@@ -245,7 +244,7 @@ const FixTablePage = () => {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Fix your tables instantly.</h2>
               <p className="text-xl text-purple-200 mb-8">Install the FixTable plugin from Figma Community and normalize every table fast.</p>
-              <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+              <Button asChild variant="hero-primary" size="lg">
                  <a href={CTA_LINK} target="_blank" rel="noopener noreferrer">
                   Fix Your Tables — Free
                 </a>
@@ -280,7 +279,7 @@ const FixTablePage = () => {
          <div className="max-w-4xl mx-auto relative z-10">
             <h2 className="text-4xl md:text-5xl font-bold mb-8">Data design, solved.</h2>
             <div className="flex flex-col items-center gap-4">
-              <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+              <Button asChild variant="hero-primary" size="lg">
                  <a href={CTA_LINK}>
                   Fix Your Tables — Free
                 </a>

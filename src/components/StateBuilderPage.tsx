@@ -4,7 +4,6 @@ import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { ROUTE_PATHS } from '@/config/routes';
 import { Button } from '@/components/ui/button';
-import { HERO_PRIMARY_BUTTON_CLASS } from '@/components/heroConstants';
 import { Check, Columns, Download } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import { stateBuilderFaqs } from '@/data/pageFaqs';
@@ -87,13 +86,13 @@ const StateBuilderPage = () => {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
             Ship complete<br className="hidden md:block" /> component states.
           </h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-[70%] mx-auto">
+          <p className="hero-description-copy text-xl md:text-2xl text-slate-300 mb-10 max-w-[70%] mx-auto">
             Auto-generate hover, focus, error, and disabled states with spec cards so designers,
             developers, and marketers stay aligned on design systems, handoff, implementation,
             launch, and campaigns.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
                 <span>Install StateBuilder — Free</span>
@@ -170,7 +169,7 @@ const StateBuilderPage = () => {
           <SectionTitle>Watch StateBuilder generate UI states and specs</SectionTitle>
         </div>
 
-        <div className="grid md:grid-cols-12 gap-8 mb-12">
+        <div className="grid md:grid-cols-12 gap-8 items-center mb-12">
           <div className="md:col-span-8">
             <PlaceholderImage label="GIF: Select components -> Generate -> State matrix + spec card" height="h-96" />
           </div>
@@ -199,7 +198,7 @@ const StateBuilderPage = () => {
         <div className="text-center mb-16">
           <SectionTitle>Three steps to complete specs.</SectionTitle>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-center">
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center font-bold text-white z-10">
               1
@@ -284,8 +283,8 @@ const StateBuilderPage = () => {
       {/* Block 6: Use Cases */}
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Built for design system and launch work.</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="bg-[#0f172a]/50 p-8 rounded-2xl border border-slate-700/50">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
             <h4 className="text-xl font-bold mb-2">Design System Release</h4>
             <p className="text-slate-400 mb-6 text-sm">
               Problem: Variants drift after token updates. <br />Result: Complete state matrix ready for handoff.
@@ -295,7 +294,7 @@ const StateBuilderPage = () => {
               <PlaceholderImage label="After: Full matrix" height="h-40" />
             </div>
           </div>
-          <div className="bg-[#0f172a]/50 p-8 rounded-2xl border border-slate-700/50">
+          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
             <h4 className="text-xl font-bold mb-2">Campaign Launch QA</h4>
             <p className="text-slate-400 mb-6 text-sm">
               Problem: Marketing assets miss edge states. <br />Result: Launch-ready UI across channels.
@@ -317,7 +316,7 @@ const StateBuilderPage = () => {
               <p className="text-xl text-emerald-200 mb-8">
                 Install StateBuilder to create state matrices and spec cards so designers, developers, and marketers stay aligned through handoff, implementation, launch, and campaigns.
               </p>
-              <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+              <Button asChild variant="hero-primary" size="lg">
                 <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
                   Install StateBuilder — Free
                 </a>
@@ -355,7 +354,7 @@ const StateBuilderPage = () => {
             Keep implementation and handoff aligned with spec cards that support campaigns and product launches.
           </p>
           <div className="flex flex-col items-center gap-4">
-            <Button asChild className={HERO_PRIMARY_BUTTON_CLASS} size="lg">
+            <Button asChild variant="hero-primary" size="lg">
               <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
                 Install StateBuilder
               </a>

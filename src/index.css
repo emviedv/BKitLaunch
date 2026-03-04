@@ -4,6 +4,52 @@
 
 @layer base {
   :root {
+    /* ============================================
+       DESIGN SYSTEM TOKENS - Consolidated Colors
+       ============================================ */
+
+    /* --- Primitive: Hot Pink scale (based on #ff2f87, 339° hue) --- */
+    --color-pink-50: 339 100% 97%;   /* #fff0f6 - very light backgrounds */
+    --color-pink-100: 339 100% 93%;  /* #ffe0ef - light backgrounds */
+    --color-pink-200: 339 100% 85%;  /* #ffb3d4 - hover text, soft accents */
+    --color-pink-300: 339 100% 75%;  /* #ff80b8 - medium accents */
+    --color-pink-400: 339 100% 67%;  /* #ff4d9a - secondary CTAs */
+    --color-pink-500: 339 100% 59%;  /* #ff2f87 - primary CTA (brand) */
+    --color-pink-600: 339 100% 52%;  /* #e02074 - hover state */
+    --color-pink-700: 339 100% 45%;  /* #c21a66 - pressed state */
+    --color-pink-800: 339 100% 38%;  /* #a31557 - dark accents */
+    --color-pink-900: 339 100% 30%;  /* #7f1044 - darkest */
+
+    /* --- Accent pinks (for gradients, indicators) --- */
+    --color-pink-glow: 296 100% 81%;  /* #F1A0FF - dots/indicators (magenta tint) */
+    --color-pink-lavender: 292 100% 92%;  /* #F7D6FF - gradient highlights */
+
+    /* --- Primitive: Dark surface scale (hero backgrounds) --- */
+    --color-dark-950: 225 14% 5%;    /* #0a0a0c - deepest */
+    --color-dark-900: 225 14% 6%;    /* #0b0c0f - page bg */
+    --color-dark-850: 220 13% 7%;    /* #0c0d10 - hero bg */
+    --color-dark-800: 220 13% 8%;    /* #131417 - cards */
+
+    /* --- Primitive: White opacity scale (consolidated to 5 levels) --- */
+    --alpha-subtle: 0.06;    /* bg fills, very subtle */
+    --alpha-muted: 0.10;     /* bg fills, subtle */
+    --alpha-soft: 0.15;      /* borders, dividers */
+    --alpha-medium: 0.25;    /* borders on hover */
+    --alpha-strong: 0.80;    /* text, high visibility */
+
+    /* --- Semantic: Interactive elements --- */
+    --interactive-accent: var(--color-pink-500);
+    --interactive-accent-hover: var(--color-pink-500-hover);
+
+    /* --- Semantic: Badge surfaces (dark context) --- */
+    --badge-glass-bg: rgba(255, 255, 255, var(--alpha-subtle));
+    --badge-glass-border: rgba(255, 255, 255, var(--alpha-soft));
+    --badge-dot: hsl(var(--color-pink-glow));
+
+    /* ============================================
+       END DESIGN SYSTEM TOKENS
+       ============================================ */
+
     /* Tailwind-style Neutral + Cool Gray scales */
     /* Neutral (warmth-neutral) - for surfaces/cards/backgrounds */
     --neutral-50: 0 0% 99%;
@@ -440,6 +486,14 @@
 
   .hero-subtitle {
     @apply text-lg font-medium leading-7 text-muted-foreground sm:text-xl sm:leading-8;
+  }
+
+  .section-hero h1 {
+    text-wrap: balance;
+  }
+
+  .section-hero .hero-description-copy {
+    line-height: 1.75;
   }
 
   .body-lead {
@@ -926,9 +980,9 @@
   }
 
   .step-circle--pink {
-    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+    background: linear-gradient(135deg, #ff2f87 0%, #e02074 100%);
     color: white;
-    box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35);
+    box-shadow: 0 4px 14px rgba(255, 47, 135, 0.35);
   }
 
   .step-circle--blue {
@@ -1089,7 +1143,7 @@
   .ai-rename-hero__diamond--primary {
     width: 12rem;
     height: 12rem;
-    background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 45%, #f472b6 100%);
+    background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 45%, #ff4d9a 100%);
     z-index: 3;
     animation: ai-rename-hero-spin 10s linear infinite;
   }
@@ -1131,8 +1185,8 @@
     width: 0.85rem;
     height: 0.85rem;
     border-radius: 9999px;
-    background: linear-gradient(135deg, #f472b6 0%, #8b5cf6 100%);
-    box-shadow: 0 0 14px rgba(244, 114, 182, 0.7);
+    background: linear-gradient(135deg, #ff4d9a 0%, #8b5cf6 100%);
+    box-shadow: 0 0 14px rgba(255, 77, 154, 0.7);
     transform: translate(-50%, -50%);
   }
 

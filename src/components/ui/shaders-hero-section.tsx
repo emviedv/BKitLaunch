@@ -2,6 +2,7 @@ import { PulsingBorder, MeshGradient } from "@paper-design/shaders-react"
 import { motion } from "framer-motion"
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
+import { Sparkles } from 'lucide-react'
 
 interface ShaderBackgroundProps {
   children: React.ReactNode
@@ -147,7 +148,7 @@ export function HeroContent() {
           }}
         >
           <div className="absolute top-0 left-1 right-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full" />
-          <span className="text-white/90 text-xs font-light relative z-10">✨ New Paper Shaders Experience</span>
+          <span className="text-white/90 text-xs font-light relative z-10 inline-flex items-center gap-1.5"><Sparkles className="w-3 h-3" /> New Paper Shaders Experience</span>
         </div>
 
         {/* Main Heading */}
