@@ -125,7 +125,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
       </nav>
 
       {/* Hero Section */}
-      <section className="landing-hero-gradient section-hero relative overflow-hidden flex items-center pt-8 pb-20 px-6 md:px-10 text-white">
+      <section className="landing-hero-gradient section-hero relative overflow-hidden flex items-center pt-6 pb-12 sm:pb-16 px-6 md:px-10 text-white">
         <div className="landing-hero-gradient__layer" aria-hidden="true" />
         <div className="landing-hero-noise" aria-hidden="true" />
         <div className="landing-hero-contrast" aria-hidden="true" />

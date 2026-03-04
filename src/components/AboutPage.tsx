@@ -27,7 +27,7 @@ const AboutPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Section 1: Hero / Vision Statement */}
-      <section className="landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center pt-32 pb-20 px-6 md:px-10 text-white">
+      <section className="landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20 px-6 md:px-10 text-white">
         <div className="landing-hero-gradient__layer" aria-hidden="true" />
         <div className="landing-hero-noise" aria-hidden="true" />
         <div className="landing-hero-contrast" aria-hidden="true" />
