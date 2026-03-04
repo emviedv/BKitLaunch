@@ -41,7 +41,7 @@ export const createProductSchema = (productData: any) => {
   const rawImage = productData?.image || productData?.ogImage || productData?.heroImage;
   const normalizedImage = typeof rawImage === 'string' && rawImage.trim().length > 0
     ? (rawImage.startsWith('http') ? rawImage : `${baseUrl}${rawImage.startsWith('/') ? '' : '/'}${rawImage}`)
-    : `${baseUrl}/og/og-default.svg`;
+    : `${baseUrl}/og/og-default.png`;
 
   return {
     '@context': 'https://schema.org',

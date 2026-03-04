@@ -29,4 +29,4 @@ Allow: /
 User-agent: AhrefsBot
 Allow: /
 
-Sitemap: https://bibliokit.com/sitemap.xml
+Sitemap: https://www.bibliokit.com/sitemap.xml

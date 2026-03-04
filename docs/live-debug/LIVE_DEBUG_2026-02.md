@@ -213,3 +213,11 @@
 - **Verification:** Production site at https://www.bibliokit.com returns HTTP 200 with SSR headers (`x-ssr-generated`, nonce-based CSP). All routes tested: /, /blog, /products/componentqa.
 - **Fix procedure:** (1) Comment out [[edge_functions]] in netlify.toml, (2) move edge-functions/ to .bak, (3) deploy via git push (not CLI), (4) restore directory and config, (5) deploy again via git push. This clears corrupted edge function state.
 - **Prevention:** Prefer `git push` + Netlify CI over `netlify-cli deploy --prod` for production deploys.
+
+## 2026-03-04
+
+- **Time:** 2026-03-04 (robots.txt sitemap URL consistency)
+- **Summary:** Fixed robots.txt sitemap declaration using non-www URL while all canonical tags and sitemap function output use www, completing the canonical URL consistency work started in Feb 2026.
+- **Root Cause:** When the sitemap.ts function was fixed to output www URLs (Feb 5, 2026), the static robots.txt sitemap declaration was overlooked. It still pointed to `https://bibliokit.com/sitemap.xml` (non-www) instead of `https://www.bibliokit.com/sitemap.xml` (www). This created an inconsistency where the robots.txt told Google the sitemap was at a non-www URL, while the sitemap itself and all canonical tags used www.
+- **Changed Files:** public/robots.txt; docs/live-debug/LIVE_DEBUG_2026-02.md
+- **Verification:** Visual inspection of robots.txt confirms www URL. After deploy, Google will see consistent www URLs across robots.txt sitemap declaration, sitemap content, and canonical tags.

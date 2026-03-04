@@ -120,7 +120,7 @@ const resolveProductImages = (base: string, slug: string, product: any): ImageEn
   }
 
   if (imageSources.size === 0) {
-    imageSources.add(`${base}/og/og-default.svg`);
+    imageSources.add(`${base}/og/og-default.png`);
   }
 
   return Array.from(imageSources).map((loc) => ({
@@ -160,7 +160,7 @@ const buildUseCaseEntries = (base: string, defaultLastmod: string): SitemapEntry
       lastmod: defaultLastmod,
       images: [
         {
-          loc: `${base}/og/og-default.svg`,
+          loc: `${base}/og/og-default.png`,
           title: useCase.title,
           caption: useCase.metaDescription
         }
@@ -178,7 +178,7 @@ const buildPersonaEntries = (base: string, defaultLastmod: string): SitemapEntry
       lastmod: defaultLastmod,
       images: [
         {
-          loc: `${base}/og/og-default.svg`,
+          loc: `${base}/og/og-default.png`,
           title: persona.title,
           caption: persona.metaDescription
         }
@@ -196,7 +196,7 @@ const buildGlossaryEntries = (base: string, defaultLastmod: string): SitemapEntr
       lastmod: defaultLastmod,
       images: [
         {
-          loc: `${base}/og/og-default.svg`,
+          loc: `${base}/og/og-default.png`,
           title: glossary.term,
           caption: glossary.metaDescription
         }
@@ -217,7 +217,7 @@ export const buildSitemapXml = (baseUrl: string): string => {
       lastmod: defaultLastmod,
       priority: '1.0',
       changefreq: 'weekly',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Homepage' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'BiblioKit Homepage' }]
     },
     { path: '/figma-component-variant-renamer', lastmod: defaultLastmod },
     { path: '/figma-plugin-remove-prototype-links', lastmod: defaultLastmod },
@@ -230,84 +230,84 @@ export const buildSitemapXml = (baseUrl: string): string => {
       lastmod: defaultLastmod,
       changefreq: 'weekly',
       priority: '0.6',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Blog' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'BiblioKit Blog' }]
     },
     {
       path: '/products',
       lastmod: defaultLastmod,
       changefreq: 'weekly',
       priority: '0.7',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Products' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'BiblioKit Products' }]
     },
     {
       path: '/resources',
       lastmod: defaultLastmod,
       changefreq: 'monthly',
       priority: '0.6',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Resources' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'BiblioKit Resources' }]
     },
     {
       path: '/learn',
       lastmod: defaultLastmod,
       changefreq: 'monthly',
       priority: '0.6',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit Learn' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'BiblioKit Learn' }]
     },
     {
       path: '/learn/design-ops-fundamentals',
       lastmod: defaultLastmod,
       changefreq: 'monthly',
       priority: '0.6',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'Design Ops Fundamentals' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'Design Ops Fundamentals' }]
     },
     {
       path: '/tutorials',
       lastmod: defaultLastmod,
       changefreq: 'weekly',
       priority: '0.6',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'Figma Tutorials' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'Figma Tutorials' }]
     },
     {
       path: '/resources/remove-prototype-link',
       lastmod: defaultLastmod,
       changefreq: 'monthly',
       priority: '0.6',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'Remove Prototype Link resource' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'Remove Prototype Link resource' }]
     },
     {
       path: '/figma-marketing-resizer-plugin',
       lastmod: defaultLastmod,
       changefreq: 'weekly',
       priority: '0.8',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'Figma Marketing Resizer Plugin' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'Figma Marketing Resizer Plugin' }]
     },
     {
       path: '/about',
       lastmod: defaultLastmod,
       changefreq: 'monthly',
       priority: '0.5',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'About BiblioKit' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'About BiblioKit' }]
     },
     {
       path: '/use-cases',
       lastmod: defaultLastmod,
       changefreq: 'weekly',
       priority: '0.7',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'Figma Use Cases & Tutorials' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'Figma Use Cases & Tutorials' }]
     },
     {
       path: '/for',
       lastmod: defaultLastmod,
       changefreq: 'weekly',
       priority: '0.7',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'BiblioKit for Design Professionals' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'BiblioKit for Design Professionals' }]
     },
     {
       path: '/glossary',
       lastmod: defaultLastmod,
       changefreq: 'weekly',
       priority: '0.7',
-      images: [{ loc: `${base}/og/og-default.svg`, title: 'Figma & Design Systems Glossary' }]
+      images: [{ loc: `${base}/og/og-default.png`, title: 'Figma & Design Systems Glossary' }]
     }
   ];
 

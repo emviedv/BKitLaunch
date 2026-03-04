@@ -272,7 +272,7 @@ const buildPluginSoftwareApplicationSchema = (
 
 // Default metadata for all pages
 const defaultMetadata: SEOMetadata = {
-  title: "Figma Workflow Automation & Design System Tools | BiblioKit",
+  title: "Figma Automation & Design System Tools | BiblioKit",
   description: "Automate Figma audits, layer renaming, and prototype cleanup. BiblioKit's 6 plugins help design teams ship faster without the manual grind.",
   keywords: "Figma plugins, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, figma governance tool, design ops automation, detached instances, component states, table fixer, BiblioKit",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
@@ -293,10 +293,10 @@ const biblioRenameMetadata: SEOMetadata = {
   keywords: 'RenameVariantsAI, AI rename variants, Figma naming plugin, design system architecture, component health, structural validation, figma limits',
   ogTitle: 'Batch Rename Figma Components & Variants | RenameVariantsAI',
   ogDescription: 'The bulk renamer for Figma Component Sets & Variants. Standardize properties, fix taxonomy errors, and clean up component logic without breaking instances.',
-  ogImage: '/og/og-default.svg',
+  ogImage: '/og/og-default.png',
   twitterTitle: 'Batch Rename Figma Components & Variants | RenameVariantsAI',
   twitterDescription: 'The bulk renamer for Figma Component Sets & Variants. Standardize properties, fix taxonomy errors, and clean up component logic without breaking instances.',
-  twitterImage: '/og/og-default.svg'
+  twitterImage: '/og/og-default.png'
 };
 
 const fixTableMetadata: SEOMetadata = {
@@ -305,10 +305,10 @@ const fixTableMetadata: SEOMetadata = {
   keywords: 'FixTable, figma table plugin, auto-layout tables, figma columns, zebra striping, design ops, figma automation',
   ogTitle: 'FixTable | Normalize Figma Tables in One Click',
   ogDescription: 'FixTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
-  ogImage: '/og/og-default.svg',
+  ogImage: '/og/og-default.png',
   twitterTitle: 'FixTable | Normalize Figma Tables in One Click',
   twitterDescription: 'FixTable fixes Figma tables instantly. Normalize widths, strip layout bugs, and add zebra striping so data stays readable.',
-  twitterImage: '/og/og-default.svg'
+  twitterImage: '/og/og-default.png'
 };
 
 const biblioAuditMetadata: SEOMetadata = {
@@ -317,10 +317,10 @@ const biblioAuditMetadata: SEOMetadata = {
   keywords: 'ComponentQA, design system audit, figma qa, detached instances, token validation, figma plugin, design ops',
   ogTitle: 'Figma Design Audit Plugin & QA Tool | ComponentQA',
   ogDescription: 'Automate Figma QA and Design System Audits. Instantly find detached instances, validate token usage, and fix design drift before developer handoff.',
-  ogImage: '/og/og-default.svg',
+  ogImage: '/og/og-default.png',
   twitterTitle: 'Figma Design Audit Plugin & QA Tool | ComponentQA',
   twitterDescription: 'Automate Figma QA and Design System Audits. Instantly find detached instances, validate token usage, and fix design drift before developer handoff.',
-  twitterImage: '/og/og-default.svg'
+  twitterImage: '/og/og-default.png'
 };
 
 const biblioCleanMetadata: SEOMetadata = {
@@ -329,10 +329,10 @@ const biblioCleanMetadata: SEOMetadata = {
   keywords: 'BiblioClean, remove prototype link, figma prototype cleanup, revoke share links, design system safety, figma plugin, design ops',
   ogTitle: 'Remove Figma Prototype Links & Clean Files | BiblioClean',
   ogDescription: 'Instantly remove 100s of broken prototype links in one click. Clean up your Figma file layers to reduce lag and ensure a smooth developer handoff.',
-  ogImage: '/og/og-default.svg',
+  ogImage: '/og/og-default.png',
   twitterTitle: 'Remove Figma Prototype Links & Clean Files | BiblioClean',
   twitterDescription: 'Instantly remove 100s of broken prototype links in one click. Clean up your Figma file layers to reduce lag and ensure a smooth developer handoff.',
-  twitterImage: '/og/og-default.svg'
+  twitterImage: '/og/og-default.png'
 };
 
 const stateBuilderMetadata: SEOMetadata = {
@@ -341,10 +341,10 @@ const stateBuilderMetadata: SEOMetadata = {
   keywords: 'StateBuilder, component states, figma state generator, design system specs, handoff documentation, UI state matrix',
   ogTitle: 'StateBuilder | Generate Component States & Specs in Figma',
   ogDescription: 'StateBuilder generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
-  ogImage: '/og/og-default.svg',
+  ogImage: '/og/og-default.png',
   twitterTitle: 'StateBuilder | Generate Component States & Specs in Figma',
   twitterDescription: 'StateBuilder generates states and specs so designers, developers, and marketers align on design systems, handoff, implementation, and launch campaigns.',
-  twitterImage: '/og/og-default.svg'
+  twitterImage: '/og/og-default.png'
 };
 
 const aiRenameVariantsMetadata: SEOMetadata = {
@@ -355,24 +355,24 @@ const aiRenameVariantsMetadata: SEOMetadata = {
   bingbot: 'noindex, follow',
   ogTitle: 'RenameVariantsAI Legacy URL | BiblioKit',
   ogDescription: 'RenameVariantsAI lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
-  ogImage: '/og/og-default.svg',
+  ogImage: '/og/og-default.png',
   twitterTitle: 'RenameVariantsAI Legacy URL | BiblioKit',
   twitterDescription: 'RenameVariantsAI lives at /figma-component-variant-renamer for designers, developers, and marketers. Use the canonical URL to batch-rename variants with AI.',
-  twitterImage: '/og/og-default.svg'
+  twitterImage: '/og/og-default.png'
 };
 
 // Route-specific metadata configurations
 export const routeMetadata: RouteMetadata = {
   '/': {
-    title: 'Figma Workflow Automation & Design System Tools | BiblioKit',
+    title: 'Figma Automation & Design System Tools | BiblioKit',
     description: "Automate Figma audits, layer renaming, and prototype cleanup. BiblioKit's 6 plugins help design teams ship faster without the manual grind.",
     keywords: "Figma plugins, design system audit, Figma layer renaming, AI rename variants, prototype cleanup, design handoff, figma governance tool, design ops automation, detached instances, component states, table fixer, BiblioKit",
-    ogTitle: 'Figma Workflow Automation & Design System Tools | BiblioKit',
+    ogTitle: 'Figma Automation & Design System Tools | BiblioKit',
     ogDescription: "Automate Figma audits, layer renaming, and prototype cleanup. BiblioKit's 6 plugins help design teams ship faster without the manual grind.",
-    ogImage: "/og/og-default.svg",
-    twitterTitle: 'Figma Workflow Automation & Design System Tools | BiblioKit',
+    ogImage: "/og/og-default.png",
+    twitterTitle: 'Figma Automation & Design System Tools | BiblioKit',
     twitterDescription: "Automate Figma audits, layer renaming, and prototype cleanup. BiblioKit's 6 plugins help design teams ship faster without the manual grind.",
-    twitterImage: "/og/og-default.svg",
+    twitterImage: "/og/og-default.png",
     structuredData: [
       {
         "@context": "https://schema.org",
@@ -420,10 +420,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'BiblioKit docs, setup guide, API reference, plugin tutorials, design ops',
     ogTitle: 'BiblioKit Docs | Setup Guides & API Reference',
     ogDescription: 'BiblioKit docs get designers, developers, and marketers live fast. Follow setup steps and API guidance to launch plugins with confidence.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'BiblioKit Docs | Setup Guides & API Reference',
     twitterDescription: 'BiblioKit docs get designers, developers, and marketers live fast. Follow setup steps and API guidance to launch plugins with confidence.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   },
   '/about': {
     title: 'About BiblioKit | The Future of Figma DesignOps & AI Workflows',
@@ -431,10 +431,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'BiblioKit, Figma plugins, DesignOps tools, AI refactoring for design, UX intelligence, design-to-dev workflow, UI automation, Figma productivity',
     ogTitle: 'About BiblioKit | The Future of Figma DesignOps & AI Workflows',
     ogDescription: 'Discover BiblioKit, the ultimate suite of Figma plugins for DesignOps. Learn how our AI-powered tools eliminate manual maintenance and bridge the gap from design to dev.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'About BiblioKit | The Future of Figma DesignOps & AI Workflows',
     twitterDescription: 'Discover BiblioKit, the ultimate suite of Figma plugins for DesignOps. Learn how our AI-powered tools eliminate manual maintenance and bridge the gap from design to dev.',
-    twitterImage: '/og/og-default.svg',
+    twitterImage: '/og/og-default.png',
     webPageType: 'AboutPage',
     structuredData: [
       {
@@ -461,10 +461,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'BiblioKit resources, BiblioClean, Figma cleanup, design ops resources, Figma plugins',
     ogTitle: 'Design System Guides, Playbooks & Checklists | BiblioKit',
     ogDescription: 'Free Figma playbooks and Design System guides. Master file organization, automated auditing, and design handoff with our implementation checklists.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'Design System Guides, Playbooks & Checklists | BiblioKit',
     twitterDescription: 'Free Figma playbooks and Design System guides. Master file organization, automated auditing, and design handoff with our implementation checklists.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   },
   '/learn': {
     title: 'Learn Design Ops Fundamentals | BiblioKit',
@@ -472,10 +472,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'Design Ops fundamentals, design systems operations, design handoff, implementation workflow, launch campaigns',
     ogTitle: 'Learn Design Ops Fundamentals | BiblioKit',
     ogDescription: 'Learn is the BiblioKit hub for designers, developers, and marketers to master design systems, handoff, implementation, launch, and campaigns.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'Learn Design Ops Fundamentals | BiblioKit',
     twitterDescription: 'Learn is the BiblioKit hub for designers, developers, and marketers to master design systems, handoff, implementation, launch, and campaigns.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   },
   '/learn/design-ops-fundamentals': {
     title: 'Design Ops Fundamentals | BiblioKit Learn',
@@ -483,10 +483,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'Design Ops fundamentals, design system governance, design handoff, implementation standards, launch readiness',
     ogTitle: 'Design Ops Fundamentals | BiblioKit Learn',
     ogDescription: 'Evergreen Design Ops Fundamentals guide for designers, developers, and marketers to align design systems, handoff, implementation, launch, and campaigns.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'Design Ops Fundamentals | BiblioKit Learn',
     twitterDescription: 'Evergreen Design Ops Fundamentals guide for designers, developers, and marketers to align design systems, handoff, implementation, launch, and campaigns.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   },
   '/tutorials': {
     title: 'Figma Tutorials | BiblioKit',
@@ -494,10 +494,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'Figma tutorials, Figma how-to, auto-layout tutorial, detached instances fix, design system tutorials, Figma workflow',
     ogTitle: 'Figma Tutorials | BiblioKit',
     ogDescription: 'Step-by-step Figma tutorials for designers and developers. Learn auto-layout, fix detached instances, clean prototype links, and master design system workflows.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'Figma Tutorials | BiblioKit',
     twitterDescription: 'Step-by-step Figma tutorials for designers and developers. Learn auto-layout, fix detached instances, and master design system workflows.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   },
   '/products': {
     title: 'Figma Plugins to Ship Faster | BiblioKit Products',
@@ -505,10 +505,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'BiblioKit products, Figma plugins, design ops automation, Figma audits, rename layers, prototype cleanup',
     ogTitle: 'Figma Plugins to Ship Faster | BiblioKit Products',
     ogDescription: 'Explore every BiblioKit plugin to audit, rename, clean, and launch faster. Built for designers, developers, and marketers.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'Figma Plugins to Ship Faster | BiblioKit Products',
     twitterDescription: 'Explore every BiblioKit plugin to audit, rename, clean, and launch faster. Built for designers, developers, and marketers.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   },
   '/admin': {
     title: "Admin Dashboard | BiblioKit",
@@ -524,10 +524,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'remove prototype link, figma prototype cleanup, revoke share links, design ops hygiene, prototype handoff',
     ogTitle: 'Remove Figma Prototype Links | BiblioKit Resources',
     ogDescription: 'BiblioKit helps designers, developers, and marketers revoke stale prototype links. Follow the cleanup steps to replace URLs and keep reviews on track.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'Remove Figma Prototype Links | BiblioKit Resources',
     twitterDescription: 'BiblioKit helps designers, developers, and marketers revoke stale prototype links. Follow the cleanup steps to replace URLs and keep reviews on track.',
-    twitterImage: '/og/og-default.svg',
+    twitterImage: '/og/og-default.png',
     structuredData: [
       {
         "@context": "https://schema.org",
@@ -588,10 +588,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'UXBiblio, UX pattern library, design inspiration, AI tagging, UX research repository',
     ogTitle: 'UXBiblio | AI UX Patterns by BiblioKit',
     ogDescription: 'UXBiblio organizes UX patterns for designers, developers, and marketers. Capture flows, tag insights, and reuse proven UI faster.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'UXBiblio | AI UX Patterns by BiblioKit',
     twitterDescription: 'UXBiblio organizes UX patterns for designers, developers, and marketers. Capture flows, tag insights, and reuse proven UI faster.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   },
   '/blog': {
     title: 'Design Tips & Figma Workflows | BiblioKit Blog',
@@ -599,10 +599,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'design ops blog, figma workflow tips, prototype cleanup, design system rituals, bibliokit blog, real-world figma fixes',
     ogTitle: 'Design Tips & Figma Workflows | BiblioKit Blog',
     ogDescription: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'Design Tips & Figma Workflows | BiblioKit Blog',
     twitterDescription: 'BiblioKit Blog shares Figma playbooks for designers, developers, and marketers. Read step-by-step workflows to ship cleaner systems faster.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   },
   '/use-cases': {
     title: 'Figma Use Cases & Tutorials | BiblioKit',
@@ -610,10 +610,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'figma tutorials, figma use cases, batch rename figma, detached instances, prototype links, design system audit, figma how-to',
     ogTitle: 'Figma Use Cases & Tutorials | BiblioKit',
     ogDescription: 'Step-by-step guides for common Figma tasks. Learn how to batch rename layers, find detached instances, and more.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'Figma Use Cases & Tutorials | BiblioKit',
     twitterDescription: 'Step-by-step guides for common Figma tasks. Learn how to batch rename layers, find detached instances, and more.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   },
   '/for': {
     title: 'Figma Plugins by Role | BiblioKit',
@@ -621,10 +621,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'figma plugins by role, design system manager figma, freelance designer figma, product designer tools, design lead plugins',
     ogTitle: 'Figma Plugins by Role | BiblioKit',
     ogDescription: 'Discover the best Figma plugins for your role. Tailored recommendations for every type of design professional.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'Figma Plugins by Role | BiblioKit',
     twitterDescription: 'Discover the best Figma plugins for your role. Tailored recommendations for every type of design professional.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   },
   '/glossary': {
     title: 'Figma & Design Systems Glossary | BiblioKit',
@@ -632,10 +632,10 @@ export const routeMetadata: RouteMetadata = {
     keywords: 'figma glossary, design systems glossary, figma terms, design terminology, what is detached instance, figma definitions',
     ogTitle: 'Figma & Design Systems Glossary | BiblioKit',
     ogDescription: 'Learn key Figma and design systems terms. Clear definitions for detached instances, design tokens, auto-layout, and more.',
-    ogImage: '/og/og-default.svg',
+    ogImage: '/og/og-default.png',
     twitterTitle: 'Figma & Design Systems Glossary | BiblioKit',
     twitterDescription: 'Learn key Figma and design systems terms. Clear definitions for detached instances, design tokens, auto-layout, and more.',
-    twitterImage: '/og/og-default.svg'
+    twitterImage: '/og/og-default.png'
   }
 };
 
@@ -873,10 +873,10 @@ export function generateMetadata(
   }
   // Fallback to default on-site OG/Twitter image if missing
   if (!metadata.ogImage) {
-    metadata.ogImage = `${baseUrl}/og/og-default.svg`;
+    metadata.ogImage = `${baseUrl}/og/og-default.png`;
   }
   if (!metadata.twitterImage) {
-    metadata.twitterImage = `${baseUrl}/og/og-default.svg`;
+    metadata.twitterImage = `${baseUrl}/og/og-default.png`;
   }
 
   // Set descriptive fallbacks for alt text/meta

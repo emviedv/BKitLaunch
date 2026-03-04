@@ -204,7 +204,7 @@ const renderSoftwareApplicationSchema = (origin: string, pathname: string): stri
   }
 
   const url = `${origin}${pathname}`;
-  const imageUrl = toAbsoluteUrl(origin, config.image) || `${origin}/og/og-default.svg`;
+  const imageUrl = toAbsoluteUrl(origin, config.image) || `${origin}/og/og-default.png`;
   const softwareVersion = config.softwareVersion
     ? `,
       "softwareVersion": "${config.softwareVersion}"`
