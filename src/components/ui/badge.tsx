@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
  * - accent: Pink-tinted for plugin/product badges
  * - launched/coming-soon/beta: Status badges for feature cards (light bg)
  * - problem/solution/info: Section badges for use case pages (dark bg)
+ *
+ * All badges support an optional icon prop for left-side icons.
  */
 const badgeVariants = cva(
   // Base styles - apply to ALL badges
@@ -45,48 +47,19 @@ const badgeVariants = cva(
         default: "px-3 py-1.5 text-sm",
         lg: "px-4 py-2 text-sm",
       },
-      withDot: {
-        true: "",
-        false: "",
-      },
     },
     defaultVariants: {
       variant: "glass",
       size: "default",
-      withDot: false,
     },
   }
 );
 
-/**
- * Maps badge variants to their dot colors.
- * Uses CSS custom properties for glass/accent, Tailwind colors for status badges.
- */
-const getDotColor = (variant: string | null | undefined): string => {
-  switch (variant) {
-    case "glass":
-    case "accent":
-      return "bg-[var(--badge-dot)]"; // #F1A0FF from tokens
-    case "launched":
-      return "bg-emerald-500";
-    case "coming-soon":
-      return "bg-amber-500";
-    case "beta":
-      return "bg-indigo-500";
-    case "problem":
-      return "bg-red-500";
-    case "solution":
-      return "bg-green-500";
-    case "info":
-      return "bg-slate-500";
-    default:
-      return "bg-[var(--badge-dot)]";
-  }
-};
-
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLSpanElement>,
     VariantProps<typeof badgeVariants> {
+  /** Optional icon to display on the left side */
+  icon?: React.ReactNode;
   /** Optional href to render as a link */
   href?: string;
   /** Link target (only applies when href is set) */
@@ -97,18 +70,15 @@ export interface BadgeProps
 
 const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
   (
-    { className, variant, size, withDot, href, target, rel, children, ...props },
+    { className, variant, size, icon, href, target, rel, children, ...props },
     ref
   ) => {
-    const dotColor = getDotColor(variant);
-
     const content = (
       <>
-        {withDot && (
-          <span
-            className={cn("inline-flex h-2 w-2 rounded-full", dotColor)}
-            aria-hidden="true"
-          />
+        {icon && (
+          <span className="inline-flex shrink-0" aria-hidden="true">
+            {icon}
+          </span>
         )}
         {children}
       </>
@@ -121,7 +91,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
           href={href}
           target={target}
           rel={rel}
-          className={cn(badgeVariants({ variant, size, withDot, className }))}
+          className={cn(badgeVariants({ variant, size, className }))}
           {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
           {content}
@@ -132,7 +102,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     return (
       <span
         ref={ref}
-        className={cn(badgeVariants({ variant, size, withDot, className }))}
+        className={cn(badgeVariants({ variant, size, className }))}
         {...props}
       >
         {content}

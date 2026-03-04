@@ -1,6 +1,8 @@
 import React from 'react';
+import { Sparkles } from 'lucide-react';
 import { buildBlogPostHref, findBlogPostBySlug, type BlogPost } from '@/data/blogPosts';
 import { getImageDimensions } from '@/lib/imageDimensions';
+import { Badge } from '@/components/ui/badge';
 
 /**
  * Tutorial post slugs - curated list of how-to guides and step-by-step tutorials.
@@ -68,10 +70,9 @@ const TutorialsPage: React.FC = () => {
                 href={buildBlogPostHref(featuredPost.slug)}
                 className={`group block rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur ${blogCardHoverClass}`}
               >
-                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 mb-4">
-                  <span className="inline-flex h-2 w-2 rounded-full bg-[#F1A0FF]" />
-                  <span>Featured Tutorial</span>
-                </span>
+                <Badge variant="glass" size="sm" icon={<Sparkles className="w-3 h-3" />} className="mb-4">
+                  Featured Tutorial
+                </Badge>
                 {featuredPost.heroImage && (
                   <div className="mb-4 overflow-hidden rounded-lg bg-white/10">
                     <img

@@ -212,3 +212,4 @@ export const ChevronRight = createIconWrapper('solar:alt-arrow-right-linear');
 export const HelpCircle = createIconWrapper('solar:question-circle-linear');
 export const Users = createIconWrapper('solar:users-group-rounded-linear');
 export const Lightbulb = createIconWrapper('solar:lightbulb-bolt-linear');
+export const Sparkles = createIconWrapper('solar:stars-minimalistic-linear');

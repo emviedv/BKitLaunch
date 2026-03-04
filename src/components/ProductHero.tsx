@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Confetti, type ConfettiRef } from '@/components/ui/confetti';
 import { debugService } from '@/lib/debugService';
-import { resolveLucideIcon, ArrowRight } from '@/lib/iconUtils';
+import { resolveLucideIcon, ArrowRight, Sparkles } from '@/lib/iconUtils';
 import {
   HERO_TITLE_CLASS,
   HERO_HEADLINE_GRADIENT_CLASS,
@@ -171,7 +171,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
 
             <div className={titleWrapperClassName}>
               {badgeLabel && (
-                <Badge variant="glass" withDot>
+                <Badge variant="glass" icon={<Sparkles className="w-3 h-3" />}>
                   {badgeLabel}
                 </Badge>
               )}

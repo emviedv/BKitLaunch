@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { ShieldCheck, Zap, Sparkles } from "lucide-react";
+import { ShieldCheck, Zap, Sparkles, Clock } from "lucide-react";
 
 import { usePublishedContent } from "@/hooks/usePublishedContent";
 import { resolveLucideIcon } from "@/lib/iconUtils";
@@ -79,18 +79,18 @@ const Features: React.FC = () => {
     (feature) => Boolean(feature?.title) && !shouldHideFeature(feature)
   );
 
-  const getCategoryBadge = (feature: FeatureLike): { label: string; variant: 'launched' | 'coming-soon' | 'beta' } | null => {
+  const getCategoryBadge = (feature: FeatureLike): { label: string; variant: 'launched' | 'coming-soon' | 'beta'; icon: React.ReactNode } | null => {
     const key = (feature?.category || feature?.badge || '').trim().toLowerCase();
     if (!key) return null;
 
     if (key.startsWith('launch')) {
-      return { label: 'Launched', variant: 'launched' };
+      return { label: 'Launched', variant: 'launched', icon: <Sparkles className="w-3 h-3" /> };
     }
     if (key.startsWith('coming')) {
-      return { label: 'Coming Soon', variant: 'coming-soon' };
+      return { label: 'Coming Soon', variant: 'coming-soon', icon: <Clock className="w-3 h-3" /> };
     }
     if (key.startsWith('beta')) {
-      return { label: 'Beta', variant: 'beta' };
+      return { label: 'Beta', variant: 'beta', icon: <Zap className="w-3 h-3" /> };
     }
     return null;
   };
@@ -182,7 +182,7 @@ const Features: React.FC = () => {
                   if (!category) return null;
                   return (
                     <div className="mb-2">
-                      <Badge variant={category.variant} size="sm" withDot>
+                      <Badge variant={category.variant} size="sm" icon={category.icon}>
                         {category.label}
                       </Badge>
                     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
   buildHeroHeadlineSegments,
   splitHeroHeadline,
@@ -14,7 +15,7 @@ import {
   LANDING_PRICING_ID,
   LANDING_WAITLIST_ID,
 } from '@/config/sectionAnchors';
-import { MousePointer2, ArrowRight } from '@/lib/iconUtils';
+import { MousePointer2, ArrowRight, Sparkles } from '@/lib/iconUtils';
 import FluidBackground from './FluidBackground';
 
 export type LandingHeroContent = {
@@ -396,10 +397,9 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                 ))}
               </div>
               {badgeLabel && (
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/[0.06] px-3.5 py-1.5 text-sm font-medium text-white/75 backdrop-blur-sm">
-                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[#F1A0FF]" />
-                  <span>{badgeLabel}</span>
-                </span>
+                <Badge variant="glass" icon={<Sparkles className="w-3 h-3" />}>
+                  {badgeLabel}
+                </Badge>
               )}
             </div>
 

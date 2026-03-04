@@ -1,4 +1,5 @@
 import React from 'react';
+import { Sparkles } from 'lucide-react';
 import { BLOG_POSTS, buildBlogPostHref } from '@/data/blogPosts';
 import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
 import { getImageDimensions } from '@/lib/imageDimensions';
@@ -51,7 +52,7 @@ const BlogPage: React.FC = () => {
               </div>
               {featuredPost && (
                 <article className="flex flex-col gap-4 text-left text-white">
-                  <Badge variant="glass" withDot>
+                  <Badge variant="glass" icon={<Sparkles className="w-3 h-3" />}>
                     Latest Post
                   </Badge>
                   {featuredPost.heroImage && (
