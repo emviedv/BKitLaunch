@@ -34,6 +34,7 @@
 # Route legacy AI Rename path to the canonical BiblioRename URL
 /ai-rename-variants                             /figma-component-variant-renamer    301
 /biblio-rename                                  /figma-component-variant-renamer    301
+/figma-ai-rename-variants                       /figma-component-variant-renamer    301
 
 # Route legacy product paths to SEO-friendly URLs
 /biblio-audit                                   /figma-design-system-audit-plugin    301

@@ -2616,7 +2616,7 @@ const installUninstallFigmaPluginContent: BlogContentBlock[] = [
   {
     type: 'unorderedList',
     items: [
-      '[RenameVariantsAI](/figma-ai-rename-variants) - Batch rename layers and variants with AI assistance',
+      '[RenameVariantsAI](/figma-component-variant-renamer) - Batch rename layers and variants with AI assistance',
       '[ComponentQA](/figma-design-system-audit-plugin) - Audit your design system and find detached instances',
       '[BiblioClean](/figma-plugin-remove-prototype-links) - Remove all prototype links in one click',
       '[FixTable](/figma-table-builder) - Normalize messy table structures to proper Auto Layout'

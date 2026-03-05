@@ -107,6 +107,7 @@
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
 
 ## Updates
+- 2026-03-05 01:13 EST: Fixed SSR route rendering to output page H1s in production HTML (removed route lazy fallback), redirected `/figma-ai-rename-variants` to `/figma-component-variant-renamer`, and updated internal links to prevent duplicate indexable legacy URLs.
 - 2026-03-05 01:04 EST: Standardized dev port defaults to 9990 across Vite/Netlify/scripts, consolidated URL base resolution via shared utilities, hardened debug logging for production, enabled waitlist CTA by default, and verified DevTools do not render in production SSR output before commit.
 - 2026-03-05 00:38 EST: Added a blog hero rule to hide avatar strips above badges and logged the hero layout cleanup update before commit.
 - 2026-03-04 21:45 EST: Added DevTools grid/spacing overlays and a consolidated badge preview with icon-mapped status contract tests.

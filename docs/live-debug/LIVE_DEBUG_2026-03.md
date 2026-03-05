@@ -2,6 +2,18 @@
 
 ## 2026-03-05
 
+- **Time:** 2026-03-05 01:09 EST
+- **Summary:** Added canonical redirects and internal-link cleanup for legacy RenameVariantsAI URL variants to prevent duplicate indexable paths.
+- **Root Cause:** The legacy path `/figma-ai-rename-variants` was discoverable via internal blog content and not explicitly redirected in SSR/public redirects, creating a duplicate indexable URL in SEO crawls.
+- **Changed Files:** netlify/edge-functions/ssr.ts; public/_redirects; src/data/blogPosts.ts; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:server` (pass); `npm run build:client` (pass); confirmed SSR redirect rule now includes `/figma-ai-rename-variants` and internal blog link points to `/figma-component-variant-renamer`.
+
+- **Time:** 2026-03-05 01:08 EST
+- **Summary:** Fixed missing `<h1>` in production SSR for most routes by removing route-level `React.lazy`/`Suspense` fallback rendering in the main app router.
+- **Root Cause:** `renderToString` cannot resolve `React.lazy` route modules server-side, so SSR emitted the fallback `"Loading page..."` markup for lazy routes, causing crawlers to record `H1=0` on key pages.
+- **Changed Files:** src/App.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:server` (pass); `npm run build:client` (pass); `node --input-type=module -e "import { renderToString, fetchContentData } from './dist/server/entry-server.js'; ..."` (confirmed `/figma-design-system-audit-plugin`, `/learn`, `/about`, `/products`, `/blog` all return SSR HTML with `h1Count:1` and no `"Loading page..."` fallback)
+
 - **Time:** 2026-03-05 01:02 EST
 - **Summary:** Removed the default disabled state from the waitlist primary CTA so the button remains active before email input.
 - **Root Cause:** Waitlist submit button used `disabled={state.isLoading || !state.email.trim()}`, which rendered the primary CTA in a disabled state on initial load.
