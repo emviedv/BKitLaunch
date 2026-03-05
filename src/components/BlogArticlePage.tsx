@@ -28,7 +28,7 @@ const BLOG_HERO_TITLE_CLASS =
   'text-4xl sm:text-5xl md:text-6xl font-sans font-extrabold leading-[1.1] tracking-normal sm:tracking-[-0.01em] text-white';
 const BLOG_HERO_CONTENT_WIDTH_CLASS = 'w-full max-w-[92%] md:max-w-[80%] lg:max-w-[70%]';
 const BLOG_HERO_TITLE_CLAMP_LINES = 4;
-const BLOG_HERO_DESCRIPTION_WIDTH_CLASS = 'max-w-full';
+const BLOG_HERO_DESCRIPTION_WIDTH_CLASS = 'max-w-4xl lg:max-w-3xl';
 const BLOG_CARD_IMAGE_CLASS = 'h-[140px] w-full object-cover';
 const BLOG_CARD_IMAGE_WRAPPER_CLASS = 'mb-4 overflow-hidden rounded-lg bg-white/10';
 
@@ -123,6 +123,7 @@ const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: s
       const isExternalSrc = /^https?:\/\//.test(block.src);
       const imageDimensions = getImageDimensions(block.src);
       const isFirstImage = index === firstImageIndex;
+      const fetchPriorityProps = isFirstImage ? ({ fetchpriority: 'high' } as const) : {};
 
       if (blogImageDebugEnabled()) {
         debugService.debug('blog:image-block', {
@@ -145,8 +146,8 @@ const renderContentBlock = (block: BlogContentBlock, index: number, postSlug?: s
               width={imageDimensions?.width}
               height={imageDimensions?.height}
               loading={isFirstImage ? 'eager' : 'lazy'}
-              fetchPriority={isFirstImage ? 'high' : undefined}
               decoding="async"
+              {...fetchPriorityProps}
             />
           </div>
           {(block.caption || resolvedAlt) && (
@@ -321,7 +322,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
           contentMaxWidthClassName={BLOG_HERO_CONTENT_WIDTH_CLASS}
           titleClampLines={BLOG_HERO_TITLE_CLAMP_LINES}
           descriptionMaxWidthClassName={BLOG_HERO_DESCRIPTION_WIDTH_CLASS}
-          descriptionClassName="text-[1.4rem]"
+          descriptionClassName="blog-hero-description text-[1.4rem]"
           disableCursorEffects
           showAvatarStrip={false}
         />
@@ -354,7 +355,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
           contentMaxWidthClassName={BLOG_HERO_CONTENT_WIDTH_CLASS}
           titleClampLines={BLOG_HERO_TITLE_CLAMP_LINES}
           descriptionMaxWidthClassName={BLOG_HERO_DESCRIPTION_WIDTH_CLASS}
-          descriptionClassName="text-[1.4rem]"
+          descriptionClassName="blog-hero-description text-[1.4rem]"
           disableCursorEffects
           showAvatarStrip={false}
         />

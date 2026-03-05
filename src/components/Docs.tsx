@@ -30,6 +30,16 @@ export const Docs: React.FC = () => {
         </div>
       </section>
 
+      <section aria-labelledby="ahrefs-api-example-heading" className="mb-12">
+        <h2 id="ahrefs-api-example-heading" className="text-2xl font-semibold mb-4">Ahrefs API example</h2>
+        <div className="rounded-md border bg-muted/40 p-4 overflow-x-auto">
+          <pre className="text-sm"><code>{`curl --request GET \\
+  --header "Authorization: Bearer YOUR_API_KEY" \\
+  --header "Content-Type: application/json" \\
+  --url "https://api.ahrefs.com/v3/site-explorer/domain-rating?date=2026-03-05&target=bibliokit.com%2F"`}</code></pre>
+        </div>
+      </section>
+
       <section aria-labelledby="resources-heading" className="mb-12">
         <h2 id="resources-heading" className="text-2xl font-semibold mb-4">Resources</h2>
         <ul className="list-disc list-inside space-y-2 text-muted-foreground">

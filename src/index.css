@@ -725,6 +725,14 @@
     min-height: clamp(360px, 70vh, 600px);
   }
 
+  .blog-hero .blog-hero-description {
+    max-width: min(74ch, 100%);
+    margin-inline: auto;
+    text-align: center;
+    text-wrap: balance;
+    line-height: 1.7;
+  }
+
   /* Blog header surface matches landing hero background without extra overlays or padding */
   .blog-header-surface {
     background-image:

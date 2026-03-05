@@ -2,6 +2,30 @@
 
 ## 2026-03-05
 
+- **Time:** 2026-03-05 18:11 EST
+- **Summary:** Updated SEO metadata defaults and key route metadata to match current strategy (Workflow Automation homepage, BiblioRename, BiblioStart), removed unverified homepage `aggregateRating` schema, and stopped server-side title/description ellipsis truncation.
+- **Root Cause:** `generateMetadata` clamped title/description strings with `…`, key route metadata had stale naming/targeting drift from current SEO rules, and homepage structured data included hardcoded rating values without verified source data.
+- **Changed Files:** src/lib/seo.ts; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:server` (pass); `npm run build:client` (pass); `node --loader ./tests/support/esbuild-loader.mjs --test tests/unit/sitemap.spec.ts tests/unit/seoClientNavigation.spec.ts tests/unit/updatePageMetadataStructuredData.spec.ts` (pass); `node --input-type=module -e "...generateMetadata sweep..."` (local output confirms no ellipsis and no `aggregateRating` in structured data for checked routes).
+
+- **Time:** 2026-03-05 02:55 EST
+- **Summary:** Updated the blog page featured post card to show two paragraphs of post content preview instead of a single excerpt line.
+- **Root Cause:** Featured post preview rendered only one excerpt paragraph, which did not satisfy the requirement to show at least two content paragraphs from the post.
+- **Changed Files:** src/components/BlogPage.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:client` (pass).
+
+- **Time:** 2026-03-05 02:53 EST
+- **Summary:** Removed the “Latest Post” badge from the blog page featured article hero card.
+- **Root Cause:** The featured-card badge added extra UI noise above the primary blog hero content and was explicitly requested to be removed.
+- **Changed Files:** src/components/BlogPage.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:client` (pass).
+
+- **Time:** 2026-03-05 02:48 EST
+- **Summary:** Applied a global blog hero copy-balance/alignment fix across all article pages and hardened first in-article image priority attributes for production SSR output.
+- **Root Cause:** Blog article heroes reused shared landing hero styles with no blog-specific description balancing/line-length controls, and the first image priority attribute needed lowercase passthrough (`fetchpriority`) to avoid React DOM attribute warnings in SSR paths.
+- **Changed Files:** src/components/BlogArticlePage.tsx; src/index.css; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build` (pass); `node --input-type=module -e "...renderToString blog slug sweep..."` (15/15 blog posts render with `h1Count:1`, no `"Loading page..."` fallback); `npm run test:unit` (fails in pre-existing `client/src/__tests__/unit/ProductContentSections.spec.tsx` `sectionsOrder` expectation for `faqs`, unrelated to blog hero changes).
+
 - **Time:** 2026-03-05 01:09 EST
 - **Summary:** Added canonical redirects and internal-link cleanup for legacy RenameVariantsAI URL variants to prevent duplicate indexable paths.
 - **Root Cause:** The legacy path `/figma-ai-rename-variants` was discoverable via internal blog content and not explicitly redirected in SSR/public redirects, creating a duplicate indexable URL in SEO crawls.

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
 import { BLOG_POSTS, buildBlogPostHref } from '@/data/blogPosts';
 import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
 import { getImageDimensions } from '@/lib/imageDimensions';
-import { Badge } from '@/components/ui/badge';
 const BLOG_LIST_SECTION_ID = 'blog-latest';
 const blogCardHoverClass =
   'transition hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
@@ -18,11 +16,44 @@ const getPostTimestamp = (lastUpdated?: string) => {
   return Number.isNaN(parsed) ? 0 : parsed;
 };
 
+const getFeaturedPreviewParagraphs = (post: (typeof BLOG_POSTS)[number] | undefined): string[] => {
+  if (!post) {
+    return [];
+  }
+
+  const contentParagraphs = (post.content ?? [])
+    .filter((block) => block.type === 'paragraph')
+    .map((block) => block.text.trim())
+    .filter(Boolean);
+
+  const fallbackParagraphs = [post.excerpt, post.metaDescription]
+    .map((text) => text?.trim() ?? '')
+    .filter(Boolean);
+
+  const paragraphCandidates = [...contentParagraphs, ...fallbackParagraphs];
+  if (paragraphCandidates.length >= 2) {
+    return paragraphCandidates.slice(0, 2);
+  }
+
+  const onlyParagraph = paragraphCandidates[0];
+  if (!onlyParagraph) {
+    return [];
+  }
+
+  const sentenceParts = onlyParagraph.split(/(?<=[.!?])\s+/).filter(Boolean);
+  if (sentenceParts.length > 1) {
+    return [sentenceParts[0], sentenceParts.slice(1).join(' ')];
+  }
+
+  return [onlyParagraph, onlyParagraph];
+};
+
 const BlogPage: React.FC = () => {
   const sortedPosts = [...BLOG_POSTS].sort(
     (a, b) => getPostTimestamp(b.lastUpdated) - getPostTimestamp(a.lastUpdated)
   );
   const featuredPost = sortedPosts[0];
+  const featuredPreviewParagraphs = getFeaturedPreviewParagraphs(featuredPost);
   const featuredImageDimensions = featuredPost?.heroImage
     ? getImageDimensions(featuredPost.heroImage)
     : null;
@@ -52,9 +83,6 @@ const BlogPage: React.FC = () => {
               </div>
               {featuredPost && (
                 <article className="flex flex-col gap-4 text-left text-white">
-                  <Badge variant="glass" icon={<Sparkles className="w-3 h-3" />}>
-                    Latest Post
-                  </Badge>
                   {featuredPost.heroImage && (
                     <div className="overflow-hidden rounded-[2px]">
                       <img
@@ -80,9 +108,13 @@ const BlogPage: React.FC = () => {
                       {featuredPost.title}
                     </a>
                   </h2>
-                  <p className="text-base leading-7 text-white/80">
-                    {renderTextWithLinks(featuredPost.excerpt)}
-                  </p>
+                  <div className="space-y-4">
+                    {featuredPreviewParagraphs.map((paragraph, index) => (
+                      <p key={`featured-preview-${index}`} className="text-base leading-7 text-white/80">
+                        {renderTextWithLinks(paragraph)}
+                      </p>
+                    ))}
+                  </div>
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                     <a href={buildBlogPostHref(featuredPost.slug)} className={blogCtaButtonClass}>
                       Read the article
