@@ -1,0 +1,16 @@
+{
+  "happyPath": {
+    "requiredStatusIconPairs": [
+      { "status": "launched", "icon": "sparkles" },
+      { "status": "coming-soon", "icon": "clock" },
+      { "status": "beta", "icon": "zap" }
+    ]
+  },
+  "edgeVariant": {
+    "disallowedStatusIconPairs": [
+      { "status": "launched", "icon": "dot" },
+      { "status": "coming-soon", "icon": "dot" },
+      { "status": "beta", "icon": "dot" }
+    ]
+  }
+}

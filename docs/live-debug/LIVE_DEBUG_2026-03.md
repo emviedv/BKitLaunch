@@ -14,6 +14,30 @@
 - **Changed Files:** src/index.css; src/components/LandingHero.tsx; src/components/Hero.tsx; src/components/ProductHero.tsx; src/components/AIRenameVariantsPage.tsx; src/components/BiblioCleanPage.tsx; src/components/ComponentQAPage.tsx; src/components/FixTablePage.tsx; src/components/OrganizeFilePage.tsx; src/components/ScaleResizerPage.tsx; src/components/StateBuilderPage.tsx; src/components/AboutPage.tsx; src/components/LearnPage.tsx; src/components/TutorialsPage.tsx; src/components/DesignOpsFundamentalsPage.tsx; src/components/BlogPage.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
 - **Verification:** `npm run build:client` (pass)
 
+- **Time:** 2026-03-04 21:29 EST
+- **Summary:** Added DevTools overlays for page grid visualization and live spacing guides between hovered elements and their parent containers.
+- **Root Cause:** Existing DevTools only supported color pick + inspector metadata, so layout debugging lacked an on-page grid reference and direct spacing visualization.
+- **Changed Files:** src/components/DevTools.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:client` (pass)
+
+- **Time:** 2026-03-04 21:33 EST
+- **Summary:** Added a standalone badge preview page that shows the current badge styling and all component variants/sizes in dark and light contexts.
+- **Root Cause:** We needed a single isolated surface to review badge visuals quickly without navigating through multiple product pages.
+- **Changed Files:** public/badge-variants.html; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:client` (pass)
+
+- **Time:** 2026-03-04 21:36 EST
+- **Summary:** Corrected the badge preview to reflect consolidated component usage and icon-led status chips (Sparkles/Clock/Zap), and added a dedicated unit test to prevent preview drift.
+- **Root Cause:** The first static preview used generic dot icons and did not explicitly mirror current status badge icon patterns from `Features.tsx` after consolidation.
+- **Changed Files:** public/badge-variants.html; tests/unit/badgeVariantsPreview.spec.ts; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `node --test tests/unit/badgeVariantsPreview.spec.ts` (pass); `npm run build:client` (pass)
+
+- **Time:** 2026-03-04 21:37 EST
+- **Summary:** Added badge preview contract fixtures/tests to lock status-to-icon mappings and prevent future regressions to non-icon status treatments.
+- **Root Cause:** Unit coverage validated presence only; we also needed a boundary contract that asserts canonical status/icon pairs and rejects known bad mappings.
+- **Changed Files:** tests/contract/fixtures/badge-preview.contract.json; tests/contract/badgePreview.contract.spec.ts; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `node --test tests/unit/badgeVariantsPreview.spec.ts tests/contract/badgePreview.contract.spec.ts` (pass); `npm run build:client` (pass)
+
 - **Time:** 2026-03-04 18:43 EST
 - **Summary:** Logged a failing design-system characterization test that still expects legacy palette token names.
 - **Root Cause:** `src/__tests__/ui/design-system.characterization.test.mjs` asserts `pink-500`/`blue-500`/`green-500`, but the current design-system data and labels use updated names like `brand-500` and gradient IDs.

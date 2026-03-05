@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Wrench, X, Pipette, Search } from 'lucide-react';
+import { Wrench, X, Pipette, Search, Grid3X3, Ruler } from 'lucide-react';
 
 /**
  * DevTools - Debug overlay for development only
@@ -38,6 +38,18 @@ interface ElementInfo {
 
 type ActiveTool = 'none' | 'picker' | 'spacer' | 'inspector';
 
+interface SpacingGuide {
+  elementRect: DOMRect;
+  containerRect: DOMRect;
+  containerLabel: string;
+  distances: {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  };
+}
+
 const DevTools: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTool, setActiveTool] = useState<ActiveTool>('none');
@@ -45,6 +57,9 @@ const DevTools: React.FC = () => {
   const [selectedElement, setSelectedElement] = useState<ElementInfo | null>(null);
   const [hoveredElement, setHoveredElement] = useState<HTMLElement | null>(null);
   const [highlightBox, setHighlightBox] = useState<DOMRect | null>(null);
+  const [showGridOverlay, setShowGridOverlay] = useState(false);
+  const [showSpacingGuides, setShowSpacingGuides] = useState(false);
+  const [spacingGuide, setSpacingGuide] = useState<SpacingGuide | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   // Don't render in production
@@ -113,6 +128,32 @@ const DevTools: React.FC = () => {
     }
   };
 
+  const getSpacingGuide = (target: HTMLElement): SpacingGuide | null => {
+    const container = target.parentElement;
+    if (!container) return null;
+
+    const elementRect = target.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const containerLabel =
+      container.id
+        ? `${container.tagName.toLowerCase()}#${container.id}`
+        : container.classList.length > 0
+          ? `${container.tagName.toLowerCase()}.${Array.from(container.classList).slice(0, 2).join('.')}`
+          : container.tagName.toLowerCase();
+
+    return {
+      elementRect,
+      containerRect,
+      containerLabel,
+      distances: {
+        top: Math.round(elementRect.top - containerRect.top),
+        right: Math.round(containerRect.right - elementRect.right),
+        bottom: Math.round(containerRect.bottom - elementRect.bottom),
+        left: Math.round(elementRect.left - containerRect.left),
+      },
+    };
+  };
+
   const handleInspectorClick = useCallback((e: MouseEvent) => {
     if (activeTool !== 'inspector') return;
 
@@ -125,6 +166,7 @@ const DevTools: React.FC = () => {
     setSelectedElement(getElementInfo(target));
     setActiveTool('none');
     setHighlightBox(null);
+    setSpacingGuide(null);
   }, [activeTool]);
 
   const handleInspectorHover = useCallback((e: MouseEvent) => {
@@ -135,7 +177,8 @@ const DevTools: React.FC = () => {
 
     setHoveredElement(target);
     setHighlightBox(target.getBoundingClientRect());
-  }, [activeTool]);
+    setSpacingGuide(showSpacingGuides ? getSpacingGuide(target) : null);
+  }, [activeTool, showSpacingGuides]);
 
   useEffect(() => {
     if (activeTool === 'inspector') {
@@ -161,6 +204,7 @@ const DevTools: React.FC = () => {
       if (e.key === 'Escape') {
         setActiveTool('none');
         setHighlightBox(null);
+        setSpacingGuide(null);
       }
     };
 
@@ -186,6 +230,22 @@ const DevTools: React.FC = () => {
 
   return (
     <>
+      {/* Global page grid overlay */}
+      {showGridOverlay && (
+        <div
+          className="fixed inset-0 pointer-events-none z-[9994]"
+          style={{
+            backgroundImage: [
+              'linear-gradient(rgba(241,160,255,0.14) 1px, transparent 1px)',
+              'linear-gradient(90deg, rgba(241,160,255,0.14) 1px, transparent 1px)',
+              'linear-gradient(rgba(101,128,225,0.24) 1px, transparent 1px)',
+              'linear-gradient(90deg, rgba(101,128,225,0.24) 1px, transparent 1px)',
+            ].join(','),
+            backgroundSize: '8px 8px, 8px 8px, 64px 64px, 64px 64px',
+          }}
+        />
+      )}
+
       {/* Highlight overlay for inspector */}
       {highlightBox && activeTool === 'inspector' && (
         <div
@@ -204,6 +264,101 @@ const DevTools: React.FC = () => {
         </div>
       )}
 
+      {/* Spacing guides: hovered element to parent container */}
+      {showSpacingGuides && spacingGuide && activeTool === 'inspector' && (
+        <>
+          <div
+            className="fixed pointer-events-none z-[9995] border border-cyan-400/70 bg-cyan-400/5"
+            style={{
+              top: spacingGuide.containerRect.top,
+              left: spacingGuide.containerRect.left,
+              width: spacingGuide.containerRect.width,
+              height: spacingGuide.containerRect.height,
+            }}
+          >
+            <div className="absolute -top-6 left-0 rounded bg-cyan-500 px-2 py-0.5 text-[10px] text-slate-900">
+              container: {spacingGuide.containerLabel}
+            </div>
+          </div>
+
+          {/* Top distance */}
+          <div
+            className="fixed pointer-events-none z-[9996] w-px bg-amber-400/90"
+            style={{
+              left: spacingGuide.elementRect.left + spacingGuide.elementRect.width / 2,
+              top: spacingGuide.containerRect.top,
+              height: Math.max(0, spacingGuide.elementRect.top - spacingGuide.containerRect.top),
+            }}
+          />
+          <div
+            className="fixed pointer-events-none z-[9996] rounded bg-amber-500 px-1.5 py-0.5 text-[10px] text-slate-900"
+            style={{
+              left: spacingGuide.elementRect.left + spacingGuide.elementRect.width / 2 + 6,
+              top: spacingGuide.containerRect.top + (spacingGuide.elementRect.top - spacingGuide.containerRect.top) / 2 - 10,
+            }}
+          >
+            {spacingGuide.distances.top}px
+          </div>
+
+          {/* Right distance */}
+          <div
+            className="fixed pointer-events-none z-[9996] h-px bg-amber-400/90"
+            style={{
+              top: spacingGuide.elementRect.top + spacingGuide.elementRect.height / 2,
+              left: spacingGuide.elementRect.right,
+              width: Math.max(0, spacingGuide.containerRect.right - spacingGuide.elementRect.right),
+            }}
+          />
+          <div
+            className="fixed pointer-events-none z-[9996] rounded bg-amber-500 px-1.5 py-0.5 text-[10px] text-slate-900"
+            style={{
+              top: spacingGuide.elementRect.top + spacingGuide.elementRect.height / 2 + 6,
+              left: spacingGuide.elementRect.right + (spacingGuide.containerRect.right - spacingGuide.elementRect.right) / 2 - 12,
+            }}
+          >
+            {spacingGuide.distances.right}px
+          </div>
+
+          {/* Bottom distance */}
+          <div
+            className="fixed pointer-events-none z-[9996] w-px bg-amber-400/90"
+            style={{
+              left: spacingGuide.elementRect.left + spacingGuide.elementRect.width / 2,
+              top: spacingGuide.elementRect.bottom,
+              height: Math.max(0, spacingGuide.containerRect.bottom - spacingGuide.elementRect.bottom),
+            }}
+          />
+          <div
+            className="fixed pointer-events-none z-[9996] rounded bg-amber-500 px-1.5 py-0.5 text-[10px] text-slate-900"
+            style={{
+              left: spacingGuide.elementRect.left + spacingGuide.elementRect.width / 2 + 6,
+              top: spacingGuide.elementRect.bottom + (spacingGuide.containerRect.bottom - spacingGuide.elementRect.bottom) / 2 - 10,
+            }}
+          >
+            {spacingGuide.distances.bottom}px
+          </div>
+
+          {/* Left distance */}
+          <div
+            className="fixed pointer-events-none z-[9996] h-px bg-amber-400/90"
+            style={{
+              top: spacingGuide.elementRect.top + spacingGuide.elementRect.height / 2,
+              left: spacingGuide.containerRect.left,
+              width: Math.max(0, spacingGuide.elementRect.left - spacingGuide.containerRect.left),
+            }}
+          />
+          <div
+            className="fixed pointer-events-none z-[9996] rounded bg-amber-500 px-1.5 py-0.5 text-[10px] text-slate-900"
+            style={{
+              top: spacingGuide.elementRect.top + spacingGuide.elementRect.height / 2 + 6,
+              left: spacingGuide.containerRect.left + (spacingGuide.elementRect.left - spacingGuide.containerRect.left) / 2 - 12,
+            }}
+          >
+            {spacingGuide.distances.left}px
+          </div>
+        </>
+      )}
+
       {/* Main panel */}
       <div
         ref={overlayRef}
@@ -217,6 +372,7 @@ const DevTools: React.FC = () => {
               setIsOpen(false);
               setActiveTool('none');
               setHighlightBox(null);
+              setSpacingGuide(null);
             }}
             className="text-slate-400 hover:text-white"
           >
@@ -240,7 +396,14 @@ const DevTools: React.FC = () => {
               <span>Color Picker</span>
             </button>
             <button
-              onClick={() => setActiveTool(activeTool === 'inspector' ? 'none' : 'inspector')}
+              onClick={() => {
+                const nextTool = activeTool === 'inspector' ? 'none' : 'inspector';
+                setActiveTool(nextTool);
+                if (nextTool !== 'inspector') {
+                  setHighlightBox(null);
+                  setSpacingGuide(null);
+                }
+              }}
               className={`flex-1 px-3 py-2 rounded text-xs font-medium transition-colors ${
                 activeTool === 'inspector'
                   ? 'bg-ds-pink-600 text-white'
@@ -252,9 +415,38 @@ const DevTools: React.FC = () => {
             </button>
           </div>
 
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => setShowGridOverlay(prev => !prev)}
+              className={`px-3 py-2 rounded text-xs font-medium transition-colors ${
+                showGridOverlay
+                  ? 'bg-ds-pink-600 text-white'
+                  : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+              }`}
+            >
+              <span className="inline-flex items-center gap-1">
+                <Grid3X3 className="w-3.5 h-3.5" />
+                Grid Overlay
+              </span>
+            </button>
+            <button
+              onClick={() => setShowSpacingGuides(prev => !prev)}
+              className={`px-3 py-2 rounded text-xs font-medium transition-colors ${
+                showSpacingGuides
+                  ? 'bg-ds-pink-600 text-white'
+                  : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+              }`}
+            >
+              <span className="inline-flex items-center gap-1">
+                <Ruler className="w-3.5 h-3.5" />
+                Spacing Guides
+              </span>
+            </button>
+          </div>
+
           {activeTool === 'inspector' && (
             <div className="text-xs text-slate-400 text-center py-1">
-              Click any element to inspect • ESC to cancel
+              Click any element to inspect, hover to preview • ESC to cancel
             </div>
           )}
 
