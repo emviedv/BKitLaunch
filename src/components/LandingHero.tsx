@@ -51,6 +51,7 @@ export interface LandingHeroProps {
   titleClassName?: string;
   contentMaxWidthClassName?: string;
   disableCursorEffects?: boolean;
+  showAvatarStrip?: boolean;
 }
 
 const heroGradientDiagnosticsEnabled = () => {
@@ -136,6 +137,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
   titleClassName,
   contentMaxWidthClassName,
   disableCursorEffects,
+  showAvatarStrip = true,
 }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const gradientLayerRef = useRef<HTMLDivElement | null>(null);
@@ -381,27 +383,31 @@ const LandingHero: React.FC<LandingHeroProps> = ({
             }}
           >
             {/* Avatar strip + badge */}
-            <div className="flex flex-col items-center gap-3 mb-6">
-              <div className="flex items-center -space-x-2">
-                {HERO_AVATAR_ITEMS.map((avatar) => (
-                  <img
-                    key={avatar.id}
-                    src={avatar.src}
-                    alt={avatar.alt}
-                    className="h-9 w-9 rounded-full border-2 border-ds-dark-900 bg-slate-900 object-cover shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
-                    width={36}
-                    height={36}
-                    loading="eager"
-                    decoding="async"
-                  />
-                ))}
+            {(showAvatarStrip || badgeLabel) && (
+              <div className={`flex flex-col items-center mb-6 ${showAvatarStrip ? 'gap-3' : ''}`}>
+                {showAvatarStrip ? (
+                  <div className="flex items-center -space-x-2">
+                    {HERO_AVATAR_ITEMS.map((avatar) => (
+                      <img
+                        key={avatar.id}
+                        src={avatar.src}
+                        alt={avatar.alt}
+                        className="h-9 w-9 rounded-full border-2 border-ds-dark-900 bg-slate-900 object-cover shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
+                        width={36}
+                        height={36}
+                        loading="eager"
+                        decoding="async"
+                      />
+                    ))}
+                  </div>
+                ) : null}
+                {badgeLabel && (
+                  <Badge variant="glass" icon={<Sparkles className="w-3 h-3" />}>
+                    {badgeLabel}
+                  </Badge>
+                )}
               </div>
-              {badgeLabel && (
-                <Badge variant="glass" icon={<Sparkles className="w-3 h-3" />}>
-                  {badgeLabel}
-                </Badge>
-              )}
-            </div>
+            )}
 
             <div className="landing-hero-headline-capture mb-6">
               <h1 className={`${resolvedTitleClassName}`}>

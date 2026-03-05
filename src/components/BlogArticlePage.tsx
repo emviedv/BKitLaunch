@@ -26,7 +26,7 @@ const blogCardHoverClass =
   'group flex h-full flex-col transition hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 const BLOG_HERO_TITLE_CLASS =
   'text-4xl sm:text-5xl md:text-6xl font-sans font-extrabold leading-[1.1] tracking-normal sm:tracking-[-0.01em] text-white';
-const BLOG_HERO_CONTENT_WIDTH_CLASS = 'w-full max-w-[70%]';
+const BLOG_HERO_CONTENT_WIDTH_CLASS = 'w-full max-w-[92%] md:max-w-[80%] lg:max-w-[70%]';
 const BLOG_HERO_TITLE_CLAMP_LINES = 4;
 const BLOG_HERO_DESCRIPTION_WIDTH_CLASS = 'max-w-full';
 const BLOG_CARD_IMAGE_CLASS = 'h-[140px] w-full object-cover';
@@ -323,6 +323,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
           descriptionMaxWidthClassName={BLOG_HERO_DESCRIPTION_WIDTH_CLASS}
           descriptionClassName="text-[1.4rem]"
           disableCursorEffects
+          showAvatarStrip={false}
         />
         <section className="section-content pb-16">
           <div className="mx-auto max-w-3xl rounded-[28px] border border-slate-200/70 bg-white/80 p-8 text-center shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur">
@@ -355,6 +356,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
           descriptionMaxWidthClassName={BLOG_HERO_DESCRIPTION_WIDTH_CLASS}
           descriptionClassName="text-[1.4rem]"
           disableCursorEffects
+          showAvatarStrip={false}
         />
       </div>
       <article className="section-content pb-20 pt-6">

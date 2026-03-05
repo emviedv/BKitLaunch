@@ -46,6 +46,7 @@
 - Blog posts should render H2s larger than H3s to keep heading hierarchy visually distinct.
 - Blog post content must use Markdown-style links `[text](url)` instead of raw HTML `<a>` tags; the `renderTextWithLinks` function only parses Markdown links.
 - Blog posts typically do not include FAQs; do not add FAQ sections unless explicitly requested.
+- Blog article heroes should not show the avatar strip above the badge; keep badge metadata without stacked profile images on blog post hero surfaces.
 - FAQs across the site should use the pink numbered bubble on the left for consistent styling.
 - Search Console sitemap submit (BiblioKit): use service account `search-console-submitter@bibliokit.iam.gserviceaccount.com` with key at `/tmp/search-console-submitter-key.json` (create if missing), scope `https://www.googleapis.com/auth/webmasters`, and submit `https://www.bibliokit.com/sitemap.xml` to `sc-domain:bibliokit.com` via the Search Console API.
 - Apply current SEO best practices (keep guidance refreshed for 2026): meaningful alt text on all images, clean descriptive URLs/slugs, accurate meta titles/descriptions, structured headings, and up-to-date sitemap/robots handling where relevant.
@@ -106,6 +107,7 @@
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
 
 ## Updates
+- 2026-03-05 00:38 EST: Added a blog hero rule to hide avatar strips above badges and logged the hero layout cleanup update before commit.
 - 2026-03-04 21:45 EST: Added DevTools grid/spacing overlays and a consolidated badge preview with icon-mapped status contract tests.
 - 2026-03-04 21:19 EST: Balanced hero titles with `text-wrap: balance` and increased hero description line-height using shared hero utilities.
 - 2026-02-26 23:20 EST: Added Netlify CLI deploy warning and edge function 400 error recovery procedure after production outage caused by corrupted edge function state.

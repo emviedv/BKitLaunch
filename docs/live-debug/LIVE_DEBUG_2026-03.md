@@ -1,5 +1,13 @@
 # Live Debug Log — 2026-03
 
+## 2026-03-05
+
+- **Time:** 2026-03-05 00:35 EST
+- **Summary:** Fixed blog post hero layout by widening hero content on small/medium breakpoints and removed the avatar strip above the hero badge for blog article heroes.
+- **Root Cause:** Blog article pages reused `LandingHero` with a hardcoded avatar strip and a narrow fixed content width (`max-w-[70%]`) that made headings feel cramped and visually noisy in compact hero mode.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/BlogArticlePage.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:client` (pass)
+
 ## 2026-03-04
 
 - **Time:** 2026-03-04 10:41 EST
