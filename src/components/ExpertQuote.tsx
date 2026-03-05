@@ -16,7 +16,7 @@ const ExpertQuote: React.FC<ExpertQuoteProps> = ({
   className = '' 
 }) => {
   return (
-    <div className={`expert-quote rounded-3xl border border-white/10 bg-[#070213]/80 p-8 shadow-[0_40px_120px_rgba(3,0,12,0.6)] text-white ${className}`}>
+    <div className={`expert-quote rounded-3xl border border-white/10 bg-ds-dark-950/80 p-8 shadow-[0_40px_120px_rgba(3,0,12,0.6)] text-white ${className}`}>
       <div className="flex items-start gap-6">
         <div className="flex-shrink-0">
           <svg className="w-8 h-8 text-white/40" fill="currentColor" viewBox="0 0 24 24">
@@ -28,7 +28,7 @@ const ExpertQuote: React.FC<ExpertQuoteProps> = ({
         &ldquo;{quote}&rdquo;
       </p>
           <div className="flex items-center text-sm text-white/70">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#f871a0] via-[#b970ff] to-[#5bceff] rounded-full flex items-center justify-center text-white font-semibold mr-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-ds-pink-500 via-ds-pink-accent to-ds-pink-glow rounded-full flex items-center justify-center text-white font-semibold mr-4">
               {expertName.split(' ').map(n => n[0]).join('').slice(0, 2)}
             </div>
             <div>

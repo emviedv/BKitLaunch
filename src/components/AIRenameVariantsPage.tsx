@@ -244,7 +244,7 @@ const AIRenameVariantsPage = () => {
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Trusted by teams cleaning up debt.</SectionTitle>
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
+          <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Startup Component Library</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Prototype token leaks. <br/>Result: Renamed 120 variants in 5 mins.</p>
             <div className="grid grid-cols-2 gap-4">
@@ -252,7 +252,7 @@ const AIRenameVariantsPage = () => {
               <PlaceholderImage label="After: Clean List" height="h-40" />
             </div>
           </div>
-          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
+          <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Mid-Stage Design System</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Inconsistent layer names. <br/>Result: Health score +28 points.</p>
              <div className="grid grid-cols-2 gap-4">
@@ -279,7 +279,7 @@ const AIRenameVariantsPage = () => {
             <div className="flex justify-center">
                <div className="relative">
                    <PlaceholderImage label="Audit Snapshot Preview" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
-                   <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
+                   <div className="absolute -bottom-4 -right-4 product-page-metric-callout p-4 rounded-lg border shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
                         <Check className="w-4 h-4 text-purple-400" />
                         <span className="text-sm font-bold">Audit Complete</span>
@@ -384,17 +384,17 @@ const AIRenameVariantsPage = () => {
                <SectionTitle>Fits your handoff ritual.</SectionTitle>
                <ol className="space-y-8 relative border-l border-slate-700 ml-4 pl-8">
                   <li className="relative">
-                     <span className="absolute -left-[37px] w-4 h-4 rounded-full bg-purple-500 ring-4 ring-[#0f172a]" />
+                     <span className="absolute -left-[37px] w-4 h-4 rounded-full bg-purple-500 ring-4 ring-slate-900" />
                      <h4 className="font-bold text-lg mb-1">Install & Audit</h4>
                      <p className="text-slate-400 text-sm">Run on your messiest file. Get a baseline health score.</p>
                   </li>
                   <li className="relative">
-                     <span className="absolute -left-[37px] w-4 h-4 rounded-full bg-slate-700 ring-4 ring-[#0f172a]" />
+                     <span className="absolute -left-[37px] w-4 h-4 rounded-full bg-slate-700 ring-4 ring-slate-900" />
                      <h4 className="font-bold text-lg mb-1">Share in Slack</h4>
                      <p className="text-slate-400 text-sm">Post a 30s Loom of the cleanup to #design-ops.</p>
                   </li>
                    <li className="relative">
-                     <span className="absolute -left-[37px] w-4 h-4 rounded-full bg-slate-700 ring-4 ring-[#0f172a]" />
+                     <span className="absolute -left-[37px] w-4 h-4 rounded-full bg-slate-700 ring-4 ring-slate-900" />
                      <h4 className="font-bold text-lg mb-1">Health Report</h4>
                      <p className="text-slate-400 text-sm">Export the PDF before/after report for stakeholders.</p>
                   </li>

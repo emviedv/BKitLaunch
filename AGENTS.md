@@ -106,6 +106,7 @@
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
 
 ## Updates
+- 2026-03-04 21:19 EST: Balanced hero titles with `text-wrap: balance` and increased hero description line-height using shared hero utilities.
 - 2026-02-26 23:20 EST: Added Netlify CLI deploy warning and edge function 400 error recovery procedure after production outage caused by corrupted edge function state.
 - 2026-01-21 11:24 EST: Added the "Stop the Chaos" blog post and enabled heading Markdown links in blog articles.
 - 2026-01-21 05:30 EST: Sorted hub pages to show newest blog posts first.

@@ -27,7 +27,7 @@ const FAQList: React.FC<FAQListProps> = ({ faqs, className = '', variant = 'dark
             <div key={`faq-${index}`} className="py-4 first:pt-0 last:pb-0">
               <div className="flex items-start gap-3">
                 <span
-                  className="mt-0.5 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#ff2f87] text-sm font-bold text-white"
+                  className="mt-0.5 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-ds-pink-500 text-sm font-bold text-white"
                   aria-hidden="true"
                 >
                   {questionNumber}

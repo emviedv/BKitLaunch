@@ -18,7 +18,7 @@ export const inputStates: InputState[] = [
   {
     label: "Focused",
     className:
-      "ds-input h-9 w-full rounded-md border border-[#6580E1] bg-background px-3 ring-2 ring-[#6580E1]/60",
+      "ds-input h-9 w-full rounded-md border border-ring bg-background px-3 ring-2 ring-ring/60",
     helper: "Ring + primary border",
     attributes: { placeholder: "Focused state" },
   },
@@ -75,7 +75,7 @@ export const checkboxStates: ChoiceInput[] = [
   {
     label: "Checked (Focus)",
     id: "chk-checked",
-    className: "rounded px-1 ring-2 ring-[#6580E1]/60",
+    className: "rounded px-1 ring-2 ring-ring/60",
     defaultChecked: true,
   },
   {
@@ -93,7 +93,7 @@ export const radioStates: ChoiceInput[] = [
     label: "Selected (Focus)",
     id: "rad-checked",
     name: "rad-demo",
-    className: "rounded px-1 ring-2 ring-[#6580E1]/60",
+    className: "rounded px-1 ring-2 ring-ring/60",
     defaultChecked: true,
   },
   {
@@ -123,7 +123,7 @@ export const selectStates: SelectState[] = [
   },
   {
     label: "Focused",
-    className: "ds-select h-9 w-full rounded-md border border-[#6580E1] bg-background px-3 ring-2 ring-[#6580E1]/60",
+    className: "ds-select h-9 w-full rounded-md border border-ring bg-background px-3 ring-2 ring-ring/60",
     options: ["Focused state"],
     helper: "Ring + primary border",
   },

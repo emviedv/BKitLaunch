@@ -1,0 +1,66 @@
+{
+  "pageFaqs": {
+    "file": "src/data/pageFaqs.ts",
+    "arrays": [
+      {
+        "name": "defaultProductFaqs",
+        "count": 2
+      },
+      {
+        "name": "componentQAFaqs",
+        "count": 6
+      },
+      {
+        "name": "renameVariantsFaqs",
+        "count": 6
+      },
+      {
+        "name": "biblioCleanFaqs",
+        "count": 4
+      },
+      {
+        "name": "fixTableFaqs",
+        "count": 4
+      },
+      {
+        "name": "organizeFileFaqs",
+        "count": 4
+      },
+      {
+        "name": "stateBuilderFaqs",
+        "count": 4
+      },
+      {
+        "name": "scaleResizerFaqs",
+        "count": 5
+      },
+      {
+        "name": "homepageFaqs",
+        "count": 5
+      }
+    ],
+    "totalQuestions": 40
+  },
+  "blogFaqs": {
+    "file": "src/data/blogPosts.ts",
+    "arrays": [
+      {
+        "name": "removePrototypeLinksFaqs",
+        "count": 4
+      },
+      {
+        "name": "designSystemGuidelinesFaqs",
+        "count": 4
+      },
+      {
+        "name": "atlassianDesignSystemFaqs",
+        "count": 4
+      },
+      {
+        "name": "installUninstallFigmaPluginFaqs",
+        "count": 4
+      }
+    ],
+    "totalQuestions": 16
+  }
+}

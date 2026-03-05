@@ -136,7 +136,7 @@ const ScaleResizerPage = () => {
          <FluidBackground />
 
         <div className="mx-auto max-w-5xl relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-purple-500/30">
+          <div className="inline-flex items-center gap-2 bg-ds-pink-500/15 text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-ds-pink-500/40">
             <Scaling className="w-4 h-4" />
             Figma Plugin
           </div>

@@ -222,6 +222,11 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
   }, [details, useCasesColumns, benefits, testimonialsColumns, product?.testimonials]);
 
   const landingShowcaseLayout = Boolean(enableFeaturesNav && compactLayout);
+  const useConsolidatedLandingAccents = landingShowcaseLayout;
+  const featuresBadgeVariant = useConsolidatedLandingAccents ? 'section-badge--pink' : 'section-badge--dark';
+  const useCasesBadgeVariant = useConsolidatedLandingAccents ? 'section-badge--pink' : 'section-badge--light';
+  const testimonialsBadgeVariant = useConsolidatedLandingAccents ? 'section-badge--pink' : 'section-badge--dark';
+  const useCaseStepCircleVariant = useConsolidatedLandingAccents ? 'step-circle--pink' : 'step-circle--purple';
   const hideFeatureIllustrations = false; // keep product feature sections paired with visuals and placeholders
 
   const faqProductName = (product as any)?.title || (product as any)?.name;
@@ -291,7 +296,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
         <div className="relative z-20 py-8 px-8 w-full text-center">
           {/* Section Badge */}
           <div className="flex justify-center mb-6">
-            <span className="section-badge section-badge--dark">
+            <span className={cn('section-badge', featuresBadgeVariant)}>
               <Layers className="w-4 h-4" />
               Our Products
             </span>
@@ -333,7 +338,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
               return (
                 <div key={stat.label} className="flex items-center gap-2.5">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/[0.08] border border-white/15">
-                    <StatIcon className="h-4 w-4 text-[#F772B6]" />
+                    <StatIcon className="h-4 w-4 text-ds-pink-accent" />
                   </div>
                   <div className="text-left">
                     <div className="text-xl font-bold text-white tabular-nums leading-tight">
@@ -394,7 +399,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                   <div className="text-center mb-16">
                     {/* Section Badge */}
                     <div className="flex justify-center mb-6">
-                      <span className="section-badge section-badge--light">
+                      <span className={cn('section-badge', useCasesBadgeVariant)}>
                         <Sparkles className="w-4 h-4" />
                         Use Cases
                       </span>
@@ -409,7 +414,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                   {benefits.map((benefit: string, index: number) => (
                     <ContentChunk key={index}>
                       <div className="flex items-start bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-                        <div className="step-circle step-circle--purple mr-4 flex-shrink-0">
+                        <div className={cn('step-circle mr-4 flex-shrink-0', useCaseStepCircleVariant)}>
                           {index + 1}
                         </div>
                         <span className="text-lg text-slate-800 pt-1.5">{benefit}</span>
@@ -427,7 +432,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                   <div className="text-center mb-16">
                     {/* Section Badge */}
                     <div className="flex justify-center mb-6">
-                      <span className="section-badge section-badge--dark">
+                      <span className={cn('section-badge', testimonialsBadgeVariant)}>
                         <Icon icon="solar:chat-round-like-bold" className="w-4 h-4" />
                         Testimonials
                       </span>
@@ -445,7 +450,7 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                 <div className={cn(gridClassForColumns(testimonialsColumns), 'max-w-5xl mx-auto')}>
                   {product.testimonials.map((t, index) => (
                     <ContentChunk key={index}>
-                      <div className="relative h-full rounded-3xl border border-white/10 bg-[#080213]/75 p-6 shadow-[0_30px_80px_rgba(3,0,12,0.6)]">
+                      <div className="relative h-full rounded-3xl border border-white/10 bg-ds-dark-950/75 p-6 shadow-[0_30px_80px_rgba(3,0,12,0.6)]">
                         <div className="text-left">
                           <p className="italic text-white mb-4">“{t.quote}”</p>
                           <div className="space-y-1">

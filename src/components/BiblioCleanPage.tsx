@@ -219,7 +219,7 @@ const BiblioCleanPage = () => {
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Essential for every handoff.</SectionTitle>
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
+          <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Pre-Handoff Cleanup</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Developers confused by old prototype flows. <br/>Result: Clean canvas, clear specs.</p>
             <div className="grid grid-cols-2 gap-4">
@@ -227,7 +227,7 @@ const BiblioCleanPage = () => {
               <PlaceholderImage label="After: Clean Assets" height="h-40" />
             </div>
           </div>
-          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
+          <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Design System Maintenance</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Accidental links in component library. <br/>Result: Pure components, no side effects.</p>
              <div className="grid grid-cols-2 gap-4">
@@ -254,7 +254,7 @@ const BiblioCleanPage = () => {
             <div className="flex justify-center">
                <div className="relative">
                    <PlaceholderImage label="BiblioClean Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
-                   <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
+                   <div className="absolute -bottom-4 -right-4 product-page-metric-callout p-4 rounded-lg border shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
                         <Check className="w-4 h-4 text-blue-400" />
                         <span className="text-sm font-bold">Canvas Cleaned</span>
@@ -273,11 +273,11 @@ const BiblioCleanPage = () => {
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-8">Learn more about prototype link cleanup</SectionTitle>
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          <a href="/blog/remove-prototype-links-in-figma" className="bg-[#0d0d15] p-6 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
+          <a href="/blog/remove-prototype-links-in-figma" className="product-page-feature-card p-6 rounded-2xl border hover:border-blue-500/50 transition-colors">
             <h4 className="text-lg font-bold mb-2">Remove Prototype Links in Figma</h4>
             <p className="text-slate-400 text-sm">Step-by-step guide to cleaning up prototype links safely.</p>
           </a>
-          <a href="/resources/remove-prototype-link" className="bg-[#0d0d15] p-6 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors">
+          <a href="/resources/remove-prototype-link" className="product-page-feature-card p-6 rounded-2xl border hover:border-blue-500/50 transition-colors">
             <h4 className="text-lg font-bold mb-2">Prototype Link Cleanup Checklist</h4>
             <p className="text-slate-400 text-sm">Keep designers, developers, and marketers aligned on the right build.</p>
           </a>

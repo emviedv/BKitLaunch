@@ -388,7 +388,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                     key={avatar.id}
                     src={avatar.src}
                     alt={avatar.alt}
-                    className="h-9 w-9 rounded-full border-2 border-[#0b0c0f] bg-[#10121a] object-cover shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
+                    className="h-9 w-9 rounded-full border-2 border-ds-dark-900 bg-slate-900 object-cover shadow-[0_6px_20px_rgba(0,0,0,0.35)]"
                     width={36}
                     height={36}
                     loading="eager"
@@ -486,12 +486,10 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                   {secondaryButtonLink && !secondaryButtonLink.startsWith('#') ? (
                     <a href={secondaryButtonLink}>
                       {secondaryButton}
-                      <ArrowRight className="w-4 h-4 ml-2" />
                     </a>
                   ) : (
                     <span>
                       {secondaryButton}
-                      <ArrowRight className="w-4 h-4 ml-2" />
                     </span>
                   )}
                 </Button>
@@ -702,11 +700,11 @@ const LandingHero: React.FC<LandingHeroProps> = ({
           width: 0;
           height: 0;
           border-radius: 12px;
-          border: 1.5px solid #ff2f87;
-          background: linear-gradient(130deg, rgb(255 47 135 / 0.24), transparent 72%);
+          border: 1.5px solid hsl(339 100% 59%);
+          background: linear-gradient(130deg, hsl(339 100% 59% / 0.24), transparent 72%);
           box-shadow:
-            inset 0 0 0 1px rgb(255 47 135 / 0.45),
-            0 16px 40px rgb(255 47 135 / 0.25);
+            inset 0 0 0 1px hsl(339 100% 59% / 0.45),
+            0 16px 40px hsl(339 100% 59% / 0.25);
           z-index: 5;
           will-change: width, height, opacity, transform;
           animation: landing-hero-headline-selection-box 3.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -729,7 +727,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
           width: 56px;
           height: 56px;
           border-radius: 9999px;
-          background: radial-gradient(circle, rgb(255 47 135 / 0.65) 0%, rgb(255 47 135 / 0.2) 42%, transparent 72%);
+          background: radial-gradient(circle, hsl(339 100% 59% / 0.65) 0%, hsl(339 100% 59% / 0.2) 42%, transparent 72%);
           animation: landing-hero-headline-selection-flash 3.2s ease-out forwards;
         }
 

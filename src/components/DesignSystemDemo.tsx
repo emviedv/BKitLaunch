@@ -137,7 +137,7 @@ const DesignSystemDemo: React.FC = () => {
         </article>
       </section>
 
-      {/* Existing component gallery from our DesignSystem route */}
+      {/* Existing component gallery from our DesignSystem component */}
       <section aria-labelledby="showcase-heading" className="mb-12">
         <h2 id="showcase-heading" className="text-2xl font-semibold mb-4">
           In‑App Component Gallery
@@ -152,4 +152,3 @@ const DesignSystemDemo: React.FC = () => {
 };
 
 export default DesignSystemDemo;
-

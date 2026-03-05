@@ -125,7 +125,7 @@ const Features: React.FC = () => {
       className="landing-features-section relative overflow-hidden section-background-blend-top bg-gradient-to-b from-white via-slate-50 to-slate-100/40 py-20 sm:py-24"
     >
       <div
-        className="absolute inset-x-0 top-[-40%] h-[520px] bg-gradient-to-b from-[#6580E1]/35 via-white/10 to-transparent blur-3xl"
+        className="absolute inset-x-0 top-[-40%] h-[520px] bg-gradient-to-b from-interactive-accent/35 via-white/10 to-transparent blur-3xl"
         aria-hidden
       />
       <div className="landing-features-content section-content relative z-10">
@@ -141,15 +141,15 @@ const Features: React.FC = () => {
           {featuresSection?.description && (
             <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-base font-medium text-muted-foreground">
               <span className="flex items-center gap-2">
-                <ShieldCheck className="h-5 w-5 text-[#6580E1]" />
+                <ShieldCheck className="h-5 w-5 text-interactive-accent" />
                 Data stays in Figma
               </span>
               <span className="flex items-center gap-2">
-                <Zap className="h-5 w-5 text-[#6580E1]" />
+                <Zap className="h-5 w-5 text-interactive-accent" />
                 Results in seconds
               </span>
               <span className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-[#6580E1]" />
+                <Sparkles className="h-5 w-5 text-interactive-accent" />
                 No signup required
               </span>
             </div>
@@ -170,7 +170,7 @@ const Features: React.FC = () => {
               >
                 <div className="mb-4 flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <span className="landing-features-icon flex h-12 w-12 items-center justify-center rounded-xl bg-[#6580E1]/12 text-[#6580E1]">
+                    <span className="landing-features-icon flex h-12 w-12 items-center justify-center rounded-xl bg-interactive-accent/12 text-interactive-accent">
                       <FeatureIcon className="h-6 w-6" strokeWidth={1.75} />
                     </span>
                   </div>
@@ -215,7 +215,7 @@ const Features: React.FC = () => {
                   <ul className="landing-features-card-list mt-5 space-y-2 text-sm text-muted-foreground/90">
                     {feature.topItems.slice(0, 4).map((item, itemIndex) => (
                       <li key={`${feature.title}-item-${itemIndex}`} className="flex items-start gap-2">
-                        <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#6580E1]" />
+                        <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ds-pink-accent" />
                         <span>{item}</span>
                       </li>
                     ))}

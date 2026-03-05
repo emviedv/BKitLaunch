@@ -95,7 +95,7 @@ const Hero: React.FC = () => {
       <div className="landing-hero-content section-content relative z-10 py-16 sm:py-20 lg:py-28">
         <div className="landing-hero-body mx-auto flex max-w-3xl flex-col items-center gap-6 text-center lg:mx-0 lg:max-w-4xl lg:items-start lg:text-left">
           {hero.badgeLabel && (
-            <span className="inline-flex items-center rounded-full border border-[#6580E1] bg-primary/10 px-4 py-1.5 text-sm font-medium text-[#6580E1]">
+            <span className="inline-flex items-center rounded-full border border-interactive-accent bg-primary/10 px-4 py-1.5 text-sm font-medium text-interactive-accent">
               {hero.badgeLabel}
             </span>
           )}

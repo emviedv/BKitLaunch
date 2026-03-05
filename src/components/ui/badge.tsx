@@ -20,9 +20,9 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        // Dark theme badges (hero sections, dark backgrounds)
+        // Dark theme badges (hero sections, dark backgrounds) - pink styled
         glass:
-          "bg-[var(--badge-glass-bg)] text-white/90 border border-[var(--badge-glass-border)] backdrop-blur-sm shadow-[0_0_30px_rgba(250,174,255,0.15)]",
+          "bg-ds-pink-500/12 text-white border border-ds-pink-500/35 backdrop-blur-sm shadow-[0_0_20px_hsl(var(--color-pink-500)/0.15)]",
         accent:
           "bg-ds-pink-500/15 text-white border border-ds-pink-700/40 hover:bg-ds-pink-500/25 transition-colors",
 

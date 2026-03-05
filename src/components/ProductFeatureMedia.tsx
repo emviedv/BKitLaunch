@@ -62,7 +62,7 @@ const ProductFeatureMedia: React.FC<Props> = ({ detail, productTitle, variant = 
   const placeholderStroke = 'rgba(148,163,184,0.52)'; // slate-400, ~4 shades lighter than the slate-900 base
   const placeholderSecondaryStroke = 'rgba(148,163,184,0.28)';
   const fallbackWrapperClass = cn(
-    'relative flex items-center justify-center overflow-hidden border bg-gradient-to-br from-[#0c1024] via-[#0a081a] to-[#070512] shadow-[0_32px_90px_rgba(7,0,18,0.35)] rounded-[12px]',
+    'relative flex items-center justify-center overflow-hidden border bg-gradient-to-br from-slate-900 via-slate-950 to-black shadow-[0_32px_90px_rgba(7,0,18,0.35)] rounded-[12px]',
     isShowcase ? 'w-full max-w-[640px] min-h-[280px] px-6 py-6' : 'w-full max-w-[520px] min-h-[220px] px-5 py-5'
   );
   const imageWrapperClass = cn(
@@ -185,8 +185,8 @@ const ProductFeatureMedia: React.FC<Props> = ({ detail, productTitle, variant = 
         style={{ borderColor: placeholderStroke }}
       />
       <div className="absolute inset-0 opacity-70">
-        <div className="absolute -left-12 top-6 h-24 w-24 rounded-full bg-[#a855f7]/18 blur-3xl" />
-        <div className="absolute right-4 bottom-4 h-24 w-32 rounded-full bg-[#22d3ee]/14 blur-3xl" />
+        <div className="absolute -left-12 top-6 h-24 w-24 rounded-full bg-ds-pink-500/18 blur-3xl" />
+        <div className="absolute right-4 bottom-4 h-24 w-32 rounded-full bg-ds-pink-lavender/14 blur-3xl" />
       </div>
     </div>
   );

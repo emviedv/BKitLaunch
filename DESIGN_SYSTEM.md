@@ -1,6 +1,6 @@
 # BiblioKit Design System
 
-This document defines the shared language for UI across BiblioKit: design tokens, component rules, accessibility guidance, and markup patterns. It complements the in‑app previews at `/design-system` (component gallery) and `/design-system-demo` (foundations + gallery) in development.
+This document defines the shared language for UI across BiblioKit: design tokens, component rules, accessibility guidance, and markup patterns. It complements the in-app preview at `/design-system-demo` (foundations + gallery) in development.
 
 ## Scope and Principles
 - System-first: components are composed from tokens, not ad-hoc values.
@@ -39,16 +39,16 @@ Light theme values (excerpt):
   --card-foreground: 215 22% 35%;
   --border: 214 32% 89%;
   --input: 214 32% 89%;
-  --primary: 330 81% 60%;
+  --primary: 210 16% 12%;
   --primary-foreground: 0 0% 100%;
-  --ring: 330 81% 60%;
+  --ring: 210 12% 18%;
   --radius: 0.5rem;
 }
 ```
 
 Dark theme values (excerpt):
 ```
-[data-theme="dark"] {
+.dark {
   --background: 262 20% 11%;
   --foreground: 0 0% 98%;
   --muted: 262 15% 17%;
@@ -57,15 +57,15 @@ Dark theme values (excerpt):
   --card-foreground: 0 0% 98%;
   --border: 268 14% 24%;
   --input: 268 14% 24%;
-  --primary: 330 70% 70%;
+  --primary: 210 18% 24%;
   --primary-foreground: 0 0% 100%;
-  --ring: 330 70% 70%;
+  --ring: 210 16% 30%;
   --radius: 0.5rem;
 }
 ```
 
 ### Typography
-- Font family: system UI stack for performance and neutrality
+- Font family: `"Google Sans Flex", "Google Sans", sans-serif`
 - Scale: 12, 14, 16, 18, 20, 24, 30, 36
 - Line-height: 1.4–1.6 for paragraphs, 1.1–1.3 for headings
 - Code: `font-mono` for inline and code blocks
@@ -160,7 +160,7 @@ Rules:
 - Use `thead/tbody` with scope on headers; zebra rows optional in large tables
 
 ## Theming
-- Apply `[data-theme="dark"]` on `html` or a wrapper to switch semantic tokens
+- Apply `.dark` on `html` or a wrapper to switch semantic tokens
 - Components inherit colors from tokens with no per‑component overrides
 
 ## Naming and Structure

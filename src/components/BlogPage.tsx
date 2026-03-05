@@ -6,9 +6,9 @@ import { getImageDimensions } from '@/lib/imageDimensions';
 import { Badge } from '@/components/ui/badge';
 const BLOG_LIST_SECTION_ID = 'blog-latest';
 const blogCardHoverClass =
-  'transition hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
+  'transition hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 const blogCtaButtonClass =
-  'inline-flex items-center justify-center text-sm font-semibold text-[#ff2f87] underline underline-offset-4 transition duration-200 hover:text-[#e02074] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
+  'inline-flex items-center justify-center text-sm font-semibold text-ds-pink-500 underline underline-offset-4 transition duration-200 hover:text-ds-pink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 
 const getPostTimestamp = (lastUpdated?: string) => {
   if (!lastUpdated) {
@@ -28,7 +28,7 @@ const BlogPage: React.FC = () => {
     : null;
 
   return (
-    <div className="bg-[#0c0d10] text-white">
+    <div className="bg-ds-dark-850 text-white">
       <section
         id={BLOG_LIST_SECTION_ID}
         className="landing-hero-gradient landing-hero-compact section-hero relative overflow-hidden"
@@ -43,7 +43,7 @@ const BlogPage: React.FC = () => {
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
                   Build stuff people love
                 </p>
-                <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
+                <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-ds-pink-lavender via-ds-pink-500 to-violet-500 bg-clip-text text-transparent">
                   BiblioKit Blog: From Kickoff to Ship with Figma Workflows &amp; Tools
                 </h1>
                 <h2 className="hero-description-copy mt-3 max-w-full text-lg font-normal text-white/80">
@@ -75,7 +75,7 @@ const BlogPage: React.FC = () => {
                   <h2 className="text-[48px] font-bold leading-[1.05] tracking-tight sm:text-[56px] lg:text-[64px] text-white">
                     <a
                       href={buildBlogPostHref(featuredPost.slug)}
-                      className="inline-block bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent transition hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]"
+                      className="inline-block bg-gradient-to-r from-ds-pink-lavender via-ds-pink-500 to-violet-500 bg-clip-text text-transparent transition hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                     >
                       {featuredPost.title}
                     </a>
@@ -120,7 +120,7 @@ const BlogPage: React.FC = () => {
         <div className="section-content">
           <div className="space-y-4 text-left">
             <h2 className="text-2xl font-semibold text-white">Browse BiblioKit articles</h2>
-            <p className="text-base leading-7 text-white/80">Workflow tips, state specs, accessibility checks, and system hygiene guides that teams can drop into real projects right now. Use them to clean files, align teams, and ship faster. Looking for checklists and templates? Check out our <a href="/resources" className="text-[#ff2f87] hover:underline">free resources</a>.</p>
+            <p className="text-base leading-7 text-white/80">Workflow tips, state specs, accessibility checks, and system hygiene guides that teams can drop into real projects right now. Use them to clean files, align teams, and ship faster. Looking for checklists and templates? Check out our <a href="/resources" className="text-ds-pink-500 hover:underline">free resources</a>.</p>
           </div>
           <div className="mt-8 columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6">
                 {sortedPosts.map((post) => {

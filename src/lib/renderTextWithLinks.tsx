@@ -8,7 +8,7 @@ const BLOG_POST_LOOKUP = BLOG_POSTS.reduce<Record<string, BlogPost>>((acc, blogP
 }, {});
 
 export const blogHighlightLinkClass =
-  'text-[#ff2f87] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
+  'text-ds-pink-500 underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 
 const normalizeSlug = (value?: string) =>
   value?.replace(/^\/?blog\//i, '').replace(/^\//, '').replace(/\/$/, '') || '';

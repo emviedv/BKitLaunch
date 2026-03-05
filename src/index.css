@@ -23,6 +23,7 @@
     /* --- Accent pinks (for gradients, indicators) --- */
     --color-pink-glow: 296 100% 81%;  /* #F1A0FF - dots/indicators (magenta tint) */
     --color-pink-lavender: 292 100% 92%;  /* #F7D6FF - gradient highlights */
+    --color-pink-accent: 330 89% 71%;  /* #F772B6 - icon accents, warm magenta */
 
     /* --- Primitive: Dark surface scale (hero backgrounds) --- */
     --color-dark-950: 225 14% 5%;    /* #0a0a0c - deepest */
@@ -39,12 +40,17 @@
 
     /* --- Semantic: Interactive elements --- */
     --interactive-accent: var(--color-pink-500);
-    --interactive-accent-hover: var(--color-pink-500-hover);
+    --interactive-accent-hover: var(--color-pink-600);
 
     /* --- Semantic: Badge surfaces (dark context) --- */
     --badge-glass-bg: rgba(255, 255, 255, var(--alpha-subtle));
     --badge-glass-border: rgba(255, 255, 255, var(--alpha-soft));
     --badge-dot: hsl(var(--color-pink-glow));
+
+    /* --- Semantic: Product page dark surfaces --- */
+    --product-feature-card-bg: 236 24% 7%;
+    --product-feature-card-border: 217 19% 35%;
+    --product-feature-callout-bg: 222 47% 11%;
 
     /* ============================================
        END DESIGN SYSTEM TOKENS
@@ -293,6 +299,16 @@
   .card:focus-visible {
     outline: 2px solid hsl(var(--primary));
     outline-offset: 2px;
+  }
+
+  .product-page-feature-card {
+    background-color: hsl(var(--product-feature-card-bg));
+    border-color: hsl(var(--product-feature-card-border) / 0.5);
+  }
+
+  .product-page-metric-callout {
+    background-color: hsl(var(--product-feature-callout-bg));
+    border-color: hsl(var(--product-feature-card-border));
   }
 
   .modal-tab-content {

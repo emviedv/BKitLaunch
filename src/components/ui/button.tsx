@@ -23,7 +23,7 @@ const buttonVariants = cva(
         "hero-primary":
           "bg-[hsl(var(--interactive-accent))] text-white shadow-md hover:bg-[hsl(var(--interactive-accent-hover))] font-semibold",
         "hero-secondary":
-          "bg-white/10 border border-white/25 text-white shadow-md backdrop-blur-sm hover:bg-white/20 hover:border-white/40 font-semibold",
+          "bg-ds-dark-900 border border-white/40 text-white shadow-md backdrop-blur-sm hover:bg-ds-dark-850 hover:border-white/55 font-semibold",
       },
       size: {
         default: "h-10 px-4 py-2",

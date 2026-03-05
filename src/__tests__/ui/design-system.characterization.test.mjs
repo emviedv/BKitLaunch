@@ -190,9 +190,9 @@ test("core palette tokens remain available", async () => {
   });
 
   [
-    "pink-500",
-    "blue-500",
-    "green-500",
+    "interactive-accent",
+    "ds-pink-500",
+    "success",
     "gradient-rosewater-soft-radial",
     "gradient-aurora-soft-radial",
     "gradient-meadow-soft-radial",

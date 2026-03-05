@@ -70,7 +70,7 @@ const DesignOpsFundamentalsPage: React.FC = () => {
             </ol>
           </nav>
           <div className="max-w-3xl space-y-4 pt-4">
-            <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-[#F7D6FF] via-[#FF2F87] to-[#7F5AF0] bg-clip-text text-transparent">
+            <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-ds-pink-lavender via-ds-pink-500 to-violet-500 bg-clip-text text-transparent">
               Design Ops Fundamentals
             </h1>
             <p className="hero-description-copy text-lg sm:text-xl text-white/80">
@@ -96,7 +96,7 @@ const DesignOpsFundamentalsPage: React.FC = () => {
                 <a
                   key={`design-ops-learn-${post.slug}`}
                   href={buildBlogPostHref(post.slug)}
-                  className="group mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur transform-gpu transition duration-200 hover:-translate-y-1 hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]"
+                  className="group mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur transform-gpu transition duration-200 hover:-translate-y-1 hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 >
                   <div className="flex h-full flex-col rounded-lg">
                     {post.heroImage ? (
@@ -120,7 +120,7 @@ const DesignOpsFundamentalsPage: React.FC = () => {
                     </h3>
                     <p className="mt-2 flex-1 text-sm text-white/75">{post.excerpt}</p>
                     <div className="mt-6">
-                      <span className="inline-flex items-center justify-center text-sm font-semibold text-[#ff2f87] underline underline-offset-4 transition duration-200 group-hover:text-[#e02074] hover:text-[#e02074] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]">
+                      <span className="inline-flex items-center justify-center text-sm font-semibold text-ds-pink-500 underline underline-offset-4 transition duration-200 group-hover:text-ds-pink-600 hover:text-ds-pink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
                         Read the article
                       </span>
                     </div>
@@ -144,7 +144,7 @@ const DesignOpsFundamentalsPage: React.FC = () => {
                 <a
                   key={`design-ops-learn-${post.slug}`}
                   href={buildBlogPostHref(post.slug)}
-                  className="group mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur transform-gpu transition duration-200 hover:-translate-y-1 hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]"
+                  className="group mb-6 inline-block w-full break-inside-avoid rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur transform-gpu transition duration-200 hover:-translate-y-1 hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 >
                   <div className="flex h-full flex-col rounded-lg">
                     {post.heroImage ? (
@@ -168,7 +168,7 @@ const DesignOpsFundamentalsPage: React.FC = () => {
                     </h3>
                     <p className="mt-2 flex-1 text-sm text-white/75">{post.excerpt}</p>
                     <div className="mt-6">
-                      <span className="inline-flex items-center justify-center text-sm font-semibold text-[#ff2f87] underline underline-offset-4 transition duration-200 group-hover:text-[#e02074] hover:text-[#e02074] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]">
+                      <span className="inline-flex items-center justify-center text-sm font-semibold text-ds-pink-500 underline underline-offset-4 transition duration-200 group-hover:text-ds-pink-600 hover:text-ds-pink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
                         Read the article
                       </span>
                     </div>

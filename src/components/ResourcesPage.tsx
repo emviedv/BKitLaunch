@@ -159,7 +159,7 @@ const ResourcesPage: React.FC = () => {
   );
 
   return (
-    <div className="bg-[#0b0c0f] text-white">
+    <div className="bg-ds-dark-900 text-white">
       <ProductFeaturesSection
         details={freeResourceDetails}
         productTitle="BiblioClean"
@@ -200,7 +200,7 @@ const ResourcesPage: React.FC = () => {
       <section className="py-16 px-6">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-white/70 text-sm">
-            Looking for more? Browse <a href="/products" className="text-[#ff2f87] hover:underline">all BiblioKit products</a> or read our <a href="/blog" className="text-[#ff2f87] hover:underline">Figma workflow tips on the blog</a>.
+            Looking for more? Browse <a href="/products" className="text-ds-pink-500 hover:underline">all BiblioKit products</a> or read our <a href="/blog" className="text-ds-pink-500 hover:underline">Figma workflow tips on the blog</a>.
           </p>
         </div>
       </section>

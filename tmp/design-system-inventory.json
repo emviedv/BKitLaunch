@@ -1,0 +1,306 @@
+{
+  "scanned": {
+    "totalFilesUnderSrc": 142,
+    "codeFiles": 134,
+    "tsxJsxFiles": 94
+  },
+  "buttons": {
+    "componentPath": "src/components/ui/button.tsx",
+    "variantTypesCount": 8,
+    "variantTypes": [
+      "default",
+      "destructive",
+      "outline",
+      "secondary",
+      "ghost",
+      "link",
+      "hero-primary",
+      "hero-secondary"
+    ],
+    "sizeTypesCount": 4,
+    "sizeTypes": [
+      "default",
+      "sm",
+      "lg",
+      "icon"
+    ],
+    "usage": {
+      "ButtonComponentTags": 130,
+      "NativeButtonTags": 29,
+      "ButtonVariantAssignments": {
+        "destructive": 2,
+        "ghost": 16,
+        "hero-primary": 38,
+        "hero-secondary": 5,
+        "link": 1,
+        "outline": 24,
+        "secondary": 2
+      },
+      "ButtonSizeAssignments": {
+        "icon": 1,
+        "lg": 64,
+        "sm": 9
+      }
+    }
+  },
+  "badges": {
+    "componentPath": "src/components/ui/badge.tsx",
+    "variantTypesCount": 8,
+    "variantTypes": [
+      "glass",
+      "accent",
+      "launched",
+      "coming-soon",
+      "beta",
+      "problem",
+      "solution",
+      "info"
+    ],
+    "sizeTypesCount": 3,
+    "sizeTypes": [
+      "sm",
+      "default",
+      "lg"
+    ],
+    "usage": {
+      "BadgeComponentTags": 9,
+      "BadgeVariantAssignments": {
+        "accent": 1,
+        "glass": 4,
+        "info": 1,
+        "problem": 1,
+        "solution": 1
+      },
+      "BadgeSizeAssignments": {
+        "sm": 2
+      },
+      "SectionBadgeClassVariants": {
+        "dark": 3,
+        "light": 2,
+        "pink": 5
+      }
+    }
+  },
+  "modals": {
+    "sourcePath": "src/components/design-system/data/modals.tsx",
+    "modalTypesCount": 19,
+    "groupCount": 5,
+    "groupBreakdown": {
+      "Account & Billing": 4,
+      "Collections & Settings": 3,
+      "Feedback & Safety": 4,
+      "Power Tools & Uploads": 4,
+      "Reminders": 4
+    },
+    "modalTypes": [
+      {
+        "id": "billing-modal",
+        "group": "Account & Billing",
+        "title": "Billing Modal",
+        "path": "src/components/modals/billing-modal.tsx"
+      },
+      {
+        "id": "upgrade-to-pro-modal",
+        "group": "Account & Billing",
+        "title": "Upgrade to Pro Modal",
+        "path": "src/components/modals/upgrade-to-pro-modal.tsx"
+      },
+      {
+        "id": "trial-welcome-modal",
+        "group": "Account & Billing",
+        "title": "Trial Welcome Modal",
+        "path": "src/components/modals/trial-welcome-modal.tsx"
+      },
+      {
+        "id": "extension-sign-in-modal",
+        "group": "Account & Billing",
+        "title": "Extension Sign-In Modal",
+        "path": "src/components/modals/extension-sign-in-modal.tsx"
+      },
+      {
+        "id": "collection-form-modal",
+        "group": "Collections & Settings",
+        "title": "Collection Form Modal",
+        "path": "src/components/modals/collection-form-modal.tsx"
+      },
+      {
+        "id": "tag-management-modal",
+        "group": "Collections & Settings",
+        "title": "Tag Management Modal",
+        "path": "src/components/modals/tag-management-modal.tsx"
+      },
+      {
+        "id": "settings-modal",
+        "group": "Collections & Settings",
+        "title": "Settings Modal",
+        "path": "src/components/modals/settings-modal.tsx"
+      },
+      {
+        "id": "reminder-dialog",
+        "group": "Reminders",
+        "title": "Reminder Dialog",
+        "path": "src/components/modals/reminder-dialog.tsx"
+      },
+      {
+        "id": "reminder-edit-dialog",
+        "group": "Reminders",
+        "title": "Reminder Edit Dialog",
+        "path": "src/components/modals/reminder-edit-dialog.tsx"
+      },
+      {
+        "id": "reminder-completion-dialog",
+        "group": "Reminders",
+        "title": "Reminder Completion Dialog",
+        "path": "src/components/modals/reminder-completion-dialog.tsx"
+      },
+      {
+        "id": "portal-reminder-dialog",
+        "group": "Reminders",
+        "title": "Portal Reminder Dialog",
+        "path": "src/components/modals/portal-reminder-dialog.tsx"
+      },
+      {
+        "id": "feedback-modal",
+        "group": "Feedback & Safety",
+        "title": "Feedback Modal",
+        "path": "src/components/modals/feedback-modal.tsx"
+      },
+      {
+        "id": "unsaved-changes-modal",
+        "group": "Feedback & Safety",
+        "title": "Unsaved Changes Modal",
+        "path": "src/components/modals/unsaved-changes-modal.tsx"
+      },
+      {
+        "id": "delete-confirmation-dialog",
+        "group": "Feedback & Safety",
+        "title": "Delete Confirmation Dialog",
+        "path": "src/components/modals/delete-confirmation-dialog.tsx"
+      },
+      {
+        "id": "confirmation-modal",
+        "group": "Feedback & Safety",
+        "title": "Confirmation Modal",
+        "path": "src/components/modals/confirmation-modal.tsx"
+      },
+      {
+        "id": "command-search-dialog",
+        "group": "Power Tools & Uploads",
+        "title": "Command Search Dialog",
+        "path": "src/components/modals/command-search-dialog.tsx"
+      },
+      {
+        "id": "duplicate-files-alert-dialog",
+        "group": "Power Tools & Uploads",
+        "title": "Duplicate Files Alert Dialog",
+        "path": "src/components/modals/duplicate-files-alert-dialog.tsx"
+      },
+      {
+        "id": "enhanced-duplicate-files-dialog",
+        "group": "Power Tools & Uploads",
+        "title": "Enhanced Duplicate Files Dialog",
+        "path": "src/components/modals/enhanced-duplicate-files-dialog.tsx"
+      },
+      {
+        "id": "upload-progress-centered-modal",
+        "group": "Power Tools & Uploads",
+        "title": "Upload Progress Modal",
+        "path": "src/components/modals/upload-progress-centered-modal.tsx"
+      }
+    ],
+    "dialogPrimitiveUsage": {
+      "DialogTagsOutsidePrimitive": 0,
+      "DialogContentTagsOutsidePrimitive": 0
+    }
+  },
+  "icons": {
+    "lucide": {
+      "uniqueImportedIconTypes": 35,
+      "importedIconTypeUsageByImport": {
+        "AlertTriangle": 1,
+        "ArrowRight": 2,
+        "BarChart3": 1,
+        "Bell": 1,
+        "Bot": 1,
+        "Calendar": 1,
+        "Clock": 1,
+        "DollarSign": 1,
+        "FileCheck": 1,
+        "FileText": 2,
+        "FolderOpen": 1,
+        "Globe": 1,
+        "Grid3X3": 1,
+        "Layers": 2,
+        "LayoutDashboard": 1,
+        "MessageSquare": 1,
+        "MousePointer2": 1,
+        "Paintbrush": 1,
+        "PanelsTopLeft": 1,
+        "PartyPopper": 1,
+        "Pipette": 1,
+        "RefreshCw": 1,
+        "Rocket": 1,
+        "Search": 2,
+        "Share2": 2,
+        "ShieldCheck": 2,
+        "Sparkles": 8,
+        "Star": 1,
+        "StickyNote": 1,
+        "ThumbsDown": 1,
+        "ThumbsUp": 2,
+        "Users": 1,
+        "Wrench": 1,
+        "X": 1,
+        "Zap": 4
+      }
+    },
+    "iconify": {
+      "uniqueIconStrings": 2,
+      "iconStringUsage": {
+        "solar:chat-round-like-bold": 1,
+        "solar:question-circle-bold": 1
+      }
+    },
+    "iconResolverMap": {
+      "keyCount": 75,
+      "uniqueKeyCount": 75,
+      "uniqueIconTargets": [
+        "solar:arrow-right-linear",
+        "solar:bolt-linear",
+        "solar:brain-linear",
+        "solar:cart-large-minimalistic-linear",
+        "solar:chart-linear",
+        "solar:check-circle-linear",
+        "solar:clock-circle-linear",
+        "solar:compass-linear",
+        "solar:cursor-linear",
+        "solar:download-minimalistic-linear",
+        "solar:folder-linear",
+        "solar:globe-linear",
+        "solar:laptop-minimalistic-linear",
+        "solar:link-minimalistic-linear",
+        "solar:lock-password-linear",
+        "solar:magnifer-linear",
+        "solar:refresh-circle-linear",
+        "solar:shield-check-linear",
+        "solar:star-linear",
+        "solar:stars-minimalistic-linear",
+        "solar:tag-linear",
+        "solar:undo-left-round-linear",
+        "solar:users-group-rounded-linear"
+      ],
+      "uniqueIconTargetCount": 23
+    },
+    "cssIconVariants": {
+      "count": 6,
+      "names": [
+        "blue",
+        "green",
+        "indigo",
+        "orange",
+        "pink",
+        "purple"
+      ]
+    }
+  }
+}

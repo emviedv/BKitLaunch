@@ -255,7 +255,7 @@ const OrganizeFilePage = () => {
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Professional File Organization on Autopilot.</SectionTitle>
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
+          <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Product Handoff</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Every handoff has different structure. <br/>Result: Consistent templates with ownership fields.</p>
             <div className="grid grid-cols-2 gap-4">
@@ -263,7 +263,7 @@ const OrganizeFilePage = () => {
               <PlaceholderImage label="After: Organized Handoff" height="h-40" />
             </div>
           </div>
-          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
+          <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Journey Mapping</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Flow maps start from scratch. <br/>Result: Pre-built structure for cross-functional mapping.</p>
              <div className="grid grid-cols-2 gap-4">
@@ -296,7 +296,7 @@ const OrganizeFilePage = () => {
                      width={128}
                      height={128}
                    />
-                   <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
+                   <div className="absolute -bottom-4 -right-4 product-page-metric-callout p-4 rounded-lg border shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
                         <Check className="w-4 h-4 text-violet-400" />
                         <span className="text-sm font-bold">File Organized</span>

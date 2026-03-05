@@ -23,7 +23,7 @@ interface BlogArticlePageProps {
 }
 
 const blogCardHoverClass =
-  'group flex h-full flex-col transition hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6580E1]';
+  'group flex h-full flex-col transition hover:text-ds-pink-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 const BLOG_HERO_TITLE_CLASS =
   'text-4xl sm:text-5xl md:text-6xl font-sans font-extrabold leading-[1.1] tracking-normal sm:tracking-[-0.01em] text-white';
 const BLOG_HERO_CONTENT_WIDTH_CLASS = 'w-full max-w-[70%]';
@@ -385,7 +385,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
             </p>
             <a
               href={ROUTE_PATHS.LEARN_DESIGN_OPS_FUNDAMENTALS}
-              className="mt-4 inline-flex text-sm font-semibold text-[#ff2f87] underline underline-offset-4 transition-colors hover:text-[#ff5ba0]"
+              className="mt-4 inline-flex text-sm font-semibold text-ds-pink-500 underline underline-offset-4 transition-colors hover:text-ds-pink-400"
             >
               Read the guide
             </a>

@@ -218,7 +218,7 @@ const FixTablePage = () => {
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Essential for data-heavy UI.</SectionTitle>
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
+          <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Dashboard Design</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: 50-row tables that break when data changes. <br/>Result: Flexible, resilient layouts.</p>
             <div className="grid grid-cols-2 gap-4">
@@ -226,7 +226,7 @@ const FixTablePage = () => {
               <PlaceholderImage label="After: Responsive Table" height="h-40" />
             </div>
           </div>
-          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
+          <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Pricing Pages</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Misaligned features vs checkmarks. <br/>Result: Perfectly aligned comparison.</p>
              <div className="grid grid-cols-2 gap-4">
@@ -253,7 +253,7 @@ const FixTablePage = () => {
             <div className="flex justify-center">
                <div className="relative">
                    <PlaceholderImage label="FixTable Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
-                   <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
+                   <div className="absolute -bottom-4 -right-4 product-page-metric-callout p-4 rounded-lg border shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
                         <Check className="w-4 h-4 text-purple-400" />
                         <span className="text-sm font-bold">Table Normalized</span>

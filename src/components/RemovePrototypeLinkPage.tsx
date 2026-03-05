@@ -70,15 +70,15 @@ const RemovePrototypeLinkPage: React.FC = () => {
             </div>
             <ul className="space-y-3 text-base text-muted-foreground">
               <li className="flex items-start gap-3">
-                <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#6580E1]" aria-hidden="true" />
+                <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ds-pink-accent" aria-hidden="true" />
                 <span>Work 10x faster by auditing every share URL without clicking through file after file.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#6580E1]" aria-hidden="true" />
+                <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ds-pink-accent" aria-hidden="true" />
                 <span>Protect launches by revoking prototypes the moment specs change and redirecting partners instantly.</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#6580E1]" aria-hidden="true" />
+                <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ds-pink-accent" aria-hidden="true" />
                 <span>Hand designers a repeatable cleanup ritual so creative time stays focused on new work.</span>
               </li>
             </ul>
@@ -94,7 +94,7 @@ const RemovePrototypeLinkPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="relative rounded-[32px] border border-white/15 bg-gradient-to-br from-[#0F172A] via-[#0C1222] to-[#0A0D1A] p-6 text-white shadow-[0_35px_80px_rgba(15,23,42,0.45)]">
+          <div className="relative rounded-[32px] border border-white/15 bg-gradient-to-br from-slate-900 via-slate-950 to-black p-6 text-white shadow-[0_35px_80px_rgba(15,23,42,0.45)]">
             <div className="space-y-6">
               <div>
                 <p className="text-sm uppercase tracking-[0.35em] text-white/60">Live Preview</p>

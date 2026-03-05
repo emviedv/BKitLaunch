@@ -99,7 +99,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
           <li key={anchorId}>
             <a
               href={`#${anchorId}`}
-              className="block text-sm font-semibold text-white/60 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F4AEFF]"
+              className="block text-sm font-semibold text-white/60 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-pink-glow"
             >
               {title}
             </a>
@@ -125,15 +125,15 @@ const ProductFeaturesSection: React.FC<Props> = ({
         <div className="mt-8 relative">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {detailEntries.map(({ detail, anchorId }, index) => {
-              // Color themes for each card (bg, icon color, border)
+              // Keep per-product card accents in landing/product/resource grids.
               const colorThemes = [
-                { bg: 'rgba(59, 130, 246, 0.08)', icon: '#3b82f6', border: 'rgba(59, 130, 246, 0.2)' },   // Blue
-                { bg: 'rgba(168, 85, 247, 0.08)', icon: '#a855f7', border: 'rgba(168, 85, 247, 0.2)' },   // Purple
-                { bg: 'rgba(20, 184, 166, 0.08)', icon: '#14b8a6', border: 'rgba(20, 184, 166, 0.2)' },   // Teal
-                { bg: 'rgba(34, 197, 94, 0.08)', icon: '#22c55e', border: 'rgba(34, 197, 94, 0.2)' },     // Green
-                { bg: 'rgba(249, 115, 22, 0.08)', icon: '#f97316', border: 'rgba(249, 115, 22, 0.2)' },   // Orange
-                { bg: 'rgba(99, 102, 241, 0.08)', icon: '#6366f1', border: 'rgba(99, 102, 241, 0.2)' },   // Indigo
-                { bg: 'rgba(255, 47, 135, 0.08)', icon: '#ff2f87', border: 'rgba(255, 47, 135, 0.2)' },   // Hot Pink
+                { bg: 'hsl(217 91% 60% / 0.08)', icon: 'hsl(217 91% 60%)', border: 'hsl(217 91% 60% / 0.2)' },
+                { bg: 'hsl(271 91% 65% / 0.08)', icon: 'hsl(271 91% 65%)', border: 'hsl(271 91% 65% / 0.2)' },
+                { bg: 'hsl(173 80% 40% / 0.08)', icon: 'hsl(173 80% 40%)', border: 'hsl(173 80% 40% / 0.2)' },
+                { bg: 'hsl(142 71% 45% / 0.08)', icon: 'hsl(142 71% 45%)', border: 'hsl(142 71% 45% / 0.2)' },
+                { bg: 'hsl(24 95% 53% / 0.08)', icon: 'hsl(24 95% 53%)', border: 'hsl(24 95% 53% / 0.2)' },
+                { bg: 'hsl(239 84% 67% / 0.08)', icon: 'hsl(239 84% 67%)', border: 'hsl(239 84% 67% / 0.2)' },
+                { bg: 'hsl(339 100% 59% / 0.08)', icon: 'hsl(339 100% 59%)', border: 'hsl(339 100% 59% / 0.2)' },
               ];
               const theme = colorThemes[index % colorThemes.length];
               const rawItems = Array.isArray(detail.items) ? detail.items : [];
@@ -182,8 +182,10 @@ const ProductFeaturesSection: React.FC<Props> = ({
                       {/* Category badge */}
                       {featurePill && (
                         <span
-                          className="inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold tracking-wide uppercase"
-                          style={{ backgroundColor: theme.bg, color: theme.icon, border: `1px solid ${theme.icon}` }}
+                          className={cn(
+                            'inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold tracking-wide uppercase',
+                            featurePill.classes
+                          )}
                         >
                           {featurePill.label}
                         </span>
@@ -226,7 +228,8 @@ const ProductFeaturesSection: React.FC<Props> = ({
                           href={buttonHref}
                           target={isExternalButton ? '_blank' : '_self'}
                           rel={isExternalButton ? 'noopener noreferrer' : undefined}
-                          className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff2f87] text-white transition-colors hover:brightness-110"
+                          className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-colors hover:brightness-110"
+                          style={{ backgroundColor: theme.icon }}
                           aria-label={`Go to ${productName || detail.title}`}
                         >
                           <ArrowRight className="h-5 w-5" />
@@ -344,7 +347,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
                         <ul className="mt-2 space-y-2 text-base text-white/75 flex flex-col items-start text-left pb-3 leading-relaxed">
                           {bulletItems.map((item, itemIndex) => (
                             <li key={itemIndex} className="flex items-start gap-3">
-                              <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#F772B6]" />
+                              <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ds-pink-accent" />
                               <span className="text-left">{item}</span>
                             </li>
                           ))}

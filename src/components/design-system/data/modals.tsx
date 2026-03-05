@@ -53,7 +53,7 @@ export const modalShowcases: ModalShowcase[] = [
             Cancel
           </Button>
           <div className="flex flex-1 flex-col gap-2 sm:flex-none sm:flex-row sm:items-center sm:justify-end">
-            <Button className="bg-[#6580E1] hover:bg-[#546bd1]">Start 14-day trial</Button>
+            <Button className="bg-interactive-accent hover:bg-interactive-accent-hover">Start 14-day trial</Button>
             <Button variant="outline">Upgrade to Pro</Button>
           </div>
         </div>
@@ -76,8 +76,8 @@ export const modalShowcases: ModalShowcase[] = [
         </div>
         <div className="space-y-3 p-4 text-sm">
           <div className="grid gap-2">
-            <div className="flex items-start gap-3 rounded-md border border-[#6580E1]/40 bg-[#6580E1]/10 p-3">
-              <Sparkles className="w-5 h-5 text-[#6580E1] flex-shrink-0 mt-0.5" />
+            <div className="flex items-start gap-3 rounded-md border border-interactive-accent/40 bg-interactive-accent/10 p-3">
+              <Sparkles className="w-5 h-5 text-interactive-accent flex-shrink-0 mt-0.5" />
               <div>
                 <div className="font-medium">Unlimited analyses</div>
                 <div className="text-muted-foreground">
@@ -103,7 +103,7 @@ export const modalShowcases: ModalShowcase[] = [
           <Button variant="outline" className="sm:w-auto">
             Not now
           </Button>
-          <Button className="bg-[#6580E1] hover:bg-[#546bd1]">Upgrade</Button>
+          <Button className="bg-interactive-accent hover:bg-interactive-accent-hover">Upgrade</Button>
         </div>
       </>
     ),
@@ -695,7 +695,7 @@ export const modalShowcases: ModalShowcase[] = [
                   <span className="text-muted-foreground">{file.progress}%</span>
                 </div>
                 <div className="mt-1 h-2 rounded-full bg-muted">
-                  <div className="h-full rounded-full bg-[#6580E1]" style={{ width: `${file.progress}%` }} />
+                  <div className="h-full rounded-full bg-interactive-accent" style={{ width: `${file.progress}%` }} />
                 </div>
               </div>
             ))}

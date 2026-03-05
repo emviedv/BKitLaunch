@@ -280,12 +280,12 @@ const Header = () => {
                 const isLearnDropdown = dd.label?.trim().toLowerCase() === 'learn';
                 const isResourcesDropdown = isFreePluginsDropdown;
                 const dropdownPanelClassName = isPluginsDropdown
-                  ? 'absolute top-full left-0 mt-2 w-[520px] rounded-2xl border border-white/10 bg-[#131417] shadow-[0_24px_64px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50'
-                  : 'absolute top-full left-0 mt-2 w-[320px] rounded-xl border border-white/10 bg-[#131417] shadow-[0_20px_48px_rgba(0,0,0,0.45)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50';
+                  ? 'absolute top-full left-0 mt-2 w-[520px] rounded-2xl border border-white/10 bg-ds-dark-800 shadow-[0_24px_64px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50'
+                  : 'absolute top-full left-0 mt-2 w-[320px] rounded-xl border border-white/10 bg-ds-dark-800 shadow-[0_20px_48px_rgba(0,0,0,0.45)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50';
                 const dropdownContentClassName = isPluginsDropdown
                   ? 'p-2 grid gap-1 sm:grid-cols-2'
                   : 'p-2 space-y-0.5';
-                const dropdownTriggerClassName = 'text-sm font-medium text-white hover:text-[#ff2f87] transition-colors flex items-center';
+                const dropdownTriggerClassName = 'text-sm font-medium text-white hover:text-ds-pink-500 transition-colors flex items-center';
                 const dropdownTriggerHref = isLearnDropdown
                   ? ROUTE_PATHS.LEARN
                   : isResourcesDropdown
@@ -319,7 +319,7 @@ const Header = () => {
                           const usePluginIconStyle = isPluginsDropdown || Boolean(pluginIconSrc);
                           const ChildIcon = resolveLucideIcon(child.icon || child.label);
                           const itemClassName = isPluginsDropdown
-                            ? 'group/item flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors hover:bg-white/[0.12] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff2f87]'
+                            ? 'group/item flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors hover:bg-white/[0.12] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ds-pink-500'
                             : 'flex items-center gap-3 px-3 py-2 rounded-xl transition-colors hover:bg-white/[0.12]';
                           const iconWrapperClassName = usePluginIconStyle
                             ? 'flex h-6 w-6 items-center justify-center flex-shrink-0'
@@ -352,7 +352,7 @@ const Header = () => {
                                 <span className="flex items-center gap-2">
                                   <span className="text-sm font-medium text-white/90 group-hover/item:text-white transition-colors">{child.label}</span>
                                   {child.badge && (
-                                    <span className="text-[10px] font-medium uppercase tracking-wide text-[#ff2f87] bg-[#ff2f87]/10 px-1.5 py-0.5 rounded">
+                                    <span className="text-[10px] font-medium uppercase tracking-wide text-ds-pink-500 bg-ds-pink-500/10 px-1.5 py-0.5 rounded">
                                       {child.badge}
                                     </span>
                                   )}
@@ -393,7 +393,7 @@ const Header = () => {
                   href={normalizedHref}
                   target={isExternal ? '_blank' : undefined}
                   rel={isExternal ? (li.nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer') : (li.nofollow ? 'nofollow' : undefined)}
-                  className="text-sm font-medium text-white hover:text-[#ff2f87] transition-colors"
+                  className="text-sm font-medium text-white hover:text-ds-pink-500 transition-colors"
                 >
                   {li.label}
                 </a>
@@ -407,7 +407,7 @@ const Header = () => {
       {/* Mobile menu */}
       <div
         id={HEADER_MOBILE_MENU_ID}
-        className="hidden md:hidden bg-[#0b0c0f] text-white"
+        className="hidden md:hidden bg-ds-dark-900 text-white"
       >
         <div className="section-content py-2 space-y-2">
           {navItems.map((item, index) => {
@@ -481,7 +481,7 @@ const Header = () => {
                             <span className="flex items-center gap-2">
                               <span>{child.label}</span>
                               {child.badge && (
-                                <span className="text-[10px] font-semibold uppercase tracking-wide text-white bg-[#ff2f87]/20 px-2 py-[2px] rounded-full border border-[#ff2f87]/40">
+                                <span className="text-[10px] font-semibold uppercase tracking-wide text-white bg-ds-pink-500/20 px-2 py-[2px] rounded-full border border-ds-pink-500/40">
                                   {child.badge}
                                 </span>
                               )}

@@ -4,9 +4,27 @@ import App from './App';
 import { Router } from 'wouter';
 import './index.css';
 
-try {
-  document.documentElement.classList.add('dark');
-} catch { /* empty */ }
+const THEME_STORAGE_KEY = 'theme';
+
+const applyInitialTheme = (): void => {
+  try {
+    const rawTheme = typeof localStorage !== 'undefined'
+      ? localStorage.getItem(THEME_STORAGE_KEY)
+      : null;
+    const selectedTheme = rawTheme === 'light' || rawTheme === 'dark' ? rawTheme : 'system';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const resolvedTheme = selectedTheme === 'system'
+      ? (prefersDark ? 'dark' : 'light')
+      : selectedTheme;
+
+    document.documentElement.classList.toggle('dark', resolvedTheme === 'dark');
+    document.documentElement.setAttribute('data-theme', resolvedTheme);
+  } catch {
+    /* empty */
+  }
+};
+
+applyInitialTheme();
 
 // Disable native scroll restoration so refresh starts at the top unless a hash is present
 try {

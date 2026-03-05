@@ -7,28 +7,28 @@ export type GradientPreset = {
 };
 
 export const brandSwatches: SwatchProps[] = [
-  { name: "brand-500", className: "bg-[#6580E1]", hex: "#6580E1" },
-  { name: "blue-500", className: "bg-blue-500", hex: "#3b82f6" },
-  { name: "green-500", className: "bg-green-500", hex: "#22c55e" },
-  { name: "brand-50", className: "bg-[#6580E1]/10", hex: "#e7ebfb" },
-  { name: "blue-50", className: "bg-blue-50", hex: "#eff6ff" },
-  { name: "green-50", className: "bg-green-50", hex: "#f0fdf4" },
+  { name: "interactive-accent", className: "bg-interactive-accent" },
+  { name: "interactive-accent-hover", className: "bg-interactive-accent-hover" },
+  { name: "ds-pink-500", className: "bg-ds-pink-500" },
+  { name: "ds-pink-300", className: "bg-ds-pink-300" },
+  { name: "ds-pink-glow", className: "bg-ds-pink-glow" },
+  { name: "ds-pink-lavender", className: "bg-ds-pink-lavender" },
 ] as const;
 
 export const primarySwatches: SwatchProps[] = [
-  { name: "primary", className: "bg-[#6580E1]", hex: "#6580E1" },
-  { name: "primary-foreground", className: "bg-[#6580E1]", textClass: "text-white", hex: "#ffffff" },
-  { name: "ring", className: "bg-[#7C92EA]", hex: "#7C92EA" },
+  { name: "primary", className: "bg-primary", textClass: "text-primary-foreground" },
+  { name: "primary-foreground", className: "bg-primary-foreground" },
+  { name: "ring", className: "bg-ring" },
 ] as const;
 
 export const accentSwatches: SwatchProps[] = [
-  { name: "accent", className: "bg-blue-500", hex: "#3b82f6" },
-  { name: "accent-foreground", className: "bg-blue-500", textClass: "text-white", hex: "#eff6ff" },
+  { name: "accent", className: "bg-accent" },
+  { name: "accent-foreground", className: "bg-accent-foreground", textClass: "text-foreground" },
 ] as const;
 
 export const successSwatches: SwatchProps[] = [
-  { name: "success", className: "bg-green-500", hex: "#22c55e" },
-  { name: "success soft", className: "bg-green-100", hex: "#dcfce7" },
+  { name: "success", className: "bg-success" },
+  { name: "success-soft", className: "bg-success/20" },
 ] as const;
 
 export const neutralSwatches: SwatchProps[] = [

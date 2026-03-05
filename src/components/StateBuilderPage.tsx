@@ -163,7 +163,7 @@ const StateBuilderPage = () => {
       {/* Block 3: Quick Proof */}
       <Section dark>
         <div className="text-center mb-12">
-          <div className="inline-block bg-emerald-500/10 text-emerald-300 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-emerald-500/20">
+          <div className="inline-block bg-ds-pink-500/15 text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-ds-pink-500/40">
             Typical Result: Full state coverage in minutes
           </div>
           <SectionTitle>Watch StateBuilder generate UI states and specs</SectionTitle>
@@ -284,7 +284,7 @@ const StateBuilderPage = () => {
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Built for design system and launch work.</SectionTitle>
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
+          <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Design System Release</h4>
             <p className="text-slate-400 mb-6 text-sm">
               Problem: Variants drift after token updates. <br />Result: Complete state matrix ready for handoff.
@@ -294,7 +294,7 @@ const StateBuilderPage = () => {
               <PlaceholderImage label="After: Full matrix" height="h-40" />
             </div>
           </div>
-          <div className="bg-[#0d0d15] p-8 rounded-2xl border border-slate-700/50">
+          <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Campaign Launch QA</h4>
             <p className="text-slate-400 mb-6 text-sm">
               Problem: Marketing assets miss edge states. <br />Result: Launch-ready UI across channels.
@@ -325,7 +325,7 @@ const StateBuilderPage = () => {
             <div className="flex justify-center">
               <div className="relative">
                 <PlaceholderImage label="StateBuilder Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
-                <div className="absolute -bottom-4 -right-4 bg-[#0f172a] p-4 rounded-lg border border-slate-700 shadow-xl">
+                <div className="absolute -bottom-4 -right-4 product-page-metric-callout p-4 rounded-lg border shadow-xl">
                   <div className="flex items-center gap-2 mb-2">
                     <Check className="w-4 h-4 text-emerald-400" />
                     <span className="text-sm font-bold">Specs Ready</span>

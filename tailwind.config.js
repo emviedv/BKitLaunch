@@ -70,6 +70,7 @@ export default {
           900: "hsl(var(--color-pink-900))",
           glow: "hsl(var(--color-pink-glow))",
           lavender: "hsl(var(--color-pink-lavender))",
+          accent: "hsl(var(--color-pink-accent))",
         },
         // Design system tokens - dark surfaces
         "ds-dark": {

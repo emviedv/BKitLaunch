@@ -37,7 +37,7 @@ export const ColorSection: React.FC = () => (
         </div>
       </div>
       <div className="card">
-        <h3 className="mb-3 font-medium">Primary (Pink)</h3>
+        <h3 className="mb-3 font-medium">Primary (Semantic)</h3>
         <div className="flex flex-col gap-3">
           {primarySwatches.map((swatch) => (
             <Swatch key={swatch.name} {...swatch} />
@@ -45,7 +45,7 @@ export const ColorSection: React.FC = () => (
         </div>
       </div>
       <div className="card">
-        <h3 className="mb-3 font-medium">Accent (Blue)</h3>
+        <h3 className="mb-3 font-medium">Accent (Semantic)</h3>
         <div className="flex flex-col gap-3">
           {accentSwatches.map((swatch) => (
             <Swatch key={swatch.name} {...swatch} />
@@ -94,4 +94,3 @@ export const ColorSection: React.FC = () => (
     </div>
   </section>
 );
-

@@ -1,0 +1,124 @@
+{
+  "totalCheckComponents": 45,
+  "byFile": {
+    "src/components/OrganizeFilePage.tsx": 13,
+    "src/components/ScaleResizerPage.tsx": 9,
+    "src/components/ComponentQAPage.tsx": 7,
+    "src/components/BiblioCleanPage.tsx": 4,
+    "src/components/FixTablePage.tsx": 4,
+    "src/components/StateBuilderPage.tsx": 4,
+    "src/components/AIRenameVariantsPage.tsx": 3,
+    "src/components/UseCasePage.tsx": 1
+  },
+  "byColorClass": {
+    "text-purple-400": 16,
+    "text-violet-400": 13,
+    "text-cyan-400": 7,
+    "text-blue-400": 4,
+    "text-emerald-300": 3,
+    "text-emerald-400": 1,
+    "text-green-400": 1
+  },
+  "samples": [
+    {
+      "file": "src/components/AIRenameVariantsPage.tsx",
+      "className": "w-4 h-4 text-purple-400",
+      "color": "text-purple-400"
+    },
+    {
+      "file": "src/components/AIRenameVariantsPage.tsx",
+      "className": "w-4 h-4 text-purple-400",
+      "color": "text-purple-400"
+    },
+    {
+      "file": "src/components/AIRenameVariantsPage.tsx",
+      "className": "w-4 h-4 text-purple-400",
+      "color": "text-purple-400"
+    },
+    {
+      "file": "src/components/BiblioCleanPage.tsx",
+      "className": "w-4 h-4 text-blue-400",
+      "color": "text-blue-400"
+    },
+    {
+      "file": "src/components/BiblioCleanPage.tsx",
+      "className": "w-4 h-4 text-blue-400",
+      "color": "text-blue-400"
+    },
+    {
+      "file": "src/components/BiblioCleanPage.tsx",
+      "className": "w-4 h-4 text-blue-400",
+      "color": "text-blue-400"
+    },
+    {
+      "file": "src/components/BiblioCleanPage.tsx",
+      "className": "w-4 h-4 text-blue-400",
+      "color": "text-blue-400"
+    },
+    {
+      "file": "src/components/ComponentQAPage.tsx",
+      "className": "w-4 h-4 text-cyan-400",
+      "color": "text-cyan-400"
+    },
+    {
+      "file": "src/components/ComponentQAPage.tsx",
+      "className": "w-4 h-4 text-cyan-400",
+      "color": "text-cyan-400"
+    },
+    {
+      "file": "src/components/ComponentQAPage.tsx",
+      "className": "w-4 h-4 text-cyan-400",
+      "color": "text-cyan-400"
+    },
+    {
+      "file": "src/components/ComponentQAPage.tsx",
+      "className": "w-4 h-4 text-cyan-400",
+      "color": "text-cyan-400"
+    },
+    {
+      "file": "src/components/ComponentQAPage.tsx",
+      "className": "w-4 h-4 text-cyan-400",
+      "color": "text-cyan-400"
+    },
+    {
+      "file": "src/components/ComponentQAPage.tsx",
+      "className": "w-4 h-4 text-cyan-400",
+      "color": "text-cyan-400"
+    },
+    {
+      "file": "src/components/ComponentQAPage.tsx",
+      "className": "w-4 h-4 text-cyan-400",
+      "color": "text-cyan-400"
+    },
+    {
+      "file": "src/components/FixTablePage.tsx",
+      "className": "w-4 h-4 text-purple-400",
+      "color": "text-purple-400"
+    },
+    {
+      "file": "src/components/FixTablePage.tsx",
+      "className": "w-4 h-4 text-purple-400",
+      "color": "text-purple-400"
+    },
+    {
+      "file": "src/components/FixTablePage.tsx",
+      "className": "w-4 h-4 text-purple-400",
+      "color": "text-purple-400"
+    },
+    {
+      "file": "src/components/FixTablePage.tsx",
+      "className": "w-4 h-4 text-purple-400",
+      "color": "text-purple-400"
+    },
+    {
+      "file": "src/components/OrganizeFilePage.tsx",
+      "className": "w-4 h-4 text-violet-400",
+      "color": "text-violet-400"
+    },
+    {
+      "file": "src/components/OrganizeFilePage.tsx",
+      "className": "w-4 h-4 text-violet-400",
+      "color": "text-violet-400"
+    }
+  ]
+}
