@@ -1,7 +1,7 @@
 // SEO Metadata Management System
 import { findBlogPostBySlug, type BlogPost } from '@/data/blogPosts';
 import { PAGE_FAQS_BY_ROUTE, defaultProductFaqs, type FAQEntry } from '@/data/pageFaqs';
-import { normalizeBaseUrl, CANONICAL_BASE_URL } from '@/lib/urlUtils';
+import { normalizeBaseUrl, CANONICAL_BASE_URL, toAbsoluteUrl } from '@/lib/urlUtils';
 import { findUseCaseBySlug, findPersonaBySlug, findGlossaryBySlug } from '@/data/programmaticContent';
 
 export interface SEOMetadata {
@@ -193,13 +193,6 @@ const mergeKeywords = (base?: string, additions: Array<string | undefined> = [])
   return set.size ? Array.from(set).join(', ') : undefined;
 };
 
-const toAbsoluteUrl = (baseUrl: string, value?: string | null): string | undefined => {
-  if (!value || typeof value !== 'string') return undefined;
-  if (/^https?:\/\//i.test(value)) return value;
-  const normalized = value.startsWith('/') ? value : `/${value}`;
-  return `${baseUrl}${normalized}`;
-};
-
 const PLUGIN_SOFTWARE_APPLICATIONS: Record<string, { name: string; image: string; description?: string }> = {
   '/figma-component-variant-renamer': {
     name: 'RenameVariantsAI',
@@ -246,7 +239,7 @@ const buildPluginSoftwareApplicationSchema = (
   const config = PLUGIN_SOFTWARE_APPLICATIONS[path];
   if (!config) return undefined;
   const url = `${baseUrl}${path}`;
-  const image = toAbsoluteUrl(baseUrl, config.image);
+  const image = toAbsoluteUrl(baseUrl, config.image) || undefined;
   const description = config.description || descriptionFallback;
   return cleanStructuredDataEntry({
     '@context': 'https://schema.org',

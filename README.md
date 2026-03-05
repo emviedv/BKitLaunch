@@ -22,7 +22,7 @@ A simplified version of the BiblioKit website designed for quick deployment to N
    npm run dev
    ```
 
-3. Open http://127.0.0.1:53173
+3. Open http://127.0.0.1:9990
 
 ## Editing Content
 
@@ -81,8 +81,8 @@ simple/
 
 ## Development
 
-- `npm run dev` - Start Vite on port 53173 (IPv4 localhost)
-- `npm run netlify:dev` - Full stack (proxy on 9989 → Vite on 53173)
+- `npm run dev` - Start Vite on port 9990
+- `npm run netlify:dev` - Full stack (proxy on 9989 → Vite on 9990)
 - `npm run build` - Build for production
   - Note: This builds the client only. SSR build is optional (`npm run build:server`) and not required because Edge SSR is disabled in `netlify.toml`.
 - `npm run preview` - Preview production build
@@ -95,7 +95,7 @@ Run the app with Netlify’s local proxy so `/.netlify/functions/*` work:
 npm run netlify:dev
 ```
 
-- Opens at `http://localhost:9989` (proxy) and serves Vite on `127.0.0.1:53173`
+- Opens at `http://localhost:9989` (proxy) and serves Vite on `127.0.0.1:9990`
 - Stop with Ctrl+C. If a port is stuck: `pkill -f "netlify dev"`
 - To free a port: `lsof -n -i :9989` then kill the PID
 

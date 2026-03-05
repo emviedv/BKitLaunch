@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { withCors, sendJSON, handleError } from './utils';
 import { buildSitemapXml } from './sitemap';
+import { resolveBaseUrlFromCandidates, CANONICAL_BASE_URL } from '../../src/lib/urlUtils.ts';
 
 interface IndexNowRequest {
   host: string;
@@ -10,19 +11,6 @@ interface IndexNowRequest {
   keyLocation: string;
   urlList: string[];
 }
-
-const normalizeSiteUrl = (raw?: string | null): string => {
-  if (!raw) return 'https://www.bibliokit.com';
-  try {
-    return new URL(raw).origin;
-  } catch {
-    try {
-      return new URL(`https://${raw}`).origin;
-    } catch {
-      return 'https://www.bibliokit.com';
-    }
-  }
-};
 
 const unescapeXml = (value: string): string =>
   value
@@ -81,11 +69,14 @@ const indexnowHandler: Handler = async (event: HandlerEvent, context: HandlerCon
 
   try {
     // Get the site URL from environment or use default
-    const siteUrl = normalizeSiteUrl(
-      process.env.PUBLIC_SITE_URL ||
-      process.env.URL ||
-      process.env.DEPLOY_PRIME_URL ||
-      process.env.DEPLOY_URL
+    const siteUrl = resolveBaseUrlFromCandidates(
+      [
+        process.env.PUBLIC_SITE_URL,
+        process.env.URL,
+        process.env.DEPLOY_PRIME_URL,
+        process.env.DEPLOY_URL
+      ],
+      CANONICAL_BASE_URL
     );
 
     // IndexNow key (env preferred, falls back to public/indexnow-key.txt)

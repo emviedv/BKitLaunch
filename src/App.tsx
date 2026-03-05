@@ -18,6 +18,7 @@ import { usePublishedContent } from './hooks/usePublishedContent';
 import { useSEO } from './hooks/useSEO';
 import { useHashScroll } from './hooks/useHashScroll';
 import { useScrollTopOnHome } from './hooks/useScrollTopOnHome';
+import { resolveClientBaseUrl } from './lib/urlUtils';
 
 // Configuration
 import { ROUTE_PATHS } from './config/routes';
@@ -106,7 +107,7 @@ const NotFoundPage: React.FC = () => {
   const [location] = useLocation();
   const normalizedPath = (location || '/').split('?')[0].replace(/\/+$/, '') || '/';
   let suggestedPath: string = ROUTE_PATHS.HOME;
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://www.bibliokit.com';
+  const origin = typeof window !== 'undefined' ? resolveClientBaseUrl() : 'https://www.bibliokit.com';
 
   if (normalizedPath.startsWith('/blog/')) {
     suggestedPath = ROUTE_PATHS.BLOG;

@@ -2,8 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 
+const DEFAULT_DEV_PORT = 9990
 const envPort = Number(process.env.PORT || process.env.VITE_PORT)
-const port = Number.isFinite(envPort) && envPort > 0 ? envPort : 53173
+const port = Number.isFinite(envPort) && envPort > 0 ? envPort : DEFAULT_DEV_PORT
 
 export default defineConfig(({ ssrBuild }) => {
   const rollupOutput = ssrBuild

@@ -73,6 +73,46 @@ export function normalizeBaseUrl(raw?: string | null): string {
 }
 
 /**
+ * Attempts to parse a value into a URL origin.
+ *
+ * @param raw - URL/origin/hostname candidate
+ * @returns Normalized origin string, or null if invalid
+ */
+export function normalizeOrigin(raw?: string | null): string | null {
+  if (!raw) return null;
+
+  try {
+    return new URL(raw).origin;
+  } catch {
+    try {
+      return new URL(`https://${raw}`).origin;
+    } catch {
+      return null;
+    }
+  }
+}
+
+/**
+ * Resolves the first valid base URL from a candidate list and normalizes it.
+ *
+ * @param candidates - Ordered list of URL candidates
+ * @param fallback - Fallback when no candidate is valid
+ * @returns Normalized base URL
+ */
+export function resolveBaseUrlFromCandidates(
+  candidates: Array<string | null | undefined>,
+  fallback: string = CANONICAL_BASE_URL
+): string {
+  for (const candidate of candidates) {
+    const origin = normalizeOrigin(candidate);
+    if (origin) {
+      return normalizeBaseUrl(origin);
+    }
+  }
+  return normalizeBaseUrl(fallback);
+}
+
+/**
  * Resolves the base URL for client-side code.
  * Uses window.location when available, falls back to canonical.
  *

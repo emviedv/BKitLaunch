@@ -28,9 +28,9 @@ const resolveAllowedOrigin = (originHeader?: string | null): string | undefined 
 
   const devDefaults = [
     'http://localhost:5173',
-    'http://localhost:53173',
+    'http://localhost:9990',
     'http://127.0.0.1:5173',
-    'http://127.0.0.1:53173',
+    'http://127.0.0.1:9990',
   ];
 
   const allowed = new Set<string>([...allowedFromEnv, ...devDefaults]);

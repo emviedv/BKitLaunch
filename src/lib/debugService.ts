@@ -4,11 +4,60 @@ interface DebugConfig {
   persistent: boolean;
 }
 
+const isLocalHost = (host?: string | null): boolean => {
+  if (!host) return false;
+  const normalized = host.toLowerCase();
+  return normalized === 'localhost' || normalized === '127.0.0.1' || normalized.endsWith('.localhost');
+};
+
+const detectDevRuntime = (): boolean => {
+  try {
+    const importMetaEnv = (import.meta as any)?.env;
+    if (importMetaEnv?.DEV === true) {
+      return true;
+    }
+  } catch {
+    // ignore missing import.meta support in non-Vite contexts
+  }
+
+  try {
+    const nodeEnv = (globalThis as any)?.process?.env?.NODE_ENV;
+    if (typeof nodeEnv === 'string' && nodeEnv.length > 0) {
+      if (nodeEnv === 'test') {
+        return false;
+      }
+      return nodeEnv === 'development';
+    }
+  } catch {
+    // ignore
+  }
+
+  try {
+    const host = (globalThis as any)?.location?.hostname;
+    if (typeof host === 'string') {
+      return isLocalHost(host);
+    }
+  } catch {
+    // ignore
+  }
+
+  return false;
+};
+
+const DEV_RUNTIME = detectDevRuntime();
+const TEST_RUNTIME = (() => {
+  try {
+    return (globalThis as any)?.process?.env?.NODE_ENV === 'test';
+  } catch {
+    return false;
+  }
+})();
+
 class DebugService {
   private config: DebugConfig = {
-    enabled: true, // Enable by default in development
-    level: 'debug',
-    persistent: true
+    enabled: DEV_RUNTIME,
+    level: DEV_RUNTIME ? 'debug' : 'error',
+    persistent: DEV_RUNTIME
   };
 
   private logHistory: Array<{
@@ -19,7 +68,9 @@ class DebugService {
   }> = [];
 
   constructor() {
-    this.info('DebugService initialized');
+    if (this.config.enabled) {
+      this.info('DebugService initialized');
+    }
   }
 
   configure(config: Partial<DebugConfig>): void {
@@ -68,7 +119,6 @@ class DebugService {
       if (data) {
         console.groupCollapsed(`${prefix} ${message}`);
         console.log('Data:', data);
-        console.trace('Stack trace');
         console.groupEnd();
       } else {
         console.log(`${prefix} ${message}`);
@@ -167,15 +217,17 @@ export const debugService = new DebugService();
 
 // Development mode detection
 if (typeof window !== 'undefined' && typeof window.location !== 'undefined') {
-  const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const isDev = !TEST_RUNTIME && (DEV_RUNTIME || isLocalHost(window.location.hostname));
   debugService.configure({ 
     enabled: isDev,
-    level: isDev ? 'debug' : 'warn',
+    level: isDev ? 'debug' : 'error',
     persistent: isDev
   });
 
-  // Make available globally for console debugging
-  (window as any).debugService = debugService;
+  if (isDev) {
+    // Make available globally for console debugging
+    (window as any).debugService = debugService;
+  }
 }
 
 export default debugService;

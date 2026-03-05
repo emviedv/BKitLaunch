@@ -263,6 +263,14 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
   }, []);
 
   useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') {
+      if (!statsVisible) {
+        setStatsVisible(true);
+        setAnimatedValues(STATS_DATA.map((stat) => stat.target));
+      }
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

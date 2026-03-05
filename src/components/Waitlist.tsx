@@ -127,7 +127,7 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride, titleOverride, des
             <Button
               type="submit"
               size="lg"
-              disabled={state.isLoading || !state.email.trim()}
+              disabled={state.isLoading}
               className="landing-waitlist-submit bg-ds-pink-500 hover:bg-ds-pink-600 text-white disabled:cursor-not-allowed"
             >
               {state.isLoading ? 'Joining...' : buttonLabel}

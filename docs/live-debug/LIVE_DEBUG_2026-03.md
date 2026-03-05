@@ -2,6 +2,18 @@
 
 ## 2026-03-05
 
+- **Time:** 2026-03-05 01:02 EST
+- **Summary:** Removed the default disabled state from the waitlist primary CTA so the button remains active before email input.
+- **Root Cause:** Waitlist submit button used `disabled={state.isLoading || !state.email.trim()}`, which rendered the primary CTA in a disabled state on initial load.
+- **Changed Files:** src/components/Waitlist.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** Confirmed button prop is now `disabled={state.isLoading}` in `src/components/Waitlist.tsx`; `node --test src/__tests__/ui/waitlist.markup.test.mjs` (fails for pre-existing scoped alert class expectation unrelated to button disabled logic).
+
+- **Time:** 2026-03-05 00:55 EST
+- **Summary:** Resolved foundation config drift by standardizing dev port `9990`, consolidated base URL resolution into shared URL utilities, hardened debug logging defaults for production/SSR, added Coming Soon fallback copy safeguards, and removed redundant Tailwind font aliases.
+- **Root Cause:** Multiple files still referenced legacy port `53173`, URL normalization logic was duplicated across SEO/server/functions, debug logging defaulted to enabled in non-browser contexts, coming-soon waitlist overrides could fall back to empty strings, and unused duplicate font aliases remained in theme config.
+- **Changed Files:** vite.config.ts; package.json; netlify.toml; scripts/dev-full.sh; scripts/dev-monitor.sh; scripts/kill-dev-ports.sh; netlify/functions/utils.ts; src/lib/urlUtils.ts; src/lib/seo.ts; src/entry-server.tsx; netlify/functions/sitemap.ts; netlify/functions/indexnow.ts; netlify/edge-functions/bot-detection.ts; src/App.tsx; src/lib/debugService.ts; src/components/ComingSoon.tsx; tailwind.config.js; README.md; src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run test:env` (pass); `npm run build:client` (pass); `npm run build:server` (pass); `node --loader ./tests/support/esbuild-loader.mjs --test tests/unit/sitemap.spec.ts tests/unit/seoClientNavigation.spec.ts tests/unit/updatePageMetadataStructuredData.spec.ts` (pass); `npm run test:unit` (fails in pre-existing client contract expectation: `client/src/__tests__/unit/ProductContentSections.spec.tsx` expects `faqs` in `sectionsOrder` snapshot)
+
 - **Time:** 2026-03-05 00:35 EST
 - **Summary:** Fixed blog post hero layout by widening hero content on small/medium breakpoints and removed the avatar strip above the hero badge for blog article heroes.
 - **Root Cause:** Blog article pages reused `LandingHero` with a hardcoded avatar strip and a narrow fixed content width (`max-w-[70%]`) that made headings feel cramped and visually noisy in compact hero mode.

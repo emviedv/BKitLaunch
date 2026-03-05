@@ -203,9 +203,9 @@ edge_functions = "netlify/edge-functions"
   status = 200
 
 [dev]
-  # Vite is started by scripts/dev-full.sh; Dev only proxies.
+  command = "npm run dev"
   port = 9989
-  targetPort = 53173
+  targetPort = 9990
 
 [[edge_functions]]
   path = "/*"

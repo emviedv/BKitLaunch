@@ -3,7 +3,7 @@ import { withCors } from './utils.ts';
 import productData from '../../src/data/products.json' with { type: 'json' };
 import { BLOG_POSTS, type BlogPost } from '../../src/data/blogPosts.ts';
 import { USE_CASE_PAGES, PERSONA_PAGES, GLOSSARY_PAGES, type UseCasePage, type PersonaPage, type GlossaryPage } from '../../src/data/programmaticContent.ts';
-import { normalizeBaseUrl, CANONICAL_BASE_URL } from '../../src/lib/urlUtils.ts';
+import { normalizeBaseUrl, CANONICAL_BASE_URL, resolveBaseUrlFromCandidates } from '../../src/lib/urlUtils.ts';
 
 type ImageEntry = {
   loc: string;
@@ -362,10 +362,12 @@ export const buildSitemapXml = (baseUrl: string): string => {
 
 const handlerImpl: Handler = async () => {
   // Use the same base URL logic as the SEO system for consistency
-  const base = normalizeBaseUrl(
-    process.env.PUBLIC_SITE_URL ||
-    process.env.URL ||
-    process.env.DEPLOY_URL ||
+  const base = resolveBaseUrlFromCandidates(
+    [
+      process.env.PUBLIC_SITE_URL,
+      process.env.URL,
+      process.env.DEPLOY_URL
+    ],
     CANONICAL_BASE_URL
   );
 

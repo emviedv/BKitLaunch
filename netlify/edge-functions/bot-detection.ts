@@ -1,4 +1,5 @@
 import { BLOG_POSTS as BLOG_POST_DATA } from '../../src/data/blogPosts.ts';
+import { normalizeBaseUrl } from '../../src/lib/urlUtils.ts';
 
 const RETIRED_PATHS = new Set([
   '/product',
@@ -354,7 +355,7 @@ export default async (request: Request, context: any) => {
   }
   
   // Generate static HTML for bots based on the path
-  const staticHtml = generateStaticHtml(pathname, url.origin);
+  const staticHtml = generateStaticHtml(pathname, normalizeBaseUrl(url.origin));
   
   return new Response(staticHtml, {
     headers: {

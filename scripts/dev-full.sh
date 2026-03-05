@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-BASE_PORT=${VITE_DEV_PORT:-53173}
+BASE_PORT=${VITE_DEV_PORT:-9990}
 MAX_TRIES=${VITE_PORT_SCAN_MAX:-15}
 
 echo "🌐 Starting full-stack dev: Vite (port scan from ${BASE_PORT}) + Netlify Dev (9989)"

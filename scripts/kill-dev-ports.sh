@@ -5,7 +5,7 @@ set -euo pipefail
 # Usage: DEV_PORTS="9990 9989" bash scripts/kill-dev-ports.sh
 
 # Default to freeing the standard Vite port if none provided
-PORTS=${DEV_PORTS:-"53173"}
+PORTS=${DEV_PORTS:-"9990"}
 
 if ! command -v lsof >/dev/null 2>&1; then
   echo "ℹ️  'lsof' not found; skipping port cleanup"

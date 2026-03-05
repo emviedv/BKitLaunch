@@ -4,20 +4,14 @@ import App from './App';
 import { Router } from 'wouter';
 import { generateMetadata as generateSEOMetadata, generateMetaTags, generateStructuredData } from './lib/seo';
 import { loadPublishedContent } from './lib/publishedContent';
-import { isProductionHost, isDevHost, CANONICAL_BASE_URL } from './lib/urlUtils';
-
-const normalizeOrigin = (raw?: string): string | null => {
-  if (!raw) return null;
-  try {
-    return new URL(raw).origin;
-  } catch {
-    try {
-      return new URL(`https://${raw}`).origin;
-    } catch {
-      return null;
-    }
-  }
-};
+import {
+  isProductionHost,
+  isDevHost,
+  CANONICAL_BASE_URL,
+  normalizeBaseUrl,
+  normalizeOrigin,
+  resolveBaseUrlFromCandidates
+} from './lib/urlUtils';
 
 const collectHostRules = (raw?: string): string[] => {
   if (!raw) return [];
@@ -39,10 +33,21 @@ const collectHostRules = (raw?: string): string[] => {
 
 const preferredOrigins = (() => {
   const origins = new Set<string>();
+  origins.add(
+    resolveBaseUrlFromCandidates(
+      [
+        process.env.SSR_CONTENT_BASE_URL,
+        process.env.PUBLIC_SITE_URL,
+        process.env.URL,
+        process.env.DEPLOY_URL
+      ],
+      CANONICAL_BASE_URL
+    )
+  );
   const push = (value?: string) => {
     const origin = normalizeOrigin(value);
     if (origin) {
-      origins.add(origin);
+      origins.add(normalizeBaseUrl(origin));
     }
   };
   push(process.env.SSR_CONTENT_BASE_URL);
@@ -103,7 +108,7 @@ const resolveTrustedOrigin = (urlObj: URL): string => {
       const parsed = new URL(origin);
       const parsedHost = parsed.hostname.toLowerCase();
       if (isHostAllowed(parsedHost)) {
-        return parsed.origin;
+        return normalizeBaseUrl(parsed.origin);
       }
     } catch {}
   }
