@@ -281,7 +281,13 @@ const BiblioKitLanding: React.FC<BiblioKitLandingProps> = ({ content }) => {
   return (
     <>
       {shouldRenderHero && (
-        <LandingHero hero={mergedProduct as any} descriptionMaxWidthClassName="max-w-[90%]" disableCursorEffects />
+        <LandingHero
+          hero={mergedProduct as any}
+          descriptionMaxWidthClassName="max-w-[90%]"
+          disableCursorEffects
+          showAvatarStrip={false}
+          badgeVariant="accent"
+        />
       )}
       {shouldRenderSections && (
         <div className="relative isolate overflow-hidden">

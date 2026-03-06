@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import type { BadgeProps } from '@/components/ui/badge';
 import {
   buildHeroHeadlineSegments,
   splitHeroHeadline,
@@ -52,6 +53,7 @@ export interface LandingHeroProps {
   contentMaxWidthClassName?: string;
   disableCursorEffects?: boolean;
   showAvatarStrip?: boolean;
+  badgeVariant?: BadgeProps['variant'];
 }
 
 const heroGradientDiagnosticsEnabled = () => {
@@ -138,6 +140,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
   contentMaxWidthClassName,
   disableCursorEffects,
   showAvatarStrip = true,
+  badgeVariant = 'glass',
 }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const gradientLayerRef = useRef<HTMLDivElement | null>(null);
@@ -402,7 +405,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                   </div>
                 ) : null}
                 {badgeLabel && (
-                  <Badge variant="glass" icon={<Sparkles className="w-3 h-3" />}>
+                  <Badge variant={badgeVariant} icon={<Sparkles className="w-3 h-3" />}>
                     {badgeLabel}
                   </Badge>
                 )}

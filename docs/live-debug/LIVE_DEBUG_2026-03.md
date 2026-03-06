@@ -2,6 +2,30 @@
 
 ## 2026-03-05
 
+- **Time:** 2026-03-05 23:25 EST
+- **Summary:** Removed the product intro stats row that displayed `100k+ Layers renamed`, `50k+ Files audited`, and `25k+ Prototypes cleaned`.
+- **Root Cause:** `ProductContentSections` hardcoded these counters in `STATS_DATA` and rendered them unconditionally in the features intro content.
+- **Changed Files:** src/components/ProductContentSections.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:client` (pass)
+
+- **Time:** 2026-03-05 23:24 EST
+- **Summary:** Switched the landing hero badge to the pink badge variant.
+- **Root Cause:** Landing hero badge rendered with the shared `glass` variant, but the homepage requirement called for the explicit pink treatment.
+- **Changed Files:** src/components/LandingHero.tsx; src/components/BiblioKitLanding.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:client` (pass); `node --test tests/unit/landingHeroStructure.spec.ts` (fails in pre-existing class-string expectation unrelated to badge variant)
+
+- **Time:** 2026-03-05 23:22 EST
+- **Summary:** Removed the landing page hero avatar strip above the badge while preserving the badge itself.
+- **Root Cause:** `BiblioKitLanding` rendered `LandingHero` without overriding `showAvatarStrip`, so the shared default (`true`) displayed stacked avatars above the badge on `/`.
+- **Changed Files:** src/components/BiblioKitLanding.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:client` (pass)
+
+- **Time:** 2026-03-05 18:32 EST
+- **Summary:** Logged live technical SEO audit findings: sitemap includes utility/error URLs (`/404`, `/access-denied`, `/thanks`) and `robots.txt` currently has no `Sitemap:` directive.
+- **Root Cause:** Sitemap generation currently includes non-canonical utility routes, and robots output is minimal (`User-agent: *`, empty `Disallow`) without an explicit sitemap reference, which weakens crawl/index quality signals.
+- **Changed Files:** docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** Live fetch confirmed `https://www.bibliokit.com/robots.txt` returns only `User-agent: *` and `Disallow:`; live fetch of `https://www.bibliokit.com/sitemap.xml` shows 63 URLs including `/404`, `/access-denied`, and `/thanks`; live URL queries show those utility URLs are discoverable by search crawlers.
+
 - **Time:** 2026-03-05 18:11 EST
 - **Summary:** Updated SEO metadata defaults and key route metadata to match current strategy (Workflow Automation homepage, BiblioRename, BiblioStart), removed unverified homepage `aggregateRating` schema, and stopped server-side title/description ellipsis truncation.
 - **Root Cause:** `generateMetadata` clamped title/description strings with `…`, key route metadata had stale naming/targeting drift from current SEO rules, and homepage structured data included hardcoded rating values without verified source data.

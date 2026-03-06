@@ -1,0 +1,1 @@
+Run a live technical SEO audit for https://www.bibliokit.com including sitemap URL checks and indexability signals, then summarize findings.

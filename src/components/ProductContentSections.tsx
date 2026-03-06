@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { ShieldCheck, Zap, Sparkles, Layers, FileCheck, Paintbrush } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { ShieldCheck, Zap, Sparkles, Layers } from 'lucide-react';
 import { Icon } from '@iconify/react';
 
 import ContentChunk from './ContentChunk';
@@ -231,65 +231,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
 
   const faqProductName = (product as any)?.title || (product as any)?.name;
 
-  // Animated stats counter
-  const STATS_DATA = [
-    { icon: Layers, label: 'Layers renamed', target: 100, suffix: 'k+' },
-    { icon: FileCheck, label: 'Files audited', target: 50, suffix: 'k+' },
-    { icon: Paintbrush, label: 'Prototypes cleaned', target: 25, suffix: 'k+' },
-  ];
-
-  const statsRef = useRef<HTMLDivElement>(null);
-  const [statsVisible, setStatsVisible] = useState(false);
-  const [animatedValues, setAnimatedValues] = useState<number[]>(STATS_DATA.map(() => 0));
-
-  const animateCounters = useCallback(() => {
-    const duration = 1500;
-    const steps = 40;
-    const stepDuration = duration / steps;
-
-    let currentStep = 0;
-    const interval = setInterval(() => {
-      currentStep++;
-      const progress = currentStep / steps;
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-
-      setAnimatedValues(STATS_DATA.map((stat) => Math.round(stat.target * easeOut)));
-
-      if (currentStep >= steps) {
-        clearInterval(interval);
-        setAnimatedValues(STATS_DATA.map((stat) => stat.target));
-      }
-    }, stepDuration);
-  }, []);
-
-  useEffect(() => {
-    if (typeof IntersectionObserver === 'undefined') {
-      if (!statsVisible) {
-        setStatsVisible(true);
-        setAnimatedValues(STATS_DATA.map((stat) => stat.target));
-      }
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !statsVisible) {
-            setStatsVisible(true);
-            animateCounters();
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    if (statsRef.current) {
-      observer.observe(statsRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [statsVisible, animateCounters]);
-
   const renderFeaturesSection = () => {
     if (!hasDetails || product?.visibility?.features === false) {
       return null;
@@ -336,30 +277,6 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
             ))}
           </h2>
 
-          {/* Animated Stats Bar */}
-          <div
-            ref={statsRef}
-            className="flex flex-wrap items-center justify-center gap-8 sm:gap-12"
-          >
-            {STATS_DATA.map((stat, index) => {
-              const StatIcon = stat.icon;
-              return (
-                <div key={stat.label} className="flex items-center gap-2.5">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/[0.08] border border-white/15">
-                    <StatIcon className="h-4 w-4 text-ds-pink-accent" />
-                  </div>
-                  <div className="text-left">
-                    <div className="text-xl font-bold text-white tabular-nums leading-tight">
-                      {animatedValues[index]}{stat.suffix}
-                    </div>
-                    <div className="text-[11px] font-medium text-white/50 uppercase tracking-wider">
-                      {stat.label}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </div>
     );

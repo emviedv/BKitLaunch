@@ -1,0 +1,7 @@
+---
+iteration=1 timestamp=2026-03-05T23:33:37Z codex_exit=0 validation=pass completion=yes parse=ok progress=pass stagnant=0
+objective_file=(none) feedback_file=/Users/emily/Products/BiblioKit Launch/.codex/ralph-loop/feedback.md
+completion_status_value=COMPLETE no_change_justification=(none)
+last_message_tail:
+{"status":"COMPLETE","evidence":["`web.click` on the robots report link fetched live `https://www.bibliokit.com/robots.txt`; content is only `User-agent: *` and `Disallow:` (no `Sitemap:` directive present).","`web.open` on live `https://www.bibliokit.com/sitemap.xml` shows utility/error URLs included in sitemap, including `/404`, `/access-denied`, and `/thanks` (seen in sitemap lines around 35-44).","`web.open` on the live sitemap audit report states: `This sitemaps contains 63 links` and `Links in XML sitemap: 63` with all listed as bot-accessible.","`web.search_query` exact checks for `https://www.bibliokit.com/404`, `https://www.bibliokit.com/access-denied`, and `https://www.bibliokit.com/thanks` returned crawl/search entries, indicating these utility URLs are discoverable by search engines.","`git diff -- docs/live-debug/LIVE_DEBUG_2026-03.md` confirms a new 2026-03-05 18:32 EST debug-log entry documenting findings, root cause, and verification (Applying Debug Log Policy)."],"next_step":"Exclude utility/error routes (`/404`, `/access-denied`, `/thanks`) from sitemap generation and add `Sitemap: https://www.bibliokit.com/sitemap.xml` to `robots.txt`, then redeploy and revalidate.","no_change_justification":"","completion_promise":""}
+

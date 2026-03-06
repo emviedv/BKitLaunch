@@ -1,0 +1,9 @@
+{"timestamp": "2026-03-05T23:27:05Z", "iteration": 1, "event": "loop_start", "detail": "autonomy=l2;sandbox=workspace-write;events_format=both;codex_bin=codex"}
+{"timestamp": "2026-03-05T23:27:06Z", "iteration": 1, "event": "preflight_codex_bin", "detail": "codex_bin=codex;resolved=/usr/local/bin/codex"}
+{"timestamp": "2026-03-05T23:27:06Z", "iteration": 1, "event": "preflight_git", "detail": "dirty_entries=1"}
+{"timestamp": "2026-03-05T23:27:06Z", "iteration": 1, "event": "iteration_start", "detail": "iteration=1"}
+{"timestamp": "2026-03-05T23:27:06Z", "iteration": 1, "event": "codex_attempt_start", "detail": "attempt=1;jsonl=/Users/emily/Products/BiblioKit Launch/.codex/ralph-loop/codex/iteration-1-attempt-1.jsonl"}
+{"timestamp": "2026-03-05T23:33:36Z", "iteration": 1, "event": "codex_attempt_end", "detail": "attempt=1;exit=0;jsonl=/Users/emily/Products/BiblioKit Launch/.codex/ralph-loop/codex/iteration-1-attempt-1.jsonl"}
+{"timestamp": "2026-03-05T23:33:36Z", "iteration": 1, "event": "codex_ok", "detail": "iteration=1"}
+{"timestamp": "2026-03-05T23:33:37Z", "iteration": 1, "event": "progress_scope_diff", "detail": "iteration=1;changed_path_count=1;changed_paths=docs/live-debug/LIVE_DEBUG_2026-03.md"}
+{"timestamp": "2026-03-05T23:33:37Z", "iteration": 1, "event": "stop", "detail": "schema_completion_detected"}
