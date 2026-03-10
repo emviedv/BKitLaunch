@@ -82,3 +82,9 @@ cookies.txt
 # Analysis reports
 knip-report-*.txt
 knip-report-*.json
+
+# Temporary working files
+tmp/
+
+# Historical archive snapshots
+archives/
