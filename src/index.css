@@ -39,8 +39,8 @@
     --alpha-strong: 0.80;    /* text, high visibility */
 
     /* --- Semantic: Interactive elements --- */
-    --interactive-accent: var(--color-pink-500);
-    --interactive-accent-hover: var(--color-pink-600);
+    --interactive-accent: var(--success);
+    --interactive-accent-hover: 142 71% 35%;
 
     /* --- Semantic: Badge surfaces (dark context) --- */
     --badge-glass-bg: rgba(255, 255, 255, var(--alpha-subtle));
@@ -528,14 +528,6 @@
   .pricing-card .button-secondary {
     @apply bg-gray-900 text-white hover:bg-gray-800 border-0 py-3 px-6 w-full text-base font-semibold;
     border-radius: 6px;
-  }
-
-  .gradient-brand {
-    @apply bg-gradient-to-br from-[#6580E1] via-blue-500 to-green-500;
-  }
-
-  .gradient-brand-soft {
-    @apply bg-gradient-to-br from-[#6580E1]/10 via-blue-50 to-green-50;
   }
 
   .hero-gradient-text {
