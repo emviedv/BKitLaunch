@@ -140,7 +140,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
   contentMaxWidthClassName,
   disableCursorEffects,
   showAvatarStrip = true,
-  badgeVariant = 'glass',
+  badgeVariant = 'neon',
 }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const gradientLayerRef = useRef<HTMLDivElement | null>(null);
@@ -387,7 +387,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
           >
             {/* Avatar strip + badge */}
             {(showAvatarStrip || badgeLabel) && (
-              <div className={`flex flex-col items-center mb-6 ${showAvatarStrip ? 'gap-3' : ''}`}>
+              <div className={`flex flex-col items-center mb-10 ${showAvatarStrip ? 'gap-3' : ''}`}>
                 {showAvatarStrip ? (
                   <div className="flex items-center -space-x-2">
                     {HERO_AVATAR_ITEMS.map((avatar) => (
@@ -412,7 +412,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               </div>
             )}
 
-            <div className="landing-hero-headline-capture mb-6">
+            <div className="landing-hero-headline-capture mb-10">
               <h1 className={`${resolvedTitleClassName}`}>
                 {headlineSegments.length > 0 ? (
                   headlineSegments.map((segment) => {
@@ -450,7 +450,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
 
             {description && (
               <p
-                className={`hero-description-copy text-lg text-white/70 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-10 ${resolvedDescriptionClassName}`}
+                className={`hero-description-copy text-xl text-white/70 ${resolvedDescriptionMaxWidthClassName} leading-relaxed text-center mx-auto mb-14 ${resolvedDescriptionClassName}`}
               >
                 {typeof description === 'string'
                   ? description.split('\n').map((line, i, arr) => (
@@ -505,7 +505,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
               )}
             </div>
             {primaryButton && (
-              <div className="relative mt-12 h-[42px] overflow-hidden pointer-events-none opacity-60">
+              <div className="relative mt-[72px] h-[42px] overflow-hidden pointer-events-none opacity-60">
                 {/* Vertical slider of horizontal logo rows */}
                 <div className="logo-row-slide flex flex-col">
                   {/* Row 1 */}

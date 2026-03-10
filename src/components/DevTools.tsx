@@ -50,6 +50,13 @@ interface SpacingGuide {
   };
 }
 
+interface SiblingSpacing {
+  direction: 'top' | 'right' | 'bottom' | 'left';
+  distance: number;
+  siblingRect: DOMRect;
+  siblingLabel: string;
+}
+
 const DevTools: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTool, setActiveTool] = useState<ActiveTool>('none');
@@ -60,6 +67,7 @@ const DevTools: React.FC = () => {
   const [showGridOverlay, setShowGridOverlay] = useState(false);
   const [showSpacingGuides, setShowSpacingGuides] = useState(false);
   const [spacingGuide, setSpacingGuide] = useState<SpacingGuide | null>(null);
+  const [siblingSpacings, setSiblingSpacings] = useState<SiblingSpacing[]>([]);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   // Don't render in production
@@ -128,23 +136,25 @@ const DevTools: React.FC = () => {
     }
   };
 
+  const getElementLabel = (el: HTMLElement): string => {
+    if (el.id) return `${el.tagName.toLowerCase()}#${el.id}`;
+    if (el.classList.length > 0) {
+      return `${el.tagName.toLowerCase()}.${Array.from(el.classList).slice(0, 2).join('.')}`;
+    }
+    return el.tagName.toLowerCase();
+  };
+
   const getSpacingGuide = (target: HTMLElement): SpacingGuide | null => {
     const container = target.parentElement;
     if (!container) return null;
 
     const elementRect = target.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
-    const containerLabel =
-      container.id
-        ? `${container.tagName.toLowerCase()}#${container.id}`
-        : container.classList.length > 0
-          ? `${container.tagName.toLowerCase()}.${Array.from(container.classList).slice(0, 2).join('.')}`
-          : container.tagName.toLowerCase();
 
     return {
       elementRect,
       containerRect,
-      containerLabel,
+      containerLabel: getElementLabel(container),
       distances: {
         top: Math.round(elementRect.top - containerRect.top),
         right: Math.round(containerRect.right - elementRect.right),
@@ -152,6 +162,122 @@ const DevTools: React.FC = () => {
         left: Math.round(elementRect.left - containerRect.left),
       },
     };
+  };
+
+  /**
+   * Calculate spacing to sibling elements in the DOM
+   * Finds the nearest sibling in each direction (top, right, bottom, left)
+   */
+  const getSiblingSpacings = (target: HTMLElement): SiblingSpacing[] => {
+    const container = target.parentElement;
+    if (!container) return [];
+
+    const siblings = Array.from(container.children).filter(
+      (child) => child !== target && child instanceof HTMLElement
+    ) as HTMLElement[];
+
+    if (siblings.length === 0) return [];
+
+    const targetRect = target.getBoundingClientRect();
+    const spacings: SiblingSpacing[] = [];
+
+    // Track closest sibling in each direction
+    let closestTop: { el: HTMLElement; distance: number } | null = null;
+    let closestRight: { el: HTMLElement; distance: number } | null = null;
+    let closestBottom: { el: HTMLElement; distance: number } | null = null;
+    let closestLeft: { el: HTMLElement; distance: number } | null = null;
+
+    for (const sibling of siblings) {
+      const sibRect = sibling.getBoundingClientRect();
+
+      // Skip elements with no dimensions (hidden, display:none)
+      if (sibRect.width === 0 || sibRect.height === 0) continue;
+
+      // Check if sibling is above (its bottom edge is above our top edge)
+      // and horizontally overlapping
+      if (sibRect.bottom <= targetRect.top) {
+        const hOverlap = !(sibRect.right < targetRect.left || sibRect.left > targetRect.right);
+        if (hOverlap) {
+          const distance = targetRect.top - sibRect.bottom;
+          if (!closestTop || distance < closestTop.distance) {
+            closestTop = { el: sibling, distance };
+          }
+        }
+      }
+
+      // Check if sibling is to the right (its left edge is past our right edge)
+      // and vertically overlapping
+      if (sibRect.left >= targetRect.right) {
+        const vOverlap = !(sibRect.bottom < targetRect.top || sibRect.top > targetRect.bottom);
+        if (vOverlap) {
+          const distance = sibRect.left - targetRect.right;
+          if (!closestRight || distance < closestRight.distance) {
+            closestRight = { el: sibling, distance };
+          }
+        }
+      }
+
+      // Check if sibling is below (its top edge is below our bottom edge)
+      // and horizontally overlapping
+      if (sibRect.top >= targetRect.bottom) {
+        const hOverlap = !(sibRect.right < targetRect.left || sibRect.left > targetRect.right);
+        if (hOverlap) {
+          const distance = sibRect.top - targetRect.bottom;
+          if (!closestBottom || distance < closestBottom.distance) {
+            closestBottom = { el: sibling, distance };
+          }
+        }
+      }
+
+      // Check if sibling is to the left (its right edge is before our left edge)
+      // and vertically overlapping
+      if (sibRect.right <= targetRect.left) {
+        const vOverlap = !(sibRect.bottom < targetRect.top || sibRect.top > targetRect.bottom);
+        if (vOverlap) {
+          const distance = targetRect.left - sibRect.right;
+          if (!closestLeft || distance < closestLeft.distance) {
+            closestLeft = { el: sibling, distance };
+          }
+        }
+      }
+    }
+
+    // Build result array with found siblings
+    if (closestTop) {
+      spacings.push({
+        direction: 'top',
+        distance: Math.round(closestTop.distance),
+        siblingRect: closestTop.el.getBoundingClientRect(),
+        siblingLabel: getElementLabel(closestTop.el),
+      });
+    }
+    if (closestRight) {
+      spacings.push({
+        direction: 'right',
+        distance: Math.round(closestRight.distance),
+        siblingRect: closestRight.el.getBoundingClientRect(),
+        siblingLabel: getElementLabel(closestRight.el),
+      });
+    }
+    if (closestBottom) {
+      spacings.push({
+        direction: 'bottom',
+        distance: Math.round(closestBottom.distance),
+        siblingRect: closestBottom.el.getBoundingClientRect(),
+        siblingLabel: getElementLabel(closestBottom.el),
+      });
+    }
+    if (closestLeft) {
+      spacings.push({
+        direction: 'left',
+        distance: Math.round(closestLeft.distance),
+        siblingRect: closestLeft.el.getBoundingClientRect(),
+        siblingLabel: getElementLabel(closestLeft.el),
+      });
+    }
+
+    console.log('[DevTools] Sibling spacings for', getElementLabel(target), ':', spacings);
+    return spacings;
   };
 
   const handleInspectorClick = useCallback((e: MouseEvent) => {
@@ -167,6 +293,7 @@ const DevTools: React.FC = () => {
     setActiveTool('none');
     setHighlightBox(null);
     setSpacingGuide(null);
+    setSiblingSpacings([]);
   }, [activeTool]);
 
   const handleInspectorHover = useCallback((e: MouseEvent) => {
@@ -177,7 +304,13 @@ const DevTools: React.FC = () => {
 
     setHoveredElement(target);
     setHighlightBox(target.getBoundingClientRect());
-    setSpacingGuide(showSpacingGuides ? getSpacingGuide(target) : null);
+    if (showSpacingGuides) {
+      setSpacingGuide(getSpacingGuide(target));
+      setSiblingSpacings(getSiblingSpacings(target));
+    } else {
+      setSpacingGuide(null);
+      setSiblingSpacings([]);
+    }
   }, [activeTool, showSpacingGuides]);
 
   useEffect(() => {
@@ -205,6 +338,7 @@ const DevTools: React.FC = () => {
         setActiveTool('none');
         setHighlightBox(null);
         setSpacingGuide(null);
+        setSiblingSpacings([]);
       }
     };
 
@@ -359,6 +493,140 @@ const DevTools: React.FC = () => {
         </>
       )}
 
+      {/* Sibling spacing guides: distances to adjacent elements */}
+      {showSpacingGuides && siblingSpacings.length > 0 && activeTool === 'inspector' && highlightBox && (
+        <>
+          {siblingSpacings.map((spacing, index) => {
+            const targetCenterX = highlightBox.left + highlightBox.width / 2;
+            const targetCenterY = highlightBox.top + highlightBox.height / 2;
+            const sibCenterX = spacing.siblingRect.left + spacing.siblingRect.width / 2;
+            const sibCenterY = spacing.siblingRect.top + spacing.siblingRect.height / 2;
+
+            // Render sibling highlight box (green tint)
+            const siblingHighlight = (
+              <div
+                key={`sib-highlight-${index}`}
+                className="fixed pointer-events-none z-[9994] border border-emerald-400/50 bg-emerald-400/10"
+                style={{
+                  top: spacing.siblingRect.top,
+                  left: spacing.siblingRect.left,
+                  width: spacing.siblingRect.width,
+                  height: spacing.siblingRect.height,
+                }}
+              />
+            );
+
+            // Different rendering based on direction
+            if (spacing.direction === 'top') {
+              // Vertical line from sibling bottom to target top
+              const lineX = Math.max(targetCenterX, sibCenterX);
+              return (
+                <React.Fragment key={`sib-${index}`}>
+                  {siblingHighlight}
+                  <div
+                    className="fixed pointer-events-none z-[9996] w-0.5 bg-emerald-400"
+                    style={{
+                      left: lineX,
+                      top: spacing.siblingRect.bottom,
+                      height: spacing.distance,
+                    }}
+                  />
+                  <div
+                    className="fixed pointer-events-none z-[9996] rounded bg-emerald-500 px-1.5 py-0.5 text-[10px] text-slate-900 font-medium"
+                    style={{
+                      left: lineX + 6,
+                      top: spacing.siblingRect.bottom + spacing.distance / 2 - 8,
+                    }}
+                  >
+                    {spacing.distance}px ↕
+                  </div>
+                </React.Fragment>
+              );
+            }
+
+            if (spacing.direction === 'bottom') {
+              const lineX = Math.max(targetCenterX, sibCenterX);
+              return (
+                <React.Fragment key={`sib-${index}`}>
+                  {siblingHighlight}
+                  <div
+                    className="fixed pointer-events-none z-[9996] w-0.5 bg-emerald-400"
+                    style={{
+                      left: lineX,
+                      top: highlightBox.bottom,
+                      height: spacing.distance,
+                    }}
+                  />
+                  <div
+                    className="fixed pointer-events-none z-[9996] rounded bg-emerald-500 px-1.5 py-0.5 text-[10px] text-slate-900 font-medium"
+                    style={{
+                      left: lineX + 6,
+                      top: highlightBox.bottom + spacing.distance / 2 - 8,
+                    }}
+                  >
+                    {spacing.distance}px ↕
+                  </div>
+                </React.Fragment>
+              );
+            }
+
+            if (spacing.direction === 'right') {
+              const lineY = Math.max(targetCenterY, sibCenterY);
+              return (
+                <React.Fragment key={`sib-${index}`}>
+                  {siblingHighlight}
+                  <div
+                    className="fixed pointer-events-none z-[9996] h-0.5 bg-emerald-400"
+                    style={{
+                      top: lineY,
+                      left: highlightBox.right,
+                      width: spacing.distance,
+                    }}
+                  />
+                  <div
+                    className="fixed pointer-events-none z-[9996] rounded bg-emerald-500 px-1.5 py-0.5 text-[10px] text-slate-900 font-medium"
+                    style={{
+                      top: lineY + 6,
+                      left: highlightBox.right + spacing.distance / 2 - 16,
+                    }}
+                  >
+                    {spacing.distance}px ↔
+                  </div>
+                </React.Fragment>
+              );
+            }
+
+            if (spacing.direction === 'left') {
+              const lineY = Math.max(targetCenterY, sibCenterY);
+              return (
+                <React.Fragment key={`sib-${index}`}>
+                  {siblingHighlight}
+                  <div
+                    className="fixed pointer-events-none z-[9996] h-0.5 bg-emerald-400"
+                    style={{
+                      top: lineY,
+                      left: spacing.siblingRect.right,
+                      width: spacing.distance,
+                    }}
+                  />
+                  <div
+                    className="fixed pointer-events-none z-[9996] rounded bg-emerald-500 px-1.5 py-0.5 text-[10px] text-slate-900 font-medium"
+                    style={{
+                      top: lineY + 6,
+                      left: spacing.siblingRect.right + spacing.distance / 2 - 16,
+                    }}
+                  >
+                    {spacing.distance}px ↔
+                  </div>
+                </React.Fragment>
+              );
+            }
+
+            return null;
+          })}
+        </>
+      )}
+
       {/* Main panel */}
       <div
         ref={overlayRef}
@@ -373,6 +641,7 @@ const DevTools: React.FC = () => {
               setActiveTool('none');
               setHighlightBox(null);
               setSpacingGuide(null);
+              setSiblingSpacings([]);
             }}
             className="text-slate-400 hover:text-white"
           >
@@ -402,6 +671,7 @@ const DevTools: React.FC = () => {
                 if (nextTool !== 'inspector') {
                   setHighlightBox(null);
                   setSpacingGuide(null);
+                  setSiblingSpacings([]);
                 }
               }}
               className={`flex-1 px-3 py-2 rounded text-xs font-medium transition-colors ${

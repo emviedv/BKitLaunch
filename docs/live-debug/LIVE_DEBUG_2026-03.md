@@ -1,5 +1,33 @@
 # Live Debug Log — 2026-03
 
+## 2026-03-10
+
+- **Time:** 2026-03-10 SEO remediation batch
+- **Summary:** Implemented 5 SEO quick wins from deep-dive audit: updated llms.txt with all products/blog/use-cases/personas/glossary, fixed UseCasePage baseUrl to use resolveClientBaseUrl(), removed deprecated Google Sitemap Ping from IndexNow plugin, cleaned redundant Googlebot block from robots.txt, verified all meta descriptions under 155 chars.
+- **Root Cause:** llms.txt was missing 3 products and 4+ blog posts plus all programmatic content sections. UseCasePage built canonical URLs via manual window.location instead of centralized urlUtils. Google Sitemap Ping API deprecated since 2023 (silent no-op). robots.txt had redundant Googlebot block duplicating wildcard rules.
+- **Changed Files:** public/llms.txt, src/components/UseCasePage.tsx, netlify/plugins/indexnow-notify/index.js, public/robots.txt, docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** npm run build succeeds. llms.txt now has 6 products, 15 blog posts, 30 use cases, 5 personas, 33 glossary terms. UseCasePage imports resolveClientBaseUrl from urlUtils. IndexNow plugin only pings api.indexnow.org and bing.com. robots.txt has no redundant Googlebot section.
+
+- **Time:** 2026-03-10 Internal linking: blog → product pages
+- **Summary:** Added "Recommended BiblioKit Plugins" section to BlogArticlePage. Each of the 15 blog posts now links to 1-6 relevant product pages via a manual mapping. Section renders between article content and FAQ, using a card grid with product name, tagline, and arrow icon.
+- **Root Cause:** Blog posts had zero internal links to product pages. Missing PageRank flow from content pages (which earn backlinks) to money pages (product pages). Google uses internal link structure to assess page importance.
+- **Changed Files:** src/components/BlogArticlePage.tsx, docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** npm run build succeeds. All 15 blog slugs have entries in BLOG_PRODUCT_MAP. BlogProductLinks component renders after article content, before FAQs.
+
+## 2026-03-06
+
+- **Time:** 2026-03-06 01:10 EST
+- **Summary:** Reverted the landing hero description back to tagline copy.
+- **Root Cause:** The prior update changed hero description text to waitlist copy, but the landing hero requires a concise tagline.
+- **Changed Files:** src/data/products.json; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** Confirmed `src/data/products.json` hero description now reads `Audit files, rename layers, clean prototypes, and ship.`
+
+- **Time:** 2026-03-06 00:16 EST
+- **Summary:** Updated the landing hero description copy and moved the landing hero client logo strip down by 24px.
+- **Root Cause:** Hero copy needed a refresh, and the client logo strip sat too close to the CTA row in the landing hero composition.
+- **Changed Files:** src/data/products.json; src/components/LandingHero.tsx; docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build:client` (pass)
+
 ## 2026-03-05
 
 - **Time:** 2026-03-05 23:25 EST

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Badge } from '@/components/ui/badge';
 import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
 
 export interface FAQListItem {
@@ -26,12 +27,16 @@ const FAQList: React.FC<FAQListProps> = ({ faqs, className = '', variant = 'dark
           return (
             <div key={`faq-${index}`} className="py-4 first:pt-0 last:pb-0">
               <div className="flex items-start gap-3">
-                <span
-                  className="mt-0.5 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-ds-pink-500 text-sm font-bold text-white"
+                <Badge
+                  intent="accent"
+                  context="dark"
+                  shape="circle"
+                  size="md"
+                  className="mt-0.5 flex-shrink-0 bg-ds-pink-500 text-white border-transparent"
                   aria-hidden="true"
                 >
                   {questionNumber}
-                </span>
+                </Badge>
                 <div className="space-y-2">
                   <h3 className={`text-lg font-semibold ${questionClass}`}>{faq.question}</h3>
                   <p className={`text-base leading-relaxed ${answerClass}`}>

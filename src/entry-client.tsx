@@ -66,9 +66,29 @@ const loadHotjarIfAllowed = (): void => {
   }
 };
 
+const loadPostHogIfAllowed = (): void => {
+  try {
+    const isProd = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1';
+    if (!isProd) return;
+    const alreadyLoaded = typeof (window as any).posthog?.capture === 'function';
+    if (alreadyLoaded) return;
+
+    const w = window as any;
+    if (!w.posthog) {
+      // PostHog stub was already injected by index.html inline script;
+      // if it somehow wasn't, initialize here as fallback
+      console.log('[PostHog] Initializing fallback loader from entry-client');
+      w.posthog = { _i: [], init: function () {}, capture: function () {} };
+    }
+  } catch {
+    /* empty */
+  }
+};
+
 const scheduleAnalyticsLoad = (): void => {
   const load = () => {
     loadHotjarIfAllowed();
+    loadPostHogIfAllowed();
   };
 
   if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {

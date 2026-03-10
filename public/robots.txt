@@ -5,11 +5,6 @@ Disallow: /admin
 Disallow: /editor
 Allow: /
 
-User-agent: Googlebot
-Disallow: /admin
-Disallow: /editor
-Allow: /
-
 # AI crawler allowances
 User-agent: GPTBot
 Allow: /

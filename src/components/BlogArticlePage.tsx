@@ -1,4 +1,5 @@
 import React from 'react';
+import { RefreshCw } from 'lucide-react';
 import {
   BLOG_POSTS,
   buildBlogPostHref,
@@ -9,8 +10,10 @@ import {
 } from '@/data/blogPosts';
 import { LANDING_WAITLIST_PATH } from '@/config/sectionAnchors';
 import { ROUTE_PATHS } from '@/config/routes';
+import { ArrowRight } from 'lucide-react';
 import LandingHero, { type LandingHeroContent } from './LandingHero';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { useDynamicSEO } from '@/hooks/useSEO';
 import { createFAQSchema, useSchema } from '@/lib/useSchema';
 import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
@@ -239,6 +242,80 @@ const BlogFAQSection: React.FC<{ faqs: BlogFAQ[] }> = ({ faqs }) => {
   );
 };
 
+interface ProductLink {
+  name: string;
+  path: string;
+  tagline: string;
+}
+
+const PRODUCT_CATALOG: Record<string, ProductLink> = {
+  rename: { name: 'BiblioRename', path: ROUTE_PATHS.BIBLIO_RENAME, tagline: 'AI batch renaming for variants and layers' },
+  clean: { name: 'BiblioClean', path: ROUTE_PATHS.BIBLIO_CLEAN, tagline: 'Remove broken prototype links in one click' },
+  audit: { name: 'ComponentQA', path: ROUTE_PATHS.BIBLIO_AUDIT, tagline: 'Design system audits and drift detection' },
+  table: { name: 'FixTable', path: ROUTE_PATHS.BIBLIO_TABLE, tagline: 'Normalize Figma table structures instantly' },
+  states: { name: 'StateBuilder', path: ROUTE_PATHS.BIBLIO_STATES, tagline: 'Generate component states and specs' },
+  organize: { name: 'BiblioStart', path: ROUTE_PATHS.BIBLIO_ORGANIZE, tagline: 'One-click file scaffolding and project setup' },
+};
+
+const BLOG_PRODUCT_MAP: Record<string, string[]> = {
+  'scaling-design-system-governance': ['audit', 'rename'],
+  'what-is-design-ops-complete-guide': ['audit', 'rename', 'clean'],
+  'complete-guide-design-systems-figma-2026': ['audit', 'rename', 'states'],
+  'design-dev-gap-2026': ['audit', 'states', 'rename'],
+  'ultimate-figma-plugin-stack': ['rename', 'audit', 'clean', 'table', 'states', 'organize'],
+  'figma-workflow-automation-tools': ['rename', 'audit', 'clean', 'table'],
+  'effortless-table-design-figma': ['table'],
+  'effortless-table-design-auto-layout': ['table'],
+  'ui-component-states-guide': ['states'],
+  'mastering-figma-auto-layout-wrap': ['table'],
+  'fix-detached-instances-figma': ['audit'],
+  'remove-prototype-links-in-figma': ['clean'],
+  'mastering-design-system-guidelines': ['audit', 'rename'],
+  'install-uninstall-figma-plugin': ['rename', 'audit', 'clean'],
+  'best-figma-plugins-organize-design-files-2026': ['organize', 'audit'],
+};
+
+const getProductLinksForPost = (slug: string): ProductLink[] => {
+  const keys = BLOG_PRODUCT_MAP[slug];
+  if (!keys?.length) return [];
+  return keys
+    .map((key) => PRODUCT_CATALOG[key])
+    .filter((p): p is ProductLink => Boolean(p));
+};
+
+const BlogProductLinks: React.FC<{ slug: string }> = ({ slug }) => {
+  const products = getProductLinksForPost(slug);
+  if (!products.length) return null;
+
+  return (
+    <section className="blog-product-links mt-12">
+      <div className="mx-auto w-full max-w-[680px] space-y-4">
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Tools for this workflow</p>
+          <h2 className="text-2xl font-semibold text-white sm:text-3xl">Recommended BiblioKit Plugins</h2>
+        </div>
+        <div className={`grid gap-3 ${products.length === 1 ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2'}`}>
+          {products.map((product) => (
+            <a
+              key={product.path}
+              href={product.path}
+              className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-white/20 hover:bg-white/10"
+            >
+              <div className="flex-1 min-w-0">
+                <p className="text-base font-semibold text-ds-pink-200 group-hover:text-ds-pink-100 transition-colors">
+                  {product.name}
+                </p>
+                <p className="mt-1 text-sm text-white/60">{product.tagline}</p>
+              </div>
+              <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-white/40 group-hover:text-ds-pink-300 transition-colors" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
   const post = findBlogPostBySlug(slug);
   const pagePath = `/blog/${slug}`;
@@ -362,9 +439,10 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
       </div>
       <article className="section-content pb-20 pt-6">
         <div className="mx-auto w-full max-w-[780px] mb-4 flex items-start">
-          <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/80">
+          <Badge intent="muted" context="dark" size="xs">
+            <RefreshCw className="w-3 h-3" />
             Updated {updatedDate}
-          </span>
+          </Badge>
         </div>
         <div className="mx-auto w-full max-w-[780px] space-y-8 text-white">
           {post.content ? (
@@ -377,6 +455,7 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
             </p>
           )}
         </div>
+        <BlogProductLinks slug={slug} />
         {post.faqs?.length ? <BlogFAQSection faqs={post.faqs} /> : null}
         <section className="mt-12">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6">

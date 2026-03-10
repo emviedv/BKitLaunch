@@ -70,7 +70,7 @@ const TutorialsPage: React.FC = () => {
                 href={buildBlogPostHref(featuredPost.slug)}
                 className={`group block rounded-2xl border border-white/10 bg-white/5 p-5 text-left text-white backdrop-blur ${blogCardHoverClass}`}
               >
-                <Badge variant="glass" size="sm" icon={<Sparkles className="w-3 h-3" />} className="mb-4">
+                <Badge variant="neon" size="sm" icon={<Sparkles className="w-3 h-3" />} className="mb-4">
                   Featured Tutorial
                 </Badge>
                 {featuredPost.heroImage && (

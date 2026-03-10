@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 import ContentChunk from './ContentChunk';
 import ExpertQuote from './ExpertQuote';
 import FAQSchema from './FAQSchema';
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { debugService } from '@/lib/debugService';
 import { SECTION_TITLE_CLASS, SECTION_DESCRIPTION_CLASS } from './productContentSectionConstants';
@@ -223,10 +224,18 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
 
   const landingShowcaseLayout = Boolean(enableFeaturesNav && compactLayout);
   const useConsolidatedLandingAccents = landingShowcaseLayout;
-  const featuresBadgeVariant = useConsolidatedLandingAccents ? 'section-badge--pink' : 'section-badge--dark';
-  const useCasesBadgeVariant = useConsolidatedLandingAccents ? 'section-badge--pink' : 'section-badge--light';
-  const testimonialsBadgeVariant = useConsolidatedLandingAccents ? 'section-badge--pink' : 'section-badge--dark';
-  const useCaseStepCircleVariant = useConsolidatedLandingAccents ? 'step-circle--pink' : 'step-circle--purple';
+  // Badge intent/context props for each section
+  const featuresBadgeProps = useConsolidatedLandingAccents
+    ? { intent: 'accent' as const, context: 'dark' as const }
+    : { intent: 'muted' as const, context: 'dark' as const };
+  const useCasesBadgeProps = useConsolidatedLandingAccents
+    ? { intent: 'accent' as const, context: 'light' as const }
+    : { intent: 'accent' as const, context: 'light' as const };
+  const testimonialsBadgeProps = useConsolidatedLandingAccents
+    ? { intent: 'accent' as const, context: 'dark' as const }
+    : { intent: 'muted' as const, context: 'dark' as const };
+  const faqBadgeProps = { intent: 'accent' as const, context: 'light' as const };
+  // Step circle uses accent with shape="circle"
   const hideFeatureIllustrations = false; // keep product feature sections paired with visuals and placeholders
 
   const faqProductName = (product as any)?.title || (product as any)?.name;
@@ -245,30 +254,17 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
         <div className="relative z-20 py-8 px-8 w-full text-center">
           {/* Section Badge */}
           <div className="flex justify-center mb-6">
-            <span className={cn('section-badge', featuresBadgeVariant)}>
-              <Layers className="w-4 h-4" />
+            <Badge
+              {...featuresBadgeProps}
+              size="md"
+              icon={<Layers className="w-4 h-4" />}
+                          >
               Our Products
-            </span>
-          </div>
-
-          {/* Trust badges - below main badge */}
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium text-white/55 mb-6">
-            <span className="flex items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-white/40" />
-              Data stays in Figma
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Zap className="h-4 w-4 text-white/40" />
-              Results in seconds
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Sparkles className="h-4 w-4 text-white/40" />
-              No signup required
-            </span>
+            </Badge>
           </div>
 
           {/* Section Title */}
-          <h2 className={cn(SECTION_TITLE_CLASS, 'font-display text-center text-white drop-shadow-[0_20px_60px_rgba(4,0,12,0.6)] mb-10')}>
+          <h2 className={cn(SECTION_TITLE_CLASS, 'font-display text-center text-white drop-shadow-[0_20px_60px_rgba(4,0,12,0.6)] mb-14')}>
             {featuresTitle.split('\n').map((line, i, arr) => (
               <span key={i}>
                 {renderFeaturesTitleLine(line, `features-title-${i}`)}
@@ -276,6 +272,22 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
               </span>
             ))}
           </h2>
+
+          {/* Trust badges - below title */}
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium text-white/85 mb-10">
+            <span className="flex items-center gap-1.5">
+              <ShieldCheck className="h-4 w-4 text-emerald-400" />
+              Data stays in Figma
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Zap className="h-4 w-4 text-emerald-400" />
+              Results in seconds
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Sparkles className="h-4 w-4 text-emerald-400" />
+              No signup required
+            </span>
+          </div>
 
         </div>
       </div>
@@ -324,10 +336,13 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                   <div className="text-center mb-16">
                     {/* Section Badge */}
                     <div className="flex justify-center mb-6">
-                      <span className={cn('section-badge', useCasesBadgeVariant)}>
-                        <Sparkles className="w-4 h-4" />
+                      <Badge
+                        {...useCasesBadgeProps}
+                        size="md"
+                        icon={<Sparkles className="w-4 h-4" />}
+                                              >
                         Use Cases
-                      </span>
+                      </Badge>
                     </div>
                     <h2 className={cn(SECTION_TITLE_CLASS, 'text-center mb-6 text-slate-900')}>{useCasesTitle}</h2>
                     <p className={cn(SECTION_DESCRIPTION_CLASS, 'text-center max-w-2xl mx-auto text-slate-600')}>
@@ -339,9 +354,15 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                   {benefits.map((benefit: string, index: number) => (
                     <ContentChunk key={index}>
                       <div className="flex items-start bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
-                        <div className={cn('step-circle mr-4 flex-shrink-0', useCaseStepCircleVariant)}>
-                          {index + 1}
-                        </div>
+                        <Badge
+                          intent="accent"
+                          context="light"
+                          shape="circle"
+                          size="md"
+                          className="mr-4 flex-shrink-0 bg-ds-pink-500 text-white border-transparent font-bold"
+                        >
+                          {(index + 1).toString().padStart(2, '0')}
+                        </Badge>
                         <span className="text-lg text-slate-800 pt-1.5">{benefit}</span>
                       </div>
                     </ContentChunk>
@@ -357,10 +378,13 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
                   <div className="text-center mb-16">
                     {/* Section Badge */}
                     <div className="flex justify-center mb-6">
-                      <span className={cn('section-badge', testimonialsBadgeVariant)}>
-                        <Icon icon="solar:chat-round-like-bold" className="w-4 h-4" />
+                      <Badge
+                        {...testimonialsBadgeProps}
+                        size="md"
+                        icon={<Icon icon="solar:chat-round-like-bold" className="w-4 h-4" />}
+                                              >
                         Testimonials
-                      </span>
+                      </Badge>
                     </div>
                     <h2 className={cn(SECTION_TITLE_CLASS, 'text-center mb-6 text-white')}>
                       {sectionOverrides?.testimonialsTitle || product?.sections?.testimonials?.title || 'What customers say'}
@@ -395,10 +419,13 @@ const ProductContentSections: React.FC<ProductContentSectionsProps> = ({
               <div className={buildContainerClass()}>
                 {/* Section Badge */}
                 <div className="flex justify-center mb-8">
-                  <span className="section-badge section-badge--pink">
-                    <Icon icon="solar:question-circle-bold" className="w-4 h-4" />
+                  <Badge
+                    {...faqBadgeProps}
+                    size="md"
+                    icon={<Icon icon="solar:question-circle-bold" className="w-4 h-4" />}
+                                      >
                     FAQ
-                  </span>
+                  </Badge>
                 </div>
                 <FAQSchema faqs={faqs} productName={faqProductName} variant="light" />
               </div>

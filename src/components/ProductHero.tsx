@@ -171,7 +171,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
 
             <div className={titleWrapperClassName}>
               {badgeLabel && (
-                <Badge variant="glass" icon={<Sparkles className="w-3 h-3" />}>
+                <Badge variant="neon" icon={<Sparkles className="w-3 h-3" />}>
                   {badgeLabel}
                 </Badge>
               )}

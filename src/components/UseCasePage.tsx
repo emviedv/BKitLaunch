@@ -5,9 +5,10 @@ import { generateMetadata, updatePageMetadata } from '@/lib/seo';
 import { debugService } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Check, ArrowRight, Download, ChevronRight, HelpCircle, Zap, Lightbulb } from '@/lib/iconUtils';
+import { Check, ArrowRight, Download, ChevronRight, HelpCircle, Zap, Lightbulb, AlertTriangle } from '@/lib/iconUtils';
 import FAQList from '@/components/FAQList';
 import FluidBackground from './FluidBackground';
+import { resolveClientBaseUrl } from '@/lib/urlUtils';
 import {
   findUseCaseBySlug,
   getRelatedUseCases,
@@ -44,9 +45,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
     if (!pageData) return;
 
     // Generate SEO metadata for this use case page
-    const baseUrl = typeof window !== 'undefined'
-      ? `${window.location.protocol}//${window.location.host}`
-      : 'https://www.bibliokit.com';
+    const baseUrl = resolveClientBaseUrl();
 
     const metadata = generateMetadata(`/use-cases/${slug}`, {
       ...content,
@@ -132,7 +131,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
 
           {/* Plugin Badge */}
           <div className="mb-6">
-            <Badge variant="accent" href={pageData.pluginUrl}>
+            <Badge variant="neon" href={pageData.pluginUrl}>
               <Zap className="w-4 h-4 text-ds-pink-400" />
               Powered by {pageData.pluginName}
             </Badge>
@@ -168,6 +167,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <Badge variant="problem" className="mb-6">
+              <AlertTriangle className="w-4 h-4" />
               The Problem
             </Badge>
             <SectionTitle>{pageData.problem}</SectionTitle>
@@ -217,6 +217,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
       <Section dark>
         <div className="text-center mb-12">
           <Badge variant="solution" className="mb-6">
+            <Check className="w-4 h-4" />
             Step-by-Step Solution
           </Badge>
           <SectionTitle>How to {pageData.title.replace('How to ', '')}</SectionTitle>

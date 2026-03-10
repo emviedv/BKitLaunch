@@ -200,7 +200,7 @@ const BiblioKitLanding: React.FC<BiblioKitLandingProps> = ({ content }) => {
       title: heroVisible ? (hero.title ?? baseProduct?.title ?? 'BiblioKit') : (baseProduct?.title ?? 'BiblioKit'),
       subtitle: heroVisible ? (hero.subtitle ?? baseProduct?.subtitle) : baseProduct?.subtitle,
       badgeLabel: heroVisible ? (hero.badgeLabel ?? baseProduct?.badgeLabel) : baseProduct?.badgeLabel,
-      description: heroVisible ? (hero.description ?? baseProduct?.description) : baseProduct?.description,
+      description: <span className="text-emerald-400">Audit files, rename layers, clean prototypes, and ship.</span>,
       primaryButton: heroVisible ? (hero.primaryButton ?? baseProduct?.primaryButton) : baseProduct?.primaryButton,
       primaryButtonLink: heroVisible ? (hero.primaryButtonLink ?? baseProduct?.primaryButtonLink) : baseProduct?.primaryButtonLink,
       secondaryButton: heroVisible ? (hero.secondaryButton ?? baseProduct?.secondaryButton) : baseProduct?.secondaryButton,
@@ -286,7 +286,7 @@ const BiblioKitLanding: React.FC<BiblioKitLandingProps> = ({ content }) => {
           descriptionMaxWidthClassName="max-w-[90%]"
           disableCursorEffects
           showAvatarStrip={false}
-          badgeVariant="accent"
+          badgeVariant="neon"
         />
       )}
       {shouldRenderSections && (

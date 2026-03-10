@@ -1,5 +1,7 @@
 import React from 'react';
+import { Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { usePublishedContent } from '@/hooks/usePublishedContent';
 import { LANDING_PRICING_ID } from '@/config/sectionAnchors';
 
@@ -38,9 +40,10 @@ const Pricing = () => {
             >
               {plan.popular && (content.settings?.labels?.pricingBadges ?? true) && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="landing-pricing-card-badge badge badge-primary px-4 py-1.5">
+                  <Badge intent="accent" context="light" size="md" className="landing-pricing-card-badge">
+                    <Star className="w-4 h-4" />
                     Most Popular
-                  </span>
+                  </Badge>
                 </div>
               )}
               

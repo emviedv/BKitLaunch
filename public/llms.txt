@@ -3,19 +3,33 @@
 
 ## Core
 - https://www.bibliokit.com/ - BiblioKit overview and waitlist.
+- https://www.bibliokit.com/about - About BiblioKit and our mission.
+- https://www.bibliokit.com/products - All BiblioKit plugins at a glance.
 
 ## Products
 - https://www.bibliokit.com/figma-component-variant-renamer - AI batch renaming for variants and layers.
 - https://www.bibliokit.com/figma-plugin-remove-prototype-links - Safe prototype link cleanup workflows.
 - https://www.bibliokit.com/figma-design-system-audit-plugin - Design system audits and QA checks.
 - https://www.bibliokit.com/figma-table-builder - Auto Layout table fixes and normalization.
+- https://www.bibliokit.com/figma-component-states - Generate component states and specs.
+- https://www.bibliokit.com/figma-organize-design-files-plugin - One-click file scaffolding and project setup.
 
 ## Resources
 - https://www.bibliokit.com/resources - Playbooks and free tools.
 - https://www.bibliokit.com/resources/remove-prototype-link - Prototype link cleanup ritual.
 
+## Learn
+- https://www.bibliokit.com/learn - Design Ops fundamentals hub.
+- https://www.bibliokit.com/learn/design-ops-fundamentals - Evergreen Design Ops guide.
+
+## Tutorials
+- https://www.bibliokit.com/tutorials - Step-by-step Figma workflow tutorials.
+
 ## Blog
 - https://www.bibliokit.com/blog - BiblioKit workflows and playbooks.
+- https://www.bibliokit.com/blog/scaling-design-system-governance - Scaling design system governance.
+- https://www.bibliokit.com/blog/what-is-design-ops-complete-guide - Complete guide to Design Ops.
+- https://www.bibliokit.com/blog/complete-guide-design-systems-figma-2026 - Design systems in Figma 2026 guide.
 - https://www.bibliokit.com/blog/design-dev-gap-2026 - 2026 design-dev shifts and fixes.
 - https://www.bibliokit.com/blog/ultimate-figma-plugin-stack - Essential Figma plugin stack.
 - https://www.bibliokit.com/blog/figma-workflow-automation-tools - Automation tools for faster shipping.
@@ -26,3 +40,82 @@
 - https://www.bibliokit.com/blog/fix-detached-instances-figma - Fix detached instances fast.
 - https://www.bibliokit.com/blog/remove-prototype-links-in-figma - Remove stale prototype links.
 - https://www.bibliokit.com/blog/mastering-design-system-guidelines - Design system governance guide.
+- https://www.bibliokit.com/blog/install-uninstall-figma-plugin - Install and uninstall Figma plugins.
+- https://www.bibliokit.com/blog/best-figma-plugins-organize-design-files-2026 - Best plugins for file organization 2026.
+
+## Use Cases
+- https://www.bibliokit.com/use-cases - Figma use case index.
+- https://www.bibliokit.com/use-cases/batch-rename-figma-layers - Batch rename layers.
+- https://www.bibliokit.com/use-cases/find-detached-instances-figma - Find detached instances.
+- https://www.bibliokit.com/use-cases/remove-prototype-links-figma - Remove prototype links.
+- https://www.bibliokit.com/use-cases/fix-figma-table-alignment - Fix table alignment.
+- https://www.bibliokit.com/use-cases/audit-design-system-figma - Audit a design system.
+- https://www.bibliokit.com/use-cases/standardize-figma-variant-names - Standardize variant names.
+- https://www.bibliokit.com/use-cases/rename-figma-layers-before-handoff - Rename layers before handoff.
+- https://www.bibliokit.com/use-cases/create-button-states-figma - Create button states.
+- https://www.bibliokit.com/use-cases/generate-hover-states-figma - Generate hover states.
+- https://www.bibliokit.com/use-cases/organize-figma-file-structure - Organize file structure.
+- https://www.bibliokit.com/use-cases/create-figma-file-template - Create file templates.
+- https://www.bibliokit.com/use-cases/resize-marketing-assets-figma - Resize marketing assets.
+- https://www.bibliokit.com/use-cases/create-social-media-sizes-figma - Create social media sizes.
+- https://www.bibliokit.com/use-cases/prepare-figma-handoff-developers - Prepare handoff for developers.
+- https://www.bibliokit.com/use-cases/find-missing-components-figma - Find missing components.
+- https://www.bibliokit.com/use-cases/auto-layout-table-figma - Auto layout tables.
+- https://www.bibliokit.com/use-cases/build-component-variants-figma - Build component variants.
+- https://www.bibliokit.com/use-cases/rename-boolean-properties-figma - Rename boolean properties.
+- https://www.bibliokit.com/use-cases/check-color-contrast-figma - Check color contrast.
+- https://www.bibliokit.com/use-cases/clean-unused-styles-figma - Clean unused styles.
+- https://www.bibliokit.com/use-cases/validate-design-tokens-figma - Validate design tokens.
+- https://www.bibliokit.com/use-cases/create-loading-states-figma - Create loading states.
+- https://www.bibliokit.com/use-cases/create-error-states-figma - Create error states.
+- https://www.bibliokit.com/use-cases/create-empty-states-figma - Create empty states.
+- https://www.bibliokit.com/use-cases/batch-export-figma-assets - Batch export assets.
+- https://www.bibliokit.com/use-cases/create-icon-component-figma - Create icon components.
+- https://www.bibliokit.com/use-cases/standardize-figma-page-naming - Standardize page naming.
+- https://www.bibliokit.com/use-cases/create-responsive-table-figma - Create responsive tables.
+- https://www.bibliokit.com/use-cases/clean-figma-file-before-export - Clean files before export.
+- https://www.bibliokit.com/use-cases/clean-up-figma-layer-names - Clean up layer names.
+- https://www.bibliokit.com/use-cases/check-design-system-coverage - Check design system coverage.
+
+## Personas
+- https://www.bibliokit.com/for - Plugins by role index.
+- https://www.bibliokit.com/for/design-system-managers - For design system managers.
+- https://www.bibliokit.com/for/freelance-designers - For freelance designers.
+- https://www.bibliokit.com/for/design-leads - For design leads.
+- https://www.bibliokit.com/for/product-designers - For product designers.
+- https://www.bibliokit.com/for/ui-engineers - For UI engineers.
+
+## Glossary
+- https://www.bibliokit.com/glossary - Design systems glossary index.
+- https://www.bibliokit.com/glossary/detached-instance - Detached instance definition.
+- https://www.bibliokit.com/glossary/instance - Instance definition.
+- https://www.bibliokit.com/glossary/main-component - Main component definition.
+- https://www.bibliokit.com/glossary/component-set - Component set definition.
+- https://www.bibliokit.com/glossary/variant-property - Variant property definition.
+- https://www.bibliokit.com/glossary/auto-layout - Auto-layout definition.
+- https://www.bibliokit.com/glossary/frame - Frame definition.
+- https://www.bibliokit.com/glossary/group - Group definition.
+- https://www.bibliokit.com/glossary/constraints - Constraints definition.
+- https://www.bibliokit.com/glossary/design-tokens - Design tokens definition.
+- https://www.bibliokit.com/glossary/design-system - Design system definition.
+- https://www.bibliokit.com/glossary/component-library - Component library definition.
+- https://www.bibliokit.com/glossary/style-guide - Style guide definition.
+- https://www.bibliokit.com/glossary/design-system-audit - Design system audit definition.
+- https://www.bibliokit.com/glossary/component-health - Component health definition.
+- https://www.bibliokit.com/glossary/token-drift - Token drift definition.
+- https://www.bibliokit.com/glossary/naming-conventions - Naming conventions definition.
+- https://www.bibliokit.com/glossary/component-states - Component states definition.
+- https://www.bibliokit.com/glossary/design-ops - Design ops definition.
+- https://www.bibliokit.com/glossary/design-handoff - Design handoff definition.
+- https://www.bibliokit.com/glossary/design-governance - Design governance definition.
+- https://www.bibliokit.com/glossary/prototype-links - Prototype links definition.
+- https://www.bibliokit.com/glossary/boolean-property - Boolean property definition.
+- https://www.bibliokit.com/glossary/slot - Slot definition.
+- https://www.bibliokit.com/glossary/nested-instance - Nested instance definition.
+- https://www.bibliokit.com/glossary/figma-variables - Figma variables definition.
+- https://www.bibliokit.com/glossary/figma-styles - Figma styles definition.
+- https://www.bibliokit.com/glossary/layer-organization - Layer organization definition.
+- https://www.bibliokit.com/glossary/file-organization - File organization definition.
+- https://www.bibliokit.com/glossary/responsive-design - Responsive design definition.
+- https://www.bibliokit.com/glossary/accessibility - Accessibility definition.
+- https://www.bibliokit.com/glossary/design-debt - Design debt definition.
