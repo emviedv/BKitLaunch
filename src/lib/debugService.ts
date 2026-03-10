@@ -215,6 +215,36 @@ class DebugService {
 // Create singleton instance
 export const debugService = new DebugService();
 
+/** Returns true when DEBUG_FIX / VITE_DEBUG_FIX is set and not '0'. */
+export function debugFixEnabled(): boolean {
+  if (typeof process !== 'undefined' && process.env?.DEBUG_FIX) {
+    return process.env.DEBUG_FIX !== '0';
+  }
+  if (typeof import.meta !== 'undefined' && (import.meta as any)?.env?.VITE_DEBUG_FIX) {
+    return (import.meta as any).env.VITE_DEBUG_FIX !== '0';
+  }
+  return false;
+}
+
+/** Returns true when DEBUG_LANDING_HERO / VITE_DEBUG_LANDING_HERO is set (falls back to debugFixEnabled). */
+export function heroDiagnosticsEnabled(): boolean {
+  if (typeof process !== 'undefined') {
+    const envValue = process.env?.DEBUG_LANDING_HERO ?? process.env?.DEBUG_FIX;
+    if (typeof envValue !== 'undefined') {
+      return envValue !== '0';
+    }
+  }
+
+  if (typeof import.meta !== 'undefined') {
+    const envValue = (import.meta as any)?.env?.VITE_DEBUG_LANDING_HERO ?? (import.meta as any)?.env?.VITE_DEBUG_FIX;
+    if (typeof envValue !== 'undefined') {
+      return envValue !== '0';
+    }
+  }
+
+  return false;
+}
+
 // Development mode detection
 if (typeof window !== 'undefined' && typeof window.location !== 'undefined') {
   const isDev = !TEST_RUNTIME && (DEV_RUNTIME || isLocalHost(window.location.hostname));

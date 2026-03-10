@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import LandingHero from './LandingHero';
 import ProductContentSections from './ProductContentSections';
 import Waitlist from './Waitlist';
-import { debugService } from '@/lib/debugService';
+import { debugService, heroDiagnosticsEnabled } from '@/lib/debugService';
 import { Button } from '@/components/ui/button';
 
 type FeaturePill = {
@@ -38,24 +38,6 @@ type ProductVisibility = {
   faqs?: boolean;
   waitlist?: boolean;
   [key: string]: boolean | undefined;
-};
-
-const heroDiagnosticsEnabled = () => {
-  if (typeof process !== 'undefined') {
-    const envValue = process.env?.DEBUG_LANDING_HERO ?? process.env?.DEBUG_FIX;
-    if (typeof envValue !== 'undefined') {
-      return envValue !== '0';
-    }
-  }
-
-  if (typeof import.meta !== 'undefined') {
-    const envValue = (import.meta as any)?.env?.VITE_DEBUG_LANDING_HERO ?? (import.meta as any)?.env?.VITE_DEBUG_FIX;
-    if (typeof envValue !== 'undefined') {
-      return envValue !== '0';
-    }
-  }
-
-  return false;
 };
 
 interface BiblioKitLandingProps {

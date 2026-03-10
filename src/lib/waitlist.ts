@@ -1,4 +1,4 @@
-import { debugService } from './debugService';
+import { debugService, debugFixEnabled } from './debugService';
 import { getApiUrl } from './http';
 
 type JoinWaitlistResult = {
@@ -7,21 +7,11 @@ type JoinWaitlistResult = {
   error?: string;
 };
 
-const debugEnabled = () => {
-  if (typeof process !== 'undefined' && process.env?.DEBUG_FIX) {
-    return process.env.DEBUG_FIX !== '0';
-  }
-  if (typeof import.meta !== 'undefined' && (import.meta as any)?.env?.VITE_DEBUG_FIX) {
-    return (import.meta as any).env.VITE_DEBUG_FIX !== '0';
-  }
-  return false;
-};
-
 export const joinWaitlist = async (email: string): Promise<JoinWaitlistResult> => {
   const endpoint = getApiUrl('waitlist');
   const payload = { email };
 
-  if (debugEnabled()) {
+  if (debugFixEnabled()) {
     console.debug('[cms-removal] joinWaitlist request', { endpoint, payload });
   }
 
@@ -47,13 +37,13 @@ export const joinWaitlist = async (email: string): Promise<JoinWaitlistResult> =
 
   if (!response.ok) {
     const errorMessage = parsed?.error || `HTTP ${response.status}`;
-    if (debugEnabled()) {
+    if (debugFixEnabled()) {
       console.debug('[cms-removal] joinWaitlist failed', { endpoint, errorMessage, status: response.status });
     }
     return { success: false, error: errorMessage };
   }
 
-  if (debugEnabled()) {
+  if (debugFixEnabled()) {
     console.debug('[cms-removal] joinWaitlist success', { endpoint, message: parsed?.message });
   }
 

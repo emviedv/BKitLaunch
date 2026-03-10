@@ -1,36 +1,8 @@
 import productData from '../data/products.json' with { type: 'json' };
-import { debugService } from './debugService.ts';
+import { debugService, debugFixEnabled, heroDiagnosticsEnabled } from './debugService.ts';
 
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value));
 let cachedPublishedContent: typeof productData | null = null;
-
-const debugEnabled = () => {
-  if (typeof process !== 'undefined' && process.env?.DEBUG_FIX) {
-    return process.env.DEBUG_FIX !== '0';
-  }
-  if (typeof import.meta !== 'undefined' && (import.meta as any)?.env?.VITE_DEBUG_FIX) {
-    return (import.meta as any).env.VITE_DEBUG_FIX !== '0';
-  }
-  return false;
-};
-
-const heroDiagnosticsEnabled = () => {
-  if (typeof process !== 'undefined') {
-    const envValue = process.env?.DEBUG_LANDING_HERO ?? process.env?.DEBUG_FIX;
-    if (typeof envValue !== 'undefined') {
-      return envValue !== '0';
-    }
-  }
-
-  if (typeof import.meta !== 'undefined') {
-    const envValue = (import.meta as any)?.env?.VITE_DEBUG_LANDING_HERO ?? (import.meta as any)?.env?.VITE_DEBUG_FIX;
-    if (typeof envValue !== 'undefined') {
-      return envValue !== '0';
-    }
-  }
-
-  return false;
-};
 
 /**
  * Returns the statically bundled content payload that previously came from the CMS.
@@ -42,7 +14,7 @@ export const loadPublishedContent = () => {
   }
 
   const content = cachedPublishedContent;
-  if (debugEnabled()) {
+  if (debugFixEnabled()) {
     console.debug('[cms-removal] loadPublishedContent returning bundled data', {
       keys: Object.keys(content ?? {}),
     });

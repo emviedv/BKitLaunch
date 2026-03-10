@@ -1,24 +1,6 @@
 import { useMemo } from 'react';
 import { loadPublishedContent } from '../lib/publishedContent';
-import { debugService } from '../lib/debugService.ts';
-
-const heroDiagnosticsEnabled = () => {
-  if (typeof process !== 'undefined') {
-    const envValue = process.env?.DEBUG_LANDING_HERO ?? process.env?.DEBUG_FIX;
-    if (typeof envValue !== 'undefined') {
-      return envValue !== '0';
-    }
-  }
-
-  if (typeof import.meta !== 'undefined') {
-    const envValue = (import.meta as any)?.env?.VITE_DEBUG_LANDING_HERO ?? (import.meta as any)?.env?.VITE_DEBUG_FIX;
-    if (typeof envValue !== 'undefined') {
-      return envValue !== '0';
-    }
-  }
-
-  return false;
-};
+import { debugService, heroDiagnosticsEnabled } from '../lib/debugService.ts';
 
 type ContentSource = 'static';
 
