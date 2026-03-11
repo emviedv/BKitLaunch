@@ -66,6 +66,7 @@ const BlogPage: React.FC = () => {
         style={{ paddingTop: '72px', paddingBottom: '120px' }}
       >
         <div className="landing-hero-gradient__layer" aria-hidden="true" />
+        <div className="landing-hero-column-lines" aria-hidden="true" />
         <div className="landing-hero-noise" aria-hidden="true" />
         <div className="relative z-10 section-content pb-0 text-white">
           <div className="grid gap-10 lg:gap-[168px] lg:grid-cols-3 lg:items-start">

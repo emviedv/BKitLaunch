@@ -149,6 +149,7 @@ export const ProductHero: React.FC<ProductHeroProps> = ({
   return (
     <RootTag className={sectionClassName} aria-labelledby={resolvedHeadingId}>
       <div className="landing-hero-gradient__layer" aria-hidden="true" />
+      <div className="landing-hero-column-lines" aria-hidden="true" />
       <div className="landing-hero-noise" aria-hidden="true" />
       <div className="landing-hero-contrast" aria-hidden="true" />
       <FluidBackground />

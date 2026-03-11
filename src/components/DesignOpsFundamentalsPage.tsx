@@ -47,6 +47,7 @@ const DesignOpsFundamentalsPage: React.FC = () => {
         style={{ paddingTop: '72px', paddingBottom: '96px' }}
       >
         <div className="landing-hero-gradient__layer" aria-hidden="true" />
+        <div className="landing-hero-column-lines" aria-hidden="true" />
         <div className="landing-hero-noise" aria-hidden="true" />
         <div className="relative z-10 section-content text-white">
           <nav

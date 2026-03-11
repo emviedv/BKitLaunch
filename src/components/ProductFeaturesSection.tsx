@@ -204,9 +204,6 @@ const ProductFeaturesSection: React.FC<Props> = ({
                       )}
                     </div>
 
-                    {/* Divider */}
-                    <div className="my-6 border-t" style={{ borderColor: theme.border }} />
-
                     {/* Bottom row: Stat + Arrow button */}
                     <div className="flex items-end justify-between">
                       {/* Stat */}
