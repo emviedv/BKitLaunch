@@ -33,7 +33,7 @@ const ComponentQAPage = () => {
   // --- Reusable Components ---
 
   const Section = ({ children, className = '', dark = true }: { children: React.ReactNode; className?: string; dark?: boolean }) => (
-    <section className={`py-16 md:py-24 px-6 md:px-10 ${dark ? 'landing-sections-gradient text-white' : 'bg-white text-slate-900'} ${className} relative overflow-hidden`}>
+    <section className={`py-[var(--space-xl)] md:py-[var(--space-2xl)] px-6 md:px-10 ${dark ? 'landing-sections-gradient text-white' : 'bg-white text-slate-900'} ${className} relative overflow-hidden`}>
       <div className="mx-auto max-w-6xl relative z-10">
         {children}
       </div>
@@ -41,7 +41,7 @@ const ComponentQAPage = () => {
   );
 
   const SectionTitle = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
-    <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${className}`}>{children}</h2>
+    <h2 className={`text-3xl md:text-4xl font-bold mb-[var(--space-lg)] ${className}`}>{children}</h2>
   );
 
   const PlaceholderImage = ({ label, height = 'h-64', className = '' }: { label: string; height?: string; className?: string }) => (
@@ -52,7 +52,7 @@ const ComponentQAPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background" role="main">
       
       {/* Block 1: Hero */}
       <section className="landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20 px-6 md:px-10 text-white">
@@ -65,18 +65,18 @@ const ComponentQAPage = () => {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
             Stop shipping<br className="hidden md:block" /> broken files.
           </h1>
-          <p className="hero-description-copy text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
+          <p className="hero-description-copy text-xl md:text-2xl text-slate-300 mb-[var(--space-xl)] max-w-[85%] sm:max-w-[70%] lg:max-w-[60%] mx-auto">
             Find detached instances, validate tokens, and surface design system drift instantly. Keep designers, developers, and marketers aligned before handoff.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <Button asChild variant="hero-primary" size="lg">
               <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
-                <span>QA Your Figma File — Free</span>
+                <span>Audit Your Figma File — Free</span>
               </a>
             </Button>
             <span className="flex items-center gap-2 text-sm text-slate-400">
-              <Search className="w-4 h-4" /> deep scan · full audit
+              <Search className="w-4 h-4" /> scans every layer · finds all issues
             </span>
           </div>
           <div className="mx-auto max-w-4xl shadow-2xl rounded-lg overflow-hidden border border-slate-700/50">
@@ -110,26 +110,26 @@ const ComponentQAPage = () => {
 
       {/* Block 2: Problem Agitation */}
       <Section dark className="border-y border-slate-800/50">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div>
             <SectionTitle>Your design system is leaking.</SectionTitle>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Detached instances hiding in production files.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Hardcoded hex values instead of semantic tokens.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 &quot;Dirty&quot; overrides breaking developer handoff.
               </li>
             </ul>
-            <div className="bg-red-900/20 border border-red-900/50 p-6 rounded-lg mb-6">
-              <p className="font-semibold text-red-200 mb-1">The Debt Compound</p>
-              <p className="text-red-300">Every detached component doubles the maintenance cost when you update your library.</p>
+            <div className="bg-destructive/10 border border-destructive/20 p-6 rounded-lg mb-6">
+              <p className="font-semibold text-destructive-foreground mb-1">The Debt Compound</p>
+              <p className="text-destructive-foreground">Every detached component doubles the maintenance cost when you update your library.</p>
             </div>
             <p className="italic text-slate-400">
               &quot;We pushed a rebranding update and realized half our screens didn&apos;t change because designers had detached the buttons.&quot;
@@ -152,7 +152,7 @@ const ComponentQAPage = () => {
       {/* Block 3: Quick Proof */}
       <Section dark>
         <div className="text-center mb-12">
-          <div className="inline-block bg-green-500/10 text-green-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-green-500/20">
+          <div className="inline-block bg-success/10 text-success px-4 py-1.5 rounded-full text-sm font-semibold mb-6 border border-success/20">
             Typical Result: 100% System Compliance
           </div>
           <SectionTitle>See ComponentQA in Action: Audit & Flag Figma Design Errors</SectionTitle>
@@ -196,21 +196,21 @@ const ComponentQAPage = () => {
         <div className="text-center mb-16">
           <SectionTitle>Three steps to compliance.</SectionTitle>
         </div>
-        <div className="grid md:grid-cols-3 gap-8 items-center">
+        <div className="grid md:grid-cols-3 gap-[var(--space-xl)] items-center">
           <div className="relative">
-            <div className="absolute -top-4 -left-4 w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
+            <div className="absolute -top-4 -left-4 w-10 h-10 bg-[hsl(var(--interactive-accent))] rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Select Scope" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Scan Anything</h3>
             <p className="text-slate-400">Audit a single selection, a whole page, or the entire file. ComponentQA crawls every layer.</p>
           </div>
           <div className="relative">
-            <div className="absolute -top-4 -left-4 w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center font-bold text-white z-10">2</div>
+            <div className="absolute -top-4 -left-4 w-10 h-10 bg-[hsl(var(--interactive-accent))] rounded-full flex items-center justify-center font-bold text-white z-10">2</div>
             <PlaceholderImage label="Step 2: Review Issues" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Identify Drift</h3>
             <p className="text-slate-400">See a prioritized list of errors: detached instances, missing styles, and rogue overrides.</p>
           </div>
           <div className="relative">
-            <div className="absolute -top-4 -left-4 w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center font-bold text-white z-10">3</div>
+            <div className="absolute -top-4 -left-4 w-10 h-10 bg-[hsl(var(--interactive-accent))] rounded-full flex items-center justify-center font-bold text-white z-10">3</div>
             <PlaceholderImage label="Step 3: Review Issues" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Guided Review</h3>
             <p className="text-slate-400">Click to locate each issue and jump to the exact layer for review.</p>
@@ -222,21 +222,21 @@ const ComponentQAPage = () => {
       <Section dark>
         <div className="grid gap-16">
           {/* Feature 1 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
             <div>
               <h3 className="text-2xl font-bold mb-4">Find Detached Instances</h3>
               <p className="text-slate-300 text-lg mb-6">Locate every component that has been detached from the library. Reattach them to keep your design system connected.</p>
               <ul className="text-sm text-slate-400 space-y-2">
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Scans deeply nested layers</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Flags &quot;rogue&quot; UI elements</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> One-click navigation to error</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-success" /> Scans deeply nested layers</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-success" /> Flags &quot;rogue&quot; UI elements</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-success" /> One-click navigation to error</li>
               </ul>
             </div>
             <PlaceholderImage label="Screenshot: Detached Instance List" />
           </div>
           
           {/* Feature 2 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center md:grid-flow-dense">
              <div className="md:col-start-2">
               <h3 className="text-2xl font-bold mb-4">Validate Design Tokens</h3>
               <p className="text-slate-300 text-lg mb-6">Ensure every color, font, and effect is linked to a style. Catch hardcoded values before they reach developers.</p>
@@ -247,7 +247,7 @@ const ComponentQAPage = () => {
           </div>
 
           {/* Feature 3 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
              <div>
               <h3 className="text-2xl font-bold mb-4">Flag &quot;Dirty&quot; Overrides</h3>
               <p className="text-slate-300 text-lg mb-6">Identify instances with heavy manual overrides that should be variants. Keep your components clean and predictable.</p>
@@ -256,14 +256,14 @@ const ComponentQAPage = () => {
           </div>
 
           {/* Feature 4 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center md:grid-flow-dense">
              <div className="md:col-start-2">
               <h3 className="text-2xl font-bold mb-4">Track a Health Score Over Time</h3>
               <p className="text-slate-300 text-lg mb-6">Get a single health score that surfaces system drift at a glance, then review score history across audits to prove progress.</p>
               <ul className="text-sm text-slate-400 space-y-2">
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Health score rolls up detached instances, token drift, and overrides</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> History shows score changes per audit run</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-cyan-400" /> Share progress with your team before handoff</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-success" /> Health score rolls up detached instances, token drift, and overrides</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-success" /> History shows score changes per audit run</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-success" /> Share progress with your team before handoff</li>
               </ul>
             </div>
             <div className="md:col-start-1">
@@ -276,7 +276,7 @@ const ComponentQAPage = () => {
       {/* Block 6: Use Cases */}
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Quality Assurance on Autopilot.</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Design Handoff QA</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Devs find inconsistent hex codes. <br/>Result: 100% token usage.</p>
@@ -298,14 +298,14 @@ const ComponentQAPage = () => {
 
       {/* Block 7: CTA */}
       <Section dark>
-        <div className="bg-gradient-to-br from-cyan-900/40 to-slate-900/40 border border-cyan-500/20 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-sm">
-          <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
+        <div className="bg-gradient-to-br from-[hsl(var(--interactive-accent-muted))] to-slate-900/40 border border-[hsl(var(--interactive-accent))]/20 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-sm">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Audit your file in seconds.</h2>
-              <p className="text-xl text-cyan-200 mb-8">Install ComponentQA for free and catch errors before your developers do.</p>
+              <p className="text-xl text-[hsl(var(--interactive-accent-foreground))] mb-8">Install ComponentQA for free and catch errors before your developers do.</p>
               <Button asChild variant="hero-primary" size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Get ComponentQA for free
+                  Install ComponentQA — Free
                 </a>
               </Button>
             </div>
@@ -314,11 +314,11 @@ const ComponentQAPage = () => {
                    <PlaceholderImage label="ComponentQA Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
                    <div className="absolute -bottom-4 -right-4 product-page-metric-callout p-4 rounded-lg border shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
-                        <Check className="w-4 h-4 text-cyan-400" />
+                        <Check className="w-4 h-4 text-success" />
                         <span className="text-sm font-bold">Audit Passed</span>
                       </div>
                       <div className="h-2 w-32 bg-slate-700 rounded-full overflow-hidden">
-                         <div className="h-full w-full bg-cyan-400" />
+                         <div className="h-full w-full bg-[hsl(var(--interactive-accent))]" />
                       </div>
                    </div>
                </div>
@@ -349,12 +349,12 @@ const ComponentQAPage = () => {
               </Button>
             </div>
             <p className="mt-6 text-slate-400">
-              Need to clean up prototype links too? <a href="/figma-plugin-remove-prototype-links" className="text-cyan-400 hover:underline">Check out BiblioClean</a>
+              Need to clean up prototype links too? <a href="/figma-plugin-remove-prototype-links" className="text-success hover:underline">Check out BiblioClean</a>
             </p>
          </div>
       </section>
 
-    </div>
+    </main>
   );
 };
 

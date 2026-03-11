@@ -101,15 +101,15 @@ const OrganizeFilePage = () => {
             <SectionTitle>Your team wastes hours on setup.</SectionTitle>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Every new file starts with the duplication of another file or an empty canvas and no structure.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Inconsistent page hierarchies across projects confuse handoffs.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 No standardized covers, status cards, or documentation anchors.
               </li>
             </ul>

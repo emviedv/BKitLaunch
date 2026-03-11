@@ -31,7 +31,7 @@ const baseProduct = {
       mediaComponent: "video",
       mediaUrl: "/preview.mp4",
       mediaAlt: "Workflow preview",
-      pill: { label: "New", classes: "bg-white/5", dotClass: "bg-pink-500" },
+      pill: { label: "New", classes: "bg-white/5", dotClass: "bg-emerald-500" },
     },
     {
       title: "Missing Media",

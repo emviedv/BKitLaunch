@@ -126,7 +126,7 @@ const ScaleResizerPage = () => {
 
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background" role="main">
 
       {/* Block 1: Hero */}
       <section className="landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20 px-6 md:px-10 text-white">
@@ -165,26 +165,26 @@ const ScaleResizerPage = () => {
 
       {/* Block 2: Problem Agitation */}
       <Section dark className="border-y border-slate-800/50">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div>
             <SectionTitle>Why manual resizing kills momentum.</SectionTitle>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Duplicate frame, resize, re-align content. Repeat 8 more times.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Logo too small on YouTube? Text clipped on TikTok? Missed safe areas.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Campaign delays from last-minute format requests.
               </li>
             </ul>
-            <div className="bg-red-900/20 border border-red-900/50 p-6 rounded-lg mb-6">
-              <p className="font-semibold text-red-200 mb-1">The Hidden Cost</p>
-              <p className="text-red-300">1 designer x 25 min/frame x 4 campaigns/week = 100+ min/week on rote resizing.</p>
+            <div className="bg-destructive/10 border border-destructive/20 p-6 rounded-lg mb-6">
+              <p className="font-semibold text-destructive-foreground mb-1">The Hidden Cost</p>
+              <p className="text-destructive-foreground">1 designer x 25 min/frame x 4 campaigns/week = 100+ min/week on rote resizing.</p>
             </div>
             <p className="italic text-slate-400">
               &quot;We launched the TikTok ad with the CTA button under the comment overlay. Nobody caught it until it was live.&quot;
@@ -261,7 +261,7 @@ const ScaleResizerPage = () => {
       <Section dark>
         <div className="grid gap-16">
           {/* Feature 1 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
             <div>
               <h3 className="text-2xl font-bold mb-4">Format-Specific Safe Areas</h3>
               <p className="text-slate-300 text-lg mb-6">Every platform has UI that overlaps your content. ScaleResizer enforces format-specific safe zones automatically.</p>
@@ -275,7 +275,7 @@ const ScaleResizerPage = () => {
           </div>
 
           {/* Feature 2 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center md:grid-flow-dense">
              <div className="md:col-start-2">
               <h3 className="text-2xl font-bold mb-4">Brand Preservation</h3>
               <p className="text-slate-300 text-lg mb-6">Your original imagery, copy, and brand tokens stay intact. ScaleResizer adapts layout, not content.</p>
@@ -291,7 +291,7 @@ const ScaleResizerPage = () => {
           </div>
 
           {/* Feature 3 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
              <div>
               <h3 className="text-2xl font-bold mb-4">Organized Staging</h3>
               <p className="text-slate-300 text-lg mb-6">All variants are organized in timestamped containers on a dedicated staging page for easy review and export.</p>
@@ -388,7 +388,7 @@ const ScaleResizerPage = () => {
          </div>
       </section>
 
-    </div>
+    </main>
   );
 };
 

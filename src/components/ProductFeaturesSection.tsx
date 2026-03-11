@@ -347,7 +347,7 @@ const ProductFeaturesSection: React.FC<Props> = ({
                         <ul className="mt-2 space-y-2 text-base text-white/75 flex flex-col items-start text-left pb-3 leading-relaxed">
                           {bulletItems.map((item, itemIndex) => (
                             <li key={itemIndex} className="flex items-start gap-3">
-                              <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ds-pink-accent" />
+                              <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
                               <span className="text-left">{item}</span>
                             </li>
                           ))}

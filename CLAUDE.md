@@ -135,3 +135,30 @@ Example: The www/non-www canonical URL bug was "fixed" in Jan 2026 but recurred 
 ## Debug Logging
 
 Every bug fix must be recorded in `docs/live-debug/LIVE_DEBUG_YYYY-MM.md` with: date/time, summary, root cause, changed files, and verification steps.
+
+## Design Context
+
+### Users
+Professional designers, developers, and marketers working in Figma who need to scale their design workflows and maintain design system quality. They're operating in fast-paced environments where time-to-ship matters, often managing complex files with hundreds of components and variants. They want tools that make them feel more capable and confident in their design decisions.
+
+### Brand Personality
+**Efficient, Modern, Approachable** - BiblioKit delivers streamlined productivity tools with contemporary aesthetics and friendly accessibility. The interface should feel sophisticated enough for professional use while remaining welcoming to designers at all skill levels.
+
+### Aesthetic Direction
+**Visual Inspiration**: Linear's interface aesthetic - sleek, fast, and modern with excellent use of gradients and purposeful motion. Focus on sophisticated dark themes with the signature hot pink (#ff2f87) as the energetic brand accent.
+
+**Anti-References**: Explicitly avoid generic AI-generated interfaces (cyan-on-dark, predictable purple gradients), overly playful/toy-like aesthetics, complex/overwhelming information architecture, and corporate/stuffy conservative design.
+
+**Theme Strategy**: Leverage the existing sophisticated design system with hot pink brand colors, Google Sans typography, and well-structured HSL color tokens. Embrace dark-first design with purposeful gradients and smooth animations.
+
+### Design Principles
+
+1. **Speed-Focused Efficiency**: Every interaction should feel instant. Users should experience excitement about how much faster they can work. Use optimistic UI, smooth transitions, and progressive disclosure to maintain momentum.
+
+2. **Confident Professionalism**: The interface should make users feel assured their design decisions are backed by solid tools and data. Use clear visual hierarchy, reliable feedback, and trustworthy design patterns that feel enterprise-ready.
+
+3. **Delightful Control**: Users should feel both joy in discovery and mastery over complexity. Balance sophisticated functionality with approachable interactions. Add purposeful moments of delight without compromising professional credibility.
+
+4. **Modern Sophistication**: Embrace contemporary design techniques - fluid spacing with clamp(), modern CSS color functions (oklch), container queries, and thoughtful motion design. Avoid generic AI aesthetics by making intentional, distinctive choices.
+
+5. **Linear-Inspired Excellence**: Channel Linear's aesthetic philosophy - clean information architecture, purposeful gradients, excellent use of motion, and interfaces that feel effortlessly fast and modern.

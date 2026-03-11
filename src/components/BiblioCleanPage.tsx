@@ -32,7 +32,7 @@ const BiblioCleanPage = () => {
   // --- Reusable Components ---
 
   const Section = ({ children, className = '', dark = true }: { children: React.ReactNode; className?: string; dark?: boolean }) => (
-    <section className={`py-16 md:py-24 px-6 md:px-10 ${dark ? 'landing-sections-gradient text-white' : 'bg-white text-slate-900'} ${className} relative overflow-hidden`}>
+    <section className={`py-[var(--space-xl)] md:py-[var(--space-2xl)] px-6 md:px-10 ${dark ? 'landing-sections-gradient text-white' : 'bg-white text-slate-900'} ${className} relative overflow-hidden`}>
       <div className="mx-auto max-w-6xl relative z-10">
         {children}
       </div>
@@ -40,7 +40,7 @@ const BiblioCleanPage = () => {
   );
 
   const SectionTitle = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
-    <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${className}`}>{children}</h2>
+    <h2 className={`text-3xl md:text-4xl font-bold mb-[var(--space-lg)] ${className}`}>{children}</h2>
   );
 
   const PlaceholderImage = ({ label, height = 'h-64', className = '' }: { label: string; height?: string; className?: string }) => (
@@ -51,7 +51,7 @@ const BiblioCleanPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background" role="main">
       
       {/* Block 1: Hero */}
       <section className="landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20 px-6 md:px-10 text-white">
@@ -75,7 +75,7 @@ const BiblioCleanPage = () => {
               </a>
             </Button>
             <span className="flex items-center gap-2 text-sm text-slate-400">
-              <Shield className="w-4 h-4" /> audit logs · undo ready
+              <Shield className="w-4 h-4" /> tracks changes · easy undo
             </span>
           </div>
           <div className="mx-auto max-w-4xl shadow-2xl rounded-lg overflow-hidden border border-slate-700/50">
@@ -86,26 +86,26 @@ const BiblioCleanPage = () => {
 
       {/* Block 2: Problem Agitation */}
       <Section dark className="border-y border-slate-800/50">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div>
             <SectionTitle>Stop shipping &quot;blue spaghetti.&quot;</SectionTitle>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Stale prototype wires confuse developers during handoff.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Old external links leak context to contractors or the public.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Manually clicking &quot;minus&quot; on interactions takes forever.
               </li>
             </ul>
-            <div className="bg-red-900/20 border border-red-900/50 p-6 rounded-lg mb-6">
-              <p className="font-semibold text-red-200 mb-1">The Handoff Risk</p>
-              <p className="text-red-300">One wrong flow connection sends your dev team down a rabbit hole of outdated screens.</p>
+            <div className="bg-destructive/10 border border-destructive/20 p-6 rounded-lg mb-6">
+              <p className="font-semibold text-destructive-foreground mb-1">The Handoff Risk</p>
+              <p className="text-destructive-foreground">One wrong flow connection sends your dev team down a rabbit hole of outdated screens.</p>
             </div>
             <p className="italic text-slate-400">
               &quot;We spent a sprint building a flow that was supposed to be cut, just because the prototype line was still there.&quot;
@@ -156,19 +156,19 @@ const BiblioCleanPage = () => {
         </div>
         <div className="grid md:grid-cols-3 gap-8 items-center">
           <div className="relative">
-            <div className="absolute -top-4 -left-4 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
+            <div className="absolute -top-4 -left-4 w-10 h-10 bg-[hsl(var(--interactive-accent))] rounded-full flex items-center justify-center font-bold text-white z-10">1</div>
             <PlaceholderImage label="Step 1: Select Scope (Page/Selection)" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Smart Scope</h3>
             <p className="text-slate-400">Choose to clean your current selection or wipe the entire page. BiblioClean scans for all prototype connections.</p>
           </div>
           <div className="relative">
-            <div className="absolute -top-4 -left-4 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center font-bold text-white z-10">2</div>
+            <div className="absolute -top-4 -left-4 w-10 h-10 bg-[hsl(var(--interactive-accent))] rounded-full flex items-center justify-center font-bold text-white z-10">2</div>
             <PlaceholderImage label="Step 2: Review & Safety Check" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Safety Guardrails</h3>
             <p className="text-slate-400">We warn you if you're about to remove links from a shared component or design system master.</p>
           </div>
           <div className="relative">
-            <div className="absolute -top-4 -left-4 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center font-bold text-white z-10">3</div>
+            <div className="absolute -top-4 -left-4 w-10 h-10 bg-[hsl(var(--interactive-accent))] rounded-full flex items-center justify-center font-bold text-white z-10">3</div>
             <PlaceholderImage label="Step 3: One-Click Clean" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Instant Cleanup</h3>
             <p className="text-slate-400">Remove navigation links, external URLs, and hotspot interactions instantly. Undo if needed.</p>
@@ -180,21 +180,21 @@ const BiblioCleanPage = () => {
       <Section dark>
         <div className="grid gap-16">
           {/* Feature 1 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
             <div>
               <h3 className="text-2xl font-bold mb-4">Deep Cleaning & Blue Line Removal</h3>
               <p className="text-slate-300 text-lg mb-6">Remove prototype navigation links (the blue lines), external URLs, and hotspot interactions. Clear visual clutter without affecting your design geometry.</p>
               <ul className="text-sm text-slate-400 space-y-2">
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> Navigation links (blue lines)</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> External URLs</li>
-                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-blue-400" /> Hotspot interactions</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[hsl(var(--interactive-accent))]" /> Navigation links (blue lines)</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[hsl(var(--interactive-accent))]" /> External URLs</li>
+                <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[hsl(var(--interactive-accent))]" /> Hotspot interactions</li>
               </ul>
             </div>
             <PlaceholderImage label="Screenshot: Cleaning Options Panel" />
           </div>
           
           {/* Feature 2 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center md:grid-flow-dense">
              <div className="md:col-start-2">
               <h3 className="text-2xl font-bold mb-4">Safety Guardrails</h3>
               <p className="text-slate-300 text-lg mb-6">Don't break the system. BiblioClean warns you before you strip interactions from main components or shared library assets.</p>
@@ -205,7 +205,7 @@ const BiblioCleanPage = () => {
           </div>
 
           {/* Feature 3 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
              <div>
               <h3 className="text-2xl font-bold mb-4">History & Undo Support</h3>
               <p className="text-slate-300 text-lg mb-6">Every action is logged. Review what was removed and roll back instantly with Figma's native undo or our history log.</p>
@@ -218,7 +218,7 @@ const BiblioCleanPage = () => {
       {/* Block 6: Use Cases */}
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Essential for every handoff.</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Pre-Handoff Cleanup</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Developers confused by old prototype flows. <br/>Result: Clean canvas, clear specs.</p>
@@ -241,10 +241,10 @@ const BiblioCleanPage = () => {
       {/* Block 7: CTA */}
       <Section dark>
         <div className="bg-gradient-to-br from-blue-900/40 to-slate-900/40 border border-blue-500/20 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-sm">
-          <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Start cleaning in seconds.</h2>
-              <p className="text-xl text-blue-200 mb-8">Install BiblioClean for free and wipe those blue lines away.</p>
+              <p className="text-xl text-[hsl(var(--interactive-accent-foreground))] mb-8">Install BiblioClean for free and wipe those blue lines away.</p>
               <Button asChild variant="hero-primary" size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
                   Get BiblioClean for free
@@ -256,11 +256,11 @@ const BiblioCleanPage = () => {
                    <PlaceholderImage label="BiblioClean Plugin Icon" height="h-64" className="w-48 shadow-2xl rotate-3 rounded-3xl" />
                    <div className="absolute -bottom-4 -right-4 product-page-metric-callout p-4 rounded-lg border shadow-xl">
                       <div className="flex items-center gap-2 mb-2">
-                        <Check className="w-4 h-4 text-blue-400" />
+                        <Check className="w-4 h-4 text-[hsl(var(--interactive-accent))]" />
                         <span className="text-sm font-bold">Canvas Cleaned</span>
                       </div>
                       <div className="h-2 w-32 bg-slate-700 rounded-full overflow-hidden">
-                         <div className="h-full w-full bg-blue-400" />
+                         <div className="h-full w-full bg-[hsl(var(--interactive-accent))]" />
                       </div>
                    </div>
                </div>
@@ -306,12 +306,12 @@ const BiblioCleanPage = () => {
               </Button>
             </div>
             <p className="mt-6 text-slate-400">
-              Want to audit your file for other errors? <a href="/figma-design-system-audit-plugin" className="text-blue-400 hover:underline">Check out ComponentQA</a>
+              Want to audit your file for other errors? <a href="/figma-design-system-audit-plugin" className="text-[hsl(var(--interactive-accent))] hover:underline">Check out ComponentQA</a>
             </p>
          </div>
       </section>
 
-    </div>
+    </main>
   );
 };
 

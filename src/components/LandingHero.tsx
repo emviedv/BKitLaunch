@@ -307,14 +307,14 @@ const LandingHero: React.FC<LandingHeroProps> = ({
 
       {/* Cursor Overlay Layer */}
       {shouldShowCursorEffects ? (
-        <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden" style={{ contain: 'layout style paint' }}>
+        <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden" style={{ contain: 'layout style paint', willChange: 'auto' }} aria-label="Interactive cursor animation showing multiple users working collaboratively" role="img">
         {/* User Cursor (You) */}
         <div
           className={`absolute top-0 left-0 transition-opacity duration-300 ${showCursor ? 'opacity-100' : 'opacity-0'}`}
           style={{ transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0)` }}
         >
-          <MousePointer2 className="w-5 h-5 text-blue-600 fill-blue-600 stroke-white stroke-[2px] drop-shadow-lg" />
-          <div className="ml-3 mt-1 px-2.5 py-1 bg-blue-600 text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block">
+          <MousePointer2 className="w-5 h-5 text-[hsl(var(--primary))] fill-[hsl(var(--primary))] stroke-white stroke-[2px] drop-shadow-lg" />
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-[hsl(var(--primary))] text-primary-foreground text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block">
             {HERO_ACTORS.user}
           </div>
         </div>
@@ -322,9 +322,9 @@ const LandingHero: React.FC<LandingHeroProps> = ({
         {/* Bot 1 - Designer, moves deliberately with pauses */}
         <div className="absolute top-0 left-0 animate-cursor-designer">
           <div className="animate-cursor-click-1">
-            <MousePointer2 className="w-5 h-5 text-orange-500 fill-orange-500 stroke-white stroke-[2px] drop-shadow-lg" />
+            <MousePointer2 className="w-5 h-5 text-warning fill-warning stroke-white stroke-[2px] drop-shadow-lg" />
           </div>
-          <div className="ml-3 mt-1 px-2.5 py-1 bg-orange-500 text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-1">
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-warning text-warning-foreground text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-1">
             {HERO_ACTORS.bot1}
           </div>
         </div>
@@ -332,9 +332,9 @@ const LandingHero: React.FC<LandingHeroProps> = ({
         {/* Bot 2 - Developer, fast and precise */}
         <div className="absolute top-0 left-0 animate-cursor-developer">
           <div className="animate-cursor-click-2">
-            <MousePointer2 className="w-5 h-5 text-emerald-500 fill-emerald-500 stroke-white stroke-[2px] drop-shadow-lg" />
+            <MousePointer2 className="w-5 h-5 text-success fill-success stroke-white stroke-[2px] drop-shadow-lg" />
           </div>
-          <div className="ml-3 mt-1 px-2.5 py-1 bg-emerald-500 text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-2">
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-success text-success-foreground text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-2">
             {HERO_ACTORS.bot2}
           </div>
         </div>
@@ -352,9 +352,9 @@ const LandingHero: React.FC<LandingHeroProps> = ({
         {/* Bot 4 - Explorer, curious wandering */}
         <div className="absolute top-0 left-0 animate-cursor-explorer">
           <div className="animate-cursor-click-4">
-            <MousePointer2 className="w-5 h-5 text-rose-500 fill-rose-500 stroke-white stroke-[2px] drop-shadow-lg" />
+            <MousePointer2 className="w-5 h-5 text-destructive fill-destructive stroke-white stroke-[2px] drop-shadow-lg" />
           </div>
-          <div className="ml-3 mt-1 px-2.5 py-1 bg-rose-500 text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-4">
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-4">
             {HERO_ACTORS.bot4}
           </div>
         </div>
@@ -362,9 +362,9 @@ const LandingHero: React.FC<LandingHeroProps> = ({
         {/* Bot 5 - Miriam */}
         <div className="absolute top-0 left-0 animate-cursor-miriam">
           <div className="animate-cursor-click-5">
-            <MousePointer2 className="w-5 h-5 text-cyan-500 fill-cyan-500 stroke-white stroke-[2px] drop-shadow-lg" />
+            <MousePointer2 className="w-5 h-5 text-[hsl(var(--interactive-accent))] fill-[hsl(var(--interactive-accent))] stroke-white stroke-[2px] drop-shadow-lg" />
           </div>
-          <div className="ml-3 mt-1 px-2.5 py-1 bg-cyan-500 text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-5">
+          <div className="ml-3 mt-1 px-2.5 py-1 bg-[hsl(var(--interactive-accent))] text-white text-[10px] font-bold rounded-full shadow-lg backdrop-blur-sm inline-block animate-cursor-label-pulse-5">
             {HERO_ACTORS.bot5}
           </div>
         </div>
@@ -742,88 +742,42 @@ const LandingHero: React.FC<LandingHeroProps> = ({
 
         /* Designer cursor - deliberate movements with creative pauses */
         @keyframes cursor-designer {
-          0%, 8% { transform: translate(65vw, 18vh) scale(1.2); }
-          10% { transform: translate(67vw, 16vh) scale(1.2); }
-          18%, 26% { transform: translate(72vw, 22vh) scale(1.2); }
-          30% { transform: translate(70vw, 28vh) scale(1.2); }
-          38%, 46% { transform: translate(62vw, 32vh) scale(1.2); }
-          50% { transform: translate(58vw, 26vh) scale(1.2); }
-          58%, 66% { transform: translate(55vw, 20vh) scale(1.2); }
-          70% { transform: translate(60vw, 15vh) scale(1.2); }
-          78%, 86% { transform: translate(68vw, 12vh) scale(1.2); }
+          0%, 25% { transform: translate(65vw, 18vh) scale(1.2); }
+          50% { transform: translate(72vw, 22vh) scale(1.2); }
+          75% { transform: translate(55vw, 20vh) scale(1.2); }
           100% { transform: translate(65vw, 18vh) scale(1.2); }
         }
 
         /* Developer cursor - quick precise movements */
         @keyframes cursor-developer {
-          0%, 3% { transform: translate(25vw, 65vh) scale(1.2); }
-          5% { transform: translate(30vw, 62vh) scale(1.2); }
-          8%, 11% { transform: translate(35vw, 68vh) scale(1.2); }
-          15% { transform: translate(28vw, 72vh) scale(1.2); }
-          18%, 21% { transform: translate(22vw, 70vh) scale(1.2); }
-          25% { transform: translate(18vw, 65vh) scale(1.2); }
-          28%, 31% { transform: translate(24vw, 58vh) scale(1.2); }
-          35% { transform: translate(32vw, 55vh) scale(1.2); }
-          38%, 41% { transform: translate(38vw, 60vh) scale(1.2); }
-          45% { transform: translate(35vw, 68vh) scale(1.2); }
-          48%, 51% { transform: translate(28vw, 75vh) scale(1.2); }
-          55% { transform: translate(20vw, 72vh) scale(1.2); }
-          58%, 61% { transform: translate(15vw, 68vh) scale(1.2); }
-          65% { transform: translate(18vw, 62vh) scale(1.2); }
-          68%, 71% { transform: translate(25vw, 58vh) scale(1.2); }
-          75% { transform: translate(30vw, 62vh) scale(1.2); }
-          78%, 81% { transform: translate(26vw, 68vh) scale(1.2); }
-          85% { transform: translate(22vw, 70vh) scale(1.2); }
-          88%, 91% { transform: translate(24vw, 66vh) scale(1.2); }
+          0%, 20% { transform: translate(25vw, 65vh) scale(1.2); }
+          40% { transform: translate(35vw, 68vh) scale(1.2); }
+          60% { transform: translate(18vw, 62vh) scale(1.2); }
+          80% { transform: translate(30vw, 70vh) scale(1.2); }
           100% { transform: translate(25vw, 65vh) scale(1.2); }
         }
 
         /* Reviewer cursor - methodical horizontal scanning */
         @keyframes cursor-reviewer {
-          0%, 12% { transform: translate(12vw, 25vh) scale(1.2); }
-          15% { transform: translate(18vw, 25vh) scale(1.2); }
-          18%, 30% { transform: translate(25vw, 26vh) scale(1.2); }
-          33% { transform: translate(20vw, 32vh) scale(1.2); }
-          36%, 48% { transform: translate(14vw, 35vh) scale(1.2); }
-          51% { transform: translate(10vw, 30vh) scale(1.2); }
-          54%, 66% { transform: translate(8vw, 22vh) scale(1.2); }
-          69% { transform: translate(15vw, 18vh) scale(1.2); }
-          72%, 84% { transform: translate(22vw, 20vh) scale(1.2); }
-          87% { transform: translate(16vw, 24vh) scale(1.2); }
+          0%, 25% { transform: translate(12vw, 25vh) scale(1.2); }
+          50% { transform: translate(25vw, 26vh) scale(1.2); }
+          75% { transform: translate(8vw, 22vh) scale(1.2); }
           100% { transform: translate(12vw, 25vh) scale(1.2); }
         }
 
         /* Explorer cursor - curious wandering with loops */
         @keyframes cursor-explorer {
-          0%, 5% { transform: translate(78vw, 55vh) scale(1.2); }
-          8% { transform: translate(82vw, 50vh) scale(1.2); }
-          12%, 17% { transform: translate(85vw, 45vh) scale(1.2); }
-          20% { transform: translate(80vw, 42vh) scale(1.2); }
-          25%, 30% { transform: translate(75vw, 48vh) scale(1.2); }
-          33% { transform: translate(78vw, 55vh) scale(1.2); }
-          38%, 43% { transform: translate(82vw, 62vh) scale(1.2); }
-          46% { transform: translate(85vw, 58vh) scale(1.2); }
-          50%, 55% { transform: translate(88vw, 52vh) scale(1.2); }
-          58% { transform: translate(84vw, 48vh) scale(1.2); }
-          62%, 67% { transform: translate(78vw, 52vh) scale(1.2); }
-          70% { transform: translate(72vw, 58vh) scale(1.2); }
-          75%, 80% { transform: translate(70vw, 62vh) scale(1.2); }
-          83% { transform: translate(74vw, 58vh) scale(1.2); }
-          88%, 93% { transform: translate(76vw, 52vh) scale(1.2); }
+          0%, 25% { transform: translate(78vw, 55vh) scale(1.2); }
+          50% { transform: translate(85vw, 45vh) scale(1.2); }
+          75% { transform: translate(70vw, 62vh) scale(1.2); }
           100% { transform: translate(78vw, 55vh) scale(1.2); }
         }
 
         /* Miriam cursor - steady sweep across the center */
         @keyframes cursor-miriam {
-          0%, 8% { transform: translate(46vw, 42vh) scale(1.2); }
-          12% { transform: translate(52vw, 38vh) scale(1.2); }
-          20%, 30% { transform: translate(58vw, 44vh) scale(1.2); }
-          34% { transform: translate(54vw, 50vh) scale(1.2); }
-          42%, 52% { transform: translate(46vw, 48vh) scale(1.2); }
-          58% { transform: translate(40vw, 44vh) scale(1.2); }
-          66%, 74% { transform: translate(38vw, 38vh) scale(1.2); }
-          80% { transform: translate(42vw, 34vh) scale(1.2); }
-          88%, 96% { transform: translate(48vw, 36vh) scale(1.2); }
+          0%, 25% { transform: translate(46vw, 42vh) scale(1.2); }
+          50% { transform: translate(58vw, 44vh) scale(1.2); }
+          75% { transform: translate(38vw, 38vh) scale(1.2); }
           100% { transform: translate(46vw, 42vh) scale(1.2); }
         }
 

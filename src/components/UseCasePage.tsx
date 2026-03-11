@@ -132,7 +132,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
           {/* Plugin Badge */}
           <div className="mb-6">
             <Badge variant="neon" href={pageData.pluginUrl}>
-              <Zap className="w-4 h-4 text-ds-pink-400" />
+              <Zap className="w-4 h-4 text-emerald-400" />
               Powered by {pageData.pluginName}
             </Badge>
           </div>
@@ -174,7 +174,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
             <ul className="space-y-4">
               {pageData.problemDetails.map((detail, index) => (
                 <li key={index} className="flex items-start gap-3 text-lg text-slate-300">
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                   {detail}
                 </li>
               ))}
@@ -187,15 +187,15 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
                 <div className="text-xs uppercase tracking-wider text-slate-500 mb-2 text-center">
                   {pageData.beforeAfter.beforeLabel || 'Before'}
                 </div>
-                <div className="bg-red-900/20 border border-red-900/40 rounded-lg p-4 overflow-x-auto flex items-center justify-center min-h-[60px]">
-                  <code className="text-red-300 text-sm whitespace-nowrap sm:whitespace-normal sm:break-words text-center">
+                <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 overflow-x-auto flex items-center justify-center min-h-[60px]">
+                  <code className="text-destructive-foreground text-sm whitespace-nowrap sm:whitespace-normal sm:break-words text-center">
                     {pageData.beforeAfter.before}
                   </code>
                 </div>
               </div>
               <div className="flex justify-center mb-6">
-                <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
-                  <ArrowRight className="w-4 h-4 text-green-400 rotate-90" />
+                <div className="w-8 h-8 rounded-full bg-success/20 flex items-center justify-center">
+                  <ArrowRight className="w-4 h-4 text-success rotate-90" />
                 </div>
               </div>
               <div>
@@ -241,9 +241,9 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
                     {step.description}
                   </p>
                   {step.tip && (
-                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 flex items-start gap-3">
-                      <Lightbulb className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                      <p className="text-blue-200 text-sm">
+                    <div className="bg-[hsl(var(--interactive-accent))]/10 border border-[hsl(var(--interactive-accent))]/20 rounded-lg p-4 flex items-start gap-3">
+                      <Lightbulb className="w-5 h-5 text-[hsl(var(--interactive-accent))] flex-shrink-0 mt-0.5" />
+                      <p className="text-[hsl(var(--interactive-accent-foreground))] text-sm">
                         <strong>Pro tip:</strong> {step.tip}
                       </p>
                     </div>
@@ -319,13 +319,13 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
                 <div className="text-xs uppercase tracking-wider text-slate-500 mb-2">
                   {relatedCase.pluginName}
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-ds-pink-400 transition-colors">
+                <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-emerald-400 transition-colors">
                   {relatedCase.title}
                 </h3>
                 <p className="text-slate-400 text-sm line-clamp-2">
                   {relatedCase.problem}
                 </p>
-                <div className="mt-4 flex items-center gap-2 text-ds-pink-400 text-sm font-medium">
+                <div className="mt-4 flex items-center gap-2 text-emerald-400 text-sm font-medium">
                   <span>Read guide</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>

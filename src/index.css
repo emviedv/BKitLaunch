@@ -40,17 +40,38 @@
 
     /* --- Semantic: Interactive elements --- */
     --interactive-accent: var(--success);
-    --interactive-accent-hover: 142 71% 35%;
+    --interactive-accent-hover: 161 60% 42%;
+    --interactive-accent-foreground: 0 0% 100%;
+    --interactive-accent-muted: 161 60% 25%;
 
     /* --- Semantic: Badge surfaces (dark context) --- */
     --badge-glass-bg: rgba(255, 255, 255, var(--alpha-subtle));
     --badge-glass-border: rgba(255, 255, 255, var(--alpha-soft));
-    --badge-dot: hsl(var(--color-pink-glow));
+    --badge-dot: hsl(var(--success));
 
     /* --- Semantic: Product page dark surfaces --- */
     --product-feature-card-bg: 236 24% 7%;
     --product-feature-card-border: 217 19% 35%;
     --product-feature-callout-bg: 222 47% 11%;
+
+    /* --- Semantic: Spacing scale for consistent rhythm --- */
+    --space-xs: 0.5rem;    /* 8px - tight elements */
+    --space-sm: 1rem;      /* 16px - component internal */
+    --space-md: 1.5rem;    /* 24px - related content */
+    --space-lg: 3rem;      /* 48px - section elements */
+    --space-xl: 4rem;      /* 64px - major sections */
+    --space-2xl: 6rem;     /* 96px - page divisions */
+
+    /* --- Fluid spacing for responsive design --- */
+    --space-fluid-sm: clamp(1rem, 2.5vw, 1.5rem);
+    --space-fluid-md: clamp(1.5rem, 3vw, 2.5rem);
+    --space-fluid-lg: clamp(2rem, 4vw, 3rem);
+    --space-fluid-xl: clamp(3rem, 6vw, 4rem);
+    --space-fluid-2xl: clamp(4rem, 8vw, 6rem);
+
+    /* --- Responsive content widths --- */
+    --content-hero: clamp(16rem, 90%, 65ch);
+    --content-section: clamp(16rem, 95%, 75ch);
 
     /* ============================================
        END DESIGN SYSTEM TOKENS
@@ -85,11 +106,11 @@
     --border: 214 32% 89%; /* cool-200 */
     --input: 214 32% 89%; /* cool-200 */
 
-    /* Primary now uses a warmer off-black charcoal */
-    --primary: 210 16% 12%;
+    /* Primary now uses neon green to match interactive accent */
+    --primary: var(--success);
     --primary-foreground: 0 0% 100%;
-    --primary-light: 210 12% 18%;
-    --primary-dark: 210 16% 8%;
+    --primary-light: 161 60% 62%;
+    --primary-dark: 161 60% 42%;
     --secondary: 0 0% 96%; /* neutral-200 */
     --secondary-foreground: 215 22% 35%;
     --accent: 0 0% 96%; /* gentle neutral */
@@ -97,9 +118,9 @@
     --accent-light: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 215 22% 35%;
-    --success: 142 71% 45%;
-    --success-foreground: 215 22% 35%;
-    --success-light: 142 71% 94%;
+    --success: 161 60% 52%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 161 60% 94%;
     --info: 210 100% 50%;
     --info-foreground: 215 22% 35%;
     --info-light: 210 100% 94%;
@@ -168,11 +189,11 @@
     --border: 268 14% 24%; /* violet-tinted stroke */
     --input: 268 14% 24%;
 
-    /* Accent stays off-black (lifted for dark contrast) */
-    --primary: 210 18% 24%;
+    /* Primary uses neon green to match interactive accent */
+    --primary: var(--success);
     --primary-foreground: 0 0% 100%;
-    --primary-light: 210 16% 30%;
-    --primary-dark: 210 18% 18%;
+    --primary-light: 142 71% 55%;
+    --primary-dark: 142 71% 35%;
     --secondary: 262 15% 16%;
     --secondary-foreground: 0 0% 98%;
     --accent: 262 16% 18%;
@@ -621,8 +642,8 @@
       radial-gradient(140% 70% at 50% 95%, rgba(60, 64, 72, 0.14) 0%, rgba(10, 11, 14, 0) 60%),
       linear-gradient(180deg, #0c0d10 0%, #0b0c0f 45%, #0a0b0d 70%, #0a0a0c 100%);
     background-size:
-      140px 140px,
-      140px 140px,
+      24px 24px,
+      24px 24px,
       auto,
       auto;
     background-position:
@@ -698,8 +719,8 @@
 
   .landing-hero-column-lines::before {
     background-image:
-      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0px, rgba(255, 255, 255, 0.15) 1px, transparent 1px, transparent 96px),
-      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.123) 0px, rgba(255, 255, 255, 0.123) 1px, transparent 1px, transparent 96px);
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0px, rgba(255, 255, 255, 0.15) 1px, transparent 1px, transparent 24px),
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.123) 0px, rgba(255, 255, 255, 0.123) 1px, transparent 1px, transparent 24px);
     background-repeat: repeat;
     background-size: 100% 100%;
   }
@@ -733,8 +754,8 @@
       radial-gradient(140% 70% at 50% 95%, rgba(60, 64, 72, 0.14) 0%, rgba(10, 11, 14, 0) 60%),
       linear-gradient(180deg, #0c0d10 0%, #0b0c0f 45%, #0a0b0d 70%, #0a0a0c 100%);
     background-size:
-      140px 140px,
-      140px 140px,
+      24px 24px,
+      24px 24px,
       auto,
       auto;
     background-position:
@@ -795,8 +816,8 @@
       radial-gradient(140% 70% at 50% 95%, rgba(60, 64, 72, 0.14) 0%, rgba(10, 11, 14, 0) 60%),
       linear-gradient(180deg, #0c0d10 0%, #0b0c0f 45%, #0a0b0d 70%, #0a0a0c 100%);
     background-size:
-      140px 140px,
-      140px 140px,
+      24px 24px,
+      24px 24px,
       auto,
       auto;
     background-position:
@@ -995,10 +1016,10 @@
     box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35);
   }
 
-  .step-circle--pink {
-    background: linear-gradient(135deg, #ff2f87 0%, #e02074 100%);
+  .step-circle--green {
+    background: linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%);
     color: white;
-    box-shadow: 0 4px 14px rgba(255, 47, 135, 0.35);
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
   }
 
   .step-circle--blue {

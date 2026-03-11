@@ -32,7 +32,7 @@ const AIRenameVariantsPage = () => {
   // --- Reusable Components ---
 
   const Section = ({ children, className = '', dark = true }: { children: React.ReactNode; className?: string; dark?: boolean }) => (
-    <section className={`py-16 md:py-24 px-6 md:px-10 ${dark ? 'landing-sections-gradient text-white' : 'bg-white text-slate-900'} ${className} relative overflow-hidden`}>
+    <section className={`py-[var(--space-xl)] md:py-[var(--space-2xl)] px-6 md:px-10 ${dark ? 'landing-sections-gradient text-white' : 'bg-white text-slate-900'} ${className} relative overflow-hidden`}>
       <div className="mx-auto max-w-6xl relative z-10">
         {children}
       </div>
@@ -40,7 +40,7 @@ const AIRenameVariantsPage = () => {
   );
 
   const SectionTitle = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
-    <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${className}`}>{children}</h2>
+    <h2 className={`text-3xl md:text-4xl font-bold mb-[var(--space-lg)] ${className}`}>{children}</h2>
   );
 
   const PlaceholderImage = ({ label, height = 'h-64', className = '' }: { label: string; height?: string; className?: string }) => (
@@ -51,7 +51,7 @@ const AIRenameVariantsPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background" role="main">
       
       {/* Block 1: Hero */}
       <section className="landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20 px-6 md:px-10 text-white">
@@ -71,11 +71,11 @@ const AIRenameVariantsPage = () => {
             <Button asChild variant="hero-primary" size="lg">
               <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Download className="w-5 h-5" />
-                <span>Try the plugin — 8 free credits</span>
+                <span>Try the plugin — 8 free AI renames</span>
               </a>
             </Button>
             <span className="flex items-center gap-2 text-sm text-slate-400">
-              <RefreshCw className="w-4 h-4" /> audit logs · undo
+              <RefreshCw className="w-4 h-4" /> tracks changes · easy undo
             </span>
           </div>
           <div className="mx-auto max-w-4xl shadow-2xl rounded-lg overflow-hidden border border-slate-700/50">
@@ -86,26 +86,26 @@ const AIRenameVariantsPage = () => {
 
       {/* Block 2: Problem Agitation */}
       <Section dark className="border-y border-slate-800/50">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div>
             <SectionTitle>Why your design system feels broken.</SectionTitle>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Manual cleanup sprints that kill creativity.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Recurring handoff bugs from mismatched tokens.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Wasted designer hours on &quot;final_final_v2&quot; cleanup.
               </li>
             </ul>
-            <div className="bg-red-900/20 border border-red-900/50 p-6 rounded-lg mb-6">
-              <p className="font-semibold text-red-200 mb-1">The Hidden Cost</p>
-              <p className="text-red-300">3 designers &times; 1.5 hours/week = 6+ hours lost to rote work.</p>
+            <div className="bg-destructive/10 border border-destructive/20 p-6 rounded-lg mb-6">
+              <p className="font-semibold text-destructive-foreground mb-1">The Hidden Cost</p>
+              <p className="text-destructive-foreground">3 designers &times; 1.5 hours/week = 6+ hours lost to rote work.</p>
             </div>
             <p className="italic text-slate-400">
               &quot;We spent the entire post-launch retro discussing a wrong button variant that broke the checkout flow.&quot;
@@ -177,7 +177,7 @@ const AIRenameVariantsPage = () => {
             <div className="absolute -top-4 -left-4 w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-white z-10">3</div>
             <PlaceholderImage label="Step 3: Apply & Log" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Coordinated Application</h3>
-            <p className="text-slate-400">Apply changes with atomic validation. Export audit logs and undo instantly if needed.</p>
+            <p className="text-slate-400">Apply all changes safely. Track what changed and undo instantly if needed.</p>
           </div>
         </div>
       </Section>
@@ -186,7 +186,7 @@ const AIRenameVariantsPage = () => {
       <Section dark>
         <div className="grid gap-16">
           {/* Feature 1 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
             <div>
               <h3 className="text-2xl font-bold mb-4">AI-Powered Renaming & Optimization</h3>
               <p className="text-slate-300 text-lg mb-6">Batch rename variants with GPT-4 architectural awareness. Automatically optimizes properties (Boolean, Instance Swap) to reduce complexity.</p>
@@ -199,7 +199,7 @@ const AIRenameVariantsPage = () => {
           </div>
           
           {/* Feature 2 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center md:grid-flow-dense">
              <div className="md:col-start-2">
               <h3 className="text-2xl font-bold mb-4">Figma Architecture Intelligence</h3>
               <p className="text-slate-300 text-lg mb-6">Deep understanding of Figma 2025 constraints. Validates limits (4 properties, 28 values) and structural health in real-time.</p>
@@ -210,7 +210,7 @@ const AIRenameVariantsPage = () => {
           </div>
 
           {/* Feature 3 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
              <div>
               <h3 className="text-2xl font-bold mb-4">Canonical Naming & Structural Validation</h3>
               <p className="text-slate-300 text-lg mb-6">Enforce semantic naming standards (CamelCase, Kebab-case) and validate component health against design system best practices.</p>
@@ -219,10 +219,10 @@ const AIRenameVariantsPage = () => {
           </div>
 
            {/* Feature 4 */}
-           <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+           <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center md:grid-flow-dense">
              <div className="md:col-start-2">
               <h3 className="text-2xl font-bold mb-4">Advanced Change Management</h3>
-              <p className="text-slate-300 text-lg mb-6">Atomic transactions with override protection. Preview every change impact and revert instantly with a full audit log.</p>
+              <p className="text-slate-300 text-lg mb-6">Safe, batch changes with protection against overwrites. Preview all changes before applying and revert instantly if needed.</p>
             </div>
             <div className="md:col-start-1">
                <PlaceholderImage label="Screenshot: Diff List & Undo Button" />
@@ -230,7 +230,7 @@ const AIRenameVariantsPage = () => {
           </div>
 
            {/* Feature 5 */}
-           <div className="grid md:grid-cols-2 gap-12 items-center">
+           <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
              <div>
               <h3 className="text-2xl font-bold mb-4">Deep Layer Cleaning</h3>
               <p className="text-slate-300 text-lg mb-6">Clean up internal layer names (Frame 422 → IconContainer) to ensure code-ready exports.</p>
@@ -243,7 +243,7 @@ const AIRenameVariantsPage = () => {
       {/* Block 6: Before / After Showcase */}
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Trusted by teams cleaning up debt.</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Startup Component Library</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: Prototype token leaks. <br/>Result: Renamed 120 variants in 5 mins.</p>
@@ -266,7 +266,7 @@ const AIRenameVariantsPage = () => {
       {/* Block 7: Pilot Offer & Pricing */}
       <Section dark>
         <div className="bg-gradient-to-br from-purple-900/40 to-slate-900/40 border border-purple-500/20 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-sm">
-          <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Level up your design system.</h2>
               <p className="text-xl text-purple-200 mb-8">Start with 8 free credits and erase variant naming debt in minutes.</p>
@@ -379,7 +379,7 @@ const AIRenameVariantsPage = () => {
 
       {/* Block 10: Workflow Integrations */}
       <Section dark className="border-y border-slate-800/50">
-         <div className="grid md:grid-cols-2 gap-12 items-center">
+         <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
             <div>
                <SectionTitle>Fits your handoff ritual.</SectionTitle>
                <ol className="space-y-8 relative border-l border-slate-700 ml-4 pl-8">
@@ -423,7 +423,7 @@ const AIRenameVariantsPage = () => {
             <div className="flex flex-col items-center gap-4">
               <Button asChild variant="hero-primary" size="lg">
                  <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
-                  Try the plugin — 8 free credits
+                  Install AI Rename — 8 free renames
                 </a>
               </Button>
             </div>
@@ -444,7 +444,7 @@ const AIRenameVariantsPage = () => {
          </div>
       </section>
 
-    </div>
+    </main>
   );
 };
 

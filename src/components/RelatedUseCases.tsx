@@ -46,13 +46,13 @@ const RelatedUseCases: React.FC<RelatedUseCasesProps> = ({ plugin, limit = 3 }) 
               <div className="text-xs uppercase tracking-wider text-slate-500 mb-2">
                 {useCase.pluginName}
               </div>
-              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-ds-pink-400 transition-colors">
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-emerald-400 transition-colors">
                 {useCase.title}
               </h3>
               <p className="text-slate-400 text-sm line-clamp-2">
                 {useCase.problem}
               </p>
-              <div className="mt-4 flex items-center gap-2 text-ds-pink-400 text-sm font-medium">
+              <div className="mt-4 flex items-center gap-2 text-emerald-400 text-sm font-medium">
                 <span>Read guide</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
@@ -63,7 +63,7 @@ const RelatedUseCases: React.FC<RelatedUseCasesProps> = ({ plugin, limit = 3 }) 
         <div className="text-center mt-8">
           <a
             href="/use-cases"
-            className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-ds-pink-400 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-emerald-400 transition-colors"
           >
             <span>View all use cases</span>
             <ArrowRight className="w-4 h-4" />

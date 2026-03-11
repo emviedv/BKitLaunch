@@ -78,10 +78,10 @@ const badgeVariants = cva(
       { intent: "info", context: "dark", className: "bg-slate-500/10 text-slate-400 border-slate-500/20" },
 
       // ─────────────────────────────────────────────────────────────
-      // ACCENT (pink - branded, primary action, highlight)
+      // ACCENT (green - branded, primary action, highlight)
       // ─────────────────────────────────────────────────────────────
-      { intent: "accent", context: "light", className: "bg-pink-50/80 text-pink-700 border-pink-200/80" },
-      { intent: "accent", context: "dark", className: "bg-ds-pink-500/12 text-white border-ds-pink-500/35 backdrop-blur-sm" },
+      { intent: "accent", context: "light", className: "bg-emerald-50/80 text-emerald-700 border-emerald-200/80" },
+      { intent: "accent", context: "dark", className: "bg-emerald-500/12 text-white border-emerald-400/35 backdrop-blur-sm" },
 
       // ─────────────────────────────────────────────────────────────
       // MUTED (subtle, de-emphasized)
@@ -110,9 +110,9 @@ const badgeVariants = cva(
 // LEGACY VARIANT MAPPING (for backward compatibility during migration)
 // ─────────────────────────────────────────────────────────────────────────────
 const LEGACY_VARIANT_MAP: Record<string, { intent: VariantProps<typeof badgeVariants>['intent']; context: VariantProps<typeof badgeVariants>['context'] }> = {
-  'glass': { intent: 'accent', context: 'dark' },
+  'glass': { intent: 'success', context: 'dark' },
   'neon': { intent: 'success', context: 'dark' },
-  'accent': { intent: 'accent', context: 'dark' },
+  'accent': { intent: 'success', context: 'dark' },
   'launched': { intent: 'success', context: 'light' },
   'coming-soon': { intent: 'warning', context: 'light' },
   'beta': { intent: 'info', context: 'light' },

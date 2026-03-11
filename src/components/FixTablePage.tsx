@@ -51,7 +51,7 @@ const FixTablePage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background" role="main">
       
       {/* Block 1: Hero */}
       <section className="landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20 px-6 md:px-10 text-white">
@@ -86,26 +86,26 @@ const FixTablePage = () => {
 
       {/* Block 2: Problem Agitation */}
       <Section dark className="border-y border-slate-800/50">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div>
             <SectionTitle>Tables shouldn&apos;t be this hard.</SectionTitle>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Manually resizing 12 columns every time text changes.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Sub-pixel bugs causing 1px misalignments on export.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Tedious background layer management for zebra striping.
               </li>
             </ul>
-            <div className="bg-red-900/20 border border-red-900/50 p-6 rounded-lg mb-6">
-              <p className="font-semibold text-red-200 mb-1">The Layout Tax</p>
-              <p className="text-red-300">Designers spend hours fiddling with &quot;Fill container&quot; vs &quot;Fixed width&quot; instead of designing the data view.</p>
+            <div className="bg-destructive/10 border border-destructive/20 p-6 rounded-lg mb-6">
+              <p className="font-semibold text-destructive-foreground mb-1">The Layout Tax</p>
+              <p className="text-destructive-foreground">Designers spend hours fiddling with &quot;Fill container&quot; vs &quot;Fixed width&quot; instead of designing the data view.</p>
             </div>
             <p className="italic text-slate-400">
               &quot;I dread designing data tables because keeping the columns aligned across 50 rows is a nightmare.&quot;
@@ -179,7 +179,7 @@ const FixTablePage = () => {
       <Section dark>
         <div className="grid gap-16">
           {/* Feature 1 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
             <div>
               <h3 className="text-2xl font-bold mb-4">Normalize Column Widths</h3>
               <p className="text-slate-300 text-lg mb-6">Instantly force every cell in a column to match the width of the widest header or data cell. No more manual resizing of 50 individual rows.</p>
@@ -193,7 +193,7 @@ const FixTablePage = () => {
           </div>
           
           {/* Feature 2 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center md:grid-flow-dense">
              <div className="md:col-start-2">
               <h3 className="text-2xl font-bold mb-4">Generate Zebra Striping</h3>
               <p className="text-slate-300 text-lg mb-6">Add alternating background colors to your auto-layout rows without creating messy background rectangles manually.</p>
@@ -204,7 +204,7 @@ const FixTablePage = () => {
           </div>
 
           {/* Feature 3 */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
              <div>
               <h3 className="text-2xl font-bold mb-4">Fix Sub-Pixel Bugs</h3>
               <p className="text-slate-300 text-lg mb-6">Detect and round off sub-pixel positioning (e.g., 100.34px) that causes blurry rendering or 1px misalignments in development.</p>
@@ -217,7 +217,7 @@ const FixTablePage = () => {
       {/* Block 6: Use Cases */}
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Essential for data-heavy UI.</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Dashboard Design</h4>
             <p className="text-slate-400 mb-6 text-sm">Problem: 50-row tables that break when data changes. <br/>Result: Flexible, resilient layouts.</p>
@@ -240,7 +240,7 @@ const FixTablePage = () => {
       {/* Block 7: CTA */}
       <Section dark>
         <div className="bg-gradient-to-br from-purple-900/40 to-slate-900/40 border border-purple-500/20 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-sm">
-          <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Fix your tables instantly.</h2>
               <p className="text-xl text-purple-200 mb-8">Install the FixTable plugin from Figma Community and normalize every table fast.</p>
@@ -288,7 +288,7 @@ const FixTablePage = () => {
          </div>
       </section>
 
-    </div>
+    </main>
   );
 };
 

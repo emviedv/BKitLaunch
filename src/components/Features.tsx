@@ -215,7 +215,7 @@ const Features: React.FC = () => {
                   <ul className="landing-features-card-list mt-5 space-y-2 text-sm text-muted-foreground/90">
                     {feature.topItems.slice(0, 4).map((item, itemIndex) => (
                       <li key={`${feature.title}-item-${itemIndex}`} className="flex items-start gap-2">
-                        <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ds-pink-accent" />
+                        <span className="mt-[6px] inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
                         <span>{item}</span>
                       </li>
                     ))}

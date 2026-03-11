@@ -199,7 +199,7 @@ const ProductsPage: React.FC = () => {
       <section className="py-16 px-6">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-white/70 text-sm">
-            Need free checklists and templates? Explore our <a href="/resources" className="text-ds-pink-500 hover:underline">free Figma resources</a>.
+            Need free checklists and templates? Explore our <a href="/resources" className="text-success hover:underline">free Figma resources</a>.
           </p>
         </div>
       </section>

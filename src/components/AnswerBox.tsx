@@ -25,7 +25,7 @@ const AnswerBox: React.FC<AnswerBoxProps> = ({ content, className = '' }) => {
           </p>
         </div>
         <div className="ml-4 text-xs text-gray-500">
-          <span className={`px-2 py-1 rounded ${isOptimalLength ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+          <span className={`px-2 py-1 rounded ${isOptimalLength ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning'}`}>
             {wordCount} words
           </span>
         </div>

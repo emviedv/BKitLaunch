@@ -74,7 +74,7 @@ const StateBuilderPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background" role="main">
       {/* Block 1: Hero */}
       <section className="landing-hero-gradient landing-hero-expanded section-hero relative -mt-16 overflow-hidden flex items-center pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20 px-6 md:px-10 text-white">
         <div className="landing-hero-gradient__layer" aria-hidden="true" />
@@ -99,7 +99,7 @@ const StateBuilderPage = () => {
               </a>
             </Button>
             <span className="flex items-center gap-2 text-sm text-slate-400">
-              <Columns className="w-4 h-4" /> state matrix, spec cards
+              <Columns className="w-4 h-4" /> creates states · builds docs
             </span>
           </div>
           <div className="mx-auto max-w-4xl shadow-2xl rounded-lg overflow-hidden border border-slate-700/50">
@@ -119,26 +119,26 @@ const StateBuilderPage = () => {
 
       {/* Block 2: Problem Agitation */}
       <Section dark className="border-y border-slate-800/50">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div>
             <SectionTitle>Missing states slow every launch.</SectionTitle>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Default-only components force developers to guess hover, focus, and disabled behavior during implementation.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Spec cards drift after design system updates, so handoff and launch QA find mismatches.
               </li>
               <li className="flex items-start gap-3 text-lg text-slate-300">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-destructive flex-shrink-0" />
                 Manual state grids eat hours when campaigns need fresh UI fast.
               </li>
             </ul>
-            <div className="bg-red-900/20 border border-red-900/50 p-6 rounded-lg mb-6">
-              <p className="font-semibold text-red-200 mb-1">The Spec Gap</p>
-              <p className="text-red-300">
+            <div className="bg-destructive/10 border border-destructive/20 p-6 rounded-lg mb-6">
+              <p className="font-semibold text-destructive-foreground mb-1">The Spec Gap</p>
+              <p className="text-destructive-foreground">
                 When states are undocumented, developers rebuild behavior and marketers ship launches without edge cases.
               </p>
             </div>
@@ -226,7 +226,7 @@ const StateBuilderPage = () => {
             <PlaceholderImage label="Step 3: Generate matrix + specs" height="h-64" />
             <h3 className="text-xl font-bold mt-6 mb-2">Generate Specs</h3>
             <p className="text-slate-400">
-              Create a state matrix and spec card in seconds, ready for implementation and handoff.
+              Create a grid of component states and documentation in seconds, ready for developer handoff.
             </p>
           </div>
         </div>
@@ -235,7 +235,7 @@ const StateBuilderPage = () => {
       {/* Block 5: Features */}
       <Section dark>
         <div className="grid gap-16">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
             <div>
               <h3 className="text-2xl font-bold mb-4">Generate required states fast</h3>
               <p className="text-slate-300 text-lg mb-6">
@@ -256,7 +256,7 @@ const StateBuilderPage = () => {
             <PlaceholderImage label="Screenshot: State generation panel" />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center md:grid-flow-dense">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center md:grid-flow-dense">
             <div className="md:col-start-2">
               <h3 className="text-2xl font-bold mb-4">Spec cards for developer handoff</h3>
               <p className="text-slate-300 text-lg mb-6">
@@ -268,7 +268,7 @@ const StateBuilderPage = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
             <div>
               <h3 className="text-2xl font-bold mb-4">Surface missing states before launch</h3>
               <p className="text-slate-300 text-lg mb-6">
@@ -283,11 +283,11 @@ const StateBuilderPage = () => {
       {/* Block 6: Use Cases */}
       <Section dark className="border-y border-slate-800/50">
         <SectionTitle className="text-center mb-12">Built for design system and launch work.</SectionTitle>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center">
           <div className="product-page-feature-card p-8 rounded-2xl border">
             <h4 className="text-xl font-bold mb-2">Design System Release</h4>
             <p className="text-slate-400 mb-6 text-sm">
-              Problem: Variants drift after token updates. <br />Result: Complete state matrix ready for handoff.
+              Problem: Variants drift after token updates. <br />Result: Complete state grid ready for handoff.
             </p>
             <div className="grid grid-cols-2 gap-4">
               <PlaceholderImage label="Before: Missing states" height="h-40" />
@@ -310,11 +310,11 @@ const StateBuilderPage = () => {
       {/* Block 7: CTA */}
       <Section dark>
         <div className="bg-gradient-to-br from-emerald-900/40 to-slate-900/40 border border-emerald-500/20 rounded-3xl p-8 md:p-12 relative overflow-hidden backdrop-blur-sm">
-          <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
+          <div className="grid md:grid-cols-2 gap-[var(--space-xl)] items-center relative z-10">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Generate states once, ship everywhere.</h2>
               <p className="text-xl text-emerald-200 mb-8">
-                Install StateBuilder to create state matrices and spec cards so designers, developers, and marketers stay aligned through handoff, implementation, launch, and campaigns.
+                Install StateBuilder to create component state grids and documentation so designers, developers, and marketers stay aligned through handoff, implementation, launch, and campaigns.
               </p>
               <Button asChild variant="hero-primary" size="lg">
                 <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
@@ -351,7 +351,7 @@ const StateBuilderPage = () => {
         <div className="max-w-4xl mx-auto relative z-10">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Launch-ready states, every time.</h2>
           <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
-            Keep implementation and handoff aligned with spec cards that support campaigns and product launches.
+            Keep implementation and handoff aligned with clear documentation that supports campaigns and product launches.
           </p>
           <div className="flex flex-col items-center gap-4">
             <Button asChild variant="hero-primary" size="lg">
@@ -365,7 +365,7 @@ const StateBuilderPage = () => {
           </p>
         </div>
       </section>
-    </div>
+    </main>
   );
 };
 
