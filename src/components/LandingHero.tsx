@@ -491,7 +491,7 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                   size="lg"
                   variant="hero-secondary"
                   onClick={secondaryButtonLink ? (event) => handleAnchorNavigation(event, secondaryButtonLink) : () => scrollToSection(LANDING_PRICING_ID)}
-                  asChild={secondaryButtonLink && !secondaryButtonLink.startsWith('#')}
+                  asChild={!!secondaryButtonLink && !secondaryButtonLink.startsWith('#')}
                 >
                   {secondaryButtonLink && !secondaryButtonLink.startsWith('#') ? (
                     <a href={secondaryButtonLink}>

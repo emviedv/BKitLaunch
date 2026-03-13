@@ -30,7 +30,7 @@ export const componentQAFaqs: FAQEntry[] = [
   },
   {
     question: "Is ComponentQA free?",
-    answer: "Yes, ComponentQA is currently free to use for all features.",
+    answer: "ComponentQA offers a free 14-day trial so you can test every core feature. For unlimited audits, 24/7 file monitoring, and full issue coverage, the Pro plan is $16/month. Teams of 5 can use the Team plan at $60/month.",
   },
   {
     question: "How is this different from Compare with Master in Figma dev mode?",

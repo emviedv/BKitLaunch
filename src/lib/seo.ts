@@ -207,7 +207,7 @@ const PLUGIN_SOFTWARE_APPLICATIONS: Record<string, { name: string; image: string
   '/figma-design-system-audit-plugin': {
     name: 'ComponentQA',
     image: '/media/ComponentQA.png',
-    description: 'ComponentQA scans Figma files for drift so designers, developers, and marketers stay aligned. Catch detached instances and token issues before handoff.',
+    description: 'Design system observability for Figma. Automated audits, real-time health monitoring, and deep links to fix detached instances and token violations.',
   },
   '/figma-table-builder': {
     name: 'FixTable',
@@ -305,14 +305,14 @@ const fixTableMetadata: SEOMetadata = {
 };
 
 const biblioAuditMetadata: SEOMetadata = {
-  title: 'Figma Design Audit Plugin & QA Tool - ComponentQA',
-  description: 'Automate Figma QA and design system audits. Instantly find detached instances, validate token usage, and surface design drift before developer handoff.',
-  keywords: 'ComponentQA, design system audit, figma qa, detached instances, token validation, figma plugin, design ops',
-  ogTitle: 'Figma Design Audit Plugin & QA Tool - ComponentQA',
-  ogDescription: 'Automate Figma QA and design system audits. Instantly find detached instances, validate token usage, and surface design drift before developer handoff.',
+  title: 'Design System Observability for Figma - ComponentQA',
+  description: 'Keep your design system healthy. Automated audits, real-time observability dashboard, and Figma deep links to fix detached instances and token violations.',
+  keywords: 'ComponentQA, design system observability, figma audit, detached instances, token validation, design system health, figma plugin, design ops, design system monitoring',
+  ogTitle: 'Design System Observability for Figma - ComponentQA',
+  ogDescription: 'Keep your design system healthy. Automated audits, real-time observability dashboard, and Figma deep links to fix detached instances and token violations.',
   ogImage: '/og/og-default.png',
-  twitterTitle: 'Figma Design Audit Plugin & QA Tool - ComponentQA',
-  twitterDescription: 'Automate Figma QA and design system audits. Instantly find detached instances, validate token usage, and surface design drift before developer handoff.',
+  twitterTitle: 'Design System Observability for Figma - ComponentQA',
+  twitterDescription: 'Keep your design system healthy. Automated audits, real-time observability dashboard, and Figma deep links to fix detached instances and token violations.',
   twitterImage: '/og/og-default.png'
 };
 
@@ -629,7 +629,8 @@ export const routeMetadata: RouteMetadata = {
 export function generateMetadata(
   path: string,
   contentData?: any,
-  baseUrl: string = CANONICAL_BASE_URL
+  baseUrl: string = CANONICAL_BASE_URL,
+  overrides?: { title?: string; description?: string; keywords?: string }
 ): SEOMetadata {
   baseUrl = normalizeBaseUrl(baseUrl);
   const normalizedPath = path ? path.split('?')[0] : '/';
@@ -863,6 +864,23 @@ export function generateMetadata(
   }
   if (!metadata.twitterImage) {
     metadata.twitterImage = `${baseUrl}/og/og-default.png`;
+  }
+
+  // Apply explicit overrides (e.g. programmatic pages with custom meta)
+  if (overrides) {
+    if (overrides.title) {
+      metadata.title = overrides.title;
+      metadata.ogTitle = overrides.title;
+      metadata.twitterTitle = overrides.title;
+    }
+    if (overrides.description) {
+      metadata.description = overrides.description;
+      metadata.ogDescription = overrides.description;
+      metadata.twitterDescription = overrides.description;
+    }
+    if (overrides.keywords) {
+      metadata.keywords = overrides.keywords;
+    }
   }
 
   // Set descriptive fallbacks for alt text/meta
