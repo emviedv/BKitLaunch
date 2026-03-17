@@ -67,6 +67,16 @@ edge_functions = "netlify/edge-functions"
     Content-Type = "text/javascript; charset=utf-8"
 
 [[headers]]
+  for = "/blog/*"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "cross-origin"
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "cross-origin"
+
+[[headers]]
   for = "/*"
   [headers.values]
     # Force HTTPS and security headers
@@ -124,6 +134,11 @@ edge_functions = "netlify/edge-functions"
 [[redirects]]
   from = "/media/*"
   to = "/media/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/blog/:splat"
   status = 200
 
 [[redirects]]

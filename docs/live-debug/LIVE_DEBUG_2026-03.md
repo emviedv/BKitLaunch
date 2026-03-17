@@ -1,5 +1,13 @@
 # Live Debug Log — 2026-03
 
+## 2026-03-17
+
+- **Time:** 2026-03-17 SEO 4xx fix batch
+- **Summary:** Fixed 50 internal URLs returning 4xx errors found by Screaming Frog crawl. Added `/media/*` to SSR edge function `excludedPath`, added `/blog/*` passthrough redirect in `netlify.toml`, relaxed `Cross-Origin-Resource-Policy` to `cross-origin` for `/blog/*` and `/media/*` paths, and fixed 13 broken `relatedUseCases` slug references in `programmaticContent.ts`.
+- **Root Cause:** SSR edge function intercepted static blog/media image requests unnecessarily. `netlify.toml` had `/media/*` passthrough but no `/blog/*` equivalent. `Cross-Origin-Resource-Policy: same-origin` on all routes blocked crawlers loading images. 13 `relatedUseCases` slugs pointed to non-existent use-case pages (e.g., `standardize-variant-names` instead of `standardize-figma-variant-names`).
+- **Changed Files:** netlify/edge-functions/ssr.ts, netlify.toml, src/data/programmaticContent.ts, docs/live-debug/LIVE_DEBUG_2026-03.md
+- **Verification:** `npm run build` (pass); `npm run test:unit` (pass, 133/133). After deploy: verify `/blog/*.jpeg` and `/media/*.png` return 200, blog article pages still get SSR (`X-SSR-Generated` header), and CORP header is `cross-origin` on `/blog/*` and `/media/*`.
+
 ## 2026-03-12
 
 - **Time:** 2026-03-12 03:19 EDT

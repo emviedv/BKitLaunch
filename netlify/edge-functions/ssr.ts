@@ -593,6 +593,8 @@ export const config: Config = {
     "/.netlify/*",
     // Critical: Vite-built assets in production
     "/assets/*",
+    // Static media files - skip SSR entirely
+    "/media/*",
     // Dev tools (harmless in prod, needed in dev)
     "/@vite/*",
     "/@react-refresh"

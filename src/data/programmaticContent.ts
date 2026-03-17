@@ -241,9 +241,9 @@ export const USE_CASE_PAGES: UseCasePage[] = [
       }
     ],
     relatedUseCases: [
-      'standardize-variant-names',
-      'rename-layers-before-handoff',
-      'enforce-naming-conventions'
+      'standardize-figma-variant-names',
+      'rename-figma-layers-before-handoff',
+      'standardize-figma-page-naming'
     ],
     keywords: [
       'batch rename figma layers',
@@ -319,8 +319,8 @@ export const USE_CASE_PAGES: UseCasePage[] = [
     ],
     relatedUseCases: [
       'audit-design-system-figma',
-      'validate-design-tokens',
-      'qa-before-handoff'
+      'validate-design-tokens-figma',
+      'prepare-figma-handoff-developers'
     ],
     keywords: [
       'find detached instances figma',
@@ -395,9 +395,9 @@ export const USE_CASE_PAGES: UseCasePage[] = [
       }
     ],
     relatedUseCases: [
-      'clean-figma-file-handoff',
-      'prepare-file-for-developers',
-      'remove-blue-lines-figma'
+      'clean-figma-file-before-export',
+      'prepare-figma-handoff-developers',
+      'clean-up-figma-layer-names'
     ],
     keywords: [
       'remove prototype links figma',
@@ -478,9 +478,9 @@ export const USE_CASE_PAGES: UseCasePage[] = [
       }
     ],
     relatedUseCases: [
-      'normalize-figma-columns',
-      'add-zebra-striping-figma',
-      'fix-subpixel-bugs-figma'
+      'auto-layout-table-figma',
+      'create-responsive-table-figma',
+      'clean-figma-file-before-export'
     ],
     keywords: [
       'fix figma table',
@@ -556,8 +556,8 @@ export const USE_CASE_PAGES: UseCasePage[] = [
     ],
     relatedUseCases: [
       'find-detached-instances-figma',
-      'validate-design-tokens',
-      'qa-before-handoff'
+      'validate-design-tokens-figma',
+      'prepare-figma-handoff-developers'
     ],
     keywords: [
       'design system audit figma',
