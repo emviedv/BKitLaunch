@@ -803,6 +803,52 @@ export function generateMetadata(
         metadata.twitterTitle = useCase.metaTitle;
         metadata.twitterDescription = useCase.metaDescription;
         metadata.keywords = useCase.keywords?.join(', ') || metadata.keywords;
+
+        const useCaseUrl = `${baseUrl}${normalizedPathNoTrailingSlash}`;
+
+        // HowTo schema from use-case steps
+        const howToSchema = cleanStructuredDataEntry({
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          '@id': `${useCaseUrl}#howto`,
+          name: useCase.title,
+          description: useCase.metaDescription,
+          step: useCase.steps.map((step: { title: string; description: string }, i: number) => ({
+            '@type': 'HowToStep',
+            position: i + 1,
+            name: step.title,
+            text: step.description
+          })),
+          tool: {
+            '@type': 'SoftwareApplication',
+            name: useCase.pluginName,
+            url: `${baseUrl}${useCase.pluginUrl}`
+          }
+        });
+
+        // FAQPage schema from use-case FAQs
+        const faqSchema = useCase.faqs.length > 0
+          ? buildFaqStructuredData(useCase.faqs, useCaseUrl)
+          : undefined;
+
+        // BreadcrumbList: Home > Use Cases > This Page
+        const breadcrumbSchema = cleanStructuredDataEntry({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          '@id': `${useCaseUrl}#breadcrumb`,
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
+            { '@type': 'ListItem', position: 2, name: 'Use Cases', item: `${baseUrl}/use-cases` },
+            { '@type': 'ListItem', position: 3, name: useCase.title, item: useCaseUrl }
+          ]
+        });
+
+        metadata.structuredData = [
+          ...(metadata.structuredData || []),
+          howToSchema,
+          faqSchema,
+          breadcrumbSchema
+        ].filter(Boolean) as StructuredDataEntry[];
       }
     } else if (normalizedPathNoTrailingSlash.startsWith('/for/')) {
       const slug = normalizedPathNoTrailingSlash.replace('/for/', '');
