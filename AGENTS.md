@@ -30,6 +30,7 @@
 - Landing page product sections get the horizontal feature nav; individual product pages keep their original layout (e.g., enable nav in `BiblioKitLanding`, leave `AIRenameVariantsPage` without it).
 - Product pages alternate feature cards so media and copy swap sides down the page (e.g., AI Rename Variants features grid now alternates by default).
 - When padding, gaps, or similar layout styling is applied to one product page’s features section, mirror those adjustments across all product pages—but confirm the approach with Emily before rolling it out globally.
+- For `ProductContentSections` order tests, assert against the rendered top-level `section` elements, not theme-specific classes, because sections can use different background treatments (e.g., FAQ uses `section-light-cream-dotted`).
 - Pillar and hub pages should match the Learn page spacing format for the first content section (e.g., use `section-content pb-20 mt-8`).
 - Pillar and hub page sections should include a "See All" link under the title/description, matching the Learn page format.
 - Hub pages should show the newest blog posts first, sorting by `lastUpdated` (e.g., Tutorials).
@@ -107,6 +108,7 @@
 - AI Rename Variants plugin Figma store listing: https://www.figma.com/community/plugin/1523817290746945616/batch-rename-variants-properties-ai-assisted
 
 ## Updates
+- 2026-03-12 03:19 EDT: Centralized PostHog tracking into `src/lib/analytics.ts`, added SPA pageview/content/waitlist CTA instrumentation, fixed the stale `ProductContentSections` section-order spec selector, logged the change in the March live debug log, and kept deploy verification on the commit-all path.
 - 2026-03-05 23:26 EST: Removed the product intro stats row (`100k+ Layers renamed`, `50k+ Files audited`, `25k+ Prototypes cleaned`), logged the fix in the live debug log, and included the current landing hero badge/avatar refinements in the commit-all push.
 - 2026-03-05 18:13 EST: Refreshed SEO metadata strategy defaults (Workflow Automation homepage, BiblioRename/BiblioStart naming), removed unverified homepage `aggregateRating` schema, stopped server-side meta ellipsis truncation, and included blog hero/featured preview plus docs snippet updates in the commit-all push.
 - 2026-03-05 01:13 EST: Fixed SSR route rendering to output page H1s in production HTML (removed route lazy fallback), redirected `/figma-ai-rename-variants` to `/figma-component-variant-renamer`, and updated internal links to prevent duplicate indexable legacy URLs.

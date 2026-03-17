@@ -1,5 +1,13 @@
 # Live Debug Log — 2026-03
 
+## 2026-03-12
+
+- **Time:** 2026-03-12 03:19 EDT
+- **Summary:** Centralized PostHog tracking into a shared analytics module, added SPA pageviews plus waitlist/content CTA events, and fixed the stale `ProductContentSections` section-order unit test so verification passes again.
+- **Root Cause:** PostHog initialization was split between inline HTML and `entry-client`, which left pageview/event capture scattered across the app and harder to extend consistently. Verification also surfaced a stale contract test that only queried `section.landing-sections-gradient`, so it missed the FAQ block because that section renders with `section-light-cream-dotted`.
+- **Changed Files:** .env.example, AGENTS.md, client/src/__tests__/unit/ProductContentSections.spec.tsx, docs/live-debug/LIVE_DEBUG_2026-03.md, index.html, netlify/edge-functions/ssr.ts, src/App.tsx, src/components/AIRenameVariantsPage.tsx, src/components/BiblioCleanPage.tsx, src/components/BlogArticlePage.tsx, src/components/ComponentQAPage.tsx, src/components/FixTablePage.tsx, src/components/Footer.tsx, src/components/GlossaryPage.tsx, src/components/OrganizeFilePage.tsx, src/components/StateBuilderPage.tsx, src/components/UseCasePage.tsx, src/components/Waitlist.tsx, src/entry-client.tsx, src/hooks/usePageAnalytics.ts, src/lib/analytics.ts, src/vite-env.d.ts
+- **Verification:** `NODE_OPTIONS=--experimental-vm-modules npx jest --runInBand client/src/__tests__/unit/ProductContentSections.spec.tsx --testNamePattern='respects sectionsOrder contract and visibility guards across blocks'` (pass); `npm run test:unit` (pass, 133/133); `npm run build` (pass)
+
 ## 2026-03-10
 
 - **Time:** 2026-03-10 SEO remediation batch

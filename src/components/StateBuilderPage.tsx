@@ -9,6 +9,7 @@ import FAQList from '@/components/FAQList';
 import { stateBuilderFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
+import { trackCTAClick } from '@/lib/analytics';
 
 const StateBuilderPage = () => {
   debugService.info('StateBuilderPage mounted', { 
@@ -94,7 +95,11 @@ const StateBuilderPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <Button asChild variant="hero-primary" size="lg">
-              <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+              <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2"
+                data-ph-capture-attribute-product="state-builder"
+                data-ph-capture-attribute-cta-position="hero"
+                onClick={() => trackCTAClick({ product_slug: 'state-builder', cta_position: 'hero', destination_url: PLUGIN_URL })}
+              >
                 <Download className="w-5 h-5" />
                 <span>Install StateBuilder — Free</span>
               </a>
@@ -318,7 +323,10 @@ const StateBuilderPage = () => {
                 Install StateBuilder to create component state grids and documentation so designers, developers, and marketers stay aligned through handoff, implementation, launch, and campaigns.
               </p>
               <Button asChild variant="hero-primary" size="lg">
-                <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
+                <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer"
+                    data-ph-capture-attribute-product="state-builder"
+                    data-ph-capture-attribute-cta-position="mid_page"
+                >
                   Install StateBuilder — Free
                 </a>
               </Button>
@@ -356,7 +364,10 @@ const StateBuilderPage = () => {
           </p>
           <div className="flex flex-col items-center gap-4">
             <Button asChild variant="hero-primary" size="lg">
-              <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
+              <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer"
+                data-ph-capture-attribute-product="state-builder"
+                data-ph-capture-attribute-cta-position="bottom"
+              >
                 Install StateBuilder
               </a>
             </Button>

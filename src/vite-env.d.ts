@@ -8,6 +8,7 @@ interface ImportMetaEnv {
   readonly VITE_DB_PASSWORD: string
   readonly VITE_DB_PORT: string
   readonly VITE_DB_SSL: string
+  readonly VITE_POSTHOG_KEY: string
 }
 
 interface ImportMeta {

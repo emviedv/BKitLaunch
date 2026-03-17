@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { debugService } from '../lib/debugService';
 import { usePublishedContent } from '../hooks/usePublishedContent';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,7 @@ import {
   LANDING_WAITLIST_FORM_ID,
   LANDING_WAITLIST_ID
 } from '@/config/sectionAnchors';
+import { trackEvent, AnalyticsEvent, identifyUser } from '@/lib/analytics';
 
 interface WaitlistProps {
   visibleOverride?: boolean;
@@ -39,6 +40,17 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride, titleOverride, des
   const shouldShowWaitlist =
     typeof visibleOverride === 'boolean' ? visibleOverride : visibilityFromSettings;
 
+  // Analytics: track form_started on first keystroke
+  const hasStartedTyping = useRef(false);
+
+  // Analytics: track form_viewed when waitlist is visible
+  useEffect(() => {
+    if (shouldShowWaitlist) {
+      trackEvent(AnalyticsEvent.WAITLIST_FORM_VIEWED, { source_page: window.location.pathname });
+      console.log('[Waitlist] Analytics: form_viewed fired', { source_page: window.location.pathname });
+    }
+  }, [shouldShowWaitlist]);
+
   if (!shouldShowWaitlist || !content.waitlist) {
     return null;
   }
@@ -57,6 +69,12 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride, titleOverride, des
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value;
+    // Analytics: track form_started on first keystroke
+    if (!hasStartedTyping.current) {
+      trackEvent(AnalyticsEvent.WAITLIST_FORM_STARTED, { source_page: window.location.pathname });
+      console.log('[Waitlist] Analytics: form_started fired', { source_page: window.location.pathname });
+      hasStartedTyping.current = true;
+    }
     setState(prev => ({ ...prev, email: newEmail, error: null }));
     debugService.debug('Waitlist email input changed', { email: newEmail });
   };
@@ -77,16 +95,27 @@ const Waitlist: React.FC<WaitlistProps> = ({ visibleOverride, titleOverride, des
       return;
     }
 
+    // Analytics: track form_submitted after validation passes
+    trackEvent(AnalyticsEvent.WAITLIST_FORM_SUBMITTED, { source_page: window.location.pathname });
+    console.log('[Waitlist] Analytics: form_submitted fired', { source_page: window.location.pathname });
+
     setState(prev => ({ ...prev, isLoading: true, error: null }));
     debugService.info('Waitlist form submitted', { email: state.email });
 
     try {
       await joinWaitlist(state.email);
       setState(prev => ({ ...prev, submitted: true, isLoading: false }));
+      // Analytics: track form_success and identify user
+      trackEvent(AnalyticsEvent.WAITLIST_FORM_SUCCESS, { source_page: window.location.pathname });
+      identifyUser(state.email);
+      console.log('[Waitlist] Analytics: form_success fired', { source_page: window.location.pathname });
       debugService.info('Waitlist signup completed successfully', { email: state.email });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to join waitlist. Please try again.';
       setState(prev => ({ ...prev, error: errorMessage, isLoading: false }));
+      // Analytics: track form_error
+      trackEvent(AnalyticsEvent.WAITLIST_FORM_ERROR, { source_page: window.location.pathname, error: errorMessage });
+      console.log('[Waitlist] Analytics: form_error fired', { source_page: window.location.pathname, error: errorMessage });
       debugService.error('Waitlist signup failed', { email: state.email, error: errorMessage });
     }
   };

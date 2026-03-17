@@ -15,6 +15,7 @@ import {
   PLUGIN_DATA,
   type UseCasePage as UseCasePageType
 } from '@/data/programmaticContent';
+import { trackEvent, AnalyticsEvent } from '@/lib/analytics';
 
 interface UseCasePageProps {
   slug?: string;
@@ -60,6 +61,11 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
     // Scroll to top on page load
     window.scrollTo(0, 0);
   }, [slug, pageData, content]);
+
+  useEffect(() => {
+    if (!pageData) return;
+    trackEvent(AnalyticsEvent.USE_CASE_VIEW, { slug });
+  }, [slug, pageData]);
 
   // 404 state
   if (!pageData) {

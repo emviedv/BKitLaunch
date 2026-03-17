@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RefreshCw } from 'lucide-react';
 import {
   BLOG_POSTS,
@@ -20,6 +20,7 @@ import { renderTextWithLinks } from '@/lib/renderTextWithLinks';
 import { debugService } from '@/lib/debugService';
 import FAQList from '@/components/FAQList';
 import { getImageDimensions } from '@/lib/imageDimensions';
+import { trackEvent, AnalyticsEvent } from '@/lib/analytics';
 
 interface BlogArticlePageProps {
   slug: string;
@@ -358,6 +359,15 @@ const BlogArticlePage: React.FC<BlogArticlePageProps> = ({ slug }) => {
         }
       : undefined
   );
+
+  useEffect(() => {
+    if (!post) return;
+    trackEvent(AnalyticsEvent.BLOG_POST_VIEW, {
+      slug,
+      title: post.title,
+      category: post.category,
+    });
+  }, [slug, post]);
 
   const heroDescription = heroSummary ? renderTextWithLinks(heroSummary) : null;
   const updatedDate =

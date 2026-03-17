@@ -10,6 +10,7 @@ import { organizeFileFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import RelatedUseCases from '@/components/RelatedUseCases';
 import { getImageDimensions } from '@/lib/imageDimensions';
+import { trackCTAClick } from '@/lib/analytics';
 
 const OrganizeFilePage = () => {
   debugService.info('OrganizeFilePage mounted', {
@@ -74,7 +75,11 @@ const OrganizeFilePage = () => {
               size="lg"
               asChild
             >
-              <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
+              <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer"
+                data-ph-capture-attribute-product="organize-file"
+                data-ph-capture-attribute-cta-position="hero"
+                onClick={() => trackCTAClick({ product_slug: 'organize-file', cta_position: 'hero', destination_url: PLUGIN_URL })}
+              >
                 Generate My File Structure
               </a>
             </Button>

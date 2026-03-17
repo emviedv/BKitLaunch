@@ -43,6 +43,7 @@ import { usePublishedContent } from './hooks/usePublishedContent';
 import { useSEO } from './hooks/useSEO';
 import { useHashScroll } from './hooks/useHashScroll';
 import { useScrollTopOnHome } from './hooks/useScrollTopOnHome';
+import { usePageAnalytics } from './hooks/usePageAnalytics';
 import { resolveClientBaseUrl } from './lib/urlUtils';
 
 // Configuration
@@ -147,6 +148,7 @@ const AppContent: React.FC = () => {
   // Ensure #hash links scroll to sections correctly
   useScrollTopOnHome();
   useHashScroll();
+  usePageAnalytics();
 
   const { content } = usePublishedContent();
   const shouldSkipSEO = React.useCallback((path: string) => {

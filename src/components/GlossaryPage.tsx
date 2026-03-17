@@ -11,6 +11,7 @@ import {
   findGlossaryBySlug,
   type GlossaryPage as GlossaryPageType
 } from '@/data/programmaticContent';
+import { trackEvent, AnalyticsEvent } from '@/lib/analytics';
 
 interface GlossaryPageProps {
   slug: string;
@@ -49,6 +50,11 @@ const GlossaryPage: React.FC<GlossaryPageProps> = ({ slug }) => {
 
     window.scrollTo(0, 0);
   }, [slug, glossary, content]);
+
+  useEffect(() => {
+    if (!glossary) return;
+    trackEvent(AnalyticsEvent.GLOSSARY_TERM_VIEW, { slug });
+  }, [slug, glossary]);
 
   if (!glossary) {
     return (

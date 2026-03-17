@@ -131,7 +131,9 @@ test("respects sectionsOrder contract and visibility guards across blocks", () =
     visibility: { benefits: false },
   });
 
-  const sections = Array.from(container.querySelectorAll("section.landing-sections-gradient"));
+  const sections = Array.from(container.children).filter(
+    (child): child is HTMLElement => child instanceof HTMLElement && child.tagName === "SECTION"
+  );
   const labels = sections.map((section) => {
     const headingText = (section.querySelector("h2")?.textContent || "").trim();
     if (headingText.startsWith("Frequently Asked Questions")) return "faqs";

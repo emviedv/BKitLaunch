@@ -9,6 +9,7 @@ import FAQList from '@/components/FAQList';
 import { fixTableFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import { getImageDimensions } from '@/lib/imageDimensions';
+import { trackCTAClick } from '@/lib/analytics';
 
 const FixTablePage = () => {
   debugService.info('FixTablePage mounted', {
@@ -70,7 +71,11 @@ const FixTablePage = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <Button asChild variant="hero-primary" size="lg">
-              <a href={CTA_LINK} className="inline-flex items-center gap-2">
+              <a href={CTA_LINK} className="inline-flex items-center gap-2"
+                data-ph-capture-attribute-product="fix-table"
+                data-ph-capture-attribute-cta-position="hero"
+                onClick={() => trackCTAClick({ product_slug: 'fix-table', cta_position: 'hero', destination_url: CTA_LINK })}
+              >
                 <Download className="w-5 h-5" />
                 <span>Fix Your Tables — Free</span>
               </a>
@@ -246,7 +251,10 @@ const FixTablePage = () => {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Fix your tables instantly.</h2>
               <p className="text-xl text-purple-200 mb-8">Install the FixTable plugin from Figma Community and normalize every table fast.</p>
               <Button asChild variant="hero-primary" size="lg">
-                 <a href={CTA_LINK} target="_blank" rel="noopener noreferrer">
+                 <a href={CTA_LINK} target="_blank" rel="noopener noreferrer"
+                    data-ph-capture-attribute-product="fix-table"
+                    data-ph-capture-attribute-cta-position="mid_page"
+                 >
                   Fix Your Tables — Free
                 </a>
               </Button>
@@ -281,7 +289,10 @@ const FixTablePage = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-8">Data design, solved.</h2>
             <div className="flex flex-col items-center gap-4">
               <Button asChild variant="hero-primary" size="lg">
-                 <a href={CTA_LINK}>
+                 <a href={CTA_LINK}
+                    data-ph-capture-attribute-product="fix-table"
+                    data-ph-capture-attribute-cta-position="bottom"
+                 >
                   Fix Your Tables — Free
                 </a>
               </Button>

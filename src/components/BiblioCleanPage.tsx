@@ -10,6 +10,7 @@ import { biblioCleanFaqs } from '@/data/pageFaqs';
 import FluidBackground from './FluidBackground';
 import RelatedUseCases from '@/components/RelatedUseCases';
 import { getImageDimensions } from '@/lib/imageDimensions';
+import { trackCTAClick } from '@/lib/analytics';
 
 const BiblioCleanPage = () => {
   debugService.info('BiblioCleanPage mounted', { 
@@ -70,7 +71,11 @@ const BiblioCleanPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <Button asChild variant="hero-primary" size="lg">
-              <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+              <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2"
+                data-ph-capture-attribute-product="biblio-clean"
+                data-ph-capture-attribute-cta-position="hero"
+                onClick={() => trackCTAClick({ product_slug: 'biblio-clean', cta_position: 'hero', destination_url: PLUGIN_URL })}
+              >
                 <Download className="w-5 h-5" />
                 <span>Try BiblioClean — Free</span>
               </a>
@@ -247,7 +252,10 @@ const BiblioCleanPage = () => {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Start cleaning in seconds.</h2>
               <p className="text-xl text-[hsl(var(--interactive-accent-foreground))] mb-8">Install BiblioClean for free and wipe those blue lines away.</p>
               <Button asChild variant="hero-primary" size="lg">
-                 <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
+                 <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer"
+                    data-ph-capture-attribute-product="biblio-clean"
+                    data-ph-capture-attribute-cta-position="mid_page"
+                 >
                   Get BiblioClean for free
                 </a>
               </Button>
@@ -301,7 +309,10 @@ const BiblioCleanPage = () => {
             <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">Remove every prototype link across your file in one click—keep your canvas clean and focused.</p>
             <div className="flex flex-col items-center gap-4">
               <Button asChild variant="hero-primary" size="lg">
-                 <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer">
+                 <a href={PLUGIN_URL} target="_blank" rel="noopener noreferrer"
+                    data-ph-capture-attribute-product="biblio-clean"
+                    data-ph-capture-attribute-cta-position="bottom"
+                 >
                   Install BiblioClean
                 </a>
               </Button>

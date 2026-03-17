@@ -61,6 +61,10 @@ const Footer = () => {
                       className="text-sm text-white/80 hover:text-white transition-colors"
                       target={product.href.startsWith('http') ? '_blank' : '_self'}
                       rel={product.href.startsWith('http') ? 'noopener noreferrer' : ''}
+                      {...(product.href.startsWith('http') ? {
+                        'data-ph-capture-attribute-link-type': 'external',
+                        'data-ph-capture-attribute-destination': product.href,
+                      } : {})}
                     >
                       {product.name}
                     </a>
@@ -102,6 +106,8 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm text-white/80 hover:text-white transition-colors"
+                      data-ph-capture-attribute-link-type="social"
+                      data-ph-capture-attribute-destination={item.href}
                     >
                       {item.name}
                     </a>

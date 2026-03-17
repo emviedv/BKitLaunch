@@ -66,7 +66,7 @@
           {
             "label": "ComponentQA",
             "href": "/figma-design-system-audit-plugin",
-            "description": "Scan Figma files for detached instances, token drift, and dirty overrides with automated QA.",
+            "description": "Design system observability with automated audits, health monitoring, and Figma deep links.",
             "icon": "🧭"
           },
           {
@@ -131,22 +131,22 @@
       "idea": "Stop shipping broken files.",
       "badge": "Launched",
       "category": "Launched",
-      "title": "Automate Design System Audits (ComponentQA)",
-      "tagline": "Find Detached Instances & Design System Check",
+      "title": "Design System Observability (ComponentQA)",
+      "tagline": "Automated Audits & Health Monitoring for Figma",
       "badges": [],
       "topItems": [
-        "Audit a selection, single page, or the entire file in seconds.",
-        "Locate every detached instance and reset/overridden component.",
-        "Validate color, type, spacing, radii, and shadows against tokens.",
-        "Flag dirty overrides, heavy deviations, and deprecated components.",
-        "Spot underused and rogue components with usage analytics."
+        "Automated audits for detached instances, duplicates, and overrides.",
+        "Real-time observability dashboard with health scoring and trends.",
+        "Figma deep links to jump directly to problematic components.",
+        "Design token violation detection for hardcoded colors and spacing.",
+        "24/7 file monitoring with exportable audit reports."
       ],
       "showBadge": true,
       "badgeColor": "#0ea5e9",
       "buttonLink": "https://www.figma.com/community/plugin/1564328602359376130/componentqa-find-detached-instances-design-system-check",
       "buttonText": "Try Free",
       "isFeatured": false,
-      "description": "Find detached instances, validate tokens, and flag overrides across your file.",
+      "description": "Design system observability for Figma. Automated audits, health monitoring, and deep links to issues.",
       "buttonPreset": "custom",
       "statValue": "99%",
       "statLabel": "ISSUES CAUGHT"

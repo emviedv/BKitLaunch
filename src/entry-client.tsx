@@ -66,29 +66,14 @@ const loadHotjarIfAllowed = (): void => {
   }
 };
 
-const loadPostHogIfAllowed = (): void => {
-  try {
-    const isProd = location.hostname !== 'localhost' && location.hostname !== '127.0.0.1';
-    if (!isProd) return;
-    const alreadyLoaded = typeof (window as any).posthog?.capture === 'function';
-    if (alreadyLoaded) return;
-
-    const w = window as any;
-    if (!w.posthog) {
-      // PostHog stub was already injected by index.html inline script;
-      // if it somehow wasn't, initialize here as fallback
-      console.log('[PostHog] Initializing fallback loader from entry-client');
-      w.posthog = { _i: [], init: function () {}, capture: function () {} };
-    }
-  } catch {
-    /* empty */
-  }
-};
+// PostHog initialization is handled by the analytics module (src/lib/analytics.ts).
+// The stub in index.html queues calls; initAnalytics() triggers the real init.
 
 const scheduleAnalyticsLoad = (): void => {
-  const load = () => {
+  const load = async () => {
     loadHotjarIfAllowed();
-    loadPostHogIfAllowed();
+    const { initAnalytics } = await import('./lib/analytics');
+    initAnalytics();
   };
 
   if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
@@ -96,7 +81,7 @@ const scheduleAnalyticsLoad = (): void => {
     return;
   }
 
-  window.setTimeout(load, 1200);
+  setTimeout(load, 1200);
 };
 
 // Check if we're doing SSR hydration or normal client rendering

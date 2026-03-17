@@ -75,9 +75,9 @@ edge_functions = "netlify/edge-functions"
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    # Content Security Policy will be sent dynamically by SSR as Report-Only with a nonce
-    # Once violations are addressed, we can enforce here. Keep a permissive baseline for static files only.
-    # Note: SSR adds Content-Security-Policy-Report-Only headers with per-request nonces.
+    # Static CSP fallback for non-SSR responses (SPA fallback, static HTML).
+    # SSR edge function overrides this with a stricter nonce-based policy.
+    Content-Security-Policy = "default-src 'self' https:; script-src 'self' 'unsafe-inline' https://static.hotjar.com https://script.hotjar.com https://assets.apollo.io https://*-assets.i.posthog.com; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https: https://*.hotjar.com wss://*.hotjar.com https://*.apollo.io https://us.i.posthog.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'self' https:;"
 
     # SEO - Allow indexing by default
     X-Robots-Tag = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
