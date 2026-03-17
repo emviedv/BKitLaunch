@@ -349,7 +349,11 @@ export default async (request: Request, context: any) => {
       headers: {
         'content-type': 'text/plain; charset=utf-8',
         'cache-control': 'public, max-age=3600',
-        'x-served-by': 'bot-detection-edge-function'
+        'x-served-by': 'bot-detection-edge-function',
+        'X-Frame-Options': 'DENY',
+        'X-Content-Type-Options': 'nosniff',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
       }
     });
   }
@@ -361,7 +365,14 @@ export default async (request: Request, context: any) => {
     headers: {
       'content-type': 'text/html',
       'cache-control': 'public, max-age=3600',
-      'x-served-by': 'bot-detection-edge-function'
+      'x-served-by': 'bot-detection-edge-function',
+      'X-Frame-Options': 'DENY',
+      'X-Content-Type-Options': 'nosniff',
+      'X-XSS-Protection': '1; mode=block',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Permissions-Policy': 'geolocation=(), microphone=(), camera=(), usb=(), payment=()',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
     }
   });
 };

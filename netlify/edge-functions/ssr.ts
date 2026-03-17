@@ -558,9 +558,17 @@ export default async (request: Request, context: Context) => {
       'Vary': 'Accept, User-Agent',
     } as Record<string, string>;
 
-    // Enforcing Content-Security-Policy with per-request nonce
+    // Enforcing Content-Security-Policy with per-request nonce + security headers
+    // Must duplicate netlify.toml headers here because new Response() bypasses them
     const securityHeaders: Record<string, string> = {
       'Content-Security-Policy': `default-src 'self' https:; script-src 'self' 'nonce-${nonce}' https://static.hotjar.com https://script.hotjar.com https://assets.apollo.io https://*-assets.i.posthog.com; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https: https://*.hotjar.com wss://*.hotjar.com https://*.apollo.io https://us.i.posthog.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'self' https:;`,
+      'X-Frame-Options': 'DENY',
+      'X-Content-Type-Options': 'nosniff',
+      'X-XSS-Protection': '1; mode=block',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Permissions-Policy': 'geolocation=(), microphone=(), camera=(), usb=(), payment=()',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
     };
 
     return new Response(html, {
