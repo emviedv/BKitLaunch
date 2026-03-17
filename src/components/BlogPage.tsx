@@ -76,7 +76,7 @@ const BlogPage: React.FC = () => {
                   Build stuff people love
                 </p>
                 <h1 className="text-[40px] font-bold leading-[1.08] tracking-tight sm:text-[48px] lg:text-[56px] bg-gradient-to-r from-ds-pink-lavender via-ds-pink-500 to-violet-500 bg-clip-text text-transparent">
-                  BiblioKit Blog: From Kickoff to Ship with Figma Workflows &amp; Tools
+                  BiblioKit Blog: Figma Workflows &amp; Tools
                 </h1>
                 <h2 className="hero-description-copy mt-3 max-w-full text-lg font-normal text-white/80">
                   From kickoff to ship: tools and workflows that keep designers, developers, and marketers on one page. Short, practical playbooks you can apply in the next sprint.
@@ -118,7 +118,7 @@ const BlogPage: React.FC = () => {
                   </div>
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                     <a href={buildBlogPostHref(featuredPost.slug)} className={blogCtaButtonClass}>
-                      Read the article
+                      Read: {featuredPost.title}
                     </a>
                   </div>
                 </article>
@@ -188,7 +188,7 @@ const BlogPage: React.FC = () => {
                       {renderTextWithLinks(post.excerpt)}
                     </p>
                     <div className="mt-6">
-                      <span className={blogCtaButtonClass}>Read the article</span>
+                      <span className={blogCtaButtonClass}>Read: {post.title}</span>
                     </div>
                   </div>
                 </article>

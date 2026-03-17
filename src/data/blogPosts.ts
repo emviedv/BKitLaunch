@@ -2672,7 +2672,7 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImageAlt:
       'Team of designers collaborating on a design system in a bright workspace',
     lastUpdated: '2026-02-07',
-    metaTitle: 'Scaling Design Systems: Governance & Collaboration Guide | BiblioKit',
+    metaTitle: 'Scaling Design Systems: Governance Guide | BiblioKit',
     metaDescription:
       'Scale design systems with governance models, architecture patterns, tokens, and team collaboration strategies.',
     content: scalingDesignSystemGovernanceContent
@@ -2686,7 +2686,7 @@ export const BLOG_POSTS: BlogPost[] = [
       'Build a Design Ops system that clears busywork, aligns designers, developers, and marketers, and speeds launches.',
     heroImage: buildHeroImagePath('what-is-design-ops-complete-guide/design-ops-pillars.png'),
     heroImageAlt:
-      'Illustration titled The Pillars of DesignOps with collaboration, automation, continuous delivery, and monitoring icons',
+      'The four pillars of DesignOps: collaboration, automation, delivery, monitoring',
     lastUpdated: '2025-12-27',
     metaTitle: 'What Is Design Ops? The Complete Guide for 2026',
     metaDescription:
@@ -2733,7 +2733,7 @@ export const BLOG_POSTS: BlogPost[] = [
     heroImage: buildHeroImagePath('ultimate-figma-plugin-stack/hero-figma-plugin-stack.png'),
     heroImageAlt: 'Figma UI showing Unsplash plugin panels and a photo grid on a desktop monitor',
     lastUpdated: '2025-12-22',
-    metaTitle: 'The Ultimate Figma Plugin Stack: 8 Tools to Save You Hours Every Week',
+    metaTitle: 'The Ultimate Figma Plugin Stack: 8 Must-Have Tools',
     metaDescription:
       'Install 8 Figma plugins that cut renaming, cleanup, and docs time so your team saves hours every week.',
     content: ultimateFigmaPluginStackContent

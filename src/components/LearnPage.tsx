@@ -92,7 +92,7 @@ const LearnPage: React.FC = () => {
                     <p className="mt-2 flex-1 text-sm text-white/75">{post.excerpt}</p>
                     <div className="mt-6">
                       <span className="inline-flex items-center justify-center text-sm font-semibold text-ds-pink-500 underline underline-offset-4 transition duration-200 group-hover:text-ds-pink-600 hover:text-ds-pink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
-                        Read the article
+                        Read: {post.title}
                       </span>
                     </div>
                   </div>
@@ -107,7 +107,7 @@ const LearnPage: React.FC = () => {
                 size="sm"
                 className="min-w-[132px] border-ds-pink-500 rounded-none bg-transparent hover:bg-transparent"
               >
-                <a href={ROUTE_PATHS.LEARN_DESIGN_OPS_FUNDAMENTALS}>View More</a>
+                <a href={ROUTE_PATHS.LEARN_DESIGN_OPS_FUNDAMENTALS}>Explore Design Ops Fundamentals</a>
               </Button>
             </div>
           </section>

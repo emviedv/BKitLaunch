@@ -546,13 +546,13 @@ export const routeMetadata: RouteMetadata = {
   '/figma-table-builder': fixTableMetadata,
   '/figma-component-states': stateBuilderMetadata,
   '/figma-organize-design-files-plugin': {
-    title: 'Figma File Organizer & Project Scaffolding Tool | BiblioStart',
+    title: 'Figma File Organizer & Scaffolding | BiblioStart',
     description: 'Stop setting up Figma files manually. Generate standardized project scaffolding, cover pages, and section templates instantly with BiblioStart.',
     keywords: 'BiblioStart, Figma plugin, file scaffolding, design organization, page hierarchy, project setup, design ops',
-    ogTitle: 'Figma File Organizer & Project Scaffolding Tool | BiblioStart',
+    ogTitle: 'Figma File Organizer & Scaffolding | BiblioStart',
     ogDescription: 'Stop setting up Figma files manually. Generate standardized project scaffolding, cover pages, and section templates instantly with BiblioStart.',
     ogImage: '/media/BiblioStart.png',
-    twitterTitle: 'Figma File Organizer & Project Scaffolding Tool | BiblioStart',
+    twitterTitle: 'Figma File Organizer & Scaffolding | BiblioStart',
     twitterDescription: 'Stop setting up Figma files manually. Generate standardized project scaffolding, cover pages, and section templates instantly with BiblioStart.',
     twitterImage: '/media/BiblioStart.png'
   },

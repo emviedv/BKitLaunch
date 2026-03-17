@@ -602,7 +602,7 @@ const ComponentQAPage = () => {
               </Button>
             </div>
             <p className="mt-6 text-slate-400">
-              Need to clean up prototype links too? <a href="/figma-plugin-remove-prototype-links" className="text-success hover:underline">Check out BiblioClean</a>
+              Need to clean up prototype links too? <a href="/figma-plugin-remove-prototype-links" className="text-success hover:underline">Remove prototype links with BiblioClean</a>
             </p>
          </div>
       </section>

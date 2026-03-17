@@ -62,7 +62,7 @@ const UseCasesIndexPage: React.FC = () => {
 
         <div className="mx-auto max-w-5xl relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
-            Figma Use Cases &amp; Tutorials
+            Step-by-Step Figma Tutorials for Every Workflow
           </h1>
           <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-3xl mx-auto">
             Step-by-step guides for common Figma tasks. Learn how to batch rename layers,

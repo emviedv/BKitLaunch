@@ -379,7 +379,7 @@ const ScaleResizerPage = () => {
               </Button>
             </div>
             <p className="mt-6 text-slate-400">
-              Looking to clean up variant naming? <a href="/figma-component-variant-renamer" className="text-purple-400 hover:underline">Check out RenameVariantsAI</a>
+              Looking to clean up variant naming? <a href="/figma-component-variant-renamer" className="text-purple-400 hover:underline">Batch-rename variants with RenameVariantsAI</a>
             </p>
             <div className="mt-12 pt-12 border-t border-slate-800/50">
                <p className="italic text-slate-400 text-lg mb-6">

@@ -575,7 +575,7 @@ export const USE_CASE_PAGES: UseCasePage[] = [
   {
     slug: 'standardize-figma-variant-names',
     title: 'How to Standardize Variant Names in Figma',
-    metaTitle: 'Standardize Figma Variant Names Automatically | RenameVariantsAI',
+    metaTitle: 'Standardize Figma Variant Names | RenameVariantsAI',
     metaDescription: 'Automatically standardize variant property names across your Figma components. Convert Size=sm to Size=Small and enforce consistent naming patterns.',
     plugin: 'rename-variants',
     pluginName: 'RenameVariantsAI',

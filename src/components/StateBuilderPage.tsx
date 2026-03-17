@@ -373,7 +373,7 @@ const StateBuilderPage = () => {
             </Button>
           </div>
           <p className="mt-6 text-slate-400">
-            Want to audit your design system for errors? <a href="/figma-design-system-audit-plugin" className="text-emerald-400 hover:underline">Check out ComponentQA</a>
+            Want to audit your design system for errors? <a href="/figma-design-system-audit-plugin" className="text-emerald-400 hover:underline">Audit your design system with ComponentQA</a>
           </p>
         </div>
       </section>

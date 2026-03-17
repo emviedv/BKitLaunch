@@ -64,7 +64,7 @@ const OrganizeFilePage = () => {
 
         <div className="mx-auto max-w-5xl relative z-10 text-center">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-            The Figma Plugin to Organize Your Design Files (Before You Start).
+            Organize Figma Files Before You Start
           </h1>
           <p className="hero-description-copy text-xl md:text-2xl text-slate-300 mb-10 max-w-[60%] mx-auto">
             Stop wasting time setting up dividers, covers, and empty pages. Scaffold a professional workspace in under 30 seconds.
@@ -340,7 +340,7 @@ const OrganizeFilePage = () => {
               </Button>
             </div>
             <p className="mt-6 text-slate-400">
-              Need to batch-rename your variants? <a href="/figma-component-variant-renamer" className="text-violet-400 hover:underline">Check out RenameVariantsAI</a>
+              Need to batch-rename your variants? <a href="/figma-component-variant-renamer" className="text-violet-400 hover:underline">Batch-rename variants with RenameVariantsAI</a>
             </p>
          </div>
       </section>

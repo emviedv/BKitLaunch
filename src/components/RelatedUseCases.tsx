@@ -65,7 +65,7 @@ const RelatedUseCases: React.FC<RelatedUseCasesProps> = ({ plugin, limit = 3 }) 
             href="/use-cases"
             className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-emerald-400 transition-colors"
           >
-            <span>View all use cases</span>
+            <span>Browse all Figma use cases</span>
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>

@@ -521,6 +521,8 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                           alt={`${logo.name} logo`}
                           className="max-h-9 w-auto object-contain brightness-0 invert opacity-80"
                           loading="lazy"
+                          width={120}
+                          height={36}
                         />
                       </span>
                     ))}
@@ -537,6 +539,8 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                           alt={`${logo.name} logo`}
                           className="max-h-9 w-auto object-contain brightness-0 invert opacity-80"
                           loading="lazy"
+                          width={120}
+                          height={36}
                         />
                       </span>
                     ))}
@@ -553,6 +557,8 @@ const LandingHero: React.FC<LandingHeroProps> = ({
                           alt={`${logo.name} logo`}
                           className="max-h-9 w-auto object-contain brightness-0 invert opacity-80"
                           loading="lazy"
+                          width={120}
+                          height={36}
                         />
                       </span>
                     ))}

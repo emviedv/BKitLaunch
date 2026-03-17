@@ -358,7 +358,7 @@ const UseCasePage: React.FC<UseCasePageProps> = ({ slug: propSlug }) => {
             </Button>
             <Button asChild variant="hero-secondary" size="lg">
               <a href={pageData.pluginUrl} className="inline-flex items-center gap-2">
-                <span>View Full Documentation</span>
+                <span>Read {pageData.pluginName} documentation</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
             </Button>
